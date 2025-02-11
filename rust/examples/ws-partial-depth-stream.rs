@@ -19,23 +19,18 @@ use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
-use tokio_tungstenite::tungstenite::http::Uri;
-use tokio_tungstenite::tungstenite::{ClientRequestBuilder, Message};
+use tokio_tungstenite::tungstenite::Message;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-async fn listen_to_diff_depth_updates(
+async fn listen_to_partial_depth_updates(
     environment: bfp::Environment,
     symbol: &str,
     sender: Sender<MarketStreamMessage>,
-    max_time_without_messages: Duration,
+    max_time_without_message: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let request = ClientRequestBuilder::new(Uri::from_static(match environment {
-        bfp::Environment::Testnet => bfp::ws::market::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::market::mainnet::URL,
-    }))
-    .into_client_request()?;
+    let request = bfp::ws::market::get_url(environment).into_client_request()?;
 
     // Establish connection with WebSocket URL.
     let (websocket_stream, _) = connect_async(request).await?;
@@ -45,20 +40,20 @@ async fn listen_to_diff_depth_updates(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
             symbol.into(),
-            vec![MarketDataStreamName::DiffDepth200Ms],
+            vec![MarketDataStreamName::PartialDepth5],
         )],
     ))?;
 
     println!("Sending subscription message: {subscription_message}");
 
-    // Send a subscription message to receive diff depth updates.
+    // Send a subscription message to receive account order updates.
     ws_sender.send(Message::Text(subscription_message)).await?;
 
     // Spawn a WebSocket listener task to listen for messages on the subscribed topic.
     tokio::spawn(async move {
         while !shutdown_flag.load(std::sync::atomic::Ordering::Relaxed) {
-            let Ok(message) = timeout(max_time_without_messages, ws_receiver.next()).await else {
-                println!("Websocket receiver task timed out due to inactivity.");
+            let Ok(message) = timeout(max_time_without_message, ws_receiver.next()).await else {
+                println!("Websocket receiver task timed out due to inactivity");
                 return;
             };
             let Some(Ok(message)) = message else {
@@ -129,7 +124,7 @@ async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> R
 async fn main() -> Result<()> {
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: bfp::test::account::ADDRESS.into(),
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: bfp::auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
@@ -137,7 +132,7 @@ async fn main() -> Result<()> {
     // Next, we generate a signature for the request.
     let signature = request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
@@ -146,25 +141,25 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    // We connect to the market stream WebSocket to listen for diff depth.
+    // We connect to the market stream WebSocket to listen for partial depth.
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
-    listen_to_diff_depth_updates(
+    listen_to_partial_depth_updates(
         bfp::Environment::Testnet,
-        bfp::test::market::ETH_SYMBOL,
+        bfp::symbols::perps::ETH,
         sender,
-        Duration::from_secs(20),
+        Duration::from_secs(15),
         Arc::clone(&shutdown_flag),
     )
     .await?;
 
     let handle = tokio::spawn(async move {
         while let Some(websocket_message) = receiver.recv().await {
-            if let MarketStreamMessage::OrderbookDiffDepthUpdate {
-                payload: MarketStreamMessagePayload::OrderbookDiffDepthUpdate(msg),
+            if let MarketStreamMessage::OrderbookPartialDepthUpdate {
+                payload: MarketStreamMessagePayload::OrderbookPartialDepthUpdate(msg),
             } = websocket_message
             {
-                println!("{msg:?}");
+                println!("{msg:#?}");
             }
         }
     });
@@ -176,12 +171,12 @@ async fn main() -> Result<()> {
     // Create an order to update the orderbook
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: bfp::test::market::ETH_SYMBOL.into(),
-            account_address: bfp::test::account::ADDRESS.into(),
-            price_e9: (10_000 * E9).to_string(),
-            quantity_e9: E9.to_string(),
+            symbol: bfp::symbols::perps::ETH.into(),
+            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            price_e9: (10_000.e9()).to_string(),
+            quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
-            leverage_e9: E9.to_string(),
+            leverage_e9: (10.e9()).to_string(),
             is_isolated: false,
             salt: random::<u64>().to_string(),
             ids_id: contracts_info.ids_id,
@@ -201,12 +196,14 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
         bfp::SignatureType::Ed25519,
     )?;
-    create_order(request, &auth_token).await?;
+    let order_hash = create_order(request, &auth_token).await?;
+    println!("Created Order: {order_hash}");
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::Relaxed);
     handle.await.expect("Could not join handle");
+
     Ok(())
 }

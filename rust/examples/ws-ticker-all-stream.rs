@@ -4,8 +4,7 @@ use bluefin_api::models::{
     SubscriptionType,
 };
 use bluefin_pro as bfp;
-use futures_util::stream::StreamExt;
-use futures_util::SinkExt;
+use futures_util::{SinkExt, StreamExt};
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
@@ -15,40 +14,34 @@ use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 use tokio_tungstenite::tungstenite::Message;
 
-type Error = Box<dyn std::error::Error>;
-type Result<T> = std::result::Result<T, Error>;
+type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-async fn listen_to_candlestick_updates(
+async fn listen_to_ticker_all_updates(
     environment: bfp::Environment,
-    symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let url = match environment {
-        bfp::Environment::Testnet => bfp::ws::market::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::market::mainnet::URL,
-    }
-    .into_client_request()?;
+    let request = bfp::ws::market::get_url(environment).into_client_request()?;
 
-    // Establish connection with websocket URL.
-    let (websocket_stream, _) = connect_async(url).await?;
+    // Establish connection with WebSocket URL.
+    let (websocket_stream, _) = connect_async(request).await?;
     let (mut ws_sender, mut ws_receiver) = websocket_stream.split();
 
-    // Send a subscription message to receive candlestick updates.
-    let sub_message = MarketSubscriptionMessage::new(
+    let subscription_message = serde_json::to_string(&MarketSubscriptionMessage::new(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
-            symbol.into(),
-            vec![MarketDataStreamName::Candlestick1mOracle],
+            String::new(),
+            vec![MarketDataStreamName::TickerAll],
         )],
-    );
+    ))?;
 
-    ws_sender
-        .send(Message::Text(serde_json::to_string(&sub_message)?))
-        .await?;
+    println!("Sending subscription message: {subscription_message}");
 
-    // Spawn a websocket listener task to listen for messages on the subscribed topic.
+    // Send a subscription message to receive ticker updates.
+    ws_sender.send(Message::Text(subscription_message)).await?;
+
+    // Spawn a WebSocket listener task to listen for messages on the subscribed topic.
     tokio::spawn(async move {
         while !shutdown_flag.load(std::sync::atomic::Ordering::Relaxed) {
             let Ok(message) = timeout(max_time_without_messages, ws_receiver.next()).await else {
@@ -57,7 +50,7 @@ async fn listen_to_candlestick_updates(
             };
             let Some(Ok(message)) = message else {
                 println!("Websocket receiver task terminated");
-                return;
+                break;
             };
             match message {
                 Message::Ping(_) => {
@@ -65,6 +58,7 @@ async fn listen_to_candlestick_updates(
                     // Send back Pong.
                     if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                         eprintln!("Error sending Pong: {error}");
+                        return;
                     }
                     println!("Pong sent");
                 }
@@ -72,6 +66,7 @@ async fn listen_to_candlestick_updates(
                     println!("Pong received");
                 }
                 Message::Text(text) => {
+                    // Check whether it's a subscription message, or a stream message.
                     if let Ok(websocket_message) =
                         serde_json::from_str::<MarketStreamMessage>(&text)
                     {
@@ -81,7 +76,6 @@ async fn listen_to_candlestick_updates(
                         continue;
                     }
 
-                    // Check if it's a subscription message.
                     if let Ok(subscription_message) =
                         serde_json::from_str::<SubscriptionResponseMessage>(&text)
                     {
@@ -108,11 +102,11 @@ async fn listen_to_candlestick_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let shutdown_flag = Arc::new(AtomicBool::new(false));
+    // Then, we connect to the market stream WebSocket to listen for ticker.
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
-    listen_to_candlestick_updates(
+    let shutdown_flag = Arc::new(AtomicBool::new(false));
+    listen_to_ticker_all_updates(
         bfp::Environment::Testnet,
-        bfp::test::market::ETH_SYMBOL,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),
@@ -120,15 +114,14 @@ async fn main() -> Result<()> {
     .await?;
 
     while let Some(websocket_message) = receiver.recv().await {
-        if let MarketStreamMessage::CandlestickUpdate {
-            payload: MarketStreamMessagePayload::CandlestickUpdate(candlestick),
+        if let MarketStreamMessage::TickerAllUpdate {
+            payload: MarketStreamMessagePayload::TickerAllUpdate(ticker_all),
         } = websocket_message
         {
-            println!("{candlestick:#?}");
+            println!("{ticker_all:#?}");
         }
     }
-
-    shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);
+    shutdown_flag.store(true, std::sync::atomic::Ordering::Relaxed);
 
     Ok(())
 }

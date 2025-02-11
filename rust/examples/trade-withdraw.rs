@@ -45,11 +45,7 @@ async fn listen_to_account_info(
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // Then, we establish a connection through the websocket URL for that environment.
-    let mut url = match environment {
-        bfp::Environment::Testnet => bfp::ws::account::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::account::mainnet::URL,
-    }
-    .into_client_request()?;
+    let mut url = bfp::ws::account::get_url(environment).into_client_request()?;
     url.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
@@ -132,7 +128,7 @@ async fn listen_to_account_info(
 async fn main() -> Result<()> {
     // Then, we construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: bfp::test::account::ADDRESS.into(),
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: bfp::auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
@@ -140,7 +136,7 @@ async fn main() -> Result<()> {
     // Next, we generate a signature for the request.
     let signature = request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
@@ -193,8 +189,8 @@ async fn main() -> Result<()> {
     let request = WithdrawRequest {
         signed_fields: WithdrawRequestSignedFields {
             asset_symbol: asset.symbol.clone(),
-            account_address: bfp::test::account::ADDRESS.into(),
-            amount_e9: E9.to_string(),
+            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            amount_e9: (10.e9()).to_string(),
             salt: random::<u64>().to_string(),
             eds_id: contracts_info.eds_id,
             signed_at_utc_millis: Utc::now().timestamp_millis(),
@@ -203,7 +199,7 @@ async fn main() -> Result<()> {
     };
 
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
         bfp::SignatureType::Ed25519,
     )?;
 

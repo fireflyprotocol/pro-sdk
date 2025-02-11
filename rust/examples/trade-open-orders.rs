@@ -25,7 +25,7 @@ async fn send_request(symbol: &str, auth_token: &str) -> Result<Vec<OpenOrderRes
 async fn main() -> Result<()> {
     // First, we construct an authentication request.
     let request = LoginRequest {
-        account_address: bfp::test::account::ADDRESS.into(),
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: bfp::auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
@@ -33,7 +33,7 @@ async fn main() -> Result<()> {
     // Then, we generate a signature for the request.
     let signature = request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Next, we submit our authentication request to the API for the desired environment.
@@ -43,7 +43,7 @@ async fn main() -> Result<()> {
         .access_token;
 
     // Now, we send the request.
-    let open_orders = send_request(bfp::test::market::ETH_SYMBOL, &auth_token).await?;
+    let open_orders = send_request(bfp::symbols::perps::ETH, &auth_token).await?;
     println!("{open_orders:#?}");
 
     Ok(())

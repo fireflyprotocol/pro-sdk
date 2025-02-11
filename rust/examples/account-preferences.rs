@@ -1,6 +1,6 @@
-use bluefin_api::apis::account_data_api::get_account_details;
+use bluefin_api::apis::account_data_api::get_account_preferences;
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::models::Account;
+use bluefin_api::models::AccountPreference;
 use bluefin_api::models::LoginRequest;
 use bluefin_pro::{self as bfp, prelude::*};
 use chrono::Utc;
@@ -10,9 +10,9 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 /// Sends a request for account details, and returns the deserialized response.
-async fn send_request(auth_token: &str) -> Result<Account> {
+async fn send_request(auth_token: &str) -> Result<AccountPreference> {
     println!("Sending request...");
-    Ok(get_account_details(&Configuration {
+    Ok(get_account_preferences(&Configuration {
         base_path: bfp::account::testnet::URL.into(),
         bearer_access_token: Some(auth_token.into()),
         ..Configuration::new()

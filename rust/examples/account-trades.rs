@@ -30,14 +30,14 @@ async fn send_request(auth_token: &str, symbol: &str) -> Result<Vec<Trade>> {
 #[tokio::main]
 async fn main() -> Result<()> {
     let login_request = LoginRequest::new(
-        bfp::test::account::ADDRESS.into(),
+        bfp::test::account::testnet::ADDRESS.into(),
         Utc::now().timestamp_millis(),
         bfp::auth::testnet::AUDIENCE.into(),
     );
 
     let signature = login_request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     let auth_token = login_request
@@ -45,7 +45,7 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    let trades = send_request(&auth_token, bfp::test::market::ETH_SYMBOL).await?;
+    let trades = send_request(&auth_token, bfp::symbols::perps::ETH).await?;
 
     println!("{trades:#?}");
 
