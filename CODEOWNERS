@@ -1,0 +1,5 @@
+*       @fireflyprotocol/eng-exchange-v3
+environment-stack/*   @fireflyprotocol/eng-platform
+.github/*   @fireflyprotocol/eng-platform
+CODEOWNERS  @fireflyprotocol/eng-platform
+

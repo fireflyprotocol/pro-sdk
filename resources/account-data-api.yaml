@@ -1,0 +1,670 @@
+openapi: 3.0.3
+info:
+  title: Bluefin API
+  version: v1
+  description: |
+    All numeric quantities are represented as string in e9 format.
+tags:
+  - name: Account Data
+    description: "Account Data Service"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      name: x-user-token
+      bearerFormat: JWT # Optional, arbitrary value for documentation purposes
+  schemas:
+    TradingFees:
+      type: object
+      required:
+        - makerFeeE9
+        - takerFeeE9
+        - isApplied
+      properties:
+        makerFeeE9:
+          type: string
+          description: The Account Maker Fee (e9 format).
+          example: "1000000"
+        takerFeeE9:
+          type: string
+          description: The Account Taker Fee (e9 format).
+          example: "1000000"
+        isApplied:
+          type: boolean
+          description: Are the fees applied on the account?
+
+    Account:
+      type: object
+      required:
+        - tradingFees
+        - canTrade
+        - canDeposit
+        - canWithdraw
+        - totalEffectiveBalanceE9
+        - totalInitialMarginRequiredE9
+        - totalOpenOrderInitialMarginRequiredE9
+        - initialMarginAvailableE9
+        - totalMaintMarginRequiredE9
+        - maintMarginAvailableE9
+        - accountMaintMarginRatioE9
+        - accountLeverageE9
+        - totalUnrealizedPnlE9
+        - totalCrossUnrealizedPnlE9
+        - lastUpdatedAtUtcMillis
+        - assets
+        - positions
+      properties:
+        tradingFees:
+          $ref: "#/components/schemas/TradingFees"
+        canTrade:
+          type: boolean
+          description: If the user can trade.
+          example: true
+        canDeposit:
+          type: boolean
+          description: If the current user can deposit to the account.
+          example: true
+        canWithdraw:
+          type: boolean
+          description: If the current user can withdraw from the account.
+          example: false
+        totalEffectiveBalanceE9:
+          type: string
+          description: Total effective balance in USD (e9 format).
+          example: "12000000000000" # 12,000 USD
+        totalInitialMarginRequiredE9:
+          type: string
+          description: The sum of initial margin required across all cross positions (e9 format).
+          example: "1000000000" # 1,000 USD
+        totalOpenOrderInitialMarginRequiredE9:
+          type: string
+          description: The sum of initial margin required across all open orders (e9 format).
+          example: "1000000000" # 1,000 USD
+        initialMarginAvailableE9:
+          type: string
+          description: The amount of margin available to open new positions and orders (e9 format).
+          example: "1000000000" # 1,000 USD
+        totalMaintMarginRequiredE9:
+          type: string
+          description: The sum of maintenance margin required across all cross positions (e9 format).
+          example: "5000000000" # 5,000 USD
+        maintMarginAvailableE9:
+          type: string
+          description: The amount of margin available before liquidation (e9 format).
+          example: "1000000000" # 1,000 USD
+        accountMaintMarginRatioE9:
+          type: string
+          description: The ratio of the maintenance margin required to the account value (e9 format).
+          example: "1000000000" # 1,000 USD
+        accountLeverageE9:
+          type: string
+          description: The leverage of the account (e9 format).
+          example: "1000000000" # 1,000 USD
+        totalUnrealizedPnlE9:
+          type: string
+          description: Total unrealized profit (e9 format).
+          example: "2000000000" # 2,000 USD
+        totalCrossUnrealizedPnlE9:
+          type: string
+          description: Unrealized profit of crossed positions (e9 format).
+          example: "3000000000" # 3,000 USD
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: Last update time in milliseconds since Unix epoch.
+          example: 1627872345678
+        assets:
+          type: array
+          items:
+            $ref: "#/components/schemas/Asset"
+        positions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Position"
+    Asset:
+      type: object
+      required:
+        - symbol
+        - quantityE9
+        - effectiveBalanceE9
+        - maxWithdrawQuantityE9
+        - lastUpdatedAtUtcMillis
+      properties:
+        symbol:
+          type: string
+          description: On-chain address of the asset bank on the blockchain.
+        quantityE9:
+          type: string
+          description: Asset quantity (e9 format).
+          example: "6000000000" # 6,000 units
+        effectiveBalanceE9:
+          type: string
+          description: Value of this asset balance based on current market price and asset weight (e9 format).
+          example: "6000000000" # 6,000 USD
+        maxWithdrawQuantityE9:
+          type: string
+          description: Maximum quantity for transfer out (e9 format).
+          example: "3000000000" # 3,000 units
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: Last update time in milliseconds since Unix epoch.
+          example: 1627872345678
+    Trade:
+      type: object
+      required:
+        - tradeId
+        - tradeType
+        - side
+        - isMaker
+        - priceE9
+        - quantityE9
+        - quoteQuantityE9
+        - positionSide
+        - tradingFeeE9
+        - tradingFeeAsset
+        - executedAtUtcMilli
+      properties:
+        tradeId:
+          type: string
+          description: Trade ID
+        clientOrderId:
+          type: string
+          description: Client order ID.
+          example: "25851813"
+        symbol:
+          type: string
+          description: Market address.
+        orderHash:
+          type: string
+          description: Order hash.
+        tradeType:
+          $ref: "#/components/schemas/TradeTypeEnum"
+        side:
+          $ref: "#/components/schemas/TradeSideEnum"
+        isMaker:
+          type: boolean
+          description: Indicates if the user was a maker to the trade.
+          example: false
+        priceE9:
+          type: string
+          description: Trade price (e9 format).
+          example: "7819010000000" # 7,819.01 USD
+        quantityE9:
+          type: string
+          description: Trade quantity (e9 format).
+          example: "20000000000" # 20,000 units
+        quoteQuantityE9:
+          type: string
+          description: Quote quantity (e9 format).
+          example: "150000000000000" # 150,000 USD
+        realizedPnlE9:
+          type: string
+          description: Realized profit and loss (e9 format).
+          example: "-9000000000" # -9,000 USD
+        positionSide:
+          $ref: "#/components/schemas/PositionSideEnum"
+        tradingFeeE9:
+          type: string
+          description: Trading fee (e9 format).
+          example: "-780000000" # -780 USD
+        tradingFeeAsset:
+          type: string
+          enum:
+            - USDC
+            - BLUE
+          description: Asset used for trading fee.
+          example: USDC
+        gasFeeE9:
+          type: number
+          format: float
+          description: Gas fee.
+          example: 0
+        gasFeeAsset:
+          type: string
+          description: Asset used for gas fee.
+          example: USDC
+        executedAtUtcMilli:
+          type: integer
+          format: int64
+          description: Trade timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
+    Position:
+      type: object
+      required:
+        - symbol
+        - avgEntryPriceE9
+        - leverageE9
+        - markPriceE9
+        - notionalValueE9
+        - positionSizeE9
+        - unrealizedPnlE9
+        - positionSide
+        - isIsolated
+        - liquidationPriceE9
+        - maxNotionalValueE9
+        - lastUpdatedAtUtcMillis
+        - initialMarginE9
+        - maintMarginE9
+        - isolatedMarginE9
+      properties:
+        symbol:
+          type: string
+          description: Market address.
+        avgEntryPriceE9:
+          type: string
+          description: Average entry price determined by a simple average of all entry prices resulting in this position size (e9 format).
+          example: "400000000000" # 400 USD
+        leverageE9:
+          type: string
+          description: Isolated position leverage (e9 format).
+          example: "100000000000" # 100
+        liquidationPriceE9:
+          type: string
+          description: Liquidation price (e9 format).
+          example: "0"
+        markPriceE9:
+          type: string
+          description: Mark price (e9 format).
+          example: "667950671178" # 6679.50671178 USD
+        notionalValueE9:
+          type: string
+          description: Notional value (e9 format).
+          example: "0"
+        maxNotionalValueE9:
+          type: string
+          description: Max notional value at current leverage (e9 format).
+          example: "20000000000000" # 20,000,000 USD
+        positionSizeE9:
+          type: string
+          description: Position size (e9 format).
+          example: "100000000" # 100 units
+        unrealizedPnlE9:
+          type: string
+          description: Unrealized profit (e9 format).
+          example: "-1000000000" # -1,000 USD
+        positionSide:
+          $ref: "#/components/schemas/PositionSideEnum"
+        initialMarginE9:
+          type: string
+          description: Initial margin required with current mark price (e9 format).
+          example: "0"
+        maintMarginE9:
+          type: string
+          description: Maintenance margin required with current mark price (e9 format).
+          example: "0"
+        isIsolated:
+          type: boolean
+          description: If the position is isolated.
+          example: true
+        isolatedMarginE9:
+          type: string
+          description: Margin value present if margin type is isolated (e9 format).
+          example: "1000000000"
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: Last update time.
+          example: 1733899435274
+    Transaction:
+      type: object
+      required:
+        - id
+        - type
+        - amountE9
+        - assetSymbol
+      properties:
+        id:
+          type: string
+          description: Transaction ID.
+          example: "9689322392"
+        symbol:
+          type: string
+          description: Market address.
+          example: "0x123456789abcdef"
+        type:
+          $ref: "#/components/schemas/TransactionTypeEnum"
+        amountE9:
+          type: string
+          description: Amount in e9 format (positive or negative).
+          example: "-1000000"
+        assetSymbol:
+          type: string
+          description: Asset bank address.
+        tradeId:
+          type: string
+          description: Trade ID
+    AccountPreference:
+      type: object
+      properties:
+        language:
+          type: string
+          description: User preferred language.
+          example: en
+        theme:
+          type: string
+          description: User preferred theme.
+          example: dark
+        market:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountMarketPreference"
+    AccountMarketPreference:
+      type: object
+      properties:
+        marginType:
+          $ref: "#/components/schemas/MarginTypeEnum"
+        setLeverage:
+          type: integer
+          description: User set leverage (e.g., 10x).
+          example: 100
+    TradeTypeEnum:
+      type: string
+      description: Type of trade.
+      enum:
+        - ORDER
+        - LIQUIDATION
+        - DELEVERAGE
+    PositionSideEnum:
+      type: string
+      description: "The side of the position, either long or short"
+      enum:
+        - LONG
+        - SHORT
+    TradeSideEnum:
+      type: string
+      description: Trade side based on the user order in this trade.
+      enum:
+        - LONG
+        - SHORT
+    TransactionTypeEnum:
+      description: Transaction type (what caused the change in the asset balance).
+      type: string
+      enum:
+        - TRANSFER
+        - DEPOSIT
+        - WITHDRAW
+        - REALIZED_PNL
+        - FUNDING_FEE
+        - TRADING_FEE
+        - TRADING_GAS_FEE
+        - BONUS
+    MarginTypeEnum:
+      type: string
+      description: Margin type.
+      enum:
+        - CROSS
+        - ISOLATED
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message.
+          example: "Invalid request parameters"
+  responses:
+    DefaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+paths:
+  /api/v1/account/preferences:
+    get:
+      tags:
+        - Account Data
+      summary: Get user's account preferences.
+      operationId: getAccountPreferences
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response with account preferences.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountPreference"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/account:
+    get:
+      tags:
+        - Account Data
+      summary: Get user's account details.
+      operationId: getAccountDetails
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response with account details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/account/trades:
+    get:
+      tags:
+        - Account Data
+      summary: Get user's trade history.
+      operationId: getAccountTrades
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market address to filter trades by.
+        - name: startTimeAtUtcMillis
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+          description: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        - name: endTimeAtUtcMillis
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+          description: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 500
+            minimum: 1
+            maximum: 1000
+          description: Default 500; max 1000.
+        - name: tradeType
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/TradeTypeEnum"
+          description: Type of trade. By default returns all.
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response with trade details.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Trade"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/v1/account/transactions:
+    get:
+      tags:
+        - Account Data
+      summary: Get user's transaction history (any change in balance).
+      operationId: getAccountTransactionHistory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: types
+          in: query
+          description: Optional query parameter to filter transactions by type.
+          required: false
+          explode: true
+          style: form
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/TransactionTypeEnum"
+        - name: assetSymbol
+          schema:
+            type: string
+          in: query
+          description: Optional query parameter to filter transactions by asset bank address.
+          required: false
+        - name: startTimeAtUtcMillis
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+          description: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        - name: endTimeAtUtcMillis
+          description: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 500
+            minimum: 1
+            maximum: 1000
+          description: Default 500; max 1000.
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response with transaction history details.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

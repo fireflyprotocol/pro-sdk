@@ -1,0 +1,254 @@
+openapi: '3.0.3'
+info:
+  title: Bluefin Auth API
+  version: 1.0.0
+tags:
+  - name: Auth
+    description: "Bluefin Auth API"
+
+servers:
+  - url: https://auth.api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+
+components:
+  responses:
+    DefaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    JwksResponse:
+      type: object
+      additionalProperties: true
+    LoginRequest:
+      type: object
+      description: |
+        User is expected to sign this payload and sends is signature in login api as header and payload itself in request body
+      properties:
+        accountAddress:
+          type: string
+          description: The address of the account.
+        signedAtUtcMillis:
+          type: integer
+          format: int64
+          description: The timestamp in millis when the login was signed.
+        audience:
+          type: string
+          description: The intended audience of the login request.
+      required:
+        - accountAddress
+        - signedAtUtcMillis
+        - audience
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - accessTokenValidForSeconds
+        - refreshToken
+        - refreshTokenValidForSeconds
+      properties:
+        accessToken:
+          type: string
+        accessTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+        refreshToken:
+          type: string
+        refreshTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+          minLength: 1
+    RefreshTokenResponse:
+      type: object
+      required:
+        - accessToken
+        - accessTokenValidForSeconds
+        - refreshToken
+        - refreshTokenValidForSeconds
+      properties:
+        accessToken:
+          type: string
+        accessTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+        refreshToken:
+          type: string
+        refreshTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message
+paths:
+  /auth/jwks:
+    get:
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwksResponse'
+        default:
+          $ref: '#/components/responses/DefaultError'
+  /auth/token:
+    post:
+      tags:
+        - Auth
+      description: 'login with token'
+      parameters:
+        - name: payloadSignature
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: "bad signature"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: "invalid signature"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: "invalid audience"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          $ref: '#/components/responses/DefaultError'
+  /auth/v2/token:
+    post:
+      tags:
+        - Auth
+      description: 'login compatible with BCS payload with intent bytes'
+      parameters:
+        - name: payloadSignature
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200': 
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: "bad signature"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: "invalid signature"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: "invalid audience"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          $ref: '#/components/responses/DefaultError'
+  /auth/token/refresh:
+    put:
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshTokenResponse'
+        '401':
+          description: "invalid signature"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: "missing refresh token in request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          $ref: '#/components/responses/DefaultError'

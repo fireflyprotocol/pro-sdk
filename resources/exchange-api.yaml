@@ -1,0 +1,992 @@
+openapi: 3.0.3
+info:
+  title: Bluefin Perpetuals API
+  description: Exchange Info Endpoints |
+    All numeric quantities are represented as string in e9 format.
+  version: 1.0.0
+
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+
+components:
+  schemas:
+    ExchangeInfoResponse:
+      type: object
+      properties:
+        assets:
+          type: array
+          description: List of assets available on the exchange.
+          items:
+            $ref: "#/components/schemas/Asset"
+        contractsConfig:
+          $ref: "#/components/schemas/ContractsConfig"
+        markets:
+          type: array
+          description: List of markets available on the exchange.
+          items:
+            $ref: "#/components/schemas/Market"
+        tradingGasFeeE9:
+          type: string
+          description: Current gas fee set for subsidized trades (e9 format)
+        serverTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: Server time in milliseconds.
+        timezone:
+          type: string
+          description: Timezone of the exchange.
+      required:
+        - assets
+        - markets
+        - tradingGasFeeE9
+        - serverTimeAtUtcMillis
+        - timezone
+
+    OrderbookDepthResponse:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Market symbol.
+          example: 0x123456
+        lastUpdateId:
+          type: integer
+          format: int64
+          description: Count indicating the number of changes in orderbook state.
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: Timestamp at which the last change in orderbook state took place, in milliseconds.
+        responseSentAtUtcMillis:
+          type: integer
+          format: int64
+          description: The time at which the orderbook server sent the response, in milliseconds.
+        bestBidPriceE9:
+          type: string
+          description: The best bid price on orderbook at the moment (e9 format).
+        bestBidQuantityE9:
+          type: string
+          description: The best bid quantity on orderbook at the moment (e9 format).
+        bestAskPriceE9:
+          type: string
+          description: The best ask price on orderbook at the moment (e9 format).
+        bestAskQuantityE9:
+          type: string
+          description: The best ask quantity on orderbook at the moment (e9 format).
+        bidsE9:
+          type: array
+          description: Bids to be filled. Index 0 is price, index 1 is quantity at price bin. Prices are in e9 format.
+          items:
+            type: array
+            items:
+              type: string
+          example: [["4000000000", "431000000000"]]
+        asksE9:
+          type: array
+          description: Asks to be filled. Index 0 is price, index 1 is quantity at price bin. Prices are in e9 format.
+          items:
+            type: array
+            items:
+              type: string
+          example: [["4000002000", "12000000000"]]
+      example:
+        symbol: "0x123"
+        lastUpdatedAtUtcMillis: 1628078846123
+        lastUpdateId: 56789
+        responseSentAtUtcMillis: 1628078846133
+        bestBidPriceE9: "4000000000"
+        bestBidQuantityE9: "431000000000"
+        bestAskPriceE9: "4000002000"
+        bestAskQuantityE9: "12000000000"
+        bidsE9: [["4000000000", "431000000000"]]
+        asksE9: [["4000002000", "12000000000"]]
+      required:
+        - symbol
+        - lastUpdateId
+        - lastUpdatedAtUtcMillis
+        - responseSentAtUtcMillis
+        - bestBidPriceE9
+        - bestBidQuantityE9
+        - bestAskPriceE9
+        - bestAskQuantityE9
+        - bidsE9
+        - asksE9
+
+    TradesResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/Trade"
+      example:
+        - id: 28457
+          symbol: "0x123"
+          price: "4000001000"
+          quantityE9: "12000000000"
+          quoteQuantityE9: "48000012000"
+          side: "LONG"
+          timeAtUtcMillis: 1499865549590
+          txHash: "0x123456789abcdef"
+
+    CandlesticksResponse:
+      type: array
+      description: |
+        list of candles sticks each item is a list of values ordered like the following.
+        [
+          [
+            1499040000000,      // Open time in ms
+            "163479000",       // Open price in e9
+            "800000000",       // High price in e9
+            "15758000",       // Low price in e9
+            "15771000",       // Close price in e9
+            "148976114278150",  // Volume in e9
+            1499644799999,      // Close time in ms
+            "2434190553340",    // Quote asset volume in e9
+            308                 // Number of trades
+          ]
+        ]
+      items:
+        type: array
+        items:
+          type: string
+      example:
+        [
+          [
+            1499040000000,
+            "163479000",
+            "800000000",
+            "15758000",
+            "15771000",
+            "148976114278150",
+            1499644799999,
+            "2434190553340",
+            308,
+          ],
+        ]
+
+    TickerResponse:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Market symbol.
+          example: 0x123456
+        lastQuantityE9:
+          type: string
+          description: Last trade quantity (e9 format).
+          example: 10000000000
+        lastTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: Last trade time in milliseconds.
+          example: 1724121094751
+        lastPriceE9:
+          type: string
+          description: Last trade price (e9 format).
+          example: 5000000000000
+        lastFundingRateE9:
+          type: string
+          description: Funding rate value (e9 format).
+          example: 10000000
+        nextFundingTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: Time in milliseconds of next funding rate update.
+          example: 1724121094751
+        avgFundingRate8hrE9:
+          type: string
+          description: 8 hr average funding rate (e9 format).
+          example: 10000000
+        oraclePriceE9:
+          type: string
+          description: Oracle price of the asset (e9 format).
+          example: 50000000000000
+        oraclePriceDirection:
+          type: integer
+          format: int64
+          description: Direction of oracle price computed by comparing current oracle price to last oracle price. 0 = no change, -1 = negative trend (current < last), 1 positive trend (current > last).
+        markPriceE9:
+          type: string
+          description: Mark price on the exchange (e9 format).
+          example: 50000000000000
+        markPriceDirection:
+          type: integer
+          format: int64
+          description: Direction of mark price computed by comparing current mark price to last mark price. 0 = no change, -1 = negative trend (current < last), 1 positive trend (current > last).
+        marketPriceE9:
+          type: string
+          description: Simple average of bestBid and bestAsk. lastPrice if either is not present (e9 format).
+          example: 5000000000000
+        marketPriceDirection:
+          type: integer
+          format: double
+          description: Direction of market price computed by comparing current market price to last market price. 0 = no change, -1 = negative trend (current < last), 1 positive trend (current > last).
+        bestBidPriceE9:
+          type: string
+          description: Best bid price (e9 format).
+          example: 12345678901
+        bestBidQuantityE9:
+          type: string
+          description: Best bid quantity (e9 format).
+          example: 10000000
+        bestAskPriceE9:
+          type: string
+          description: Best ask price (e9 format).
+          example: 42345678901
+        bestAskQuantityE9:
+          type: string
+          description: Best ask quantity (e9 format).
+          example: 100000000
+        openInterestE9:
+          type: string
+          description: Open interest value (e9 format).
+          example: 100000000
+        highPrice24hrE9:
+          type: string
+          description: Highest Price in the last 24hrs (e9 format).
+          example: 5000000000000
+        lowPrice24hrE9:
+          type: string
+          description: Lowest Price in the last 24hrs (e9 format).
+          example: 50000000000
+        volume24hrE9:
+          type: string
+          description: Total market volume in last 24hrs of asset (e9 format).
+          example: 100000000
+        quoteVolume24hrE9:
+          type: string
+          description: Total market volume in last 24hrs in USDC (e9 format).
+          example: 5000000000000
+        closePrice24hrE9:
+          type: string
+          description: Close price 24hrs ago (e9 format).
+          example: 5000000000000
+        openPrice24hrE9:
+          type: string
+          description: Open price in the last 24hrs (e9 format).
+          example: 5000000000000
+        closeTime24hrAtUtcMillis:
+          type: integer
+          format: int64
+          description: 24 hour close time in milliseconds.
+          example: 1724121094751
+        openTime24hrAtUtcMillis:
+          type: integer
+          format: int64
+          description: 24 hour open time in milliseconds.
+          example: 1724121094751
+        firstId24hr:
+          type: integer
+          format: int64
+          description: First trade id in 24hr.
+        lastId24hr:
+          type: integer
+          format: int64
+          description: Last trade id in 24hr.
+        count24hr:
+          type: string
+          description: Total number of trades in 24hr.
+          example: 123456
+        priceChange24hrE9:
+          type: string
+          description: 24hr Market price change (e9 format).
+          example: 50000000000
+        priceChangePercent24hrE9:
+          type: string
+          description: 24hr Market price change in percentage (e9 format).
+          example: 5000000000
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: Last update time in milliseconds.
+          example: 1724121094751
+      example:
+        {
+          "symbol": "0x123456",
+          "lastQuantityE9": "500000000",
+          "lastTimeAtUtcMillis": 1625792400000,
+          "lastPriceE9": "32000000000000",
+          "lastFundingRateE9": "10000000",
+          "nextFundingTimeAtUtcMillis": 1625800000000,
+          "avgFundingRate8hrE9": "5000000",
+          "oraclePriceE9": "32010000000000",
+          "oraclePriceDirection": 1,
+          "markPriceE9": "32000000000000",
+          "markPriceDirection": -1,
+          "marketPriceE9": "31000000000000",
+          "marketPriceDirection": -1,
+          "bestBidPriceE9": "31990000000000",
+          "bestBidQuantityE9": "1000000000",
+          "bestAskPriceE9": "32000000000000",
+          "bestAskQuantityE9": "1200000000",
+          "openInterestE9": "15000000000000",
+          "highPrice24hrE9": "34000000000000",
+          "lowPrice24hrE9": "31000000000000",
+          "volume24hrE9": "1200000000000",
+          "quoteVolume24hrE9": "38000000000000000",
+          "closePrice24hrE9": "31500000000000",
+          "openPrice24hrE9": "31800000000000",
+          "closeTime24hrAtUtcMillis": 1625706000000,
+          "openTime24hrAtUtcMillis": 1625619600000,
+          "firstId24hr": 12345678,
+          "lastId24hr": 12345999,
+          "count24hr": "321",
+          "priceChange24hrE9": "-200000000000",
+          "priceChangePercent24hrE9": "-630000000",
+          "lastUpdatedAtUtcMillis": 1625792500000,
+        }
+      required:
+        - symbol
+        - lastQuantityE9
+        - lastTimeAtUtcMillis
+        - lastPriceE9
+        - lastFundingRateE9
+        - nextFundingTimeAtUtcMillis
+        - avgFundingRate8hrE9
+        - oraclePriceE9
+        - oraclePriceDirection
+        - markPriceE9
+        - markPriceDirection
+        - marketPriceE9
+        - marketPriceDirection
+        - bestBidPriceE9
+        - bestBidQuantityE9
+        - bestAskPriceE9
+        - bestAskQuantityE9
+        - openInterestE9
+        - highPrice24hrE9
+        - lowPrice24hrE9
+        - volume24hrE9
+        - quoteVolume24hrE9
+        - closePrice24hrE9
+        - openPrice24hrE9
+        - closeTime24hrAtUtcMillis
+        - openTime24hrAtUtcMillis
+        - firstId24hr
+        - lastId24hr
+        - count24hr
+        - priceChange24hrE9
+        - priceChangePercent24hrE9
+        - lastUpdatedAtUtcMillis
+
+    FundingRateResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/FundingRateEntry"
+
+    MarketStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - BETA
+        - MAINTENANCE
+        - DELISTED
+    TradeSide:
+      type: string
+      enum:
+        - LONG
+        - SHORT
+    KlineInterval:
+      type: string
+      enum:
+        - "1m"
+        - "3m"
+        - "5m"
+        - "15m"
+        - "30m"
+        - "1h"
+        - "2h"
+        - "4h"
+        - "6h"
+        - "8h"
+        - "12h"
+        - "1d"
+        - "1w"
+        - "1Mo"
+    CandlePriceType:
+      type: string
+      enum:
+        - "Last"
+        - "Market"
+        - "Oracle"
+    Trade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Trade ID
+        symbol:
+          type: string
+          description: Market symbol.
+          example: 0x123
+        priceE9:
+          type: string
+          description: Trade price (e9 format).
+          example: 10000000000
+        quantityE9:
+          type: string
+          description: Trade quantity (e9 format).
+          example: 1000000000
+        quoteQuantityE9:
+          type: string
+          description: Trade quote quantity (e9 format).
+          example: 1000000000000
+        side:
+          $ref: "#/components/schemas/TradeSide"
+        timeAtUtcMillis:
+          type: integer
+          format: int64
+          description: Trade timestamp.
+          example: 1569514978020
+      required:
+        - id
+        - symbol
+        - priceE9
+        - quantityE9
+        - quoteQuantityE9
+        - side
+        - timeAtUtcMillis
+    ContractsConfig:
+      type: object
+      description: Contract configuration for the exchange.
+      required:
+        - edsId
+        - idsId
+        - network
+        - baseContractAddress
+        - currentContractAddress
+        - operators
+      properties:
+        edsId:
+          type: string
+          example: "0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b"
+          description: External Data Store Address
+        idsId:
+          type: string
+          example: "0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b"
+          description: External Data Store Address
+        network:
+          type: string
+          enum: [mainnet, testnet, devnet]
+          description: Network environment
+        baseContractAddress:
+          type: string
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+          description: Base contract address
+        currentContractAddress:
+          type: string
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+          description: Current contract address
+        operators:
+          $ref: "#/components/schemas/Operators"
+    Operators:
+      type: object
+      required:
+        - admin
+        - operator
+        - sequencer
+        - funding
+        - fee
+      properties:
+        admin:
+          type: string
+          description: Admin operator address
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+        operator:
+          type: string
+          description: General operator address
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+        sequencer:
+          type: string
+          description: Sequencer operator address
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+        funding:
+          type: string
+          description: Funding operator address
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+        fee:
+          type: string
+          description: Fee operator address
+          example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
+    Asset:
+      type: object
+      properties:
+        assetType:
+          type: string
+          description: The bank address of the asset.
+        symbol:
+          type: string
+          description: Asset symbol.
+          example: USDC
+        decimals:
+          type: integer
+          format: int64
+          description: Default precision for rendering this asset.
+          example: 6
+        weight:
+          type: string
+          description: Weight applied to asset to use as margin in Multi-Assets mode.
+          example: 1.0
+        marginAvailable:
+          type: boolean
+          description: Indicates if the asset can be used as margin in Multi-Assets mode.
+      required:
+        - assetType
+        - symbol
+        - decimals
+        - weight
+        - marginAvailable
+
+    Market:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Symbol of the market.
+          example: BTC-PERP
+        status:
+          $ref: "#/components/schemas/MarketStatus"
+        baseAssetSymbol:
+          type: string
+          description: Base asset symbol.
+        baseAssetName:
+          type: string
+          description: Base asset name.
+        baseAssetDecimals:
+          type: integer
+          format: int64
+          description: Precision of the base asset.
+        stepSizeE9:
+          type: string
+          description: Step size for the quantity (e9 format).
+          example: 10000000
+        tickSizeE9:
+          type: string
+          description: Price increment size (e9 format).
+          example: 10000000
+        minOrderQuantityE9:
+          type: string
+          description: Minimum order size (e9 format).
+          example: 20000000
+        maxLimitOrderQuantityE9:
+          type: string
+          description: Maximum limit order size (e9 format).
+          example: 25000000000
+        maxMarketOrderQuantityE9:
+          type: string
+          description: Maximum market order size (e9 format).
+          example: 250000000000
+        minOrderPriceE9:
+          type: string
+          description: Minimum order price (e9 format).
+          example: 10000000
+        maxOrderPriceE9:
+          type: string
+          description: Maximum order price (e9 format).
+          example: 10000000000
+        maintenanceMarginRatioE9:
+          type: string
+          description: Maintenance margin ratio (MMR, e9 format).
+          example: 30000000
+        initialMarginRatioE9:
+          type: string
+          description: Initial margin ratio (IMR), e9 format).
+          example: 45000000
+        insurancePoolRatioE9:
+          type: string
+          description: Insurance pool ratio (e9 format).
+          example: 3000000
+        defaultLeverageE9:
+          type: string
+          description: Default leverage (e9 format).
+          example: 3000000000
+        maxNotionalAtOpenE9:
+          type: array
+          description: Maximum notional value at current leverage. Index 0 is max notional value for leverage set to 1x, index 1 is for leverage 2x, etc...
+          items:
+            type: string
+        minTradeQuantityE9:
+          type: string
+          description: Minimum trade quantity allowed (e9 format).
+          example: 10000000
+        maxTradeQuantityE9:
+          type: string
+          description: Max trade quantity allowed (e9 format).
+          example: 100000000000
+        minTradePriceE9:
+          type: string
+          description: Minimum trade price allowed (e9 format).
+          example: 50000000000
+        maxTradePriceE9:
+          type: string
+          description: Maximum trade price allowed (e9 format).
+          example: 50000000000000
+        maxFundingRateE9:
+          type: string
+          description: Maximum allowed funding rate (e9 format).
+          example: 1000000
+        defaultMakerFeeE9:
+          type: string
+          description: Default maker fee (e9 format).
+          example: 150000
+        defaultTakerFeeE9:
+          type: string
+          description: Default taker fee (e9 format).
+          example: 550000
+        insurancePoolAddress:
+          type: string
+          description: Insurance pool address.
+        feePoolAddress:
+          type: string
+          description: Fee pool address.
+        tradingStartTimeAtUtcMillis:
+          type: string
+          description: The time when trading will start/have started on the market.
+          example: 1724121094751
+        mtbLongE9:
+          type: string
+          description: Maximum take bound for long positions (e9 format).
+          example: 20000000
+        mtbShortE9:
+          type: string
+          description: Maximum take bound for short positions (e9 format).
+          example: 20000000
+        delistingPriceE9:
+          type: string
+          description: Delisting price (e9 format).
+          example: 200000000
+        isolatedOnly:
+          type: boolean
+          description: Indicates whether the market only allows isolated margin.
+      required:
+        - symbol
+        - status
+        - baseAssetSymbol
+        - baseAssetName
+        - baseAssetDecimals
+        - stepSizeE9
+        - tickSizeE9
+        - minOrderQuantityE9
+        - maxLimitOrderQuantityE9
+        - maxMarketOrderQuantityE9
+        - minOrderPriceE9
+        - maxOrderPriceE9
+        - maintenanceMarginRatioE9
+        - initialMarginRatioE9
+        - insurancePoolRatioE9
+        - defaultLeverageE9
+        - maxNotionalAtOpenE9
+        - minTradeQuantityE9
+        - maxTradeQuantityE9
+        - minTradePriceE9
+        - maxTradePriceE9
+        - maxFundingRateE9
+        - defaultMakerFeeE9
+        - defaultTakerFeeE9
+        - insurancePoolAddress
+        - feePoolAddress
+        - tradingStartTimeAtUtcMillis
+        - mtbLongE9
+        - mtbShortE9
+        - delistingPriceE9
+        - isolatedOnly
+
+    FundingRateEntry:
+      properties:
+        symbol:
+          type: string
+          description: The market symbol.
+          example: 0x123
+        fundingTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: Timestamp of the funding time in milliseconds.
+        fundingRateE9:
+          type: string
+          description: Funding rate for the market address.
+      required:
+        - symbol
+        - fundingTimeAtUtcMillis
+        - fundingRateE9
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message.
+          example: "Invalid request parameters"
+
+paths:
+  /v1/exchange/info:
+    get:
+      tags:
+        - Exchange
+      operationId: getExchangeInfo
+      summary: Get exchange information
+      description: Returns the current exchange information including available margin assets, markets, and rules.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExchangeInfoResponse"
+
+  /v1/exchange/depth:
+    get:
+      tags:
+        - Exchange
+      operationId: getOrderbookDepth
+      summary: Orderbook depth
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Market symbol to get the orderbook depth for.
+          schema:
+            type: string
+            example: 0x123
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of bids and asks to return. Default 500; max 1000.
+          schema:
+            type: integer
+            format: int32
+            default: 500
+            maximum: 1000
+            minimum: 0
+      responses:
+        "200":
+          description: Orderbook depth
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderbookDepthResponse"
+
+  /v1/exchange/trades:
+    get:
+      tags:
+        - Exchange
+      operationId: getRecentTrades
+      summary: Recent trades list
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: The market symbol to get the trades for.
+          schema:
+            type: string
+            example: 0x123
+        - name: tradeType
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - Order
+              - Liquidation
+              - Deleverage
+            default: Order
+          description: Type of trade. # We only show order trades on our recent trades UI
+        - name: limit
+          in: query
+          required: false
+          description: Default 500; max 1000.
+          schema:
+            type: integer
+            format: int32
+            default: 500
+            maximum: 1000
+            minimum: 0
+        - name: startTimeAtUtcMillis
+          in: query
+          required: false
+          description: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+          schema:
+            type: integer
+            format: int64
+        - name: endTimeAtUtcMillis
+          in: query
+          required: false
+          description: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        "200":
+          description: Recent trades
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradesResponse"
+
+  /v1/exchange/candlesticks:
+    get:
+      tags:
+        - Exchange
+      operationId: getCandlestickData
+      summary: Kline/candlestick data.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: The market symbol to get the klines for.
+          schema:
+            type: string
+            example: 0x123
+        - name: interval
+          in: query
+          required: true
+          description: The interval to get the klines for.
+          schema:
+            $ref: "#/components/schemas/KlineInterval"
+        - name: type
+          in: query
+          required: true
+          description: Candle price type (last price, market price or oracle).
+          schema:
+            $ref: "#/components/schemas/CandlePriceType"
+        - name: startTimeAtUtcMillis
+          in: query
+          required: false
+          description: Timestamp in milliseconds in ms to get klines from.
+          example: 1499040000000
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: endTimeAtUtcMillis
+          in: query
+          required: false
+          description: Timestamp in milliseconds in ms to get klines until.
+          example: 1499644799999
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: limit
+          in: query
+          required: false
+          description: Default 50; max 1000.
+          schema:
+            type: integer
+            format: int32
+            default: 50
+            maximum: 1000
+            minimum: 0
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+          required: false
+          description: The page number to retrieve in a paginated response.
+      responses:
+        "200":
+          description: Kline/candlestick data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CandlesticksResponse"
+
+  /v1/exchange/ticker:
+    get:
+      tags:
+        - Exchange
+      operationId: getMarketTicker
+      summary: Aggregated market ticker information
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Market symbol.
+          schema:
+            type: string
+            example: 0x123456
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TickerResponse"
+        "404":
+          description: Market not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/exchange/fundingRateHistory:
+    get:
+      tags:
+        - Exchange
+      summary: Get funding rate history
+      description: Retrieve the funding rate history for a specific market address.
+      operationId: getFundingRateHistory
+      parameters:
+        - name: symbol
+          in: query
+          description: The market symbol to get funding rate history for
+          required: true
+          schema:
+            type: string
+            example: 0x123
+        - name: limit
+          in: query
+          description: Number of records to return. Default is 100; max is 1000.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            minimum: 0
+            maximum: 1000
+        - name: startTimeAtUtcMillis
+          in: query
+          required: false
+          description: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: endTimeAtUtcMillis
+          in: query
+          required: false
+          description: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response with funding rate history.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FundingRateResponse"

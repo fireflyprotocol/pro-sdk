@@ -1,0 +1,1292 @@
+openapi: 3.0.3
+info:
+  title: WebSocket Streams Data API
+  version: 1.0.0
+tags:
+  - name: Streams
+    description: "WebSocket Streams"
+
+servers:
+  - url: https://stream.api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+
+components:
+  schemas:
+    # Common Schemas
+    Side:
+      type: string
+      description: "Indicates the side of the trade."
+      enum:
+        - LONG
+        - SHORT
+        - UNSPECIFIED
+
+    # Common Subscription
+    SubscriptionResponseMessage:
+      type: object
+      description: "Response message indicating the success or failure of a subscription operation."
+      properties:
+        success:
+          type: boolean
+          description: "Indicates if the subscription operation was successful."
+        message:
+          type: string
+          description: "Additional information about the subscription operation."
+      required:
+        - success
+        - message
+
+    SubscriptionType:
+      type: string
+      description: "Indicates the type of subscription action."
+      enum:
+        - Subscribe
+        - Unsubscribe
+
+    # Account Stream Subscription
+    AccountDataStream:
+      type: string
+      description: "Represents the type of account data stream."
+      enum:
+        - AccountOrderUpdate
+        - AccountTradeUpdate
+        - AccountPositionUpdate
+        - AccountUpdate
+        - AccountTransactionUpdate
+
+    AccountSubscriptionMessage:
+      type: object
+      description: "Subscription message for account data streams."
+      properties:
+        method:
+          $ref: '#/components/schemas/SubscriptionType'
+        dataStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDataStream'
+          description: "List of account data streams to subscribe or unsubscribe from."
+      required:
+        - method
+        - dataStreams
+
+    # Market Stream Subscription
+    MarketSubscriptionStreams:
+      type: object
+      description: "Represents the type of market data stream and its parameters."
+      properties:
+        symbol:
+          type: string
+          description: The symbol of the market stream to subscribe to (Leave empty for TickerAll stream)
+        streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketDataStreamName'
+      required:
+        - symbol
+        - streams
+
+    MarketDataStreamName:
+      type: string
+      enum:
+        - Recent_Trade
+        - Ticker
+        - Ticker_All
+        - Diff_Depth_10_ms
+        - Diff_Depth_200_ms
+        - Diff_Depth_500_ms
+        - Partial_Depth_5
+        - Partial_Depth_10
+        - Partial_Depth_20
+        - Oracle_Price
+        - Mark_Price
+        - Market_Price
+        - Candlestick_1m_Last
+        - Candlestick_3m_Last
+        - Candlestick_5m_Last
+        - Candlestick_15m_Last
+        - Candlestick_30m_Last
+        - Candlestick_1h_Last
+        - Candlestick_2h_Last
+        - Candlestick_4h_Last
+        - Candlestick_8h_Last
+        - Candlestick_12h_Last
+        - Candlestick_1d_Last
+        - Candlestick_1w_Last
+        - Candlestick_1Mo_Last
+        - Candlestick_1m_Oracle
+        - Candlestick_3m_Oracle
+        - Candlestick_5m_Oracle
+        - Candlestick_15m_Oracle
+        - Candlestick_30m_Oracle
+        - Candlestick_1h_Oracle
+        - Candlestick_2h_Oracle
+        - Candlestick_4h_Oracle
+        - Candlestick_8h_Oracle
+        - Candlestick_12h_Oracle
+        - Candlestick_1d_Oracle
+        - Candlestick_1w_Oracle
+        - Candlestick_1Mo_Oracle
+        - Candlestick_1m_Mark
+        - Candlestick_3m_Mark
+        - Candlestick_5m_Mark
+        - Candlestick_15m_Mark
+        - Candlestick_30m_Mark
+        - Candlestick_1h_Mark
+        - Candlestick_2h_Mark
+        - Candlestick_4h_Mark
+        - Candlestick_8h_Mark
+        - Candlestick_12h_Mark
+        - Candlestick_1d_Mark
+        - Candlestick_1w_Mark
+        - Candlestick_1Mo_Mark
+        - Candlestick_1m_Market
+        - Candlestick_3m_Market
+        - Candlestick_5m_Market
+        - Candlestick_15m_Market
+        - Candlestick_30m_Market
+        - Candlestick_1h_Market
+        - Candlestick_2h_Market
+        - Candlestick_4h_Market
+        - Candlestick_8h_Market
+        - Candlestick_12h_Market
+        - Candlestick_1d_Market
+        - Candlestick_1w_Market
+        - Candlestick_1Mo_Market
+
+    MarketSubscriptionMessage:
+      type: object
+      description: "Subscription message for market data streams."
+      properties:
+        method:
+          $ref: '#/components/schemas/SubscriptionType'
+        dataStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketSubscriptionStreams'
+          description: "List of market data streams to subscribe or unsubscribe from."
+      required:
+        - method
+        - dataStreams
+
+    # Account Streams
+    AccountStreamMessage:
+      discriminator:
+        propertyName: event
+        mapping:
+          AccountUpdate: '#/components/schemas/AccountUpdate'
+          AccountTradeUpdate: '#/components/schemas/AccountTradeUpdate'
+          AccountOrderUpdate: '#/components/schemas/AccountOrderUpdate'
+          AccountPositionUpdate: '#/components/schemas/AccountPositionUpdate'
+          AccountTransactionUpdate: '#/components/schemas/AccountTransactionUpdate'
+      type: object
+      description: |
+        Account stream message for account-related events.
+        The payload depends on the event type.
+      properties:
+        event:
+          $ref: '#/components/schemas/AccountEventType'
+        reason:
+          $ref: '#/components/schemas/AccountEventReason'
+        payload:
+          description: "The payload of the message, which varies based on the event type."
+          oneOf:
+            - $ref: '#/components/schemas/AccountUpdate'
+            - $ref: '#/components/schemas/AccountTradeUpdate'
+            - $ref: '#/components/schemas/AccountOrderUpdate'
+            - $ref: '#/components/schemas/AccountTransactionUpdate'
+            - $ref: '#/components/schemas/AccountPositionUpdate'
+
+      required:
+        - event
+        - reason
+        - payload
+
+    AccountEventType:
+      type: string
+      description: "The type of account-related event."
+      enum:
+        - AccountUpdate
+        - AccountTradeUpdate
+        - AccountOrderUpdate
+        - AccountPositionUpdate
+        - AccountTransactionUpdate
+
+    AccountEventReason:
+      type: string
+      description: "The reason for the account-related event."
+      enum:
+        - Deposit
+        - Withdraw
+        - OrderCreated
+        - OrderMatched
+        - OrderCancelled
+        - OrdersForMarketCancelled
+
+    OrderCancelReason:
+      type: string
+      description: "The reason for an order cancellation."
+      enum:
+        - UNSPECIFIED
+        - INSUFFICIENT_MARGIN
+        - DUPLICATE_ORDER
+        - POST_ONLY_WOULD_TRADE
+        - INVALID_SYMBOL
+        - SIGNED_AT_TOO_OLD
+        - ORDER_EXPIRED
+        - INVALID_LEVERAGE
+        - INVALID_INPUT
+        - PRICE_OUT_OF_BOUND
+        - QUANTITY_OUT_OF_BOUND
+        - PRICE_OUT_OF_TICK_SIZE
+        - QUANTITY_OUT_OF_STEP_SIZE
+        - REDUCE_ONLY_WOULD_OPEN
+        - TOO_MANY_OPEN_ORDERS_ON_MARKET
+        - USER_CANCELLED
+        - USER_CANCELLED_ALL_ON_MARKET
+        - SELF_TRADE_PREVENTION
+        - LEVERAGE_UPDATE
+        - ACCOUNT_NOT_FOUND
+        - MARKET_NOT_TRADING
+        - INSUFFICIENT_LIQUIDITY
+
+    OrderCancellationFailureReason:
+      type: string
+      description: "The reason for failure to cancel an order."
+      enum:
+        - ORDER_NOT_FOUND
+        - MARKET_NOT_FOUND
+        - ACCOUNT_NOT_FOUND
+        - NO_OPEN_ORDERS_ON_MARKET
+        - NO_FAILURE
+        - UNSPECIFIED
+
+    AccountOrderUpdate:
+      type: object
+      description: "A message containing order update information."
+      oneOf:
+        - $ref: '#/components/schemas/ActiveOrderUpdate'
+        - $ref: '#/components/schemas/OrderCancellationUpdate'
+
+    OrderCancellationUpdate:
+      type: object
+      description: "Details of an order cancellation."
+      properties:
+        orderHash:
+          type: string
+          description: "The unique hash of the order."
+        clientOrderId:
+          type: string
+          description: "The client-provided order ID."
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        accountAddress:
+          type: string
+          description: "The address of the account."
+        createdAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the order creation in milliseconds."
+        cancellationReason:
+          $ref: '#/components/schemas/OrderCancelReason'
+        failureToCancelReason:
+          $ref: '#/components/schemas/OrderCancellationFailureReason'
+        remainingQuantityE9:
+          type: string
+          description: "The remaining quantity of the order."
+      required:
+        - orderHash
+        - symbol
+        - accountAddress
+        - createdAtUtcMillis
+        - cancellationReason
+        - remainingQuantityE9
+
+    ActiveOrderUpdate:
+      type: object
+      description: "Information about an order update."
+      properties:
+        orderHash:
+          type: string
+          description: "The unique hash of the order."
+        clientOrderId:
+          type: string
+          description: "The client-provided order ID."
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        accountAddress:
+          type: string
+          description: "The address of the account."
+        priceE9:
+          type: string
+          description: "The price of the order in scientific notation with 9 decimal places."
+        quantityE9:
+          type: string
+          description: "The quantity of the order in scientific notation with 9 decimal places."
+        side:
+          $ref: '#/components/schemas/Side'
+        leverageE9:
+          type: string
+          description: "The leverage of the order in scientific notation with 9 decimal places."
+        isIsolated:
+          type: boolean
+          description: "Indicates if the order is isolated."
+        salt:
+          type: string
+          description: "A unique salt for the order."
+        expiresAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The expiration timestamp of the order in milliseconds."
+        signedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The signing timestamp of the order in milliseconds."
+        type:
+          $ref: '#/components/schemas/OrderType'
+        reduceOnly:
+          type: boolean
+          description: "Indicates if the order is reduce-only."
+        postOnly:
+          type: boolean
+          description: "Indicates if the order is post-only."
+        timeInForce:
+          $ref: '#/components/schemas/OrderTimeInForce'
+        triggerPriceE9:
+          type: string
+          description: "The trigger price for stop-limit or stop-market orders."
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        selfTradePreventionType:
+          $ref: '#/components/schemas/SelfTradePreventionType'
+        createdAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp when the order was placed, in milliseconds."
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the last update of the order in milliseconds."
+      required:
+        - orderHash
+        - symbol
+        - accountAddress
+        - priceE9
+        - quantityE9
+        - side
+        - leverageE9
+        - isIsolated
+        - salt
+        - expiresAtUtcMillis
+        - signedAtUtcMillis
+        - type
+        - reduceOnly
+        - postOnly
+        - timeInForce
+        - status
+        - selfTradePreventionType
+        - createdAtUtcMillis
+        - updatedAtUtcMillis
+
+    OrderType:
+      type: string
+      description: "The type of order."
+      enum:
+        - LIMIT
+        - MARKET
+        - STOP_LIMIT
+        - STOP_MARKET
+        - UNSPECIFIED
+
+    OrderTimeInForce:
+      type: string
+      description: "The time-in-force policy for the order."
+      enum:
+        - GTT
+        - IOC
+        - FOK
+        - UNSPECIFIED
+
+    OrderStatus:
+      type: string
+      description: "The current status of the order."
+      enum:
+        - OPEN
+        - PARTIALLY_FILLED_OPEN
+        - PARTIALLY_FILLED_CANCELED
+        - FILLED
+        - CANCELLED
+        - EXPIRED
+        - PARTIALLY_FILLED_EXPIRED
+        - UNSPECIFIED
+
+    SelfTradePreventionType:
+      type: string
+      description: "The type of self-trade prevention applied to the order."
+      enum:
+        - TAKER
+        - MAKER
+        - BOTH
+        - UNSPECIFIED
+
+    TransactionType:
+      type: string
+      description: "The type of transaction."
+      enum:
+        - DEPOSIT
+        - WITHDRAW
+        - REALIZED_PNL
+        - FUNDING_FEE
+        - TRADING_FEE
+        - TRADING_GAS_FEE
+
+    AccountTransactionUpdate:
+      type: object
+      description: "Details about a transaction in the account."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        transactionType:
+          $ref: '#/components/schemas/TransactionType'
+        amountE9:
+          type: string
+          description: "The amount of the transaction in scientific notation with 9 decimal places."
+        assetSymbol:
+          type: string
+          description: "The symbol of the asset."
+        tradeId:
+          type: string
+          description: "The trade ID associated with the transaction."
+      required:
+        - transactionType
+        - amountE9
+
+    AccountPositionUpdate:
+      type: object
+      description: "Details about an account position update."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        avgEntryPriceE9:
+          type: string
+          description: "The average entry price for the position."
+        leverageE9:
+          type: string
+          description: "The leverage applied to the position."
+        liquidationPriceE9:
+          type: string
+          description: "The liquidation price of the position."
+        markPriceE9:
+          type: string
+          description: "The current mark price of the position."
+        notionalValueE9:
+          type: string
+          description: "The notional value of the position."
+        maxNotionalValueE9:
+          type: string
+          description: "The maximum notional value for the position."
+        sizeE9:
+          type: string
+          description: "The size of the position."
+        unrealizedPnlE9:
+          type: string
+          description: "The unrealized profit and loss for the position."
+        side:
+          $ref: '#/components/schemas/Side'
+        initialMarginE9:
+          type: string
+          description: "The initial margin required for the position."
+        maintenanceMarginE9:
+          type: string
+          description: "The maintenance margin required for the position."
+        isIsolated:
+          type: boolean
+          description: "Indicates if the position is isolated."
+        isolatedMarginE9:
+          type: string
+          description: "The isolated margin applied to the position."
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The last update time for the position in milliseconds."
+      required:
+        - symbol
+        - avgEntryPriceE9
+        - leverageE9
+        - liquidationPriceE9
+        - markPriceE9
+        - notionalValueE9
+        - maxNotionalValueE9
+        - sizeE9
+        - unrealizedPnlE9
+        - side
+        - initialMarginE9
+        - maintenanceMarginE9
+        - isIsolated
+        - isolatedMarginE9
+        - updatedAtUtcMillis
+
+    AccountUpdate:
+      type: object
+      description: "Account information for the data stream."
+      properties:
+        feeTier:
+          $ref: '#/components/schemas/FeeTier'
+        canTrade:
+          type: boolean
+          description: "Indicates if trading is enabled."
+        canDeposit:
+          type: boolean
+          description: "Indicates if deposits are enabled."
+        canWithdraw:
+          type: boolean
+          description: "Indicates if withdrawals are enabled."
+        totalEffectiveBalanceE9:
+          type: string
+          description: "The total effective balance."
+        totalInitialMarginRequiredE9:
+          type: string
+          description: "The total initial margin required."
+        totalOpenOrderInitialMarginRequiredE9:
+          type: string
+          description: "The initial margin required for open orders."
+        initialMarginAvailableE9:
+          type: string
+          description: "The available initial margin."
+        totalMaintenanceMarginRequiredE9:
+          type: string
+          description: "The total maintenance margin required."
+        maintenanceMarginAvailableE9:
+          type: string
+          description: "The available maintenance margin."
+        accountMaintenanceMarginRatioE9:
+          type: string
+          description: "The maintenance margin ratio."
+        accountLeverageE9:
+          type: string
+          description: "The account leverage."
+        totalUnrealizedPnlE9:
+          type: string
+          description: "The total unrealized profit and loss."
+        totalCrossUnrealizedPnlE9:
+          type: string
+          description: "The total cross unrealized profit and loss."
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the last update in milliseconds."
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+          description: "The list of assets."
+      required:
+        - canTrade
+        - canDeposit
+        - canWithdraw
+        - totalEffectiveBalanceE9
+        - totalInitialMarginRequiredE9
+        - totalOpenOrderInitialMarginRequiredE9
+        - initialMarginAvailableE9
+        - totalMaintenanceMarginRequiredE9
+        - maintenanceMarginAvailableE9
+        - accountMaintenanceMarginRatioE9
+        - accountLeverageE9
+        - totalUnrealizedPnlE9
+        - totalCrossUnrealizedPnlE9
+        - updatedAtUtcMillis
+        - assets
+
+    FeeTier:
+      type: object
+      description: "Details about the fee tier."
+      properties:
+        makerFeeE9:
+          type: string
+          description: "The maker fee."
+        takerFeeE9:
+          type: string
+          description: "The taker fee."
+        isApplied:
+          type: boolean
+          description: "Indicates if the fee tier is applied."
+      required:
+        - makerFeeE9
+        - takerFeeE9
+        - isApplied
+
+    Asset:
+      type: object
+      description: "Details about an asset in the account."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the asset."
+        quantityE9:
+          type: string
+          description: "The quantity of the asset."
+        effectiveBalanceE9:
+          type: string
+          description: "The effective balance of the asset."
+        maxWithdrawQuantityE9:
+          type: string
+          description: "The maximum quantity that can be withdrawn."
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the last update in milliseconds."
+      required:
+        - symbol
+        - quantityE9
+        - effectiveBalanceE9
+        - maxWithdrawQuantityE9
+        - updatedAtUtcMillis
+
+    AccountTradeUpdate:
+      type: object
+      description: "Details about a trade in the account."
+      properties:
+        tradeId:
+          type: string
+          description: "The unique identifier for the trade."
+        clientOrderId:
+          type: string
+          description: "The client order ID associated with the trade."
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        orderHash:
+          type: string
+          description: "The hash of the order."
+        type:
+          $ref: '#/components/schemas/TradeType'
+        orderSide:
+          $ref: '#/components/schemas/Side'
+        isMaker:
+          type: boolean
+          description: "Indicates if the trade was a maker order."
+        priceE9:
+          type: string
+          description: "The price of the trade."
+        quantityE9:
+          type: string
+          description: "The quantity of the trade."
+        quoteQuantityE9:
+          type: string
+          description: "The quote quantity of the trade."
+        realizedPnlE9:
+          type: string
+          description: "The realized profit and loss."
+        positionSide:
+          $ref: '#/components/schemas/Side'
+        tradingFeeE9:
+          type: string
+          description: "The trading fee for the trade."
+        tradingFeeAssetSymbol:
+          type: string
+          description: "The market symbol of the asset used for the trading fee."
+        executedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp when the trade was executed in milliseconds."
+      required:
+        - tradeId
+        - symbol
+        - orderHash
+        - type
+        - orderSide
+        - isMaker
+        - priceE9
+        - quantityE9
+        - quoteQuantityE9
+        - realizedPnlE9
+        - positionSide
+        - tradingFeeE9
+        - tradingFeeAssetSymbol
+        - executedAtUtcMillis
+
+    TradeType:
+      type: string
+      description: "The type of trade."
+      enum:
+        - ORDER
+        - LIQUIDATION
+        - DELEVERAGE
+        - UNSPECIFIED
+
+    # Market Streams
+    MarketStreamMessage:
+      type: object
+      description: |
+        A market stream message containing an event type and a payload.
+        The payload structure depends on the event type.
+      discriminator:
+        propertyName: event
+        mapping:
+          RecentTradesUpdates: '#/components/schemas/RecentTradesUpdates'
+          TickerUpdate: '#/components/schemas/TickerUpdate'
+          TickerAllUpdate: '#/components/schemas/TickerAllUpdate'
+          OraclePriceUpdate: '#/components/schemas/OraclePriceUpdate'
+          MarkPriceUpdate: '#/components/schemas/MarkPriceUpdate'
+          MarketPriceUpdate: '#/components/schemas/MarketPriceUpdate'
+          CandlestickUpdate: '#/components/schemas/CandlestickUpdate'
+          OrderbookDiffDepthUpdate: '#/components/schemas/OrderbookDiffDepthUpdate'
+          OrderbookPartialDepthUpdate: '#/components/schemas/OrderbookPartialDepthUpdate'
+      properties:
+        event:
+          $ref: '#/components/schemas/MarketEventType'
+        payload:
+          description: "The payload of the message, which varies based on the event type."
+          oneOf: # Define possible payload types
+            - $ref: '#/components/schemas/RecentTradesUpdates'
+            - $ref: '#/components/schemas/TickerUpdate'
+            - $ref: '#/components/schemas/TickerAllUpdate'
+            - $ref: '#/components/schemas/OraclePriceUpdate'
+            - $ref: '#/components/schemas/MarkPriceUpdate'
+            - $ref: '#/components/schemas/MarketPriceUpdate'
+            - $ref: '#/components/schemas/CandlestickUpdate'
+            - $ref: '#/components/schemas/OrderbookDiffDepthUpdate'
+            - $ref: '#/components/schemas/OrderbookPartialDepthUpdate'
+      required:
+        - event
+        - payload
+
+    MarketEventType:
+      type: string
+      description: "The type of event communicated in the WebSocket message."
+      enum:
+        - RecentTradesUpdates
+        - TickerUpdate
+        - TickerAllUpdate
+        - OraclePriceUpdate
+        - MarkPriceUpdate
+        - MarketPriceUpdate
+        - CandlestickUpdate
+        - OrderbookDiffDepthUpdate
+        - OrderbookPartialDepthUpdate
+
+    TickerAllUpdate:
+      type: object
+      properties:
+        tickerAll:
+          type: array
+          description: "Array of detailed market ticker information for all markets."
+          items:
+            $ref: '#/components/schemas/TickerUpdate'
+      required:
+        - tickerAll
+
+    TickerUpdate:
+      type: object
+      description: "Represents detailed market ticker information."
+      properties:
+        symbol:
+          type: string
+          description: "Market symbol."
+          example: "ETH-PERP"
+        lastQuantityE9:
+          type: string
+          description: "Last trade quantity (e9 format)."
+          example: "10000000000"
+        lastTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: "Last trade time in milliseconds."
+          example: 1724121094751
+        lastPriceE9:
+          type: string
+          description: "Last trade price (e9 format)."
+          example: "5000000000000"
+        lastFundingRateE9:
+          type: string
+          description: "Funding rate value (e9 format)."
+          example: "10000000"
+        nextFundingTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: "Time in milliseconds of next funding rate update."
+          example: 1724121094751
+        avgFundingRate8hrE9:
+          type: string
+          description: "8 hr average funding rate (e9 format)."
+          example: "10000000"
+        oraclePriceE9:
+          type: string
+          description: "Oracle price of the asset (e9 format)."
+          example: "50000000000000"
+        oraclePriceDirection:
+          type: integer
+          description: "Direction of oracle price computed by comparing current oracle price to last oracle price. 0 = no change, -1 = negative trend (current < last), 1 = positive trend (current > last)."
+        markPriceE9:
+          type: string
+          description: "Mark price on the exchange (e9 format)."
+          example: "50000000000000"
+        markPriceDirection:
+          type: integer
+          description: "Direction of mark price computed by comparing current mark price to last mark price. 0 = no change, -1 = negative trend (current < last), 1 = positive trend (current > last)."
+        marketPriceE9:
+          type: string
+          description: "Simple average of bestBid and bestAsk, or lastPrice if either is not present (e9 format)."
+          example: "5000000000000"
+        marketPriceDirection:
+          type: integer
+          description: "Direction of market price computed by comparing current market price to last market price. 0 = no change, -1 = negative trend (current < last), 1 = positive trend (current > last)."
+        bestBidPriceE9:
+          type: string
+          description: "Best bid price (e9 format)."
+          example: "12345678901"
+        bestBidQuantityE9:
+          type: string
+          description: "Best bid quantity (e9 format)."
+          example: "10000000"
+        bestAskPriceE9:
+          type: string
+          description: "Best ask price (e9 format)."
+          example: "42345678901"
+        bestAskQuantityE9:
+          type: string
+          description: "Best ask quantity (e9 format)."
+          example: "100000000"
+        openInterestE9:
+          type: string
+          description: "Open interest value (e9 format)."
+          example: "100000000"
+        highPrice24hrE9:
+          type: string
+          description: "Highest Price in the last 24 hours (e9 format)."
+          example: "5000000000000"
+        lowPrice24hrE9:
+          type: string
+          description: "Lowest Price in the last 24 hours (e9 format)."
+          example: "50000000000"
+        volume24hrE9:
+          type: string
+          description: "Total market volume in last 24 hours of asset (e9 format)."
+          example: "100000000"
+        quoteVolume24hrE9:
+          type: string
+          description: "Total market volume in last 24 hours in USDC (e9 format)."
+          example: "5000000000000"
+        closePrice24hrE9:
+          type: string
+          description: "Close price 24 hours ago (e9 format)."
+          example: "5000000000000"
+        openPrice24hrE9:
+          type: string
+          description: "Open price in the last 24 hours (e9 format)."
+          example: "5000000000000"
+        closeTime24hrAtUtcMillis:
+          type: integer
+          format: int64
+          description: "24 hour close timestamp in milliseconds."
+          example: 1724121094751
+        openTime24hrAtUtcMillis:
+          type: integer
+          format: int64
+          description: "24 hour open timetamp in milliseconds."
+          example: 1724121094751
+        firstId24hr:
+          type: integer
+          format: int64
+          description: "First trade ID in the last 24 hours."
+        lastId24hr:
+          type: integer
+          format: int64
+          description: "Last trade ID in the last 24 hours."
+        count24hr:
+          type: string
+          description: "Total number of trades in the last 24 hours."
+          example: "123456"
+        priceChange24hrE9:
+          type: string
+          description: "24 hour Market price change (e9 format)."
+          example: "50000000000"
+        priceChangePercent24hrE9:
+          type: string
+          description: "24 hour Market price change as a percentage (e9 format)."
+          example: "5000000000"
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "Last update timestamp in milliseconds."
+          example: 1724121094751
+      required:
+        - symbol
+        - lastQuantityE9
+        - lastTimeAtUtcMillis
+        - lastPriceE9
+        - lastFundingRateE9
+        - nextFundingTimeAtUtcMillis
+        - avgFundingRate8hrE9
+        - oraclePriceE9
+        - oraclePriceDirection
+        - markPriceE9
+        - markPriceDirection
+        - marketPriceE9
+        - marketPriceDirection
+        - bestBidPriceE9
+        - bestBidQuantityE9
+        - bestAskPriceE9
+        - bestAskQuantityE9
+        - openInterestE9
+        - highPrice24hrE9
+        - lowPrice24hrE9
+        - volume24hrE9
+        - quoteVolume24hrE9
+        - closePrice24hrE9
+        - openPrice24hrE9
+        - closeTime24hrAtUtcMillis
+        - openTime24hrAtUtcMillis
+        - firstId24hr
+        - lastId24hr
+        - count24hr
+        - priceChange24hrE9
+        - priceChangePercent24hrE9
+        - lastUpdatedAtUtcMillis
+
+    CandlestickUpdate:
+      type: object
+      description: "Represents a candlestick for a specific market and interval."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market for this candlestick."
+        startTime:
+          type: integer
+          format: int64
+          description: "The start time of the candlestick in milliseconds since epoch."
+        endTime:
+          type: integer
+          format: int64
+          description: "The end time of the candlestick in milliseconds since epoch."
+        interval:
+          type: string
+          description: "The interval of the candlestick (e.g., 1m, 5m, 1h)."
+        openPriceE9:
+          type: string
+          description: "The opening price of the candlestick."
+        closePriceE9:
+          type: string
+          description: "The closing price of the candlestick."
+        highPriceE9:
+          type: string
+          description: "The highest price during the candlestick interval."
+        lowPriceE9:
+          type: string
+          description: "The lowest price during the candlestick interval."
+        volumeE9:
+          type: string
+          description: "The total trading volume during the candlestick interval."
+        quoteVolumeE9:
+          type: string
+          description: "The total quote volume traded during the candlestick interval."
+        numTrades:
+          type: integer
+          format: int64
+          description: "The number of trades that occurred during the candlestick interval."
+      required:
+        - symbol
+        - startTime
+        - endTime
+        - interval
+        - openPriceE9
+        - closePriceE9
+        - highPriceE9
+        - lowPriceE9
+        - volumeE9
+        - quoteVolumeE9
+        - numTrades
+
+    OraclePriceUpdate:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        priceE9:
+          type: string
+          description: "The price in scientific notation with 9 decimal places of precision."
+        source:
+          type: string
+          enum: [ Oracle ]
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the price update."
+      required:
+        - symbol
+        - priceE9
+        - source
+        - updatedAtUtcMillis
+    MarketPriceUpdate:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        priceE9:
+          type: string
+          description: "The price in scientific notation with 9 decimal places of precision."
+        source:
+          type: string
+          enum: [ Market ]
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the price update."
+      required:
+        - symbol
+        - priceE9
+        - source
+        - updatedAtUtcMillis
+    MarkPriceUpdate:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the market."
+        priceE9:
+          type: string
+          description: "The price in scientific notation with 9 decimal places of precision."
+        source:
+          type: string
+          enum: [ Mark ]
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the price update."
+      required:
+        - symbol
+        - priceE9
+        - source
+        - updatedAtUtcMillis
+
+    RecentTradesUpdates:
+      type: object
+      properties:
+        recentTrades:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecentTradesUpdate'
+      required:
+        - recentTrades
+
+    RecentTradesUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "The unique identifier of the trade."
+        symbol:
+          type: string
+          description: "The symbol of the market where the trade occurred."
+        priceE9:
+          type: string
+          description: "The trade price in scientific notation with 9 decimal places of precision."
+        quantityE9:
+          type: string
+          description: "The quantity traded in scientific notation with 9 decimal places of precision."
+        quoteQuantityE9:
+          type: string
+          description: "The quote quantity traded in scientific notation with 9 decimal places of precision."
+        side:
+          $ref: '#/components/schemas/Side'
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the trade."
+      required:
+        - id
+        - symbol
+        - priceE9
+        - quantityE9
+        - quoteQuantityE9
+        - side
+        - updatedAtUtcMillis
+
+    OrderbookDiffDepthUpdate:
+      type: object
+      properties:
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the orderbook update."
+        symbol:
+          type: string
+          description: "The symbol of the market for the orderbook update."
+        bidsE9:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+            description: "An array containing price and quantity for bids."
+            example: [ [ "10000000000", "10000000000" ], [ "9000000000", "9000000000" ] ]
+        asksE9:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+            description: "An array containing price and quantity for asks."
+            example: [ [ "10000000000", "10000000000" ], [ "9000000000", "9000000000" ] ]
+        firstUpdateId:
+          type: integer
+          format: int64
+          description: "The ID of the first update in this batch."
+        lastUpdateId:
+          type: integer
+          format: int64
+          description: "The ID of the last update in this batch."
+      required:
+        - updatedAtUtcMillis
+        - symbol
+        - bidsE9
+        - asksE9
+        - firstUpdateId
+        - lastUpdateId
+
+    OrderbookPartialDepthUpdate:
+      type: object
+      properties:
+        updatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the partial depth update."
+        symbol:
+          type: string
+          description: "The symbol of the market for the partial depth update."
+        bidsE9:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+            description: "An array containing price and quantity for bids."
+            example: [ [ "10000000000", "10000000000" ], [ "9000000000", "9000000000" ] ]
+        asksE9:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+            description: "An array containing price and quantity for asks."
+            example: [ [ "10000000000", "10000000000" ], [ "9000000000", "9000000000" ] ]
+        orderbookUpdateId:
+          type: integer
+          format: int64
+          description: "The unique identifier for the orderbook update."
+        depthLevel:
+          type: string
+          description: "The depth level of the orderbook snapshot."
+          enum: [ 5, 10, 20 ]
+      required:
+        - updatedAtUtcMillis
+        - symbol
+        - bidsE9
+        - asksE9
+        - orderbookUpdateId
+        - depthLevel
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: URL base64 encoded JWT token payload.
+
+paths:
+  /ws/market:
+    get:
+      tags:
+        - Streams
+      operationId: webSocketMarketData
+      summary: WebSocket Market Streams
+      description: WebSocket Market Streams URL.
+      parameters:
+        - name: Upgrade
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [ "websocket" ]
+
+        - name: Sec-WebSocket-Key
+          in: header
+          description: WebSocket key used during the handshake.
+          required: true
+          schema:
+            type: string
+        - name: Sec-WebSocket-Version
+          in: header
+          description: WebSocket protocol version.
+          required: true
+          schema:
+            type: string
+            enum: [ "13" ]
+      responses:
+        '101':
+          description: Switching Protocols - The client is switching protocols as requested by the server.
+          headers:
+            Upgrade:
+              description: Recognized WebSocket protocol
+              schema:
+                type: string
+                example: websocket
+
+  /ws/account:
+    get:
+      tags:
+        - Streams
+      operationId: webSocketAccountData
+      summary: WebSocket Account Streams
+      description: WebSocket Account Streams URL.
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            description: url base64 encoded JWT token payload.
+            example: Bearer JWT_token
+
+        - name: Upgrade
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [ "websocket" ]
+
+        - name: Sec-WebSocket-Key
+          in: header
+          description: WebSocket key used during the handshake.
+          required: true
+          schema:
+            type: string
+        - name: Sec-WebSocket-Version
+          in: header
+          description: WebSocket protocol version.
+          required: true
+          schema:
+            type: string
+            enum: [ "13" ]
+      responses:
+        '101':
+          description: Switching Protocols - The client is switching protocols as requested by the server.
+          headers:
+            Upgrade:
+              description: Recognized WebSocket protocol
+              schema:
+                type: string
+                example: websocket

@@ -1,0 +1,53 @@
+# OrderCancelReason
+
+The reason for an order cancellation.
+
+## Enum
+
+* `UNSPECIFIED` (value: `'UNSPECIFIED'`)
+
+* `INSUFFICIENT_MARGIN` (value: `'INSUFFICIENT_MARGIN'`)
+
+* `DUPLICATE_ORDER` (value: `'DUPLICATE_ORDER'`)
+
+* `POST_ONLY_WOULD_TRADE` (value: `'POST_ONLY_WOULD_TRADE'`)
+
+* `INVALID_SYMBOL` (value: `'INVALID_SYMBOL'`)
+
+* `SIGNED_AT_TOO_OLD` (value: `'SIGNED_AT_TOO_OLD'`)
+
+* `ORDER_EXPIRED` (value: `'ORDER_EXPIRED'`)
+
+* `INVALID_LEVERAGE` (value: `'INVALID_LEVERAGE'`)
+
+* `INVALID_INPUT` (value: `'INVALID_INPUT'`)
+
+* `PRICE_OUT_OF_BOUND` (value: `'PRICE_OUT_OF_BOUND'`)
+
+* `QUANTITY_OUT_OF_BOUND` (value: `'QUANTITY_OUT_OF_BOUND'`)
+
+* `PRICE_OUT_OF_TICK_SIZE` (value: `'PRICE_OUT_OF_TICK_SIZE'`)
+
+* `QUANTITY_OUT_OF_STEP_SIZE` (value: `'QUANTITY_OUT_OF_STEP_SIZE'`)
+
+* `REDUCE_ONLY_WOULD_OPEN` (value: `'REDUCE_ONLY_WOULD_OPEN'`)
+
+* `TOO_MANY_OPEN_ORDERS_ON_MARKET` (value: `'TOO_MANY_OPEN_ORDERS_ON_MARKET'`)
+
+* `USER_CANCELLED` (value: `'USER_CANCELLED'`)
+
+* `USER_CANCELLED_ALL_ON_MARKET` (value: `'USER_CANCELLED_ALL_ON_MARKET'`)
+
+* `SELF_TRADE_PREVENTION` (value: `'SELF_TRADE_PREVENTION'`)
+
+* `LEVERAGE_UPDATE` (value: `'LEVERAGE_UPDATE'`)
+
+* `ACCOUNT_NOT_FOUND` (value: `'ACCOUNT_NOT_FOUND'`)
+
+* `MARKET_NOT_TRADING` (value: `'MARKET_NOT_TRADING'`)
+
+* `INSUFFICIENT_LIQUIDITY` (value: `'INSUFFICIENT_LIQUIDITY'`)
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -1,0 +1,4 @@
+additionalProperties:
+  library: "asyncio"
+  generateSourceCodeOnly: true
+  useOneOfDiscriminatorLookup: true
