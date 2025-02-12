@@ -1,5 +1,5 @@
 {
-  "name": "@fireflyprotocol/bluefin-pro-sdk",
+  "name": "@bluefin/bluefin-pro-sdk",
   "version": "0.1.10",
   "description": "OpenAPI client for @bluefin/bluefin-pro-sdk",
   "author": "Bluefin",
@@ -37,4 +37,3 @@
     "registry": "https://npm.pkg.github.com"
   }
 }
-
