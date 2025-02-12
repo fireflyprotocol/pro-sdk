@@ -19,7 +19,7 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 /// This function will open a websocket connection to Bluefin's market streams and will subscribe to
-/// Mark Price Updates.
+/// Oracle Price Updates.
 ///
 /// The websocket server will send Pings to the client every 10 seconds, so the client should listen
 /// to Ping frames and response with Pong frames.
@@ -32,11 +32,11 @@ type Result<T> = std::result::Result<T, Error>;
 /// `event` field. The client can use the `event` field to deserialize the `payload` field. Each
 ///  `event` contains a unique `payload` structure.
 ///
-/// Sample Mark Price output:
+/// Sample Oracle Price output:
 ///
 /// ```json
 /// {
-///     "event": "MarkPrice",
+///     "event": "OraclePrice",
 ///     "payload": {
 ///         "updated_at_utc_millis": 1734048844,
 ///         "symbol": "ETH-PERP",
@@ -44,29 +44,25 @@ type Result<T> = std::result::Result<T, Error>;
 ///     }
 /// }
 /// ```
-async fn listen_to_mark_price_updates(
+async fn listen_to_oracle_price_updates(
     environment: bfp::Environment,
     symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_message: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let url = match environment {
-        bfp::Environment::Testnet => bfp::ws::market::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::market::mainnet::URL,
-    }
-    .into_client_request()?;
+    let request = bfp::ws::market::get_url(environment).into_client_request()?;
 
     // Establish connection with websocket URL.
-    let (websocket_stream, _) = connect_async(url).await?;
+    let (websocket_stream, _) = connect_async(request).await?;
     let (mut ws_sender, mut ws_receiver) = websocket_stream.split();
 
-    // Send a subscription message to receive Mark price updates.
+    // Send a subscription message to receive oracle price updates.
     let sub_message = serde_json::to_string(&MarketSubscriptionMessage::new(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
             symbol.into(),
-            vec![MarketDataStreamName::MarkPrice],
+            vec![MarketDataStreamName::OraclePrice],
         )],
     ))?;
     ws_sender.send(Message::Text(sub_message)).await?;
@@ -95,7 +91,7 @@ async fn listen_to_mark_price_updates(
                     println!("Pong received");
                 }
                 Message::Text(text) => {
-                    // Check if it's the Mark price update.
+                    // Check if it's the oracle price update.
                     if let Ok(websocket_message) =
                         serde_json::from_str::<MarketStreamMessage>(&text)
                     {
@@ -132,11 +128,12 @@ async fn listen_to_mark_price_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Stream websocket messages, with a timeout if no messages received after 5 seconds.
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
-    listen_to_mark_price_updates(
+    listen_to_oracle_price_updates(
         bfp::Environment::Testnet,
-        bfp::test::market::ETH_SYMBOL,
+        bfp::symbols::perps::BTC,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),
@@ -144,11 +141,11 @@ async fn main() -> Result<()> {
     .await?;
 
     while let Some(websocket_message) = receiver.recv().await {
-        if let MarketStreamMessage::MarkPriceUpdate {
-            payload: MarketStreamMessagePayload::MarkPriceUpdate(mark_price),
+        if let MarketStreamMessage::OraclePriceUpdate {
+            payload: MarketStreamMessagePayload::OraclePriceUpdate(oracle_price),
         } = websocket_message
         {
-            println!("{mark_price:#?}");
+            println!("{oracle_price:#?}");
         }
     }
 

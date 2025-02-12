@@ -14,8 +14,8 @@ Generate rust client code command
 - **REST API Client**: Interact with Bluefin Pro’s REST APIs to perform operations such as creating orders, managing
   accounts, and retrieving trading data.
 - **WebSocket API Client**: Subscribable channels for real-time market data and updates, generated from OpenAPI specs.
-- **Signature Utilities**: Built-in cryptographic utilities to sign `create order` and `withdraw` requests securely.
-- **Environment Support**: Example configurations and code provided to connect to **TESTNET** or **MAINNET**
+- **Signature Utilities**: Built-in cryptographic utilities to sign `update_leverage`, `create order` and `withdraw` requests securely.
+- **Environment Support**: Example configurations and code provided to connect to **DEVNET** **TESTNET** or **MAINNET**
   environments.
 
 ---
@@ -26,10 +26,10 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-bluefin-sdk = "0.1.0"
+bluefin-sdk = "1.0.0"
 ```
 
-*Note*: Replace `0.1.0` with the latest version available.
+*Note*: Replace `1.0.0` with the latest version available.
 
 ---
 
@@ -55,8 +55,7 @@ within the OpenAPI specs in `resources/websocket-api.yaml` file.
 - **Market**: Real-time market updates such as Ticker, Recent Trades, Oracle Price and more
 - **Account**: Real-time account updates such as Order Updates, Balance Changes and more (requires authentication token)
 
-> Example usage for WebSocket APIs can be found in the `examples` folder. Websocket examples are suffixed by
-`-stream`
+> Example usage for WebSocket APIs can be found in the `examples` folder. Websocket examples are prefixed by `ws-`
 
 ---
 
@@ -64,7 +63,7 @@ within the OpenAPI specs in `resources/websocket-api.yaml` file.
 
 The SDK provides example code to demonstrate how to use the APIs.
 
-- **Connecting to TESTNET or MAINNET**: The examples are configured for both TESTNET and MAINNET environments. You can
+- **Connecting to DEVNET, TESTNET or MAINNET**: The examples are configured for DEVNET, TESTNET and MAINNET environments. You can
   toggle between environments based on your use case.
 - **Signing Requests**: Ensure secure interactions by leveraging the built-in signing utilities before making
   `create order`, `update leverage` and `withdraw` requests.
@@ -77,8 +76,10 @@ cargo run --example <example_name>
 
 > Replace `<example_name>` with the specific example file you wish to execute.
 
-> The SDK provides a test user with hex encoded ed25519 public key and private key available to run examples through
-> TEST_ACCOUNT_ADDRESS, TEST_ACCOUNT_PUBLIC_KEY, TEST_ACCOUNT_PRIVATE_KEY
+> The SDK provides test accounts with hex encoded ed25519 public key and private key available to run examples on DEVNET or TESTNET
+
+> `example.rs` is a full example that shows how to use the SDK to perform multiple operations, including fetching account details, exchange info, creating an order,
+> withdrawing funds, and listening to account and market updates.
 
 ---
 

@@ -1,11 +1,11 @@
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::apis::trade_api::post_create_order;
+use bluefin_api::apis::trade_api::{cancel_orders, post_create_order};
 use bluefin_api::models::{
     AccountDataStream, AccountOrderUpdate, AccountStreamMessage, AccountStreamMessagePayload,
-    AccountSubscriptionMessage, CreateOrderRequest, OrderSide, OrderTimeInForce, OrderType,
+    AccountSubscriptionMessage, CancelOrdersRequest, CreateOrderRequest,
+    CreateOrderRequestSignedFields, LoginRequest, OrderSide, OrderTimeInForce, OrderType,
     SelfTradePreventionType, SubscriptionResponseMessage, SubscriptionType,
 };
-use bluefin_api::models::{CreateOrderRequestSignedFields, LoginRequest};
 use bluefin_pro::{self as bfp, prelude::*};
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
@@ -25,16 +25,35 @@ use tokio_tungstenite::tungstenite::Message;
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
-async fn send_request(signed_request: CreateOrderRequest, auth_token: &str) -> Result<String> {
+/// Submits the specified request to Bluefin.
+///
+/// # Errors
+///
+/// Will return `Err` if the request fails, or cannot be submitted.
+async fn send_request(request: CancelOrdersRequest, auth_token: &str) -> Result<()> {
+    println!("Sending request...");
+    // Send request and get back order hash
+    let mut config = Configuration::new();
+    config.bearer_access_token = Some(auth_token.into());
+    config.base_path = bfp::trade::testnet::URL.into();
+    cancel_orders(&config, request).await?;
+
+    Ok(())
+}
+
+async fn send_create_order_request(
+    request: CreateOrderRequest,
+    auth_token: &str,
+) -> Result<String> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
     config.base_path = bfp::trade::testnet::URL.into();
 
-    let response = post_create_order(&config, signed_request).await?;
+    let order_hash = post_create_order(&config, request).await?.order_hash;
 
-    Ok(response.order_hash)
+    Ok(order_hash)
 }
 
 async fn listen_to_account_order_updates(
@@ -46,6 +65,7 @@ async fn listen_to_account_order_updates(
 ) -> Result<()> {
     // We establish a connection through the websocket URL for that environment.
     let mut url = match environment {
+        bfp::Environment::Devnet => bfp::ws::account::devnet::URL,
         bfp::Environment::Testnet => bfp::ws::account::testnet::URL,
         bfp::Environment::Mainnet => bfp::ws::account::mainnet::URL,
     }
@@ -130,17 +150,17 @@ async fn listen_to_account_order_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // We construct an authentication request to obtain a token.
+    // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: bfp::test::account::ADDRESS.into(),
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: bfp::auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
-    // Next, we generate a signature for the request.
+    // Next, we generate a signature for our request.
     let signature = request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
@@ -149,44 +169,10 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    // We get the exchange info to fetch the IDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
-
-    // Next, we construct an unsigned request.
-    let request = CreateOrderRequest {
-        signed_fields: CreateOrderRequestSignedFields {
-            symbol: bfp::test::market::ETH_SYMBOL.into(),
-            account_address: bfp::test::account::ADDRESS.into(),
-            price_e9: (10_000 * E9).to_string(),
-            quantity_e9: E9.to_string(),
-            side: OrderSide::Short,
-            leverage_e9: E9.to_string(),
-            is_isolated: false,
-            salt: random::<u64>().to_string(),
-            ids_id: contracts_info.ids_id,
-            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
-        },
-        client_order_id: None,
-        r#type: OrderType::Limit,
-        reduce_only: false,
-        post_only: true,
-        time_in_force: OrderTimeInForce::Gtt,
-        trigger_price_e9: None,
-        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
-        ..Default::default()
-    };
-
-    // Then, we sign our order.
-    let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
-    )?;
-
     // Listen to order updates to see when an order has been opened
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = broadcast::channel(20);
+    let mut cancellation_receiver = sender.subscribe();
     listen_to_account_order_updates(
         &auth_token,
         bfp::Environment::Testnet,
@@ -199,39 +185,90 @@ async fn main() -> Result<()> {
     let handle = tokio::spawn(async move {
         // Listen to websocket channel to check if the order hash been opened
         while let Ok(websocket_message) = receiver.recv().await {
-            match websocket_message {
-                AccountStreamMessage::AccountOrderUpdate {
-                    payload:
-                        AccountStreamMessagePayload::AccountOrderUpdate(
-                            AccountOrderUpdate::ActiveOrderUpdate(order_update),
-                        ),
-                    ..
-                } => {
-                    println!("Order {} opened", order_update.order_hash);
-                    println!("Account Order Update {order_update:#?}");
-                    break;
-                }
-                AccountStreamMessage::AccountOrderUpdate {
-                    payload:
-                        AccountStreamMessagePayload::AccountOrderUpdate(
-                            AccountOrderUpdate::OrderCancellationUpdate(order_cancelled),
-                        ),
-                    ..
-                } => {
-                    eprintln!("Order {} cancelled", order_cancelled.order_hash);
-                    break;
-                }
-                unexpected => {
-                    eprintln!("Unknown message received {unexpected:#?}");
-                }
+            if let AccountStreamMessage::AccountOrderUpdate {
+                payload:
+                    AccountStreamMessagePayload::AccountOrderUpdate(
+                        AccountOrderUpdate::ActiveOrderUpdate(order_update),
+                    ),
+                ..
+            } = websocket_message
+            {
+                println!("Order {} opened", order_update.order_hash);
+                break;
             }
         }
     });
 
-    let received_order_hash = send_request(request, &auth_token).await?;
+    // We get the exchange info to fetch the IDS_ID
+    let contracts_info =
+        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
 
-    // Finally, we check that we've received the expected order hash.
-    println!("Order Submitted: {received_order_hash}");
+    // Let's open an order on the book
+    let request = CreateOrderRequest {
+        signed_fields: CreateOrderRequestSignedFields {
+            symbol: bfp::symbols::perps::ETH.into(),
+            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            price_e9: (10_000.e9()).to_string(),
+            quantity_e9: (1.e9()).to_string(),
+            side: OrderSide::Short,
+            leverage_e9: (10.e9()).to_string(),
+            is_isolated: false,
+            salt: random::<u64>().to_string(),
+            ids_id: contracts_info.ids_id,
+            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
+            signed_at_utc_millis: Utc::now().timestamp_millis(),
+        },
+        signature: String::new(),
+        order_hash: String::new(),
+        client_order_id: None,
+        r#type: OrderType::Limit,
+        reduce_only: false,
+        post_only: true,
+        time_in_force: OrderTimeInForce::Gtt,
+        trigger_price_e9: None,
+        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
+    };
+
+    // Then, we sign our order.
+    let request = request.sign(
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        bfp::SignatureType::Ed25519,
+    )?;
+
+    let order_hash = send_create_order_request(request, &auth_token).await?;
+
     handle.await.expect("Could not join handle");
+
+    // Next, we construct our cancellation request.
+    let request = CancelOrdersRequest {
+        symbol: bfp::symbols::perps::ETH.into(),
+        order_hashes: Some(vec![order_hash.clone()]),
+    };
+
+    // Now, we submit our cancellation request to Blufin.
+    send_request(request, &auth_token).await?;
+
+    // Finally, we print a confirmation message.
+    println!("Orders Cancellation submitted successfully.");
+
+    // Normally, you would listen to this channel indefinitely to wait for messages.
+    while let Ok(websocket_message) = cancellation_receiver.recv().await {
+        if let AccountStreamMessage::AccountOrderUpdate {
+            payload:
+                AccountStreamMessagePayload::AccountOrderUpdate(
+                    AccountOrderUpdate::OrderCancellationUpdate(order_cancellation),
+                ),
+            ..
+        } = websocket_message
+        {
+            if order_cancellation.order_hash == order_hash {
+                println!("Order {order_hash} cancelled");
+                return Ok(());
+            }
+        }
+    }
+
+    shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);
+
     Ok(())
 }

@@ -27,18 +27,15 @@ type Result<T> = std::result::Result<T, Error>;
 ///
 /// Will return `Err` if the authentication cannot be reached, or rejects our request.
 async fn authenticate(environment: bfp::Environment) -> Result<String> {
-    let audience = match environment {
-        bfp::Environment::Testnet => bfp::auth::testnet::AUDIENCE,
-        bfp::Environment::Mainnet => bfp::auth::mainnet::AUDIENCE,
-    };
+    let audience = bfp::auth::get_url(environment);
     let request = LoginRequest {
-        account_address: bfp::test::account::ADDRESS.into(),
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: audience.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
     let signature = request.signature(
         bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::PRIVATE_KEY)?,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
     )?;
     let response = request
         .authenticate(&signature, bfp::Environment::Testnet)
@@ -54,16 +51,12 @@ async fn listen_to_account_info(
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // Then, we establish a connection through the websocket URL for that environment.
-    let mut url = match environment {
-        bfp::Environment::Testnet => bfp::ws::account::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::account::testnet::URL,
-    }
-    .into_client_request()?;
-    url.headers_mut().insert(
+    let mut request = bfp::ws::account::get_url(environment).into_client_request()?;
+    request.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
     );
-    let (websocket_stream, _) = connect_async(url).await?;
+    let (websocket_stream, _) = connect_async(request).await?;
 
     // Next, we send a subscription message to receive account updates.
     let (mut ws_sender, mut ws_receiver) = websocket_stream.split();

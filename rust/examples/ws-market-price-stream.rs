@@ -1,11 +1,18 @@
+use bluefin_api::apis::configuration::Configuration;
+use bluefin_api::apis::trade_api::post_create_order;
 use bluefin_api::models::{
-    MarketDataStreamName, MarketStreamMessage, MarketStreamMessagePayload,
-    MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
-    SubscriptionType,
+    CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest, MarketDataStreamName,
+    MarketStreamMessage, MarketStreamMessagePayload, MarketSubscriptionMessage,
+    MarketSubscriptionStreams, OrderSide, OrderTimeInForce, OrderType, SelfTradePreventionType,
+    SubscriptionResponseMessage, SubscriptionType,
 };
-use bluefin_pro as bfp;
+use bluefin_pro::{self as bfp, prelude::*};
+use chrono::{TimeDelta, Utc};
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
+use hex::FromHex;
+use rand::random;
+use std::ops::Add;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
@@ -19,7 +26,7 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 /// This function will open a websocket connection to Bluefin's market streams and will subscribe to
-/// Oracle Price Updates.
+/// Market Price Updates.
 ///
 /// The websocket server will send Pings to the client every 10 seconds, so the client should listen
 /// to Ping frames and response with Pong frames.
@@ -32,11 +39,11 @@ type Result<T> = std::result::Result<T, Error>;
 /// `event` field. The client can use the `event` field to deserialize the `payload` field. Each
 ///  `event` contains a unique `payload` structure.
 ///
-/// Sample Oracle Price output:
+/// Sample Market Price output:
 ///
 /// ```json
 /// {
-///     "event": "OraclePrice",
+///     "event": "MarketPrice",
 ///     "payload": {
 ///         "updated_at_utc_millis": 1734048844,
 ///         "symbol": "ETH-PERP",
@@ -44,31 +51,28 @@ type Result<T> = std::result::Result<T, Error>;
 ///     }
 /// }
 /// ```
-async fn listen_to_oracle_price_updates(
+async fn listen_to_market_price_updates(
     environment: bfp::Environment,
     symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_message: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let url = match environment {
-        bfp::Environment::Testnet => bfp::ws::market::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::market::mainnet::URL,
-    }
-    .into_client_request()?;
+    let request = bfp::ws::market::get_url(environment).into_client_request()?;
 
     // Establish connection with websocket URL.
-    let (websocket_stream, _) = connect_async(url).await?;
+    let (websocket_stream, _) = connect_async(request).await?;
     let (mut ws_sender, mut ws_receiver) = websocket_stream.split();
 
-    // Send a subscription message to receive oracle price updates.
+    // Send a subscription message to receive Market price updates.
     let sub_message = serde_json::to_string(&MarketSubscriptionMessage::new(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
             symbol.into(),
-            vec![MarketDataStreamName::OraclePrice],
+            vec![MarketDataStreamName::MarketPrice],
         )],
     ))?;
+
     ws_sender.send(Message::Text(sub_message)).await?;
 
     // Spawn a websocket listener task to listen for messages on the subscribed topic.
@@ -95,7 +99,7 @@ async fn listen_to_oracle_price_updates(
                     println!("Pong received");
                 }
                 Message::Text(text) => {
-                    // Check if it's the oracle price update.
+                    // Check if it's the Market price update.
                     if let Ok(websocket_message) =
                         serde_json::from_str::<MarketStreamMessage>(&text)
                     {
@@ -130,30 +134,104 @@ async fn listen_to_oracle_price_updates(
     Ok(())
 }
 
+async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> Result<String> {
+    println!("Sending request...");
+    // Send request and get back order hash
+    let mut config = Configuration::new();
+    config.bearer_access_token = Some(auth_token.into());
+    config.base_path = bfp::trade::testnet::URL.into();
+
+    let response = post_create_order(&config, signed_request).await?;
+
+    Ok(response.order_hash)
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Stream websocket messages, with a timeout if no messages received after 5 seconds.
+    // We construct an authentication request to obtain a token.
+    let request = LoginRequest {
+        account_address: bfp::test::account::testnet::ADDRESS.into(),
+        audience: bfp::auth::testnet::AUDIENCE.into(),
+        signed_at_utc_millis: Utc::now().timestamp_millis(),
+    };
+
+    // Next, we generate a signature for the request.
+    let signature = request.signature(
+        bfp::SignatureType::Ed25519,
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+    )?;
+
+    // Then, we submit our authentication request to the API for the desired environment.
+    let auth_token = request
+        .authenticate(&signature, bfp::Environment::Testnet)
+        .await?
+        .access_token;
+
+    // Stream websocket messages
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
-    listen_to_oracle_price_updates(
+    listen_to_market_price_updates(
         bfp::Environment::Testnet,
-        bfp::test::market::BTC_SYMBOL,
+        bfp::symbols::perps::ETH,
         sender,
-        Duration::from_secs(5),
+        Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
     )
     .await?;
 
-    while let Some(websocket_message) = receiver.recv().await {
-        if let MarketStreamMessage::OraclePriceUpdate {
-            payload: MarketStreamMessagePayload::OraclePriceUpdate(oracle_price),
-        } = websocket_message
-        {
-            println!("{oracle_price:#?}");
+    let handle = tokio::spawn(async move {
+        while let Some(websocket_message) = receiver.recv().await {
+            println!("Received message: {websocket_message:#?}");
+            if let MarketStreamMessage::MarketPriceUpdate {
+                payload: MarketStreamMessagePayload::MarketPriceUpdate(market_price),
+            } = websocket_message
+            {
+                println!("{market_price:#?}");
+            }
         }
-    }
+    });
+
+    // We get the exchange info to fetch the IDS_ID
+    let contracts_info =
+        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+
+    // Next, we construct an unsigned request.
+    let request = CreateOrderRequest {
+        signed_fields: CreateOrderRequestSignedFields {
+            symbol: bfp::symbols::perps::ETH.into(),
+            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            price_e9: (10_000.e9()).to_string(),
+            quantity_e9: (1.e9()).to_string(),
+            side: OrderSide::Short,
+            leverage_e9: (10.e9()).to_string(),
+            is_isolated: false,
+            salt: random::<u64>().to_string(),
+            ids_id: contracts_info.ids_id,
+            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
+            signed_at_utc_millis: Utc::now().timestamp_millis(),
+        },
+        signature: String::new(),
+        order_hash: String::new(),
+        client_order_id: None,
+        r#type: OrderType::Limit,
+        reduce_only: false,
+        post_only: true,
+        time_in_force: OrderTimeInForce::Gtt,
+        trigger_price_e9: None,
+        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
+    };
+
+    // Then, we sign our order.
+    let request = request.sign(
+        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        bfp::SignatureType::Ed25519,
+    )?;
+
+    let order_hash = create_order(request, &auth_token).await?;
+    println!("Order submitted: {}", order_hash);
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);
+    handle.await.unwrap();
 
     Ok(())
 }

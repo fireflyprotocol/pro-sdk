@@ -129,6 +129,7 @@ impl Authenticate for LoginRequest {
         environment: Environment,
     ) -> AuthenticationResult<LoginResponse> {
         let base_url = match environment {
+            Environment::Devnet => env::auth::devnet::URL,
             Environment::Testnet => env::auth::testnet::URL,
             Environment::Mainnet => env::auth::mainnet::URL,
         };
@@ -147,6 +148,7 @@ impl Authenticate for LoginRequest {
 impl Refresh for RefreshTokenRequest {
     async fn refresh(self, environment: Environment) -> AuthenticationResult<RefreshTokenResponse> {
         let base_url = match environment {
+            Environment::Devnet => env::auth::devnet::URL,
             Environment::Testnet => env::auth::testnet::URL,
             Environment::Mainnet => env::auth::mainnet::URL,
         };

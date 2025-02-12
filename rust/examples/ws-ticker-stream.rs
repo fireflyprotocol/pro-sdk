@@ -12,22 +12,18 @@ use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
-use tokio_tungstenite::tungstenite::http::Uri;
-use tokio_tungstenite::tungstenite::{ClientRequestBuilder, Message};
+use tokio_tungstenite::tungstenite::Message;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-async fn listen_to_ticker_all_updates(
+async fn listen_to_ticker_updates(
     environment: bfp::Environment,
+    symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let request = ClientRequestBuilder::new(Uri::from_static(match environment {
-        bfp::Environment::Testnet => bfp::ws::market::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::market::mainnet::URL,
-    }))
-    .into_client_request()?;
+    let request = bfp::ws::market::get_url(environment).into_client_request()?;
 
     // Establish connection with WebSocket URL.
     let (websocket_stream, _) = connect_async(request).await?;
@@ -36,8 +32,8 @@ async fn listen_to_ticker_all_updates(
     let subscription_message = serde_json::to_string(&MarketSubscriptionMessage::new(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
-            String::new(),
-            vec![MarketDataStreamName::TickerAll],
+            symbol.into(),
+            vec![MarketDataStreamName::Ticker],
         )],
     ))?;
 
@@ -55,7 +51,7 @@ async fn listen_to_ticker_all_updates(
             };
             let Some(Ok(message)) = message else {
                 println!("Websocket receiver task terminated");
-                break;
+                return;
             };
             match message {
                 Message::Ping(_) => {
@@ -110,8 +106,9 @@ async fn main() -> Result<()> {
     // Then, we connect to the market stream WebSocket to listen for ticker.
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
-    listen_to_ticker_all_updates(
+    listen_to_ticker_updates(
         bfp::Environment::Testnet,
+        bfp::symbols::perps::ETH,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),
@@ -119,11 +116,11 @@ async fn main() -> Result<()> {
     .await?;
 
     while let Some(websocket_message) = receiver.recv().await {
-        if let MarketStreamMessage::TickerAllUpdate {
-            payload: MarketStreamMessagePayload::TickerAllUpdate(ticker_all),
+        if let MarketStreamMessage::TickerUpdate {
+            payload: MarketStreamMessagePayload::TickerUpdate(ticker),
         } = websocket_message
         {
-            println!("{ticker_all:#?}");
+            println!("{ticker:#?}");
         }
     }
     shutdown_flag.store(true, std::sync::atomic::Ordering::Relaxed);

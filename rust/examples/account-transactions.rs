@@ -1,7 +1,6 @@
-use bluefin_api::apis::account_data_api::get_account_details;
+use bluefin_api::apis::account_data_api::get_account_transaction_history;
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::models::Account;
-use bluefin_api::models::LoginRequest;
+use bluefin_api::models::{LoginRequest, Transaction};
 use bluefin_pro::{self as bfp, prelude::*};
 use chrono::Utc;
 use hex::FromHex;
@@ -9,14 +8,22 @@ use hex::FromHex;
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
-/// Sends a request for account details, and returns the deserialized response.
-async fn send_request(auth_token: &str) -> Result<Account> {
+/// Sends a request for account trades, and returns the deserialized response.
+async fn send_request(auth_token: &str) -> Result<Vec<Transaction>> {
     println!("Sending request...");
-    Ok(get_account_details(&Configuration {
-        base_path: bfp::account::testnet::URL.into(),
-        bearer_access_token: Some(auth_token.into()),
-        ..Configuration::new()
-    })
+    Ok(get_account_transaction_history(
+        &Configuration {
+            base_path: bfp::account::testnet::URL.into(),
+            bearer_access_token: Some(auth_token.into()),
+            ..Configuration::new()
+        },
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+    )
     .await?)
 }
 
@@ -38,9 +45,9 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    let account = send_request(&auth_token).await?;
+    let response = send_request(&auth_token).await?;
 
-    println!("{account:#?}");
+    println!("{response:#?}");
 
     Ok(())
 }
