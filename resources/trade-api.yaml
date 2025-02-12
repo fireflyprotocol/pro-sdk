@@ -1,0 +1,762 @@
+openapi: 3.0.3
+info:
+  title: Bluefin API
+  version: 1.0.0
+tags:
+  - name: Trade
+    description: "Bluefin Trade API"
+
+servers:
+  - url: https://trade.api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+
+components:
+  schemas:
+    OrderSide:
+      type: string
+      enum:
+        - LONG
+        - SHORT
+      description: Side of the order
+    OrderStatus:
+      type: string
+      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED ]
+      description: |
+        The statuses of the Orders
+        
+        PENDING: The Order has been acknowledged and is currently pending
+        
+        OPEN: The Order has passed all checks and is open on the order book.
+        
+        PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN
+        
+        FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.
+        
+        CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book
+        
+        REJECTED: The Order has been rejected and has not been put on the order book.
+    SelfTradePreventionType:
+      type: string
+      enum: [ TAKER, MAKER, BOTH ]
+      default: "TAKER"
+      description: |
+        The strategy used to resolve self trades. 
+        
+        TAKER: On a self trade, the taker order will be cancelled
+        
+        MAKER: On a self trade, the maker order will be cancelled
+        
+        BOTH: On a self trade, both the taker and the maker order will be cancelled
+    OrderType:
+      type: string
+      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET ]
+      description: The type of the order
+    OrderTimeInForce:
+      type: string
+      enum: [ GTT, IOC, FOK ]
+      description: Specify order execution, and by default, all orders are GTT.
+
+    AccountAuthorizationRequest:
+      type: object
+      properties:
+        signedFields:
+          properties:
+            accountAddress:
+              type: string
+              description: The account address of the parent account that is authorizing/deauthorizing this account
+            authorizedAccountAddress:
+              type: string
+              description: The address of the account that should be authorized/deauthorized
+            salt:
+              type: string
+              description: The random generated salt. Should always be a number
+              example: "123335432"
+            idsId:
+              type: string
+              description: the ID of the internal datastore for the target network
+              example: "ids_id"
+            signedAtUtcMillis:
+              type: integer
+              format: int64
+              description: The timestamp when the request was signed
+              example: 1234567856
+          required:
+            - accountAddress
+            - authorizedAccountAddress
+            - salt
+            - idsId
+            - signedAtUtcMillis
+        signature:
+          type: string
+          description: The signature of the request, encoded from the signedFields
+        requestHash:
+          type: string
+          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
+      required:
+        - signedFields
+        - signature
+        - requestHash
+
+    CreateOrderRequest:
+      type: object
+      properties:
+        signedFields:
+          type: object
+          properties:
+            symbol:
+              type: string
+              description: The symbol of the perpetual for which to create the order
+            accountAddress:
+              type: string
+              description: The account address of the order. May be an account user is authorized for.
+            priceE9:
+              type: string
+              description: The price in base e9 of the asset to be traded. Should always be a number
+              example: 452400000
+            quantityE9:
+              type: string
+              description: The quantity in base e9 of the asset to be traded. Should always be a number
+              example: 452400000
+            side:
+              $ref: '#/components/schemas/OrderSide'
+            leverageE9:
+              type: string
+              description: The leverage in base e9 of the order to be traded. Should always be a number
+              example: 4000000000
+            isIsolated:
+              type: boolean
+              description: Is this order isolated or cross margin. Note market must be set to the same mode.
+              default: false
+            salt:
+              type: string
+              description: The random generated SALT. Should always be a number
+              example: "123335432"
+            idsId:
+              type: string
+              description: the ID of the internal datastore for the target network
+              example: "ids_id"
+            expiresAtUtcMillis:
+              type: integer
+              format: int64
+              description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+              example: 12345665432
+            signedAtUtcMillis:
+              type: integer
+              format: int64
+              description: The timestamp in millis at which the request was signed
+              example: 1234567856
+          required:
+            - symbol
+            - accountAddress
+            - priceE9
+            - quantityE9
+            - side
+            - leverageE9
+            - isIsolated
+            - salt
+            - idsId
+            - expiresAtUtcMillis
+            - signedAtUtcMillis
+        signature:
+          type: string
+          description: The signature of the request, encoded from the signedFields
+        orderHash:
+          type: string
+          description: The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
+        clientOrderId:
+          type: string
+          description: The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
+        type:
+          $ref: '#/components/schemas/OrderType'
+        reduceOnly:
+          type: boolean
+          description: Is this order to only reduce a position? Default false
+        postOnly:
+          type: boolean
+          description: If set to TRUE, the order can only be a maker order
+        timeInForce:
+          $ref: '#/components/schemas/OrderTimeInForce'
+        triggerPriceE9:
+          type: string
+          description: Trigger price in base e9 for stop orders. This should always be a number
+          example: 300000000
+        selfTradePreventionType:
+          $ref: '#/components/schemas/SelfTradePreventionType'
+      required:
+        - signedFields
+        - signature
+        - orderHash
+        - type
+        - reduceOnly
+        - postOnly
+        - timeInForce
+
+    WithdrawRequest:
+      type: object
+      properties:
+        signedFields:
+          type: object
+          properties:
+            assetSymbol:
+              type: string
+              description: Asset symbol of the withdrawn asset
+              example: ETH
+            accountAddress:
+              type: string
+              description: The Account Address from which to withdraw assets
+              example: 0x000000000ABC
+            amountE9:
+              type: string
+              description: The amount in e9 of the asset that the User will withdraw from their account
+              example: 1000000000
+            salt:
+              type: string
+              description: A uniqueness modifier for the request. This is added to guarantee uniqueness of the request. Usually a mix of timestamp and a random number
+              example: "432558574839487"
+            edsId:
+              type: string
+              description: the ID of the external datastore for the target network
+              example: "eds_id"
+            signedAtUtcMillis:
+              type: integer
+              format: int64
+              description: The timestamp in milliseconds when the HTTP Request payload has been signed
+              example: 12454325432
+          required:
+            - assetSymbol
+            - accountAddress
+            - amountE9
+            - salt
+            - edsId
+            - signedAtUtcMillis
+        signature:
+          type: string
+          description: The signature of the request, encoded from the signedFields
+        requestHash:
+          type: string
+          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
+      required:
+        - signedFields
+        - signature
+        - requestHash
+
+    CancelOrdersRequest:
+      description: Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
+      properties:
+        symbol:
+          type: string
+          description: The symbol of the perpetual for which to cancel orders.
+          example: 0x0000ABC
+        orderHashes:
+          type: array
+          items:
+            type: string
+          description: List of order hashes of the orders to be cancelled. All orders must belong to accountAddress. Max 10 order hashes
+          example: [ order_hash1, order_hash2 ]
+      required:
+        - symbol
+
+    AccountPositionLeverageUpdateRequest:
+      properties:
+        signedFields:
+          properties:
+            accountAddress:
+              type: string
+              description: The Account Address from which to update leverage
+              example: 0x000000000ABC
+            symbol:
+              type: string
+              description: Symbol of the perpetual of the positions for which to update the leverage
+              example: 0x000ABC
+            leverageE9:
+              type: string
+              description: The leverage to set for the account positions (Must be a number in base e9)
+              example: "1000000000"
+            salt:
+              type: string
+              description: The random generated SALT. Should always be a number
+              example: "123335432"
+            idsId:
+              type: string
+              description: the ID of the internal datastore for the target network
+              example: "ids_id"
+            signedAtUtcMillis:
+              type: integer
+              format: int64
+              description: The timestamp in millis at which the request was signed
+              example: 1234567856
+          required:
+            - accountAddress
+            - symbol
+            - leverageE9
+            - salt
+            - idsId
+            - signedAtUtcMillis
+        signature:
+          type: string
+          description: The signature of the request, encoded from the signedFields
+        requestHash:
+          type: string
+          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
+      required:
+        - signedFields
+        - signature
+        - requestHash
+
+    OpenOrderResponse:
+      properties:
+        orderHash:
+          type: string
+          description: The Order Hash, which is the default way to uniquely identify an order in the system
+        clientOrderId:
+          type: string
+          description: The Client Order ID, which is used a unique identifier for an order, provided by the client, in case of proprietary order management systems
+          example: company1_order1
+        symbol:
+          type: string
+          description: The market symbol
+        accountAddress:
+          type: string
+          description: The account address of the order. May be an account user is authorized for.
+        priceE9:
+          type: string
+          description: The price in base e9 of the asset to be traded. Should always be a number
+          example: 452400000
+        quantityE9:
+          type: string
+          description: The quantity in base e9 of the asset to be traded. Should always be a number
+          example: 452400000
+        side:
+          $ref: '#/components/schemas/OrderSide'
+        leverageE9:
+          type: string
+          description: The leverage in base e9  of the order to be traded. Should always be a number
+          example: 4000000000
+        isIsolated:
+          type: boolean
+          description: Is this order isolated or cross margin. Note market must be set to the same mode.
+          default: false
+        salt:
+          type: string
+          description: The random generated SALT. Should always be a number
+          example: "123335432"
+        expiresAtUtcMillis:
+          type: integer
+          format: int64
+          description: Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+          example: 123456734567
+        signedAtUtcMillis:
+          type: integer
+          format: int64
+          description: The timestamp in millis at which the request was signed
+          example: 1234567856
+        type:
+          $ref: '#/components/schemas/OrderType'
+        reduceOnly:
+          type: boolean
+          description: Is this order to only reduce a position? Default false
+          default: false
+        postOnly:
+          type: boolean
+          description: If set to TRUE, the order can only be a maker order
+          default: false
+        timeInForce:
+          $ref: '#/components/schemas/OrderTimeInForce'
+        triggerPriceE9:
+          type: string
+          description: Trigger price in base e9 for stop orders. This should always be a number
+          example: 452400000
+        filledQuantityE9:
+          type: string
+          description: The quantity in base e9 of the asset currently filled. This should always be a number
+          example: 300000000
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        selfTradePreventionType:
+          $ref: '#/components/schemas/SelfTradePreventionType'
+        orderTimeAtUtcMillis:
+          type: integer
+          format: int64
+          description: The timestamp in millis when the order was opened
+        lastUpdatedAtUtcMillis:
+          type: integer
+          format: int64
+          description: The timestamp in millis that this order was last updated (including status updates)
+      required:
+        - orderHash
+        - symbol
+        - accountAddress
+        - priceE9
+        - quantityE9
+        - side
+        - leverageE9
+        - isIsolated
+        - salt
+        - expiresAtUtcMillis
+        - signedAtUtcMillis
+        - type
+        - reduceOnly
+        - postOnly
+        - timeInForce
+        - filledQuantityE9
+        - status
+        - selfTradePreventionType
+        - orderTimeAtUtcMillis
+        - lastUpdatedAtUtcMillis
+
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: A code representing the type of error.
+        message:
+          type: string
+          description: A human-readable message describing the error.
+      required:
+        - message
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      bearerFormat: JWT  # Optional, arbitrary value for documentation purposes
+      description: url base64 encoded JWT token payload.
+
+paths:
+  /api/v1/trade/orders:
+    post:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: postCreateOrder
+      summary: Create a new order
+      description: Submit a new order for execution.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '202':
+          description: Order creation submitted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderHash:
+                    type: string
+                    description: The unique identifier of this order, to be used as a lookup key
+                required:
+                  - orderHash
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid. Signature is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested account was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/orders/cancel:
+    put:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: cancelOrders
+      summary: Cancel orders for a market using order hashes
+      description: |
+        - May be a single order hash or a list of order hashes.
+        - All orders must belong to the same account.
+        - If no order hashes are specified, then will cancel all orders for the given market
+
+        - All orders being cancelled by request will receive the same time priority.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOrdersRequest'
+      responses:
+        '202':
+          description: Order cancellation submitted successfully.
+        '400':
+          description: Bad Request. Invalid body parameters.
+        '401':
+          description: Unauthorized. Authentication is required or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/accounts/authorize:
+    put:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: putAuthorizeAccount
+      summary: Authorizes an account
+      description: Authorizes an account to trade, perform liquidations and more, on behalf of another account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountAuthorizationRequest'
+      responses:
+        '202':
+          description: Authorize Account request submitted successfully
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid. Signature is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/accounts/deauthorize:
+    put:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: putDeauthorizeAccount
+      summary: Deauthorizes an account
+      description: Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountAuthorizationRequest'
+      responses:
+        '202':
+          description: Deauthorize Account request submitted successfully
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid. Signature is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/leverage:
+    put:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: putLeverageUpdate
+      summary: Updates leverage for positions
+      description: Updates leverage for positions of a given market, closes all open orders for that market
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountPositionLeverageUpdateRequest'
+      responses:
+        '202':
+          description: Leverage update request sent successfully.
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid. Signature is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested account was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/openOrders:
+    get:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: getOpenOrders
+      summary: Get Open Orders
+      description: Retrieve details of open orders for a specific account.
+      parameters:
+        - in: query
+          name: symbol
+          schema:
+            type: string
+          description: Filter by specific perpetual symbol (optional)
+          example: "ETH-PERP"
+      responses:
+        '200':
+          description: Open orders retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenOrderResponse'
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested account address was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/trade/withdraw:
+    post:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: postWithdraw
+      summary: Initiate a withdraw
+      description: Initiates a withdraw action to withdraw some amount of assets from a user's account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawRequest'
+      responses:
+        '202':
+          description: Withdraw request submitted successfully.
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid. Signature is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

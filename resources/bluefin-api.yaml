@@ -1,0 +1,142 @@
+---
+servers:
+  - url: "http://localhost:8080"
+openapi: "3.0.3"
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      name: Authorization
+      bearerFormat: JWT  # Optional, arbitrary value for documentation purposes
+
+  schemas:
+    Side:
+      $ref: './websocket-api.yaml#/components/schemas/Side'
+    SubscriptionResponseMessage:
+      $ref: './websocket-api.yaml#/components/schemas/SubscriptionResponseMessage'
+    SubscriptionType:
+      $ref: './websocket-api.yaml#/components/schemas/SubscriptionType'
+    AccountSubscriptionMessage:
+      $ref: './websocket-api.yaml#/components/schemas/AccountSubscriptionMessage'
+    MarketSubscriptionMessage:
+      $ref: './websocket-api.yaml#/components/schemas/MarketSubscriptionMessage'
+    AccountStreamMessage:
+      $ref: './websocket-api.yaml#/components/schemas/AccountStreamMessage'
+    AccountEventType:
+      $ref: './websocket-api.yaml#/components/schemas/AccountEventType'
+    AccountEventReason:
+      $ref: './websocket-api.yaml#/components/schemas/AccountEventReason'
+    OrderCancelReason:
+      $ref: './websocket-api.yaml#/components/schemas/OrderCancelReason'
+    OrderCancellationFailureReason:
+      $ref: './websocket-api.yaml#/components/schemas/OrderCancellationFailureReason'
+    OrderCancellationUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/OrderCancellationUpdate'
+    AccountOrderUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/AccountOrderUpdate'
+    ActiveOrderUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/ActiveOrderUpdate'
+    OrderType:
+      $ref: './websocket-api.yaml#/components/schemas/OrderType'
+    OrderTimeInForce:
+      $ref: './websocket-api.yaml#/components/schemas/OrderTimeInForce'
+    OrderStatus:
+      $ref: './websocket-api.yaml#/components/schemas/OrderStatus'
+    SelfTradePreventionType:
+      $ref: './websocket-api.yaml#/components/schemas/SelfTradePreventionType'
+    TransactionType:
+      $ref: './websocket-api.yaml#/components/schemas/TransactionType'
+    AccountTransactionUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/AccountTransactionUpdate'
+    AccountPositionUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/AccountPositionUpdate'
+    AccountUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/AccountUpdate'
+    FeeTier:
+      $ref: './websocket-api.yaml#/components/schemas/FeeTier'
+    Asset:
+      $ref: './websocket-api.yaml#/components/schemas/Asset'
+    AccountTradeUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/AccountTradeUpdate'
+    TradeType:
+      $ref: './websocket-api.yaml#/components/schemas/TradeType'
+    MarketStreamMessage:
+      $ref: './websocket-api.yaml#/components/schemas/MarketStreamMessage'
+    MarketEventType:
+      $ref: './websocket-api.yaml#/components/schemas/MarketEventType'
+    TickerAllUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/TickerAllUpdate'
+    TickerUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/TickerUpdate'
+    CandlestickUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/CandlestickUpdate'
+    OraclePriceUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/OraclePriceUpdate'
+    MarketPriceUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/MarketPriceUpdate'
+    MarkPriceUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/MarkPriceUpdate'
+    RecentTradeUpdates:
+      $ref: './websocket-api.yaml#/components/schemas/RecentTradesUpdates'
+    RecentTradesUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/RecentTradesUpdate'
+    OrderbookDiffDepthUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/OrderbookDiffDepthUpdate'
+    OrderbookPartialDepthUpdate:
+      $ref: './websocket-api.yaml#/components/schemas/OrderbookPartialDepthUpdate'
+
+paths:
+  /auth/token:
+    $ref: "./auth-api.yaml#/paths/~1auth~1token"
+  /auth/v2/token:
+    $ref: "./auth-api.yaml#/paths/~1auth~1v2~1token"
+  /auth/jwks:
+    $ref: "./auth-api.yaml#/paths/~1auth~1jwks"
+  /auth/token/refresh:
+    $ref: "./auth-api.yaml#/paths/~1auth~1token~1refresh"
+
+  /api/v1/account:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account"
+  /api/v1/account/preferences:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1preferences"
+  /api/v1/account/transactions:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1transactions"
+  /api/v1/account/trades:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1trades"
+
+  /v1/exchange/depth:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1depth"
+  /v1/exchange/ticker:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1ticker"
+  /v1/exchange/info:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1info"
+  /v1/exchange/trades:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1trades"
+  /v1/exchange/candlesticks:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1candlesticks"
+  /v1/exchange/fundingRateHistory:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1fundingRateHistory"
+
+  /api/v1/trade/leverage:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1leverage"
+  /api/v1/trade/orders/cancel:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1orders~1cancel"
+  /api/v1/trade/orders:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1orders"
+  /api/v1/trade/openOrders:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1openOrders"
+  /api/v1/trade/withdraw:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1withdraw"
+
+  /ws/account:
+    $ref: "./websocket-api.yaml#/paths/~1ws~1account"
+  /ws/market:
+    $ref: "./websocket-api.yaml#/paths/~1ws~1market"
+
+info:
+  title: "Bluefin API"
+  description: "Bluefin API"
+  version: "1.0.0"
