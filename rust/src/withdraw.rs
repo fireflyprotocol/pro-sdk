@@ -1,87 +1,97 @@
+use crate::core::PrivateKey;
+use crate::signature::{self, Result};
+use blake2::digest::consts::U32;
+use blake2::{Blake2b, Digest};
 use bluefin_api::models::WithdrawRequest;
-use sha2::digest::Digest;
+use sui_sdk_types::SignatureScheme;
 
-use crate::signature::{self, RequestExt, Type};
-
-mod bcs_conversion {
-    use crate::signature::parse;
-    use crate::{address::Address, signature::Error};
-    use bluefin_api::models::WithdrawRequestSignedFields;
-    use serde::Serialize;
-
-    #[derive(Serialize)]
-    pub struct WithdrawRequestSignFieldsBcs {
-        pub asset_symbol: String,
-        pub account_address: Address,
-        pub amount: u64,
-        pub salt: u64,
-        pub eds_id: Address,
-        pub signed_at_utc_millis: u64,
-    }
-
-    pub fn convert(
-        withdraw_request_sign_fields: &WithdrawRequestSignedFields,
-    ) -> Result<WithdrawRequestSignFieldsBcs, Error> {
-        Ok(WithdrawRequestSignFieldsBcs {
-            asset_symbol: withdraw_request_sign_fields.asset_symbol.clone(),
-            account_address: parse(
-                &withdraw_request_sign_fields.account_address,
-                "account_address",
-            )?,
-            amount: parse(&withdraw_request_sign_fields.amount_e9, "amount")?,
-            salt: parse(&withdraw_request_sign_fields.salt, "salt")?,
-            eds_id: parse(&withdraw_request_sign_fields.eds_id, "eds_id")?,
-            signed_at_utc_millis: withdraw_request_sign_fields
-                .signed_at_utc_millis
-                .unsigned_abs(),
-        })
-    }
-}
+use crate::signature::{serialize, RequestExt};
 
 impl RequestExt for WithdrawRequest {
-    fn sign(mut self, private_key: [u8; 32], type_id: Type) -> signature::Result<Self> {
-        let bcs_request = bcs::to_bytes(&bcs_conversion::convert(&self.signed_fields)?)
-            .map_err(|error| signature::Error::RequestObject(error.to_string()))?;
-        let sha_encoded_request = sha2::Sha256::digest(&bcs_request);
-        self.request_hash = hex::encode(sha_encoded_request);
-        self.signature = signature::sign(private_key, type_id, sha_encoded_request.as_ref())?;
-        Ok(self)
+    fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
+        let converted = signature::conversion::UIWithdrawRequest::from(self.clone());
+
+        let signature = signature::signature(converted, private_key, scheme)?;
+        let request_hash = hex::encode(Blake2b::<U32>::digest(
+            serialize(&self.signed_fields).map_err(|_| signature::Error::Serialization)?,
+        ));
+        Ok(WithdrawRequest {
+            signature,
+            request_hash,
+            ..self
+        })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::signature::testing::verify_signature;
+    use blake2::digest::consts::U32;
+    use blake2::{Blake2b, Digest};
     use bluefin_api::models::{WithdrawRequest, WithdrawRequestSignedFields};
-    use ed25519_dalek::SigningKey;
     use rand::rngs::OsRng;
+    use sui_crypto::ed25519::Ed25519VerifyingKey;
+    use sui_crypto::secp256k1::Secp256k1VerifyingKey;
+    use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SignatureScheme};
+
+    use crate::signature::RequestExt;
+    use crate::signature::{self, testing::verify_signature};
+
+    fn verify_request_signature(request: WithdrawRequest, signer_address: &str) {
+        assert!(!request.signature.is_empty());
+        assert!(!request.request_hash.is_empty());
+
+        match verify_signature(
+            signer_address,
+            &request.signature.clone(),
+            request.clone(),
+            signature::conversion::UIWithdrawRequest::from,
+        ) {
+            Ok(_) => {}
+            Err(e) => panic!("{e}"),
+        }
+
+        assert_eq!(
+            request.request_hash,
+            hex::encode(Blake2b::<U32>::digest(
+                serde_json::to_string_pretty(&request.signed_fields)
+                    .unwrap()
+                    .as_bytes(),
+            ))
+        );
+    }
 
     #[test]
     fn sign_request_is_successful_ed25519() {
+        let private_key = ed25519_dalek::SigningKey::generate(&mut OsRng);
+        let signer_address = Ed25519VerifyingKey::new(&Ed25519PublicKey::new(
+            private_key.verifying_key().to_bytes(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
         let request = withdraw_request()
-            .sign(SigningKey::generate(&mut OsRng).to_bytes(), Type::Ed25519)
+            .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request);
+        verify_request_signature(request, &signer_address);
     }
 
     #[test]
     fn sign_request_is_successful_secp256k1() {
-        let request = withdraw_request()
-            .sign(SigningKey::generate(&mut OsRng).to_bytes(), Type::Secp256k1)
-            .unwrap();
-        verify_request_signature(request);
-    }
+        let private_key = secp256k1::SecretKey::new(&mut OsRng);
+        let secp = secp256k1::Secp256k1::new();
+        let signer_address = Secp256k1VerifyingKey::new(&Secp256k1PublicKey::new(
+            private_key.public_key(&secp).serialize(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
 
-    fn verify_request_signature(request: WithdrawRequest) {
-        assert!(!request.signature.is_empty());
-        assert!(!request.request_hash.is_empty());
-        assert!(
-            verify_signature(&request.signature.clone(), request, |request| {
-                bcs_conversion::convert(&request.signed_fields)
-            })
-            .is_ok()
-        )
+        let request = withdraw_request()
+            .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
+            .unwrap();
+        verify_request_signature(request, &signer_address);
     }
 
     fn withdraw_request() -> WithdrawRequest {

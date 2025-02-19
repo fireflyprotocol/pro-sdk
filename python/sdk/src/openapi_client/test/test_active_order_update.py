@@ -37,10 +37,11 @@ class TestActiveOrderUpdate(unittest.TestCase):
             return ActiveOrderUpdate(
                 order_hash = '',
                 client_order_id = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 price_e9 = '',
                 quantity_e9 = '',
+                filled_quantity_e9 = '',
                 side = 'LONG',
                 leverage_e9 = '',
                 is_isolated = True,
@@ -60,10 +61,11 @@ class TestActiveOrderUpdate(unittest.TestCase):
         else:
             return ActiveOrderUpdate(
                 order_hash = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 price_e9 = '',
                 quantity_e9 = '',
+                filled_quantity_e9 = '',
                 side = 'LONG',
                 leverage_e9 = '',
                 is_isolated = True,

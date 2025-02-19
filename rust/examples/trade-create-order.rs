@@ -6,7 +6,7 @@ use bluefin_api::models::{
     SelfTradePreventionType, SubscriptionResponseMessage, SubscriptionType,
 };
 use bluefin_api::models::{CreateOrderRequestSignedFields, LoginRequest};
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -15,6 +15,7 @@ use std::ops::Add;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
+use sui_sdk_types::SignatureScheme;
 use tokio::sync::broadcast;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -30,7 +31,7 @@ async fn send_request(signed_request: CreateOrderRequest, auth_token: &str) -> R
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
 
     let response = post_create_order(&config, signed_request).await?;
 
@@ -39,13 +40,13 @@ async fn send_request(signed_request: CreateOrderRequest, auth_token: &str) -> R
 
 async fn listen_to_account_order_updates(
     auth_token: &str,
-    environment: bfp::Environment,
+    environment: Environment,
     sender: broadcast::Sender<AccountStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // We establish a connection through the websocket URL for that environment.
-    let mut url = bfp::ws::account::get_url(environment).into_client_request()?;
+    let mut url = ws::account::url(environment).into_client_request()?;
     url.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
@@ -128,32 +129,31 @@ async fn listen_to_account_order_updates(
 async fn main() -> Result<()> {
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
-        audience: bfp::auth::testnet::AUDIENCE.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
+        audience: auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     // Next, we construct an unsigned request.
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: bfp::symbols::perps::ETH.into(),
-            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            symbol: symbols::perps::ETH.into(),
+            account_address: test::account::testnet::ADDRESS.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -161,7 +161,7 @@ async fn main() -> Result<()> {
             is_isolated: false,
             salt: random::<u64>().to_string(),
             ids_id: contracts_info.ids_id,
-            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
+            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(6)).timestamp_millis(),
             signed_at_utc_millis: Utc::now().timestamp_millis(),
         },
         client_order_id: None,
@@ -176,8 +176,8 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
     )?;
 
     // Listen to order updates to see when an order has been opened
@@ -185,7 +185,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = broadcast::channel(20);
     listen_to_account_order_updates(
         &auth_token,
-        bfp::Environment::Testnet,
+        Environment::Testnet,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),

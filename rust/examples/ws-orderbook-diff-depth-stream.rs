@@ -6,7 +6,7 @@ use bluefin_api::models::{
     MarketSubscriptionStreams, OrderSide, OrderTimeInForce, OrderType, SelfTradePreventionType,
     SubscriptionResponseMessage, SubscriptionType,
 };
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -15,6 +15,7 @@ use std::ops::Add;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
+use sui_sdk_types::SignatureScheme;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -24,13 +25,13 @@ use tokio_tungstenite::tungstenite::Message;
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 async fn listen_to_diff_depth_updates(
-    environment: bfp::Environment,
+    environment: Environment,
     symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let request = bfp::ws::market::get_url(environment).into_client_request()?;
+    let request = ws::market::url(environment).into_client_request()?;
 
     // Establish connection with WebSocket URL.
     let (websocket_stream, _) = connect_async(request).await?;
@@ -113,7 +114,7 @@ async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> R
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
 
     let response = post_create_order(&config, signed_request).await?;
 
@@ -124,20 +125,20 @@ async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> R
 async fn main() -> Result<()> {
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
-        audience: bfp::auth::testnet::AUDIENCE.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
+        audience: auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
@@ -145,8 +146,8 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     listen_to_diff_depth_updates(
-        bfp::Environment::Testnet,
-        bfp::symbols::perps::ETH,
+        Environment::Testnet,
+        symbols::perps::ETH,
         sender,
         Duration::from_secs(20),
         Arc::clone(&shutdown_flag),
@@ -165,14 +166,13 @@ async fn main() -> Result<()> {
     });
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     // Create an order to update the orderbook
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: bfp::symbols::perps::ETH.into(),
-            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            symbol: symbols::perps::ETH.into(),
+            account_address: test::account::testnet::ADDRESS.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -196,8 +196,8 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
     )?;
     create_order(request, &auth_token).await?;
 

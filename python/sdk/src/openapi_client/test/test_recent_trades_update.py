@@ -36,7 +36,7 @@ class TestRecentTradesUpdate(unittest.TestCase):
         if include_optional:
             return RecentTradesUpdate(
                 id = 56,
-                market_address = '',
+                symbol = '',
                 price_e9 = '',
                 quantity_e9 = '',
                 quote_quantity_e9 = '',
@@ -46,7 +46,7 @@ class TestRecentTradesUpdate(unittest.TestCase):
         else:
             return RecentTradesUpdate(
                 id = 56,
-                market_address = '',
+                symbol = '',
                 price_e9 = '',
                 quantity_e9 = '',
                 quote_quantity_e9 = '',

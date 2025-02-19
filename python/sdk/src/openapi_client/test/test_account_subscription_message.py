@@ -35,6 +35,7 @@ class TestAccountSubscriptionMessage(unittest.TestCase):
         model = AccountSubscriptionMessage()
         if include_optional:
             return AccountSubscriptionMessage(
+                auth_token = '',
                 method = 'Subscribe',
                 data_streams = [
                     'AccountOrderUpdate'

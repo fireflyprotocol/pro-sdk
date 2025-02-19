@@ -1,7 +1,7 @@
 use bluefin_api::apis::configuration::Configuration;
 use bluefin_api::apis::exchange_api::get_candlestick_data;
 use bluefin_api::models::{CandlePriceType, KlineInterval};
-use bluefin_pro as bfp;
+use bluefin_pro::prelude::*;
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
@@ -10,10 +10,10 @@ type Result<T> = std::result::Result<T, Error>;
 async fn main() -> Result<()> {
     let response = get_candlestick_data(
         &Configuration {
-            base_path: bfp::exchange::testnet::URL.into(),
+            base_path: exchange::testnet::URL.into(),
             ..Configuration::default()
         },
-        bfp::symbols::perps::ETH,  // symbol
+        symbols::perps::ETH,       // symbol
         KlineInterval::Variant12h, // interval
         CandlePriceType::Last,     // type
         None,                      // start_time_at_utc_millis

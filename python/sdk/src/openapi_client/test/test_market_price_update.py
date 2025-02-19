@@ -35,15 +35,17 @@ class TestMarketPriceUpdate(unittest.TestCase):
         model = MarketPriceUpdate()
         if include_optional:
             return MarketPriceUpdate(
-                updated_at_utc_millis = 56,
-                market_address = '',
-                price_e9 = ''
+                symbol = '',
+                price_e9 = '',
+                source = 'Market',
+                updated_at_utc_millis = 56
             )
         else:
             return MarketPriceUpdate(
-                updated_at_utc_millis = 56,
-                market_address = '',
+                symbol = '',
                 price_e9 = '',
+                source = 'Market',
+                updated_at_utc_millis = 56,
         )
         """
 

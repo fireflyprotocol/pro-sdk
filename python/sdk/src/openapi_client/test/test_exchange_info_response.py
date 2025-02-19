@@ -37,16 +37,27 @@ class TestExchangeInfoResponse(unittest.TestCase):
             return ExchangeInfoResponse(
                 assets = [
                     openapi_client.models.asset_1.Asset_1(
-                        bank_address = '', 
+                        asset_type = '', 
                         symbol = 'USDC', 
                         decimals = 6, 
                         weight = '1.0', 
                         margin_available = True, )
                     ],
+                contracts_config = openapi_client.models.contracts_config.ContractsConfig(
+                    eds_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b', 
+                    ids_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b', 
+                    network = 'mainnet', 
+                    base_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                    current_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                    operators = openapi_client.models.operators.Operators(
+                        admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                        operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                        sequencer = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                        funding = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                        fee = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', ), ),
                 markets = [
                     openapi_client.models.market.Market(
                         symbol = 'BTC-PERP', 
-                        market_address = '291', 
                         status = 'ACTIVE', 
                         base_asset_symbol = '', 
                         base_asset_name = '', 
@@ -88,7 +99,7 @@ class TestExchangeInfoResponse(unittest.TestCase):
             return ExchangeInfoResponse(
                 assets = [
                     openapi_client.models.asset_1.Asset_1(
-                        bank_address = '', 
+                        asset_type = '', 
                         symbol = 'USDC', 
                         decimals = 6, 
                         weight = '1.0', 
@@ -97,7 +108,6 @@ class TestExchangeInfoResponse(unittest.TestCase):
                 markets = [
                     openapi_client.models.market.Market(
                         symbol = 'BTC-PERP', 
-                        market_address = '291', 
                         status = 'ACTIVE', 
                         base_asset_symbol = '', 
                         base_asset_name = '', 

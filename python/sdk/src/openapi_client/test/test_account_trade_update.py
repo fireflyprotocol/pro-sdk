@@ -37,7 +37,7 @@ class TestAccountTradeUpdate(unittest.TestCase):
             return AccountTradeUpdate(
                 trade_id = '',
                 client_order_id = '',
-                market_address = '',
+                symbol = '',
                 order_hash = '',
                 type = 'ORDER',
                 order_side = 'LONG',
@@ -48,15 +48,13 @@ class TestAccountTradeUpdate(unittest.TestCase):
                 realized_pnl_e9 = '',
                 position_side = 'LONG',
                 trading_fee_e9 = '',
-                trading_fee_asset_market_address = '',
-                gas_fee_e9 = '',
-                gas_fee_asset_market_address = '',
+                trading_fee_asset_symbol = '',
                 executed_at_utc_millis = 56
             )
         else:
             return AccountTradeUpdate(
                 trade_id = '',
-                market_address = '',
+                symbol = '',
                 order_hash = '',
                 type = 'ORDER',
                 order_side = 'LONG',
@@ -67,9 +65,7 @@ class TestAccountTradeUpdate(unittest.TestCase):
                 realized_pnl_e9 = '',
                 position_side = 'LONG',
                 trading_fee_e9 = '',
-                trading_fee_asset_market_address = '',
-                gas_fee_e9 = '',
-                gas_fee_asset_market_address = '',
+                trading_fee_asset_symbol = '',
                 executed_at_utc_millis = 56,
         )
         """

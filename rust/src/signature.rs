@@ -1,280 +1,275 @@
-use blake2::digest::consts::U32;
-use blake2::Digest;
-use ed25519_dalek::Signer;
-use serde::{Deserialize, Serialize};
-use std::any::type_name;
-use std::fmt;
-use std::marker::PhantomData;
-use std::str::FromStr;
+use std::{borrow::Cow, fmt};
+
+use serde::Serialize;
+use sui_crypto::{ed25519::Ed25519PrivateKey, secp256k1::Secp256k1PrivateKey, SuiSigner};
+use sui_sdk_types::{PersonalMessage, SignatureScheme};
+
+pub type PrivateKey = [u8; 32];
 
 #[derive(Debug)]
 pub enum Error {
-    PrivateKeyLength(usize),
+    Serialization,
+    Signature(String),
     PrivateKey(String),
-    EncodedObject(String),
-    SuiAddress(String),
-    RequestField(String),
-    Components(String),
-    RequestObject(String),
-    AuthSignatureHashOutput(String),
-    PublicKeyRecoveryId(String),
-    InvalidSignature(String),
+    PublicKeyRecoveryId,
+    UnsupportedSignatureScheme(SignatureScheme),
 }
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        // TODO: Define user-friendlier error messages.
-        write!(f, "{self:?}")
+        match self {
+            Error::Serialization => write!(f, "Error serializing request JSON"),
+            Error::Signature(error) => write!(f, "Error signing request: {error}"),
+            Error::PrivateKey(error) => write!(f, "Error creating private key: {error}"),
+            Error::PublicKeyRecoveryId => {
+                write!(f, "Invalid secp256k1 recovery ID")
+            }
+            Error::UnsupportedSignatureScheme(scheme) => {
+                write!(f, "Unsupported signature scheme: {}", scheme.name())
+            }
+        }
     }
 }
 
 impl std::error::Error for Error {}
 
 pub type Result<T> = std::result::Result<T, Error>;
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Components {
-    pub signature: Vec<u8>,
-    pub public_key: Vec<u8>, // raw bytes
-    pub signature_type: u8,
-}
-
-impl Components {
-    pub fn encode(&self) -> Result<String> {
-        let bcs_encoded =
-            bcs::to_bytes(self).map_err(|error| Error::Components(error.to_string()))?;
-        Ok(hex::encode(&bcs_encoded))
-    }
-}
-
-pub struct ParseError<T: Sized> {
-    field: &'static str,
-    _type: PhantomData<T>,
-}
-
-impl<T: Sized> ParseError<T> {
-    fn new(field: &'static str) -> ParseError<T> {
-        ParseError {
-            field,
-            _type: PhantomData,
-        }
-    }
-}
-
-impl<T: Sized> From<ParseError<T>> for Error {
-    fn from(value: ParseError<T>) -> Self {
-        Error::RequestField(format!(
-            "failed to parse {} as {}",
-            value.field,
-            type_name::<T>()
-        ))
-    }
-}
-
-pub fn parse<T: FromStr>(s: &str, field: &'static str) -> std::result::Result<T, ParseError<T>> {
-    s.parse().map_err(|_| ParseError::<T>::new(field))
-}
-
-/// TODO: Replace with tuple struct.
-pub type PrivateKey = [u8; 32];
-pub type Ed25519PublicKey = [u8; 32];
-pub type Secp256k1PublicKey = [u8; 33]; //Compressed only
-
-#[derive(Clone)]
-pub enum Type {
-    Secp256k1,
-    Ed25519,
-}
-
-impl From<Type> for u8 {
-    fn from(value: Type) -> Self {
-        match value {
-            Type::Ed25519 => 0,
-            Type::Secp256k1 => 1,
-        }
-    }
-}
-
-pub type SuiAddress = String;
-
-pub trait IntoSuiAddress {
-    fn into_sui_address(self) -> SuiAddress;
-}
-
-impl IntoSuiAddress for Ed25519PublicKey {
-    fn into_sui_address(self) -> SuiAddress {
-        let mut components = vec![u8::from(Type::Ed25519)];
-        components.extend(self);
-        encode_address(components)
-    }
-}
-
-impl IntoSuiAddress for Secp256k1PublicKey {
-    fn into_sui_address(self) -> SuiAddress {
-        let mut components = vec![u8::from(Type::Secp256k1)];
-        components.extend(self);
-        encode_address(components)
-    }
-}
-
-fn encode_address(components: Vec<u8>) -> String {
-    let hashed = blake2::Blake2b::<U32>::digest(components);
-
-    //Normalize
-    let hex_encoded_address = hex::encode(hashed).to_lowercase();
-    let stripped_address = hex_encoded_address
-        .strip_prefix("0x")
-        .unwrap_or(&hex_encoded_address);
-    format!("0x{:0>width$}", stripped_address, width = 64)
-}
-
 /// Extension methods for HTTP Requests that have to be signed.
 pub trait RequestExt: Sized {
     /// Signs this request using the specified key
     ///
     /// # Errors
     ///
-    /// Will return `Err` if the specified request cannot be serialized, or if the specified private
-    /// key is invalid.
-    fn sign(self, private_key: PrivateKey, type_id: Type) -> Result<Self>;
+    /// Will return `Err` if the specified request cannot be serialized, or if the specified request can't be signed.
+    fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self>;
 }
 
-/// Signs the given SHA-encoded request bytes using the specified private key and signature type.
-/// Supports both Ed25519 and Secp256k1 signature types.
-///
-/// # Errors
-///
-/// Will return `Err(Error::PrivateKeyLength)` if the private key length is invalid for the
-/// Secp256k1 signature type, or `Err(Error::EncodedObject)` if the SHA256 encoding is invalid for
-/// message creation.
-pub fn sign(
+pub fn signature<T: Serialize>(
+    request: T,
     private_key: PrivateKey,
-    type_id: Type,
-    sha_encoded_request_bytes: &[u8],
+    scheme: SignatureScheme,
 ) -> Result<String> {
-    let (payload_signature, public_key) = match type_id {
-        Type::Ed25519 => {
-            let private_key_bytes = ed25519_dalek::SecretKey::from(private_key);
-            let signing_key = ed25519_dalek::SigningKey::from_bytes(&private_key_bytes);
-            (
-                signing_key.sign(sha_encoded_request_bytes).to_vec(),
-                signing_key.verifying_key().to_bytes().to_vec(),
-            )
-        }
-        Type::Secp256k1 => {
-            let secp = secp256k1::Secp256k1::signing_only();
-            let private_key = secp256k1::SecretKey::from_byte_array(&private_key)
-                .map_err(|_| Error::PrivateKeyLength(private_key.len()))?;
-            let message = secp256k1::Message::from_digest(
-                sha_encoded_request_bytes
-                    .try_into()
-                    .map_err(|_| Error::EncodedObject("Invalid Sha256 encoding".to_string()))?,
-            );
-            (
-                secp.sign_ecdsa(&message, &private_key)
-                    .serialize_compact()
-                    .to_vec(),
-                private_key.public_key(&secp).serialize().to_vec(),
-            )
-        }
-    };
-
-    Components {
-        signature: payload_signature,
-        public_key,
-        signature_type: type_id.into(),
+    match scheme {
+        SignatureScheme::Ed25519 => sign_ed25519(request, Ed25519PrivateKey::new(private_key)),
+        SignatureScheme::Secp256k1 => sign_secp256k1(
+            request,
+            Secp256k1PrivateKey::new(private_key)
+                .map_err(|err| Error::PrivateKey(err.to_string()))?,
+        ),
+        _ => Err(Error::UnsupportedSignatureScheme(scheme)),
     }
-    .encode()
+}
+
+fn sign_ed25519<T: Serialize>(request: T, private_key: Ed25519PrivateKey) -> Result<String> {
+    let serialized = serialize(request)?;
+    let personal_message = PersonalMessage(Cow::Borrowed(serialized.as_bytes()));
+    let signature = private_key
+        .sign_personal_message(&personal_message)
+        .map_err(|err| Error::Signature(err.to_string()))?;
+
+    Ok(signature.to_base64())
+}
+
+fn sign_secp256k1<T: Serialize>(request: T, private_key: Secp256k1PrivateKey) -> Result<String> {
+    let serialized = serialize(request)?;
+    let personal_message = PersonalMessage(Cow::Borrowed(serialized.as_bytes()));
+    let signature = private_key
+        .sign_personal_message(&personal_message)
+        .map_err(|err| Error::Signature(err.to_string()))?;
+
+    Ok(signature.to_base64())
+}
+
+pub fn serialize<T: Serialize>(request: T) -> Result<String> {
+    serde_json::to_string_pretty(&request).map_err(|_| Error::Serialization)
+}
+
+pub mod conversion {
+    use bluefin_api::models::{
+        AccountPositionLeverageUpdateRequest, CreateOrderRequest, WithdrawRequest,
+    };
+    use serde::Serialize;
+    use std::fmt::{Display, Formatter};
+
+    pub enum ClientPayloadType {
+        WithdrawRequest,
+        OrderRequest,
+        LeverageAdjustment,
+    }
+
+    impl PartialEq for ClientPayloadType {
+        fn eq(&self, other: &Self) -> bool {
+            self.to_string() == other.to_string()
+        }
+    }
+
+    impl Display for ClientPayloadType {
+        fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+            match self {
+                ClientPayloadType::WithdrawRequest => write!(f, "Bluefin Pro Withdrawal"),
+                ClientPayloadType::OrderRequest => write!(f, "Bluefin Pro Order"),
+                ClientPayloadType::LeverageAdjustment => {
+                    write!(f, "Bluefin Pro Leverage Adjustment")
+                }
+            }
+        }
+    }
+
+    #[derive(Serialize)]
+    enum PositionType {
+        Isolated,
+        Cross,
+    }
+
+    impl Display for PositionType {
+        fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+            match self {
+                PositionType::Isolated => write!(f, "ISOLATED"),
+                PositionType::Cross => write!(f, "CROSS"),
+            }
+        }
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UIWithdrawRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub eds: String,
+        pub asset_symbol: String,
+        pub account: String,
+        pub amount: String,
+        pub salt: String,
+        pub signed_at: String,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UICreateOrderRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub ids: String,
+        pub account: String,
+        pub market: String,
+        pub price: String,
+        pub quantity: String,
+        pub leverage: String,
+        pub side: String,
+        pub position_type: String,
+        pub expiration: String,
+        pub salt: String,
+        pub signed_at: String,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UIUpdateAccountPositionLeverageRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub ids: String,
+        pub account: String,
+        pub market: String,
+        pub leverage: String,
+        pub salt: String,
+        pub signed_at: String,
+    }
+
+    impl From<WithdrawRequest> for UIWithdrawRequest {
+        fn from(val: WithdrawRequest) -> Self {
+            UIWithdrawRequest {
+                r#type: ClientPayloadType::WithdrawRequest.to_string(),
+                eds: val.signed_fields.eds_id,
+                asset_symbol: val.signed_fields.asset_symbol,
+                account: val.signed_fields.account_address,
+                amount: val.signed_fields.amount_e9,
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+            }
+        }
+    }
+
+    impl From<CreateOrderRequest> for UICreateOrderRequest {
+        fn from(val: CreateOrderRequest) -> Self {
+            UICreateOrderRequest {
+                r#type: ClientPayloadType::OrderRequest.to_string(),
+                ids: val.signed_fields.ids_id,
+                account: val.signed_fields.account_address,
+                market: val.signed_fields.symbol,
+                price: val.signed_fields.price_e9,
+                quantity: val.signed_fields.quantity_e9,
+                leverage: val.signed_fields.leverage_e9,
+                side: val.signed_fields.side.to_string(),
+                position_type: if val.signed_fields.is_isolated {
+                    PositionType::Isolated.to_string()
+                } else {
+                    PositionType::Cross.to_string()
+                },
+                expiration: val.signed_fields.expires_at_utc_millis.to_string(),
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+            }
+        }
+    }
+
+    impl From<AccountPositionLeverageUpdateRequest> for UIUpdateAccountPositionLeverageRequest {
+        fn from(val: AccountPositionLeverageUpdateRequest) -> Self {
+            UIUpdateAccountPositionLeverageRequest {
+                r#type: ClientPayloadType::LeverageAdjustment.to_string(),
+                ids: val.signed_fields.ids_id,
+                account: val.signed_fields.account_address,
+                market: val.signed_fields.symbol,
+                leverage: val.signed_fields.leverage_e9,
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+            }
+        }
+    }
 }
 
 #[cfg(test)]
 pub mod testing {
-    use ed25519_dalek::{Signature, Verifier, VerifyingKey};
-    use secp256k1::ecdsa::Signature as SecpSignature;
-    use secp256k1::{Message, PublicKey, Secp256k1};
-    use sha2::{Digest, Sha256};
+    use std::borrow::Cow;
 
-    use super::*;
-
-    type Result<T> = std::result::Result<T, &'static str>;
-
-    fn read_components(signature: &str) -> Result<Components> {
-        let hex_decoded = hex::decode(signature)
-            .map_err(|_| "Decoding Signature Components Hex String failed")?;
-        bcs::from_bytes(&hex_decoded).map_err(|_| "Creating Signature Components failed")
-    }
-
-    fn verify_ed25519_signature(
-        bytes: &[u8],
-        public_key: &[u8],
-        bcs_encoded_payload: &[u8],
-    ) -> Result<()> {
-        let bytes: &[u8; 64] = bytes
-            .try_into()
-            .map_err(|_| "Signature has to be 64 bytes.")?;
-
-        let public_key_bytes_32: &[u8; 32] = public_key
-            .try_into()
-            .map_err(|_| "Public key has to be 32 bytes.")?;
-
-        let signature = Signature::from_bytes(bytes);
-
-        let verification_key = VerifyingKey::from_bytes(public_key_bytes_32)
-            .map_err(|_| "Creating ed25519 Public Key from public key bytes failed")?;
-
-        verification_key
-            .verify(bcs_encoded_payload, &signature)
-            .map_err(|_| "ed25519 Signature Verification failed")
-    }
-
-    fn verify_secp256_signature(
-        bytes: &[u8],
-        public_key: &[u8],
-        bcs_encoded_payload: &[u8],
-    ) -> Result<()> {
-        let payload_digest: [u8; 32] = bcs_encoded_payload
-            .try_into()
-            .map_err(|_| "secp256k1 payload digest has to be 32 bytes.")?;
-
-        let secp = Secp256k1::verification_only();
-
-        let message = Message::from_digest(payload_digest);
-        let public_key = PublicKey::from_slice(public_key)
-            .map_err(|_| "Creating secp256k1 Public Key failed")?;
-
-        let signature = SecpSignature::from_compact(bytes)
-            .map_err(|_| "Creating secp256k1 Signature failed")?;
-
-        secp.verify_ecdsa(&message, &signature, &public_key)
-            .map_err(|_| "secp256k1 Signature Verification failed")
-    }
+    use serde::Serialize;
+    use sui_crypto::{ed25519::Ed25519Verifier, secp256k1::Secp256k1Verifier, SuiVerifier};
+    use sui_sdk_types::{PersonalMessage, SimpleSignature, UserSignature};
 
     pub fn verify_signature<T: Serialize, F: Serialize>(
+        signer_address: &str,
         signature: &str,
         payload: T,
-        bcs_conversion_func: fn(T) -> super::Result<F>,
-    ) -> Result<()> {
-        let components = read_components(signature)?;
+        conversion_func: fn(T) -> F,
+    ) -> std::result::Result<(), Box<dyn std::error::Error>> {
+        let signature =
+            UserSignature::from_base64(signature).map_err(|_| "Error parsing signature")?;
 
-        let bcs_dto_request =
-            bcs_conversion_func(payload).map_err(|_| "Failed to convert Request to BCS DTO")?;
-        let serialized_payload =
-            bcs::to_bytes(&bcs_dto_request).map_err(|_| "BCS encoding failed")?;
+        let converted = conversion_func(payload);
 
-        let sha_encoded_payload = Sha256::digest(&serialized_payload);
+        let serialized = serde_json::to_string_pretty(&converted)
+            .map_err(|_| "Error serializing request JSON")?;
 
-        match components.signature_type {
-            0 => verify_ed25519_signature(
-                &components.signature,
-                &components.public_key,
-                &sha_encoded_payload,
-            ),
-            1 => verify_secp256_signature(
-                &components.signature,
-                &components.public_key,
-                &sha_encoded_payload,
-            ),
-            _ => Err("Invalid Signature Type"),
+        let personal_message = PersonalMessage(Cow::Borrowed(serialized.as_bytes()));
+
+        match signature {
+            UserSignature::Simple(SimpleSignature::Ed25519 { public_key, .. }) => {
+                Ed25519Verifier::new()
+                    .verify_personal_message(&personal_message, &signature)
+                    .map_err(|_| "Error verifying ed25519 signature")?;
+
+                assert_eq!(signer_address, public_key.to_address().to_hex());
+            }
+
+            UserSignature::Simple(SimpleSignature::Secp256k1 { public_key, .. }) => {
+                Secp256k1Verifier::new()
+                    .verify_personal_message(&personal_message, &signature)
+                    .map_err(|_| "Error verifying secp256k1 signature")?;
+
+                assert_eq!(signer_address, public_key.to_address().to_hex());
+            }
+
+            _ => Err("Unsupported signature type".to_string())?,
         }
+
+        Ok(())
     }
 }

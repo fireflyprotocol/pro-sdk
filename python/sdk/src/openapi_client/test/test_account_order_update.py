@@ -37,10 +37,11 @@ class TestAccountOrderUpdate(unittest.TestCase):
             return AccountOrderUpdate(
                 order_hash = '',
                 client_order_id = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 price_e9 = '',
                 quantity_e9 = '',
+                filled_quantity_e9 = '',
                 side = 'LONG',
                 leverage_e9 = '',
                 is_isolated = True,
@@ -56,17 +57,18 @@ class TestAccountOrderUpdate(unittest.TestCase):
                 self_trade_prevention_type = 'TAKER',
                 created_at_utc_millis = 56,
                 updated_at_utc_millis = 56,
-                cancellation_reason = 'USER_CANCELLED',
+                cancellation_reason = 'UNSPECIFIED',
                 failure_to_cancel_reason = 'ORDER_NOT_FOUND',
                 remaining_quantity_e9 = ''
             )
         else:
             return AccountOrderUpdate(
                 order_hash = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 price_e9 = '',
                 quantity_e9 = '',
+                filled_quantity_e9 = '',
                 side = 'LONG',
                 leverage_e9 = '',
                 is_isolated = True,
@@ -81,7 +83,7 @@ class TestAccountOrderUpdate(unittest.TestCase):
                 self_trade_prevention_type = 'TAKER',
                 created_at_utc_millis = 56,
                 updated_at_utc_millis = 56,
-                cancellation_reason = 'USER_CANCELLED',
+                cancellation_reason = 'UNSPECIFIED',
                 remaining_quantity_e9 = '',
         )
         """

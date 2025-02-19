@@ -36,7 +36,6 @@ class TestMarket(unittest.TestCase):
         if include_optional:
             return Market(
                 symbol = 'BTC-PERP',
-                market_address = '291',
                 status = 'ACTIVE',
                 base_asset_symbol = '',
                 base_asset_name = '',
@@ -73,7 +72,6 @@ class TestMarket(unittest.TestCase):
         else:
             return Market(
                 symbol = 'BTC-PERP',
-                market_address = '291',
                 status = 'ACTIVE',
                 base_asset_symbol = '',
                 base_asset_name = '',

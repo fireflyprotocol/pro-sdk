@@ -3,7 +3,7 @@ use bluefin_api::models::{
     MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
     SubscriptionType,
 };
-use bluefin_pro as bfp;
+use bluefin_pro::prelude::*;
 use futures_util::{SinkExt, StreamExt};
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
@@ -17,12 +17,12 @@ use tokio_tungstenite::tungstenite::Message;
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 async fn listen_to_ticker_all_updates(
-    environment: bfp::Environment,
+    environment: Environment,
     sender: Sender<MarketStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let request = bfp::ws::market::get_url(environment).into_client_request()?;
+    let request = ws::market::url(environment).into_client_request()?;
 
     // Establish connection with WebSocket URL.
     let (websocket_stream, _) = connect_async(request).await?;
@@ -106,7 +106,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     listen_to_ticker_all_updates(
-        bfp::Environment::Testnet,
+        Environment::Testnet,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),

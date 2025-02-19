@@ -426,7 +426,6 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      bearerFormat: JWT  # Optional, arbitrary value for documentation purposes
       description: url base64 encoded JWT token payload.
 
 paths:

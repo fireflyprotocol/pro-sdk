@@ -35,7 +35,7 @@ class TestAsset(unittest.TestCase):
         model = Asset()
         if include_optional:
             return Asset(
-                bank_address = '',
+                symbol = '',
                 quantity_e9 = '6000000000',
                 effective_balance_e9 = '6000000000',
                 max_withdraw_quantity_e9 = '3000000000',
@@ -43,7 +43,7 @@ class TestAsset(unittest.TestCase):
             )
         else:
             return Asset(
-                bank_address = '',
+                symbol = '',
                 quantity_e9 = '6000000000',
                 effective_balance_e9 = '6000000000',
                 max_withdraw_quantity_e9 = '3000000000',

@@ -1,85 +1,103 @@
-use crate::signature::{self, PrivateKey, RequestExt, Type};
+use crate::core::PrivateKey;
+use crate::signature::{self, Result};
+use blake2::digest::consts::U32;
+use blake2::{Blake2b, Digest};
 use bluefin_api::models::AccountPositionLeverageUpdateRequest;
-use sha2::{Digest, Sha256};
+use sui_sdk_types::SignatureScheme;
 
-pub mod bcs_conversion {
-    use crate::address::Address;
-    use crate::signature;
-    use crate::signature::parse;
-    use bluefin_api::models::AccountPositionLeverageUpdateRequestSignedFields;
-    use serde::Serialize;
-
-    #[derive(Serialize)]
-    pub struct UpdateAccountPositionLeverageRequestBcs {
-        pub account_address: Address,
-        pub symbol: String,
-        pub leverage_e9: u64,
-        pub salt: u64,
-        pub ids_id: Address,
-        pub signed_at_utc_millis: u64,
-    }
-
-    pub fn convert(
-        signed_fields: &AccountPositionLeverageUpdateRequestSignedFields,
-    ) -> signature::Result<UpdateAccountPositionLeverageRequestBcs> {
-        Ok(UpdateAccountPositionLeverageRequestBcs {
-            account_address: parse(&signed_fields.account_address, "account_address")?,
-            symbol: parse(&signed_fields.symbol, "symbol")?,
-            leverage_e9: parse(&signed_fields.leverage_e9, "leverage_e9")?,
-            salt: parse(&signed_fields.salt, "salt")?,
-            ids_id: parse(&signed_fields.ids_id, "ids_id")?,
-            signed_at_utc_millis: signed_fields.signed_at_utc_millis.unsigned_abs(),
-        })
-    }
-}
+use crate::signature::{serialize, RequestExt};
 
 impl RequestExt for AccountPositionLeverageUpdateRequest {
-    fn sign(mut self, private_key: PrivateKey, type_id: Type) -> signature::Result<Self> {
-        let bcs_request = bcs::to_bytes(&bcs_conversion::convert(&self.signed_fields)?)
-            .map_err(|error| signature::Error::RequestObject(error.to_string()))?;
-        let sha_encoded_request = Sha256::digest(&bcs_request);
-        self.request_hash = hex::encode(sha_encoded_request);
-        self.signature = signature::sign(private_key, type_id, sha_encoded_request.as_ref())?;
-        Ok(self)
+    fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
+        let converted =
+            signature::conversion::UIUpdateAccountPositionLeverageRequest::from(self.clone());
+
+        let signature = signature::signature(converted, private_key, scheme)?;
+        let request_hash = hex::encode(Blake2b::<U32>::digest(
+            serialize(&self.signed_fields).map_err(|_| signature::Error::Serialization)?,
+        ));
+        Ok(AccountPositionLeverageUpdateRequest {
+            signature,
+            request_hash,
+            ..self
+        })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use bluefin_api::models::AccountPositionLeverageUpdateRequestSignedFields;
-    use ed25519_dalek::SigningKey;
+    use blake2::digest::consts::U32;
+    use blake2::{Blake2b, Digest};
+    use bluefin_api::models::{
+        AccountPositionLeverageUpdateRequest, AccountPositionLeverageUpdateRequestSignedFields,
+    };
     use rand::rngs::OsRng;
+    use sui_crypto::ed25519::Ed25519VerifyingKey;
+    use sui_crypto::secp256k1::Secp256k1VerifyingKey;
+    use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SignatureScheme};
 
-    use super::*;
-    use crate::signature::testing::verify_signature;
+    use crate::signature::RequestExt;
+    use crate::signature::{self, testing::verify_signature};
 
-    fn verify_request_signature(request: AccountPositionLeverageUpdateRequest) {
+    fn verify_request_signature(
+        request: AccountPositionLeverageUpdateRequest,
+        signer_address: &str,
+    ) {
         assert!(!request.signature.is_empty());
         assert!(!request.request_hash.is_empty());
-        assert!(
-            verify_signature(&request.signature.clone(), request, |request| {
-                bcs_conversion::convert(&request.signed_fields)
-            })
-            .is_ok()
-        )
+
+        match verify_signature(
+            signer_address,
+            &request.signature.clone(),
+            request.clone(),
+            signature::conversion::UIUpdateAccountPositionLeverageRequest::from,
+        ) {
+            Ok(_) => {}
+            Err(e) => panic!("{e}"),
+        }
+
+        assert_eq!(
+            request.request_hash,
+            hex::encode(Blake2b::<U32>::digest(
+                serde_json::to_string_pretty(&request.signed_fields)
+                    .unwrap()
+                    .as_bytes(),
+            ))
+        );
     }
 
     #[test]
     fn sign_request_is_successful_ed25519() {
-        let signing_key = SigningKey::generate(&mut OsRng);
+        let private_key = ed25519_dalek::SigningKey::generate(&mut OsRng);
+        let signer_address = Ed25519VerifyingKey::new(&Ed25519PublicKey::new(
+            private_key.verifying_key().to_bytes(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
         let request = update_leverage_request()
-            .sign(signing_key.to_bytes(), Type::Ed25519)
+            .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request);
+        verify_request_signature(request, &signer_address);
     }
 
     #[test]
     fn sign_request_is_successful_secp256k1() {
-        let signing_key = SigningKey::generate(&mut OsRng);
+        let private_key = secp256k1::SecretKey::new(&mut OsRng);
+        let secp = secp256k1::Secp256k1::new();
+        let signer_address = Secp256k1VerifyingKey::new(&Secp256k1PublicKey::new(
+            private_key.public_key(&secp).serialize(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
+
         let request = update_leverage_request()
-            .sign(signing_key.to_bytes(), Type::Secp256k1)
+            .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
-        verify_request_signature(request);
+        verify_request_signature(request, &signer_address);
     }
 
     fn update_leverage_request() -> AccountPositionLeverageUpdateRequest {

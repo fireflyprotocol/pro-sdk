@@ -38,7 +38,7 @@ class TestMarketSubscriptionMessage(unittest.TestCase):
                 method = 'Subscribe',
                 data_streams = [
                     openapi_client.models.market_subscription_streams.MarketSubscriptionStreams(
-                        market_address = '', 
+                        symbol = '', 
                         streams = [
                             'Recent_Trade'
                             ], )
@@ -49,7 +49,7 @@ class TestMarketSubscriptionMessage(unittest.TestCase):
                 method = 'Subscribe',
                 data_streams = [
                     openapi_client.models.market_subscription_streams.MarketSubscriptionStreams(
-                        market_address = '', 
+                        symbol = '', 
                         streams = [
                             'Recent_Trade'
                             ], )

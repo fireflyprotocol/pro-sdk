@@ -55,7 +55,7 @@ class TestAccount(unittest.TestCase):
                 last_updated_at_utc_millis = 1627872345678,
                 assets = [
                     openapi_client.models.asset.Asset(
-                        bank_address = '', 
+                        symbol = '', 
                         quantity_e9 = '6000000000', 
                         effective_balance_e9 = '6000000000', 
                         max_withdraw_quantity_e9 = '3000000000', 
@@ -63,7 +63,7 @@ class TestAccount(unittest.TestCase):
                     ],
                 positions = [
                     openapi_client.models.position.Position(
-                        market_address = '', 
+                        symbol = '', 
                         avg_entry_price_e9 = '400000000000', 
                         leverage_e9 = '100000000000', 
                         liquidation_price_e9 = '0', 
@@ -102,7 +102,7 @@ class TestAccount(unittest.TestCase):
                 last_updated_at_utc_millis = 1627872345678,
                 assets = [
                     openapi_client.models.asset.Asset(
-                        bank_address = '', 
+                        symbol = '', 
                         quantity_e9 = '6000000000', 
                         effective_balance_e9 = '6000000000', 
                         max_withdraw_quantity_e9 = '3000000000', 
@@ -110,7 +110,7 @@ class TestAccount(unittest.TestCase):
                     ],
                 positions = [
                     openapi_client.models.position.Position(
-                        market_address = '', 
+                        symbol = '', 
                         avg_entry_price_e9 = '400000000000', 
                         leverage_e9 = '100000000000', 
                         liquidation_price_e9 = '0', 

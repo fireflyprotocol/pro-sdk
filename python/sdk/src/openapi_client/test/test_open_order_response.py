@@ -37,7 +37,6 @@ class TestOpenOrderResponse(unittest.TestCase):
             return OpenOrderResponse(
                 order_hash = '',
                 client_order_id = 'company1_order1',
-                market_address = '',
                 symbol = '',
                 account_address = '',
                 price_e9 = '452400000',
@@ -62,7 +61,6 @@ class TestOpenOrderResponse(unittest.TestCase):
         else:
             return OpenOrderResponse(
                 order_hash = '',
-                market_address = '',
                 symbol = '',
                 account_address = '',
                 price_e9 = '452400000',

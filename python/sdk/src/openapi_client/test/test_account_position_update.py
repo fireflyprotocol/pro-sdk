@@ -35,7 +35,7 @@ class TestAccountPositionUpdate(unittest.TestCase):
         model = AccountPositionUpdate()
         if include_optional:
             return AccountPositionUpdate(
-                market_address = '',
+                symbol = '',
                 avg_entry_price_e9 = '',
                 leverage_e9 = '',
                 liquidation_price_e9 = '',
@@ -53,7 +53,7 @@ class TestAccountPositionUpdate(unittest.TestCase):
             )
         else:
             return AccountPositionUpdate(
-                market_address = '',
+                symbol = '',
                 avg_entry_price_e9 = '',
                 leverage_e9 = '',
                 liquidation_price_e9 = '',

@@ -35,14 +35,14 @@ class TestMarketSubscriptionStreams(unittest.TestCase):
         model = MarketSubscriptionStreams()
         if include_optional:
             return MarketSubscriptionStreams(
-                market_address = '',
+                symbol = '',
                 streams = [
                     'Recent_Trade'
                     ]
             )
         else:
             return MarketSubscriptionStreams(
-                market_address = '',
+                symbol = '',
                 streams = [
                     'Recent_Trade'
                     ],

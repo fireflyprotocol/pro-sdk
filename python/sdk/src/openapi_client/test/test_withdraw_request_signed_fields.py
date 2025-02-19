@@ -36,19 +36,19 @@ class TestWithdrawRequestSignedFields(unittest.TestCase):
         if include_optional:
             return WithdrawRequestSignedFields(
                 asset_symbol = 'ETH',
-                asset_bank_address = '2748',
                 account_address = '2748',
                 amount_e9 = '1000000000',
                 salt = '432558574839487',
+                eds_id = 'eds_id',
                 signed_at_utc_millis = 12454325432
             )
         else:
             return WithdrawRequestSignedFields(
                 asset_symbol = 'ETH',
-                asset_bank_address = '2748',
                 account_address = '2748',
                 amount_e9 = '1000000000',
                 salt = '432558574839487',
+                eds_id = 'eds_id',
                 signed_at_utc_millis = 12454325432,
         )
         """

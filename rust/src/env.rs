@@ -56,7 +56,7 @@ pub mod auth {
         pub const URL: &str = "https://auth.api.sui-prod.bluefin.io";
     }
 
-    pub fn get_url<'a>(environment: Environment) -> &'a str {
+    pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Devnet => devnet::URL,
             Environment::Testnet => testnet::URL,
@@ -64,7 +64,7 @@ pub mod auth {
         }
     }
 
-    pub fn get_audience<'a>(environment: Environment) -> &'a str {
+    pub fn audience<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Devnet => devnet::AUDIENCE,
             Environment::Testnet => testnet::AUDIENCE,
@@ -90,7 +90,7 @@ pub mod trade {
         pub const URL: &str = "https://trade.api.sui-prod.bluefin.io";
     }
 
-    pub fn get_url<'a>(environment: Environment) -> &'a str {
+    pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Devnet => devnet::URL,
             Environment::Testnet => testnet::URL,
@@ -115,7 +115,7 @@ pub mod exchange {
     }
 
     pub mod info {
-        use crate::{exchange, Environment};
+        use super::*;
         use bluefin_api::apis::configuration::Configuration;
         use bluefin_api::models::ContractsConfig;
 
@@ -125,12 +125,12 @@ pub mod exchange {
         /// # Errors
         ///
         /// Will return [`Err`] if client/server communication fails.
-        pub async fn get_contracts_config(environment: Environment) -> Result<ContractsConfig> {
+        pub async fn contracts_config(environment: Environment) -> Result<ContractsConfig> {
             bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
                 base_path: match environment {
-                    Environment::Devnet => exchange::devnet::URL.into(),
-                    Environment::Testnet => exchange::testnet::URL.into(),
-                    Environment::Mainnet => exchange::mainnet::URL.into(),
+                    Environment::Devnet => devnet::URL.into(),
+                    Environment::Testnet => testnet::URL.into(),
+                    Environment::Mainnet => mainnet::URL.into(),
                 },
                 ..Configuration::default()
             })
@@ -141,7 +141,7 @@ pub mod exchange {
         }
     }
 
-    pub fn get_url<'a>(environment: Environment) -> &'a str {
+    pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Devnet => devnet::URL,
             Environment::Testnet => testnet::URL,
@@ -166,7 +166,7 @@ pub mod account {
         pub const URL: &str = "https://api.sui-prod.bluefin.io";
     }
 
-    pub fn get_url<'a>(environment: Environment) -> &'a str {
+    pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Devnet => devnet::URL,
             Environment::Testnet => testnet::URL,
@@ -176,8 +176,9 @@ pub mod account {
 }
 
 pub mod websocket {
+    use super::Environment;
     pub mod account {
-        use crate::Environment;
+        use super::Environment;
 
         pub mod devnet {
             pub const URL: &str = "wss://stream.api.sui-dev.bluefin.io/ws/account";
@@ -191,7 +192,7 @@ pub mod websocket {
             pub const URL: &str = "wss://stream.api.sui-prod.bluefin.io/ws/account";
         }
 
-        pub fn get_url<'a>(environment: Environment) -> &'a str {
+        pub fn url<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Devnet => devnet::URL,
                 Environment::Testnet => testnet::URL,
@@ -201,7 +202,7 @@ pub mod websocket {
     }
 
     pub mod market {
-        use crate::Environment;
+        use super::Environment;
 
         pub mod devnet {
             pub const URL: &str = "wss://stream.api.sui-dev.bluefin.io/ws/market";
@@ -215,7 +216,7 @@ pub mod websocket {
             pub const URL: &str = "wss://stream.api.sui-prod.bluefin.io/ws/market";
         }
 
-        pub fn get_url<'a>(environment: Environment) -> &'a str {
+        pub fn url<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Devnet => devnet::URL,
                 Environment::Testnet => testnet::URL,

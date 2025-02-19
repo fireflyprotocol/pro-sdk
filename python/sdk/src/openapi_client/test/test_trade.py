@@ -37,7 +37,7 @@ class TestTrade(unittest.TestCase):
             return Trade(
                 trade_id = '',
                 client_order_id = '25851813',
-                market_address = '',
+                symbol = '',
                 order_hash = '',
                 trade_type = 'ORDER',
                 side = 'LONG',

@@ -36,7 +36,7 @@ class TestOrderbookPartialDepthUpdate(unittest.TestCase):
         if include_optional:
             return OrderbookPartialDepthUpdate(
                 updated_at_utc_millis = 56,
-                market_address = '',
+                symbol = '',
                 bids_e9 = [
                     [["10000000000","10000000000"],["9000000000","9000000000"]]
                     ],
@@ -49,7 +49,7 @@ class TestOrderbookPartialDepthUpdate(unittest.TestCase):
         else:
             return OrderbookPartialDepthUpdate(
                 updated_at_utc_millis = 56,
-                market_address = '',
+                symbol = '',
                 bids_e9 = [
                     [["10000000000","10000000000"],["9000000000","9000000000"]]
                     ],

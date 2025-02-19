@@ -3,13 +3,14 @@ use bluefin_api::models::{
     AccountDataStream, AccountStreamMessage, AccountStreamMessagePayload,
     AccountSubscriptionMessage, SubscriptionResponseMessage, SubscriptionType,
 };
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::Utc;
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
+use sui_sdk_types::SignatureScheme;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -26,32 +27,32 @@ type Result<T> = std::result::Result<T, Error>;
 /// # Errors
 ///
 /// Will return `Err` if the authentication cannot be reached, or rejects our request.
-async fn authenticate(environment: bfp::Environment) -> Result<String> {
-    let audience = bfp::auth::get_audience(environment);
+async fn authenticate(environment: Environment) -> Result<String> {
+    let audience = auth::audience(environment);
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
         audience: audience.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
     let response = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?;
     Ok(response.access_token)
 }
 
 async fn listen_to_account_info(
     auth_token: &str,
-    environment: bfp::Environment,
+    environment: Environment,
     sender: Sender<AccountStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // Then, we establish a connection through the websocket URL for that environment.
-    let mut request = bfp::ws::account::get_url(environment).into_client_request()?;
+    let mut request = ws::account::url(environment).into_client_request()?;
     request.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
@@ -133,14 +134,14 @@ async fn listen_to_account_info(
 #[tokio::main]
 async fn main() -> Result<()> {
     // First, we log into the desired environment.
-    let auth_token = authenticate(bfp::Environment::Testnet).await?;
+    let auth_token = authenticate(Environment::Testnet).await?;
 
     // Stream websocket messages for 10 seconds
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_account_info(
         &auth_token,
-        bfp::Environment::Testnet,
+        Environment::Testnet,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),
