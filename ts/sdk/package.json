@@ -1,5 +1,5 @@
 {
-  "name": "@fireflyprotocol/bluefin-pro-sdk",
+  "name": "@bluefin/bluefin-pro-sdk",
   "version": "0.1.10",
   "description": "OpenAPI client for @fireflyprotocol/bluefin-pro-sdk",
   "author": "Bluefin",
@@ -32,5 +32,8 @@
   },
   "exports": {
     ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
