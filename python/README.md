@@ -32,3 +32,21 @@ executable under `.venv/bin/python` created from previous commands.  The example
 directory contains a main method that fully runs the SDK functions.
 
 Now you can run the example in the ./example dir by running `python main.py`.
+
+
+Generating the OpenAPI Client
+----------------------------
+
+The OpenAPI client code in the ``sdk/src`` directory is automatically generated using the OpenAPI Generator.
+To regenerate the client code, run (from the ``sdk`` directory):
+
+```bash
+openapi-generator generate -i ../../resources/bluefin-api.yaml -c config.yaml -g python -o src
+```
+
+This will:
+
+1. Use the OpenAPI spec from ``../../resources/bluefin-api.yaml``
+2. Apply configuration from ``config.yaml`` 
+3. Generate a Python client
+4. Output the generated code to the ``src`` directory

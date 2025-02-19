@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**auth_jwks_get**](AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
 [**auth_token_post**](AuthApi.md#auth_token_post) | **POST** /auth/token | 
 [**auth_token_refresh_put**](AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
+[**auth_v2_token_post**](AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
 
 
 
@@ -89,6 +90,37 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## auth_v2_token_post
+
+> models::LoginResponse auth_v2_token_post(payload_signature, login_request)
+
+
+login compatible with BCS payload with intent bytes
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**payload_signature** | **String** |  | [required] |
+**login_request** | [**LoginRequest**](LoginRequest.md) |  | [required] |
+
+### Return type
+
+[**models::LoginResponse**](LoginResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

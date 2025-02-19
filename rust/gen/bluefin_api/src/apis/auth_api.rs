@@ -46,6 +46,18 @@ pub enum AuthTokenRefreshPutError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`auth_v2_token_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AuthV2TokenPostError {
+    Status400(models::Error),
+    Status401(models::Error),
+    Status403(models::Error),
+    Status500(models::Error),
+    DefaultResponse(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 
 pub async fn auth_jwks_get(configuration: &configuration::Configuration, ) -> Result<std::collections::HashMap<String, serde_json::Value>, Error<AuthJwksGetError>> {
 
@@ -124,6 +136,36 @@ pub async fn auth_token_refresh_put(configuration: &configuration::Configuration
     } else {
         let content = resp.text().await?;
         let entity: Option<AuthTokenRefreshPutError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// login compatible with BCS payload with intent bytes
+pub async fn auth_v2_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest) -> Result<models::LoginResponse, Error<AuthV2TokenPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_payload_signature = payload_signature;
+    let p_login_request = login_request;
+
+    let uri_str = format!("{}/auth/v2/token", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.header("payloadSignature", p_payload_signature.to_string());
+    req_builder = req_builder.json(&p_login_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AuthV2TokenPostError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

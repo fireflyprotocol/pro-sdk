@@ -160,7 +160,8 @@ export const AccountEventReason = {
     Withdraw: 'Withdraw',
     OrderCreated: 'OrderCreated',
     OrderMatched: 'OrderMatched',
-    OrderCancelled: 'OrderCancelled'
+    OrderCancelled: 'OrderCancelled',
+    OrdersForMarketCancelled: 'OrdersForMarketCancelled'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];
@@ -443,6 +444,12 @@ export type AccountStreamMessagePayload = AccountOrderUpdate | AccountPositionUp
  * @interface AccountSubscriptionMessage
  */
 export interface AccountSubscriptionMessage {
+    /**
+     * The authentication token for the account.
+     * @type {string}
+     * @memberof AccountSubscriptionMessage
+     */
+    'authToken'?: string;
     /**
      * 
      * @type {SubscriptionType}
@@ -741,6 +748,12 @@ export interface ActiveOrderUpdate {
      * @memberof ActiveOrderUpdate
      */
     'quantityE9': string;
+    /**
+     * The filled quantity of the order in scientific notation with 9 decimal places.
+     * @type {string}
+     * @memberof ActiveOrderUpdate
+     */
+    'filledQuantityE9': string;
     /**
      * 
      * @type {Side}
@@ -1759,7 +1772,20 @@ export const MarketDataStreamName = {
     Candlestick12hMark: 'Candlestick_12h_Mark',
     Candlestick1dMark: 'Candlestick_1d_Mark',
     Candlestick1wMark: 'Candlestick_1w_Mark',
-    Candlestick1MoMark: 'Candlestick_1Mo_Mark'
+    Candlestick1MoMark: 'Candlestick_1Mo_Mark',
+    Candlestick1mMarket: 'Candlestick_1m_Market',
+    Candlestick3mMarket: 'Candlestick_3m_Market',
+    Candlestick5mMarket: 'Candlestick_5m_Market',
+    Candlestick15mMarket: 'Candlestick_15m_Market',
+    Candlestick30mMarket: 'Candlestick_30m_Market',
+    Candlestick1hMarket: 'Candlestick_1h_Market',
+    Candlestick2hMarket: 'Candlestick_2h_Market',
+    Candlestick4hMarket: 'Candlestick_4h_Market',
+    Candlestick8hMarket: 'Candlestick_8h_Market',
+    Candlestick12hMarket: 'Candlestick_12h_Market',
+    Candlestick1dMarket: 'Candlestick_1d_Market',
+    Candlestick1wMarket: 'Candlestick_1w_Market',
+    Candlestick1MoMarket: 'Candlestick_1Mo_Market'
 } as const;
 
 export type MarketDataStreamName = typeof MarketDataStreamName[keyof typeof MarketDataStreamName];
@@ -2160,8 +2186,15 @@ export const OrderCancelReason = {
     ReduceOnlyWouldOpen: 'REDUCE_ONLY_WOULD_OPEN',
     TooManyOpenOrdersOnMarket: 'TOO_MANY_OPEN_ORDERS_ON_MARKET',
     UserCancelled: 'USER_CANCELLED',
+    UserCancelledAllOnMarket: 'USER_CANCELLED_ALL_ON_MARKET',
     SelfTradePrevention: 'SELF_TRADE_PREVENTION',
-    LeverageUpdate: 'LEVERAGE_UPDATE'
+    LeverageUpdate: 'LEVERAGE_UPDATE',
+    AccountNotFound: 'ACCOUNT_NOT_FOUND',
+    MarketNotTrading: 'MARKET_NOT_TRADING',
+    InsufficientLiquidity: 'INSUFFICIENT_LIQUIDITY',
+    PositionNotFound: 'POSITION_NOT_FOUND',
+    LiquidationOutOfOrder: 'LIQUIDATION_OUT_OF_ORDER',
+    AccountNotLiquidatable: 'ACCOUNT_NOT_LIQUIDATABLE'
 } as const;
 
 export type OrderCancelReason = typeof OrderCancelReason[keyof typeof OrderCancelReason];
@@ -2352,6 +2385,8 @@ export const OrderType1 = {
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
     StopMarket: 'STOP_MARKET',
+    Liquidation: 'LIQUIDATION',
+    BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
     Unspecified: 'UNSPECIFIED'
 } as const;
 

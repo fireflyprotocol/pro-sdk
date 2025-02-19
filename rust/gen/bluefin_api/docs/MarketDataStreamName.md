@@ -55,6 +55,19 @@
 | Candlestick1dMark | Candlestick_1d_Mark |
 | Candlestick1wMark | Candlestick_1w_Mark |
 | Candlestick1MoMark | Candlestick_1Mo_Mark |
+| Candlestick1mMarket | Candlestick_1m_Market |
+| Candlestick3mMarket | Candlestick_3m_Market |
+| Candlestick5mMarket | Candlestick_5m_Market |
+| Candlestick15mMarket | Candlestick_15m_Market |
+| Candlestick30mMarket | Candlestick_30m_Market |
+| Candlestick1hMarket | Candlestick_1h_Market |
+| Candlestick2hMarket | Candlestick_2h_Market |
+| Candlestick4hMarket | Candlestick_4h_Market |
+| Candlestick8hMarket | Candlestick_8h_Market |
+| Candlestick12hMarket | Candlestick_12h_Market |
+| Candlestick1dMarket | Candlestick_1d_Market |
+| Candlestick1wMarket | Candlestick_1w_Market |
+| Candlestick1MoMarket | Candlestick_1Mo_Market |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

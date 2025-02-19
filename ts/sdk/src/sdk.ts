@@ -96,7 +96,7 @@ export class BluefinProSdk {
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
-    environment: "mainnet" | "testnet" = "mainnet",
+    environment: "mainnet" | "testnet" | "devnet" = "mainnet",
     private currentAccountAddress: string | null = null,
     basePathConfig: BasePathConfig | null = null,
   ) {

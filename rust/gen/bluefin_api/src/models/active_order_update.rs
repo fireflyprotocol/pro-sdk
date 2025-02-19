@@ -32,6 +32,9 @@ pub struct ActiveOrderUpdate {
     /// The quantity of the order in scientific notation with 9 decimal places.
     #[serde(rename = "quantityE9")]
     pub quantity_e9: String,
+    /// The filled quantity of the order in scientific notation with 9 decimal places.
+    #[serde(rename = "filledQuantityE9")]
+    pub filled_quantity_e9: String,
     #[serde(rename = "side")]
     pub side: models::Side,
     /// The leverage of the order in scientific notation with 9 decimal places.
@@ -76,7 +79,7 @@ pub struct ActiveOrderUpdate {
 
 impl ActiveOrderUpdate {
     /// Information about an order update.
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_utc_millis: i64, signed_at_utc_millis: i64, r#type: models::OrderType1, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce1, status: models::OrderStatus1, self_trade_prevention_type: models::SelfTradePreventionType1, created_at_utc_millis: i64, updated_at_utc_millis: i64) -> ActiveOrderUpdate {
+    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, filled_quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_utc_millis: i64, signed_at_utc_millis: i64, r#type: models::OrderType1, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce1, status: models::OrderStatus1, self_trade_prevention_type: models::SelfTradePreventionType1, created_at_utc_millis: i64, updated_at_utc_millis: i64) -> ActiveOrderUpdate {
         ActiveOrderUpdate {
             order_hash,
             client_order_id: None,
@@ -84,6 +87,7 @@ impl ActiveOrderUpdate {
             account_address,
             price_e9,
             quantity_e9,
+            filled_quantity_e9,
             side,
             leverage_e9,
             is_isolated,
