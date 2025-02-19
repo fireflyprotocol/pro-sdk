@@ -1,14 +1,14 @@
 {
-  "name": "@bluefin/bluefin-pro-sdk",
+  "name": "@fireflyprotocol/bluefin-pro-sdk",
   "version": "0.1.10",
-  "description": "OpenAPI client for @bluefin/bluefin-pro-sdk",
+  "description": "OpenAPI client for @fireflyprotocol/bluefin-pro-sdk",
   "author": "Bluefin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fireflyprotocol/bluefin-pro-sdk.git"
+    "url": "https://github.com/fireflyprotocol/pro-sdk.git"
   },
   "keywords": [
-    "@bluefin/bluefin-pro-sdk"
+    "@fireflyprotocol/bluefin-pro-sdk"
   ],
   "license": "Unlicense",
   "main": "./dist/index.js",
