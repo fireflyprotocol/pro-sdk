@@ -49,8 +49,6 @@ class Order:
     self_trade_prevention_type: SelfTradePreventionType = None
 
 
-env_name = environ.get("ENV", "sui-prod")
-
 logger = logging.getLogger(__name__)
 
 

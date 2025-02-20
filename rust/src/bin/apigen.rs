@@ -1,9 +1,9 @@
 //! This is how Bluefin generates Rust code from the accompanying OpenAPI specifications.
 //!
-//! To install this command locally, cd to parent `rust` directory and run:
+//! To install this command locally, change to the parent `rust` directory and run:
 //!
 //! ```sh
-//! cargo install --path .
+//! cargo install --path . --bin apigen
 //! ```
 //!
 //! If you don't have `cargo`, start [here](https://rustup.rs/).
@@ -74,9 +74,9 @@ impl Lang {
     /// Returns a repo-relative path to the OpenAPI definition for this language.
     fn config(self) -> &'static str {
         match self {
-            Lang::Python => "python/gen/config.yaml",
+            Lang::Python => "python/sdk/config.yaml",
             Lang::Rust => "rust/gen/config.yaml",
-            Lang::Typescript => "typescript-axios/gen/config.yaml",
+            Lang::Typescript => "ts/sdk/openapitools.json",
         }
     }
 
@@ -86,6 +86,15 @@ impl Lang {
             Lang::Python => "python",
             Lang::Rust => "rust",
             Lang::Typescript => "typescript-axios",
+        }
+    }
+
+    /// Returns the target directory path where code should be generated.
+    fn output(self) -> &'static str {
+        match self {
+            Lang::Python => "python/sdk/src",
+            Lang::Rust => "rust/gen/bluefin_api",
+            Lang::Typescript => "ts/sdk/src",
         }
     }
 }
@@ -114,13 +123,12 @@ impl FromStr for Lang {
 /// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
     let command = "openapi-generator";
-    let generator = lang.generator();
     Command::new(command)
         .arg("generate")
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
         .args(["--config", lang.config()])
-        .args(["--generator-name", generator])
-        .args(["--output", &format!("{generator}/gen/bluefin_api")])
+        .args(["--generator-name", lang.generator()])
+        .args(["--output", lang.output()])
         .status()?
         .success()
         .then_some(())
