@@ -206,6 +206,14 @@ export class BluefinProSdk {
     );
     this.tokenResponse = response.data;
   }
+
+  public async getAccessToken() {
+    if (!this.tokenResponse) {
+      await this.login();
+    }
+    return this.tokenResponse!.accessToken;
+  }
+
   public async getOpenOrders(symbol: string) {
     await this.setAccessToken();
     return await this.tradeApi.getOpenOrders(symbol);

@@ -63,6 +63,9 @@ components:
       type: object
       description: "Subscription message for account data streams."
       properties:
+        authToken:
+          type: string
+          description: "The authentication token for the account."
         method:
           $ref: '#/components/schemas/SubscriptionType'
         dataStreams:
@@ -253,6 +256,9 @@ components:
         - ACCOUNT_NOT_FOUND
         - MARKET_NOT_TRADING
         - INSUFFICIENT_LIQUIDITY
+        - POSITION_NOT_FOUND
+        - LIQUIDATION_OUT_OF_ORDER
+        - ACCOUNT_NOT_LIQUIDATABLE
 
     OrderCancellationFailureReason:
       type: string
@@ -329,6 +335,9 @@ components:
         quantityE9:
           type: string
           description: "The quantity of the order in scientific notation with 9 decimal places."
+        filledQuantityE9:
+          type: string
+          description: "The filled quantity of the order in scientific notation with 9 decimal places."
         side:
           $ref: '#/components/schemas/Side'
         leverageE9:
@@ -379,6 +388,7 @@ components:
         - accountAddress
         - priceE9
         - quantityE9
+        - filledQuantityE9
         - side
         - leverageE9
         - isIsolated
@@ -402,6 +412,8 @@ components:
         - MARKET
         - STOP_LIMIT
         - STOP_MARKET
+        - LIQUIDATION
+        - BANKRUPTCY_LIQUIDATION
         - UNSPECIFIED
 
     OrderTimeInForce:

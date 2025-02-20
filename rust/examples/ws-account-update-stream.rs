@@ -27,7 +27,7 @@ type Result<T> = std::result::Result<T, Error>;
 ///
 /// Will return `Err` if the authentication cannot be reached, or rejects our request.
 async fn authenticate(environment: bfp::Environment) -> Result<String> {
-    let audience = bfp::auth::get_url(environment);
+    let audience = bfp::auth::get_audience(environment);
     let request = LoginRequest {
         account_address: bfp::test::account::testnet::ADDRESS.into(),
         audience: audience.into(),

@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.account_data_stream import AccountDataStream
 from openapi_client.models.subscription_type import SubscriptionType
 from typing import Optional, Set
@@ -28,9 +28,10 @@ class AccountSubscriptionMessage(BaseModel):
     """
     Subscription message for account data streams.
     """ # noqa: E501
+    auth_token: Optional[StrictStr] = Field(default=None, description="The authentication token for the account.", alias="authToken")
     method: SubscriptionType
     data_streams: List[AccountDataStream] = Field(description="List of account data streams to subscribe or unsubscribe from.", alias="dataStreams")
-    __properties: ClassVar[List[str]] = ["method", "dataStreams"]
+    __properties: ClassVar[List[str]] = ["authToken", "method", "dataStreams"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +84,7 @@ class AccountSubscriptionMessage(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "authToken": obj.get("authToken"),
             "method": obj.get("method"),
             "dataStreams": obj.get("dataStreams")
         })

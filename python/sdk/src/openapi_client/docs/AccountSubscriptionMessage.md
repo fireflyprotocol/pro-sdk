@@ -6,6 +6,7 @@ Subscription message for account data streams.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**auth_token** | **str** | The authentication token for the account. | [optional] 
 **method** | [**SubscriptionType**](SubscriptionType.md) |  | 
 **data_streams** | [**List[AccountDataStream]**](AccountDataStream.md) | List of account data streams to subscribe or unsubscribe from. | 
 

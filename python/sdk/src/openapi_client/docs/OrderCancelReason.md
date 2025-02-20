@@ -48,6 +48,12 @@ The reason for an order cancellation.
 
 * `INSUFFICIENT_LIQUIDITY` (value: `'INSUFFICIENT_LIQUIDITY'`)
 
+* `POSITION_NOT_FOUND` (value: `'POSITION_NOT_FOUND'`)
+
+* `LIQUIDATION_OUT_OF_ORDER` (value: `'LIQUIDATION_OUT_OF_ORDER'`)
+
+* `ACCOUNT_NOT_LIQUIDATABLE` (value: `'ACCOUNT_NOT_LIQUIDATABLE'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

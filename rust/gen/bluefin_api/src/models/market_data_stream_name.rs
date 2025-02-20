@@ -116,6 +116,32 @@ pub enum MarketDataStreamName {
     Candlestick1wMark,
     #[serde(rename = "Candlestick_1Mo_Mark")]
     Candlestick1MoMark,
+    #[serde(rename = "Candlestick_1m_Market")]
+    Candlestick1mMarket,
+    #[serde(rename = "Candlestick_3m_Market")]
+    Candlestick3mMarket,
+    #[serde(rename = "Candlestick_5m_Market")]
+    Candlestick5mMarket,
+    #[serde(rename = "Candlestick_15m_Market")]
+    Candlestick15mMarket,
+    #[serde(rename = "Candlestick_30m_Market")]
+    Candlestick30mMarket,
+    #[serde(rename = "Candlestick_1h_Market")]
+    Candlestick1hMarket,
+    #[serde(rename = "Candlestick_2h_Market")]
+    Candlestick2hMarket,
+    #[serde(rename = "Candlestick_4h_Market")]
+    Candlestick4hMarket,
+    #[serde(rename = "Candlestick_8h_Market")]
+    Candlestick8hMarket,
+    #[serde(rename = "Candlestick_12h_Market")]
+    Candlestick12hMarket,
+    #[serde(rename = "Candlestick_1d_Market")]
+    Candlestick1dMarket,
+    #[serde(rename = "Candlestick_1w_Market")]
+    Candlestick1wMarket,
+    #[serde(rename = "Candlestick_1Mo_Market")]
+    Candlestick1MoMarket,
 
 }
 
@@ -173,6 +199,19 @@ impl std::fmt::Display for MarketDataStreamName {
             Self::Candlestick1dMark => write!(f, "Candlestick_1d_Mark"),
             Self::Candlestick1wMark => write!(f, "Candlestick_1w_Mark"),
             Self::Candlestick1MoMark => write!(f, "Candlestick_1Mo_Mark"),
+            Self::Candlestick1mMarket => write!(f, "Candlestick_1m_Market"),
+            Self::Candlestick3mMarket => write!(f, "Candlestick_3m_Market"),
+            Self::Candlestick5mMarket => write!(f, "Candlestick_5m_Market"),
+            Self::Candlestick15mMarket => write!(f, "Candlestick_15m_Market"),
+            Self::Candlestick30mMarket => write!(f, "Candlestick_30m_Market"),
+            Self::Candlestick1hMarket => write!(f, "Candlestick_1h_Market"),
+            Self::Candlestick2hMarket => write!(f, "Candlestick_2h_Market"),
+            Self::Candlestick4hMarket => write!(f, "Candlestick_4h_Market"),
+            Self::Candlestick8hMarket => write!(f, "Candlestick_8h_Market"),
+            Self::Candlestick12hMarket => write!(f, "Candlestick_12h_Market"),
+            Self::Candlestick1dMarket => write!(f, "Candlestick_1d_Market"),
+            Self::Candlestick1wMarket => write!(f, "Candlestick_1w_Market"),
+            Self::Candlestick1MoMarket => write!(f, "Candlestick_1Mo_Market"),
         }
     }
 }
