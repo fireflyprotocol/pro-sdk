@@ -22,6 +22,12 @@ import openapi_client as api
 
 log = logging.getLogger("main")
 
+ENVIRONMENT = (
+    getattr(Environment, env.upper())
+    if (env := os.environ.get("BFP_ENVIRONMENT"))
+    else Environment.STAGING
+)
+
 LOG_LEVEL = (
     getattr(logging, level.upper())
     if (level := os.environ.get("BFP_LOG_LEVEL"))
@@ -72,7 +78,8 @@ async def main():
     # unrelated to the fact that we're trading on the SUI-PERP market.
     log.info(f"{sui_wallet.sui_address=}")
 
-    async with BluefinProSdk(sui_wallet, Environment.STAGING, debug=True) as client:
+    log.info(f"Connecting to {ENVIRONMENT}")
+    async with BluefinProSdk(sui_wallet, ENVIRONMENT, debug=True) as client:
         # Get Market Data from the Exchange Data API.
         exchange_data_api = client.exchange_data_api
         exchange_info = await client.exchange_data_api.get_exchange_info()
