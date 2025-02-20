@@ -20,8 +20,15 @@
 | ReduceOnlyWouldOpen | REDUCE_ONLY_WOULD_OPEN |
 | TooManyOpenOrdersOnMarket | TOO_MANY_OPEN_ORDERS_ON_MARKET |
 | UserCancelled | USER_CANCELLED |
+| UserCancelledAllOnMarket | USER_CANCELLED_ALL_ON_MARKET |
 | SelfTradePrevention | SELF_TRADE_PREVENTION |
 | LeverageUpdate | LEVERAGE_UPDATE |
+| AccountNotFound | ACCOUNT_NOT_FOUND |
+| MarketNotTrading | MARKET_NOT_TRADING |
+| InsufficientLiquidity | INSUFFICIENT_LIQUIDITY |
+| PositionNotFound | POSITION_NOT_FOUND |
+| LiquidationOutOfOrder | LIQUIDATION_OUT_OF_ORDER |
+| AccountNotLiquidatable | ACCOUNT_NOT_LIQUIDATABLE |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -37,6 +37,7 @@ class ActiveOrderUpdate(BaseModel):
     account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
     price_e9: StrictStr = Field(description="The price of the order in scientific notation with 9 decimal places.", alias="priceE9")
     quantity_e9: StrictStr = Field(description="The quantity of the order in scientific notation with 9 decimal places.", alias="quantityE9")
+    filled_quantity_e9: StrictStr = Field(description="The filled quantity of the order in scientific notation with 9 decimal places.", alias="filledQuantityE9")
     side: Side
     leverage_e9: StrictStr = Field(description="The leverage of the order in scientific notation with 9 decimal places.", alias="leverageE9")
     is_isolated: StrictBool = Field(description="Indicates if the order is isolated.", alias="isIsolated")
@@ -52,7 +53,7 @@ class ActiveOrderUpdate(BaseModel):
     self_trade_prevention_type: SelfTradePreventionType1 = Field(alias="selfTradePreventionType")
     created_at_utc_millis: StrictInt = Field(description="The timestamp when the order was placed, in milliseconds.", alias="createdAtUtcMillis")
     updated_at_utc_millis: StrictInt = Field(description="The timestamp of the last update of the order in milliseconds.", alias="updatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtUtcMillis", "signedAtUtcMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtUtcMillis", "updatedAtUtcMillis"]
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtUtcMillis", "signedAtUtcMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtUtcMillis", "updatedAtUtcMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -111,6 +112,7 @@ class ActiveOrderUpdate(BaseModel):
             "accountAddress": obj.get("accountAddress"),
             "priceE9": obj.get("priceE9"),
             "quantityE9": obj.get("quantityE9"),
+            "filledQuantityE9": obj.get("filledQuantityE9"),
             "side": obj.get("side"),
             "leverageE9": obj.get("leverageE9"),
             "isIsolated": obj.get("isIsolated"),

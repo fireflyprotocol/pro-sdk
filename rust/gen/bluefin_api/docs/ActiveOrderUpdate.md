@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **account_address** | **String** | The address of the account. | 
 **price_e9** | **String** | The price of the order in scientific notation with 9 decimal places. | 
 **quantity_e9** | **String** | The quantity of the order in scientific notation with 9 decimal places. | 
+**filled_quantity_e9** | **String** | The filled quantity of the order in scientific notation with 9 decimal places. | 
 **side** | [**models::Side**](Side.md) |  | 
 **leverage_e9** | **String** | The leverage of the order in scientific notation with 9 decimal places. | 
 **is_isolated** | **bool** | Indicates if the order is isolated. | 

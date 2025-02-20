@@ -38,6 +38,7 @@ Name | Type | Description | Notes
 **trading_fee_asset_symbol** | **str** | The market symbol of the asset used for the trading fee. | 
 **executed_at_utc_millis** | **int** | The timestamp when the trade was executed in milliseconds. | 
 **account_address** | **str** | The address of the account. | 
+**filled_quantity_e9** | **str** | The filled quantity of the order in scientific notation with 9 decimal places. | 
 **side** | [**Side**](Side.md) |  | 
 **leverage_e9** | **str** | The leverage applied to the position. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 

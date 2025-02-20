@@ -96,9 +96,9 @@ export class BluefinProSdk {
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
-    environment: "mainnet" | "testnet" = "mainnet",
+    environment: "mainnet" | "testnet" | "devnet" = "mainnet",
     private currentAccountAddress: string | null = null,
-    basePathConfig: BasePathConfig | null = null,
+    basePathConfig: BasePathConfig | null = null
   ) {
     this.isConnected = false;
     this.updateTokenInterval = null;
@@ -202,10 +202,18 @@ export class BluefinProSdk {
     const signature = await this.bfSigner.signLoginRequest(loginRequest);
     const response = await this.authApi.authV2TokenPost(
       signature,
-      loginRequest,
+      loginRequest
     );
     this.tokenResponse = response.data;
   }
+
+  public async getAccessToken() {
+    if (!this.tokenResponse) {
+      await this.login();
+    }
+    return this.tokenResponse!.accessToken;
+  }
+
   public async getOpenOrders(symbol: string) {
     await this.setAccessToken();
     return await this.tradeApi.getOpenOrders(symbol);
@@ -249,8 +257,9 @@ export class BluefinProSdk {
       signedAtUtcMillis: Date.now(),
     };
 
-    const [signature, orderHash] =
-      await this.bfSigner.signOrderRequest(signedFields);
+    const [signature, orderHash] = await this.bfSigner.signOrderRequest(
+      signedFields
+    );
 
     const createOrderRequest: CreateOrderRequest = {
       signedFields,
@@ -275,7 +284,7 @@ export class BluefinProSdk {
   public async withdraw(assetSymbol: string, amountE9: string) {
     const exchangeInfo = await this.exchangeDataApi.getExchangeInfo();
     const asset = exchangeInfo.data.assets.find(
-      (asset) => asset.symbol === assetSymbol,
+      (asset) => asset.symbol === assetSymbol
     );
 
     if (!asset) {
@@ -329,7 +338,7 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
-    handler: (data: AccountStreamMessage) => Promise<void>,
+    handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
       if (!this.tokenResponse) {
@@ -341,7 +350,7 @@ export class BluefinProSdk {
           headers: {
             Authorization: `Bearer ${this.tokenResponse.accessToken}`,
           },
-        },
+        }
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
@@ -353,11 +362,11 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
-    handler: (data: MarketStreamMessage) => Promise<void>,
+    handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
       const ws = new WebSocket(
-        "wss://stream.api.sui-staging.bluefin.io/ws/market",
+        "wss://stream.api.sui-staging.bluefin.io/ws/market"
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));

@@ -63,6 +63,14 @@ pub mod auth {
             Environment::Mainnet => mainnet::URL,
         }
     }
+
+    pub fn get_audience<'a>(environment: Environment) -> &'a str {
+        match environment {
+            Environment::Devnet => devnet::AUDIENCE,
+            Environment::Testnet => testnet::AUDIENCE,
+            Environment::Mainnet => mainnet::AUDIENCE,
+        }
+    }
 }
 
 pub mod trade {

@@ -47,10 +47,24 @@ pub enum OrderCancelReason {
     TooManyOpenOrdersOnMarket,
     #[serde(rename = "USER_CANCELLED")]
     UserCancelled,
+    #[serde(rename = "USER_CANCELLED_ALL_ON_MARKET")]
+    UserCancelledAllOnMarket,
     #[serde(rename = "SELF_TRADE_PREVENTION")]
     SelfTradePrevention,
     #[serde(rename = "LEVERAGE_UPDATE")]
     LeverageUpdate,
+    #[serde(rename = "ACCOUNT_NOT_FOUND")]
+    AccountNotFound,
+    #[serde(rename = "MARKET_NOT_TRADING")]
+    MarketNotTrading,
+    #[serde(rename = "INSUFFICIENT_LIQUIDITY")]
+    InsufficientLiquidity,
+    #[serde(rename = "POSITION_NOT_FOUND")]
+    PositionNotFound,
+    #[serde(rename = "LIQUIDATION_OUT_OF_ORDER")]
+    LiquidationOutOfOrder,
+    #[serde(rename = "ACCOUNT_NOT_LIQUIDATABLE")]
+    AccountNotLiquidatable,
 
 }
 
@@ -73,8 +87,15 @@ impl std::fmt::Display for OrderCancelReason {
             Self::ReduceOnlyWouldOpen => write!(f, "REDUCE_ONLY_WOULD_OPEN"),
             Self::TooManyOpenOrdersOnMarket => write!(f, "TOO_MANY_OPEN_ORDERS_ON_MARKET"),
             Self::UserCancelled => write!(f, "USER_CANCELLED"),
+            Self::UserCancelledAllOnMarket => write!(f, "USER_CANCELLED_ALL_ON_MARKET"),
             Self::SelfTradePrevention => write!(f, "SELF_TRADE_PREVENTION"),
             Self::LeverageUpdate => write!(f, "LEVERAGE_UPDATE"),
+            Self::AccountNotFound => write!(f, "ACCOUNT_NOT_FOUND"),
+            Self::MarketNotTrading => write!(f, "MARKET_NOT_TRADING"),
+            Self::InsufficientLiquidity => write!(f, "INSUFFICIENT_LIQUIDITY"),
+            Self::PositionNotFound => write!(f, "POSITION_NOT_FOUND"),
+            Self::LiquidationOutOfOrder => write!(f, "LIQUIDATION_OUT_OF_ORDER"),
+            Self::AccountNotLiquidatable => write!(f, "ACCOUNT_NOT_LIQUIDATABLE"),
         }
     }
 }

@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 /// AccountSubscriptionMessage : Subscription message for account data streams.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountSubscriptionMessage {
+    /// The authentication token for the account.
+    #[serde(rename = "authToken", skip_serializing_if = "Option::is_none")]
+    pub auth_token: Option<String>,
     #[serde(rename = "method")]
     pub method: models::SubscriptionType,
     /// List of account data streams to subscribe or unsubscribe from.
@@ -25,6 +28,7 @@ impl AccountSubscriptionMessage {
     /// Subscription message for account data streams.
     pub fn new(method: models::SubscriptionType, data_streams: Vec<models::AccountDataStream>) -> AccountSubscriptionMessage {
         AccountSubscriptionMessage {
+            auth_token: None,
             method,
             data_streams,
         }
