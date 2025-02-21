@@ -1,209 +1,93 @@
-import requests
-import json
-import time
+import base64
+from hashlib import blake2b
 
-LOCKED_OBJECT_ERROR_CODE = (
-    "Failed to sign transaction by a quorum of validators because of locked objects"
-)
+from crypto_helpers.wallet import SuiWallet
+from crypto_helpers.contracts import ProContracts
+from crypto_helpers.utils import get_coin_having_balance, rpc_unsafe_moveCall, rpc_sui_executeTransactionBlock
 
+class ProRpcCalls:
+    def __init__(self, sui_wallet: SuiWallet, contracts: ProContracts, url: str):
+        self.sui_wallet = sui_wallet
+        self.contracts = contracts
+        self.rpc_url = url
 
-def rpc_unsafe_moveCall(
-    url: str,
-    params: list,
-    function_name: str,
-    function_library: str,
-    userAddress: str,
-    packageId: str,
-    gasBudget: int = 100000000,
-    typeArguments: list = [],
-):
-    """
-    Does the RPC call to SUI chain
-    Input:
-      url: url of the node
-      params: a list of arguments to be passed to function
-      function_name: name of the function to call on sui
-      function_library: name of the library/module in which the function exists
-      userAddress: Address of the signer
-      packageId: package id in which the module exists
-      gasBudget(optional): gasBudget defaults to 100000000
-      typeArguments (optional): type arguments if any in list format [your_arg_1]
-
-    Output:
-      Returns the request form serialized in bytes ready to be signed.
-
-    """
-    base_dict = {}
-    base_dict["jsonrpc"] = "2.0"
-    base_dict["method"] = "unsafe_moveCall"
-    base_dict["id"] = 1
-    base_dict["params"] = []
-    base_dict["params"].extend(
-        [userAddress, packageId, function_library, function_name]
-    )
-
-    # Optional type arguments for wormhole related calls
-    base_dict["params"].append(typeArguments)
-    base_dict["params"].append(params)
-
-    base_dict["params"].append(None)
-    base_dict["params"].append(str(gasBudget))
-
-    payload = json.dumps(base_dict)
-
-    headers = {"Content-Type": "application/json"}
-    response = requests.request("POST", url, headers=headers, data=payload)
-    responseJson = json.loads(response.text)
-    if "result" not in responseJson or "txBytes" not in responseJson["result"] :
-            raise (Exception(f"Failed to create transaction bytes due to: {responseJson}"))
-    return responseJson["result"]["txBytes"]
-
-
-def rpc_sui_executeTransactionBlock(url, txBytes, signature, maxRetries=5):
-    """
-    Execute the SUI call on sui chain
-    Input:
-      url: url of the node
-      txBytes: the call in serialized form
-      signature: txBytes signed by signer
-
-    Output:
-      result of transaction
-
-
-    """
-    base_dict = {}
-    base_dict["jsonrpc"] = "2.0"
-    base_dict["id"] = 5
-    base_dict["method"] = "sui_executeTransactionBlock"
-    base_dict["params"] = []
-    base_dict["params"].append(txBytes)
-    base_dict["params"].append([signature])
-
-    outputTypeDict = {
-        "showInput": True,
-        "showEffects": True,
-        "showEvents": True,
-        "showObjectChanges": True,
-    }
-    base_dict["params"].append(outputTypeDict)
-    base_dict["params"].append("WaitForLocalExecution")
-    payload = json.dumps(base_dict)
-
-    headers = {"Content-Type": "application/json"}
-
-    for i in range(0, maxRetries):
-        response = requests.request("POST", url, headers=headers, data=payload)
-        result = json.loads(response.text)
-        if "error" in result:
-            if result["error"]["message"].find(LOCKED_OBJECT_ERROR_CODE) == -1:
-                return result
-        else:
-            return result
-
-        time.sleep(1)
-    return result
-
-def rpc_sui_getDynamicFieldObject(url:str, parentObjectId: str, fieldName: str,fieldSuiObjectType:str, maxRetries=5):
-    """
-    Fetches the on-chain dynamic field object corresponding to specified input params
-    Input:
-      url: url of the sui chain node
-      parentObjectId: id of the parent object for which dynamic field needs to be queried
-      fieldName: name of the dynamic field
-      fieldSuiObjectType: sui object type for the dynamic field name (eg. for string use , `0x1::string::String`)
-
-    Output:
-      sui result object for the dynamic field
-    """
-    base_dict = {}
-    base_dict["jsonrpc"] = "2.0"
-    base_dict["id"] = 5
-    base_dict["method"] = "suix_getDynamicFieldObject"
-    base_dict["params"] = []
-    base_dict["params"].append(parentObjectId)
-    base_dict["params"].append({
-         "type": fieldSuiObjectType,
-         "value": fieldName
-    })
-    payload = json.dumps(base_dict)
-
-    headers = {"Content-Type": "application/json"}
-
-    for i in range(0, maxRetries):
-        response = requests.request("POST", url, headers=headers, data=payload)
-        result = json.loads(response.text)
-        if "error" in result:
-            if result["error"]["message"].find(LOCKED_OBJECT_ERROR_CODE) == -1:
-                return result
-        else:
-            return result
-
-        time.sleep(1)
-    return result
-
-def rpc_call_sui_function(url, params, method="suix_getCoins"):
-    """
-    for calling sui functions:
-    Input:
-      url: url of node
-      params: arguments of function
-      method(optional): the name of method in sui we want to call. defaults to suix_getCoins
-    """
-    base_dict = {}
-    base_dict["jsonrpc"] = "2.0"
-    base_dict["id"] = 1
-    base_dict["method"] = method
-    base_dict["params"] = params
-    payload = json.dumps(base_dict)
-
-    headers = {"Content-Type": "application/json"}
-    response = requests.request("POST", url, headers=headers, data=payload)
-    result = json.loads(response.text)
-    return result["result"]["data"]
-
-def get_coins(user_address: str = None, coin_type: str = "0x::sui::SUI", url: str = None):
+    def sign_tx(self, tx_bytes: str) -> str:
         """
-        Returns the list of the coins of type tokenType owned by user
-        """
-        try:
-            callArgs = []
-            callArgs.append(user_address)
-            callArgs.append(coin_type)
-            result = rpc_call_sui_function(
-                url, callArgs, method="suix_getCoins")
-            return result
-        except Exception as e:
-            print(e)
-            raise (Exception("Failed to get coins, Exception: {}".format(e)))
-        
-async def get_coin_balance(user_address: str = None, coin_type: str = "0x::sui::SUI", url: str = None) -> str:
-        """
-        Returns user's token balance.
-        """
-        try:
-            callArgs = []
-            callArgs.append(user_address)
-            callArgs.append(coin_type)
-            result = rpc_call_sui_function(
-                url, callArgs, method="suix_getBalance"
-            )["totalBalance"]
-            return result
-        except Exception as e:
-            raise (Exception("Failed to get coin balance, Exception: {}".format(e)))
+        Signs the provided transaction bytes and returns the signature
 
+        Args:
+            tx_bytes (str): The transaction bytes to be signed
 
-def get_coin_having_balance(user_address: str = None, coin_type: str = "0x::sui::SUI", balance: str = None , url: str = None, exact_match: bool = False) -> str:
-        
-        coin_list = get_coins(user_address, coin_type, url)
-        
-        for coin in coin_list:
-            print(coin["balance"], balance, int(coin["balance"]) >= balance, exact_match)
-            if exact_match:
-                 if int(coin["balance"]) == int(balance):
-                      return coin["coinObjectId"]
-            elif int(coin["balance"]) >= balance:
-                return coin["coinObjectId"]
-        raise Exception(
-            "Not enough balance available in single coin, please merge your coins"
+        Returns:
+            generated signature
+
+        """
+        tx_bytes = base64.b64decode(tx_bytes)
+
+        intent = bytearray()
+        intent.extend([0, 0, 0])
+        intent = intent + tx_bytes
+        hash = blake2b(intent, digest_size=32).digest()
+
+        result = self.sui_wallet.private_key.sign(hash)
+        temp = bytearray()
+        temp.append(0)
+        temp.extend(result)
+        temp.extend(self.sui_wallet.public_key_bytes)
+        res = base64.b64encode(temp)
+        return res.decode()
+    
+    def deposit_to_asset_bank(self, coin_symbol: str, amount: int, destination: str = None):
+        """
+        Deposits the provided coin of provided amount
+        into the external asset bank
+    
+        Args:
+
+            coin_symbol (str): The symbol of the coin being deposited
+            amount (uint): The amount to be deposited
+            destination (str): Optional destination account to which funds are being deposited.
+                               By default, funds are always deposited to the depositor's account
+
+        """
+
+        coin_type = self.contracts.get_supported_token_type(coin_symbol)
+
+        # get the coin for deposit
+        coin_id = get_coin_having_balance(
+            user_address=self.sui_wallet.sui_address,
+            coin_type=coin_type,
+            balance=amount,
+            url=self.rpc_url,
+            exact_match=False
         )
+
+
+        # prepare the transaction arguments
+        move_function_params = [
+                    self.contracts.get_external_data_store_id(),
+                    coin_symbol,
+                    self.sui_wallet.sui_address if destination == None else destination,
+                    str(amount),
+                    coin_id
+                ]
+                
+        tx_bytes = rpc_unsafe_moveCall(
+            url=self.rpc_url,
+            params=move_function_params,
+            function_name='deposit_to_asset_bank',
+            function_library='exchange',
+            userAddress=self.sui_wallet.sui_address,
+            packageId=self.contracts.get_package_id(),
+            gasBudget=10000000,
+            typeArguments=[ coin_type ]
+        )
+
+        signature = self.sign_tx(tx_bytes)
+        res = rpc_sui_executeTransactionBlock(self.rpc_url, tx_bytes, signature)
+        try:
+            success = res["result"]["effects"]["status"]["status"] == "success"
+            return success, res
+        except Exception as e:
+            return False , res
+        

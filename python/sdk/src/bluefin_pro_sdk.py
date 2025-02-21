@@ -20,7 +20,11 @@ from openapi_client.models.account_position_leverage_update_request import Accou
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.withdraw_request import WithdrawRequest
 
-from crypto_helpers.signature import SuiWallet, DepositRequest
+from crypto_helpers.wallet import SuiWallet
+from crypto_helpers.signature import Signature
+from crypto_helpers.contracts import ProContracts
+from crypto_helpers.rpc import ProRpcCalls
+
 from websocket.listener import MarketDataStreamListener, AccountDataStreamListener
 
 
@@ -66,8 +70,14 @@ class BluefinProSdk:
     # todo set to dynamic value
     __contracts_config = None
 
-    def __init__(self, sui_wallet: SuiWallet, env: Environment = Environment.PRODUCTION, authorized_address: str = None,
-                 debug: bool = False):
+    def __init__(self, 
+                 sui_wallet: SuiWallet, 
+                 contracts: ProContracts, 
+                 rpc_url: str,
+                 env: Environment = Environment.PRODUCTION, 
+                 authorized_address: str = None,
+                 debug: bool = False
+                 ):
         """
         :param sui_wallet: SuiWallet instance
         :param env: Environment enum, default is Environment.PRODUCTION
@@ -99,6 +109,12 @@ class BluefinProSdk:
             host=self.trade_host, debug=debug)
         self._trade_api = TradeApi(ApiClient(trade_api_config))
 
+        # on-chain stuff
+        self.contracts = contracts
+        self._sui_wallet = sui_wallet
+        self.sign = Signature(sui_wallet)
+        self.rpc_calls = ProRpcCalls(sui_wallet, contracts, url=rpc_url)
+
     async def init(self):
         await self.__login_and_update_token()
         self.__update_token_task = asyncio.create_task(self.__refresh_token())
@@ -127,11 +143,11 @@ class BluefinProSdk:
             ids_id=self.__contracts_config.ids_id
         )
 
-        (request_hash, signature) = self._sui_wallet.sign_account_position_leverage_update_request(
-            signed_fields)
+        signature = self.sign.adjust_leverage(signed_fields)
+
         return await self._trade_api.put_leverage_update(
             AccountPositionLeverageUpdateRequest(
-                signed_fields=signed_fields, signature=signature, request_hash=request_hash)
+                signed_fields=signed_fields, signature=signature, request_hash="")
         )
 
     async def create_order(self, order: Order):
@@ -145,12 +161,12 @@ class BluefinProSdk:
                                                        expires_at_utc_millis=order.expires_at_utc_millis,
                                                        signed_at_utc_millis=int(time.time() * 1000))
 
-        (order_hash, signature) = self._sui_wallet.sign_order_request(signed_fields)
+        signature = self.sign.order(signed_fields)
 
         create_order_request = CreateOrderRequest(
             signed_fields=signed_fields,
             signature=signature,
-            order_hash=order_hash,
+            order_hash="",
             client_order_id=order.client_order_id,
             type=order.type,
             reduce_only=order.reduce_only,
@@ -177,17 +193,14 @@ class BluefinProSdk:
             eds_id=self.__contracts_config.eds_id,
         )
 
-        (request_hash, signature) = self._sui_wallet.sign_withdraw_request(signed_fields)
+        signature = self.sign.withdraw(signed_fields)
 
         request = WithdrawRequest(
-            signed_fields=signed_fields, signature=signature, request_hash=request_hash)
+            signed_fields=signed_fields, signature=signature, request_hash="")
 
         await self._trade_api.post_withdraw(request)
         logger.info(f"Withdraw request sent successfully {request}")
 
-    async def deposit(self, withdraw_request: DepositRequest):
-        # todo
-        pass
 
     async def _set_access_token(self, api_client: ApiClient):
         """
@@ -213,8 +226,7 @@ class BluefinProSdk:
             "audience": "api"
         })
         # Generate a signature for the login request with our private key and public key bytes.
-        signature = self._sui_wallet.generate_login_request_signature(
-            login_request)
+        signature = self.sign.login(login_request)
         response = await self._auth_api.auth_token_post(signature, login_request=login_request)
         self._token_response = response
 
