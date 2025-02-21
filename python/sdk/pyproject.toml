@@ -27,7 +27,8 @@ dependencies = [
     "aiohttp >= 3.8.4",
     "aiohttp-retry >= 2.8.3",
     "pydantic >= 2",
-    "typing-extensions >= 4.7.1"
+    "typing-extensions >= 4.7.1",
+    "requests (>=2.32.3,<3.0.0)"
 ]
 
 [project.optional-dependencies]

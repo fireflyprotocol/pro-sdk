@@ -30,11 +30,6 @@ class BCSSerializer:
         self.serialize_u64(low)
         self.serialize_u64(high)
 
-    def serialize_bytes(self, data: bytes):
-        if not isinstance(data, (bytes, bytearray)):
-            raise TypeError("Expected bytes or bytearray.")
-        self.serialize_u32(len(data))  # Length prefix
-        self.buffer.extend(data)
 
     def serialize_str(self, value: str):
         if not isinstance(value, str):
@@ -88,11 +83,8 @@ class BCSSerializer:
         if any(not (0 <= value < 256) for value in array):
             raise ValueError(
                 "All elements in the array must be in the range 0-255.")
-        if len(array) > 255:
-            raise ValueError(
-                "Array length exceeds maximum allowed for u8 (255).")
 
-        self.serialize_u8(len(array))  # Serialize length as a single byte (u8)
+        self.buffer.extend(decimal_to_bcs(len(array)))  # Serialize length as a single byte (u8)
         self.buffer.extend(array)     # Append raw uint8 values
 
     def _serialize_integer(self, value: int, byte_size: int, format_char: str):
@@ -131,3 +123,23 @@ def hex_to_byte_array(hex_address: str) -> bytearray:
         return bytearray.fromhex(hex_address)
     except ValueError as e:
         raise ValueError(f"Invalid hex string: {e}")
+
+
+def decimal_to_bcs(num):
+        # Initialize an empty list to store the BCS bytes
+        bcs_bytes = []
+        while num > 0:
+            # Take the last 7 bits of the number
+            bcs_byte = num & 0x7F
+
+            # Set the most significant bit (MSB) to 1 if there are more bytes to follow
+            if num > 0x7F:
+                bcs_byte |= 0x80
+
+            # Append the BCS byte to the list
+            bcs_bytes.append(bcs_byte)
+
+            # Right-shift the number by 7 bits to process the next portion
+            num >>= 7
+
+        return bcs_bytes
