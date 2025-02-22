@@ -6,7 +6,7 @@ use bluefin_api::models::{
     AccountSubscriptionMessage, LoginRequest, SubscriptionResponseMessage, SubscriptionType,
     WithdrawRequest, WithdrawRequestSignedFields,
 };
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::Utc;
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -14,6 +14,7 @@ use rand::random;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
+use sui_sdk_types::SignatureScheme;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -30,7 +31,7 @@ async fn send_request(request: WithdrawRequest, auth_token: &str) -> Result<()> 
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
 
     post_withdraw(&config, request).await?;
 
@@ -39,13 +40,13 @@ async fn send_request(request: WithdrawRequest, auth_token: &str) -> Result<()> 
 
 async fn listen_to_account_info(
     auth_token: &str,
-    environment: bfp::Environment,
+    environment: Environment,
     sender: Sender<AccountStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // Then, we establish a connection through the websocket URL for that environment.
-    let mut url = bfp::ws::account::get_url(environment).into_client_request()?;
+    let mut url = ws::account::url(environment).into_client_request()?;
     url.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
@@ -128,20 +129,20 @@ async fn listen_to_account_info(
 async fn main() -> Result<()> {
     // Then, we construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
-        audience: bfp::auth::testnet::AUDIENCE.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
+        audience: auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
@@ -150,7 +151,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_account_info(
         &auth_token,
-        bfp::Environment::Testnet,
+        Environment::Testnet,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
@@ -172,7 +173,7 @@ async fn main() -> Result<()> {
     });
 
     let asset = get_exchange_info(&Configuration {
-        base_path: bfp::exchange::testnet::URL.into(),
+        base_path: exchange::testnet::URL.into(),
         ..Configuration::default()
     })
     .await?
@@ -182,14 +183,13 @@ async fn main() -> Result<()> {
     .to_owned();
 
     // We get the exchange info to fetch the EDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     // Then, we construct a request.
     let request = WithdrawRequest {
         signed_fields: WithdrawRequestSignedFields {
             asset_symbol: asset.symbol.clone(),
-            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            account_address: test::account::testnet::ADDRESS.into(),
             amount_e9: (10.e9()).to_string(),
             salt: random::<u64>().to_string(),
             eds_id: contracts_info.eds_id,
@@ -199,8 +199,8 @@ async fn main() -> Result<()> {
     };
 
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
     )?;
 
     send_request(request, &auth_token).await?;

@@ -36,17 +36,19 @@ class TestAccountPositionLeverageUpdateRequestSignedFields(unittest.TestCase):
         if include_optional:
             return AccountPositionLeverageUpdateRequestSignedFields(
                 account_address = '2748',
-                market_address = '2748',
+                symbol = '2748',
                 leverage_e9 = '1000000000',
                 salt = '123335432',
+                ids_id = 'ids_id',
                 signed_at_utc_millis = 1234567856
             )
         else:
             return AccountPositionLeverageUpdateRequestSignedFields(
                 account_address = '2748',
-                market_address = '2748',
+                symbol = '2748',
                 leverage_e9 = '1000000000',
                 salt = '123335432',
+                ids_id = 'ids_id',
                 signed_at_utc_millis = 1234567856,
         )
         """

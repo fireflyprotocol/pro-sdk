@@ -55,7 +55,7 @@ class TestAccountUpdate(unittest.TestCase):
                 updated_at_utc_millis = 56,
                 assets = [
                     openapi_client.models.asset_2.Asset_2(
-                        bank_address = '', 
+                        symbol = '', 
                         quantity_e9 = '', 
                         effective_balance_e9 = '', 
                         max_withdraw_quantity_e9 = '', 
@@ -80,7 +80,7 @@ class TestAccountUpdate(unittest.TestCase):
                 updated_at_utc_millis = 56,
                 assets = [
                     openapi_client.models.asset_2.Asset_2(
-                        bank_address = '', 
+                        symbol = '', 
                         quantity_e9 = '', 
                         effective_balance_e9 = '', 
                         max_withdraw_quantity_e9 = '', 

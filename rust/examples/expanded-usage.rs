@@ -20,12 +20,15 @@ use bluefin_api::{
         WithdrawRequestSignedFields,
     },
 };
-use bluefin_pro::{self as bfp, symbols::perps::ETH};
-use bluefin_pro::{prelude::*, symbols::assets::USDC};
+use bluefin_pro::prelude::{
+    symbols::{assets::USDC, perps::ETH},
+    *,
+};
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
 use rand::random;
+use sui_sdk_types::SignatureScheme;
 use tokio::{sync::mpsc::Sender, time::timeout};
 use tokio_tungstenite::{
     connect_async,
@@ -214,25 +217,23 @@ async fn main() -> Result<()> {
     const MARKET_STREAM_TIMEOUT: u64 = 30;
     const SLEEP_TIME: u64 = 30;
 
-    let account_service_url = bfp::account::get_url(bfp::Environment::Testnet);
-    let exchange_service_url = bfp::exchange::get_url(bfp::Environment::Testnet);
-    let trade_service_url = bfp::trade::get_url(bfp::Environment::Testnet);
-    let ws_market_service_url = bfp::ws::market::get_url(bfp::Environment::Testnet);
-    let ws_account_service_url = bfp::ws::account::get_url(bfp::Environment::Testnet);
+    let account_service_url = account::url(Environment::Testnet);
+    let exchange_service_url = exchange::url(Environment::Testnet);
+    let trade_service_url = trade::url(Environment::Testnet);
+    let ws_market_service_url = ws::market::url(Environment::Testnet);
+    let ws_account_service_url = ws::account::url(Environment::Testnet);
 
     let login_request = LoginRequest::new(
         ACCOUNT.into(),
         Utc::now().timestamp_millis(),
-        bfp::auth::testnet::AUDIENCE.into(),
+        auth::testnet::AUDIENCE.into(),
     );
 
-    let signature = login_request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(PRIVATE_KEY)?,
-    )?;
+    let signature =
+        login_request.signature(SignatureScheme::Ed25519, PrivateKey::from_hex(PRIVATE_KEY)?)?;
 
     let auth_token = login_request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
@@ -370,8 +371,7 @@ async fn main() -> Result<()> {
     // println!("Open orders received: {open_orders:#?}",);
 
     // ====== Create Order ======
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     let leverage_e9 = open_orders
         .first()
@@ -394,7 +394,7 @@ async fn main() -> Result<()> {
                 .add(random::<u64>())
                 .to_string(),
             ids_id: contracts_info.ids_id,
-            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
+            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(6)).timestamp_millis(),
             signed_at_utc_millis: Utc::now().timestamp_millis(),
         },
         client_order_id: None,
@@ -408,10 +408,7 @@ async fn main() -> Result<()> {
     };
 
     // Then, we sign our order.
-    let request = request.sign(
-        bfp::PrivateKey::from_hex(PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
-    )?;
+    let request = request.sign(PrivateKey::from_hex(PRIVATE_KEY)?, SignatureScheme::Ed25519)?;
 
     let order_hash = post_create_order(
         &Configuration {
@@ -442,10 +439,8 @@ async fn main() -> Result<()> {
         ..Default::default()
     };
 
-    let withdraw_request = withdraw_request.sign(
-        bfp::PrivateKey::from_hex(PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
-    )?;
+    let withdraw_request =
+        withdraw_request.sign(PrivateKey::from_hex(PRIVATE_KEY)?, SignatureScheme::Ed25519)?;
 
     post_withdraw(
         &Configuration {

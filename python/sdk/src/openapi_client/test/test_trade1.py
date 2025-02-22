@@ -36,7 +36,7 @@ class TestTrade1(unittest.TestCase):
         if include_optional:
             return Trade1(
                 id = 56,
-                market_address = '291',
+                symbol = '291',
                 price_e9 = '10000000000',
                 quantity_e9 = '1000000000',
                 quote_quantity_e9 = '1000000000000',
@@ -46,7 +46,7 @@ class TestTrade1(unittest.TestCase):
         else:
             return Trade1(
                 id = 56,
-                market_address = '291',
+                symbol = '291',
                 price_e9 = '10000000000',
                 quantity_e9 = '1000000000',
                 quote_quantity_e9 = '1000000000000',

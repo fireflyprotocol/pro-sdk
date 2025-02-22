@@ -38,7 +38,7 @@ class TestRecentTradesUpdates(unittest.TestCase):
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
                         id = 56, 
-                        market_address = '', 
+                        symbol = '', 
                         price_e9 = '', 
                         quantity_e9 = '', 
                         quote_quantity_e9 = '', 
@@ -51,7 +51,7 @@ class TestRecentTradesUpdates(unittest.TestCase):
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
                         id = 56, 
-                        market_address = '', 
+                        symbol = '', 
                         price_e9 = '', 
                         quantity_e9 = '', 
                         quote_quantity_e9 = '', 

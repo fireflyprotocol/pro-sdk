@@ -37,20 +37,20 @@ class TestOrderCancellationUpdate(unittest.TestCase):
             return OrderCancellationUpdate(
                 order_hash = '',
                 client_order_id = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 created_at_utc_millis = 56,
-                cancellation_reason = 'USER_CANCELLED',
+                cancellation_reason = 'UNSPECIFIED',
                 failure_to_cancel_reason = 'ORDER_NOT_FOUND',
                 remaining_quantity_e9 = ''
             )
         else:
             return OrderCancellationUpdate(
                 order_hash = '',
-                market_address = '',
+                symbol = '',
                 account_address = '',
                 created_at_utc_millis = 56,
-                cancellation_reason = 'USER_CANCELLED',
+                cancellation_reason = 'UNSPECIFIED',
                 remaining_quantity_e9 = '',
         )
         """

@@ -35,7 +35,7 @@ class TestTickerResponse(unittest.TestCase):
         model = TickerResponse()
         if include_optional:
             return TickerResponse(
-                market_address = '1193046',
+                symbol = '1193046',
                 last_quantity_e9 = '10000000000',
                 last_time_at_utc_millis = 1724121094751,
                 last_price_e9 = '5000000000000',
@@ -70,7 +70,7 @@ class TestTickerResponse(unittest.TestCase):
             )
         else:
             return TickerResponse(
-                market_address = '1193046',
+                symbol = '1193046',
                 last_quantity_e9 = '10000000000',
                 last_time_at_utc_millis = 1724121094751,
                 last_price_e9 = '5000000000000',

@@ -24,7 +24,7 @@ class TestStreamsApi(unittest.IsolatedAsyncioTestCase):
         self.api = StreamsApi()
 
     async def asyncTearDown(self) -> None:
-        pass
+        await self.api.api_client.close()
 
     async def test_web_socket_account_data(self) -> None:
         """Test case for web_socket_account_data

@@ -38,14 +38,14 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
                         id = 56, 
-                        market_address = '', 
+                        symbol = '', 
                         price_e9 = '', 
                         quantity_e9 = '', 
                         quote_quantity_e9 = '', 
                         side = 'LONG', 
                         updated_at_utc_millis = 56, )
                     ],
-                market_address = '',
+                symbol = '',
                 last_quantity_e9 = '10000000000',
                 last_time_at_utc_millis = 1724121094751,
                 last_price_e9 = '5000000000000',
@@ -79,7 +79,7 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                 last_updated_at_utc_millis = 1724121094751,
                 ticker_all = [
                     openapi_client.models.ticker_update.TickerUpdate(
-                        market_address = '1193046', 
+                        symbol = 'ETH-PERP', 
                         last_quantity_e9 = '10000000000', 
                         last_time_at_utc_millis = 1724121094751, 
                         last_price_e9 = '5000000000000', 
@@ -112,8 +112,9 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                         price_change_percent24hr_e9 = '5000000000', 
                         last_updated_at_utc_millis = 1724121094751, )
                     ],
-                updated_at_utc_millis = 56,
                 price_e9 = '',
+                source = 'Market',
+                updated_at_utc_millis = 56,
                 start_time = 56,
                 end_time = 56,
                 interval = '',
@@ -140,14 +141,14 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
                         id = 56, 
-                        market_address = '', 
+                        symbol = '', 
                         price_e9 = '', 
                         quantity_e9 = '', 
                         quote_quantity_e9 = '', 
                         side = 'LONG', 
                         updated_at_utc_millis = 56, )
                     ],
-                market_address = '',
+                symbol = '',
                 last_quantity_e9 = '10000000000',
                 last_time_at_utc_millis = 1724121094751,
                 last_price_e9 = '5000000000000',
@@ -181,7 +182,7 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                 last_updated_at_utc_millis = 1724121094751,
                 ticker_all = [
                     openapi_client.models.ticker_update.TickerUpdate(
-                        market_address = '1193046', 
+                        symbol = 'ETH-PERP', 
                         last_quantity_e9 = '10000000000', 
                         last_time_at_utc_millis = 1724121094751, 
                         last_price_e9 = '5000000000000', 
@@ -214,8 +215,9 @@ class TestMarketStreamMessagePayload(unittest.TestCase):
                         price_change_percent24hr_e9 = '5000000000', 
                         last_updated_at_utc_millis = 1724121094751, )
                     ],
-                updated_at_utc_millis = 56,
                 price_e9 = '',
+                source = 'Market',
+                updated_at_utc_millis = 56,
                 start_time = 56,
                 end_time = 56,
                 interval = '',

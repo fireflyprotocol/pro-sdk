@@ -35,8 +35,8 @@ class TestContractsConfig(unittest.TestCase):
         model = ContractsConfig()
         if include_optional:
             return ContractsConfig(
-                eds_id = 'dummy_string',
-                ids_id = 'dummy_string',
+                eds_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
+                ids_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
                 network = 'mainnet',
                 base_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 current_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
@@ -49,8 +49,8 @@ class TestContractsConfig(unittest.TestCase):
             )
         else:
             return ContractsConfig(
-                eds_id = 'dummy_string',
-                ids_id = 'dummy_string',
+                eds_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
+                ids_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
                 network = 'mainnet',
                 base_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 current_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',

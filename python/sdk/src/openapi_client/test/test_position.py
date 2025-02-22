@@ -35,7 +35,7 @@ class TestPosition(unittest.TestCase):
         model = Position()
         if include_optional:
             return Position(
-                market_address = '',
+                symbol = '',
                 avg_entry_price_e9 = '400000000000',
                 leverage_e9 = '100000000000',
                 liquidation_price_e9 = '0',
@@ -53,7 +53,7 @@ class TestPosition(unittest.TestCase):
             )
         else:
             return Position(
-                market_address = '',
+                symbol = '',
                 avg_entry_price_e9 = '400000000000',
                 leverage_e9 = '100000000000',
                 liquidation_price_e9 = '0',

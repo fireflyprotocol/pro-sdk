@@ -24,7 +24,7 @@ class TestExchangeApi(unittest.IsolatedAsyncioTestCase):
         self.api = ExchangeApi()
 
     async def asyncTearDown(self) -> None:
-        pass
+        await self.api.api_client.close()
 
     async def test_get_candlestick_data(self) -> None:
         """Test case for get_candlestick_data

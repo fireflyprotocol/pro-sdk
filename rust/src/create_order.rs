@@ -1,99 +1,77 @@
-use crate::signature::{self, PrivateKey, RequestExt};
+use crate::core::PrivateKey;
+use crate::signature::{self, Result};
 use bluefin_api::models::CreateOrderRequest;
+use sui_sdk_types::SignatureScheme;
 
-use crate::signature::Type;
-use sha2::{Digest, Sha256};
-
-pub mod bcs_conversion {
-    use bluefin_api::models::CreateOrderRequestSignedFields;
-    use serde::Serialize;
-
-    use crate::address::Address;
-    use crate::signature;
-    use crate::signature::parse;
-
-    // On-Chain compatible fields for BCS encoding purposes
-    #[derive(Serialize)]
-    pub struct CreateOrderRequestSignFieldsBcs {
-        pub symbol: String,
-        pub account_address: Address,
-        pub price: u64,
-        pub quantity: u64,
-        pub leverage: u64,
-        pub side: String,
-        pub is_isolated: bool,
-        pub expires_at_utc_millis: u64,
-        pub salt: u64,
-        pub ids_id: Address,
-        pub signed_at_utc_millis: u64,
-    }
-
-    pub fn convert(
-        signed_fields: &CreateOrderRequestSignedFields,
-    ) -> signature::Result<CreateOrderRequestSignFieldsBcs> {
-        Ok(CreateOrderRequestSignFieldsBcs {
-            symbol: parse(&signed_fields.symbol, "symbol")?,
-            account_address: parse(&signed_fields.account_address, "account_address")?,
-            price: parse(&signed_fields.price_e9, "price")?,
-            quantity: parse(&signed_fields.quantity_e9, "quantity")?,
-            leverage: parse(&signed_fields.leverage_e9, "leverage")?,
-            side: signed_fields.side.to_string(),
-            is_isolated: signed_fields.is_isolated,
-            expires_at_utc_millis: signed_fields.expires_at_utc_millis.unsigned_abs(),
-            salt: parse(&signed_fields.salt, "salt")?,
-            ids_id: parse(&signed_fields.ids_id, "ids_id")?,
-            signed_at_utc_millis: signed_fields.signed_at_utc_millis.unsigned_abs(),
-        })
-    }
-}
+use crate::signature::RequestExt;
 
 impl RequestExt for CreateOrderRequest {
-    fn sign(mut self, private_key: PrivateKey, type_id: Type) -> signature::Result<Self> {
-        let bcs_request = bcs::to_bytes(&bcs_conversion::convert(&self.signed_fields)?)
-            .map_err(|error| signature::Error::RequestObject(error.to_string()))?;
-        let sha_encoded_request = Sha256::digest(&bcs_request);
-        self.order_hash = hex::encode(sha_encoded_request);
-        self.signature = signature::sign(private_key, type_id, sha_encoded_request.as_ref())?;
-        Ok(self)
+    fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
+        let converted = signature::conversion::UICreateOrderRequest::from(self.clone());
+
+        let signature = signature::signature(converted, private_key, scheme)?;
+        Ok(CreateOrderRequest { signature, ..self })
     }
 }
 
 #[cfg(test)]
 mod tests {
     use bluefin_api::models::{CreateOrderRequest, CreateOrderRequestSignedFields, OrderSide};
-    use ed25519_dalek::SigningKey;
     use rand::rngs::OsRng;
+    use sui_crypto::ed25519::Ed25519VerifyingKey;
+    use sui_crypto::secp256k1::Secp256k1VerifyingKey;
+    use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SignatureScheme};
 
-    use super::*;
-    use crate::signature::testing::verify_signature;
+    use crate::signature::RequestExt;
+    use crate::signature::{self, testing::verify_signature};
 
-    fn verify_request_signature(request: CreateOrderRequest) {
+    fn verify_request_signature(request: CreateOrderRequest, signer_address: &str) {
         assert!(!request.signature.is_empty());
-        assert!(!request.order_hash.is_empty());
-        assert!(
-            verify_signature(&request.signature.clone(), request, |request| {
-                bcs_conversion::convert(&request.signed_fields)
-            })
-            .is_ok()
-        )
+        assert!(request.order_hash.is_empty());
+
+        match verify_signature(
+            signer_address,
+            &request.signature.clone(),
+            request.clone(),
+            signature::conversion::UICreateOrderRequest::from,
+        ) {
+            Ok(_) => {}
+            Err(e) => panic!("{e}"),
+        }
     }
 
     #[test]
     fn sign_request_is_successful_ed25519() {
-        let signing_key = SigningKey::generate(&mut OsRng);
+        let private_key = ed25519_dalek::SigningKey::generate(&mut OsRng);
+        let signer_address = Ed25519VerifyingKey::new(&Ed25519PublicKey::new(
+            private_key.verifying_key().to_bytes(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
         let request = create_order_request()
-            .sign(signing_key.to_bytes(), Type::Ed25519)
+            .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request);
+        verify_request_signature(request, &signer_address);
     }
 
     #[test]
     fn sign_request_is_successful_secp256k1() {
-        let signing_key = SigningKey::generate(&mut OsRng);
+        let private_key = secp256k1::SecretKey::new(&mut OsRng);
+        let secp = secp256k1::Secp256k1::new();
+        let signer_address = Secp256k1VerifyingKey::new(&Secp256k1PublicKey::new(
+            private_key.public_key(&secp).serialize(),
+        ))
+        .unwrap()
+        .public_key()
+        .to_address()
+        .to_hex();
+
         let request = create_order_request()
-            .sign(signing_key.to_bytes(), Type::Secp256k1)
+            .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
-        verify_request_signature(request);
+        verify_request_signature(request, &signer_address);
     }
 
     fn create_order_request() -> CreateOrderRequest {

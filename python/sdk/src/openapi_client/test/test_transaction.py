@@ -36,10 +36,10 @@ class TestTransaction(unittest.TestCase):
         if include_optional:
             return Transaction(
                 id = '9689322392',
-                market_address = '0x123456789abcdef',
+                symbol = '0x123456789abcdef',
                 type = 'TRANSFER',
                 amount_e9 = '-1000000',
-                asset_bank_address = '',
+                asset_symbol = '',
                 trade_id = ''
             )
         else:
@@ -47,7 +47,7 @@ class TestTransaction(unittest.TestCase):
                 id = '9689322392',
                 type = 'TRANSFER',
                 amount_e9 = '-1000000',
-                asset_bank_address = '',
+                asset_symbol = '',
         )
         """
 

@@ -24,7 +24,7 @@ class TestAuthApi(unittest.IsolatedAsyncioTestCase):
         self.api = AuthApi()
 
     async def asyncTearDown(self) -> None:
-        pass
+        await self.api.api_client.close()
 
     async def test_auth_jwks_get(self) -> None:
         """Test case for auth_jwks_get
@@ -40,6 +40,12 @@ class TestAuthApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_auth_token_refresh_put(self) -> None:
         """Test case for auth_token_refresh_put
+
+        """
+        pass
+
+    async def test_auth_v2_token_post(self) -> None:
+        """Test case for auth_v2_token_post
 
         """
         pass

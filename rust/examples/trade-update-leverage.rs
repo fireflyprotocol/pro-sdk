@@ -4,10 +4,11 @@ use bluefin_api::models::LoginRequest;
 use bluefin_api::models::{
     AccountPositionLeverageUpdateRequest, AccountPositionLeverageUpdateRequestSignedFields,
 };
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::Utc;
 use hex::FromHex;
 use rand::random;
+use sui_sdk_types::SignatureScheme;
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
@@ -21,7 +22,7 @@ async fn send_request(
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
 
     put_leverage_update(&config, request).await?;
 
@@ -32,33 +33,32 @@ async fn send_request(
 async fn main() -> Result<()> {
     // First, we construct an authentication request.
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
-        audience: bfp::auth::testnet::AUDIENCE.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
+        audience: auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
     // Then, we generate a signature for the request.
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Next, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     // Then, we construct the request.
     let signed_request = {
         let unsigned_request = AccountPositionLeverageUpdateRequest {
             signed_fields: AccountPositionLeverageUpdateRequestSignedFields {
-                symbol: bfp::symbols::perps::ETH.into(),
-                account_address: bfp::test::account::testnet::ADDRESS.into(),
+                symbol: symbols::perps::ETH.into(),
+                account_address: test::account::testnet::ADDRESS.into(),
                 leverage_e9: (10.e9()).to_string(),
                 salt: random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id,
@@ -68,8 +68,8 @@ async fn main() -> Result<()> {
         };
 
         unsigned_request.sign(
-            bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
-            bfp::SignatureType::Ed25519,
+            PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+            SignatureScheme::Ed25519,
         )?
     };
 

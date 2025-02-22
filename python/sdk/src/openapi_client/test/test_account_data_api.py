@@ -24,7 +24,7 @@ class TestAccountDataApi(unittest.IsolatedAsyncioTestCase):
         self.api = AccountDataApi()
 
     async def asyncTearDown(self) -> None:
-        pass
+        await self.api.api_client.close()
 
     async def test_get_account_details(self) -> None:
         """Test case for get_account_details

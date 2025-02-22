@@ -35,13 +35,13 @@ class TestFundingRateEntry(unittest.TestCase):
         model = FundingRateEntry()
         if include_optional:
             return FundingRateEntry(
-                market_address = '291',
+                symbol = '291',
                 funding_time_at_utc_millis = 56,
                 funding_rate_e9 = ''
             )
         else:
             return FundingRateEntry(
-                market_address = '291',
+                symbol = '291',
                 funding_time_at_utc_millis = 56,
                 funding_rate_e9 = '',
         )

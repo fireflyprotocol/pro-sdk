@@ -3,7 +3,7 @@ use bluefin_api::models::{
     MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
     SubscriptionType,
 };
-use bluefin_pro as bfp;
+use bluefin_pro::prelude::*;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use std::sync::atomic::AtomicBool;
@@ -45,13 +45,13 @@ type Result<T> = std::result::Result<T, Error>;
 /// }
 /// ```
 async fn listen_to_mark_price_updates(
-    environment: bfp::Environment,
+    environment: Environment,
     symbol: &str,
     sender: Sender<MarketStreamMessage>,
     max_time_without_message: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
-    let request = bfp::ws::market::get_url(environment).into_client_request()?;
+    let request = ws::market::url(environment).into_client_request()?;
 
     // Establish connection with websocket URL.
     let (websocket_stream, _) = connect_async(request).await?;
@@ -131,8 +131,8 @@ async fn main() -> Result<()> {
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     listen_to_mark_price_updates(
-        bfp::Environment::Testnet,
-        bfp::symbols::perps::ETH,
+        Environment::Testnet,
+        symbols::perps::ETH,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),

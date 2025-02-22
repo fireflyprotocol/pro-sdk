@@ -35,7 +35,7 @@ class TestCandlestickUpdate(unittest.TestCase):
         model = CandlestickUpdate()
         if include_optional:
             return CandlestickUpdate(
-                market_address = '',
+                symbol = '',
                 start_time = 56,
                 end_time = 56,
                 interval = '',
@@ -49,7 +49,7 @@ class TestCandlestickUpdate(unittest.TestCase):
             )
         else:
             return CandlestickUpdate(
-                market_address = '',
+                symbol = '',
                 start_time = 56,
                 end_time = 56,
                 interval = '',

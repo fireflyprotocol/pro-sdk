@@ -35,12 +35,12 @@ class TestCancelOrdersRequest(unittest.TestCase):
         model = CancelOrdersRequest()
         if include_optional:
             return CancelOrdersRequest(
-                market_address = '2748',
+                symbol = '2748',
                 order_hashes = ["order_hash1","order_hash2"]
             )
         else:
             return CancelOrdersRequest(
-                market_address = '2748',
+                symbol = '2748',
         )
         """
 

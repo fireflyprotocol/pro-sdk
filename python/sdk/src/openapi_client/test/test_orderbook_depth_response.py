@@ -35,7 +35,7 @@ class TestOrderbookDepthResponse(unittest.TestCase):
         model = OrderbookDepthResponse()
         if include_optional:
             return OrderbookDepthResponse(
-                market_address = '1193046',
+                symbol = '1193046',
                 last_update_id = 56,
                 last_updated_at_utc_millis = 56,
                 response_sent_at_utc_millis = 56,
@@ -48,7 +48,7 @@ class TestOrderbookDepthResponse(unittest.TestCase):
             )
         else:
             return OrderbookDepthResponse(
-                market_address = '1193046',
+                symbol = '1193046',
                 last_update_id = 56,
                 last_updated_at_utc_millis = 56,
                 response_sent_at_utc_millis = 56,

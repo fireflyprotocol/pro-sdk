@@ -35,19 +35,16 @@ class TestAccountTransactionUpdate(unittest.TestCase):
         model = AccountTransactionUpdate()
         if include_optional:
             return AccountTransactionUpdate(
-                market_address = '',
+                symbol = '',
                 transaction_type = 'DEPOSIT',
                 amount_e9 = '',
-                asset_bank_address = '',
+                asset_symbol = '',
                 trade_id = ''
             )
         else:
             return AccountTransactionUpdate(
-                market_address = '',
                 transaction_type = 'DEPOSIT',
                 amount_e9 = '',
-                asset_bank_address = '',
-                trade_id = '',
         )
         """
 

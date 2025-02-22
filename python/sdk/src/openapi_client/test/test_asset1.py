@@ -35,7 +35,7 @@ class TestAsset1(unittest.TestCase):
         model = Asset1()
         if include_optional:
             return Asset1(
-                bank_address = '',
+                asset_type = '',
                 symbol = 'USDC',
                 decimals = 6,
                 weight = '1.0',
@@ -43,7 +43,7 @@ class TestAsset1(unittest.TestCase):
             )
         else:
             return Asset1(
-                bank_address = '',
+                asset_type = '',
                 symbol = 'USDC',
                 decimals = 6,
                 weight = '1.0',

@@ -6,7 +6,7 @@ use bluefin_api::models::{
     CreateOrderRequestSignedFields, LoginRequest, OrderSide, OrderTimeInForce, OrderType,
     SelfTradePreventionType, SubscriptionResponseMessage, SubscriptionType,
 };
-use bluefin_pro::{self as bfp, prelude::*};
+use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -15,6 +15,7 @@ use std::ops::Add;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
+use sui_sdk_types::SignatureScheme;
 use tokio::sync::broadcast;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -35,7 +36,7 @@ async fn send_request(request: CancelOrdersRequest, auth_token: &str) -> Result<
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
     cancel_orders(&config, request).await?;
 
     Ok(())
@@ -49,7 +50,7 @@ async fn send_create_order_request(
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = bfp::trade::testnet::URL.into();
+    config.base_path = trade::testnet::URL.into();
 
     let order_hash = post_create_order(&config, request).await?.order_hash;
 
@@ -58,18 +59,13 @@ async fn send_create_order_request(
 
 async fn listen_to_account_order_updates(
     auth_token: &str,
-    environment: bfp::Environment,
+    environment: Environment,
     sender: broadcast::Sender<AccountStreamMessage>,
     max_time_without_messages: Duration,
     shutdown_flag: Arc<AtomicBool>,
 ) -> Result<()> {
     // We establish a connection through the websocket URL for that environment.
-    let mut url = match environment {
-        bfp::Environment::Devnet => bfp::ws::account::devnet::URL,
-        bfp::Environment::Testnet => bfp::ws::account::testnet::URL,
-        bfp::Environment::Mainnet => bfp::ws::account::mainnet::URL,
-    }
-    .into_client_request()?;
+    let mut url = ws::account::url(environment).into_client_request()?;
     url.headers_mut().insert(
         "Authorization",
         HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
@@ -152,20 +148,20 @@ async fn listen_to_account_order_updates(
 async fn main() -> Result<()> {
     // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: bfp::test::account::testnet::ADDRESS.into(),
-        audience: bfp::auth::testnet::AUDIENCE.into(),
+        account_address: test::account::testnet::ADDRESS.into(),
+        audience: auth::testnet::AUDIENCE.into(),
         signed_at_utc_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for our request.
     let signature = request.signature(
-        bfp::SignatureType::Ed25519,
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, bfp::Environment::Testnet)
+        .authenticate(&signature, Environment::Testnet)
         .await?
         .access_token;
 
@@ -175,7 +171,7 @@ async fn main() -> Result<()> {
     let mut cancellation_receiver = sender.subscribe();
     listen_to_account_order_updates(
         &auth_token,
-        bfp::Environment::Testnet,
+        Environment::Testnet,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
@@ -200,14 +196,13 @@ async fn main() -> Result<()> {
     });
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info =
-        bfp::exchange::info::get_contracts_config(bfp::Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
 
     // Let's open an order on the book
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: bfp::symbols::perps::ETH.into(),
-            account_address: bfp::test::account::testnet::ADDRESS.into(),
+            symbol: symbols::perps::ETH.into(),
+            account_address: test::account::testnet::ADDRESS.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -231,8 +226,8 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        bfp::PrivateKey::from_hex(bfp::test::account::testnet::PRIVATE_KEY)?,
-        bfp::SignatureType::Ed25519,
+        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        SignatureScheme::Ed25519,
     )?;
 
     let order_hash = send_create_order_request(request, &auth_token).await?;
@@ -241,7 +236,7 @@ async fn main() -> Result<()> {
 
     // Next, we construct our cancellation request.
     let request = CancelOrdersRequest {
-        symbol: bfp::symbols::perps::ETH.into(),
+        symbol: symbols::perps::ETH.into(),
         order_hashes: Some(vec![order_hash.clone()]),
     };
 

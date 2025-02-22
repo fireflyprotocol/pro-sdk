@@ -35,15 +35,17 @@ class TestOraclePriceUpdate(unittest.TestCase):
         model = OraclePriceUpdate()
         if include_optional:
             return OraclePriceUpdate(
-                updated_at_utc_millis = 56,
-                market_address = '',
-                price_e9 = ''
+                symbol = '',
+                price_e9 = '',
+                source = 'Oracle',
+                updated_at_utc_millis = 56
             )
         else:
             return OraclePriceUpdate(
-                updated_at_utc_millis = 56,
-                market_address = '',
+                symbol = '',
                 price_e9 = '',
+                source = 'Oracle',
+                updated_at_utc_millis = 56,
         )
         """
 
