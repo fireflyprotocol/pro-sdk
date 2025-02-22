@@ -1,11 +1,9 @@
 use crate::core::PrivateKey;
 use crate::signature::{self, Result};
-use blake2::digest::consts::U32;
-use blake2::{Blake2b, Digest};
 use bluefin_api::models::AccountPositionLeverageUpdateRequest;
 use sui_sdk_types::SignatureScheme;
 
-use crate::signature::{serialize, RequestExt};
+use crate::signature::RequestExt;
 
 impl RequestExt for AccountPositionLeverageUpdateRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
@@ -13,21 +11,12 @@ impl RequestExt for AccountPositionLeverageUpdateRequest {
             signature::conversion::UIUpdateAccountPositionLeverageRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
-        let request_hash = hex::encode(Blake2b::<U32>::digest(
-            serialize(&self.signed_fields).map_err(|_| signature::Error::Serialization)?,
-        ));
-        Ok(AccountPositionLeverageUpdateRequest {
-            signature,
-            request_hash,
-            ..self
-        })
+        Ok(AccountPositionLeverageUpdateRequest { signature, ..self })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use blake2::digest::consts::U32;
-    use blake2::{Blake2b, Digest};
     use bluefin_api::models::{
         AccountPositionLeverageUpdateRequest, AccountPositionLeverageUpdateRequestSignedFields,
     };
@@ -44,7 +33,7 @@ mod tests {
         signer_address: &str,
     ) {
         assert!(!request.signature.is_empty());
-        assert!(!request.request_hash.is_empty());
+        assert!(request.request_hash.is_empty());
 
         match verify_signature(
             signer_address,
@@ -55,15 +44,6 @@ mod tests {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
         }
-
-        assert_eq!(
-            request.request_hash,
-            hex::encode(Blake2b::<U32>::digest(
-                serde_json::to_string_pretty(&request.signed_fields)
-                    .unwrap()
-                    .as_bytes(),
-            ))
-        );
     }
 
     #[test]

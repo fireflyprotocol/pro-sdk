@@ -1,32 +1,21 @@
 use crate::core::PrivateKey;
 use crate::signature::{self, Result};
-use blake2::digest::consts::U32;
-use blake2::{Blake2b, Digest};
 use bluefin_api::models::WithdrawRequest;
 use sui_sdk_types::SignatureScheme;
 
-use crate::signature::{serialize, RequestExt};
+use crate::signature::RequestExt;
 
 impl RequestExt for WithdrawRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
         let converted = signature::conversion::UIWithdrawRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
-        let request_hash = hex::encode(Blake2b::<U32>::digest(
-            serialize(&self.signed_fields).map_err(|_| signature::Error::Serialization)?,
-        ));
-        Ok(WithdrawRequest {
-            signature,
-            request_hash,
-            ..self
-        })
+        Ok(WithdrawRequest { signature, ..self })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use blake2::digest::consts::U32;
-    use blake2::{Blake2b, Digest};
     use bluefin_api::models::{WithdrawRequest, WithdrawRequestSignedFields};
     use rand::rngs::OsRng;
     use sui_crypto::ed25519::Ed25519VerifyingKey;
@@ -38,7 +27,7 @@ mod tests {
 
     fn verify_request_signature(request: WithdrawRequest, signer_address: &str) {
         assert!(!request.signature.is_empty());
-        assert!(!request.request_hash.is_empty());
+        assert!(request.request_hash.is_empty());
 
         match verify_signature(
             signer_address,
@@ -49,15 +38,6 @@ mod tests {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
         }
-
-        assert_eq!(
-            request.request_hash,
-            hex::encode(Blake2b::<U32>::digest(
-                serde_json::to_string_pretty(&request.signed_fields)
-                    .unwrap()
-                    .as_bytes(),
-            ))
-        );
     }
 
     #[test]

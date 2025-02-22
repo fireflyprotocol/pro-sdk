@@ -1,32 +1,21 @@
 use crate::core::PrivateKey;
 use crate::signature::{self, Result};
-use blake2::digest::consts::U32;
-use blake2::{Blake2b, Digest};
 use bluefin_api::models::CreateOrderRequest;
 use sui_sdk_types::SignatureScheme;
 
-use crate::signature::{serialize, RequestExt};
+use crate::signature::RequestExt;
 
 impl RequestExt for CreateOrderRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
         let converted = signature::conversion::UICreateOrderRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
-        let order_hash = hex::encode(Blake2b::<U32>::digest(
-            serialize(&self.signed_fields).map_err(|_| signature::Error::Serialization)?,
-        ));
-        Ok(CreateOrderRequest {
-            signature,
-            order_hash,
-            ..self
-        })
+        Ok(CreateOrderRequest { signature, ..self })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use blake2::digest::consts::U32;
-    use blake2::{Blake2b, Digest};
     use bluefin_api::models::{CreateOrderRequest, CreateOrderRequestSignedFields, OrderSide};
     use rand::rngs::OsRng;
     use sui_crypto::ed25519::Ed25519VerifyingKey;
@@ -38,7 +27,7 @@ mod tests {
 
     fn verify_request_signature(request: CreateOrderRequest, signer_address: &str) {
         assert!(!request.signature.is_empty());
-        assert!(!request.order_hash.is_empty());
+        assert!(request.order_hash.is_empty());
 
         match verify_signature(
             signer_address,
@@ -49,15 +38,6 @@ mod tests {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
         }
-
-        assert_eq!(
-            request.order_hash,
-            hex::encode(Blake2b::<U32>::digest(
-                serde_json::to_string_pretty(&request.signed_fields)
-                    .unwrap()
-                    .as_bytes(),
-            ))
-        );
     }
 
     #[test]
