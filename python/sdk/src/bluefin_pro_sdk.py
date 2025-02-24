@@ -35,6 +35,10 @@ class Environment(str, Enum):
     DEV = 'sui-dev'
 
 
+class RpcUrl(str, Enum):
+    DEV = 'https://fullnode.devnet.sui.io:443'
+
+
 @dataclass
 class Order:
     client_order_id: str
@@ -227,7 +231,7 @@ class BluefinProSdk:
         })
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
-        response = await self._auth_api.auth_token_post(signature, login_request=login_request)
+        response = await self._auth_api.auth_v2_token_post(signature, login_request=login_request)
         self._token_response = response
 
     async def __aenter__(self):
