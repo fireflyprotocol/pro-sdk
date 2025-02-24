@@ -14,31 +14,34 @@ class Signature:
     def __init__(self, sui_wallet: SuiWallet):
         self.sui_wallet = sui_wallet
 
-    def login(self, payload: LoginRequest) -> bytes:
+    def login(self, payload: LoginRequest) -> str:
         """
-        Creates a withdrawal request message and signs it
+        Creates a login request message and signs it
 
         Args:
-            payload: withdraw payload.
+            payload: login payload.
 
         Returns:
             base 64 encoded signature bytes
 
         """
-        data = {
-            "type": "Bluefin Pro Login",
-            "accountAddress": payload.account_address,
-            "signedAtUtcMillis": str(payload.signed_at_utc_millis),
-            "audience": payload.audience,
-        }
 
-        message = self.create_personal_sign_message(data)
+        # Sign the login request
+        login_request_json = payload.to_json().encode("utf-8")
+        digest = blake2b(login_request_json, digest_size=32).digest()
+        signature_bytes = self.sign(digest)
 
-        signature = self.sign(message)
+        # Serialize the signature: [SigFlag (1 byte)] + [Signature] + [Public Key]
+        sig_flag_ed25519 = 0  # Replace this with the appropriate SigFlag value if needed
+        serialized_signature = bytearray(
+            1 + len(signature_bytes) + len(self.sui_wallet.public_key_bytes))
+        serialized_signature[0] = sig_flag_ed25519
+        serialized_signature[1:1 + len(signature_bytes)] = signature_bytes
+        serialized_signature[1 + len(signature_bytes):] = self.sui_wallet.public_key_bytes
 
-        base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
+        # Encode serialized signature to Base64 (URL-safe)
+        return base64.urlsafe_b64encode(serialized_signature).decode('utf-8')
 
-        return base64_signature_with_public_key    
 
 
     def withdraw(self, payload: WithdrawRequestSignedFields) -> str:
@@ -246,19 +249,19 @@ class Signature:
         serializer = BCSSerializer()
 
         # Json stringify with indent and encode to ut8 bytes
-        uint8_array = list(json.dumps(data, indent=2).encode("utf-8")) 
+        uint8_array = list(json.dumps(data, indent=2).encode("utf-8"))
 
         # bcs serialize 
         serializer.serialize_uint8_array(uint8_array)
 
         # serialized bytes
-        serialized_bytes = list(serializer.get_bytes())
+        serialized_bytes = serializer.get_bytes()
 
         # append intent bytes
-        message_with_intent = [3,0,0] + serialized_bytes
+        message_with_intent = bytes([3, 0, 0]) + serialized_bytes
 
         # 32 bytes hash
-        message = blake2b(bytes(message_with_intent), digest_size=32).digest()
+        message = blake2b(message_with_intent, digest_size=32).digest()
 
         return message
     
@@ -283,7 +286,7 @@ class Signature:
         uint8_array = list(json.dumps(data, indent=2).encode("utf-8")) 
 
         # bcs serialize 
-        serializer.serialize_uint8_array(uint8_array)
+        serializer.serialize_bytes(uint8_array)
 
         # serialized bytes
         serialized_bytes = list(serializer.get_bytes())
@@ -307,7 +310,7 @@ class Signature:
             generated signature
         """
 
-        signature = self.sui_wallet.private_key.sign(bytearray(message))
+        signature = self.sui_wallet.private_key.sign(message)
 
         return signature
     
@@ -323,15 +326,15 @@ class Signature:
 
         Returns:
             Base 64 encoded string signature
-        """
+        """        
 
         # the scheme is always zero as the constructor of the SuiWallet 
         # class decodes incoming wallet phrase as ED25519
         # NOTE: please recover wallet scheme and use that over here
-        byte_array = [0] + list(signature) + list(self.sui_wallet.public_key_bytes)
+        byte_array = bytes([0]) + signature + self.sui_wallet.public_key_bytes
 
 
-        return base64.b64encode(bytes(byte_array))
+        return base64.b64encode(byte_array).decode("utf-8")
 
 
 

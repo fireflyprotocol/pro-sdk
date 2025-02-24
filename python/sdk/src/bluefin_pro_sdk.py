@@ -35,6 +35,10 @@ class Environment(str, Enum):
     DEV = 'sui-dev'
 
 
+class RpcUrl(str, Enum):
+    DEV = 'https://fullnode.devnet.sui.io:443'
+
+
 @dataclass
 class Order:
     client_order_id: str
@@ -220,11 +224,11 @@ class BluefinProSdk:
             self.current_account_address = self._sui_wallet.sui_address
 
         logger.info(f"Logging in as {self.current_account_address}")
-        login_request = LoginRequest.from_dict({
-            "accountAddress": self.current_account_address,
-            "signedAtUtcMillis": int(time.time() * 1000),
-            "audience": "api"
-        })
+        login_request = LoginRequest(
+            account_address=self.current_account_address,
+            signed_at_utc_millis=int(time.time() * 1000),
+            audience="api"
+        )
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
         response = await self._auth_api.auth_token_post(signature, login_request=login_request)
