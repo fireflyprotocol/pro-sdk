@@ -76,7 +76,7 @@ class BluefinProSdk:
 
     def __init__(self, 
                  sui_wallet: SuiWallet, 
-                 contracts: ProContracts, 
+                 contracts: ProContracts | None,
                  rpc_url: str,
                  env: Environment = Environment.PRODUCTION, 
                  authorized_address: str = None,

@@ -88,7 +88,9 @@ async def main():
     log.info(f"{sui_wallet.sui_address=}")
 
     log.info(f"Connecting to {ENVIRONMENT}")
-    async with BluefinProSdk(sui_wallet, contracts=None,rpc_url=RPC_URL, env=ENVIRONMENT, debug=True) as client:
+    async with BluefinProSdk(
+        sui_wallet, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True
+    ) as client:
         # Get Market Data from the Exchange Data API.
         exchange_data_api = client.exchange_data_api
         exchange_info = await client.exchange_data_api.get_exchange_info()
