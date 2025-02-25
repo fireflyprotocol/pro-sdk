@@ -196,10 +196,6 @@ export class BluefinRequestSigner implements IBluefinSigner {
   ): Promise<string> {
     const requestJson = toJson(toUIWithdrawRequest(withdrawRequestSignedFields))
 
-    const digest = await blake2b(requestJson, {
-      dkLen: 32,
-    });
-
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
       new TextEncoder().encode(requestJson)
     );
@@ -222,10 +218,6 @@ export class BluefinRequestSigner implements IBluefinSigner {
     signedFields: AccountPositionLeverageUpdateRequestSignedFields
   ): Promise<string> {
     const requestJson = toJson(toUIUpdateAccountPositionLeverageRequest(signedFields))
-
-    const digest = await blake2b(requestJson, {
-      dkLen: 32,
-    });
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
       new TextEncoder().encode(requestJson)
