@@ -14,7 +14,7 @@ import asyncio
 import os
 import time
 
-from bluefin_pro_sdk import BluefinProSdk, Order, Environment
+from bluefin_pro_sdk import BluefinProSdk, Order, Environment, RpcUrl
 from crypto_helpers.signature import SuiWallet
 from openapi_client.models.account_data_stream import AccountDataStream
 from openapi_client.models.transaction_type_enum import TransactionTypeEnum
@@ -25,7 +25,13 @@ log = logging.getLogger("main")
 ENVIRONMENT = (
     getattr(Environment, env.upper())
     if (env := os.environ.get("BFP_ENVIRONMENT"))
-    else Environment.STAGING
+    else Environment.DEV
+)
+
+RPC_URL = (
+    getattr(RpcUrl, env.upper())
+    if (env := os.environ.get("BFP_RPC_URL"))
+    else RpcUrl.DEV
 )
 
 LOG_LEVEL = (
@@ -66,11 +72,14 @@ async def main():
     #       )
     #   )
     sui_wallet = SuiWallet(
-        mnemonic="""
-            dilemma salmon lake ceiling moral glide cute that ginger float area
-            aunt vague remind cage mother concert inch dizzy present proud
-            program time urge
-        """
+        private_key_bytes=bytes.fromhex(
+            "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
+        )
+        # mnemonic="""
+        #     dilemma salmon lake ceiling moral glide cute that ginger float area
+        #     aunt vague remind cage mother concert inch dizzy present proud
+        #     program time urge
+        # """
     )
 
     # The term "sui" in the following log line is a bit redundant:  In both `sui_wallet`
@@ -79,7 +88,9 @@ async def main():
     log.info(f"{sui_wallet.sui_address=}")
 
     log.info(f"Connecting to {ENVIRONMENT}")
-    async with BluefinProSdk(sui_wallet, ENVIRONMENT, debug=True) as client:
+    async with BluefinProSdk(
+        sui_wallet, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True
+    ) as client:
         # Get Market Data from the Exchange Data API.
         exchange_data_api = client.exchange_data_api
         exchange_info = await client.exchange_data_api.get_exchange_info()
