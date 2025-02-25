@@ -18,6 +18,7 @@ import {
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { BluefinProSdk, OrderParams } from "./index";
 import { BluefinRequestSigner, makeAddressableKeyPair } from "./index";
+import { hexToBytes } from "@noble/hashes/utils";
 
 // Configure logging
 const logger = {
@@ -85,9 +86,15 @@ async function handleAccountDataEvent(
 
 async function main() {
   // Create wallet from mnemonic
-  const suiWallet = Ed25519Keypair.deriveKeypair(
-    // "dilemma salmon lake ceiling moral glide cute that ginger float area aunt vague remind cage mother concert inch dizzy present proud program time urge",
-    "know puzzle puzzle table miss member token image loop velvet skin legend clarify affair wisdom alert lucky unveil mean two question nice spatial grape"
+  // const suiWallet = Ed25519Keypair.deriveKeypair(
+  //   // "dilemma salmon lake ceiling moral glide cute that ginger float area aunt vague remind cage mother concert inch dizzy present proud program time urge",
+  //   "know puzzle puzzle table miss member token image loop velvet skin legend clarify affair wisdom alert lucky unveil mean two question nice spatial grape"
+  // );
+
+  const suiWallet = Ed25519Keypair.fromSecretKey(
+    hexToBytes(
+      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
+    )
   );
 
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
@@ -101,11 +108,14 @@ async function main() {
     const exchangeInfo = (await client.exchangeDataApi.getExchangeInfo()).data;
     logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);
 
-    // Get any arbitrary market from the exchange info
-    const arbitraryMarket = exchangeInfo.markets[0];
-    logger.info(`Selected market: ${JSON.stringify(arbitraryMarket)}`);
+    // Find SUI-PERP market
+    const perpMarket = exchangeInfo.markets.find(m => m.symbol === 'SUI-PERP');
+    if (!perpMarket) {
+      throw new Error('SUI-PERP market not found');
+    }
+    logger.info(`Selected market: ${JSON.stringify(perpMarket)}`);
 
-    const symbol = arbitraryMarket.symbol;
+    const symbol = perpMarket.symbol;
 
     // Get market data
     const candleStick = (
@@ -168,9 +178,11 @@ async function main() {
 
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
+      "devnet",
       handleAccountDataEvent
     );
     const marketDataListener = await client.createMarketDataStreamListener(
+      "devnet",
       handleMarketDataEvent
     );
 
@@ -217,7 +229,7 @@ async function main() {
       side: OrderSide.Long,
       leverageE9: "1000000000",
       isIsolated: false,
-      expiresAtUtcMillis: Date.now() + 60000,
+      expiresAtUtcMillis: Date.now() + 6 * 60 * 1000,
       postOnly: false,
       reduceOnly: false,
       timeInForce: OrderTimeInForce.Gtt,

@@ -338,6 +338,7 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
+    environment: "mainnet" | "testnet" | "devnet",
     handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
@@ -345,7 +346,7 @@ export class BluefinProSdk {
         throw new Error("Missing tokenResponse");
       }
       const ws = new WebSocket(
-        "wss://stream.api.sui-staging.bluefin.io/ws/account",
+        `wss://stream.api.${environment === "devnet" ? "sui-dev" : environment === "testnet" ? "sui-staging" : "sui-prod"}.bluefin.io/ws/account`,
         {
           headers: {
             Authorization: `Bearer ${this.tokenResponse.accessToken}`,
@@ -362,11 +363,12 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
+    environment: "mainnet" | "testnet" | "devnet",
     handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
       const ws = new WebSocket(
-        "wss://stream.api.sui-staging.bluefin.io/ws/market"
+        `wss://stream.api.${environment === "devnet" ? "sui-dev" : environment === "testnet" ? "sui-staging" : "sui-prod"}.bluefin.io/ws/market`
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
