@@ -31,6 +31,8 @@ interface EnvironmentConfig {
     authHost: string;
     apiHost: string;
     tradeHost: string;
+    marketWsHost: string;
+    accountWsHost: string;
   };
 }
 
@@ -39,16 +41,22 @@ const environmentConfig: EnvironmentConfig = {
     authHost: "https://auth.api.sui-prod.bluefin.io",
     apiHost: "https://api.sui-prod.bluefin.io",
     tradeHost: "https://trade.api.sui-prod.bluefin.io",
+    marketWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/market",
+    accountWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/account",
   },
   testnet: {
     authHost: "https://auth.api.sui-staging.bluefin.io",
     apiHost: "https://api.sui-staging.bluefin.io",
     tradeHost: "https://trade.api.sui-staging.bluefin.io",
+    marketWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/market",
+    accountWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/account",
   },
   devnet: {
     authHost: "https://auth.api.sui-dev.bluefin.io",
     apiHost: "https://api.sui-dev.bluefin.io",
     tradeHost: "https://trade.api.sui-dev.bluefin.io",
+    marketWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/market",
+    accountWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/account",
   },
 };
 
@@ -74,12 +82,16 @@ enum Services {
   Exchange,
   Trade,
   Auth,
+  MarketWebsocket,
+  AccountWebsocket,
 }
 
 type BasePathConfig = {
   authHost: string | null;
   apiHost: string | null;
   tradeHost: string | null;
+  marketWsHost: string | null;
+  accountWsHost: string | null;
 };
 
 export class BluefinProSdk {
@@ -121,6 +133,16 @@ export class BluefinProSdk {
         basePathConfig && basePathConfig?.tradeHost
           ? basePathConfig.tradeHost
           : environmentConfig[environment].tradeHost,
+
+      marketWsHost:
+        basePathConfig && basePathConfig?.marketWsHost
+          ? basePathConfig.marketWsHost
+          : environmentConfig[environment].marketWsHost,
+
+      accountWsHost:
+        basePathConfig && basePathConfig?.accountWsHost
+          ? basePathConfig.accountWsHost
+          : environmentConfig[environment].accountWsHost,
     };
 
     const authApiConfig = new Configuration({
@@ -146,6 +168,16 @@ export class BluefinProSdk {
     });
     this.configs[Services.Trade] = tradeApiConfig;
     this.tradeApi = new TradeApi(tradeApiConfig);
+
+    const marketWsConfig = new Configuration({
+      basePath: basePaths.marketWsHost,
+    });
+    this.configs[Services.MarketWebsocket] = marketWsConfig;
+
+    const accountWsConfig = new Configuration({
+      basePath: basePaths.accountWsHost,
+    });
+    this.configs[Services.AccountWebsocket] = accountWsConfig;
   }
 
   private generateSalt(): string {
@@ -344,18 +376,15 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
-    environment: "mainnet" | "testnet" | "devnet",
     handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
       if (!this.tokenResponse) {
         throw new Error("Missing tokenResponse");
       }
-      const ws = new WebSocket(
-        `wss://stream.api.${environment === "devnet" ? "sui-dev" : environment === "testnet" ? "sui-staging" : "sui-prod"}.bluefin.io/ws/account`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.tokenResponse.accessToken}`,
+      const ws = new WebSocket(this.configs[Services.AccountWebsocket]!.basePath!, {
+        headers: {
+          Authorization: `Bearer ${this.tokenResponse.accessToken}`,
           },
         }
       );
@@ -369,13 +398,10 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
-    environment: "mainnet" | "testnet" | "devnet",
     handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket(
-        `wss://stream.api.${environment === "devnet" ? "sui-dev" : environment === "testnet" ? "sui-staging" : "sui-prod"}.bluefin.io/ws/market`
-      );
+      const ws = new WebSocket(this.configs[Services.MarketWebsocket]!.basePath!);
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };

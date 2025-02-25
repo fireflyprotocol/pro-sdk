@@ -178,11 +178,9 @@ async function main() {
 
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
-      "devnet",
       handleAccountDataEvent
     );
     const marketDataListener = await client.createMarketDataStreamListener(
-      "devnet",
       handleMarketDataEvent
     );
 
