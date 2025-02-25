@@ -326,7 +326,7 @@ class Signature:
 
         Returns:
             Base 64 encoded string signature
-        """        
+        """
 
         # the scheme is always zero as the constructor of the SuiWallet 
         # class decodes incoming wallet phrase as ED25519
@@ -334,7 +334,7 @@ class Signature:
         byte_array = bytes([0]) + signature + self.sui_wallet.public_key_bytes
 
 
-        return base64.b64encode(byte_array).decode("utf-8")
+        return base64.b64encode(byte_array).decode()
 
 
 
