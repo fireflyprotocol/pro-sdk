@@ -14,6 +14,7 @@ import {
   AccountPositionLeverageUpdateRequestSignedFields,
   CreateOrderRequestSignedFields,
   WithdrawRequestSignedFields,
+  CreateOrderRequest,
 } from "./api";
 import { toBase64UrlEncoded } from "./utils";
 
@@ -21,13 +22,13 @@ export interface IBluefinSigner {
   getAddress(): string;
   signLeverageUpdateRequest: (
     fields: AccountPositionLeverageUpdateRequestSignedFields
-  ) => Promise<AccountPositionLeverageUpdateRequest>;
+  ) => Promise<string>;
   signOrderRequest: (
     fields: CreateOrderRequestSignedFields
-  ) => Promise<[string, string]>;
+  ) => Promise<string>;
   signWithdrawRequest: (
     fields: WithdrawRequestSignedFields
-  ) => Promise<WithdrawRequest>;
+  ) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
 }
 
@@ -43,52 +44,109 @@ export function makeAddressableKeyPair<T extends Keypair>(
   });
 }
 
-export const OrderRequestSignedFieldsBCS = bcs.struct(
-  "OrderRequestSignedFields",
-  {
-    symbol: bcs.string(),
-    accountAddress: bcs.Address,
-    priceE9: bcs.u64(),
-    quantityE9: bcs.u64(),
-    leverageE9: bcs.u64(),
-    side: bcs.string(),
-    isIsolated: bcs.bool(),
-    expiresAtUtcMillis: bcs.u64(),
-    salt: bcs.u64(),
-    idsId: bcs.Address,
-    signedAtUtcMillis: bcs.u64(),
-  }
-);
+// ------- ISerializables ---------
 
-export const LeverageUpdateRequestSignedFieldsBCS = bcs.struct(
-  "LeverageUpdateRequestSignedFields",
-  {
-    accountAddress: bcs.Address,
-    symbol: bcs.string(),
-    leverageE9: bcs.u64(),
-    salt: bcs.u64(),
-    idsId: bcs.Address,
-    signedAtUtcMillis: bcs.u64(),
-  }
-);
+// Enums
+enum ClientPayloadType {
+  WithdrawRequest = "Bluefin Pro Withdrawal",
+  OrderRequest = "Bluefin Pro Order",
+  LeverageAdjustment = "Bluefin Pro Leverage Adjustment"
+}
 
-export const WithdrawRequestSignedFieldsBCS = bcs.struct(
-  "WithdrawRequestSignedFields",
-  {
-    assetSymbol: bcs.string(),
-    accountAddress: bcs.Address,
-    amountE9: bcs.u64(),
-    salt: bcs.u64(),
-    edsId: bcs.Address,
-    signedAtUtcMillis: bcs.u64(),
-  }
-);
+enum PositionType {
+  Isolated = "ISOLATED",
+  Cross = "CROSS"
+}
 
-export const SerializedSignatureBCS = bcs.struct("SerializedSignature", {
-  signature: bcs.vector(bcs.u8()),
-  publicKey: bcs.vector(bcs.u8()),
-  scheme: bcs.u8(),
-});
+// Interfaces
+interface UIWithdrawRequest {
+  type: string;
+  eds: string;
+  assetSymbol: string;
+  account: string;
+  amount: string;
+  salt: string;
+  signedAt: string;
+}
+
+interface UICreateOrderRequest {
+  type: string;
+  ids: string;
+  account: string;
+  market: string;
+  price: string;
+  quantity: string;
+  leverage: string;
+  side: string;
+  positionType: string;
+  expiration: string;
+  salt: string;
+  signedAt: string;
+}
+
+interface UIUpdateAccountPositionLeverageRequest {
+  type: string;
+  ids: string;
+  account: string;
+  market: string;
+  leverage: string;
+  salt: string;
+  signedAt: string;
+}
+
+// Conversion functions
+function toUIWithdrawRequest(val: WithdrawRequestSignedFields): UIWithdrawRequest {
+  return {
+    type: ClientPayloadType.WithdrawRequest,
+    eds: val.edsId,
+    assetSymbol: val.assetSymbol,
+    account: val.accountAddress,
+    amount: val.amountE9,
+    salt: val.salt,
+    signedAt: val.signedAtUtcMillis.toString()
+  };
+}
+
+function toUICreateOrderRequest(val: CreateOrderRequestSignedFields): UICreateOrderRequest {
+  return {
+    type: ClientPayloadType.OrderRequest,
+    ids: val.idsId,
+    account: val.accountAddress,
+    market: val.symbol,
+    price: val.priceE9,
+    quantity: val.quantityE9,
+    leverage: val.leverageE9,
+    side: val.side.toString(),
+    positionType: val.isIsolated ? 
+      PositionType.Isolated : 
+      PositionType.Cross,
+    expiration: val.expiresAtUtcMillis.toString(),
+    salt: val.salt,
+    signedAt: val.signedAtUtcMillis.toString()
+  };
+}
+
+function toUIUpdateAccountPositionLeverageRequest(
+  val: AccountPositionLeverageUpdateRequestSignedFields
+): UIUpdateAccountPositionLeverageRequest {
+  return {
+    type: ClientPayloadType.LeverageAdjustment,
+    ids: val.idsId,
+    account: val.accountAddress,
+    market: val.symbol,
+    leverage: val.leverageE9,
+    salt: val.salt,
+    signedAt: val.signedAtUtcMillis.toString()
+  };
+}
+
+// ---------- Utils ----------
+
+function toJson(val: UICreateOrderRequest | UIUpdateAccountPositionLeverageRequest | UIWithdrawRequest): string {
+  return JSON.stringify(val, null, 2);
+}
+
+// --------------------------------
 
 export class BluefinRequestSigner implements IBluefinSigner {
   constructor(
@@ -111,37 +169,13 @@ export class BluefinRequestSigner implements IBluefinSigner {
    * Sign an order request
    */
   async signOrderRequest(
-    orderRequestSignedFields: CreateOrderRequestSignedFields
-  ): Promise<[string, string]> {
-    const signableFields: CreateOrderRequestSignedFields = {
-      symbol: orderRequestSignedFields.symbol,
-      accountAddress: orderRequestSignedFields.accountAddress,
-      priceE9: orderRequestSignedFields.priceE9,
-      quantityE9: orderRequestSignedFields.quantityE9,
-      leverageE9: orderRequestSignedFields.leverageE9,
-      side: orderRequestSignedFields.side,
-      isIsolated: orderRequestSignedFields.isIsolated,
-      expiresAtUtcMillis: orderRequestSignedFields.expiresAtUtcMillis,
-      salt: orderRequestSignedFields.salt,
-      idsId: orderRequestSignedFields.idsId,
-      signedAtUtcMillis: orderRequestSignedFields.signedAtUtcMillis,
-    };
-
-    const orderBytes =
-      OrderRequestSignedFieldsBCS.serialize(signableFields).toBytes();
-
-    const digest = await (global.crypto ? global.crypto : crypto).subtle.digest(
-      "SHA-256",
-      orderBytes
-    );
-
-    const walletHack: Signer = <Signer>(<unknown>this.wallet);
+    signedFields: CreateOrderRequestSignedFields
+  ): Promise<string> {
+    const orderJson = toJson(toUICreateOrderRequest(signedFields))
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
-      orderBytes
+      new TextEncoder().encode(orderJson)
     );
-
-    const signedMessage = await walletHack.sign(Buffer.from(digest));
 
     const parsedSignature = parseSerializedSignature(
       signedMessageSerialized.signature
@@ -151,13 +185,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    const signature = SerializedSignatureBCS.serialize({
-      signature: signedMessage,
-      publicKey: parsedSignature.publicKey,
-      scheme: SIGNATURE_SCHEME_TO_FLAG[parsedSignature.signatureScheme],
-    }).toHex();
-
-    return [signature, Buffer.from(digest).toString("hex")];
+    return signedMessageSerialized.signature
   }
 
   /**
@@ -165,31 +193,16 @@ export class BluefinRequestSigner implements IBluefinSigner {
    */
   async signWithdrawRequest(
     withdrawRequestSignedFields: WithdrawRequestSignedFields
-  ): Promise<WithdrawRequest> {
-    const signableFields: WithdrawRequestSignedFields = {
-      assetSymbol: withdrawRequestSignedFields.assetSymbol,
-      accountAddress: withdrawRequestSignedFields.accountAddress,
-      amountE9: withdrawRequestSignedFields.amountE9,
-      salt: withdrawRequestSignedFields.salt,
-      edsId: withdrawRequestSignedFields.edsId,
-      signedAtUtcMillis: withdrawRequestSignedFields.signedAtUtcMillis,
-    };
+  ): Promise<string> {
+    const requestJson = toJson(toUIWithdrawRequest(withdrawRequestSignedFields))
 
-    const requestBytes =
-      WithdrawRequestSignedFieldsBCS.serialize(signableFields).toBytes();
-
-    const digest = await (global.crypto ? global.crypto : crypto).subtle.digest(
-      "SHA-256",
-      requestBytes
-    );
-
-    const walletHack: Signer = <Signer>(<unknown>this.wallet);
+    const digest = await blake2b(requestJson, {
+      dkLen: 32,
+    });
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
-      requestBytes
+      new TextEncoder().encode(requestJson)
     );
-
-    const signedMessage = await walletHack.sign(Buffer.from(digest));
 
     const parsedSignature = parseSerializedSignature(
       signedMessageSerialized.signature
@@ -199,49 +212,24 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    const signature = SerializedSignatureBCS.serialize({
-      signature: signedMessage,
-      publicKey: parsedSignature.publicKey,
-      scheme: SIGNATURE_SCHEME_TO_FLAG[parsedSignature.signatureScheme],
-    }).toHex();
-
-    return {
-      signature,
-      requestHash: Buffer.from(digest).toString("hex"),
-      signedFields: withdrawRequestSignedFields,
-    };
+    return signedMessageSerialized.signature
   }
 
   /**
    * Sign a leverage update request
    */
   async signLeverageUpdateRequest(
-    requestSignedFields: AccountPositionLeverageUpdateRequestSignedFields
-  ): Promise<AccountPositionLeverageUpdateRequest> {
-    const signableFields: AccountPositionLeverageUpdateRequestSignedFields = {
-      symbol: requestSignedFields.symbol,
-      accountAddress: requestSignedFields.accountAddress,
-      leverageE9: requestSignedFields.leverageE9,
-      salt: requestSignedFields.salt,
-      idsId: requestSignedFields.idsId,
-      signedAtUtcMillis: requestSignedFields.signedAtUtcMillis,
-    };
+    signedFields: AccountPositionLeverageUpdateRequestSignedFields
+  ): Promise<string> {
+    const requestJson = toJson(toUIUpdateAccountPositionLeverageRequest(signedFields))
 
-    const requestBytes =
-      LeverageUpdateRequestSignedFieldsBCS.serialize(signableFields).toBytes();
-
-    const digest = await (global.crypto ? global.crypto : crypto).subtle.digest(
-      "SHA-256",
-      requestBytes
-    );
-
-    const walletHack: Signer = <Signer>(<unknown>this.wallet);
+    const digest = await blake2b(requestJson, {
+      dkLen: 32,
+    });
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
-      requestBytes
+      new TextEncoder().encode(requestJson)
     );
-
-    const signedMessage = await walletHack.sign(Buffer.from(digest));
 
     const parsedSignature = parseSerializedSignature(
       signedMessageSerialized.signature
@@ -251,17 +239,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    const signature = SerializedSignatureBCS.serialize({
-      signature: signedMessage,
-      publicKey: parsedSignature.publicKey,
-      scheme: SIGNATURE_SCHEME_TO_FLAG[parsedSignature.signatureScheme],
-    }).toHex();
-
-    return {
-      signature,
-      requestHash: Buffer.from(digest).toString("hex"),
-      signedFields: requestSignedFields,
-    };
+    return signedMessageSerialized.signature
   }
 
   /**

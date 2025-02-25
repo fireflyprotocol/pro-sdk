@@ -235,7 +235,11 @@ export class BluefinProSdk {
 
     const request = await this.bfSigner.signLeverageUpdateRequest(signedFields);
 
-    return await this.tradeApi.putLeverageUpdate(request);
+    return await this.tradeApi.putLeverageUpdate({
+      signedFields,
+      signature: request,
+      requestHash: "",
+    });
   }
 
   public async createOrder(params: OrderParams): Promise<any> {
@@ -257,14 +261,12 @@ export class BluefinProSdk {
       signedAtUtcMillis: Date.now(),
     };
 
-    const [signature, orderHash] = await this.bfSigner.signOrderRequest(
-      signedFields
-    );
+    const signature = await this.bfSigner.signOrderRequest(signedFields);
 
     const createOrderRequest: CreateOrderRequest = {
       signedFields,
       signature,
-      orderHash,
+      orderHash: "",
       clientOrderId: params.clientOrderId,
       type: params.type,
       reduceOnly: params.reduceOnly ?? false,
@@ -304,10 +306,14 @@ export class BluefinProSdk {
       signedAtUtcMillis: Date.now(),
     };
 
-    const request = await this.bfSigner.signWithdrawRequest(signedFields);
+    const signature = await this.bfSigner.signWithdrawRequest(signedFields);
 
-    await this.tradeApi.postWithdraw(request);
-    console.log("Withdraw request sent:", request);
+    await this.tradeApi.postWithdraw({
+      signedFields,
+      signature,
+      requestHash: "",
+    });
+    console.log("Withdraw request sent:", signedFields);
   }
 
   private async setAccessToken(): Promise<void> {
