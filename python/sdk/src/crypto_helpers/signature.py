@@ -14,7 +14,7 @@ class Signature:
     def __init__(self, sui_wallet: SuiWallet):
         self.sui_wallet = sui_wallet
 
-    def login(self, payload: LoginRequest) -> bytes:
+    def login(self, payload: LoginRequest) -> str:
         """
         Creates a login request message and signs it
 
@@ -36,9 +36,7 @@ class Signature:
 
         signature = self.sign(message)
 
-        base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
-
-        return base64_signature_with_public_key    
+        return self.build_base_64_signature_with_scheme_and_public_key(signature)
 
 
     def withdraw(self, payload: WithdrawRequestSignedFields) -> str:
