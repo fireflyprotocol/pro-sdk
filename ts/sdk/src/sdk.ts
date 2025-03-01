@@ -20,12 +20,18 @@ import {
   AccountStreamMessage,
   LoginResponse,
   ContractsConfig,
+  Asset1,
 } from "./api";
 
 import { Configuration } from "./configuration";
 import { IBluefinSigner } from "./request-signer";
 import { WebSocket } from "ws";
-
+import { IAsset, TxBuilder } from "@firefly-exchange/library-sui/dist/src/v3";
+import {
+  CoinUtils,
+  SuiClient,
+  TransactionBlock,
+} from "@firefly-exchange/library-sui";
 interface EnvironmentConfig {
   [key: string]: {
     authHost: string;
@@ -105,10 +111,12 @@ export class BluefinProSdk {
   private isConnected: boolean;
   private updateTokenInterval: NodeJS.Timeout | null;
   private contractsConfig: ContractsConfig | undefined;
-
+  private assets: Array<Asset1> | undefined;
+  private txBuilder: TxBuilder | undefined;
   constructor(
     private readonly bfSigner: IBluefinSigner,
-    environment: "mainnet" | "testnet" | "devnet" = "mainnet",
+    private environment: "mainnet" | "testnet" | "devnet" = "mainnet",
+    private suiClient: SuiClient,
     private currentAccountAddress: string | null = null,
     basePathConfig: BasePathConfig | null = null
   ) {
@@ -122,27 +130,27 @@ export class BluefinProSdk {
       authHost:
         basePathConfig && basePathConfig?.authHost
           ? basePathConfig.authHost
-          : environmentConfig[environment].authHost,
+          : environmentConfig[this.environment].authHost,
 
       apiHost:
         basePathConfig && basePathConfig?.apiHost
           ? basePathConfig.apiHost
-          : environmentConfig[environment].apiHost,
+          : environmentConfig[this.environment].apiHost,
 
       tradeHost:
         basePathConfig && basePathConfig?.tradeHost
           ? basePathConfig.tradeHost
-          : environmentConfig[environment].tradeHost,
+          : environmentConfig[this.environment].tradeHost,
 
       marketWsHost:
         basePathConfig && basePathConfig?.marketWsHost
           ? basePathConfig.marketWsHost
-          : environmentConfig[environment].marketWsHost,
+          : environmentConfig[this.environment].marketWsHost,
 
       accountWsHost:
         basePathConfig && basePathConfig?.accountWsHost
           ? basePathConfig.accountWsHost
-          : environmentConfig[environment].accountWsHost,
+          : environmentConfig[this.environment].accountWsHost,
     };
 
     const authApiConfig = new Configuration({
@@ -184,8 +192,33 @@ export class BluefinProSdk {
     return (Date.now() + Math.floor(Math.random() * 1000000)).toString();
   }
 
+  private async initializeTxBuilder() {
+    this.txBuilder = new TxBuilder({
+      AdminCap: this.contractsConfig?.baseContractAddress || "",
+      ExternalDataStore: this.contractsConfig?.edsId || "",
+      InternalDataStore: this.contractsConfig?.idsId || "",
+      Operators: {
+        admin: this.contractsConfig?.operators.admin || "",
+        fee: this.contractsConfig?.operators.fee || "",
+        funding: this.contractsConfig?.operators.funding || "",
+        pruning: this.contractsConfig?.operators.operator || "",
+        sequencer: this.contractsConfig?.operators.sequencer || "",
+      },
+      Package: this.contractsConfig?.currentContractAddress || "",
+      Perpetuals: {},
+      SupportedAssets:
+        this.assets?.reduce((agg: Record<string, IAsset>, x: Asset1) => {
+          agg[x.symbol] = { ...x, coinType: x.assetType };
+          return agg;
+        }, {}) || {},
+      TreasuryCap: "",
+      UpgradeCap: "",
+    });
+  }
+
   public async initialize(): Promise<void> {
     await this.setContractsConfig();
+    await this.initializeTxBuilder();
     await this.loginAndUpdateToken();
     this.updateTokenInterval = setInterval(() => this.refreshToken(), 10000);
     this.isConnected = true;
@@ -194,6 +227,7 @@ export class BluefinProSdk {
   private async setContractsConfig() {
     const response = await this.exchangeDataApi.getExchangeInfo();
     this.contractsConfig = response.data.contractsConfig;
+    this.assets = response.data.assets;
   }
 
   private async loginAndUpdateToken(): Promise<void> {
@@ -348,6 +382,51 @@ export class BluefinProSdk {
     console.log("Withdraw request sent:", signedFields);
   }
 
+  public async deposit(amountE9: string, accountAddress?: string) {
+    const assetSymbol = "USDC";
+    const txb = new TransactionBlock();
+    const assetType = this.assets?.find(
+      (x) => x.symbol === assetSymbol
+    )?.assetType;
+    if (!assetType) {
+      throw new Error("Missing USDC asset type");
+    }
+    const [splitCoin, mergedCoin] = await CoinUtils.createCoinWithBalance(
+      this.suiClient,
+      txb,
+      amountE9,
+      assetType,
+      this.currentAccountAddress || this.bfSigner.getAddress()
+    );
+
+    this.txBuilder?.depositToAssetBank(
+      assetSymbol,
+      accountAddress ||
+        this.currentAccountAddress ||
+        this.bfSigner.getAddress(),
+      amountE9,
+      splitCoin,
+      {
+        txBlock: txb,
+      }
+    );
+
+    if (mergedCoin) {
+      txb.transferObjects(
+        [mergedCoin],
+        this.currentAccountAddress || this.bfSigner.getAddress()
+      );
+    }
+    if (splitCoin) {
+      txb.transferObjects(
+        [splitCoin],
+        this.currentAccountAddress || this.bfSigner.getAddress()
+      );
+    }
+
+    return this.bfSigner.executeTx(txb, this.suiClient);
+  }
+
   private async setAccessToken(): Promise<void> {
     await this.login();
     if (!this.tokenResponse) {
@@ -382,9 +461,11 @@ export class BluefinProSdk {
       if (!this.tokenResponse) {
         throw new Error("Missing tokenResponse");
       }
-      const ws = new WebSocket(this.configs[Services.AccountWebsocket]!.basePath!, {
-        headers: {
-          Authorization: `Bearer ${this.tokenResponse.accessToken}`,
+      const ws = new WebSocket(
+        this.configs[Services.AccountWebsocket]!.basePath!,
+        {
+          headers: {
+            Authorization: `Bearer ${this.tokenResponse.accessToken}`,
           },
         }
       );
@@ -401,7 +482,9 @@ export class BluefinProSdk {
     handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket(this.configs[Services.MarketWebsocket]!.basePath!);
+      const ws = new WebSocket(
+        this.configs[Services.MarketWebsocket]!.basePath!
+      );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };
