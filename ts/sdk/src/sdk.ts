@@ -194,14 +194,14 @@ export class BluefinProSdk {
 
   private async initializeTxBuilder() {
     this.txBuilder = new TxBuilder({
-      AdminCap: this.contractsConfig?.baseContractAddress || "",
+      AdminCap: "",
       ExternalDataStore: this.contractsConfig?.edsId || "",
       InternalDataStore: this.contractsConfig?.idsId || "",
       Operators: {
         admin: this.contractsConfig?.operators.admin || "",
         fee: this.contractsConfig?.operators.fee || "",
         funding: this.contractsConfig?.operators.funding || "",
-        pruning: this.contractsConfig?.operators.operator || "",
+        pruning: "",
         sequencer: this.contractsConfig?.operators.sequencer || "",
       },
       Package: this.contractsConfig?.currentContractAddress || "",
