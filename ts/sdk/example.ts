@@ -19,6 +19,7 @@ import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { BluefinProSdk, OrderParams } from "./index";
 import { BluefinRequestSigner, makeAddressableKeyPair } from "./index";
 import { hexToBytes } from "@noble/hashes/utils";
+import { SuiClient } from "@firefly-exchange/library-sui";
 
 // Configure logging
 const logger = {
@@ -100,18 +101,25 @@ async function main() {
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
 
   const bfSigner = new BluefinRequestSigner(makeAddressableKeyPair(suiWallet));
-  const client = new BluefinProSdk(bfSigner, "devnet", undefined);
+  const client = new BluefinProSdk(
+    bfSigner,
+    "devnet",
+    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
+  );
   await client.initialize();
 
   try {
+    await client.deposit("1000");
     // Get Market Data from Exchange Data API
     const exchangeInfo = (await client.exchangeDataApi.getExchangeInfo()).data;
     logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);
 
     // Find SUI-PERP market
-    const perpMarket = exchangeInfo.markets.find(m => m.symbol === 'SUI-PERP');
+    const perpMarket = exchangeInfo.markets.find(
+      (m) => m.symbol === "SUI-PERP"
+    );
     if (!perpMarket) {
-      throw new Error('SUI-PERP market not found');
+      throw new Error("SUI-PERP market not found");
     }
     logger.info(`Selected market: ${JSON.stringify(perpMarket)}`);
 

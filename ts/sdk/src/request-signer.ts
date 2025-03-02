@@ -1,35 +1,34 @@
-import { blake2b } from "@noble/hashes/blake2b";
-import * as crypto from "crypto";
 import {
   Keypair,
   Signer,
   parseSerializedSignature,
-  SIGNATURE_SCHEME_TO_FLAG,
 } from "@mysten/sui/cryptography";
-import { bcs } from "@mysten/sui/bcs";
 import {
   LoginRequest,
-  WithdrawRequest,
-  AccountPositionLeverageUpdateRequest,
   AccountPositionLeverageUpdateRequestSignedFields,
   CreateOrderRequestSignedFields,
   WithdrawRequestSignedFields,
-  CreateOrderRequest,
 } from "./api";
-import { toBase64UrlEncoded } from "./utils";
+import {
+  DryRunTransactionBlockResponse,
+  SuiBlocks,
+  SuiClient,
+  SuiTransactionBlockResponse,
+  TransactionBlock,
+} from "@firefly-exchange/library-sui";
 
 export interface IBluefinSigner {
   getAddress(): string;
   signLeverageUpdateRequest: (
     fields: AccountPositionLeverageUpdateRequestSignedFields
   ) => Promise<string>;
-  signOrderRequest: (
-    fields: CreateOrderRequestSignedFields
-  ) => Promise<string>;
-  signWithdrawRequest: (
-    fields: WithdrawRequestSignedFields
-  ) => Promise<string>;
+  signOrderRequest: (fields: CreateOrderRequestSignedFields) => Promise<string>;
+  signWithdrawRequest: (fields: WithdrawRequestSignedFields) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
+  executeTx: (
+    txb: TransactionBlock,
+    suiClient: SuiClient
+  ) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
 }
 
 export interface IAddressable {
@@ -50,12 +49,12 @@ export function makeAddressableKeyPair<T extends Keypair>(
 enum ClientPayloadType {
   WithdrawRequest = "Bluefin Pro Withdrawal",
   OrderRequest = "Bluefin Pro Order",
-  LeverageAdjustment = "Bluefin Pro Leverage Adjustment"
+  LeverageAdjustment = "Bluefin Pro Leverage Adjustment",
 }
 
 enum PositionType {
   Isolated = "ISOLATED",
-  Cross = "CROSS"
+  Cross = "CROSS",
 }
 
 // Interfaces
@@ -95,7 +94,9 @@ interface UIUpdateAccountPositionLeverageRequest {
 }
 
 // Conversion functions
-function toUIWithdrawRequest(val: WithdrawRequestSignedFields): UIWithdrawRequest {
+function toUIWithdrawRequest(
+  val: WithdrawRequestSignedFields
+): UIWithdrawRequest {
   return {
     type: ClientPayloadType.WithdrawRequest,
     eds: val.edsId,
@@ -103,11 +104,13 @@ function toUIWithdrawRequest(val: WithdrawRequestSignedFields): UIWithdrawReques
     account: val.accountAddress,
     amount: val.amountE9,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString()
+    signedAt: val.signedAtUtcMillis.toString(),
   };
 }
 
-function toUICreateOrderRequest(val: CreateOrderRequestSignedFields): UICreateOrderRequest {
+function toUICreateOrderRequest(
+  val: CreateOrderRequestSignedFields
+): UICreateOrderRequest {
   return {
     type: ClientPayloadType.OrderRequest,
     ids: val.idsId,
@@ -117,12 +120,10 @@ function toUICreateOrderRequest(val: CreateOrderRequestSignedFields): UICreateOr
     quantity: val.quantityE9,
     leverage: val.leverageE9,
     side: val.side.toString(),
-    positionType: val.isIsolated ? 
-      PositionType.Isolated : 
-      PositionType.Cross,
+    positionType: val.isIsolated ? PositionType.Isolated : PositionType.Cross,
     expiration: val.expiresAtUtcMillis.toString(),
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString()
+    signedAt: val.signedAtUtcMillis.toString(),
   };
 }
 
@@ -136,13 +137,18 @@ function toUIUpdateAccountPositionLeverageRequest(
     market: val.symbol,
     leverage: val.leverageE9,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString()
+    signedAt: val.signedAtUtcMillis.toString(),
   };
 }
 
 // ---------- Utils ----------
 
-function toJson(val: UICreateOrderRequest | UIUpdateAccountPositionLeverageRequest | UIWithdrawRequest): string {
+function toJson(
+  val:
+    | UICreateOrderRequest
+    | UIUpdateAccountPositionLeverageRequest
+    | UIWithdrawRequest
+): string {
   return JSON.stringify(val, null, 2);
 }
 
@@ -171,7 +177,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
   async signOrderRequest(
     signedFields: CreateOrderRequestSignedFields
   ): Promise<string> {
-    const orderJson = toJson(toUICreateOrderRequest(signedFields))
+    const orderJson = toJson(toUICreateOrderRequest(signedFields));
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
       new TextEncoder().encode(orderJson)
@@ -185,7 +191,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    return signedMessageSerialized.signature
+    return signedMessageSerialized.signature;
   }
 
   /**
@@ -194,7 +200,9 @@ export class BluefinRequestSigner implements IBluefinSigner {
   async signWithdrawRequest(
     withdrawRequestSignedFields: WithdrawRequestSignedFields
   ): Promise<string> {
-    const requestJson = toJson(toUIWithdrawRequest(withdrawRequestSignedFields))
+    const requestJson = toJson(
+      toUIWithdrawRequest(withdrawRequestSignedFields)
+    );
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
       new TextEncoder().encode(requestJson)
@@ -208,7 +216,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    return signedMessageSerialized.signature
+    return signedMessageSerialized.signature;
   }
 
   /**
@@ -217,7 +225,9 @@ export class BluefinRequestSigner implements IBluefinSigner {
   async signLeverageUpdateRequest(
     signedFields: AccountPositionLeverageUpdateRequestSignedFields
   ): Promise<string> {
-    const requestJson = toJson(toUIUpdateAccountPositionLeverageRequest(signedFields))
+    const requestJson = toJson(
+      toUIUpdateAccountPositionLeverageRequest(signedFields)
+    );
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
       new TextEncoder().encode(requestJson)
@@ -231,7 +241,11 @@ export class BluefinRequestSigner implements IBluefinSigner {
       throw new Error("MultiSig not supported");
     }
 
-    return signedMessageSerialized.signature
+    return signedMessageSerialized.signature;
+  }
+
+  async executeTx(txb: TransactionBlock, suiClient: SuiClient) {
+    return SuiBlocks.execCall(txb, suiClient, this.wallet, false);
   }
 
   /**
