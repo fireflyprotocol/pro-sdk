@@ -1,3 +1,4 @@
+mod account_authorization;
 mod arithmetic;
 mod authenticate;
 mod create_order;
@@ -15,6 +16,7 @@ mod core {
 }
 
 pub mod prelude {
+    pub use crate::account_authorization::AccountAuthorizationRequestExt;
     pub use crate::authenticate::{Authenticate as _, Refresh as _, RequestExt as _};
     pub use crate::core::*;
     pub use crate::signature::RequestExt as _;
