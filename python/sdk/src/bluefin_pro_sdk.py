@@ -9,7 +9,7 @@ from typing import Callable, Awaitable, Any
 
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
-    AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest
+    AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest, AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
@@ -205,6 +205,41 @@ class BluefinProSdk:
         await self._trade_api.post_withdraw(request)
         logger.info(f"Withdraw request sent successfully {request}")
 
+    async def authorize_account(self, authorized_account_address: str):
+        signed_fields = AccountAuthorizationRequestSignedFields(
+            account_address=self.current_account_address,
+            authorized_account_address=authorized_account_address,
+            ids_id=self.__contracts_config.ids_id,
+            salt=generate_salt(),
+            signed_at_utc_millis=int(time.time() * 1000),
+        )
+
+        signature = self.sign.authorize_account(signed_fields, True)
+
+        await self._trade_api.put_authorize_account(
+            AccountAuthorizationRequest(
+                signed_fields=signed_fields, signature=signature, request_hash="")
+        )
+
+        logger.info(f"Authorize account request sent successfully {signed_fields}")
+
+    async def deauthorize_account(self, authorized_account_address: str):
+        signed_fields = AccountAuthorizationRequestSignedFields(
+            account_address=self.current_account_address,
+            authorized_account_address=authorized_account_address,
+            ids_id=self.__contracts_config.ids_id,
+            salt=generate_salt(),
+            signed_at_utc_millis=int(time.time() * 1000),
+        )
+
+        signature = self.sign.authorize_account(signed_fields, False)
+
+        await self._trade_api.put_deauthorize_account(
+            AccountAuthorizationRequest(
+                signed_fields=signed_fields, signature=signature, request_hash="")
+        )
+
+        logger.info(f"Deauthorize account request sent successfully {signed_fields}")
 
     async def _set_access_token(self, api_client: ApiClient):
         """

@@ -3,7 +3,8 @@ import base64
 from hashlib import blake2b
 from openapi_client import WithdrawRequestSignedFields, \
     AccountPositionLeverageUpdateRequestSignedFields, \
-    CreateOrderRequestSignedFields
+    CreateOrderRequestSignedFields, \
+    AccountAuthorizationRequestSignedFields
 from openapi_client.models.login_request import LoginRequest
 
 from crypto_helpers.bcs import BCSSerializer
@@ -168,7 +169,7 @@ class Signature:
 
         return base64_signature_with_public_key
     
-    def authorize_account(self, payload) -> bytes:
+    def authorize_account(self, payload: AccountAuthorizationRequestSignedFields, is_authorize: bool) -> bytes:
         """
         Signs an account authorization request
 
@@ -182,12 +183,12 @@ class Signature:
         """
         data = {
             "type": "Bluefin Pro Authorize Account",
-            "ids": payload["ids_id"],
-            "account": payload["account_address"],
-            "user": payload["user_address"],
-            "status": payload["status"],
-            "salt": str(payload["salt"]),
-            "signedAt": str(payload["signed_at_utc_millis"])
+            "ids": payload.ids_id,
+            "account": payload.account_address,
+            "user": payload.authorized_account_address,
+            "status": is_authorize,
+            "salt": str(payload.salt),
+            "signedAt": str(payload.signed_at_utc_millis)
         }
 
         message = self.create_personal_sign_message(data)

@@ -203,6 +203,12 @@ async def main():
                 # Withdraw $10.  Note that the withdraw method does its own logging.
                 await client.withdraw("USDC", str(int(10e9)))
 
+                # ========= Authorize Account =========
+                await client.authorize_account(sui_wallet.sui_address)
+
+                # ========= Deauthorize Account =========
+                await client.deauthorize_account(sui_wallet.sui_address)
+
                 # Listen for WebSocket events,logging them as they arrive, for a few
                 # minutes before shutting down.
                 await asyncio.sleep(3 * 60)
