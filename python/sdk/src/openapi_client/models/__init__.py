@@ -15,6 +15,8 @@
 
 # import models into model package
 from openapi_client.models.account import Account
+from openapi_client.models.account_authorization_request import AccountAuthorizationRequest
+from openapi_client.models.account_authorization_request_signed_fields import AccountAuthorizationRequestSignedFields
 from openapi_client.models.account_data_stream import AccountDataStream
 from openapi_client.models.account_event_reason import AccountEventReason
 from openapi_client.models.account_event_type import AccountEventType
