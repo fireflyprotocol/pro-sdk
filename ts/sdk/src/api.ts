@@ -133,6 +133,68 @@ export interface Account {
     'positions': Array<Position>;
 }
 /**
+ * 
+ * @export
+ * @interface AccountAuthorizationRequest
+ */
+export interface AccountAuthorizationRequest {
+    /**
+     * 
+     * @type {AccountAuthorizationRequestSignedFields}
+     * @memberof AccountAuthorizationRequest
+     */
+    'signedFields': AccountAuthorizationRequestSignedFields;
+    /**
+     * The signature of the request, encoded from the signedFields
+     * @type {string}
+     * @memberof AccountAuthorizationRequest
+     */
+    'signature': string;
+    /**
+     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
+     * @type {string}
+     * @memberof AccountAuthorizationRequest
+     */
+    'requestHash': string;
+}
+/**
+ * 
+ * @export
+ * @interface AccountAuthorizationRequestSignedFields
+ */
+export interface AccountAuthorizationRequestSignedFields {
+    /**
+     * The account address of the parent account that is authorizing/deauthorizing this account
+     * @type {string}
+     * @memberof AccountAuthorizationRequestSignedFields
+     */
+    'accountAddress': string;
+    /**
+     * The address of the account that should be authorized/deauthorized
+     * @type {string}
+     * @memberof AccountAuthorizationRequestSignedFields
+     */
+    'authorizedAccountAddress': string;
+    /**
+     * The random generated salt. Should always be a number
+     * @type {string}
+     * @memberof AccountAuthorizationRequestSignedFields
+     */
+    'salt': string;
+    /**
+     * the ID of the internal datastore for the target network
+     * @type {string}
+     * @memberof AccountAuthorizationRequestSignedFields
+     */
+    'idsId': string;
+    /**
+     * The timestamp when the request was signed
+     * @type {number}
+     * @memberof AccountAuthorizationRequestSignedFields
+     */
+    'signedAtUtcMillis': number;
+}
+/**
  * Represents the type of account data stream.
  * @export
  * @enum {string}
@@ -5439,6 +5501,86 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Authorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAuthorizeAccount: async (accountAuthorizationRequest: AccountAuthorizationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountAuthorizationRequest' is not null or undefined
+            assertParamExists('putAuthorizeAccount', 'accountAuthorizationRequest', accountAuthorizationRequest)
+            const localVarPath = `/api/v1/trade/accounts/authorize`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(accountAuthorizationRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Deauthorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putDeauthorizeAccount: async (accountAuthorizationRequest: AccountAuthorizationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountAuthorizationRequest' is not null or undefined
+            assertParamExists('putDeauthorizeAccount', 'accountAuthorizationRequest', accountAuthorizationRequest)
+            const localVarPath = `/api/v1/trade/accounts/deauthorize`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(accountAuthorizationRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Updates leverage for positions of a given market, closes all open orders for that market
          * @summary Updates leverage for positions
          * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
@@ -5541,6 +5683,32 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Authorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putAuthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putAuthorizeAccount(accountAuthorizationRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TradeApi.putAuthorizeAccount']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Deauthorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putDeauthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putDeauthorizeAccount(accountAuthorizationRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TradeApi.putDeauthorizeAccount']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Updates leverage for positions of a given market, closes all open orders for that market
          * @summary Updates leverage for positions
          * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
@@ -5602,6 +5770,26 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
          */
         postWithdraw(withdrawRequest: WithdrawRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.postWithdraw(withdrawRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Authorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAuthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.putAuthorizeAccount(accountAuthorizationRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+         * @summary Deauthorizes an account
+         * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putDeauthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.putDeauthorizeAccount(accountAuthorizationRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates leverage for positions of a given market, closes all open orders for that market
@@ -5669,6 +5857,30 @@ export class TradeApi extends BaseAPI {
      */
     public postWithdraw(withdrawRequest: WithdrawRequest, options?: RawAxiosRequestConfig) {
         return TradeApiFp(this.configuration).postWithdraw(withdrawRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Authorizes an account to trade, perform liquidations and more, on behalf of another account
+     * @summary Authorizes an account
+     * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradeApi
+     */
+    public putAuthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig) {
+        return TradeApiFp(this.configuration).putAuthorizeAccount(accountAuthorizationRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+     * @summary Deauthorizes an account
+     * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradeApi
+     */
+    public putDeauthorizeAccount(accountAuthorizationRequest: AccountAuthorizationRequest, options?: RawAxiosRequestConfig) {
+        return TradeApiFp(this.configuration).putDeauthorizeAccount(accountAuthorizationRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
