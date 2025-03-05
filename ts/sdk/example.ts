@@ -253,6 +253,12 @@ async function main() {
     await client.withdraw("USDC", "10000000000");
     logger.info("Withdraw request success");
 
+    await client.authorizeAccount(bfSigner.getAddress());
+    logger.info("Authorize account request success");
+
+    await client.deauthorizeAccount(bfSigner.getAddress());
+    logger.info("Deauthorize account request success");
+
     // Keep connection alive
     await new Promise((resolve) => setTimeout(resolve, 50000));
   } finally {

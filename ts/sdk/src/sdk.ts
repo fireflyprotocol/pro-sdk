@@ -21,6 +21,7 @@ import {
   LoginResponse,
   ContractsConfig,
   Asset1,
+  AccountAuthorizationRequestSignedFields,
 } from "./api";
 
 import { Configuration } from "./configuration";
@@ -380,6 +381,52 @@ export class BluefinProSdk {
       requestHash: "",
     });
     console.log("Withdraw request sent:", signedFields);
+  }
+
+  public async authorizeAccount(accountAddress: string) {
+    if (!this.contractsConfig) {
+      throw new Error("Missing contractsConfig");
+    }
+
+    const signedFields: AccountAuthorizationRequestSignedFields = {
+      accountAddress: this.currentAccountAddress!,
+      idsId: this.contractsConfig.idsId,
+      authorizedAccountAddress: accountAddress,
+      salt: this.generateSalt(),
+      signedAtUtcMillis: Date.now(),
+    };
+
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, true);
+
+    await this.tradeApi.putAuthorizeAccount({
+      signedFields,
+      signature,
+      requestHash: "",
+    });
+    console.log("Authorize account request sent:", signedFields);
+  }
+
+  public async deauthorizeAccount(accountAddress: string) {
+    if (!this.contractsConfig) {
+      throw new Error("Missing contractsConfig");
+    }
+
+    const signedFields: AccountAuthorizationRequestSignedFields = {
+      accountAddress: this.currentAccountAddress!,
+      idsId: this.contractsConfig.idsId,
+      authorizedAccountAddress: accountAddress,
+      salt: this.generateSalt(),
+      signedAtUtcMillis: Date.now(),
+    };
+
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, false);
+
+    await this.tradeApi.putDeauthorizeAccount({
+      signedFields,
+      signature,
+      requestHash: "",
+    });
+    console.log("Deauthorize account request sent:", signedFields);
   }
 
   public async deposit(amountE9: string, accountAddress?: string) {
