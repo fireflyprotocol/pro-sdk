@@ -34,10 +34,12 @@ class Environment(str, Enum):
     STAGING = 'sui-staging'
     DEV = 'sui-dev'
 
-
 class RpcUrl(str, Enum):
     DEV = 'https://fullnode.devnet.sui.io:443'
 
+class AccountAuthorizationAction(Enum):
+    AUTHORIZE = True
+    DEAUTHORIZE = False
 
 @dataclass
 class Order:
@@ -214,7 +216,7 @@ class BluefinProSdk:
             signed_at_utc_millis=int(time.time() * 1000),
         )
 
-        signature = self.sign.authorize_account(signed_fields, True)
+        signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.AUTHORIZE.value)
 
         await self._trade_api.put_authorize_account(
             AccountAuthorizationRequest(
@@ -232,7 +234,7 @@ class BluefinProSdk:
             signed_at_utc_millis=int(time.time() * 1000),
         )
 
-        signature = self.sign.authorize_account(signed_fields, False)
+        signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.DEAUTHORIZE.value)
 
         await self._trade_api.put_deauthorize_account(
             AccountAuthorizationRequest(
