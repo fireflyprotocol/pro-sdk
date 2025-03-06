@@ -94,12 +94,16 @@ Class | Method | HTTP request | Description
 *TradeApi* | [**get_open_orders**](openapi_client/docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
 *TradeApi* | [**post_create_order**](openapi_client/docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 *TradeApi* | [**post_withdraw**](openapi_client/docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
+*TradeApi* | [**put_authorize_account**](openapi_client/docs/TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
+*TradeApi* | [**put_deauthorize_account**](openapi_client/docs/TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
 *TradeApi* | [**put_leverage_update**](openapi_client/docs/TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
 
 
 ## Documentation For Models
 
  - [Account](openapi_client/docs/Account.md)
+ - [AccountAuthorizationRequest](openapi_client/docs/AccountAuthorizationRequest.md)
+ - [AccountAuthorizationRequestSignedFields](openapi_client/docs/AccountAuthorizationRequestSignedFields.md)
  - [AccountDataStream](openapi_client/docs/AccountDataStream.md)
  - [AccountEventReason](openapi_client/docs/AccountEventReason.md)
  - [AccountEventType](openapi_client/docs/AccountEventType.md)

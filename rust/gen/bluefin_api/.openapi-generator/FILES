@@ -3,6 +3,8 @@
 Cargo.toml
 README.md
 docs/Account.md
+docs/AccountAuthorizationRequest.md
+docs/AccountAuthorizationRequestSignedFields.md
 docs/AccountDataApi.md
 docs/AccountDataStream.md
 docs/AccountEventReason.md
@@ -107,6 +109,8 @@ src/apis/streams_api.rs
 src/apis/trade_api.rs
 src/lib.rs
 src/models/account.rs
+src/models/account_authorization_request.rs
+src/models/account_authorization_request_signed_fields.rs
 src/models/account_data_stream.rs
 src/models/account_event_reason.rs
 src/models/account_event_type.rs

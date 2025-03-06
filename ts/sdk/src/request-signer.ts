@@ -8,6 +8,7 @@ import {
   AccountPositionLeverageUpdateRequestSignedFields,
   CreateOrderRequestSignedFields,
   WithdrawRequestSignedFields,
+  AccountAuthorizationRequestSignedFields,
 } from "./api";
 import {
   DryRunTransactionBlockResponse,
@@ -24,6 +25,7 @@ export interface IBluefinSigner {
   ) => Promise<string>;
   signOrderRequest: (fields: CreateOrderRequestSignedFields) => Promise<string>;
   signWithdrawRequest: (fields: WithdrawRequestSignedFields) => Promise<string>;
+  signAccountAuthorizationRequest: (fields: AccountAuthorizationRequestSignedFields, isAuthorize: boolean) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
   executeTx: (
     txb: TransactionBlock,
@@ -50,6 +52,7 @@ enum ClientPayloadType {
   WithdrawRequest = "Bluefin Pro Withdrawal",
   OrderRequest = "Bluefin Pro Order",
   LeverageAdjustment = "Bluefin Pro Leverage Adjustment",
+  AuthorizeAccount = "Bluefin Pro Authorize Account",
 }
 
 enum PositionType {
@@ -89,6 +92,26 @@ interface UIUpdateAccountPositionLeverageRequest {
   account: string;
   market: string;
   leverage: string;
+  salt: string;
+  signedAt: string;
+}
+
+interface UIAuthorizeAccountRequest {
+  type: string;
+  ids: string;
+  account: string;
+  user: string;
+  status: boolean;
+  salt: string;
+  signedAt: string;
+}
+
+interface UIDeauthorizeAccountRequest {
+  type: string;
+  ids: string;
+  account: string;
+  user: string;
+  status: boolean;
   salt: string;
   signedAt: string;
 }
@@ -141,6 +164,34 @@ function toUIUpdateAccountPositionLeverageRequest(
   };
 }
 
+function toUIAuthorizeAccountRequest(
+  val: AccountAuthorizationRequestSignedFields
+): UIAuthorizeAccountRequest {
+  return {
+    type: ClientPayloadType.AuthorizeAccount,
+    ids: val.idsId,
+    account: val.accountAddress,
+    user: val.authorizedAccountAddress,
+    status: true,
+    salt: val.salt,
+    signedAt: val.signedAtUtcMillis.toString(),
+  };
+}
+
+function toUIDeauthorizeAccountRequest(
+  val: AccountAuthorizationRequestSignedFields
+): UIDeauthorizeAccountRequest {
+  return {
+    type: ClientPayloadType.AuthorizeAccount,
+    ids: val.idsId,
+    account: val.accountAddress,
+    user: val.authorizedAccountAddress,
+    status: false,
+    salt: val.salt,
+    signedAt: val.signedAtUtcMillis.toString(),
+  };
+}
+
 // ---------- Utils ----------
 
 function toJson(
@@ -148,6 +199,8 @@ function toJson(
     | UICreateOrderRequest
     | UIUpdateAccountPositionLeverageRequest
     | UIWithdrawRequest
+    | UIAuthorizeAccountRequest
+    | UIDeauthorizeAccountRequest
 ): string {
   return JSON.stringify(val, null, 2);
 }
@@ -227,6 +280,34 @@ export class BluefinRequestSigner implements IBluefinSigner {
   ): Promise<string> {
     const requestJson = toJson(
       toUIUpdateAccountPositionLeverageRequest(signedFields)
+    );
+
+    const signedMessageSerialized = await this.wallet.signPersonalMessage(
+      new TextEncoder().encode(requestJson)
+    );
+
+    const parsedSignature = parseSerializedSignature(
+      signedMessageSerialized.signature
+    );
+
+    if (parsedSignature.signatureScheme == "MultiSig") {
+      throw new Error("MultiSig not supported");
+    }
+
+    return signedMessageSerialized.signature;
+  }
+
+  /**
+   * Sign an account authorization request
+   */
+  async signAccountAuthorizationRequest(
+    signedFields: AccountAuthorizationRequestSignedFields,
+    is_authorize: boolean
+  ): Promise<string> {
+    const requestJson = toJson(
+      is_authorize
+        ? toUIAuthorizeAccountRequest(signedFields)
+        : toUIDeauthorizeAccountRequest(signedFields)
     );
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(

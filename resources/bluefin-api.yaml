@@ -130,6 +130,10 @@ paths:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1openOrders"
   /api/v1/trade/withdraw:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1withdraw"
+  /api/v1/trade/accounts/authorize:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1accounts~1authorize"
+  /api/v1/trade/accounts/deauthorize:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1accounts~1deauthorize"
 
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"

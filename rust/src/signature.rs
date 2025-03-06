@@ -86,7 +86,8 @@ pub fn serialize<T: Serialize>(request: T) -> Result<String> {
 
 pub mod conversion {
     use bluefin_api::models::{
-        AccountPositionLeverageUpdateRequest, CreateOrderRequest, WithdrawRequest,
+        AccountAuthorizationRequest, AccountPositionLeverageUpdateRequest, CreateOrderRequest,
+        WithdrawRequest,
     };
     use serde::Serialize;
     use std::fmt::{Display, Formatter};
@@ -95,6 +96,7 @@ pub mod conversion {
         WithdrawRequest,
         OrderRequest,
         LeverageAdjustment,
+        AuthorizeAccount,
     }
 
     impl PartialEq for ClientPayloadType {
@@ -111,6 +113,7 @@ pub mod conversion {
                 ClientPayloadType::LeverageAdjustment => {
                     write!(f, "Bluefin Pro Leverage Adjustment")
                 }
+                ClientPayloadType::AuthorizeAccount => write!(f, "Bluefin Pro Authorize Account"),
             }
         }
     }
@@ -174,6 +177,32 @@ pub mod conversion {
         pub signed_at: String,
     }
 
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UIAuthorizeAccountRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub ids: String,
+        pub account: String,
+        pub user: String,
+        pub status: bool, // True when AUTHORIZE, false when DEAUTHORIZE
+        pub salt: String,
+        pub signed_at: String,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UIDeauthorizeAccountRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub ids: String,
+        pub account: String,
+        pub user: String,
+        pub status: bool, // True when AUTHORIZE, false when DEAUTHORIZE
+        pub salt: String,
+        pub signed_at: String,
+    }
+
     impl From<WithdrawRequest> for UIWithdrawRequest {
         fn from(val: WithdrawRequest) -> Self {
             UIWithdrawRequest {
@@ -219,6 +248,34 @@ pub mod conversion {
                 account: val.signed_fields.account_address,
                 market: val.signed_fields.symbol,
                 leverage: val.signed_fields.leverage_e9,
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+            }
+        }
+    }
+
+    impl From<AccountAuthorizationRequest> for UIAuthorizeAccountRequest {
+        fn from(val: AccountAuthorizationRequest) -> Self {
+            UIAuthorizeAccountRequest {
+                r#type: ClientPayloadType::AuthorizeAccount.to_string(),
+                ids: val.signed_fields.ids_id,
+                account: val.signed_fields.account_address,
+                user: val.signed_fields.authorized_account_address,
+                status: true,
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+            }
+        }
+    }
+
+    impl From<AccountAuthorizationRequest> for UIDeauthorizeAccountRequest {
+        fn from(val: AccountAuthorizationRequest) -> Self {
+            UIDeauthorizeAccountRequest {
+                r#type: ClientPayloadType::AuthorizeAccount.to_string(),
+                ids: val.signed_fields.ids_id,
+                account: val.signed_fields.account_address,
+                user: val.signed_fields.authorized_account_address,
+                status: false,
                 salt: val.signed_fields.salt,
                 signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
             }

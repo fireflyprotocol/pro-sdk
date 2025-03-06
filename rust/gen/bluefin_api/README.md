@@ -46,12 +46,16 @@ Class | Method | HTTP request | Description
 *TradeApi* | [**get_open_orders**](docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
 *TradeApi* | [**post_create_order**](docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 *TradeApi* | [**post_withdraw**](docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
+*TradeApi* | [**put_authorize_account**](docs/TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
+*TradeApi* | [**put_deauthorize_account**](docs/TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
 *TradeApi* | [**put_leverage_update**](docs/TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
 
 
 ## Documentation For Models
 
  - [Account](docs/Account.md)
+ - [AccountAuthorizationRequest](docs/AccountAuthorizationRequest.md)
+ - [AccountAuthorizationRequestSignedFields](docs/AccountAuthorizationRequestSignedFields.md)
  - [AccountDataStream](docs/AccountDataStream.md)
  - [AccountEventReason](docs/AccountEventReason.md)
  - [AccountEventType](docs/AccountEventType.md)
