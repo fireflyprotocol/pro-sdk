@@ -68,9 +68,9 @@ async def place_order(client, account_number, clientId, price, size, orderType, 
     logger.info(f"Creating Order for account {account_number}")
     logger.info(f"Order Details: Account Number: {account_number}, Client Order Id: {clientId}, Price: {price}, Size: {size}, Order Type: {orderType}, Side: {side}")
     order_creation_result = await client.create_order(
-        Order(client_order_id=clientId, type=orderType, symbol="ARB-PERP",
+        Order(client_order_id=clientId, type=orderType, symbol="DEEP-PERP",
               price_e9=price, quantity_e9=size, side=side,
-              leverage_e9="20000000000", is_isolated=False,
+              leverage_e9="10000000000", is_isolated=False,
              expires_at_utc_millis = int(time.time() * 1000) + 6 * 60 * 1000))  # 5 minutes in milliseconds
     logger.info(f"Order Creation Result for account {account_number}: {order_creation_result}")
 
@@ -81,9 +81,9 @@ async def main():
 
     # Initialize wallets
     sui_wallet_1 = SuiWallet(
-        mnemonic="universe hedgehog expire supply live spell hill nest someone laptop action retreat")
+        mnemonic="wash kidney divide industry quiz issue smooth real raven bean elite royal")
     sui_wallet_2 = SuiWallet(
-        mnemonic="same ugly logic cherry side liquid estate valid raccoon draw flock caution")
+        mnemonic="merit riot borrow stick grace donor gun tissue drop squeeze book harbor")
 
     # Initialize clients
     async with BluefinProSdk(sui_wallet_1, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True) as client_1, \
@@ -91,8 +91,8 @@ async def main():
 
 
         # Place orders for both accounts
-        await place_order(client_1, 1, "123", "60000000000000", "5000000000", api.OrderType.LIMIT, api.OrderSide.LONG)
-        await place_order(client_2, 2, "1234", "60000000000000", "10000000", api.OrderType.LIMIT, api.OrderSide.SHORT)
+        await place_order(client_1, 1, "123", "1000000000000", "1000000000", api.OrderType.LIMIT, api.OrderSide.LONG)
+        await place_order(client_2, 1, "1234", "1000000000000", "1000000000", api.OrderType.LIMIT, api.OrderSide.SHORT)
         
 
         pprint.pprint("-----------------Account 1 Details----------------")
