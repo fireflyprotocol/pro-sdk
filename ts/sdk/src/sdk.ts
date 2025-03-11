@@ -1,8 +1,5 @@
 import {
-  OrderType,
   OrderTimeInForce,
-  SelfTradePreventionType,
-  OrderSide,
   WithdrawRequestSignedFields,
   CancelOrdersRequest,
   AccountPositionLeverageUpdateRequestSignedFields,
@@ -12,10 +9,7 @@ import {
   AuthApi,
   ExchangeApi,
   TradeApi,
-  AccountPositionLeverageUpdateRequest,
   LoginRequest,
-  WithdrawRequest,
-  MarketStreamMessagePayload,
   MarketStreamMessage,
   AccountStreamMessage,
   LoginResponse,
@@ -24,7 +18,7 @@ import {
   AccountAuthorizationRequestSignedFields,
 } from "./api";
 
-import { Configuration } from "./configuration";
+import { ConfigurationBuilder, ConfigurationManager } from "./configuration";
 import { IBluefinSigner } from "./request-signer";
 import { WebSocket } from "ws";
 import { IAsset, TxBuilder } from "@firefly-exchange/library-sui/dist/src/v3";
@@ -33,76 +27,18 @@ import {
   SuiClient,
   TransactionBlock,
 } from "@firefly-exchange/library-sui";
-interface EnvironmentConfig {
-  [key: string]: {
-    authHost: string;
-    apiHost: string;
-    tradeHost: string;
-    marketWsHost: string;
-    accountWsHost: string;
-  };
-}
-
-const environmentConfig: EnvironmentConfig = {
-  mainnet: {
-    authHost: "https://auth.api.sui-prod.bluefin.io",
-    apiHost: "https://api.sui-prod.bluefin.io",
-    tradeHost: "https://trade.api.sui-prod.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/account",
-  },
-  testnet: {
-    authHost: "https://auth.api.sui-staging.bluefin.io",
-    apiHost: "https://api.sui-staging.bluefin.io",
-    tradeHost: "https://trade.api.sui-staging.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/account",
-  },
-  devnet: {
-    authHost: "https://auth.api.sui-dev.bluefin.io",
-    apiHost: "https://api.sui-dev.bluefin.io",
-    tradeHost: "https://trade.api.sui-dev.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/account",
-  },
-};
-
-export interface OrderParams {
-  clientOrderId: string;
-  type: OrderType;
-  symbol: string;
-  priceE9: string;
-  quantityE9: string;
-  side: OrderSide;
-  leverageE9: string;
-  isIsolated: boolean;
-  expiresAtUtcMillis: number;
-  reduceOnly?: boolean;
-  postOnly?: boolean;
-  timeInForce?: OrderTimeInForce;
-  triggerPriceE9?: string;
-  selfTradePreventionType?: SelfTradePreventionType;
-}
-
-enum Services {
-  Account,
-  Exchange,
-  Trade,
-  Auth,
-  MarketWebsocket,
-  AccountWebsocket,
-}
-
-type BasePathConfig = {
-  authHost: string | null;
-  apiHost: string | null;
-  tradeHost: string | null;
-  marketWsHost: string | null;
-  accountWsHost: string | null;
-};
+import {
+  BasePathConfig,
+  Environment,
+  EnvironmentConfigurations,
+  OrderParams,
+  Services,
+} from "./types";
+import { ENVIRONMENT_CONFIGURATIONS } from "./constants";
+import { generateSalt } from "./utils";
 
 export class BluefinProSdk {
-  private readonly configs: Partial<Record<Services, Configuration>> = {};
+  #configurationsManager: ConfigurationManager;
   public readonly exchangeDataApi: ExchangeApi;
   public readonly accountDataApi: AccountDataApi;
   private readonly tradeApi: TradeApi;
@@ -114,9 +50,9 @@ export class BluefinProSdk {
   private contractsConfig: ContractsConfig | undefined;
   private assets: Array<Asset1> | undefined;
   private txBuilder: TxBuilder | undefined;
+
   constructor(
     private readonly bfSigner: IBluefinSigner,
-    private environment: "mainnet" | "testnet" | "devnet" = "mainnet",
     private suiClient: SuiClient,
     private currentAccountAddress: string | null = null,
     basePathConfig: BasePathConfig | null = null
@@ -128,69 +64,17 @@ export class BluefinProSdk {
     this.tokenSetAtSeconds = null;
 
     const basePaths = {
-      authHost:
-        basePathConfig && basePathConfig?.authHost
-          ? basePathConfig.authHost
-          : environmentConfig[this.environment].authHost,
+      ...basePathConfig,
+      ...ENVIRONMENT_CONFIGURATIONS,
+    } as EnvironmentConfigurations[Environment];
 
-      apiHost:
-        basePathConfig && basePathConfig?.apiHost
-          ? basePathConfig.apiHost
-          : environmentConfig[this.environment].apiHost,
+    const config = ConfigurationBuilder.buildConifugrations(basePaths);
+    this.#configurationsManager = new ConfigurationManager(config);
 
-      tradeHost:
-        basePathConfig && basePathConfig?.tradeHost
-          ? basePathConfig.tradeHost
-          : environmentConfig[this.environment].tradeHost,
-
-      marketWsHost:
-        basePathConfig && basePathConfig?.marketWsHost
-          ? basePathConfig.marketWsHost
-          : environmentConfig[this.environment].marketWsHost,
-
-      accountWsHost:
-        basePathConfig && basePathConfig?.accountWsHost
-          ? basePathConfig.accountWsHost
-          : environmentConfig[this.environment].accountWsHost,
-    };
-
-    const authApiConfig = new Configuration({
-      basePath: basePaths.authHost,
-    });
-    this.configs[Services.Auth] = authApiConfig;
-    this.authApi = new AuthApi(authApiConfig);
-
-    const exchangeApiConfig = new Configuration({
-      basePath: basePaths.apiHost,
-    });
-    this.configs[Services.Exchange] = exchangeApiConfig;
-    this.exchangeDataApi = new ExchangeApi(exchangeApiConfig);
-
-    const accountDataApiConfig = new Configuration({
-      basePath: basePaths.apiHost,
-    });
-    this.configs[Services.Account] = accountDataApiConfig;
-    this.accountDataApi = new AccountDataApi(accountDataApiConfig);
-
-    const tradeApiConfig = new Configuration({
-      basePath: basePaths.tradeHost,
-    });
-    this.configs[Services.Trade] = tradeApiConfig;
-    this.tradeApi = new TradeApi(tradeApiConfig);
-
-    const marketWsConfig = new Configuration({
-      basePath: basePaths.marketWsHost,
-    });
-    this.configs[Services.MarketWebsocket] = marketWsConfig;
-
-    const accountWsConfig = new Configuration({
-      basePath: basePaths.accountWsHost,
-    });
-    this.configs[Services.AccountWebsocket] = accountWsConfig;
-  }
-
-  private generateSalt(): string {
-    return (Date.now() + Math.floor(Math.random() * 1000000)).toString();
+    this.authApi = new AuthApi(config.authApiConfig);
+    this.tradeApi = new TradeApi(config.tradeApiConfig);
+    this.exchangeDataApi = new ExchangeApi(config.exchangeApiConfig);
+    this.accountDataApi = new AccountDataApi(config.accountDataApiConfig);
   }
 
   private async initializeTxBuilder() {
@@ -233,9 +117,9 @@ export class BluefinProSdk {
 
   private async loginAndUpdateToken(): Promise<void> {
     await this.login();
-    this.configs[Services.Account]!.accessToken =
-      this.tokenResponse!.accessToken;
-    this.configs[Services.Trade]!.accessToken = this.tokenResponse!.accessToken;
+    const token = this.tokenResponse?.accessToken;
+    this.#configurationsManager.setAccessToken(Services.Account, token);
+    this.#configurationsManager.setAccessToken(Services.Trade, token);
   }
 
   private async login(): Promise<void> {
@@ -288,7 +172,7 @@ export class BluefinProSdk {
 
   public async updateLeverage(symbol: string, leverageE9: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contracts config");
+      throw new Error("SDK Error: Missing Contracts Config");
     }
 
     const signedFields: AccountPositionLeverageUpdateRequestSignedFields = {
@@ -296,7 +180,7 @@ export class BluefinProSdk {
       idsId: this.contractsConfig.idsId,
       symbol: symbol,
       leverageE9: leverageE9,
-      salt: this.generateSalt(),
+      salt: generateSalt(),
       signedAtUtcMillis: Date.now(),
     };
 
@@ -311,7 +195,7 @@ export class BluefinProSdk {
 
   public async createOrder(params: OrderParams): Promise<any> {
     if (!this.contractsConfig) {
-      throw new Error("Missing contracts config");
+      throw new Error("SDK Error: Missing Contracts Config");
     }
 
     const signedFields: CreateOrderRequestSignedFields = {
@@ -323,7 +207,7 @@ export class BluefinProSdk {
       side: params.side,
       leverageE9: params.leverageE9,
       isIsolated: params.isIsolated,
-      salt: this.generateSalt(),
+      salt: generateSalt(),
       expiresAtUtcMillis: params.expiresAtUtcMillis,
       signedAtUtcMillis: Date.now(),
     };
@@ -357,11 +241,11 @@ export class BluefinProSdk {
     );
 
     if (!asset) {
-      throw new Error(`Asset ${assetSymbol} not found`);
+      throw new Error(`SDK Error: Asset ${assetSymbol} not found`);
     }
 
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error("SDK Error: Missing Contracts Config");
     }
 
     const signedFields: WithdrawRequestSignedFields = {
@@ -369,7 +253,7 @@ export class BluefinProSdk {
       edsId: this.contractsConfig.edsId,
       accountAddress: this.currentAccountAddress!,
       amountE9,
-      salt: this.generateSalt(),
+      salt: generateSalt(),
       signedAtUtcMillis: Date.now(),
     };
 
@@ -385,18 +269,21 @@ export class BluefinProSdk {
 
   public async authorizeAccount(accountAddress: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error("SDK Error: Missing Contracts Config");
     }
 
     const signedFields: AccountAuthorizationRequestSignedFields = {
       accountAddress: this.currentAccountAddress!,
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
-      salt: this.generateSalt(),
+      salt: generateSalt(),
       signedAtUtcMillis: Date.now(),
     };
 
-    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, true);
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(
+      signedFields,
+      true
+    );
 
     await this.tradeApi.putAuthorizeAccount({
       signedFields,
@@ -408,24 +295,28 @@ export class BluefinProSdk {
 
   public async deauthorizeAccount(accountAddress: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error("SDK Error: Missing Contracts Config");
     }
 
     const signedFields: AccountAuthorizationRequestSignedFields = {
       accountAddress: this.currentAccountAddress!,
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
-      salt: this.generateSalt(),
+      salt: generateSalt(),
       signedAtUtcMillis: Date.now(),
     };
 
-    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, false);
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(
+      signedFields,
+      false
+    );
 
     await this.tradeApi.putDeauthorizeAccount({
       signedFields,
       signature,
       requestHash: "",
     });
+
     console.log("Deauthorize account request sent:", signedFields);
   }
 
@@ -436,7 +327,7 @@ export class BluefinProSdk {
       (x) => x.symbol === assetSymbol
     )?.assetType;
     if (!assetType) {
-      throw new Error("Missing USDC asset type");
+      throw new Error("SDK Error: Missing USDC asset type");
     }
     const [splitCoin, mergedCoin] = await CoinUtils.createCoinWithBalance(
       this.suiClient,
@@ -477,12 +368,12 @@ export class BluefinProSdk {
   private async setAccessToken(): Promise<void> {
     await this.login();
     if (!this.tokenResponse) {
-      throw new Error("Missing tokenResponse");
+      throw new Error("SDK Error: Missing Token Response");
     }
 
-    this.configs[Services.Account]!.accessToken =
-      this.tokenResponse.accessToken;
-    this.configs[Services.Trade]!.accessToken = this.tokenResponse.accessToken;
+    const token = this.tokenResponse.accessToken;
+    this.#configurationsManager.setAccessToken(Services.Account, token);
+    this.#configurationsManager.setAccessToken(Services.Trade, token);
   }
 
   private async refreshToken(): Promise<void> {
@@ -504,21 +395,27 @@ export class BluefinProSdk {
   public async createAccountDataStreamListener(
     handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
+    if (!this.tokenResponse) {
+      throw new Error("SDK Error: Missing Token Response");
+    }
+
+    const basePath = this.#configurationsManager.getBasePath(
+      Services.AccountWebsocket
+    ) as string;
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${this.tokenResponse.accessToken}`,
+      },
+    };
+
     return new Promise((resolve, reject) => {
-      if (!this.tokenResponse) {
-        throw new Error("Missing tokenResponse");
-      }
-      const ws = new WebSocket(
-        this.configs[Services.AccountWebsocket]!.basePath!,
-        {
-          headers: {
-            Authorization: `Bearer ${this.tokenResponse.accessToken}`,
-          },
-        }
-      );
+      const ws = new WebSocket(basePath, options);
+
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };
+
       ws.on("open", () => {
         resolve(ws);
       });
@@ -528,10 +425,12 @@ export class BluefinProSdk {
   public async createMarketDataStreamListener(
     handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
+    const basePath = this.#configurationsManager.getBasePath(
+      Services.MarketWebsocket
+    ) as string;
+
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket(
-        this.configs[Services.MarketWebsocket]!.basePath!
-      );
+      const ws = new WebSocket(basePath);
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };
