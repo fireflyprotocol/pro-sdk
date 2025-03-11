@@ -62,7 +62,7 @@ async function handleMarketDataEvent(msg: MarketStreamMessage): Promise<void> {
 
 // Handle account data stream events
 async function handleAccountDataEvent(
-  msg: AccountStreamMessage
+  msg: AccountStreamMessage,
 ): Promise<void> {
   if (msg.event == AccountEventType.AccountUpdate) {
     logger.info(`AccountUpdate: ${JSON.stringify(msg)}`);
@@ -94,8 +94,8 @@ async function main() {
 
   const suiWallet = Ed25519Keypair.fromSecretKey(
     hexToBytes(
-      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
-    )
+      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1",
+    ),
   );
 
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
@@ -104,7 +104,7 @@ async function main() {
   const client = new BluefinProSdk(
     bfSigner,
     "devnet",
-    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
+    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" }),
   );
   await client.initialize();
 
@@ -116,7 +116,7 @@ async function main() {
 
     // Find SUI-PERP market
     const perpMarket = exchangeInfo.markets.find(
-      (m) => m.symbol === "SUI-PERP"
+      (m) => m.symbol === "SUI-PERP",
     );
     if (!perpMarket) {
       throw new Error("SUI-PERP market not found");
@@ -130,7 +130,7 @@ async function main() {
       await client.exchangeDataApi.getCandlestickData(
         symbol,
         KlineInterval._1m,
-        CandlePriceType.Oracle
+        CandlePriceType.Oracle,
       )
     ).data;
     logger.info(`Candle stick: ${JSON.stringify(candleStick)}`);
@@ -158,7 +158,7 @@ async function main() {
         Date.now(),
         1000,
         TradeTypeEnum.Order,
-        1
+        1,
       )
     ).data;
     logger.info(`Trades History ${JSON.stringify(accountTrades)}`);
@@ -170,7 +170,7 @@ async function main() {
         Date.now() - 10000000,
         Date.now(),
         1000,
-        1
+        1,
       )
     ).data;
     logger.info(`Deposits history: ${JSON.stringify(depositHistory)}`);
@@ -186,10 +186,10 @@ async function main() {
 
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
-      handleAccountDataEvent
+      handleAccountDataEvent,
     );
     const marketDataListener = await client.createMarketDataStreamListener(
-      handleMarketDataEvent
+      handleMarketDataEvent,
     );
 
     await accountDataListener.send(
@@ -202,7 +202,7 @@ async function main() {
           AccountDataStream.AccountTransactionUpdate,
           AccountDataStream.AccountUpdate,
         ],
-      })
+      }),
     );
 
     await marketDataListener.send(
@@ -222,7 +222,7 @@ async function main() {
             ],
           },
         ],
-      })
+      }),
     );
 
     // Place order
@@ -243,7 +243,7 @@ async function main() {
 
     const orderCreationResult = (await client.createOrder(orderParams)).data;
     logger.info(
-      `Order Creation Result: ${JSON.stringify(orderCreationResult)}`
+      `Order Creation Result: ${JSON.stringify(orderCreationResult)}`,
     );
 
     logger.info("Update Leverage to 2");

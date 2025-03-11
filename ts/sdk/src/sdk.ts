@@ -12,10 +12,7 @@ import {
   AuthApi,
   ExchangeApi,
   TradeApi,
-  AccountPositionLeverageUpdateRequest,
   LoginRequest,
-  WithdrawRequest,
-  MarketStreamMessagePayload,
   MarketStreamMessage,
   AccountStreamMessage,
   LoginResponse,
@@ -33,6 +30,7 @@ import {
   SuiClient,
   TransactionBlock,
 } from "@firefly-exchange/library-sui";
+
 interface EnvironmentConfig {
   [key: string]: {
     authHost: string;
