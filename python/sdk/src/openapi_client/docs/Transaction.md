@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **amount_e9** | **str** | Amount in e9 format (positive or negative). | 
 **asset_symbol** | **str** | Asset bank address. | 
 **trade_id** | **str** | Trade ID | [optional] 
+**executed_at_millis** | **int** | Transaction timestamp in milliseconds since Unix epoch. | 
 
 ## Example
 

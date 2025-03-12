@@ -82,19 +82,19 @@ export interface Account {
      * @type {string}
      * @memberof Account
      */
-    'totalMaintMarginRequiredE9': string;
+    'totalMaintenanceMarginRequiredE9': string;
     /**
      * The amount of margin available before liquidation (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'maintMarginAvailableE9': string;
+    'maintenanceMarginAvailableE9': string;
     /**
      * The ratio of the maintenance margin required to the account value (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'accountMaintMarginRatioE9': string;
+    'accountMaintenanceMarginRatioE9': string;
     /**
      * The leverage of the account (e9 format).
      * @type {string}
@@ -118,7 +118,7 @@ export interface Account {
      * @type {number}
      * @memberof Account
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
     /**
      * 
      * @type {Array<Asset>}
@@ -131,6 +131,12 @@ export interface Account {
      * @memberof Account
      */
     'positions': Array<Position>;
+    /**
+     * The accounts that are authorized to trade on behalf of the current account.
+     * @type {Array<string>}
+     * @memberof Account
+     */
+    'authorizedAccounts': Array<string>;
 }
 /**
  * 
@@ -944,7 +950,7 @@ export interface Asset {
      * @type {number}
      * @memberof Asset
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 /**
  * 
@@ -2694,7 +2700,7 @@ export interface Position {
      * @type {string}
      * @memberof Position
      */
-    'maintMarginE9': string;
+    'maintenanceMarginE9': string;
     /**
      * If the position is isolated.
      * @type {boolean}
@@ -2712,7 +2718,7 @@ export interface Position {
      * @type {number}
      * @memberof Position
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 
 
@@ -3461,7 +3467,7 @@ export interface Trade {
      * @type {number}
      * @memberof Trade
      */
-    'executedAtUtcMilli': number;
+    'executedAtMillis': number;
 }
 
 export const TradeTradingFeeAssetEnum = {
@@ -3648,6 +3654,12 @@ export interface Transaction {
      * @memberof Transaction
      */
     'tradeId'?: string;
+    /**
+     * Transaction timestamp in milliseconds since Unix epoch.
+     * @type {number}
+     * @memberof Transaction
+     */
+    'executedAtMillis': number;
 }
 
 
@@ -3836,15 +3848,15 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary Get user\'s trade history.
          * @param {string} symbol Market address to filter trades by.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades: async (symbol: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountTrades: async (symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getAccountTrades', 'symbol', symbol)
             const localVarPath = `/api/v1/account/trades`;
@@ -3867,12 +3879,12 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
                 localVarQueryParameter['symbol'] = symbol;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (limit !== undefined) {
@@ -3903,14 +3915,14 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @summary Get user\'s transaction history (any change in balance).
          * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTransactionHistory: async (types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountTransactionHistory: async (types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/account/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3935,12 +3947,12 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
                 localVarQueryParameter['assetSymbol'] = assetSymbol;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (limit !== undefined) {
@@ -4000,16 +4012,16 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get user\'s trade history.
          * @param {string} symbol Market address to filter trades by.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountTrades(symbol: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTrades(symbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, tradeType, page, options);
+        async getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTrades']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4019,15 +4031,15 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @summary Get user\'s transaction history (any change in balance).
          * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Transaction>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTransactionHistory(types, assetSymbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options);
+        async getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Transaction>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTransactionHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4064,31 +4076,31 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary Get user\'s trade history.
          * @param {string} symbol Market address to filter trades by.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades(symbol: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
-            return localVarFp.getAccountTrades(symbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, tradeType, page, options).then((request) => request(axios, basePath));
+        getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
+            return localVarFp.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get user\'s transaction history (any change in balance).
          * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
-         * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
-            return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(axios, basePath));
+        getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
+            return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4126,8 +4138,8 @@ export class AccountDataApi extends BaseAPI {
      * 
      * @summary Get user\'s trade history.
      * @param {string} symbol Market address to filter trades by.
-     * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-     * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+     * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
      * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
      * @param {number} [page] The page number to retrieve in a paginated response.
@@ -4135,8 +4147,8 @@ export class AccountDataApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountTrades(symbol: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig) {
-        return AccountDataApiFp(this.configuration).getAccountTrades(symbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, tradeType, page, options).then((request) => request(this.axios, this.basePath));
+    public getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4144,16 +4156,16 @@ export class AccountDataApi extends BaseAPI {
      * @summary Get user\'s transaction history (any change in balance).
      * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
      * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
-     * @param {number} [startTimeAtUtcMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-     * @param {number} [endTimeAtUtcMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+     * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    public getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

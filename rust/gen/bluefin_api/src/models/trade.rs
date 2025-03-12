@@ -59,12 +59,12 @@ pub struct Trade {
     #[serde(rename = "gasFeeAsset", skip_serializing_if = "Option::is_none")]
     pub gas_fee_asset: Option<String>,
     /// Trade timestamp in milliseconds since Unix epoch.
-    #[serde(rename = "executedAtUtcMilli")]
-    pub executed_at_utc_milli: i64,
+    #[serde(rename = "executedAtMillis")]
+    pub executed_at_millis: i64,
 }
 
 impl Trade {
-    pub fn new(trade_id: String, trade_type: models::TradeTypeEnum, side: models::TradeSideEnum, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, position_side: models::PositionSideEnum, trading_fee_e9: String, trading_fee_asset: TradingFeeAsset, executed_at_utc_milli: i64) -> Trade {
+    pub fn new(trade_id: String, trade_type: models::TradeTypeEnum, side: models::TradeSideEnum, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, position_side: models::PositionSideEnum, trading_fee_e9: String, trading_fee_asset: TradingFeeAsset, executed_at_millis: i64) -> Trade {
         Trade {
             trade_id,
             client_order_id: None,
@@ -82,7 +82,7 @@ impl Trade {
             trading_fee_asset,
             gas_fee_e9: None,
             gas_fee_asset: None,
-            executed_at_utc_milli,
+            executed_at_millis,
         }
     }
 }

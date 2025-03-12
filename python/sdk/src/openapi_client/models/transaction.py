@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.transaction_type_enum import TransactionTypeEnum
 from typing import Optional, Set
@@ -33,7 +33,8 @@ class Transaction(BaseModel):
     amount_e9: StrictStr = Field(description="Amount in e9 format (positive or negative).", alias="amountE9")
     asset_symbol: StrictStr = Field(description="Asset bank address.", alias="assetSymbol")
     trade_id: Optional[StrictStr] = Field(default=None, description="Trade ID", alias="tradeId")
-    __properties: ClassVar[List[str]] = ["id", "symbol", "type", "amountE9", "assetSymbol", "tradeId"]
+    executed_at_millis: StrictInt = Field(description="Transaction timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
+    __properties: ClassVar[List[str]] = ["id", "symbol", "type", "amountE9", "assetSymbol", "tradeId", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +92,8 @@ class Transaction(BaseModel):
             "type": obj.get("type"),
             "amountE9": obj.get("amountE9"),
             "assetSymbol": obj.get("assetSymbol"),
-            "tradeId": obj.get("tradeId")
+            "tradeId": obj.get("tradeId"),
+            "executedAtMillis": obj.get("executedAtMillis")
         })
         return _obj
 

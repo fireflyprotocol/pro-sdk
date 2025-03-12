@@ -30,8 +30,8 @@ class Asset(BaseModel):
     quantity_e9: StrictStr = Field(description="Asset quantity (e9 format).", alias="quantityE9")
     effective_balance_e9: StrictStr = Field(description="Value of this asset balance based on current market price and asset weight (e9 format).", alias="effectiveBalanceE9")
     max_withdraw_quantity_e9: StrictStr = Field(description="Maximum quantity for transfer out (e9 format).", alias="maxWithdrawQuantityE9")
-    last_updated_at_utc_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "quantityE9", "effectiveBalanceE9", "maxWithdrawQuantityE9", "lastUpdatedAtUtcMillis"]
+    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "quantityE9", "effectiveBalanceE9", "maxWithdrawQuantityE9", "lastUpdatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +88,7 @@ class Asset(BaseModel):
             "quantityE9": obj.get("quantityE9"),
             "effectiveBalanceE9": obj.get("effectiveBalanceE9"),
             "maxWithdrawQuantityE9": obj.get("maxWithdrawQuantityE9"),
-            "lastUpdatedAtUtcMillis": obj.get("lastUpdatedAtUtcMillis")
+            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
         })
         return _obj
 

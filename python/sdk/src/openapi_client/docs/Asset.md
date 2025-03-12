@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **quantity_e9** | **str** | Asset quantity (e9 format). | 
 **effective_balance_e9** | **str** | Value of this asset balance based on current market price and asset weight (e9 format). | 
 **max_withdraw_quantity_e9** | **str** | Maximum quantity for transfer out (e9 format). | 
-**last_updated_at_utc_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
+**last_updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
 
 ## Example
 

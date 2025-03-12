@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **trading_fee_asset** | **String** | Asset used for trading fee. | 
 **gas_fee_e9** | Option<**f32**> | Gas fee. | [optional]
 **gas_fee_asset** | Option<**String**> | Asset used for gas fee. | [optional]
-**executed_at_utc_milli** | **i64** | Trade timestamp in milliseconds since Unix epoch. | 
+**executed_at_millis** | **i64** | Trade timestamp in milliseconds since Unix epoch. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

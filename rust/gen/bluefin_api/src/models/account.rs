@@ -37,14 +37,14 @@ pub struct Account {
     #[serde(rename = "initialMarginAvailableE9")]
     pub initial_margin_available_e9: String,
     /// The sum of maintenance margin required across all cross positions (e9 format).
-    #[serde(rename = "totalMaintMarginRequiredE9")]
-    pub total_maint_margin_required_e9: String,
+    #[serde(rename = "totalMaintenanceMarginRequiredE9")]
+    pub total_maintenance_margin_required_e9: String,
     /// The amount of margin available before liquidation (e9 format).
-    #[serde(rename = "maintMarginAvailableE9")]
-    pub maint_margin_available_e9: String,
+    #[serde(rename = "maintenanceMarginAvailableE9")]
+    pub maintenance_margin_available_e9: String,
     /// The ratio of the maintenance margin required to the account value (e9 format).
-    #[serde(rename = "accountMaintMarginRatioE9")]
-    pub account_maint_margin_ratio_e9: String,
+    #[serde(rename = "accountMaintenanceMarginRatioE9")]
+    pub account_maintenance_margin_ratio_e9: String,
     /// The leverage of the account (e9 format).
     #[serde(rename = "accountLeverageE9")]
     pub account_leverage_e9: String,
@@ -55,16 +55,19 @@ pub struct Account {
     #[serde(rename = "totalCrossUnrealizedPnlE9")]
     pub total_cross_unrealized_pnl_e9: String,
     /// Last update time in milliseconds since Unix epoch.
-    #[serde(rename = "lastUpdatedAtUtcMillis")]
-    pub last_updated_at_utc_millis: i64,
+    #[serde(rename = "lastUpdatedAtMillis")]
+    pub last_updated_at_millis: i64,
     #[serde(rename = "assets")]
     pub assets: Vec<models::Asset>,
     #[serde(rename = "positions")]
     pub positions: Vec<models::Position>,
+    /// The accounts that are authorized to trade on behalf of the current account.
+    #[serde(rename = "authorizedAccounts")]
+    pub authorized_accounts: Vec<String>,
 }
 
 impl Account {
-    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maint_margin_required_e9: String, maint_margin_available_e9: String, account_maint_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, last_updated_at_utc_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, last_updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
         Account {
             trading_fees,
             can_trade,
@@ -74,15 +77,16 @@ impl Account {
             total_initial_margin_required_e9,
             total_open_order_initial_margin_required_e9,
             initial_margin_available_e9,
-            total_maint_margin_required_e9,
-            maint_margin_available_e9,
-            account_maint_margin_ratio_e9,
+            total_maintenance_margin_required_e9,
+            maintenance_margin_available_e9,
+            account_maintenance_margin_ratio_e9,
             account_leverage_e9,
             total_unrealized_pnl_e9,
             total_cross_unrealized_pnl_e9,
-            last_updated_at_utc_millis,
+            last_updated_at_millis,
             assets,
             positions,
+            authorized_accounts,
         }
     }
 }
