@@ -63,7 +63,7 @@ This endpoint does not need any parameter.
 
 ## get_account_trades
 
-> Vec<models::Trade> get_account_trades(symbol, start_time_at_utc_millis, end_time_at_utc_millis, limit, trade_type, page)
+> Vec<models::Trade> get_account_trades(symbol, start_time_at_millis, end_time_at_millis, limit, trade_type, page)
 Get user's trade history.
 
 ### Parameters
@@ -72,8 +72,8 @@ Get user's trade history.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | **String** | Market address to filter trades by. | [required] |
-**start_time_at_utc_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
-**end_time_at_utc_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
+**start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
+**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **trade_type** | Option<[**TradeTypeEnum**](.md)> | Type of trade. By default returns all. |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
@@ -96,7 +96,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_account_transaction_history
 
-> Vec<models::Transaction> get_account_transaction_history(types, asset_symbol, start_time_at_utc_millis, end_time_at_utc_millis, limit, page)
+> Vec<models::Transaction> get_account_transaction_history(types, asset_symbol, start_time_at_millis, end_time_at_millis, limit, page)
 Get user's transaction history (any change in balance).
 
 ### Parameters
@@ -106,8 +106,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **types** | Option<[**Vec<models::TransactionTypeEnum>**](models::TransactionTypeEnum.md)> | Optional query parameter to filter transactions by type. |  |
 **asset_symbol** | Option<**String**> | Optional query parameter to filter transactions by asset bank address. |  |
-**start_time_at_utc_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
-**end_time_at_utc_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
+**start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
+**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 

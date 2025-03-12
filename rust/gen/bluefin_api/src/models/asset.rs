@@ -26,18 +26,18 @@ pub struct Asset {
     #[serde(rename = "maxWithdrawQuantityE9")]
     pub max_withdraw_quantity_e9: String,
     /// Last update time in milliseconds since Unix epoch.
-    #[serde(rename = "lastUpdatedAtUtcMillis")]
-    pub last_updated_at_utc_millis: i64,
+    #[serde(rename = "lastUpdatedAtMillis")]
+    pub last_updated_at_millis: i64,
 }
 
 impl Asset {
-    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, last_updated_at_utc_millis: i64) -> Asset {
+    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, last_updated_at_millis: i64) -> Asset {
         Asset {
             symbol,
             quantity_e9,
             effective_balance_e9,
             max_withdraw_quantity_e9,
-            last_updated_at_utc_millis,
+            last_updated_at_millis,
         }
     }
 }

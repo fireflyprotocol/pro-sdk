@@ -7,7 +7,7 @@ libraries from OpenAPI 3.0 specifications. This SDK enables seamless interaction
 various trading operations, such as placing orders, withdrawing funds, and subscribing to market feeds.
 
 Generate rust client code command
-```openapi-generator generate --input-spec-root-directory ../resources -c gen/config.yaml -g rust-axum -o gen/bluefin-api```
+```cargo run --bin apigen -- -l rust```
 
 ## Features
 

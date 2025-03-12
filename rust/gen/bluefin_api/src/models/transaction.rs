@@ -30,10 +30,13 @@ pub struct Transaction {
     /// Trade ID
     #[serde(rename = "tradeId", skip_serializing_if = "Option::is_none")]
     pub trade_id: Option<String>,
+    /// Transaction timestamp in milliseconds since Unix epoch.
+    #[serde(rename = "executedAtMillis")]
+    pub executed_at_millis: i64,
 }
 
 impl Transaction {
-    pub fn new(id: String, r#type: models::TransactionTypeEnum, amount_e9: String, asset_symbol: String) -> Transaction {
+    pub fn new(id: String, r#type: models::TransactionTypeEnum, amount_e9: String, asset_symbol: String, executed_at_millis: i64) -> Transaction {
         Transaction {
             id,
             symbol: None,
@@ -41,6 +44,7 @@ impl Transaction {
             amount_e9,
             asset_symbol,
             trade_id: None,
+            executed_at_millis,
         }
     }
 }
