@@ -1544,7 +1544,8 @@ export interface LoginResponse {
 
 export const MarginTypeEnum = {
     Cross: 'CROSS',
-    Isolated: 'ISOLATED'
+    Isolated: 'ISOLATED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type MarginTypeEnum = typeof MarginTypeEnum[keyof typeof MarginTypeEnum];
@@ -2730,7 +2731,8 @@ export interface Position {
 
 export const PositionSideEnum = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type PositionSideEnum = typeof PositionSideEnum[keyof typeof PositionSideEnum];
@@ -3472,7 +3474,8 @@ export interface Trade {
 
 export const TradeTradingFeeAssetEnum = {
     Usdc: 'USDC',
-    Blue: 'BLUE'
+    Blue: 'BLUE',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeTradingFeeAssetEnum = typeof TradeTradingFeeAssetEnum[keyof typeof TradeTradingFeeAssetEnum];
@@ -3550,7 +3553,8 @@ export type TradeSide = typeof TradeSide[keyof typeof TradeSide];
 
 export const TradeSideEnum = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeSideEnum = typeof TradeSideEnum[keyof typeof TradeSideEnum];
@@ -3581,7 +3585,8 @@ export type TradeType = typeof TradeType[keyof typeof TradeType];
 export const TradeTypeEnum = {
     Order: 'ORDER',
     Liquidation: 'LIQUIDATION',
-    Deleverage: 'DELEVERAGE'
+    Deleverage: 'DELEVERAGE',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeTypeEnum = typeof TradeTypeEnum[keyof typeof TradeTypeEnum];
@@ -3695,7 +3700,8 @@ export const TransactionTypeEnum = {
     FundingFee: 'FUNDING_FEE',
     TradingFee: 'TRADING_FEE',
     TradingGasFee: 'TRADING_GAS_FEE',
-    Bonus: 'BONUS'
+    Bonus: 'BONUS',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TransactionTypeEnum = typeof TransactionTypeEnum[keyof typeof TransactionTypeEnum];
@@ -3851,7 +3857,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4015,7 +4021,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4079,7 +4085,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4141,7 +4147,7 @@ export class AccountDataApi extends BaseAPI {
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
-     * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+     * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -21,6 +21,8 @@ pub enum TradeTypeEnum {
     Liquidation,
     #[serde(rename = "DELEVERAGE")]
     Deleverage,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -30,6 +32,7 @@ impl std::fmt::Display for TradeTypeEnum {
             Self::Order => write!(f, "ORDER"),
             Self::Liquidation => write!(f, "LIQUIDATION"),
             Self::Deleverage => write!(f, "DELEVERAGE"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }
