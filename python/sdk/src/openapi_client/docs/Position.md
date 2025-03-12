@@ -16,10 +16,10 @@ Name | Type | Description | Notes
 **unrealized_pnl_e9** | **str** | Unrealized profit (e9 format). | 
 **position_side** | [**PositionSideEnum**](PositionSideEnum.md) |  | 
 **initial_margin_e9** | **str** | Initial margin required with current mark price (e9 format). | 
-**maint_margin_e9** | **str** | Maintenance margin required with current mark price (e9 format). | 
+**maintenance_margin_e9** | **str** | Maintenance margin required with current mark price (e9 format). | 
 **is_isolated** | **bool** | If the position is isolated. | 
 **isolated_margin_e9** | **str** | Margin value present if margin type is isolated (e9 format). | 
-**last_updated_at_utc_millis** | **int** | Last update time. | 
+**last_updated_at_millis** | **int** | Last update time. | 
 
 ## Example
 

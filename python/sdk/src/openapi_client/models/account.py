@@ -37,16 +37,17 @@ class Account(BaseModel):
     total_initial_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all cross positions (e9 format).", alias="totalInitialMarginRequiredE9")
     total_open_order_initial_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all open orders (e9 format).", alias="totalOpenOrderInitialMarginRequiredE9")
     initial_margin_available_e9: StrictStr = Field(description="The amount of margin available to open new positions and orders (e9 format).", alias="initialMarginAvailableE9")
-    total_maint_margin_required_e9: StrictStr = Field(description="The sum of maintenance margin required across all cross positions (e9 format).", alias="totalMaintMarginRequiredE9")
-    maint_margin_available_e9: StrictStr = Field(description="The amount of margin available before liquidation (e9 format).", alias="maintMarginAvailableE9")
-    account_maint_margin_ratio_e9: StrictStr = Field(description="The ratio of the maintenance margin required to the account value (e9 format).", alias="accountMaintMarginRatioE9")
+    total_maintenance_margin_required_e9: StrictStr = Field(description="The sum of maintenance margin required across all cross positions (e9 format).", alias="totalMaintenanceMarginRequiredE9")
+    maintenance_margin_available_e9: StrictStr = Field(description="The amount of margin available before liquidation (e9 format).", alias="maintenanceMarginAvailableE9")
+    account_maintenance_margin_ratio_e9: StrictStr = Field(description="The ratio of the maintenance margin required to the account value (e9 format).", alias="accountMaintenanceMarginRatioE9")
     account_leverage_e9: StrictStr = Field(description="The leverage of the account (e9 format).", alias="accountLeverageE9")
     total_unrealized_pnl_e9: StrictStr = Field(description="Total unrealized profit (e9 format).", alias="totalUnrealizedPnlE9")
     total_cross_unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit of crossed positions (e9 format).", alias="totalCrossUnrealizedPnlE9")
-    last_updated_at_utc_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtUtcMillis")
+    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtMillis")
     assets: List[Asset]
     positions: List[Position]
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintMarginRequiredE9", "maintMarginAvailableE9", "accountMaintMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "lastUpdatedAtUtcMillis", "assets", "positions"]
+    authorized_accounts: List[StrictStr] = Field(description="The accounts that are authorized to trade on behalf of the current account.", alias="authorizedAccounts")
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "lastUpdatedAtMillis", "assets", "positions", "authorizedAccounts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -124,15 +125,16 @@ class Account(BaseModel):
             "totalInitialMarginRequiredE9": obj.get("totalInitialMarginRequiredE9"),
             "totalOpenOrderInitialMarginRequiredE9": obj.get("totalOpenOrderInitialMarginRequiredE9"),
             "initialMarginAvailableE9": obj.get("initialMarginAvailableE9"),
-            "totalMaintMarginRequiredE9": obj.get("totalMaintMarginRequiredE9"),
-            "maintMarginAvailableE9": obj.get("maintMarginAvailableE9"),
-            "accountMaintMarginRatioE9": obj.get("accountMaintMarginRatioE9"),
+            "totalMaintenanceMarginRequiredE9": obj.get("totalMaintenanceMarginRequiredE9"),
+            "maintenanceMarginAvailableE9": obj.get("maintenanceMarginAvailableE9"),
+            "accountMaintenanceMarginRatioE9": obj.get("accountMaintenanceMarginRatioE9"),
             "accountLeverageE9": obj.get("accountLeverageE9"),
             "totalUnrealizedPnlE9": obj.get("totalUnrealizedPnlE9"),
             "totalCrossUnrealizedPnlE9": obj.get("totalCrossUnrealizedPnlE9"),
-            "lastUpdatedAtUtcMillis": obj.get("lastUpdatedAtUtcMillis"),
+            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis"),
             "assets": [Asset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
-            "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None
+            "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,
+            "authorizedAccounts": obj.get("authorizedAccounts")
         })
         return _obj
 

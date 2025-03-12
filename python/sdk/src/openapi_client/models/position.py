@@ -38,11 +38,11 @@ class Position(BaseModel):
     unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit (e9 format).", alias="unrealizedPnlE9")
     position_side: PositionSideEnum = Field(alias="positionSide")
     initial_margin_e9: StrictStr = Field(description="Initial margin required with current mark price (e9 format).", alias="initialMarginE9")
-    maint_margin_e9: StrictStr = Field(description="Maintenance margin required with current mark price (e9 format).", alias="maintMarginE9")
+    maintenance_margin_e9: StrictStr = Field(description="Maintenance margin required with current mark price (e9 format).", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="If the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="Margin value present if margin type is isolated (e9 format).", alias="isolatedMarginE9")
-    last_updated_at_utc_millis: StrictInt = Field(description="Last update time.", alias="lastUpdatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "positionSizeE9", "unrealizedPnlE9", "positionSide", "initialMarginE9", "maintMarginE9", "isIsolated", "isolatedMarginE9", "lastUpdatedAtUtcMillis"]
+    last_updated_at_millis: StrictInt = Field(description="Last update time.", alias="lastUpdatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "positionSizeE9", "unrealizedPnlE9", "positionSide", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "lastUpdatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,10 +106,10 @@ class Position(BaseModel):
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
             "positionSide": obj.get("positionSide"),
             "initialMarginE9": obj.get("initialMarginE9"),
-            "maintMarginE9": obj.get("maintMarginE9"),
+            "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),
             "isolatedMarginE9": obj.get("isolatedMarginE9"),
-            "lastUpdatedAtUtcMillis": obj.get("lastUpdatedAtUtcMillis")
+            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
         })
         return _obj
 

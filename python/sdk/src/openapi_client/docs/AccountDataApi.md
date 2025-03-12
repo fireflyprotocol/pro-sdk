@@ -163,7 +163,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_account_trades**
-> List[Trade] get_account_trades(symbol, start_time_at_utc_millis=start_time_at_utc_millis, end_time_at_utc_millis=end_time_at_utc_millis, limit=limit, trade_type=trade_type, page=page)
+> List[Trade] get_account_trades(symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
 
 Get user's trade history.
 
@@ -199,15 +199,15 @@ async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.AccountDataApi(api_client)
     symbol = 'symbol_example' # str | Market address to filter trades by.
-    start_time_at_utc_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
-    end_time_at_utc_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
+    start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
+    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
     trade_type = openapi_client.TradeTypeEnum() # TradeTypeEnum | Type of trade. By default returns all. (optional)
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
         # Get user's trade history.
-        api_response = await api_instance.get_account_trades(symbol, start_time_at_utc_millis=start_time_at_utc_millis, end_time_at_utc_millis=end_time_at_utc_millis, limit=limit, trade_type=trade_type, page=page)
+        api_response = await api_instance.get_account_trades(symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
         print("The response of AccountDataApi->get_account_trades:\n")
         pprint(api_response)
     except Exception as e:
@@ -222,8 +222,8 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **str**| Market address to filter trades by. | 
- **start_time_at_utc_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
- **end_time_at_utc_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
+ **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
+ **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
  **trade_type** | [**TradeTypeEnum**](.md)| Type of trade. By default returns all. | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_account_transaction_history**
-> List[Transaction] get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_utc_millis=start_time_at_utc_millis, end_time_at_utc_millis=end_time_at_utc_millis, limit=limit, page=page)
+> List[Transaction] get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
 
 Get user's transaction history (any change in balance).
 
@@ -291,14 +291,14 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AccountDataApi(api_client)
     types = [openapi_client.TransactionTypeEnum()] # List[TransactionTypeEnum] | Optional query parameter to filter transactions by type. (optional)
     asset_symbol = 'asset_symbol_example' # str | Optional query parameter to filter transactions by asset bank address. (optional)
-    start_time_at_utc_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
-    end_time_at_utc_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
+    start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
+    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
         # Get user's transaction history (any change in balance).
-        api_response = await api_instance.get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_utc_millis=start_time_at_utc_millis, end_time_at_utc_millis=end_time_at_utc_millis, limit=limit, page=page)
+        api_response = await api_instance.get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
         print("The response of AccountDataApi->get_account_transaction_history:\n")
         pprint(api_response)
     except Exception as e:
@@ -314,8 +314,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **types** | [**List[TransactionTypeEnum]**](TransactionTypeEnum.md)| Optional query parameter to filter transactions by type. | [optional] 
  **asset_symbol** | **str**| Optional query parameter to filter transactions by asset bank address. | [optional] 
- **start_time_at_utc_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
- **end_time_at_utc_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
+ **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
+ **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
 

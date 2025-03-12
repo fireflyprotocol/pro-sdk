@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **trading_fee_asset** | **str** | Asset used for trading fee. | 
 **gas_fee_e9** | **float** | Gas fee. | [optional] 
 **gas_fee_asset** | **str** | Asset used for gas fee. | [optional] 
-**executed_at_utc_milli** | **int** | Trade timestamp in milliseconds since Unix epoch. | 
+**executed_at_millis** | **int** | Trade timestamp in milliseconds since Unix epoch. | 
 
 ## Example
 
