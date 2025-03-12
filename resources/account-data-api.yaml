@@ -45,15 +45,16 @@ components:
         - totalInitialMarginRequiredE9
         - totalOpenOrderInitialMarginRequiredE9
         - initialMarginAvailableE9
-        - totalMaintMarginRequiredE9
-        - maintMarginAvailableE9
-        - accountMaintMarginRatioE9
+        - totalMaintenanceMarginRequiredE9
+        - maintenanceMarginAvailableE9
+        - accountMaintenanceMarginRatioE9
         - accountLeverageE9
         - totalUnrealizedPnlE9
         - totalCrossUnrealizedPnlE9
-        - lastUpdatedAtUtcMillis
+        - lastUpdatedAtMillis
         - assets
         - positions
+        - authorizedAccounts
       properties:
         tradingFees:
           $ref: "#/components/schemas/TradingFees"
@@ -85,15 +86,15 @@ components:
           type: string
           description: The amount of margin available to open new positions and orders (e9 format).
           example: "1000000000" # 1,000 USD
-        totalMaintMarginRequiredE9:
+        totalMaintenanceMarginRequiredE9:
           type: string
           description: The sum of maintenance margin required across all cross positions (e9 format).
           example: "5000000000" # 5,000 USD
-        maintMarginAvailableE9:
+        maintenanceMarginAvailableE9:
           type: string
           description: The amount of margin available before liquidation (e9 format).
           example: "1000000000" # 1,000 USD
-        accountMaintMarginRatioE9:
+        accountMaintenanceMarginRatioE9:
           type: string
           description: The ratio of the maintenance margin required to the account value (e9 format).
           example: "1000000000" # 1,000 USD
@@ -109,7 +110,7 @@ components:
           type: string
           description: Unrealized profit of crossed positions (e9 format).
           example: "3000000000" # 3,000 USD
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds since Unix epoch.
@@ -122,6 +123,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Position"
+        authorizedAccounts:
+          type: array
+          items:
+            type: string
+          description: The accounts that are authorized to trade on behalf of the current account.
     Asset:
       type: object
       required:
@@ -129,7 +135,7 @@ components:
         - quantityE9
         - effectiveBalanceE9
         - maxWithdrawQuantityE9
-        - lastUpdatedAtUtcMillis
+        - lastUpdatedAtMillis
       properties:
         symbol:
           type: string
@@ -146,7 +152,7 @@ components:
           type: string
           description: Maximum quantity for transfer out (e9 format).
           example: "3000000000" # 3,000 units
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds since Unix epoch.
@@ -164,7 +170,7 @@ components:
         - positionSide
         - tradingFeeE9
         - tradingFeeAsset
-        - executedAtUtcMilli
+        - executedAtMillis
       properties:
         tradeId:
           type: string
@@ -225,7 +231,7 @@ components:
           type: string
           description: Asset used for gas fee.
           example: USDC
-        executedAtUtcMilli:
+        executedAtMillis:
           type: integer
           format: int64
           description: Trade timestamp in milliseconds since Unix epoch.
@@ -244,9 +250,9 @@ components:
         - isIsolated
         - liquidationPriceE9
         - maxNotionalValueE9
-        - lastUpdatedAtUtcMillis
+        - lastUpdatedAtMillis
         - initialMarginE9
-        - maintMarginE9
+        - maintenanceMarginE9
         - isolatedMarginE9
       properties:
         symbol:
@@ -290,7 +296,7 @@ components:
           type: string
           description: Initial margin required with current mark price (e9 format).
           example: "0"
-        maintMarginE9:
+        maintenanceMarginE9:
           type: string
           description: Maintenance margin required with current mark price (e9 format).
           example: "0"
@@ -302,7 +308,7 @@ components:
           type: string
           description: Margin value present if margin type is isolated (e9 format).
           example: "1000000000"
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: Last update time.
@@ -314,6 +320,7 @@ components:
         - type
         - amountE9
         - assetSymbol
+        - executedAtMillis
       properties:
         id:
           type: string
@@ -335,6 +342,11 @@ components:
         tradeId:
           type: string
           description: Trade ID
+        executedAtMillis:
+          type: integer
+          format: int64
+          description: Transaction timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
     AccountPreference:
       type: object
       properties:
@@ -507,7 +519,7 @@ paths:
           schema:
             type: string
           description: Market address to filter trades by.
-        - name: startTimeAtUtcMillis
+        - name: startTimeAtMillis
           in: query
           required: false
           schema:
@@ -515,7 +527,7 @@ paths:
             x-go-type: int64
             minimum: 0
           description: Start time in milliseconds. Defaults to 7 days ago if not specified.
-        - name: endTimeAtUtcMillis
+        - name: endTimeAtMillis
           in: query
           required: false
           schema:
@@ -603,7 +615,7 @@ paths:
           in: query
           description: Optional query parameter to filter transactions by asset bank address.
           required: false
-        - name: startTimeAtUtcMillis
+        - name: startTimeAtMillis
           in: query
           required: false
           schema:
@@ -611,7 +623,7 @@ paths:
             x-go-type: int64
             minimum: 0
           description: Start time in milliseconds. Defaults to 7 days ago if not specified.
-        - name: endTimeAtUtcMillis
+        - name: endTimeAtMillis
           description: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
           in: query
           required: false
