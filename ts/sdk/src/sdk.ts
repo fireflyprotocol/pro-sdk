@@ -12,10 +12,7 @@ import {
   AuthApi,
   ExchangeApi,
   TradeApi,
-  AccountPositionLeverageUpdateRequest,
   LoginRequest,
-  WithdrawRequest,
-  MarketStreamMessagePayload,
   MarketStreamMessage,
   AccountStreamMessage,
   LoginResponse,
@@ -33,6 +30,7 @@ import {
   SuiClient,
   TransactionBlock,
 } from "@firefly-exchange/library-sui";
+
 interface EnvironmentConfig {
   [key: string]: {
     authHost: string;
@@ -93,13 +91,19 @@ enum Services {
   AccountWebsocket,
 }
 
-type BasePathConfig = {
-  authHost: string | null;
-  apiHost: string | null;
-  tradeHost: string | null;
-  marketWsHost: string | null;
-  accountWsHost: string | null;
-};
+export interface BluefinProSdkOptions {
+  currentAccountAddress?: string;
+
+  refreshToken?: string;
+  refreshTokenValidForSeconds?: number;
+
+  // if needed to point to different services
+  authHost?: string;
+  apiHost?: string;
+  tradeHost?: string;
+  marketWsHost?: string;
+  accountWsHost?: string;
+}
 
 export class BluefinProSdk {
   private readonly configs: Partial<Record<Services, Configuration>> = {};
@@ -114,44 +118,38 @@ export class BluefinProSdk {
   private contractsConfig: ContractsConfig | undefined;
   private assets: Array<Asset1> | undefined;
   private txBuilder: TxBuilder | undefined;
+  private currentAccountAddress: string | undefined;
+
   constructor(
     private readonly bfSigner: IBluefinSigner,
     private environment: "mainnet" | "testnet" | "devnet" = "mainnet",
     private suiClient: SuiClient,
-    private currentAccountAddress: string | null = null,
-    basePathConfig: BasePathConfig | null = null
+    opts?: BluefinProSdkOptions,
   ) {
+    this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
     this.updateTokenInterval = null;
     this.contractsConfig = undefined;
     this.tokenResponse = null;
     this.tokenSetAtSeconds = null;
 
+    if (opts?.refreshToken && opts?.refreshTokenValidForSeconds) {
+      this.tokenResponse = {
+        accessToken: "",
+        accessTokenValidForSeconds: 0,
+        refreshToken: opts.refreshToken,
+        refreshTokenValidForSeconds: opts.refreshTokenValidForSeconds,
+      };
+    }
+
+    const defaultConfig = environmentConfig[this.environment];
+
     const basePaths = {
-      authHost:
-        basePathConfig && basePathConfig?.authHost
-          ? basePathConfig.authHost
-          : environmentConfig[this.environment].authHost,
-
-      apiHost:
-        basePathConfig && basePathConfig?.apiHost
-          ? basePathConfig.apiHost
-          : environmentConfig[this.environment].apiHost,
-
-      tradeHost:
-        basePathConfig && basePathConfig?.tradeHost
-          ? basePathConfig.tradeHost
-          : environmentConfig[this.environment].tradeHost,
-
-      marketWsHost:
-        basePathConfig && basePathConfig?.marketWsHost
-          ? basePathConfig.marketWsHost
-          : environmentConfig[this.environment].marketWsHost,
-
-      accountWsHost:
-        basePathConfig && basePathConfig?.accountWsHost
-          ? basePathConfig.accountWsHost
-          : environmentConfig[this.environment].accountWsHost,
+      authHost: opts?.authHost ?? defaultConfig.authHost,
+      apiHost: opts?.apiHost ?? defaultConfig.apiHost,
+      tradeHost: opts?.tradeHost ?? defaultConfig.tradeHost,
+      marketWsHost: opts?.marketWsHost ?? defaultConfig.marketWsHost,
+      accountWsHost: opts?.accountWsHost ?? defaultConfig.accountWsHost,
     };
 
     const authApiConfig = new Configuration({
@@ -187,6 +185,10 @@ export class BluefinProSdk {
       basePath: basePaths.accountWsHost,
     });
     this.configs[Services.AccountWebsocket] = accountWsConfig;
+  }
+
+  public getTokenResponse() {
+    return this.tokenResponse;
   }
 
   private generateSalt(): string {
@@ -269,7 +271,7 @@ export class BluefinProSdk {
     const signature = await this.bfSigner.signLoginRequest(loginRequest);
     const response = await this.authApi.authV2TokenPost(
       signature,
-      loginRequest
+      loginRequest,
     );
     this.tokenResponse = response.data;
   }
@@ -353,7 +355,7 @@ export class BluefinProSdk {
   public async withdraw(assetSymbol: string, amountE9: string) {
     const exchangeInfo = await this.exchangeDataApi.getExchangeInfo();
     const asset = exchangeInfo.data.assets.find(
-      (asset) => asset.symbol === assetSymbol
+      (asset) => asset.symbol === assetSymbol,
     );
 
     if (!asset) {
@@ -396,7 +398,10 @@ export class BluefinProSdk {
       signedAtUtcMillis: Date.now(),
     };
 
-    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, true);
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(
+      signedFields,
+      true,
+    );
 
     await this.tradeApi.putAuthorizeAccount({
       signedFields,
@@ -419,7 +424,10 @@ export class BluefinProSdk {
       signedAtUtcMillis: Date.now(),
     };
 
-    const signature = await this.bfSigner.signAccountAuthorizationRequest(signedFields, false);
+    const signature = await this.bfSigner.signAccountAuthorizationRequest(
+      signedFields,
+      false,
+    );
 
     await this.tradeApi.putDeauthorizeAccount({
       signedFields,
@@ -433,7 +441,7 @@ export class BluefinProSdk {
     const assetSymbol = "USDC";
     const txb = new TransactionBlock();
     const assetType = this.assets?.find(
-      (x) => x.symbol === assetSymbol
+      (x) => x.symbol === assetSymbol,
     )?.assetType;
     if (!assetType) {
       throw new Error("Missing USDC asset type");
@@ -443,7 +451,7 @@ export class BluefinProSdk {
       txb,
       amountE9,
       assetType,
-      this.currentAccountAddress || this.bfSigner.getAddress()
+      this.currentAccountAddress || this.bfSigner.getAddress(),
     );
 
     this.txBuilder?.depositToAssetBank(
@@ -455,19 +463,19 @@ export class BluefinProSdk {
       splitCoin,
       {
         txBlock: txb,
-      }
+      },
     );
 
     if (mergedCoin) {
       txb.transferObjects(
         [mergedCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress()
+        this.currentAccountAddress || this.bfSigner.getAddress(),
       );
     }
     if (splitCoin) {
       txb.transferObjects(
         [splitCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress()
+        this.currentAccountAddress || this.bfSigner.getAddress(),
       );
     }
 
@@ -485,7 +493,7 @@ export class BluefinProSdk {
     this.configs[Services.Trade]!.accessToken = this.tokenResponse.accessToken;
   }
 
-  private async refreshToken(): Promise<void> {
+  public async refreshToken(): Promise<void> {
     if (!this.isConnected) return;
 
     console.log("Checking token for refresh");
@@ -502,9 +510,9 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
-    handler: (data: AccountStreamMessage) => Promise<void>
+    handler: (data: AccountStreamMessage) => Promise<void>,
   ): Promise<WebSocket> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!this.tokenResponse) {
         throw new Error("Missing tokenResponse");
       }
@@ -514,7 +522,7 @@ export class BluefinProSdk {
           headers: {
             Authorization: `Bearer ${this.tokenResponse.accessToken}`,
           },
-        }
+        },
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
@@ -526,11 +534,11 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
-    handler: (data: MarketStreamMessage) => Promise<void>
+    handler: (data: MarketStreamMessage) => Promise<void>,
   ): Promise<WebSocket> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const ws = new WebSocket(
-        this.configs[Services.MarketWebsocket]!.basePath!
+        this.configs[Services.MarketWebsocket]!.basePath!,
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
