@@ -28,6 +28,7 @@ class MarginTypeEnum(str, Enum):
     """
     CROSS = 'CROSS'
     ISOLATED = 'ISOLATED'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
