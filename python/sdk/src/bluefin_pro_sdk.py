@@ -36,7 +36,7 @@ class Environment(str, Enum):
 
 class RpcUrl(str, Enum):
     DEV = 'https://fullnode.devnet.sui.io:443'
-    STAGING = 'https://fullnode.staging.sui.bluefin.io:443'
+    STAGING = 'https://fullnode.testnet.sui.bluefin.io:443'
 
 class AccountAuthorizationAction(Enum):
     AUTHORIZE = True
