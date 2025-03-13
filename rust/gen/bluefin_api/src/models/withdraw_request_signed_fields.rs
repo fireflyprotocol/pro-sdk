@@ -29,19 +29,19 @@ pub struct WithdrawRequestSignedFields {
     #[serde(rename = "edsId")]
     pub eds_id: String,
     /// The timestamp in milliseconds when the HTTP Request payload has been signed
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
 }
 
 impl WithdrawRequestSignedFields {
-    pub fn new(asset_symbol: String, account_address: String, amount_e9: String, salt: String, eds_id: String, signed_at_utc_millis: i64) -> WithdrawRequestSignedFields {
+    pub fn new(asset_symbol: String, account_address: String, amount_e9: String, salt: String, eds_id: String, signed_at_millis: i64) -> WithdrawRequestSignedFields {
         WithdrawRequestSignedFields {
             asset_symbol,
             account_address,
             amount_e9,
             salt,
             eds_id,
-            signed_at_utc_millis,
+            signed_at_millis,
         }
     }
 }

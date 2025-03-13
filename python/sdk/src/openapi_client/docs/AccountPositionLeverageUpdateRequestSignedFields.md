@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **leverage_e9** | **str** | The leverage to set for the account positions (Must be a number in base e9) | 
 **salt** | **str** | The random generated SALT. Should always be a number | 
 **ids_id** | **str** | the ID of the internal datastore for the target network | 
-**signed_at_utc_millis** | **int** | The timestamp in millis at which the request was signed | 
+**signed_at_millis** | **int** | The timestamp in millis at which the request was signed | 
 
 ## Example
 

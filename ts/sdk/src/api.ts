@@ -198,7 +198,7 @@ export interface AccountAuthorizationRequestSignedFields {
      * @type {number}
      * @memberof AccountAuthorizationRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 /**
  * Represents the type of account data stream.
@@ -346,7 +346,7 @@ export interface AccountPositionLeverageUpdateRequestSignedFields {
      * @type {number}
      * @memberof AccountPositionLeverageUpdateRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 /**
  * Details about an account position update.
@@ -1319,13 +1319,13 @@ export interface CreateOrderRequestSignedFields {
      * @type {number}
      * @memberof CreateOrderRequestSignedFields
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The timestamp in millis at which the request was signed
      * @type {number}
      * @memberof CreateOrderRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 
 
@@ -2093,13 +2093,13 @@ export interface OpenOrderResponse {
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The timestamp in millis at which the request was signed
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * 
      * @type {OrderType}
@@ -2153,13 +2153,13 @@ export interface OpenOrderResponse {
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'orderTimeAtUtcMillis': number;
+    'orderTimeAtMillis': number;
     /**
      * The timestamp in millis that this order was last updated (including status updates)
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 
 
@@ -3779,7 +3779,7 @@ export interface WithdrawRequestSignedFields {
      * @type {number}
      * @memberof WithdrawRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 
 /**

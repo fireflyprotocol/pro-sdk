@@ -41,8 +41,8 @@ class OpenOrderResponse(BaseModel):
     leverage_e9: StrictStr = Field(description="The leverage in base e9  of the order to be traded. Should always be a number", alias="leverageE9")
     is_isolated: StrictBool = Field(description="Is this order isolated or cross margin. Note market must be set to the same mode.", alias="isIsolated")
     salt: StrictStr = Field(description="The random generated SALT. Should always be a number")
-    expires_at_utc_millis: StrictInt = Field(description="Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided", alias="expiresAtUtcMillis")
-    signed_at_utc_millis: StrictInt = Field(description="The timestamp in millis at which the request was signed", alias="signedAtUtcMillis")
+    expires_at_millis: StrictInt = Field(description="Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided", alias="expiresAtMillis")
+    signed_at_millis: StrictInt = Field(description="The timestamp in millis at which the request was signed", alias="signedAtMillis")
     type: OrderType
     reduce_only: StrictBool = Field(description="Is this order to only reduce a position? Default false", alias="reduceOnly")
     post_only: StrictBool = Field(description="If set to TRUE, the order can only be a maker order", alias="postOnly")
@@ -51,9 +51,9 @@ class OpenOrderResponse(BaseModel):
     filled_quantity_e9: StrictStr = Field(description="The quantity in base e9 of the asset currently filled. This should always be a number", alias="filledQuantityE9")
     status: OrderStatus
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
-    order_time_at_utc_millis: StrictInt = Field(description="The timestamp in millis when the order was opened", alias="orderTimeAtUtcMillis")
-    last_updated_at_utc_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="lastUpdatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtUtcMillis", "signedAtUtcMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtUtcMillis", "lastUpdatedAtUtcMillis"]
+    order_time_at_millis: StrictInt = Field(description="The timestamp in millis when the order was opened", alias="orderTimeAtMillis")
+    last_updated_at_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="lastUpdatedAtMillis")
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "lastUpdatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -116,8 +116,8 @@ class OpenOrderResponse(BaseModel):
             "leverageE9": obj.get("leverageE9"),
             "isIsolated": obj.get("isIsolated") if obj.get("isIsolated") is not None else False,
             "salt": obj.get("salt"),
-            "expiresAtUtcMillis": obj.get("expiresAtUtcMillis"),
-            "signedAtUtcMillis": obj.get("signedAtUtcMillis"),
+            "expiresAtMillis": obj.get("expiresAtMillis"),
+            "signedAtMillis": obj.get("signedAtMillis"),
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly") if obj.get("reduceOnly") is not None else False,
             "postOnly": obj.get("postOnly") if obj.get("postOnly") is not None else False,
@@ -125,9 +125,9 @@ class OpenOrderResponse(BaseModel):
             "triggerPriceE9": obj.get("triggerPriceE9"),
             "filledQuantityE9": obj.get("filledQuantityE9"),
             "status": obj.get("status"),
-            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.TAKER,
-            "orderTimeAtUtcMillis": obj.get("orderTimeAtUtcMillis"),
-            "lastUpdatedAtUtcMillis": obj.get("lastUpdatedAtUtcMillis")
+            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
+            "orderTimeAtMillis": obj.get("orderTimeAtMillis"),
+            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
         })
         return _obj
 

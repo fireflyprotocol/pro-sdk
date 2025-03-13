@@ -40,15 +40,15 @@ pub struct CreateOrderRequestSignedFields {
     #[serde(rename = "idsId")]
     pub ids_id: String,
     /// timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
-    #[serde(rename = "expiresAtUtcMillis")]
-    pub expires_at_utc_millis: i64,
+    #[serde(rename = "expiresAtMillis")]
+    pub expires_at_millis: i64,
     /// The timestamp in millis at which the request was signed
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
 }
 
 impl CreateOrderRequestSignedFields {
-    pub fn new(symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, ids_id: String, expires_at_utc_millis: i64, signed_at_utc_millis: i64) -> CreateOrderRequestSignedFields {
+    pub fn new(symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, ids_id: String, expires_at_millis: i64, signed_at_millis: i64) -> CreateOrderRequestSignedFields {
         CreateOrderRequestSignedFields {
             symbol,
             account_address,
@@ -59,8 +59,8 @@ impl CreateOrderRequestSignedFields {
             is_isolated,
             salt,
             ids_id,
-            expires_at_utc_millis,
-            signed_at_utc_millis,
+            expires_at_millis,
+            signed_at_millis,
         }
     }
 }

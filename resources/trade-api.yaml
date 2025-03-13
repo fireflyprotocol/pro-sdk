@@ -14,7 +14,7 @@ servers:
         enum:
           - sui-staging
           - sui-prod
-
+    
 components:
   schemas:
     OrderSide:
@@ -43,7 +43,7 @@ components:
     SelfTradePreventionType:
       type: string
       enum: [ TAKER, MAKER, BOTH ]
-      default: "TAKER"
+      default: "MAKER"
       description: |
         The strategy used to resolve self trades. 
         
@@ -80,7 +80,7 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp when the request was signed
@@ -90,7 +90,7 @@ components:
             - authorizedAccountAddress
             - salt
             - idsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
@@ -140,12 +140,12 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            expiresAtUtcMillis:
+            expiresAtMillis:
               type: integer
               format: int64
               description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
               example: 12345665432
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in millis at which the request was signed
@@ -160,8 +160,8 @@ components:
             - isIsolated
             - salt
             - idsId
-            - expiresAtUtcMillis
-            - signedAtUtcMillis
+            - expiresAtMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
@@ -222,7 +222,7 @@ components:
               type: string
               description: the ID of the external datastore for the target network
               example: "eds_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in milliseconds when the HTTP Request payload has been signed
@@ -233,7 +233,7 @@ components:
             - amountE9
             - salt
             - edsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
@@ -285,7 +285,7 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in millis at which the request was signed
@@ -296,7 +296,7 @@ components:
             - leverageE9
             - salt
             - idsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
@@ -345,12 +345,12 @@ components:
           type: string
           description: The random generated SALT. Should always be a number
           example: "123335432"
-        expiresAtUtcMillis:
+        expiresAtMillis:
           type: integer
           format: int64
           description: Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
           example: 123456734567
-        signedAtUtcMillis:
+        signedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis at which the request was signed
@@ -379,11 +379,11 @@ components:
           $ref: '#/components/schemas/OrderStatus'
         selfTradePreventionType:
           $ref: '#/components/schemas/SelfTradePreventionType'
-        orderTimeAtUtcMillis:
+        orderTimeAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis when the order was opened
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis that this order was last updated (including status updates)
@@ -397,8 +397,8 @@ components:
         - leverageE9
         - isIsolated
         - salt
-        - expiresAtUtcMillis
-        - signedAtUtcMillis
+        - expiresAtMillis
+        - signedAtMillis
         - type
         - reduceOnly
         - postOnly
@@ -406,8 +406,8 @@ components:
         - filledQuantityE9
         - status
         - selfTradePreventionType
-        - orderTimeAtUtcMillis
-        - lastUpdatedAtUtcMillis
+        - orderTimeAtMillis
+        - lastUpdatedAtMillis
 
     Error:
       type: object

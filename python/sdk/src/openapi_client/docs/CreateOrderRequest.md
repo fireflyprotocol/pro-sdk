@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **post_only** | **bool** | If set to TRUE, the order can only be a maker order | 
 **time_in_force** | [**OrderTimeInForce**](OrderTimeInForce.md) |  | 
 **trigger_price_e9** | **str** | Trigger price in base e9 for stop orders. This should always be a number | [optional] 
-**self_trade_prevention_type** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [optional] [default to SelfTradePreventionType.TAKER]
+**self_trade_prevention_type** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [optional] [default to SelfTradePreventionType.MAKER]
 
 ## Example
 
