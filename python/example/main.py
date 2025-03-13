@@ -25,13 +25,13 @@ log = logging.getLogger("main")
 ENVIRONMENT = (
     getattr(Environment, env.upper())
     if (env := os.environ.get("BFP_ENVIRONMENT"))
-    else Environment.DEV
+    else Environment.STAGING
 )
 
 RPC_URL = (
     getattr(RpcUrl, env.upper())
     if (env := os.environ.get("BFP_RPC_URL"))
-    else RpcUrl.DEV
+    else RpcUrl.STAGING
 )
 
 LOG_LEVEL = (
@@ -99,7 +99,7 @@ async def main():
         # We'll work with the SUI-PERP market for this example, but you could just as
         # well choose any other market available on the Bluefin Pro exchange.
         market = next(
-            market for market in exchange_info.markets if market.symbol == "SUI-PERP"
+            market for market in exchange_info.markets if market.symbol == "ETH-PERP"
         )
         log.info(f"{market=}")
 
