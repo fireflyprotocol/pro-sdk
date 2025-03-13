@@ -33,9 +33,9 @@ class ExchangeInfoResponse(BaseModel):
     contracts_config: Optional[ContractsConfig] = Field(default=None, alias="contractsConfig")
     markets: List[Market] = Field(description="List of markets available on the exchange.")
     trading_gas_fee_e9: StrictStr = Field(description="Current gas fee set for subsidized trades (e9 format)", alias="tradingGasFeeE9")
-    server_time_at_utc_millis: StrictInt = Field(description="Server time in milliseconds.", alias="serverTimeAtUtcMillis")
+    server_time_at_millis: StrictInt = Field(description="Server time in milliseconds.", alias="serverTimeAtMillis")
     timezone: StrictStr = Field(description="Timezone of the exchange.")
-    __properties: ClassVar[List[str]] = ["assets", "contractsConfig", "markets", "tradingGasFeeE9", "serverTimeAtUtcMillis", "timezone"]
+    __properties: ClassVar[List[str]] = ["assets", "contractsConfig", "markets", "tradingGasFeeE9", "serverTimeAtMillis", "timezone"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +109,7 @@ class ExchangeInfoResponse(BaseModel):
             "contractsConfig": ContractsConfig.from_dict(obj["contractsConfig"]) if obj.get("contractsConfig") is not None else None,
             "markets": [Market.from_dict(_item) for _item in obj["markets"]] if obj.get("markets") is not None else None,
             "tradingGasFeeE9": obj.get("tradingGasFeeE9"),
-            "serverTimeAtUtcMillis": obj.get("serverTimeAtUtcMillis"),
+            "serverTimeAtMillis": obj.get("serverTimeAtMillis"),
             "timezone": obj.get("timezone")
         })
         return _obj

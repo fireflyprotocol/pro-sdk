@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## get_candlestick_data
 
-> Vec<Vec<String>> get_candlestick_data(symbol, interval, r#type, start_time_at_utc_millis, end_time_at_utc_millis, limit, page)
+> Vec<Vec<String>> get_candlestick_data(symbol, interval, r#type, start_time_at_millis, end_time_at_millis, limit, page)
 Kline/candlestick data.
 
 ### Parameters
@@ -26,8 +26,8 @@ Name | Type | Description  | Required | Notes
 **symbol** | **String** | The market symbol to get the klines for. | [required] |
 **interval** | [**KlineInterval**](.md) | The interval to get the klines for. | [required] |
 **r#type** | [**CandlePriceType**](.md) | Candle price type (last price, market price or oracle). | [required] |
-**start_time_at_utc_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines from. |  |
-**end_time_at_utc_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines until. |  |
+**start_time_at_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines from. |  |
+**end_time_at_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines until. |  |
 **limit** | Option<**u32**> | Default 50; max 1000. |  |[default to 50]
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 
@@ -76,7 +76,7 @@ No authorization required
 
 ## get_funding_rate_history
 
-> Vec<models::FundingRateEntry> get_funding_rate_history(symbol, limit, start_time_at_utc_millis, end_time_at_utc_millis, page)
+> Vec<models::FundingRateEntry> get_funding_rate_history(symbol, limit, start_time_at_millis, end_time_at_millis, page)
 Get funding rate history
 
 Retrieve the funding rate history for a specific market address.
@@ -88,8 +88,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | **String** | The market symbol to get funding rate history for | [required] |
 **limit** | Option<**u32**> | Number of records to return. Default is 100; max is 1000. |  |[default to 100]
-**start_time_at_utc_millis** | Option<**u64**> | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. |  |
-**end_time_at_utc_millis** | Option<**u64**> | The timestamp specifies the latest point in time for which data should be returned. The value is included. |  |
+**start_time_at_millis** | Option<**u64**> | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. |  |
+**end_time_at_millis** | Option<**u64**> | The timestamp specifies the latest point in time for which data should be returned. The value is included. |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 
 ### Return type
@@ -167,7 +167,7 @@ No authorization required
 
 ## get_recent_trades
 
-> Vec<models::Trade1> get_recent_trades(symbol, trade_type, limit, start_time_at_utc_millis, end_time_at_utc_millis, page)
+> Vec<models::Trade1> get_recent_trades(symbol, trade_type, limit, start_time_at_millis, end_time_at_millis, page)
 Recent trades list
 
 ### Parameters
@@ -178,8 +178,8 @@ Name | Type | Description  | Required | Notes
 **symbol** | **String** | The market symbol to get the trades for. | [required] |
 **trade_type** | Option<**String**> | Type of trade. |  |[default to Order]
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
-**start_time_at_utc_millis** | Option<**i64**> | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. |  |
-**end_time_at_utc_millis** | Option<**u64**> | The timestamp specifies the latest point in time for which data should be returned. The value is included. |  |
+**start_time_at_millis** | Option<**i64**> | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. |  |
+**end_time_at_millis** | Option<**u64**> | The timestamp specifies the latest point in time for which data should be returned. The value is included. |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 
 ### Return type

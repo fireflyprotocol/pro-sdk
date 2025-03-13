@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **symbol** | **str** | Market symbol. | 
 **last_quantity_e9** | **str** | Last trade quantity (e9 format). | 
-**last_time_at_utc_millis** | **int** | Last trade time in milliseconds. | 
+**last_time_at_millis** | **int** | Last trade time in milliseconds. | 
 **last_price_e9** | **str** | Last trade price (e9 format). | 
 **last_funding_rate_e9** | **str** | Funding rate value (e9 format). | 
-**next_funding_time_at_utc_millis** | **int** | Time in milliseconds of next funding rate update. | 
+**next_funding_time_at_millis** | **int** | Time in milliseconds of next funding rate update. | 
 **avg_funding_rate8hr_e9** | **str** | 8 hr average funding rate (e9 format). | 
 **oracle_price_e9** | **str** | Oracle price of the asset (e9 format). | 
 **oracle_price_direction** | **int** | Direction of oracle price computed by comparing current oracle price to last oracle price. 0 &#x3D; no change, -1 &#x3D; negative trend (current &lt; last), 1 positive trend (current &gt; last). | 
@@ -29,14 +29,14 @@ Name | Type | Description | Notes
 **quote_volume24hr_e9** | **str** | Total market volume in last 24hrs in USDC (e9 format). | 
 **close_price24hr_e9** | **str** | Close price 24hrs ago (e9 format). | 
 **open_price24hr_e9** | **str** | Open price in the last 24hrs (e9 format). | 
-**close_time24hr_at_utc_millis** | **int** | 24 hour close time in milliseconds. | 
-**open_time24hr_at_utc_millis** | **int** | 24 hour open time in milliseconds. | 
+**close_time24hr_at_millis** | **int** | 24 hour close time in milliseconds. | 
+**open_time24hr_at_millis** | **int** | 24 hour open time in milliseconds. | 
 **first_id24hr** | **int** | First trade id in 24hr. | 
 **last_id24hr** | **int** | Last trade id in 24hr. | 
 **count24hr** | **str** | Total number of trades in 24hr. | 
 **price_change24hr_e9** | **str** | 24hr Market price change (e9 format). | 
 **price_change_percent24hr_e9** | **str** | 24hr Market price change in percentage (e9 format). | 
-**last_updated_at_utc_millis** | **int** | Last update time in milliseconds. | 
+**last_updated_at_millis** | **int** | Last update time in milliseconds. | 
 
 ## Example
 

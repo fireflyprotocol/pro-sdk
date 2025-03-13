@@ -28,6 +28,7 @@ class Market(BaseModel):
     Market
     """ # noqa: E501
     symbol: StrictStr = Field(description="Symbol of the market.")
+    market_address: StrictStr = Field(description="Market address.", alias="marketAddress")
     status: MarketStatus
     base_asset_symbol: StrictStr = Field(description="Base asset symbol.", alias="baseAssetSymbol")
     base_asset_name: StrictStr = Field(description="Base asset name.", alias="baseAssetName")
@@ -53,12 +54,12 @@ class Market(BaseModel):
     default_taker_fee_e9: StrictStr = Field(description="Default taker fee (e9 format).", alias="defaultTakerFeeE9")
     insurance_pool_address: StrictStr = Field(description="Insurance pool address.", alias="insurancePoolAddress")
     fee_pool_address: StrictStr = Field(description="Fee pool address.", alias="feePoolAddress")
-    trading_start_time_at_utc_millis: StrictStr = Field(description="The time when trading will start/have started on the market.", alias="tradingStartTimeAtUtcMillis")
+    trading_start_time_at_millis: StrictStr = Field(description="The time when trading will start/have started on the market.", alias="tradingStartTimeAtMillis")
     mtb_long_e9: StrictStr = Field(description="Maximum take bound for long positions (e9 format).", alias="mtbLongE9")
     mtb_short_e9: StrictStr = Field(description="Maximum take bound for short positions (e9 format).", alias="mtbShortE9")
     delisting_price_e9: StrictStr = Field(description="Delisting price (e9 format).", alias="delistingPriceE9")
     isolated_only: StrictBool = Field(description="Indicates whether the market only allows isolated margin.", alias="isolatedOnly")
-    __properties: ClassVar[List[str]] = ["symbol", "status", "baseAssetSymbol", "baseAssetName", "baseAssetDecimals", "stepSizeE9", "tickSizeE9", "minOrderQuantityE9", "maxLimitOrderQuantityE9", "maxMarketOrderQuantityE9", "minOrderPriceE9", "maxOrderPriceE9", "maintenanceMarginRatioE9", "initialMarginRatioE9", "insurancePoolRatioE9", "defaultLeverageE9", "maxNotionalAtOpenE9", "minTradeQuantityE9", "maxTradeQuantityE9", "minTradePriceE9", "maxTradePriceE9", "maxFundingRateE9", "defaultMakerFeeE9", "defaultTakerFeeE9", "insurancePoolAddress", "feePoolAddress", "tradingStartTimeAtUtcMillis", "mtbLongE9", "mtbShortE9", "delistingPriceE9", "isolatedOnly"]
+    __properties: ClassVar[List[str]] = ["symbol", "marketAddress", "status", "baseAssetSymbol", "baseAssetName", "baseAssetDecimals", "stepSizeE9", "tickSizeE9", "minOrderQuantityE9", "maxLimitOrderQuantityE9", "maxMarketOrderQuantityE9", "minOrderPriceE9", "maxOrderPriceE9", "maintenanceMarginRatioE9", "initialMarginRatioE9", "insurancePoolRatioE9", "defaultLeverageE9", "maxNotionalAtOpenE9", "minTradeQuantityE9", "maxTradeQuantityE9", "minTradePriceE9", "maxTradePriceE9", "maxFundingRateE9", "defaultMakerFeeE9", "defaultTakerFeeE9", "insurancePoolAddress", "feePoolAddress", "tradingStartTimeAtMillis", "mtbLongE9", "mtbShortE9", "delistingPriceE9", "isolatedOnly"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -112,6 +113,7 @@ class Market(BaseModel):
 
         _obj = cls.model_validate({
             "symbol": obj.get("symbol"),
+            "marketAddress": obj.get("marketAddress"),
             "status": obj.get("status"),
             "baseAssetSymbol": obj.get("baseAssetSymbol"),
             "baseAssetName": obj.get("baseAssetName"),
@@ -137,7 +139,7 @@ class Market(BaseModel):
             "defaultTakerFeeE9": obj.get("defaultTakerFeeE9"),
             "insurancePoolAddress": obj.get("insurancePoolAddress"),
             "feePoolAddress": obj.get("feePoolAddress"),
-            "tradingStartTimeAtUtcMillis": obj.get("tradingStartTimeAtUtcMillis"),
+            "tradingStartTimeAtMillis": obj.get("tradingStartTimeAtMillis"),
             "mtbLongE9": obj.get("mtbLongE9"),
             "mtbShortE9": obj.get("mtbShortE9"),
             "delistingPriceE9": obj.get("delistingPriceE9"),

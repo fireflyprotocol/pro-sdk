@@ -51,8 +51,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
         type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -77,10 +77,10 @@ class ExchangeApi:
         :type interval: KlineInterval
         :param type: Candle price type (last price, market price or oracle). (required)
         :type type: CandlePriceType
-        :param start_time_at_utc_millis: Timestamp in milliseconds in ms to get klines from.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: Timestamp in milliseconds in ms to get klines until.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds in ms to get klines until.
+        :type end_time_at_millis: int
         :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
@@ -111,8 +111,8 @@ class ExchangeApi:
             symbol=symbol,
             interval=interval,
             type=type,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -141,8 +141,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
         type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -167,10 +167,10 @@ class ExchangeApi:
         :type interval: KlineInterval
         :param type: Candle price type (last price, market price or oracle). (required)
         :type type: CandlePriceType
-        :param start_time_at_utc_millis: Timestamp in milliseconds in ms to get klines from.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: Timestamp in milliseconds in ms to get klines until.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds in ms to get klines until.
+        :type end_time_at_millis: int
         :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
@@ -201,8 +201,8 @@ class ExchangeApi:
             symbol=symbol,
             interval=interval,
             type=type,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -231,8 +231,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
         type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -257,10 +257,10 @@ class ExchangeApi:
         :type interval: KlineInterval
         :param type: Candle price type (last price, market price or oracle). (required)
         :type type: CandlePriceType
-        :param start_time_at_utc_millis: Timestamp in milliseconds in ms to get klines from.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: Timestamp in milliseconds in ms to get klines until.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds in ms to get klines until.
+        :type end_time_at_millis: int
         :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
@@ -291,8 +291,8 @@ class ExchangeApi:
             symbol=symbol,
             interval=interval,
             type=type,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             limit=limit,
             page=page,
             _request_auth=_request_auth,
@@ -316,8 +316,8 @@ class ExchangeApi:
         symbol,
         interval,
         type,
-        start_time_at_utc_millis,
-        end_time_at_utc_millis,
+        start_time_at_millis,
+        end_time_at_millis,
         limit,
         page,
         _request_auth,
@@ -354,13 +354,13 @@ class ExchangeApi:
             
             _query_params.append(('type', type.value))
             
-        if start_time_at_utc_millis is not None:
+        if start_time_at_millis is not None:
             
-            _query_params.append(('startTimeAtUtcMillis', start_time_at_utc_millis))
+            _query_params.append(('startTimeAtMillis', start_time_at_millis))
             
-        if end_time_at_utc_millis is not None:
+        if end_time_at_millis is not None:
             
-            _query_params.append(('endTimeAtUtcMillis', end_time_at_utc_millis))
+            _query_params.append(('endTimeAtMillis', end_time_at_millis))
             
         if limit is not None:
             
@@ -656,8 +656,8 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get funding rate history for")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Number of records to return. Default is 100; max is 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -680,10 +680,10 @@ class ExchangeApi:
         :type symbol: str
         :param limit: Number of records to return. Default is 100; max is 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -711,8 +711,8 @@ class ExchangeApi:
         _param = self._get_funding_rate_history_serialize(
             symbol=symbol,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -739,8 +739,8 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get funding rate history for")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Number of records to return. Default is 100; max is 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -763,10 +763,10 @@ class ExchangeApi:
         :type symbol: str
         :param limit: Number of records to return. Default is 100; max is 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -794,8 +794,8 @@ class ExchangeApi:
         _param = self._get_funding_rate_history_serialize(
             symbol=symbol,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -822,8 +822,8 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get funding rate history for")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Number of records to return. Default is 100; max is 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -846,10 +846,10 @@ class ExchangeApi:
         :type symbol: str
         :param limit: Number of records to return. Default is 100; max is 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -877,8 +877,8 @@ class ExchangeApi:
         _param = self._get_funding_rate_history_serialize(
             symbol=symbol,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -900,8 +900,8 @@ class ExchangeApi:
         self,
         symbol,
         limit,
-        start_time_at_utc_millis,
-        end_time_at_utc_millis,
+        start_time_at_millis,
+        end_time_at_millis,
         page,
         _request_auth,
         _content_type,
@@ -933,13 +933,13 @@ class ExchangeApi:
             
             _query_params.append(('limit', limit))
             
-        if start_time_at_utc_millis is not None:
+        if start_time_at_millis is not None:
             
-            _query_params.append(('startTimeAtUtcMillis', start_time_at_utc_millis))
+            _query_params.append(('startTimeAtMillis', start_time_at_millis))
             
-        if end_time_at_utc_millis is not None:
+        if end_time_at_millis is not None:
             
-            _query_params.append(('endTimeAtUtcMillis', end_time_at_utc_millis))
+            _query_params.append(('endTimeAtMillis', end_time_at_millis))
             
         if page is not None:
             
@@ -1525,8 +1525,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
         trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -1550,10 +1550,10 @@ class ExchangeApi:
         :type trade_type: str
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1582,8 +1582,8 @@ class ExchangeApi:
             symbol=symbol,
             trade_type=trade_type,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1611,8 +1611,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
         trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -1636,10 +1636,10 @@ class ExchangeApi:
         :type trade_type: str
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1668,8 +1668,8 @@ class ExchangeApi:
             symbol=symbol,
             trade_type=trade_type,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1697,8 +1697,8 @@ class ExchangeApi:
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
         trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
-        start_time_at_utc_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
-        end_time_at_utc_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
+        start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -1722,10 +1722,10 @@ class ExchangeApi:
         :type trade_type: str
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param start_time_at_utc_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-        :type start_time_at_utc_millis: int
-        :param end_time_at_utc_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
-        :type end_time_at_utc_millis: int
+        :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: The timestamp specifies the latest point in time for which data should be returned. The value is included.
+        :type end_time_at_millis: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1754,8 +1754,8 @@ class ExchangeApi:
             symbol=symbol,
             trade_type=trade_type,
             limit=limit,
-            start_time_at_utc_millis=start_time_at_utc_millis,
-            end_time_at_utc_millis=end_time_at_utc_millis,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1778,8 +1778,8 @@ class ExchangeApi:
         symbol,
         trade_type,
         limit,
-        start_time_at_utc_millis,
-        end_time_at_utc_millis,
+        start_time_at_millis,
+        end_time_at_millis,
         page,
         _request_auth,
         _content_type,
@@ -1815,13 +1815,13 @@ class ExchangeApi:
             
             _query_params.append(('limit', limit))
             
-        if start_time_at_utc_millis is not None:
+        if start_time_at_millis is not None:
             
-            _query_params.append(('startTimeAtUtcMillis', start_time_at_utc_millis))
+            _query_params.append(('startTimeAtMillis', start_time_at_millis))
             
-        if end_time_at_utc_millis is not None:
+        if end_time_at_millis is not None:
             
-            _query_params.append(('endTimeAtUtcMillis', end_time_at_utc_millis))
+            _query_params.append(('endTimeAtMillis', end_time_at_millis))
             
         if page is not None:
             

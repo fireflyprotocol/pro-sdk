@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **symbol** | **String** | Market symbol. | 
 **last_update_id** | **i64** | Count indicating the number of changes in orderbook state. | 
-**last_updated_at_utc_millis** | **i64** | Timestamp at which the last change in orderbook state took place, in milliseconds. | 
-**response_sent_at_utc_millis** | **i64** | The time at which the orderbook server sent the response, in milliseconds. | 
+**last_updated_at_millis** | **i64** | Timestamp at which the last change in orderbook state took place, in milliseconds. | 
+**response_sent_at_millis** | **i64** | The time at which the orderbook server sent the response, in milliseconds. | 
 **best_bid_price_e9** | **String** | The best bid price on orderbook at the moment (e9 format). | 
 **best_bid_quantity_e9** | **String** | The best bid quantity on orderbook at the moment (e9 format). | 
 **best_ask_price_e9** | **String** | The best ask price on orderbook at the moment (e9 format). | 

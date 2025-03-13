@@ -1396,7 +1396,7 @@ export interface ExchangeInfoResponse {
      * @type {number}
      * @memberof ExchangeInfoResponse
      */
-    'serverTimeAtUtcMillis': number;
+    'serverTimeAtMillis': number;
     /**
      * Timezone of the exchange.
      * @type {string}
@@ -1446,7 +1446,7 @@ export interface FundingRateEntry {
      * @type {number}
      * @memberof FundingRateEntry
      */
-    'fundingTimeAtUtcMillis': number;
+    'fundingTimeAtMillis': number;
     /**
      * Funding rate for the market address.
      * @type {string}
@@ -1602,6 +1602,12 @@ export interface Market {
      */
     'symbol': string;
     /**
+     * Market address.
+     * @type {string}
+     * @memberof Market
+     */
+    'marketAddress': string;
+    /**
      * 
      * @type {MarketStatus}
      * @memberof Market
@@ -1756,7 +1762,7 @@ export interface Market {
      * @type {string}
      * @memberof Market
      */
-    'tradingStartTimeAtUtcMillis': string;
+    'tradingStartTimeAtMillis': string;
     /**
      * Maximum take bound for long positions (e9 format).
      * @type {string}
@@ -2485,13 +2491,13 @@ export interface OrderbookDepthResponse {
      * @type {number}
      * @memberof OrderbookDepthResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
     /**
      * The time at which the orderbook server sent the response, in milliseconds.
      * @type {number}
      * @memberof OrderbookDepthResponse
      */
-    'responseSentAtUtcMillis': number;
+    'responseSentAtMillis': number;
     /**
      * The best bid price on orderbook at the moment (e9 format).
      * @type {string}
@@ -2987,7 +2993,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'lastTimeAtUtcMillis': number;
+    'lastTimeAtMillis': number;
     /**
      * Last trade price (e9 format).
      * @type {string}
@@ -3005,7 +3011,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'nextFundingTimeAtUtcMillis': number;
+    'nextFundingTimeAtMillis': number;
     /**
      * 8 hr average funding rate (e9 format).
      * @type {string}
@@ -3119,13 +3125,13 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'closeTime24hrAtUtcMillis': number;
+    'closeTime24hrAtMillis': number;
     /**
      * 24 hour open time in milliseconds.
      * @type {number}
      * @memberof TickerResponse
      */
-    'openTime24hrAtUtcMillis': number;
+    'openTime24hrAtMillis': number;
     /**
      * First trade id in 24hr.
      * @type {number}
@@ -3161,7 +3167,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 /**
  * Represents detailed market ticker information.
@@ -3527,7 +3533,7 @@ export interface Trade1 {
      * @type {number}
      * @memberof Trade1
      */
-    'timeAtUtcMillis': number;
+    'timeAtMillis': number;
 }
 
 
@@ -4505,14 +4511,14 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCandlestickData: async (symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCandlestickData: async (symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getCandlestickData', 'symbol', symbol)
             // verify required parameter 'interval' is not null or undefined
@@ -4543,12 +4549,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['type'] = type;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (limit !== undefined) {
@@ -4605,13 +4611,13 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFundingRateHistory: async (symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFundingRateHistory: async (symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getFundingRateHistory', 'symbol', symbol)
             const localVarPath = `/v1/exchange/fundingRateHistory`;
@@ -4634,12 +4640,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['limit'] = limit;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (page !== undefined) {
@@ -4742,13 +4748,13 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades: async (symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRecentTrades: async (symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getRecentTrades', 'symbol', symbol)
             const localVarPath = `/v1/exchange/trades`;
@@ -4775,12 +4781,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['limit'] = limit;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (page !== undefined) {
@@ -4814,15 +4820,15 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<string>>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options);
+        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<string>>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getCandlestickData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4844,14 +4850,14 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FundingRateEntry>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options);
+        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FundingRateEntry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getFundingRateHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4889,14 +4895,14 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options);
+        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getRecentTrades']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4917,15 +4923,15 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Array<string>>> {
-            return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(axios, basePath));
+        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Array<string>>> {
+            return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the current exchange information including available margin assets, markets, and rules.
@@ -4941,14 +4947,14 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
-            return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(axios, basePath));
+        getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
+            return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4977,14 +4983,14 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
-            return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(axios, basePath));
+        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
+            return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5002,16 +5008,16 @@ export class ExchangeApi extends BaseAPI {
      * @param {string} symbol The market symbol to get the klines for.
      * @param {KlineInterval} interval The interval to get the klines for.
      * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-     * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-     * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+     * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+     * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
      * @param {number} [limit] Default 50; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    public getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5030,15 +5036,15 @@ export class ExchangeApi extends BaseAPI {
      * @summary Get funding rate history
      * @param {string} symbol The market symbol to get funding rate history for
      * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-     * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-     * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+     * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+     * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(this.axios, this.basePath));
+    public getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5072,15 +5078,15 @@ export class ExchangeApi extends BaseAPI {
      * @param {string} symbol The market symbol to get the trades for.
      * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
      * @param {number} [limit] Default 500; max 1000.
-     * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-     * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+     * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+     * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(this.axios, this.basePath));
+    public getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
