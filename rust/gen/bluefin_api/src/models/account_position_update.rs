@@ -56,13 +56,13 @@ pub struct AccountPositionUpdate {
     #[serde(rename = "isolatedMarginE9")]
     pub isolated_margin_e9: String,
     /// The last update time for the position in milliseconds.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl AccountPositionUpdate {
     /// Details about an account position update.
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, max_notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::Side, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_utc_millis: i64) -> AccountPositionUpdate {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, max_notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::Side, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
         AccountPositionUpdate {
             symbol,
             avg_entry_price_e9,
@@ -78,7 +78,7 @@ impl AccountPositionUpdate {
             maintenance_margin_e9,
             is_isolated,
             isolated_margin_e9,
-            updated_at_utc_millis,
+            updated_at_millis,
         }
     }
 }

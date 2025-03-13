@@ -43,7 +43,6 @@ openapi_client/docs/Error1.md
 openapi_client/docs/Error2.md
 openapi_client/docs/ExchangeApi.md
 openapi_client/docs/ExchangeInfoResponse.md
-openapi_client/docs/FeeTier.md
 openapi_client/docs/FundingRateEntry.md
 openapi_client/docs/KlineInterval.md
 openapi_client/docs/LoginRequest.md
@@ -100,6 +99,7 @@ openapi_client/docs/TradeSideEnum.md
 openapi_client/docs/TradeType.md
 openapi_client/docs/TradeTypeEnum.md
 openapi_client/docs/TradingFees.md
+openapi_client/docs/TradingFees1.md
 openapi_client/docs/Transaction.md
 openapi_client/docs/TransactionType.md
 openapi_client/docs/TransactionTypeEnum.md
@@ -139,7 +139,6 @@ openapi_client/models/error.py
 openapi_client/models/error1.py
 openapi_client/models/error2.py
 openapi_client/models/exchange_info_response.py
-openapi_client/models/fee_tier.py
 openapi_client/models/funding_rate_entry.py
 openapi_client/models/kline_interval.py
 openapi_client/models/login_request.py
@@ -194,6 +193,7 @@ openapi_client/models/trade_side_enum.py
 openapi_client/models/trade_type.py
 openapi_client/models/trade_type_enum.py
 openapi_client/models/trading_fees.py
+openapi_client/models/trading_fees1.py
 openapi_client/models/transaction.py
 openapi_client/models/transaction_type.py
 openapi_client/models/transaction_type_enum.py

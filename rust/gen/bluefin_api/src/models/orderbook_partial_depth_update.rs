@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OrderbookPartialDepthUpdate {
     /// The timestamp of the partial depth update.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
     /// The symbol of the market for the partial depth update.
     #[serde(rename = "symbol")]
     pub symbol: String,
@@ -32,9 +32,9 @@ pub struct OrderbookPartialDepthUpdate {
 }
 
 impl OrderbookPartialDepthUpdate {
-    pub fn new(updated_at_utc_millis: i64, symbol: String, bids_e9: Vec<Vec<String>>, asks_e9: Vec<Vec<String>>, orderbook_update_id: i64, depth_level: DepthLevel) -> OrderbookPartialDepthUpdate {
+    pub fn new(updated_at_millis: i64, symbol: String, bids_e9: Vec<Vec<String>>, asks_e9: Vec<Vec<String>>, orderbook_update_id: i64, depth_level: DepthLevel) -> OrderbookPartialDepthUpdate {
         OrderbookPartialDepthUpdate {
-            updated_at_utc_millis,
+            updated_at_millis,
             symbol,
             bids_e9,
             asks_e9,

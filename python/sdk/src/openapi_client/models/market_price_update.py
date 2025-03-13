@@ -29,8 +29,8 @@ class MarketPriceUpdate(BaseModel):
     symbol: StrictStr = Field(description="The symbol of the market.")
     price_e9: StrictStr = Field(description="The price in scientific notation with 9 decimal places of precision.", alias="priceE9")
     source: StrictStr
-    updated_at_utc_millis: StrictInt = Field(description="The timestamp of the price update.", alias="updatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "priceE9", "source", "updatedAtUtcMillis"]
+    updated_at_millis: StrictInt = Field(description="The timestamp of the price update.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "priceE9", "source", "updatedAtMillis"]
 
     @field_validator('source')
     def source_validate_enum(cls, value):
@@ -93,7 +93,7 @@ class MarketPriceUpdate(BaseModel):
             "symbol": obj.get("symbol"),
             "priceE9": obj.get("priceE9"),
             "source": obj.get("source"),
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

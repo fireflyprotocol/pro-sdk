@@ -22,17 +22,17 @@ pub struct MarketPriceUpdate {
     #[serde(rename = "source")]
     pub source: Source,
     /// The timestamp of the price update.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl MarketPriceUpdate {
-    pub fn new(symbol: String, price_e9: String, source: Source, updated_at_utc_millis: i64) -> MarketPriceUpdate {
+    pub fn new(symbol: String, price_e9: String, source: Source, updated_at_millis: i64) -> MarketPriceUpdate {
         MarketPriceUpdate {
             symbol,
             price_e9,
             source,
-            updated_at_utc_millis,
+            updated_at_millis,
         }
     }
 }

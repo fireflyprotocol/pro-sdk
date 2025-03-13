@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **maintenance_margin_e9** | **String** | The maintenance margin required for the position. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 
 **isolated_margin_e9** | **String** | The isolated margin applied to the position. | 
-**updated_at_utc_millis** | **i64** | The last update time for the position in milliseconds. | 
+**updated_at_millis** | **i64** | The last update time for the position in milliseconds. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

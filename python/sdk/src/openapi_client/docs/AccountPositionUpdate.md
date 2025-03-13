@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **maintenance_margin_e9** | **str** | The maintenance margin required for the position. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 
 **isolated_margin_e9** | **str** | The isolated margin applied to the position. | 
-**updated_at_utc_millis** | **int** | The last update time for the position in milliseconds. | 
+**updated_at_millis** | **int** | The last update time for the position in milliseconds. | 
 
 ## Example
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **position_side** | [**models::Side**](Side.md) |  | 
 **trading_fee_e9** | **String** | The trading fee for the trade. | 
 **trading_fee_asset_symbol** | **String** | The market symbol of the asset used for the trading fee. | 
-**executed_at_utc_millis** | **i64** | The timestamp when the trade was executed in milliseconds. | 
+**executed_at_millis** | **i64** | The timestamp when the trade was executed in milliseconds. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

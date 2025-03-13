@@ -443,7 +443,7 @@ export interface AccountPositionUpdate {
      * @type {number}
      * @memberof AccountPositionUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -628,7 +628,7 @@ export interface AccountTradeUpdate {
      * @type {number}
      * @memberof AccountTradeUpdate
      */
-    'executedAtUtcMillis': number;
+    'executedAtMillis': number;
 }
 
 
@@ -668,6 +668,12 @@ export interface AccountTransactionUpdate {
      * @memberof AccountTransactionUpdate
      */
     'tradeId'?: string;
+    /**
+     * The timestamp when the transaction was executed in milliseconds.
+     * @type {number}
+     * @memberof AccountTransactionUpdate
+     */
+    'executedAtMillis': number;
 }
 
 
@@ -679,10 +685,10 @@ export interface AccountTransactionUpdate {
 export interface AccountUpdate {
     /**
      * 
-     * @type {FeeTier}
+     * @type {TradingFees1}
      * @memberof AccountUpdate
      */
-    'feeTier'?: FeeTier;
+    'tradingFees'?: TradingFees1;
     /**
      * Indicates if trading is enabled.
      * @type {boolean}
@@ -766,7 +772,7 @@ export interface AccountUpdate {
      * @type {number}
      * @memberof AccountUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The list of assets.
      * @type {Array<Asset2>}
@@ -851,13 +857,13 @@ export interface ActiveOrderUpdate {
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The signing timestamp of the order in milliseconds.
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * 
      * @type {OrderType1}
@@ -905,13 +911,13 @@ export interface ActiveOrderUpdate {
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'createdAtUtcMillis': number;
+    'createdAtMillis': number;
     /**
      * The timestamp of the last update of the order in milliseconds.
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -1024,7 +1030,7 @@ export interface Asset2 {
      * @type {number}
      * @memberof Asset2
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 /**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -1405,31 +1411,6 @@ export interface ExchangeInfoResponse {
     'timezone': string;
 }
 /**
- * Details about the fee tier.
- * @export
- * @interface FeeTier
- */
-export interface FeeTier {
-    /**
-     * The maker fee.
-     * @type {string}
-     * @memberof FeeTier
-     */
-    'makerFeeE9': string;
-    /**
-     * The taker fee.
-     * @type {string}
-     * @memberof FeeTier
-     */
-    'takerFeeE9': string;
-    /**
-     * Indicates if the fee tier is applied.
-     * @type {boolean}
-     * @memberof FeeTier
-     */
-    'isApplied': boolean;
-}
-/**
  * 
  * @export
  * @interface FundingRateEntry
@@ -1580,7 +1561,7 @@ export interface MarkPriceUpdate {
      * @type {number}
      * @memberof MarkPriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const MarkPriceUpdateSourceEnum = {
@@ -1916,7 +1897,7 @@ export interface MarketPriceUpdate {
      * @type {number}
      * @memberof MarketPriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const MarketPriceUpdateSourceEnum = {
@@ -2229,7 +2210,7 @@ export interface OraclePriceUpdate {
      * @type {number}
      * @memberof OraclePriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const OraclePriceUpdateSourceEnum = {
@@ -2328,7 +2309,7 @@ export interface OrderCancellationUpdate {
      * @type {number}
      * @memberof OrderCancellationUpdate
      */
-    'createdAtUtcMillis': number;
+    'createdAtMillis': number;
     /**
      * 
      * @type {OrderCancelReason}
@@ -2546,7 +2527,7 @@ export interface OrderbookDiffDepthUpdate {
      * @type {number}
      * @memberof OrderbookDiffDepthUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The symbol of the market for the orderbook update.
      * @type {string}
@@ -2589,7 +2570,7 @@ export interface OrderbookPartialDepthUpdate {
      * @type {number}
      * @memberof OrderbookPartialDepthUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The symbol of the market for the partial depth update.
      * @type {string}
@@ -2817,7 +2798,7 @@ export interface RecentTradesUpdate {
      * @type {number}
      * @memberof RecentTradesUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -3192,7 +3173,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'lastTimeAtUtcMillis': number;
+    'lastTimeAtMillis': number;
     /**
      * Last trade price (e9 format).
      * @type {string}
@@ -3210,7 +3191,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'nextFundingTimeAtUtcMillis': number;
+    'nextFundingTimeAtMillis': number;
     /**
      * 8 hr average funding rate (e9 format).
      * @type {string}
@@ -3324,13 +3305,13 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'closeTime24hrAtUtcMillis': number;
+    'closeTime24hrAtMillis': number;
     /**
      * 24 hour open timetamp in milliseconds.
      * @type {number}
      * @memberof TickerUpdate
      */
-    'openTime24hrAtUtcMillis': number;
+    'openTime24hrAtMillis': number;
     /**
      * First trade ID in the last 24 hours.
      * @type {number}
@@ -3366,7 +3347,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'lastUpdatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 /**
  * 
@@ -3620,6 +3601,31 @@ export interface TradingFees {
      * Are the fees applied on the account?
      * @type {boolean}
      * @memberof TradingFees
+     */
+    'isApplied': boolean;
+}
+/**
+ * Details about the fee tier.
+ * @export
+ * @interface TradingFees1
+ */
+export interface TradingFees1 {
+    /**
+     * The maker fee.
+     * @type {string}
+     * @memberof TradingFees1
+     */
+    'makerFeeE9': string;
+    /**
+     * The taker fee.
+     * @type {string}
+     * @memberof TradingFees1
+     */
+    'takerFeeE9': string;
+    /**
+     * Indicates if the fee tier is applied.
+     * @type {boolean}
+     * @memberof TradingFees1
      */
     'isApplied': boolean;
 }

@@ -294,7 +294,7 @@ components:
         accountAddress:
           type: string
           description: "The address of the account."
-        createdAtUtcMillis:
+        createdAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the order creation in milliseconds."
@@ -309,7 +309,7 @@ components:
         - orderHash
         - symbol
         - accountAddress
-        - createdAtUtcMillis
+        - createdAtMillis
         - cancellationReason
         - remainingQuantityE9
 
@@ -349,11 +349,11 @@ components:
         salt:
           type: string
           description: "A unique salt for the order."
-        expiresAtUtcMillis:
+        expiresAtMillis:
           type: integer
           format: int64
           description: "The expiration timestamp of the order in milliseconds."
-        signedAtUtcMillis:
+        signedAtMillis:
           type: integer
           format: int64
           description: "The signing timestamp of the order in milliseconds."
@@ -374,11 +374,11 @@ components:
           $ref: '#/components/schemas/OrderStatus'
         selfTradePreventionType:
           $ref: '#/components/schemas/SelfTradePreventionType'
-        createdAtUtcMillis:
+        createdAtMillis:
           type: integer
           format: int64
           description: "The timestamp when the order was placed, in milliseconds."
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the last update of the order in milliseconds."
@@ -393,16 +393,16 @@ components:
         - leverageE9
         - isIsolated
         - salt
-        - expiresAtUtcMillis
-        - signedAtUtcMillis
+        - expiresAtMillis
+        - signedAtMillis
         - type
         - reduceOnly
         - postOnly
         - timeInForce
         - status
         - selfTradePreventionType
-        - createdAtUtcMillis
-        - updatedAtUtcMillis
+        - createdAtMillis
+        - updatedAtMillis
 
     OrderType:
       type: string
@@ -476,9 +476,14 @@ components:
         tradeId:
           type: string
           description: "The trade ID associated with the transaction."
+        executedAtMillis:
+          type: integer
+          format: int64
+          description: "The timestamp when the transaction was executed in milliseconds."
       required:
         - transactionType
         - amountE9
+        - executedAtMillis
 
     AccountPositionUpdate:
       type: object
@@ -525,7 +530,7 @@ components:
         isolatedMarginE9:
           type: string
           description: "The isolated margin applied to the position."
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The last update time for the position in milliseconds."
@@ -544,14 +549,14 @@ components:
         - maintenanceMarginE9
         - isIsolated
         - isolatedMarginE9
-        - updatedAtUtcMillis
+        - updatedAtMillis
 
     AccountUpdate:
       type: object
       description: "Account information for the data stream."
       properties:
-        feeTier:
-          $ref: '#/components/schemas/FeeTier'
+        tradingFees:
+          $ref: '#/components/schemas/TradingFees'
         canTrade:
           type: boolean
           description: "Indicates if trading is enabled."
@@ -591,7 +596,7 @@ components:
         totalCrossUnrealizedPnlE9:
           type: string
           description: "The total cross unrealized profit and loss."
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the last update in milliseconds."
@@ -614,10 +619,10 @@ components:
         - accountLeverageE9
         - totalUnrealizedPnlE9
         - totalCrossUnrealizedPnlE9
-        - updatedAtUtcMillis
+        - updatedAtMillis
         - assets
 
-    FeeTier:
+    TradingFees:
       type: object
       description: "Details about the fee tier."
       properties:
@@ -651,7 +656,7 @@ components:
         maxWithdrawQuantityE9:
           type: string
           description: "The maximum quantity that can be withdrawn."
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the last update in milliseconds."
@@ -660,7 +665,7 @@ components:
         - quantityE9
         - effectiveBalanceE9
         - maxWithdrawQuantityE9
-        - updatedAtUtcMillis
+        - updatedAtMillis
 
     AccountTradeUpdate:
       type: object
@@ -705,7 +710,7 @@ components:
         tradingFeeAssetSymbol:
           type: string
           description: "The market symbol of the asset used for the trading fee."
-        executedAtUtcMillis:
+        executedAtMillis:
           type: integer
           format: int64
           description: "The timestamp when the trade was executed in milliseconds."
@@ -723,7 +728,7 @@ components:
         - positionSide
         - tradingFeeE9
         - tradingFeeAssetSymbol
-        - executedAtUtcMillis
+        - executedAtMillis
 
     TradeType:
       type: string
@@ -808,7 +813,7 @@ components:
           type: string
           description: "Last trade quantity (e9 format)."
           example: "10000000000"
-        lastTimeAtUtcMillis:
+        lastTimeAtMillis:
           type: integer
           format: int64
           description: "Last trade time in milliseconds."
@@ -821,7 +826,7 @@ components:
           type: string
           description: "Funding rate value (e9 format)."
           example: "10000000"
-        nextFundingTimeAtUtcMillis:
+        nextFundingTimeAtMillis:
           type: integer
           format: int64
           description: "Time in milliseconds of next funding rate update."
@@ -895,12 +900,12 @@ components:
           type: string
           description: "Open price in the last 24 hours (e9 format)."
           example: "5000000000000"
-        closeTime24hrAtUtcMillis:
+        closeTime24hrAtMillis:
           type: integer
           format: int64
           description: "24 hour close timestamp in milliseconds."
           example: 1724121094751
-        openTime24hrAtUtcMillis:
+        openTime24hrAtMillis:
           type: integer
           format: int64
           description: "24 hour open timetamp in milliseconds."
@@ -925,7 +930,7 @@ components:
           type: string
           description: "24 hour Market price change as a percentage (e9 format)."
           example: "5000000000"
-        lastUpdatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "Last update timestamp in milliseconds."
@@ -933,10 +938,10 @@ components:
       required:
         - symbol
         - lastQuantityE9
-        - lastTimeAtUtcMillis
+        - lastTimeAtMillis
         - lastPriceE9
         - lastFundingRateE9
-        - nextFundingTimeAtUtcMillis
+        - nextFundingTimeAtMillis
         - avgFundingRate8hrE9
         - oraclePriceE9
         - oraclePriceDirection
@@ -955,14 +960,14 @@ components:
         - quoteVolume24hrE9
         - closePrice24hrE9
         - openPrice24hrE9
-        - closeTime24hrAtUtcMillis
-        - openTime24hrAtUtcMillis
+        - closeTime24hrAtMillis
+        - openTime24hrAtMillis
         - firstId24hr
         - lastId24hr
         - count24hr
         - priceChange24hrE9
         - priceChangePercent24hrE9
-        - lastUpdatedAtUtcMillis
+        - updatedAtMillis
 
     CandlestickUpdate:
       type: object
@@ -1029,7 +1034,7 @@ components:
         source:
           type: string
           enum: [ Oracle ]
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the price update."
@@ -1037,7 +1042,7 @@ components:
         - symbol
         - priceE9
         - source
-        - updatedAtUtcMillis
+        - updatedAtMillis
     MarketPriceUpdate:
       type: object
       properties:
@@ -1050,7 +1055,7 @@ components:
         source:
           type: string
           enum: [ Market ]
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the price update."
@@ -1058,7 +1063,7 @@ components:
         - symbol
         - priceE9
         - source
-        - updatedAtUtcMillis
+        - updatedAtMillis
     MarkPriceUpdate:
       type: object
       properties:
@@ -1071,7 +1076,7 @@ components:
         source:
           type: string
           enum: [ Mark ]
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the price update."
@@ -1079,7 +1084,7 @@ components:
         - symbol
         - priceE9
         - source
-        - updatedAtUtcMillis
+        - updatedAtMillis
 
     RecentTradesUpdates:
       type: object
@@ -1112,7 +1117,7 @@ components:
           description: "The quote quantity traded in scientific notation with 9 decimal places of precision."
         side:
           $ref: '#/components/schemas/Side'
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the trade."
@@ -1123,12 +1128,12 @@ components:
         - quantityE9
         - quoteQuantityE9
         - side
-        - updatedAtUtcMillis
+        - updatedAtMillis
 
     OrderbookDiffDepthUpdate:
       type: object
       properties:
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the orderbook update."
@@ -1160,7 +1165,7 @@ components:
           format: int64
           description: "The ID of the last update in this batch."
       required:
-        - updatedAtUtcMillis
+        - updatedAtMillis
         - symbol
         - bidsE9
         - asksE9
@@ -1170,7 +1175,7 @@ components:
     OrderbookPartialDepthUpdate:
       type: object
       properties:
-        updatedAtUtcMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: "The timestamp of the partial depth update."
@@ -1202,7 +1207,7 @@ components:
           description: "The depth level of the orderbook snapshot."
           enum: [ 5, 10, 20 ]
       required:
-        - updatedAtUtcMillis
+        - updatedAtMillis
         - symbol
         - bidsE9
         - asksE9

@@ -42,8 +42,8 @@ class AccountTradeUpdate(BaseModel):
     position_side: Side = Field(alias="positionSide")
     trading_fee_e9: StrictStr = Field(description="The trading fee for the trade.", alias="tradingFeeE9")
     trading_fee_asset_symbol: StrictStr = Field(description="The market symbol of the asset used for the trading fee.", alias="tradingFeeAssetSymbol")
-    executed_at_utc_millis: StrictInt = Field(description="The timestamp when the trade was executed in milliseconds.", alias="executedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "type", "orderSide", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAssetSymbol", "executedAtUtcMillis"]
+    executed_at_millis: StrictInt = Field(description="The timestamp when the trade was executed in milliseconds.", alias="executedAtMillis")
+    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "type", "orderSide", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAssetSymbol", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,7 +110,7 @@ class AccountTradeUpdate(BaseModel):
             "positionSide": obj.get("positionSide"),
             "tradingFeeE9": obj.get("tradingFeeE9"),
             "tradingFeeAssetSymbol": obj.get("tradingFeeAssetSymbol"),
-            "executedAtUtcMillis": obj.get("executedAtUtcMillis")
+            "executedAtMillis": obj.get("executedAtMillis")
         })
         return _obj
 

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **amount_e9** | **str** | The amount of the transaction in scientific notation with 9 decimal places. | 
 **asset_symbol** | **str** | The symbol of the asset. | [optional] 
 **trade_id** | **str** | The trade ID associated with the transaction. | [optional] 
+**executed_at_millis** | **int** | The timestamp when the transaction was executed in milliseconds. | 
 
 ## Example
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **quantity_e9** | **str** | The quantity of the asset. | 
 **effective_balance_e9** | **str** | The effective balance of the asset. | 
 **max_withdraw_quantity_e9** | **str** | The maximum quantity that can be withdrawn. | 
-**updated_at_utc_millis** | **int** | The timestamp of the last update in milliseconds. | 
+**updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
 
 ## Example
 
