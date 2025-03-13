@@ -1497,7 +1497,7 @@ export interface LoginRequest {
      * @type {number}
      * @memberof LoginRequest
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * The intended audience of the login request.
      * @type {string}

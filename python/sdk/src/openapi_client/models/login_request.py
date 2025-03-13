@@ -27,9 +27,9 @@ class LoginRequest(BaseModel):
     User is expected to sign this payload and sends is signature in login api as header and payload itself in request body 
     """ # noqa: E501
     account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
-    signed_at_utc_millis: StrictInt = Field(description="The timestamp in millis when the login was signed.", alias="signedAtUtcMillis")
+    signed_at_millis: StrictInt = Field(description="The timestamp in millis when the login was signed.", alias="signedAtMillis")
     audience: StrictStr = Field(description="The intended audience of the login request.")
-    __properties: ClassVar[List[str]] = ["accountAddress", "signedAtUtcMillis", "audience"]
+    __properties: ClassVar[List[str]] = ["accountAddress", "signedAtMillis", "audience"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class LoginRequest(BaseModel):
 
         _obj = cls.model_validate({
             "accountAddress": obj.get("accountAddress"),
-            "signedAtUtcMillis": obj.get("signedAtUtcMillis"),
+            "signedAtMillis": obj.get("signedAtMillis"),
             "audience": obj.get("audience")
         })
         return _obj
