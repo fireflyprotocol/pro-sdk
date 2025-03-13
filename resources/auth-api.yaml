@@ -35,7 +35,7 @@ components:
         accountAddress:
           type: string
           description: The address of the account.
-        signedAtUtcMillis:
+        signedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis when the login was signed.
@@ -44,7 +44,7 @@ components:
           description: The intended audience of the login request.
       required:
         - accountAddress
-        - signedAtUtcMillis
+        - signedAtMillis
         - audience
     LoginResponse:
       type: object
