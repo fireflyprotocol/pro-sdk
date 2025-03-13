@@ -31,17 +31,14 @@ pub struct Position {
     /// Notional value (e9 format).
     #[serde(rename = "notionalValueE9")]
     pub notional_value_e9: String,
-    /// Max notional value at current leverage (e9 format).
-    #[serde(rename = "maxNotionalValueE9")]
-    pub max_notional_value_e9: String,
     /// Position size (e9 format).
-    #[serde(rename = "positionSizeE9")]
-    pub position_size_e9: String,
+    #[serde(rename = "sizeE9")]
+    pub size_e9: String,
     /// Unrealized profit (e9 format).
     #[serde(rename = "unrealizedPnlE9")]
     pub unrealized_pnl_e9: String,
-    #[serde(rename = "positionSide")]
-    pub position_side: models::PositionSideEnum,
+    #[serde(rename = "side")]
+    pub side: models::PositionSideEnum,
     /// Initial margin required with current mark price (e9 format).
     #[serde(rename = "initialMarginE9")]
     pub initial_margin_e9: String,
@@ -60,7 +57,7 @@ pub struct Position {
 }
 
 impl Position {
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, max_notional_value_e9: String, position_size_e9: String, unrealized_pnl_e9: String, position_side: models::PositionSideEnum, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, last_updated_at_millis: i64) -> Position {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSideEnum, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, last_updated_at_millis: i64) -> Position {
         Position {
             symbol,
             avg_entry_price_e9,
@@ -68,10 +65,9 @@ impl Position {
             liquidation_price_e9,
             mark_price_e9,
             notional_value_e9,
-            max_notional_value_e9,
-            position_size_e9,
+            size_e9,
             unrealized_pnl_e9,
-            position_side,
+            side,
             initial_margin_e9,
             maintenance_margin_e9,
             is_isolated,

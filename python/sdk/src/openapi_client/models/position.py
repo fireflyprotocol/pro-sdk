@@ -33,16 +33,15 @@ class Position(BaseModel):
     liquidation_price_e9: StrictStr = Field(description="Liquidation price (e9 format).", alias="liquidationPriceE9")
     mark_price_e9: StrictStr = Field(description="Mark price (e9 format).", alias="markPriceE9")
     notional_value_e9: StrictStr = Field(description="Notional value (e9 format).", alias="notionalValueE9")
-    max_notional_value_e9: StrictStr = Field(description="Max notional value at current leverage (e9 format).", alias="maxNotionalValueE9")
-    position_size_e9: StrictStr = Field(description="Position size (e9 format).", alias="positionSizeE9")
+    size_e9: StrictStr = Field(description="Position size (e9 format).", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit (e9 format).", alias="unrealizedPnlE9")
-    position_side: PositionSideEnum = Field(alias="positionSide")
+    side: PositionSideEnum
     initial_margin_e9: StrictStr = Field(description="Initial margin required with current mark price (e9 format).", alias="initialMarginE9")
     maintenance_margin_e9: StrictStr = Field(description="Maintenance margin required with current mark price (e9 format).", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="If the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="Margin value present if margin type is isolated (e9 format).", alias="isolatedMarginE9")
     last_updated_at_millis: StrictInt = Field(description="Last update time.", alias="lastUpdatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "positionSizeE9", "unrealizedPnlE9", "positionSide", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "lastUpdatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "lastUpdatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,10 +100,9 @@ class Position(BaseModel):
             "liquidationPriceE9": obj.get("liquidationPriceE9"),
             "markPriceE9": obj.get("markPriceE9"),
             "notionalValueE9": obj.get("notionalValueE9"),
-            "maxNotionalValueE9": obj.get("maxNotionalValueE9"),
-            "positionSizeE9": obj.get("positionSizeE9"),
+            "sizeE9": obj.get("sizeE9"),
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
-            "positionSide": obj.get("positionSide"),
+            "side": obj.get("side"),
             "initialMarginE9": obj.get("initialMarginE9"),
             "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),

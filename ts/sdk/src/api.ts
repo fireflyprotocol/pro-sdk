@@ -2654,17 +2654,11 @@ export interface Position {
      */
     'notionalValueE9': string;
     /**
-     * Max notional value at current leverage (e9 format).
-     * @type {string}
-     * @memberof Position
-     */
-    'maxNotionalValueE9': string;
-    /**
      * Position size (e9 format).
      * @type {string}
      * @memberof Position
      */
-    'positionSizeE9': string;
+    'sizeE9': string;
     /**
      * Unrealized profit (e9 format).
      * @type {string}
@@ -2676,7 +2670,7 @@ export interface Position {
      * @type {PositionSideEnum}
      * @memberof Position
      */
-    'positionSide': PositionSideEnum;
+    'side': PositionSideEnum;
     /**
      * Initial margin required with current mark price (e9 format).
      * @type {string}

@@ -245,12 +245,11 @@ components:
         - leverageE9
         - markPriceE9
         - notionalValueE9
-        - positionSizeE9
+        - sizeE9
         - unrealizedPnlE9
-        - positionSide
+        - side
         - isIsolated
         - liquidationPriceE9
-        - maxNotionalValueE9
         - lastUpdatedAtMillis
         - initialMarginE9
         - maintenanceMarginE9
@@ -279,11 +278,7 @@ components:
           type: string
           description: Notional value (e9 format).
           example: "0"
-        maxNotionalValueE9:
-          type: string
-          description: Max notional value at current leverage (e9 format).
-          example: "20000000000000" # 20,000,000 USD
-        positionSizeE9:
+        sizeE9:
           type: string
           description: Position size (e9 format).
           example: "100000000" # 100 units
@@ -291,7 +286,7 @@ components:
           type: string
           description: Unrealized profit (e9 format).
           example: "-1000000000" # -1,000 USD
-        positionSide:
+        side:
           $ref: "#/components/schemas/PositionSideEnum"
         initialMarginE9:
           type: string
