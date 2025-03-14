@@ -40,6 +40,7 @@ class KlineInterval(str, Enum):
     ENUM_1D = '1d'
     ENUM_1W = '1w'
     ENUM_1MO = '1Mo'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -1060,7 +1060,8 @@ export interface CancelOrdersRequest {
 export const CandlePriceType = {
     Last: 'Last',
     Market: 'Market',
-    Oracle: 'Oracle'
+    Oracle: 'Oracle',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type CandlePriceType = typeof CandlePriceType[keyof typeof CandlePriceType];
@@ -1478,7 +1479,8 @@ export const KlineInterval = {
     _12h: '12h',
     _1d: '1d',
     _1w: '1w',
-    _1Mo: '1Mo'
+    _1Mo: '1Mo',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type KlineInterval = typeof KlineInterval[keyof typeof KlineInterval];
@@ -1939,7 +1941,8 @@ export const MarketStatus = {
     Active: 'ACTIVE',
     Beta: 'BETA',
     Maintenance: 'MAINTENANCE',
-    Delisted: 'DELISTED'
+    Delisted: 'DELISTED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type MarketStatus = typeof MarketStatus[keyof typeof MarketStatus];
@@ -3548,7 +3551,8 @@ export interface Trade1 {
 
 export const TradeSide = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeSide = typeof TradeSide[keyof typeof TradeSide];
@@ -5131,7 +5135,8 @@ export class ExchangeApi extends BaseAPI {
 export const GetRecentTradesTradeTypeEnum = {
     Order: 'Order',
     Liquidation: 'Liquidation',
-    Deleverage: 'Deleverage'
+    Deleverage: 'Deleverage',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 export type GetRecentTradesTradeTypeEnum = typeof GetRecentTradesTradeTypeEnum[keyof typeof GetRecentTradesTradeTypeEnum];
 

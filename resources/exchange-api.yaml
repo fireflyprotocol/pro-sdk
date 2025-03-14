@@ -385,11 +385,13 @@ components:
         - BETA
         - MAINTENANCE
         - DELISTED
+        - UNSPECIFIED
     TradeSide:
       type: string
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
     KlineInterval:
       type: string
       enum:
@@ -407,12 +409,14 @@ components:
         - "1d"
         - "1w"
         - "1Mo"
+        - "UNSPECIFIED"
     CandlePriceType:
       type: string
       enum:
         - "Last"
         - "Market"
         - "Oracle"
+        - "UNSPECIFIED"
     Trade:
       type: object
       properties:
@@ -798,6 +802,7 @@ paths:
               - Order
               - Liquidation
               - Deleverage
+              - UNSPECIFIED
             default: Order
           description: Type of trade. # We only show order trades on our recent trades UI
         - name: limit

@@ -30,6 +30,7 @@ class MarketStatus(str, Enum):
     BETA = 'BETA'
     MAINTENANCE = 'MAINTENANCE'
     DELISTED = 'DELISTED'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
