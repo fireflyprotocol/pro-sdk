@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// OrderTimeInForce : Specify order execution, and by default, all orders are GTT.
-/// Specify order execution, and by default, all orders are GTT.
+/// OrderTimeInForce : Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
+/// Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OrderTimeInForce {
     #[serde(rename = "GTT")]
@@ -21,6 +21,8 @@ pub enum OrderTimeInForce {
     Ioc,
     #[serde(rename = "FOK")]
     Fok,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -30,6 +32,7 @@ impl std::fmt::Display for OrderTimeInForce {
             Self::Gtt => write!(f, "GTT"),
             Self::Ioc => write!(f, "IOC"),
             Self::Fok => write!(f, "FOK"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

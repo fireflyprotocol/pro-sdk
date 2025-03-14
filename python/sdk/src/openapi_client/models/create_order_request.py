@@ -103,7 +103,7 @@ class CreateOrderRequest(BaseModel):
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly"),
             "postOnly": obj.get("postOnly"),
-            "timeInForce": obj.get("timeInForce"),
+            "timeInForce": obj.get("timeInForce") if obj.get("timeInForce") is not None else OrderTimeInForce.GTT,
             "triggerPriceE9": obj.get("triggerPriceE9"),
             "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER
         })

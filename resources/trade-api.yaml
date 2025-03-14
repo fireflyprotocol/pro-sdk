@@ -22,10 +22,11 @@ components:
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
       description: Side of the order
     OrderStatus:
       type: string
-      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED ]
+      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED, UNSPECIFIED ]
       description: |
         The statuses of the Orders
         
@@ -40,9 +41,11 @@ components:
         CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book
         
         REJECTED: The Order has been rejected and has not been put on the order book.
+        
+        UNSPECIFIED: The Order status is unspecified
     SelfTradePreventionType:
       type: string
-      enum: [ TAKER, MAKER, BOTH ]
+      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
       default: "MAKER"
       description: |
         The strategy used to resolve self trades. 
@@ -52,14 +55,17 @@ components:
         MAKER: On a self trade, the maker order will be cancelled
         
         BOTH: On a self trade, both the taker and the maker order will be cancelled
+        
+        UNSPECIFIED: set to default value
     OrderType:
       type: string
-      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET ]
+      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET, UNSPECIFIED ]
       description: The type of the order
     OrderTimeInForce:
       type: string
-      enum: [ GTT, IOC, FOK ]
-      description: Specify order execution, and by default, all orders are GTT.
+      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
+      default: "GTT"
+      description: Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
 
     AccountAuthorizationRequest:
       type: object

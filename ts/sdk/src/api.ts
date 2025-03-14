@@ -2339,14 +2339,15 @@ export interface OrderCancellationUpdate {
 
 export const OrderSide = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderSide = typeof OrderSide[keyof typeof OrderSide];
 
 
 /**
- * The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book. 
+ * The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book.  UNSPECIFIED: The Order status is unspecified 
  * @export
  * @enum {string}
  */
@@ -2357,7 +2358,8 @@ export const OrderStatus = {
     Filled: 'FILLED',
     PartiallyFilled: 'PARTIALLY_FILLED',
     Cancelled: 'CANCELLED',
-    Rejected: 'REJECTED'
+    Rejected: 'REJECTED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
@@ -2384,7 +2386,7 @@ export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
 
 
 /**
- * Specify order execution, and by default, all orders are GTT.
+ * Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
  * @export
  * @enum {string}
  */
@@ -2392,7 +2394,8 @@ export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
 export const OrderTimeInForce = {
     Gtt: 'GTT',
     Ioc: 'IOC',
-    Fok: 'FOK'
+    Fok: 'FOK',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInForce];
@@ -2424,7 +2427,8 @@ export const OrderType = {
     Limit: 'LIMIT',
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
-    StopMarket: 'STOP_MARKET'
+    StopMarket: 'STOP_MARKET',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderType = typeof OrderType[keyof typeof OrderType];
@@ -2854,7 +2858,7 @@ export interface RefreshTokenResponse {
     'refreshTokenValidForSeconds': number;
 }
 /**
- * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled 
+ * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
  * @export
  * @enum {string}
  */
@@ -2862,7 +2866,8 @@ export interface RefreshTokenResponse {
 export const SelfTradePreventionType = {
     Taker: 'TAKER',
     Maker: 'MAKER',
-    Both: 'BOTH'
+    Both: 'BOTH',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeof SelfTradePreventionType];

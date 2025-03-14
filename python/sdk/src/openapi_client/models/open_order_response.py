@@ -121,7 +121,7 @@ class OpenOrderResponse(BaseModel):
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly") if obj.get("reduceOnly") is not None else False,
             "postOnly": obj.get("postOnly") if obj.get("postOnly") is not None else False,
-            "timeInForce": obj.get("timeInForce"),
+            "timeInForce": obj.get("timeInForce") if obj.get("timeInForce") is not None else OrderTimeInForce.GTT,
             "triggerPriceE9": obj.get("triggerPriceE9"),
             "filledQuantityE9": obj.get("filledQuantityE9"),
             "status": obj.get("status"),

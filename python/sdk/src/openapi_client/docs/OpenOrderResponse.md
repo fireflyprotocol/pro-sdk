@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **type** | [**OrderType**](OrderType.md) |  | 
 **reduce_only** | **bool** | Is this order to only reduce a position? Default false | [default to False]
 **post_only** | **bool** | If set to TRUE, the order can only be a maker order | [default to False]
-**time_in_force** | [**OrderTimeInForce**](OrderTimeInForce.md) |  | 
+**time_in_force** | [**OrderTimeInForce**](OrderTimeInForce.md) |  | [default to OrderTimeInForce.GTT]
 **trigger_price_e9** | **str** | Trigger price in base e9 for stop orders. This should always be a number | [optional] 
 **filled_quantity_e9** | **str** | The quantity in base e9 of the asset currently filled. This should always be a number | 
 **status** | [**OrderStatus**](OrderStatus.md) |  | 

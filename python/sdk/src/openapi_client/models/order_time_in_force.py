@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class OrderTimeInForce(str, Enum):
     """
-    Specify order execution, and by default, all orders are GTT.
+    Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
     """
 
     """
@@ -29,6 +29,7 @@ class OrderTimeInForce(str, Enum):
     GTT = 'GTT'
     IOC = 'IOC'
     FOK = 'FOK'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
