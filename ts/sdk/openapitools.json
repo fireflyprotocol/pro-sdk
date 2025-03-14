@@ -1,26 +1,19 @@
 {
-    "generator-cli": {
-        "version": "6.6.0",
-        "generators": {
-            "typescript-axios": {
-                "generatorName": "typescript-axios",
-                "additionalProperties": {
-                    "hideGenerationTimestamp": true,
-                    "avoidBoxedModels": true,
-                    "packageName": "bluefin-pro-api-client",
-                    "preferInterface": false,
-                    "typescriptThreePlus": true,
-                    "npmName": "@bluefin/api-client",
-                    "npmVersion": "1.0.0",
-                    "nullSafeAdditionalProps": true,
-                    "enumNameSuffix": "Enum",
-                    "modelPropertyNaming": "camelCase",
-                    "paramNaming": "camelCase",
-                    "sortParamsByRequiredFlag": true,
-                    "enablePostProcessFile": false,
-                    "generateAliasAsModel": true
-                }
-            }
-        }
-    }
+  "generatorName": "typescript-axios",
+  "additionalProperties": {
+    "hideGenerationTimestamp": true,
+    "avoidBoxedModels": true,
+    "packageName": "bluefin-pro-api-client",
+    "preferInterface": false,
+    "typescriptThreePlus": true,
+    "npmName": "@bluefin/api-client",
+    "npmVersion": "1.0.0",
+    "nullSafeAdditionalProps": true,
+    "enumNameSuffix": "Enum",
+    "modelPropertyNaming": "camelCase",
+    "paramNaming": "camelCase",
+    "sortParamsByRequiredFlag": true,
+    "enablePostProcessFile": false,
+    "generateAliasAsModel": true
+  }
 }
