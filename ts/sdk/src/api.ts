@@ -1140,6 +1140,13 @@ export interface CandlestickUpdate {
     'numTrades': number;
 }
 /**
+ * list of candles sticks each item is a list of values ordered like the following. [   [     1499040000000,      // Open time in ms     \"163479000\",       // Open price in e9     \"800000000\",       // High price in e9     \"15758000\",       // Low price in e9     \"15771000\",       // Close price in e9     \"148976114278150\",  // Volume in e9     1499644799999,      // Close time in ms     \"2434190553340\",    // Quote asset volume in e9     308                 // Number of trades   ] ] 
+ * @export
+ * @interface CandlesticksResponse
+ */
+export interface CandlesticksResponse extends Array<Array> {
+}
+/**
  * Contract configuration for the exchange.
  * @export
  * @interface ContractsConfig
@@ -1434,6 +1441,22 @@ export interface FundingRateEntry {
      * @memberof FundingRateEntry
      */
     'fundingRateE9': string;
+}
+/**
+ * 
+ * @export
+ * @interface FundingRateResponse
+ */
+export interface FundingRateResponse extends Array<FundingRateEntry> {
+}
+/**
+ * 
+ * @export
+ * @interface JwksResponse
+ */
+export interface JwksResponse {
+    [key: string]: any;
+
 }
 /**
  * 
@@ -3581,6 +3604,13 @@ export type TradeTypeEnum = typeof TradeTypeEnum[keyof typeof TradeTypeEnum];
 /**
  * 
  * @export
+ * @interface TradesResponse
+ */
+export interface TradesResponse extends Array<Trade1> {
+}
+/**
+ * 
+ * @export
  * @interface TradingFees
  */
 export interface TradingFees {
@@ -4355,7 +4385,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JwksResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authJwksGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authJwksGet']?.[localVarOperationServerIndex]?.url;
@@ -4414,7 +4444,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<JwksResponse> {
             return localVarFp.authJwksGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -4832,7 +4862,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<string>>>> {
+        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CandlesticksResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getCandlestickData']?.[localVarOperationServerIndex]?.url;
@@ -4861,7 +4891,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FundingRateEntry>>> {
+        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FundingRateResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getFundingRateHistory']?.[localVarOperationServerIndex]?.url;
@@ -4906,7 +4936,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
+        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getRecentTrades']?.[localVarOperationServerIndex]?.url;
@@ -4935,7 +4965,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Array<string>>> {
+        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<CandlesticksResponse> {
             return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4958,7 +4988,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
+        getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<FundingRateResponse> {
             return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4994,7 +5024,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
+        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<TradesResponse> {
             return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
     };
