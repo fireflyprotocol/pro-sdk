@@ -33,8 +33,8 @@ class Trade1(BaseModel):
     quantity_e9: StrictStr = Field(description="Trade quantity (e9 format).", alias="quantityE9")
     quote_quantity_e9: StrictStr = Field(description="Trade quote quantity (e9 format).", alias="quoteQuantityE9")
     side: TradeSide
-    time_at_utc_millis: StrictInt = Field(description="Trade timestamp.", alias="timeAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["id", "symbol", "priceE9", "quantityE9", "quoteQuantityE9", "side", "timeAtUtcMillis"]
+    time_at_millis: StrictInt = Field(description="Trade timestamp.", alias="timeAtMillis")
+    __properties: ClassVar[List[str]] = ["id", "symbol", "priceE9", "quantityE9", "quoteQuantityE9", "side", "timeAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +93,7 @@ class Trade1(BaseModel):
             "quantityE9": obj.get("quantityE9"),
             "quoteQuantityE9": obj.get("quoteQuantityE9"),
             "side": obj.get("side"),
-            "timeAtUtcMillis": obj.get("timeAtUtcMillis")
+            "timeAtMillis": obj.get("timeAtMillis")
         })
         return _obj
 

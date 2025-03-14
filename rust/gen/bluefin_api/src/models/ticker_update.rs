@@ -21,8 +21,8 @@ pub struct TickerUpdate {
     #[serde(rename = "lastQuantityE9")]
     pub last_quantity_e9: String,
     /// Last trade time in milliseconds.
-    #[serde(rename = "lastTimeAtUtcMillis")]
-    pub last_time_at_utc_millis: i64,
+    #[serde(rename = "lastTimeAtMillis")]
+    pub last_time_at_millis: i64,
     /// Last trade price (e9 format).
     #[serde(rename = "lastPriceE9")]
     pub last_price_e9: String,
@@ -30,8 +30,8 @@ pub struct TickerUpdate {
     #[serde(rename = "lastFundingRateE9")]
     pub last_funding_rate_e9: String,
     /// Time in milliseconds of next funding rate update.
-    #[serde(rename = "nextFundingTimeAtUtcMillis")]
-    pub next_funding_time_at_utc_millis: i64,
+    #[serde(rename = "nextFundingTimeAtMillis")]
+    pub next_funding_time_at_millis: i64,
     /// 8 hr average funding rate (e9 format).
     #[serde(rename = "avgFundingRate8hrE9")]
     pub avg_funding_rate8hr_e9: String,
@@ -87,11 +87,11 @@ pub struct TickerUpdate {
     #[serde(rename = "openPrice24hrE9")]
     pub open_price24hr_e9: String,
     /// 24 hour close timestamp in milliseconds.
-    #[serde(rename = "closeTime24hrAtUtcMillis")]
-    pub close_time24hr_at_utc_millis: i64,
+    #[serde(rename = "closeTime24hrAtMillis")]
+    pub close_time24hr_at_millis: i64,
     /// 24 hour open timetamp in milliseconds.
-    #[serde(rename = "openTime24hrAtUtcMillis")]
-    pub open_time24hr_at_utc_millis: i64,
+    #[serde(rename = "openTime24hrAtMillis")]
+    pub open_time24hr_at_millis: i64,
     /// First trade ID in the last 24 hours.
     #[serde(rename = "firstId24hr")]
     pub first_id24hr: i64,
@@ -108,20 +108,20 @@ pub struct TickerUpdate {
     #[serde(rename = "priceChangePercent24hrE9")]
     pub price_change_percent24hr_e9: String,
     /// Last update timestamp in milliseconds.
-    #[serde(rename = "lastUpdatedAtUtcMillis")]
-    pub last_updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl TickerUpdate {
     /// Represents detailed market ticker information.
-    pub fn new(symbol: String, last_quantity_e9: String, last_time_at_utc_millis: i64, last_price_e9: String, last_funding_rate_e9: String, next_funding_time_at_utc_millis: i64, avg_funding_rate8hr_e9: String, oracle_price_e9: String, oracle_price_direction: i32, mark_price_e9: String, mark_price_direction: i32, market_price_e9: String, market_price_direction: i32, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, open_interest_e9: String, high_price24hr_e9: String, low_price24hr_e9: String, volume24hr_e9: String, quote_volume24hr_e9: String, close_price24hr_e9: String, open_price24hr_e9: String, close_time24hr_at_utc_millis: i64, open_time24hr_at_utc_millis: i64, first_id24hr: i64, last_id24hr: i64, count24hr: String, price_change24hr_e9: String, price_change_percent24hr_e9: String, last_updated_at_utc_millis: i64) -> TickerUpdate {
+    pub fn new(symbol: String, last_quantity_e9: String, last_time_at_millis: i64, last_price_e9: String, last_funding_rate_e9: String, next_funding_time_at_millis: i64, avg_funding_rate8hr_e9: String, oracle_price_e9: String, oracle_price_direction: i32, mark_price_e9: String, mark_price_direction: i32, market_price_e9: String, market_price_direction: i32, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, open_interest_e9: String, high_price24hr_e9: String, low_price24hr_e9: String, volume24hr_e9: String, quote_volume24hr_e9: String, close_price24hr_e9: String, open_price24hr_e9: String, close_time24hr_at_millis: i64, open_time24hr_at_millis: i64, first_id24hr: i64, last_id24hr: i64, count24hr: String, price_change24hr_e9: String, price_change_percent24hr_e9: String, updated_at_millis: i64) -> TickerUpdate {
         TickerUpdate {
             symbol,
             last_quantity_e9,
-            last_time_at_utc_millis,
+            last_time_at_millis,
             last_price_e9,
             last_funding_rate_e9,
-            next_funding_time_at_utc_millis,
+            next_funding_time_at_millis,
             avg_funding_rate8hr_e9,
             oracle_price_e9,
             oracle_price_direction,
@@ -140,14 +140,14 @@ impl TickerUpdate {
             quote_volume24hr_e9,
             close_price24hr_e9,
             open_price24hr_e9,
-            close_time24hr_at_utc_millis,
-            open_time24hr_at_utc_millis,
+            close_time24hr_at_millis,
+            open_time24hr_at_millis,
             first_id24hr,
             last_id24hr,
             count24hr,
             price_change24hr_e9,
             price_change_percent24hr_e9,
-            last_updated_at_utc_millis,
+            updated_at_millis,
         }
     }
 }

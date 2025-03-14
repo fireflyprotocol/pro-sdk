@@ -28,17 +28,21 @@ pub struct AccountTransactionUpdate {
     /// The trade ID associated with the transaction.
     #[serde(rename = "tradeId", skip_serializing_if = "Option::is_none")]
     pub trade_id: Option<String>,
+    /// The timestamp when the transaction was executed in milliseconds.
+    #[serde(rename = "executedAtMillis")]
+    pub executed_at_millis: i64,
 }
 
 impl AccountTransactionUpdate {
     /// Details about a transaction in the account.
-    pub fn new(transaction_type: models::TransactionType, amount_e9: String) -> AccountTransactionUpdate {
+    pub fn new(transaction_type: models::TransactionType, amount_e9: String, executed_at_millis: i64) -> AccountTransactionUpdate {
         AccountTransactionUpdate {
             symbol: None,
             transaction_type,
             amount_e9,
             asset_symbol: None,
             trade_id: None,
+            executed_at_millis,
         }
     }
 }

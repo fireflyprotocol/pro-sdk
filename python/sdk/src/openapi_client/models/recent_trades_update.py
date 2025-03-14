@@ -33,8 +33,8 @@ class RecentTradesUpdate(BaseModel):
     quantity_e9: StrictStr = Field(description="The quantity traded in scientific notation with 9 decimal places of precision.", alias="quantityE9")
     quote_quantity_e9: StrictStr = Field(description="The quote quantity traded in scientific notation with 9 decimal places of precision.", alias="quoteQuantityE9")
     side: Side
-    updated_at_utc_millis: StrictInt = Field(description="The timestamp of the trade.", alias="updatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["id", "symbol", "priceE9", "quantityE9", "quoteQuantityE9", "side", "updatedAtUtcMillis"]
+    updated_at_millis: StrictInt = Field(description="The timestamp of the trade.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["id", "symbol", "priceE9", "quantityE9", "quoteQuantityE9", "side", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +93,7 @@ class RecentTradesUpdate(BaseModel):
             "quantityE9": obj.get("quantityE9"),
             "quoteQuantityE9": obj.get("quoteQuantityE9"),
             "side": obj.get("side"),
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

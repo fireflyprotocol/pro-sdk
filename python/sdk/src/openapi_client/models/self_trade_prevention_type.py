@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class SelfTradePreventionType(str, Enum):
     """
-    The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled 
+    The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
     """
 
     """
@@ -29,6 +29,7 @@ class SelfTradePreventionType(str, Enum):
     TAKER = 'TAKER'
     MAKER = 'MAKER'
     BOTH = 'BOTH'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

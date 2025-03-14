@@ -31,8 +31,8 @@ class WithdrawRequestSignedFields(BaseModel):
     amount_e9: StrictStr = Field(description="The amount in e9 of the asset that the User will withdraw from their account", alias="amountE9")
     salt: StrictStr = Field(description="A uniqueness modifier for the request. This is added to guarantee uniqueness of the request. Usually a mix of timestamp and a random number")
     eds_id: StrictStr = Field(description="the ID of the external datastore for the target network", alias="edsId")
-    signed_at_utc_millis: StrictInt = Field(description="The timestamp in milliseconds when the HTTP Request payload has been signed", alias="signedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["assetSymbol", "accountAddress", "amountE9", "salt", "edsId", "signedAtUtcMillis"]
+    signed_at_millis: StrictInt = Field(description="The timestamp in milliseconds when the HTTP Request payload has been signed", alias="signedAtMillis")
+    __properties: ClassVar[List[str]] = ["assetSymbol", "accountAddress", "amountE9", "salt", "edsId", "signedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +90,7 @@ class WithdrawRequestSignedFields(BaseModel):
             "amountE9": obj.get("amountE9"),
             "salt": obj.get("salt"),
             "edsId": obj.get("edsId"),
-            "signedAtUtcMillis": obj.get("signedAtUtcMillis")
+            "signedAtMillis": obj.get("signedAtMillis")
         })
         return _obj
 

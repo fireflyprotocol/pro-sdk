@@ -32,11 +32,11 @@ class OrderCancellationUpdate(BaseModel):
     client_order_id: Optional[StrictStr] = Field(default=None, description="The client-provided order ID.", alias="clientOrderId")
     symbol: StrictStr = Field(description="The symbol of the market.")
     account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
-    created_at_utc_millis: StrictInt = Field(description="The timestamp of the order creation in milliseconds.", alias="createdAtUtcMillis")
+    created_at_millis: StrictInt = Field(description="The timestamp of the order creation in milliseconds.", alias="createdAtMillis")
     cancellation_reason: OrderCancelReason = Field(alias="cancellationReason")
     failure_to_cancel_reason: Optional[OrderCancellationFailureReason] = Field(default=None, alias="failureToCancelReason")
     remaining_quantity_e9: StrictStr = Field(description="The remaining quantity of the order.", alias="remainingQuantityE9")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "createdAtUtcMillis", "cancellationReason", "failureToCancelReason", "remainingQuantityE9"]
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "createdAtMillis", "cancellationReason", "failureToCancelReason", "remainingQuantityE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +93,7 @@ class OrderCancellationUpdate(BaseModel):
             "clientOrderId": obj.get("clientOrderId"),
             "symbol": obj.get("symbol"),
             "accountAddress": obj.get("accountAddress"),
-            "createdAtUtcMillis": obj.get("createdAtUtcMillis"),
+            "createdAtMillis": obj.get("createdAtMillis"),
             "cancellationReason": obj.get("cancellationReason"),
             "failureToCancelReason": obj.get("failureToCancelReason"),
             "remainingQuantityE9": obj.get("remainingQuantityE9")

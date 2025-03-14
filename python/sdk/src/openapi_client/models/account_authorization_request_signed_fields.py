@@ -30,8 +30,8 @@ class AccountAuthorizationRequestSignedFields(BaseModel):
     authorized_account_address: StrictStr = Field(description="The address of the account that should be authorized/deauthorized", alias="authorizedAccountAddress")
     salt: StrictStr = Field(description="The random generated salt. Should always be a number")
     ids_id: StrictStr = Field(description="the ID of the internal datastore for the target network", alias="idsId")
-    signed_at_utc_millis: StrictInt = Field(description="The timestamp when the request was signed", alias="signedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["accountAddress", "authorizedAccountAddress", "salt", "idsId", "signedAtUtcMillis"]
+    signed_at_millis: StrictInt = Field(description="The timestamp when the request was signed", alias="signedAtMillis")
+    __properties: ClassVar[List[str]] = ["accountAddress", "authorizedAccountAddress", "salt", "idsId", "signedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +88,7 @@ class AccountAuthorizationRequestSignedFields(BaseModel):
             "authorizedAccountAddress": obj.get("authorizedAccountAddress"),
             "salt": obj.get("salt"),
             "idsId": obj.get("idsId"),
-            "signedAtUtcMillis": obj.get("signedAtUtcMillis")
+            "signedAtMillis": obj.get("signedAtMillis")
         })
         return _obj
 

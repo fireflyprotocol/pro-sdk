@@ -31,12 +31,12 @@ pub struct Trade1 {
     #[serde(rename = "side")]
     pub side: models::TradeSide,
     /// Trade timestamp.
-    #[serde(rename = "timeAtUtcMillis")]
-    pub time_at_utc_millis: i64,
+    #[serde(rename = "timeAtMillis")]
+    pub time_at_millis: i64,
 }
 
 impl Trade1 {
-    pub fn new(id: i64, symbol: String, price_e9: String, quantity_e9: String, quote_quantity_e9: String, side: models::TradeSide, time_at_utc_millis: i64) -> Trade1 {
+    pub fn new(id: i64, symbol: String, price_e9: String, quantity_e9: String, quote_quantity_e9: String, side: models::TradeSide, time_at_millis: i64) -> Trade1 {
         Trade1 {
             id,
             symbol,
@@ -44,7 +44,7 @@ impl Trade1 {
             quantity_e9,
             quote_quantity_e9,
             side,
-            time_at_utc_millis,
+            time_at_millis,
         }
     }
 }

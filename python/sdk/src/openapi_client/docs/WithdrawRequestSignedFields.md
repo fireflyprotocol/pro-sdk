@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **amount_e9** | **str** | The amount in e9 of the asset that the User will withdraw from their account | 
 **salt** | **str** | A uniqueness modifier for the request. This is added to guarantee uniqueness of the request. Usually a mix of timestamp and a random number | 
 **eds_id** | **str** | the ID of the external datastore for the target network | 
-**signed_at_utc_millis** | **int** | The timestamp in milliseconds when the HTTP Request payload has been signed | 
+**signed_at_millis** | **int** | The timestamp in milliseconds when the HTTP Request payload has been signed | 
 
 ## Example
 

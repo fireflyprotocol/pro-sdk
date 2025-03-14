@@ -23,6 +23,8 @@ pub enum OrderType {
     StopLimit,
     #[serde(rename = "STOP_MARKET")]
     StopMarket,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -33,6 +35,7 @@ impl std::fmt::Display for OrderType {
             Self::Market => write!(f, "MARKET"),
             Self::StopLimit => write!(f, "STOP_LIMIT"),
             Self::StopMarket => write!(f, "STOP_MARKET"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

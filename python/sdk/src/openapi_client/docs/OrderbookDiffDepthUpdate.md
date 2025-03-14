@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**updated_at_utc_millis** | **int** | The timestamp of the orderbook update. | 
+**updated_at_millis** | **int** | The timestamp of the orderbook update. | 
 **symbol** | **str** | The symbol of the market for the orderbook update. | 
 **bids_e9** | **List[List[str]]** |  | 
 **asks_e9** | **List[List[str]]** |  | 

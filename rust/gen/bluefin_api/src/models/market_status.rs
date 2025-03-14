@@ -22,6 +22,8 @@ pub enum MarketStatus {
     Maintenance,
     #[serde(rename = "DELISTED")]
     Delisted,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -32,6 +34,7 @@ impl std::fmt::Display for MarketStatus {
             Self::Beta => write!(f, "BETA"),
             Self::Maintenance => write!(f, "MAINTENANCE"),
             Self::Delisted => write!(f, "DELISTED"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

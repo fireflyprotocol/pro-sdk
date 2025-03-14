@@ -37,7 +37,6 @@ docs/Error1.md
 docs/Error2.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
-docs/FeeTier.md
 docs/FundingRateEntry.md
 docs/KlineInterval.md
 docs/LoginRequest.md
@@ -94,6 +93,7 @@ docs/TradeSideEnum.md
 docs/TradeType.md
 docs/TradeTypeEnum.md
 docs/TradingFees.md
+docs/TradingFees1.md
 docs/Transaction.md
 docs/TransactionType.md
 docs/TransactionTypeEnum.md
@@ -140,7 +140,6 @@ src/models/error.rs
 src/models/error_1.rs
 src/models/error_2.rs
 src/models/exchange_info_response.rs
-src/models/fee_tier.rs
 src/models/funding_rate_entry.rs
 src/models/kline_interval.rs
 src/models/login_request.rs
@@ -196,6 +195,7 @@ src/models/trade_side_enum.rs
 src/models/trade_type.rs
 src/models/trade_type_enum.rs
 src/models/trading_fees.rs
+src/models/trading_fees_1.rs
 src/models/transaction.rs
 src/models/transaction_type.rs
 src/models/transaction_type_enum.rs

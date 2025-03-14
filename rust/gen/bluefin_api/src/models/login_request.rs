@@ -18,8 +18,8 @@ pub struct LoginRequest {
     #[serde(rename = "accountAddress")]
     pub account_address: String,
     /// The timestamp in millis when the login was signed.
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
     /// The intended audience of the login request.
     #[serde(rename = "audience")]
     pub audience: String,
@@ -27,10 +27,10 @@ pub struct LoginRequest {
 
 impl LoginRequest {
     /// User is expected to sign this payload and sends is signature in login api as header and payload itself in request body 
-    pub fn new(account_address: String, signed_at_utc_millis: i64, audience: String) -> LoginRequest {
+    pub fn new(account_address: String, signed_at_millis: i64, audience: String) -> LoginRequest {
         LoginRequest {
             account_address,
-            signed_at_utc_millis,
+            signed_at_millis,
             audience,
         }
     }

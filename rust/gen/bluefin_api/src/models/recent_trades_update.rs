@@ -31,12 +31,12 @@ pub struct RecentTradesUpdate {
     #[serde(rename = "side")]
     pub side: models::Side,
     /// The timestamp of the trade.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl RecentTradesUpdate {
-    pub fn new(id: i64, symbol: String, price_e9: String, quantity_e9: String, quote_quantity_e9: String, side: models::Side, updated_at_utc_millis: i64) -> RecentTradesUpdate {
+    pub fn new(id: i64, symbol: String, price_e9: String, quantity_e9: String, quote_quantity_e9: String, side: models::Side, updated_at_millis: i64) -> RecentTradesUpdate {
         RecentTradesUpdate {
             id,
             symbol,
@@ -44,7 +44,7 @@ impl RecentTradesUpdate {
             quantity_e9,
             quote_quantity_e9,
             side,
-            updated_at_utc_millis,
+            updated_at_millis,
         }
     }
 }

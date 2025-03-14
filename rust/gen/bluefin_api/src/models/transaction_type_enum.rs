@@ -31,6 +31,8 @@ pub enum TransactionTypeEnum {
     TradingGasFee,
     #[serde(rename = "BONUS")]
     Bonus,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -45,6 +47,7 @@ impl std::fmt::Display for TransactionTypeEnum {
             Self::TradingFee => write!(f, "TRADING_FEE"),
             Self::TradingGasFee => write!(f, "TRADING_GAS_FEE"),
             Self::Bonus => write!(f, "BONUS"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

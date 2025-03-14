@@ -29,19 +29,19 @@ pub struct AccountPositionLeverageUpdateRequestSignedFields {
     #[serde(rename = "idsId")]
     pub ids_id: String,
     /// The timestamp in millis at which the request was signed
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
 }
 
 impl AccountPositionLeverageUpdateRequestSignedFields {
-    pub fn new(account_address: String, symbol: String, leverage_e9: String, salt: String, ids_id: String, signed_at_utc_millis: i64) -> AccountPositionLeverageUpdateRequestSignedFields {
+    pub fn new(account_address: String, symbol: String, leverage_e9: String, salt: String, ids_id: String, signed_at_millis: i64) -> AccountPositionLeverageUpdateRequestSignedFields {
         AccountPositionLeverageUpdateRequestSignedFields {
             account_address,
             symbol,
             leverage_e9,
             salt,
             ids_id,
-            signed_at_utc_millis,
+            signed_at_millis,
         }
     }
 }

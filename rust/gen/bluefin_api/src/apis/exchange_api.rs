@@ -59,13 +59,13 @@ pub enum GetRecentTradesError {
 }
 
 
-pub async fn get_candlestick_data(configuration: &configuration::Configuration, symbol: &str, interval: models::KlineInterval, r#type: models::CandlePriceType, start_time_at_utc_millis: Option<u64>, end_time_at_utc_millis: Option<u64>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<Vec<String>>, Error<GetCandlestickDataError>> {
+pub async fn get_candlestick_data(configuration: &configuration::Configuration, symbol: &str, interval: models::KlineInterval, r#type: models::CandlePriceType, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<Vec<String>>, Error<GetCandlestickDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_interval = interval;
     let p_type = r#type;
-    let p_start_time_at_utc_millis = start_time_at_utc_millis;
-    let p_end_time_at_utc_millis = end_time_at_utc_millis;
+    let p_start_time_at_millis = start_time_at_millis;
+    let p_end_time_at_millis = end_time_at_millis;
     let p_limit = limit;
     let p_page = page;
 
@@ -75,11 +75,11 @@ pub async fn get_candlestick_data(configuration: &configuration::Configuration, 
     req_builder = req_builder.query(&[("symbol", &p_symbol.to_string())]);
     req_builder = req_builder.query(&[("interval", &p_interval.to_string())]);
     req_builder = req_builder.query(&[("type", &p_type.to_string())]);
-    if let Some(ref param_value) = p_start_time_at_utc_millis {
-        req_builder = req_builder.query(&[("startTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_start_time_at_millis {
+        req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_end_time_at_utc_millis {
-        req_builder = req_builder.query(&[("endTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_end_time_at_millis {
+        req_builder = req_builder.query(&[("endTimeAtMillis", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
@@ -152,12 +152,12 @@ pub async fn get_exchange_info(configuration: &configuration::Configuration, ) -
 }
 
 /// Retrieve the funding rate history for a specific market address.
-pub async fn get_funding_rate_history(configuration: &configuration::Configuration, symbol: &str, limit: Option<u32>, start_time_at_utc_millis: Option<u64>, end_time_at_utc_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::FundingRateEntry>, Error<GetFundingRateHistoryError>> {
+pub async fn get_funding_rate_history(configuration: &configuration::Configuration, symbol: &str, limit: Option<u32>, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::FundingRateEntry>, Error<GetFundingRateHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_limit = limit;
-    let p_start_time_at_utc_millis = start_time_at_utc_millis;
-    let p_end_time_at_utc_millis = end_time_at_utc_millis;
+    let p_start_time_at_millis = start_time_at_millis;
+    let p_end_time_at_millis = end_time_at_millis;
     let p_page = page;
 
     let uri_str = format!("{}/v1/exchange/fundingRateHistory", configuration.base_path);
@@ -167,11 +167,11 @@ pub async fn get_funding_rate_history(configuration: &configuration::Configurati
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_start_time_at_utc_millis {
-        req_builder = req_builder.query(&[("startTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_start_time_at_millis {
+        req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_end_time_at_utc_millis {
-        req_builder = req_builder.query(&[("endTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_end_time_at_millis {
+        req_builder = req_builder.query(&[("endTimeAtMillis", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
@@ -283,13 +283,13 @@ pub async fn get_orderbook_depth(configuration: &configuration::Configuration, s
     }
 }
 
-pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_utc_millis: Option<i64>, end_time_at_utc_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade1>, Error<GetRecentTradesError>> {
+pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade1>, Error<GetRecentTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_trade_type = trade_type;
     let p_limit = limit;
-    let p_start_time_at_utc_millis = start_time_at_utc_millis;
-    let p_end_time_at_utc_millis = end_time_at_utc_millis;
+    let p_start_time_at_millis = start_time_at_millis;
+    let p_end_time_at_millis = end_time_at_millis;
     let p_page = page;
 
     let uri_str = format!("{}/v1/exchange/trades", configuration.base_path);
@@ -302,11 +302,11 @@ pub async fn get_recent_trades(configuration: &configuration::Configuration, sym
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_start_time_at_utc_millis {
-        req_builder = req_builder.query(&[("startTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_start_time_at_millis {
+        req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_end_time_at_utc_millis {
-        req_builder = req_builder.query(&[("endTimeAtUtcMillis", &param_value.to_string())]);
+    if let Some(ref param_value) = p_end_time_at_millis {
+        req_builder = req_builder.query(&[("endTimeAtMillis", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);

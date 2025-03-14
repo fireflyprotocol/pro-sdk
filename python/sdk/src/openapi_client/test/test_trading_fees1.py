@@ -14,10 +14,10 @@
 
 import unittest
 
-from openapi_client.models.fee_tier import FeeTier
+from openapi_client.models.trading_fees1 import TradingFees1
 
-class TestFeeTier(unittest.TestCase):
-    """FeeTier unit test stubs"""
+class TestTradingFees1(unittest.TestCase):
+    """TradingFees1 unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,30 +25,30 @@ class TestFeeTier(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> FeeTier:
-        """Test FeeTier
+    def make_instance(self, include_optional) -> TradingFees1:
+        """Test TradingFees1
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `FeeTier`
+        # uncomment below to create an instance of `TradingFees1`
         """
-        model = FeeTier()
+        model = TradingFees1()
         if include_optional:
-            return FeeTier(
+            return TradingFees1(
                 maker_fee_e9 = '',
                 taker_fee_e9 = '',
                 is_applied = True
             )
         else:
-            return FeeTier(
+            return TradingFees1(
                 maker_fee_e9 = '',
                 taker_fee_e9 = '',
                 is_applied = True,
         )
         """
 
-    def testFeeTier(self):
-        """Test FeeTier"""
+    def testTradingFees1(self):
+        """Test TradingFees1"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

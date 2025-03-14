@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **position_side** | [**Side**](Side.md) |  | 
 **trading_fee_e9** | **str** | The trading fee for the trade. | 
 **trading_fee_asset_symbol** | **str** | The market symbol of the asset used for the trading fee. | 
-**executed_at_utc_millis** | **int** | The timestamp when the trade was executed in milliseconds. | 
+**executed_at_millis** | **int** | The timestamp when the trade was executed in milliseconds. | 
 
 ## Example
 

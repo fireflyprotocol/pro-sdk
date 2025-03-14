@@ -19,6 +19,8 @@ pub enum TradeSideEnum {
     Long,
     #[serde(rename = "SHORT")]
     Short,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -27,6 +29,7 @@ impl std::fmt::Display for TradeSideEnum {
         match self {
             Self::Long => write!(f, "LONG"),
             Self::Short => write!(f, "SHORT"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

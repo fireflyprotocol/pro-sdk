@@ -27,9 +27,9 @@ class FundingRateEntry(BaseModel):
     FundingRateEntry
     """ # noqa: E501
     symbol: StrictStr = Field(description="The market symbol.")
-    funding_time_at_utc_millis: StrictInt = Field(description="Timestamp of the funding time in milliseconds.", alias="fundingTimeAtUtcMillis")
+    funding_time_at_millis: StrictInt = Field(description="Timestamp of the funding time in milliseconds.", alias="fundingTimeAtMillis")
     funding_rate_e9: StrictStr = Field(description="Funding rate for the market address.", alias="fundingRateE9")
-    __properties: ClassVar[List[str]] = ["symbol", "fundingTimeAtUtcMillis", "fundingRateE9"]
+    __properties: ClassVar[List[str]] = ["symbol", "fundingTimeAtMillis", "fundingRateE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class FundingRateEntry(BaseModel):
 
         _obj = cls.model_validate({
             "symbol": obj.get("symbol"),
-            "fundingTimeAtUtcMillis": obj.get("fundingTimeAtUtcMillis"),
+            "fundingTimeAtMillis": obj.get("fundingTimeAtMillis"),
             "fundingRateE9": obj.get("fundingRateE9")
         })
         return _obj

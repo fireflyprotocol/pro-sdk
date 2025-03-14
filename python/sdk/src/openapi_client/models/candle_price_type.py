@@ -29,6 +29,7 @@ class CandlePriceType(str, Enum):
     LAST = 'Last'
     MARKET = 'Market'
     ORACLE = 'Oracle'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

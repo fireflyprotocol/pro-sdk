@@ -51,8 +51,8 @@ class Trade(BaseModel):
     @field_validator('trading_fee_asset')
     def trading_fee_asset_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['USDC', 'BLUE']):
-            raise ValueError("must be one of enum values ('USDC', 'BLUE')")
+        if value not in set(['USDC', 'BLUE', 'UNSPECIFIED']):
+            raise ValueError("must be one of enum values ('USDC', 'BLUE', 'UNSPECIFIED')")
         return value
 
     model_config = ConfigDict(

@@ -11,9 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FeeTier : Details about the fee tier.
+/// TradingFees1 : Details about the fee tier.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct FeeTier {
+pub struct TradingFees1 {
     /// The maker fee.
     #[serde(rename = "makerFeeE9")]
     pub maker_fee_e9: String,
@@ -25,10 +25,10 @@ pub struct FeeTier {
     pub is_applied: bool,
 }
 
-impl FeeTier {
+impl TradingFees1 {
     /// Details about the fee tier.
-    pub fn new(maker_fee_e9: String, taker_fee_e9: String, is_applied: bool) -> FeeTier {
-        FeeTier {
+    pub fn new(maker_fee_e9: String, taker_fee_e9: String, is_applied: bool) -> TradingFees1 {
+        TradingFees1 {
             maker_fee_e9,
             taker_fee_e9,
             is_applied,

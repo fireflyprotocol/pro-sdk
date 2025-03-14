@@ -42,6 +42,8 @@ pub enum KlineInterval {
     Variant1w,
     #[serde(rename = "1Mo")]
     Variant1Mo,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -62,6 +64,7 @@ impl std::fmt::Display for KlineInterval {
             Self::Variant1d => write!(f, "1d"),
             Self::Variant1w => write!(f, "1w"),
             Self::Variant1Mo => write!(f, "1Mo"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

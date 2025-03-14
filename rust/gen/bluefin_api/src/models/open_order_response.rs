@@ -43,11 +43,11 @@ pub struct OpenOrderResponse {
     #[serde(rename = "salt")]
     pub salt: String,
     /// Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
-    #[serde(rename = "expiresAtUtcMillis")]
-    pub expires_at_utc_millis: i64,
+    #[serde(rename = "expiresAtMillis")]
+    pub expires_at_millis: i64,
     /// The timestamp in millis at which the request was signed
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
     #[serde(rename = "type")]
     pub r#type: models::OrderType,
     /// Is this order to only reduce a position? Default false
@@ -69,15 +69,15 @@ pub struct OpenOrderResponse {
     #[serde(rename = "selfTradePreventionType")]
     pub self_trade_prevention_type: models::SelfTradePreventionType,
     /// The timestamp in millis when the order was opened
-    #[serde(rename = "orderTimeAtUtcMillis")]
-    pub order_time_at_utc_millis: i64,
+    #[serde(rename = "orderTimeAtMillis")]
+    pub order_time_at_millis: i64,
     /// The timestamp in millis that this order was last updated (including status updates)
-    #[serde(rename = "lastUpdatedAtUtcMillis")]
-    pub last_updated_at_utc_millis: i64,
+    #[serde(rename = "lastUpdatedAtMillis")]
+    pub last_updated_at_millis: i64,
 }
 
 impl OpenOrderResponse {
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_utc_millis: i64, signed_at_utc_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_utc_millis: i64, last_updated_at_utc_millis: i64) -> OpenOrderResponse {
+    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_millis: i64, last_updated_at_millis: i64) -> OpenOrderResponse {
         OpenOrderResponse {
             order_hash,
             client_order_id: None,
@@ -89,8 +89,8 @@ impl OpenOrderResponse {
             leverage_e9,
             is_isolated,
             salt,
-            expires_at_utc_millis,
-            signed_at_utc_millis,
+            expires_at_millis,
+            signed_at_millis,
             r#type,
             reduce_only,
             post_only,
@@ -99,8 +99,8 @@ impl OpenOrderResponse {
             filled_quantity_e9,
             status,
             self_trade_prevention_type,
-            order_time_at_utc_millis,
-            last_updated_at_utc_millis,
+            order_time_at_millis,
+            last_updated_at_millis,
         }
     }
 }

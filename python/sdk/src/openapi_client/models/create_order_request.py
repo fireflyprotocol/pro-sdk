@@ -39,7 +39,7 @@ class CreateOrderRequest(BaseModel):
     post_only: StrictBool = Field(description="If set to TRUE, the order can only be a maker order", alias="postOnly")
     time_in_force: OrderTimeInForce = Field(alias="timeInForce")
     trigger_price_e9: Optional[StrictStr] = Field(default=None, description="Trigger price in base e9 for stop orders. This should always be a number", alias="triggerPriceE9")
-    self_trade_prevention_type: Optional[SelfTradePreventionType] = Field(default=SelfTradePreventionType.TAKER, alias="selfTradePreventionType")
+    self_trade_prevention_type: Optional[SelfTradePreventionType] = Field(default=SelfTradePreventionType.MAKER, alias="selfTradePreventionType")
     __properties: ClassVar[List[str]] = ["signedFields", "signature", "orderHash", "clientOrderId", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "selfTradePreventionType"]
 
     model_config = ConfigDict(
@@ -103,9 +103,9 @@ class CreateOrderRequest(BaseModel):
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly"),
             "postOnly": obj.get("postOnly"),
-            "timeInForce": obj.get("timeInForce"),
+            "timeInForce": obj.get("timeInForce") if obj.get("timeInForce") is not None else OrderTimeInForce.GTT,
             "triggerPriceE9": obj.get("triggerPriceE9"),
-            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.TAKER
+            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER
         })
         return _obj
 

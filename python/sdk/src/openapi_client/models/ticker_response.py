@@ -28,10 +28,10 @@ class TickerResponse(BaseModel):
     """ # noqa: E501
     symbol: StrictStr = Field(description="Market symbol.")
     last_quantity_e9: StrictStr = Field(description="Last trade quantity (e9 format).", alias="lastQuantityE9")
-    last_time_at_utc_millis: StrictInt = Field(description="Last trade time in milliseconds.", alias="lastTimeAtUtcMillis")
+    last_time_at_millis: StrictInt = Field(description="Last trade time in milliseconds.", alias="lastTimeAtMillis")
     last_price_e9: StrictStr = Field(description="Last trade price (e9 format).", alias="lastPriceE9")
     last_funding_rate_e9: StrictStr = Field(description="Funding rate value (e9 format).", alias="lastFundingRateE9")
-    next_funding_time_at_utc_millis: StrictInt = Field(description="Time in milliseconds of next funding rate update.", alias="nextFundingTimeAtUtcMillis")
+    next_funding_time_at_millis: StrictInt = Field(description="Time in milliseconds of next funding rate update.", alias="nextFundingTimeAtMillis")
     avg_funding_rate8hr_e9: StrictStr = Field(description="8 hr average funding rate (e9 format).", alias="avgFundingRate8hrE9")
     oracle_price_e9: StrictStr = Field(description="Oracle price of the asset (e9 format).", alias="oraclePriceE9")
     oracle_price_direction: StrictInt = Field(description="Direction of oracle price computed by comparing current oracle price to last oracle price. 0 = no change, -1 = negative trend (current < last), 1 positive trend (current > last).", alias="oraclePriceDirection")
@@ -50,15 +50,15 @@ class TickerResponse(BaseModel):
     quote_volume24hr_e9: StrictStr = Field(description="Total market volume in last 24hrs in USDC (e9 format).", alias="quoteVolume24hrE9")
     close_price24hr_e9: StrictStr = Field(description="Close price 24hrs ago (e9 format).", alias="closePrice24hrE9")
     open_price24hr_e9: StrictStr = Field(description="Open price in the last 24hrs (e9 format).", alias="openPrice24hrE9")
-    close_time24hr_at_utc_millis: StrictInt = Field(description="24 hour close time in milliseconds.", alias="closeTime24hrAtUtcMillis")
-    open_time24hr_at_utc_millis: StrictInt = Field(description="24 hour open time in milliseconds.", alias="openTime24hrAtUtcMillis")
+    close_time24hr_at_millis: StrictInt = Field(description="24 hour close time in milliseconds.", alias="closeTime24hrAtMillis")
+    open_time24hr_at_millis: StrictInt = Field(description="24 hour open time in milliseconds.", alias="openTime24hrAtMillis")
     first_id24hr: StrictInt = Field(description="First trade id in 24hr.", alias="firstId24hr")
     last_id24hr: StrictInt = Field(description="Last trade id in 24hr.", alias="lastId24hr")
     count24hr: StrictStr = Field(description="Total number of trades in 24hr.")
     price_change24hr_e9: StrictStr = Field(description="24hr Market price change (e9 format).", alias="priceChange24hrE9")
     price_change_percent24hr_e9: StrictStr = Field(description="24hr Market price change in percentage (e9 format).", alias="priceChangePercent24hrE9")
-    last_updated_at_utc_millis: StrictInt = Field(description="Last update time in milliseconds.", alias="lastUpdatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtUtcMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtUtcMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtUtcMillis", "openTime24hrAtUtcMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "lastUpdatedAtUtcMillis"]
+    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds.", alias="lastUpdatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtMillis", "openTime24hrAtMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "lastUpdatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -113,10 +113,10 @@ class TickerResponse(BaseModel):
         _obj = cls.model_validate({
             "symbol": obj.get("symbol"),
             "lastQuantityE9": obj.get("lastQuantityE9"),
-            "lastTimeAtUtcMillis": obj.get("lastTimeAtUtcMillis"),
+            "lastTimeAtMillis": obj.get("lastTimeAtMillis"),
             "lastPriceE9": obj.get("lastPriceE9"),
             "lastFundingRateE9": obj.get("lastFundingRateE9"),
-            "nextFundingTimeAtUtcMillis": obj.get("nextFundingTimeAtUtcMillis"),
+            "nextFundingTimeAtMillis": obj.get("nextFundingTimeAtMillis"),
             "avgFundingRate8hrE9": obj.get("avgFundingRate8hrE9"),
             "oraclePriceE9": obj.get("oraclePriceE9"),
             "oraclePriceDirection": obj.get("oraclePriceDirection"),
@@ -135,14 +135,14 @@ class TickerResponse(BaseModel):
             "quoteVolume24hrE9": obj.get("quoteVolume24hrE9"),
             "closePrice24hrE9": obj.get("closePrice24hrE9"),
             "openPrice24hrE9": obj.get("openPrice24hrE9"),
-            "closeTime24hrAtUtcMillis": obj.get("closeTime24hrAtUtcMillis"),
-            "openTime24hrAtUtcMillis": obj.get("openTime24hrAtUtcMillis"),
+            "closeTime24hrAtMillis": obj.get("closeTime24hrAtMillis"),
+            "openTime24hrAtMillis": obj.get("openTime24hrAtMillis"),
             "firstId24hr": obj.get("firstId24hr"),
             "lastId24hr": obj.get("lastId24hr"),
             "count24hr": obj.get("count24hr"),
             "priceChange24hrE9": obj.get("priceChange24hrE9"),
             "priceChangePercent24hrE9": obj.get("priceChangePercent24hrE9"),
-            "lastUpdatedAtUtcMillis": obj.get("lastUpdatedAtUtcMillis")
+            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
         })
         return _obj
 

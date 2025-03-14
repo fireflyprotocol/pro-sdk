@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **leverage_e9** | **String** | The leverage in base e9  of the order to be traded. Should always be a number | 
 **is_isolated** | **bool** | Is this order isolated or cross margin. Note market must be set to the same mode. | [default to false]
 **salt** | **String** | The random generated SALT. Should always be a number | 
-**expires_at_utc_millis** | **i64** | Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided | 
-**signed_at_utc_millis** | **i64** | The timestamp in millis at which the request was signed | 
+**expires_at_millis** | **i64** | Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided | 
+**signed_at_millis** | **i64** | The timestamp in millis at which the request was signed | 
 **r#type** | [**models::OrderType**](OrderType.md) |  | 
 **reduce_only** | **bool** | Is this order to only reduce a position? Default false | [default to false]
 **post_only** | **bool** | If set to TRUE, the order can only be a maker order | [default to false]
@@ -24,8 +24,8 @@ Name | Type | Description | Notes
 **filled_quantity_e9** | **String** | The quantity in base e9 of the asset currently filled. This should always be a number | 
 **status** | [**models::OrderStatus**](OrderStatus.md) |  | 
 **self_trade_prevention_type** | [**models::SelfTradePreventionType**](SelfTradePreventionType.md) |  | 
-**order_time_at_utc_millis** | **i64** | The timestamp in millis when the order was opened | 
-**last_updated_at_utc_millis** | **i64** | The timestamp in millis that this order was last updated (including status updates) | 
+**order_time_at_millis** | **i64** | The timestamp in millis when the order was opened | 
+**last_updated_at_millis** | **i64** | The timestamp in millis that this order was last updated (including status updates) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

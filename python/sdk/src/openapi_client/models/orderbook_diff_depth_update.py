@@ -26,13 +26,13 @@ class OrderbookDiffDepthUpdate(BaseModel):
     """
     OrderbookDiffDepthUpdate
     """ # noqa: E501
-    updated_at_utc_millis: StrictInt = Field(description="The timestamp of the orderbook update.", alias="updatedAtUtcMillis")
+    updated_at_millis: StrictInt = Field(description="The timestamp of the orderbook update.", alias="updatedAtMillis")
     symbol: StrictStr = Field(description="The symbol of the market for the orderbook update.")
     bids_e9: List[List[StrictStr]] = Field(alias="bidsE9")
     asks_e9: List[List[StrictStr]] = Field(alias="asksE9")
     first_update_id: StrictInt = Field(description="The ID of the first update in this batch.", alias="firstUpdateId")
     last_update_id: StrictInt = Field(description="The ID of the last update in this batch.", alias="lastUpdateId")
-    __properties: ClassVar[List[str]] = ["updatedAtUtcMillis", "symbol", "bidsE9", "asksE9", "firstUpdateId", "lastUpdateId"]
+    __properties: ClassVar[List[str]] = ["updatedAtMillis", "symbol", "bidsE9", "asksE9", "firstUpdateId", "lastUpdateId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +85,7 @@ class OrderbookDiffDepthUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis"),
+            "updatedAtMillis": obj.get("updatedAtMillis"),
             "symbol": obj.get("symbol"),
             "bidsE9": obj.get("bidsE9"),
             "asksE9": obj.get("asksE9"),

@@ -7,7 +7,7 @@ User is expected to sign this payload and sends is signature in login api as hea
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_address** | **str** | The address of the account. | 
-**signed_at_utc_millis** | **int** | The timestamp in millis when the login was signed. | 
+**signed_at_millis** | **int** | The timestamp in millis when the login was signed. | 
 **audience** | **str** | The intended audience of the login request. | 
 
 ## Example

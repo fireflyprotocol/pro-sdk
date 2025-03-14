@@ -31,8 +31,8 @@ class AccountPositionLeverageUpdateRequestSignedFields(BaseModel):
     leverage_e9: StrictStr = Field(description="The leverage to set for the account positions (Must be a number in base e9)", alias="leverageE9")
     salt: StrictStr = Field(description="The random generated SALT. Should always be a number")
     ids_id: StrictStr = Field(description="the ID of the internal datastore for the target network", alias="idsId")
-    signed_at_utc_millis: StrictInt = Field(description="The timestamp in millis at which the request was signed", alias="signedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["accountAddress", "symbol", "leverageE9", "salt", "idsId", "signedAtUtcMillis"]
+    signed_at_millis: StrictInt = Field(description="The timestamp in millis at which the request was signed", alias="signedAtMillis")
+    __properties: ClassVar[List[str]] = ["accountAddress", "symbol", "leverageE9", "salt", "idsId", "signedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +90,7 @@ class AccountPositionLeverageUpdateRequestSignedFields(BaseModel):
             "leverageE9": obj.get("leverageE9"),
             "salt": obj.get("salt"),
             "idsId": obj.get("idsId"),
-            "signedAtUtcMillis": obj.get("signedAtUtcMillis")
+            "signedAtMillis": obj.get("signedAtMillis")
         })
         return _obj
 

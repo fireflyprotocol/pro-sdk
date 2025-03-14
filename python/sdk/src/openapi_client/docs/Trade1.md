@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **quantity_e9** | **str** | Trade quantity (e9 format). | 
 **quote_quantity_e9** | **str** | Trade quote quantity (e9 format). | 
 **side** | [**TradeSide**](TradeSide.md) |  | 
-**time_at_utc_millis** | **int** | Trade timestamp. | 
+**time_at_millis** | **int** | Trade timestamp. | 
 
 ## Example
 

@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 /// AccountUpdate : Account information for the data stream.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountUpdate {
-    #[serde(rename = "feeTier", skip_serializing_if = "Option::is_none")]
-    pub fee_tier: Option<models::FeeTier>,
+    #[serde(rename = "tradingFees", skip_serializing_if = "Option::is_none")]
+    pub trading_fees: Option<models::TradingFees1>,
     /// Indicates if trading is enabled.
     #[serde(rename = "canTrade")]
     pub can_trade: bool,
@@ -56,8 +56,8 @@ pub struct AccountUpdate {
     #[serde(rename = "totalCrossUnrealizedPnlE9")]
     pub total_cross_unrealized_pnl_e9: String,
     /// The timestamp of the last update in milliseconds.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
     /// The list of assets.
     #[serde(rename = "assets")]
     pub assets: Vec<models::Asset2>,
@@ -65,9 +65,9 @@ pub struct AccountUpdate {
 
 impl AccountUpdate {
     /// Account information for the data stream.
-    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_utc_millis: i64, assets: Vec<models::Asset2>) -> AccountUpdate {
+    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset2>) -> AccountUpdate {
         AccountUpdate {
-            fee_tier: None,
+            trading_fees: None,
             can_trade,
             can_deposit,
             can_withdraw,
@@ -81,7 +81,7 @@ impl AccountUpdate {
             account_leverage_e9,
             total_unrealized_pnl_e9,
             total_cross_unrealized_pnl_e9,
-            updated_at_utc_millis,
+            updated_at_millis,
             assets,
         }
     }

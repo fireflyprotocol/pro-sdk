@@ -28,6 +28,7 @@ class TradeSideEnum(str, Enum):
     """
     LONG = 'LONG'
     SHORT = 'SHORT'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

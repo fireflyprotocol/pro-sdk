@@ -19,6 +19,8 @@ pub enum MarginTypeEnum {
     Cross,
     #[serde(rename = "ISOLATED")]
     Isolated,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -27,6 +29,7 @@ impl std::fmt::Display for MarginTypeEnum {
         match self {
             Self::Cross => write!(f, "CROSS"),
             Self::Isolated => write!(f, "ISOLATED"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

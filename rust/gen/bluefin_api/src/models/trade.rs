@@ -93,6 +93,8 @@ pub enum TradingFeeAsset {
     Usdc,
     #[serde(rename = "BLUE")]
     Blue,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 }
 
 impl Default for TradingFeeAsset {

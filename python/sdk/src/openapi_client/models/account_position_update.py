@@ -41,8 +41,8 @@ class AccountPositionUpdate(BaseModel):
     maintenance_margin_e9: StrictStr = Field(description="The maintenance margin required for the position.", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="Indicates if the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="The isolated margin applied to the position.", alias="isolatedMarginE9")
-    updated_at_utc_millis: StrictInt = Field(description="The last update time for the position in milliseconds.", alias="updatedAtUtcMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtUtcMillis"]
+    updated_at_millis: StrictInt = Field(description="The last update time for the position in milliseconds.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +109,7 @@ class AccountPositionUpdate(BaseModel):
             "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),
             "isolatedMarginE9": obj.get("isolatedMarginE9"),
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**updated_at_utc_millis** | **int** | The timestamp of the partial depth update. | 
+**updated_at_millis** | **int** | The timestamp of the partial depth update. | 
 **symbol** | **str** | The symbol of the market for the partial depth update. | 
 **bids_e9** | **List[List[str]]** |  | 
 **asks_e9** | **List[List[str]]** |  | 

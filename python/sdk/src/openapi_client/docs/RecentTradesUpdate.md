@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **quantity_e9** | **str** | The quantity traded in scientific notation with 9 decimal places of precision. | 
 **quote_quantity_e9** | **str** | The quote quantity traded in scientific notation with 9 decimal places of precision. | 
 **side** | [**Side**](Side.md) |  | 
-**updated_at_utc_millis** | **int** | The timestamp of the trade. | 
+**updated_at_millis** | **int** | The timestamp of the trade. | 
 
 ## Example
 
