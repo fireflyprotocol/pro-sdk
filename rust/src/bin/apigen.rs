@@ -16,6 +16,9 @@ use std::{env, fmt, io};
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
 
+/// The OpenAPI generator version clients should use for compatibility with Bluefin Pro services.
+const OPENAPI_GENERATOR_VERSION_PREFIX: &str = "7.11.";
+
 const USAGE: &str = "apigen { -l | --lang } { rust | python | typescript-axios }";
 
 #[derive(Debug)]
@@ -32,6 +35,12 @@ pub enum Error {
     Path,
     /// A subcommand returned bad status.
     Status { command: &'static str },
+    /// A subcommand has an unsupported version.
+    Version {
+        command: &'static str,
+        got: String,
+        want: &'static str,
+    },
 }
 
 impl Error {
@@ -50,6 +59,9 @@ impl fmt::Display for Error {
             Error::NoLang => write!(f, "expected --lang LANGUAGE"),
             Error::Path => write!(f, "{INPUT_DIR}: directory not found"),
             Error::Status { command } => write!(f, "{command} returned bad status"),
+            Error::Version { command, got, want } => {
+                write!(f, "{command} {got} is not supported; please use {want}")
+            }
         }
     }
 }
@@ -123,6 +135,17 @@ impl FromStr for Lang {
 /// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
     let command = "openapi-generator";
+
+    let version = Command::new(command).arg("version").output()?.stdout;
+    version
+        .starts_with(OPENAPI_GENERATOR_VERSION_PREFIX.as_bytes())
+        .then_some(())
+        .ok_or_else(|| Error::Version {
+            command,
+            got: String::from_utf8_lossy(&version).trim().to_owned(),
+            want: OPENAPI_GENERATOR_VERSION_PREFIX.trim_end_matches('.'),
+        })?;
+
     Command::new(command)
         .arg("generate")
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
