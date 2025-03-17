@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class OrderTimeInForce(str, Enum):
     """
-    Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
+    Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.  GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
     """
 
     """

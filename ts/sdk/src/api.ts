@@ -156,12 +156,6 @@ export interface AccountAuthorizationRequest {
      * @memberof AccountAuthorizationRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof AccountAuthorizationRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
@@ -298,12 +292,6 @@ export interface AccountPositionLeverageUpdateRequest {
      * @memberof AccountPositionLeverageUpdateRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof AccountPositionLeverageUpdateRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
@@ -1218,12 +1206,6 @@ export interface CreateOrderRequest {
      */
     'signature': string;
     /**
-     * The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof CreateOrderRequest
-     */
-    'orderHash': string;
-    /**
      * The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
      * @type {string}
      * @memberof CreateOrderRequest
@@ -1246,13 +1228,13 @@ export interface CreateOrderRequest {
      * @type {boolean}
      * @memberof CreateOrderRequest
      */
-    'postOnly': boolean;
+    'postOnly'?: boolean;
     /**
-     * 
+     * Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
      * @type {OrderTimeInForce}
      * @memberof CreateOrderRequest
      */
-    'timeInForce': OrderTimeInForce;
+    'timeInForce'?: OrderTimeInForce;
     /**
      * Trigger price in base e9 for stop orders. This should always be a number
      * @type {string}
@@ -2412,7 +2394,7 @@ export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
 
 
 /**
- * Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
+ * Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.  GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
  * @export
  * @enum {string}
  */
@@ -3770,12 +3752,6 @@ export interface WithdrawRequest {
      * @memberof WithdrawRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof WithdrawRequest
-     */
-    'requestHash': string;
 }
 /**
  * 

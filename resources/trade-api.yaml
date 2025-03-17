@@ -64,8 +64,15 @@ components:
     OrderTimeInForce:
       type: string
       enum: [ GTT, IOC, FOK, UNSPECIFIED ]
-      default: "GTT"
-      description: Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default
+      default: GTT
+      description: |
+        Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.
+        
+        GTT: Good Til Time
+        
+        IOC: Immediate Or Cancel
+        
+        FOK: Fill Or Kill
 
     AccountAuthorizationRequest:
       type: object
@@ -100,13 +107,9 @@ components:
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     CreateOrderRequest:
       type: object
@@ -171,9 +174,6 @@ components:
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        orderHash:
-          type: string
-          description: The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
         clientOrderId:
           type: string
           description: The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
@@ -185,8 +185,18 @@ components:
         postOnly:
           type: boolean
           description: If set to TRUE, the order can only be a maker order
+          default: false
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          allOf:
+            - $ref: '#/components/schemas/OrderTimeInForce'
+          description: | 
+            Omit or set to null for market orders; otherwise, choose a valid time-in-force value.
+            GTT: Good Til Time
+            
+            IOC: Immediate Or Cancel
+            
+            FOK: Fill Or Kill
+
         triggerPriceE9:
           type: string
           description: Trigger price in base e9 for stop orders. This should always be a number
@@ -196,11 +206,8 @@ components:
       required:
         - signedFields
         - signature
-        - orderHash
         - type
         - reduceOnly
-        - postOnly
-        - timeInForce
 
     WithdrawRequest:
       type: object
@@ -243,13 +250,9 @@ components:
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     CancelOrdersRequest:
       description: Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -306,13 +309,9 @@ components:
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     OpenOrderResponse:
       properties:
