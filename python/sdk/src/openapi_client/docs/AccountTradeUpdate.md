@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **symbol** | **str** | The symbol of the market. | 
 **order_hash** | **str** | The hash of the order. | 
 **type** | [**TradeType**](TradeType.md) |  | 
-**order_side** | [**Side**](Side.md) |  | 
+**trade_side** | [**Side**](Side.md) |  | 
 **is_maker** | **bool** | Indicates if the trade was a maker order. | 
 **price_e9** | **str** | The price of the trade. | 
 **quantity_e9** | **str** | The quantity of the trade. | 

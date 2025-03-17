@@ -64,7 +64,7 @@ components:
     OrderTimeInForce:
       type: string
       enum: [ GTT, IOC, FOK, UNSPECIFIED ]
-      default: GTT
+      default: "GTT"
       description: |
         Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.
         

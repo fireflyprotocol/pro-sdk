@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **symbol** | **str** | The symbol of the market. | 
 **order_hash** | **str** | The unique hash of the order. | 
 **type** | [**OrderType1**](OrderType1.md) |  | 
-**order_side** | [**Side**](Side.md) |  | 
+**trade_side** | [**Side**](Side.md) |  | 
 **is_maker** | **bool** | Indicates if the trade was a maker order. | 
 **price_e9** | **str** | The price of the order in scientific notation with 9 decimal places. | 
 **quantity_e9** | **str** | The quantity of the order in scientific notation with 9 decimal places. | 

@@ -54,6 +54,8 @@ pub enum MarketDataStreamName {
     Candlestick2hLast,
     #[serde(rename = "Candlestick_4h_Last")]
     Candlestick4hLast,
+    #[serde(rename = "Candlestick_6h_Last")]
+    Candlestick6hLast,
     #[serde(rename = "Candlestick_8h_Last")]
     Candlestick8hLast,
     #[serde(rename = "Candlestick_12h_Last")]
@@ -80,6 +82,8 @@ pub enum MarketDataStreamName {
     Candlestick2hOracle,
     #[serde(rename = "Candlestick_4h_Oracle")]
     Candlestick4hOracle,
+    #[serde(rename = "Candlestick_6h_Oracle")]
+    Candlestick6hOracle,
     #[serde(rename = "Candlestick_8h_Oracle")]
     Candlestick8hOracle,
     #[serde(rename = "Candlestick_12h_Oracle")]
@@ -106,6 +110,8 @@ pub enum MarketDataStreamName {
     Candlestick2hMark,
     #[serde(rename = "Candlestick_4h_Mark")]
     Candlestick4hMark,
+    #[serde(rename = "Candlestick_6h_Mark")]
+    Candlestick6hMark,
     #[serde(rename = "Candlestick_8h_Mark")]
     Candlestick8hMark,
     #[serde(rename = "Candlestick_12h_Mark")]
@@ -132,6 +138,8 @@ pub enum MarketDataStreamName {
     Candlestick2hMarket,
     #[serde(rename = "Candlestick_4h_Market")]
     Candlestick4hMarket,
+    #[serde(rename = "Candlestick_6h_Market")]
+    Candlestick6hMarket,
     #[serde(rename = "Candlestick_8h_Market")]
     Candlestick8hMarket,
     #[serde(rename = "Candlestick_12h_Market")]
@@ -168,6 +176,7 @@ impl std::fmt::Display for MarketDataStreamName {
             Self::Candlestick1hLast => write!(f, "Candlestick_1h_Last"),
             Self::Candlestick2hLast => write!(f, "Candlestick_2h_Last"),
             Self::Candlestick4hLast => write!(f, "Candlestick_4h_Last"),
+            Self::Candlestick6hLast => write!(f, "Candlestick_6h_Last"),
             Self::Candlestick8hLast => write!(f, "Candlestick_8h_Last"),
             Self::Candlestick12hLast => write!(f, "Candlestick_12h_Last"),
             Self::Candlestick1dLast => write!(f, "Candlestick_1d_Last"),
@@ -181,6 +190,7 @@ impl std::fmt::Display for MarketDataStreamName {
             Self::Candlestick1hOracle => write!(f, "Candlestick_1h_Oracle"),
             Self::Candlestick2hOracle => write!(f, "Candlestick_2h_Oracle"),
             Self::Candlestick4hOracle => write!(f, "Candlestick_4h_Oracle"),
+            Self::Candlestick6hOracle => write!(f, "Candlestick_6h_Oracle"),
             Self::Candlestick8hOracle => write!(f, "Candlestick_8h_Oracle"),
             Self::Candlestick12hOracle => write!(f, "Candlestick_12h_Oracle"),
             Self::Candlestick1dOracle => write!(f, "Candlestick_1d_Oracle"),
@@ -194,6 +204,7 @@ impl std::fmt::Display for MarketDataStreamName {
             Self::Candlestick1hMark => write!(f, "Candlestick_1h_Mark"),
             Self::Candlestick2hMark => write!(f, "Candlestick_2h_Mark"),
             Self::Candlestick4hMark => write!(f, "Candlestick_4h_Mark"),
+            Self::Candlestick6hMark => write!(f, "Candlestick_6h_Mark"),
             Self::Candlestick8hMark => write!(f, "Candlestick_8h_Mark"),
             Self::Candlestick12hMark => write!(f, "Candlestick_12h_Mark"),
             Self::Candlestick1dMark => write!(f, "Candlestick_1d_Mark"),
@@ -207,6 +218,7 @@ impl std::fmt::Display for MarketDataStreamName {
             Self::Candlestick1hMarket => write!(f, "Candlestick_1h_Market"),
             Self::Candlestick2hMarket => write!(f, "Candlestick_2h_Market"),
             Self::Candlestick4hMarket => write!(f, "Candlestick_4h_Market"),
+            Self::Candlestick6hMarket => write!(f, "Candlestick_6h_Market"),
             Self::Candlestick8hMarket => write!(f, "Candlestick_8h_Market"),
             Self::Candlestick12hMarket => write!(f, "Candlestick_12h_Market"),
             Self::Candlestick1dMarket => write!(f, "Candlestick_1d_Market"),

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **symbol** | **String** | The symbol of the market. | 
 **order_hash** | **String** | The hash of the order. | 
 **r#type** | [**models::TradeType**](TradeType.md) |  | 
-**order_side** | [**models::Side**](Side.md) |  | 
+**trade_side** | [**models::Side**](Side.md) |  | 
 **is_maker** | **bool** | Indicates if the trade was a maker order. | 
 **price_e9** | **String** | The price of the trade. | 
 **quantity_e9** | **String** | The quantity of the trade. | 

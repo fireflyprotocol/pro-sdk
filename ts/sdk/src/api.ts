@@ -562,7 +562,7 @@ export interface AccountTradeUpdate {
      * @type {Side}
      * @memberof AccountTradeUpdate
      */
-    'orderSide': Side;
+    'tradeSide': Side;
     /**
      * Indicates if the trade was a maker order.
      * @type {boolean}
@@ -1805,6 +1805,7 @@ export const MarketDataStreamName = {
     Candlestick1hLast: 'Candlestick_1h_Last',
     Candlestick2hLast: 'Candlestick_2h_Last',
     Candlestick4hLast: 'Candlestick_4h_Last',
+    Candlestick6hLast: 'Candlestick_6h_Last',
     Candlestick8hLast: 'Candlestick_8h_Last',
     Candlestick12hLast: 'Candlestick_12h_Last',
     Candlestick1dLast: 'Candlestick_1d_Last',
@@ -1818,6 +1819,7 @@ export const MarketDataStreamName = {
     Candlestick1hOracle: 'Candlestick_1h_Oracle',
     Candlestick2hOracle: 'Candlestick_2h_Oracle',
     Candlestick4hOracle: 'Candlestick_4h_Oracle',
+    Candlestick6hOracle: 'Candlestick_6h_Oracle',
     Candlestick8hOracle: 'Candlestick_8h_Oracle',
     Candlestick12hOracle: 'Candlestick_12h_Oracle',
     Candlestick1dOracle: 'Candlestick_1d_Oracle',
@@ -1831,6 +1833,7 @@ export const MarketDataStreamName = {
     Candlestick1hMark: 'Candlestick_1h_Mark',
     Candlestick2hMark: 'Candlestick_2h_Mark',
     Candlestick4hMark: 'Candlestick_4h_Mark',
+    Candlestick6hMark: 'Candlestick_6h_Mark',
     Candlestick8hMark: 'Candlestick_8h_Mark',
     Candlestick12hMark: 'Candlestick_12h_Mark',
     Candlestick1dMark: 'Candlestick_1d_Mark',
@@ -1844,6 +1847,7 @@ export const MarketDataStreamName = {
     Candlestick1hMarket: 'Candlestick_1h_Market',
     Candlestick2hMarket: 'Candlestick_2h_Market',
     Candlestick4hMarket: 'Candlestick_4h_Market',
+    Candlestick6hMarket: 'Candlestick_6h_Market',
     Candlestick8hMarket: 'Candlestick_8h_Market',
     Candlestick12hMarket: 'Candlestick_12h_Market',
     Candlestick1dMarket: 'Candlestick_1d_Market',

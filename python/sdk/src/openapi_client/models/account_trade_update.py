@@ -33,7 +33,7 @@ class AccountTradeUpdate(BaseModel):
     symbol: StrictStr = Field(description="The symbol of the market.")
     order_hash: StrictStr = Field(description="The hash of the order.", alias="orderHash")
     type: TradeType
-    order_side: Side = Field(alias="orderSide")
+    trade_side: Side = Field(alias="tradeSide")
     is_maker: StrictBool = Field(description="Indicates if the trade was a maker order.", alias="isMaker")
     price_e9: StrictStr = Field(description="The price of the trade.", alias="priceE9")
     quantity_e9: StrictStr = Field(description="The quantity of the trade.", alias="quantityE9")
@@ -43,7 +43,7 @@ class AccountTradeUpdate(BaseModel):
     trading_fee_e9: StrictStr = Field(description="The trading fee for the trade.", alias="tradingFeeE9")
     trading_fee_asset_symbol: StrictStr = Field(description="The market symbol of the asset used for the trading fee.", alias="tradingFeeAssetSymbol")
     executed_at_millis: StrictInt = Field(description="The timestamp when the trade was executed in milliseconds.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "type", "orderSide", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAssetSymbol", "executedAtMillis"]
+    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "type", "tradeSide", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAssetSymbol", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,7 +101,7 @@ class AccountTradeUpdate(BaseModel):
             "symbol": obj.get("symbol"),
             "orderHash": obj.get("orderHash"),
             "type": obj.get("type"),
-            "orderSide": obj.get("orderSide"),
+            "tradeSide": obj.get("tradeSide"),
             "isMaker": obj.get("isMaker"),
             "priceE9": obj.get("priceE9"),
             "quantityE9": obj.get("quantityE9"),
