@@ -180,7 +180,7 @@ async fn main() -> Result<()> {
             is_isolated: false,
             salt: random::<u64>().to_string(),
             ids_id: contracts_info.ids_id,
-            expires_at_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
+            expires_at_millis: Utc::now().add(TimeDelta::seconds(301)).timestamp_millis(),
             signed_at_millis: Utc::now().timestamp_millis(),
         },
         r#type: OrderType::Limit,
