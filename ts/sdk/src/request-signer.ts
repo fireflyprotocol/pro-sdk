@@ -127,7 +127,7 @@ function toUIWithdrawRequest(
     account: val.accountAddress,
     amount: val.amountE9,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString(),
+    signedAt: val.signedAtMillis.toString(),
   };
 }
 
@@ -144,9 +144,9 @@ function toUICreateOrderRequest(
     leverage: val.leverageE9,
     side: val.side.toString(),
     positionType: val.isIsolated ? PositionType.Isolated : PositionType.Cross,
-    expiration: val.expiresAtUtcMillis.toString(),
+    expiration: val.expiresAtMillis.toString(),
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString(),
+    signedAt: val.signedAtMillis.toString(),
   };
 }
 
@@ -160,7 +160,7 @@ function toUIUpdateAccountPositionLeverageRequest(
     market: val.symbol,
     leverage: val.leverageE9,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString(),
+    signedAt: val.signedAtMillis.toString(),
   };
 }
 
@@ -174,7 +174,7 @@ function toUIAuthorizeAccountRequest(
     user: val.authorizedAccountAddress,
     status: true,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString(),
+    signedAt: val.signedAtMillis.toString(),
   };
 }
 
@@ -188,7 +188,7 @@ function toUIDeauthorizeAccountRequest(
     user: val.authorizedAccountAddress,
     status: false,
     salt: val.salt,
-    signedAt: val.signedAtUtcMillis.toString(),
+    signedAt: val.signedAtMillis.toString(),
   };
 }
 

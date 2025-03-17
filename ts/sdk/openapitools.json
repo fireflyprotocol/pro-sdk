@@ -14,6 +14,6 @@
     "paramNaming": "camelCase",
     "sortParamsByRequiredFlag": true,
     "enablePostProcessFile": false,
-    "generateAliasAsModel": true
+    "generateAliasAsModel": false
   }
 }
