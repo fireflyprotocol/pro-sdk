@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
     let request = LoginRequest {
         account_address: test::account::testnet::ADDRESS.into(),
         audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Then, we generate a signature for the request.

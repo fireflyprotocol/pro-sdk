@@ -150,7 +150,7 @@ async fn main() -> Result<()> {
     let request = LoginRequest {
         account_address: test::account::testnet::ADDRESS.into(),
         audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for our request.
@@ -210,16 +210,15 @@ async fn main() -> Result<()> {
             is_isolated: false,
             salt: random::<u64>().to_string(),
             ids_id: contracts_info.ids_id,
-            expires_at_utc_millis: Utc::now().add(TimeDelta::minutes(5)).timestamp_millis(),
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
+            expires_at_millis: Utc::now().add(TimeDelta::minutes(6)).timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
         },
         signature: String::new(),
-        order_hash: String::new(),
         client_order_id: None,
         r#type: OrderType::Limit,
         reduce_only: false,
-        post_only: true,
-        time_in_force: OrderTimeInForce::Gtt,
+        post_only: Some(true),
+        time_in_force: Some(OrderTimeInForce::Gtt),
         trigger_price_e9: None,
         self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
     };

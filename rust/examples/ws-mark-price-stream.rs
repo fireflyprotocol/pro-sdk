@@ -38,7 +38,7 @@ type Result<T> = std::result::Result<T, Error>;
 /// {
 ///     "event": "MarkPrice",
 ///     "payload": {
-///         "updated_at_utc_millis": 1734048844,
+///         "updated_at_millis": 1734048844,
 ///         "symbol": "ETH-PERP",
 ///         "price_e9": "3879229230470"
 ///     }

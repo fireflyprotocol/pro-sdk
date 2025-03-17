@@ -87,8 +87,8 @@ mod tests {
                 is_isolated: false,
                 salt: "1725930601205".into(),
                 ids_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
-                expires_at_utc_millis: 2037603360000,
-                signed_at_utc_millis: 1725931543867,
+                expires_at_millis: 2037603360000,
+                signed_at_millis: 1725931543867,
             },
             ..CreateOrderRequest::default()
         }

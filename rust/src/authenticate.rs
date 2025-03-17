@@ -217,7 +217,7 @@ pub mod tests {
         let auth_request = LoginRequest {
             account_address: sui_address,
             audience: env::auth::testnet::AUDIENCE.into(),
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
         };
 
         let signature = auth_request
@@ -285,7 +285,7 @@ pub mod tests {
         let auth_request = LoginRequest {
             account_address: sui_address,
             audience: env::auth::testnet::AUDIENCE.into(),
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
         };
 
         let signature = auth_request
@@ -309,7 +309,7 @@ pub mod tests {
         let auth_request = LoginRequest {
             account_address: sui_address,
             audience: env::auth::testnet::AUDIENCE.into(),
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
         };
 
         let signature = auth_request

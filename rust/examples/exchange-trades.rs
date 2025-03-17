@@ -15,8 +15,8 @@ async fn main() -> Result<()> {
         symbols::perps::SUI, // symbol
         None,                // trade_type
         Some(5),             // limit
-        None,                // start_time_at_utc_millis
-        None,                // end_time_at_utc_millis
+        None,                // start_time_at_millis
+        None,                // end_time_at_millis
         None,                // page
     )
     .await?;

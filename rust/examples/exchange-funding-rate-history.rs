@@ -14,8 +14,8 @@ async fn main() -> Result<()> {
         },
         symbols::perps::ETH, // symbol
         None,                // limit
-        None,                // start_time_at_utc_millis
-        None,                // end_time_at_utc_millis
+        None,                // start_time_at_millis
+        None,                // end_time_at_millis
         None,                // page
     )
     .await?;

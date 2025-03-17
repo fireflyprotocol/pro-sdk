@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
     let request = LoginRequest {
         account_address: test::account::testnet::ADDRESS.into(),
         audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Then, we generate a signature for the request.
@@ -62,7 +62,7 @@ async fn main() -> Result<()> {
                 leverage_e9: (10.e9()).to_string(),
                 salt: random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id,
-                signed_at_utc_millis: Utc::now().timestamp_millis(),
+                signed_at_millis: Utc::now().timestamp_millis(),
             },
             ..Default::default()
         };

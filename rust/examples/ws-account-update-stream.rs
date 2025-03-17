@@ -32,7 +32,7 @@ async fn authenticate(environment: Environment) -> Result<String> {
     let request = LoginRequest {
         account_address: test::account::testnet::ADDRESS.into(),
         audience: audience.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
     let signature = request.signature(
         SignatureScheme::Ed25519,

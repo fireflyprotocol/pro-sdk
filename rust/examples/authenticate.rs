@@ -18,7 +18,7 @@ async fn auth_secp256k1() -> Result<LoginResponse> {
     let request = LoginRequest {
         account_address: public_key.to_address().to_hex(),
         audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
@@ -47,7 +47,7 @@ async fn auth_ed25519() -> Result<LoginResponse> {
     let request = LoginRequest {
         account_address: public_key.to_address().to_hex(),
         audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.

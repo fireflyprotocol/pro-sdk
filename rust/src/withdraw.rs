@@ -83,7 +83,7 @@ mod tests {
                 amount_e9: "3500000000000".to_string(),
                 salt: "1725930601205".to_string(),
                 eds_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
-                signed_at_utc_millis: 1725931543867,
+                signed_at_millis: 1725931543867,
             },
             signature: String::new(),
             request_hash: String::new(),

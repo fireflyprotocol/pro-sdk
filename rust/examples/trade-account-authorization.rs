@@ -53,7 +53,7 @@ async fn main() -> Result<()> {
     let login_request = LoginRequest {
         account_address: test::account::devnet::ADDRESS.into(),
         audience: auth::devnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     let signature = login_request.signature(
@@ -77,7 +77,7 @@ async fn main() -> Result<()> {
                 authorized_account_address: test::account::devnet::ADDRESS.into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
-                signed_at_utc_millis: time_now,
+                signed_at_millis: time_now,
             },
             ..Default::default()
         },
@@ -100,7 +100,7 @@ async fn main() -> Result<()> {
                 authorized_account_address: test::account::devnet::ADDRESS.into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
-                signed_at_utc_millis: time_now,
+                signed_at_millis: time_now,
             },
             ..Default::default()
         },
