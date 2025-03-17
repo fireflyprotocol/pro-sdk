@@ -35,3 +35,11 @@ Generated via
 ```
 openapi-generator generate -i ../resources/bluefin-api.yaml -c ./sdk/openapitools.json -g typescript-axios -o sdk/src --skip-validate-spec
 ```
+
+## Examples
+
+```bash
+npm install
+npm install ts-node
+ts-node example.ts
+```
