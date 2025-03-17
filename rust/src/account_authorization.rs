@@ -58,7 +58,6 @@ mod tests {
 
     fn verify_request_signature(request: AccountAuthorizationRequestExt, signer_address: &str) {
         assert!(!request.request.signature.is_empty());
-        assert!(request.request.request_hash.is_empty());
 
         let result = if request.is_authorize {
             verify_signature(

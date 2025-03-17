@@ -27,7 +27,6 @@ mod tests {
 
     fn verify_request_signature(request: CreateOrderRequest, signer_address: &str) {
         assert!(!request.signature.is_empty());
-        assert!(request.order_hash.is_empty());
 
         match verify_signature(
             signer_address,

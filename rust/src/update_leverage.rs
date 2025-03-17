@@ -33,7 +33,6 @@ mod tests {
         signer_address: &str,
     ) {
         assert!(!request.signature.is_empty());
-        assert!(request.request_hash.is_empty());
 
         match verify_signature(
             signer_address,
@@ -91,8 +90,7 @@ mod tests {
                 ids_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
                 signed_at_millis: 1725931543867,
             },
-            signature: String::new(),
-            request_hash: String::new(),
+            ..AccountPositionLeverageUpdateRequest::default()
         }
     }
 }

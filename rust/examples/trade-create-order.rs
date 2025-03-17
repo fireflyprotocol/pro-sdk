@@ -31,7 +31,7 @@ async fn send_request(signed_request: CreateOrderRequest, auth_token: &str) -> R
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
+    config.base_path = trade::devnet::URL.into();
 
     let response = post_create_order(&config, signed_request).await?;
 
@@ -129,31 +129,31 @@ async fn listen_to_account_order_updates(
 async fn main() -> Result<()> {
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: test::account::devnet::ADDRESS.into(),
+        audience: auth::devnet::AUDIENCE.into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, Environment::Devnet)
         .await?
         .access_token;
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
 
     // Next, we construct an unsigned request.
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
             symbol: symbols::perps::ETH.into(),
-            account_address: test::account::testnet::ADDRESS.into(),
+            account_address: test::account::devnet::ADDRESS.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -176,7 +176,7 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
         SignatureScheme::Ed25519,
     )?;
 
@@ -185,7 +185,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = broadcast::channel(20);
     listen_to_account_order_updates(
         &auth_token,
-        Environment::Testnet,
+        Environment::Devnet,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
