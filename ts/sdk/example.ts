@@ -12,6 +12,11 @@ import {
   AccountStreamMessage,
   AccountEventType,
   OrderTimeInForce,
+  OrderParams,
+  Market,
+  BluefinRequestSigner,
+  BluefinProSdk,
+  makeAddressableKeyPair,
 } from "./index";
 
 import {Ed25519Keypair} from "@mysten/sui/keypairs/ed25519";
@@ -113,7 +118,7 @@ async function main() {
 
     // Find SUI-PERP market
     const perpMarket = exchangeInfo.markets.find(
-      (m) => m.symbol === "SUI-PERP",
+      (m: Market) => m.symbol === "SUI-PERP",
     );
     if (!perpMarket) {
       throw new Error("SUI-PERP market not found");

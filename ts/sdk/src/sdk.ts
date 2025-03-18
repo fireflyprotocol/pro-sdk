@@ -338,7 +338,7 @@ export class BluefinProSdk {
       type: params.type,
       reduceOnly: params.reduceOnly ?? false,
       postOnly: params.postOnly ?? false,
-      timeInForce: params.timeInForce ?? OrderTimeInForce.Gtt,
+      timeInForce: params.timeInForce,
       triggerPriceE9: params.triggerPriceE9,
       selfTradePreventionType: params.selfTradePreventionType,
     };
