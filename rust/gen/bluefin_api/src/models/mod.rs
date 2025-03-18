@@ -170,8 +170,6 @@ pub mod trade_type_enum;
 pub use self::trade_type_enum::TradeTypeEnum;
 pub mod trading_fees;
 pub use self::trading_fees::TradingFees;
-pub mod trading_fees_1;
-pub use self::trading_fees_1::TradingFees1;
 pub mod transaction;
 pub use self::transaction::Transaction;
 pub mod transaction_type;
