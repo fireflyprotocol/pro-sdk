@@ -58,7 +58,6 @@ mod tests {
 
     fn verify_request_signature(request: AccountAuthorizationRequestExt, signer_address: &str) {
         assert!(!request.request.signature.is_empty());
-        assert!(request.request.request_hash.is_empty());
 
         let result = if request.is_authorize {
             verify_signature(
@@ -161,7 +160,7 @@ mod tests {
                     ids_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615"
                         .into(),
                     salt: "1725930601205".into(),
-                    signed_at_utc_millis: 1725931543867,
+                    signed_at_millis: 1725931543867,
                 },
                 ..AccountAuthorizationRequest::default()
             },

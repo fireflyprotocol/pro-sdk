@@ -34,6 +34,7 @@ class TransactionTypeEnum(str, Enum):
     TRADING_FEE = 'TRADING_FEE'
     TRADING_GAS_FEE = 'TRADING_GAS_FEE'
     BONUS = 'BONUS'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

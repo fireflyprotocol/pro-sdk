@@ -67,7 +67,6 @@ from openapi_client.models.error import Error
 from openapi_client.models.error1 import Error1
 from openapi_client.models.error2 import Error2
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
-from openapi_client.models.fee_tier import FeeTier
 from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.login_request import LoginRequest
@@ -122,6 +121,7 @@ from openapi_client.models.trade_side_enum import TradeSideEnum
 from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trade_type_enum import TradeTypeEnum
 from openapi_client.models.trading_fees import TradingFees
+from openapi_client.models.trading_fees1 import TradingFees1
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
 from openapi_client.models.transaction_type_enum import TransactionTypeEnum

@@ -18,17 +18,13 @@ pub struct AccountAuthorizationRequest {
     /// The signature of the request, encoded from the signedFields
     #[serde(rename = "signature")]
     pub signature: String,
-    /// Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-    #[serde(rename = "requestHash")]
-    pub request_hash: String,
 }
 
 impl AccountAuthorizationRequest {
-    pub fn new(signed_fields: models::AccountAuthorizationRequestSignedFields, signature: String, request_hash: String) -> AccountAuthorizationRequest {
+    pub fn new(signed_fields: models::AccountAuthorizationRequestSignedFields, signature: String) -> AccountAuthorizationRequest {
         AccountAuthorizationRequest {
             signed_fields,
             signature,
-            request_hash,
         }
     }
 }

@@ -47,11 +47,11 @@ pub struct ActiveOrderUpdate {
     #[serde(rename = "salt")]
     pub salt: String,
     /// The expiration timestamp of the order in milliseconds.
-    #[serde(rename = "expiresAtUtcMillis")]
-    pub expires_at_utc_millis: i64,
+    #[serde(rename = "expiresAtMillis")]
+    pub expires_at_millis: i64,
     /// The signing timestamp of the order in milliseconds.
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
     #[serde(rename = "type")]
     pub r#type: models::OrderType1,
     /// Indicates if the order is reduce-only.
@@ -70,16 +70,16 @@ pub struct ActiveOrderUpdate {
     #[serde(rename = "selfTradePreventionType")]
     pub self_trade_prevention_type: models::SelfTradePreventionType1,
     /// The timestamp when the order was placed, in milliseconds.
-    #[serde(rename = "createdAtUtcMillis")]
-    pub created_at_utc_millis: i64,
+    #[serde(rename = "createdAtMillis")]
+    pub created_at_millis: i64,
     /// The timestamp of the last update of the order in milliseconds.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl ActiveOrderUpdate {
     /// Information about an order update.
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, filled_quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_utc_millis: i64, signed_at_utc_millis: i64, r#type: models::OrderType1, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce1, status: models::OrderStatus1, self_trade_prevention_type: models::SelfTradePreventionType1, created_at_utc_millis: i64, updated_at_utc_millis: i64) -> ActiveOrderUpdate {
+    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, filled_quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType1, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce1, status: models::OrderStatus1, self_trade_prevention_type: models::SelfTradePreventionType1, created_at_millis: i64, updated_at_millis: i64) -> ActiveOrderUpdate {
         ActiveOrderUpdate {
             order_hash,
             client_order_id: None,
@@ -92,8 +92,8 @@ impl ActiveOrderUpdate {
             leverage_e9,
             is_isolated,
             salt,
-            expires_at_utc_millis,
-            signed_at_utc_millis,
+            expires_at_millis,
+            signed_at_millis,
             r#type,
             reduce_only,
             post_only,
@@ -101,8 +101,8 @@ impl ActiveOrderUpdate {
             trigger_price_e9: None,
             status,
             self_trade_prevention_type,
-            created_at_utc_millis,
-            updated_at_utc_millis,
+            created_at_millis,
+            updated_at_millis,
         }
     }
 }

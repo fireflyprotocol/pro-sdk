@@ -18,17 +18,13 @@ pub struct AccountPositionLeverageUpdateRequest {
     /// The signature of the request, encoded from the signedFields
     #[serde(rename = "signature")]
     pub signature: String,
-    /// Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-    #[serde(rename = "requestHash")]
-    pub request_hash: String,
 }
 
 impl AccountPositionLeverageUpdateRequest {
-    pub fn new(signed_fields: models::AccountPositionLeverageUpdateRequestSignedFields, signature: String, request_hash: String) -> AccountPositionLeverageUpdateRequest {
+    pub fn new(signed_fields: models::AccountPositionLeverageUpdateRequestSignedFields, signature: String) -> AccountPositionLeverageUpdateRequest {
         AccountPositionLeverageUpdateRequest {
             signed_fields,
             signature,
-            request_hash,
         }
     }
 }

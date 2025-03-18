@@ -18,9 +18,6 @@ pub struct CreateOrderRequest {
     /// The signature of the request, encoded from the signedFields
     #[serde(rename = "signature")]
     pub signature: String,
-    /// The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
-    #[serde(rename = "orderHash")]
-    pub order_hash: String,
     /// The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
     #[serde(rename = "clientOrderId", skip_serializing_if = "Option::is_none")]
     pub client_order_id: Option<String>,
@@ -30,10 +27,11 @@ pub struct CreateOrderRequest {
     #[serde(rename = "reduceOnly")]
     pub reduce_only: bool,
     /// If set to TRUE, the order can only be a maker order
-    #[serde(rename = "postOnly")]
-    pub post_only: bool,
-    #[serde(rename = "timeInForce")]
-    pub time_in_force: models::OrderTimeInForce,
+    #[serde(rename = "postOnly", skip_serializing_if = "Option::is_none")]
+    pub post_only: Option<bool>,
+    /// Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
+    #[serde(rename = "timeInForce", skip_serializing_if = "Option::is_none")]
+    pub time_in_force: Option<models::OrderTimeInForce>,
     /// Trigger price in base e9 for stop orders. This should always be a number
     #[serde(rename = "triggerPriceE9", skip_serializing_if = "Option::is_none")]
     pub trigger_price_e9: Option<String>,
@@ -42,16 +40,15 @@ pub struct CreateOrderRequest {
 }
 
 impl CreateOrderRequest {
-    pub fn new(signed_fields: models::CreateOrderRequestSignedFields, signature: String, order_hash: String, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce) -> CreateOrderRequest {
+    pub fn new(signed_fields: models::CreateOrderRequestSignedFields, signature: String, r#type: models::OrderType, reduce_only: bool) -> CreateOrderRequest {
         CreateOrderRequest {
             signed_fields,
             signature,
-            order_hash,
             client_order_id: None,
             r#type,
             reduce_only,
-            post_only,
-            time_in_force,
+            post_only: None,
+            time_in_force: None,
             trigger_price_e9: None,
             self_trade_prevention_type: None,
         }

@@ -27,19 +27,19 @@ pub struct Asset2 {
     #[serde(rename = "maxWithdrawQuantityE9")]
     pub max_withdraw_quantity_e9: String,
     /// The timestamp of the last update in milliseconds.
-    #[serde(rename = "updatedAtUtcMillis")]
-    pub updated_at_utc_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl Asset2 {
     /// Details about an asset in the account.
-    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, updated_at_utc_millis: i64) -> Asset2 {
+    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, updated_at_millis: i64) -> Asset2 {
         Asset2 {
             symbol,
             quantity_e9,
             effective_balance_e9,
             max_withdraw_quantity_e9,
-            updated_at_utc_millis,
+            updated_at_millis,
         }
     }
 }

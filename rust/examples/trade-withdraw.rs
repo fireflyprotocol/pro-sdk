@@ -31,7 +31,7 @@ async fn send_request(request: WithdrawRequest, auth_token: &str) -> Result<()> 
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
+    config.base_path = trade::devnet::URL.into();
 
     post_withdraw(&config, request).await?;
 
@@ -129,20 +129,20 @@ async fn listen_to_account_info(
 async fn main() -> Result<()> {
     // Then, we construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
-        signed_at_utc_millis: Utc::now().timestamp_millis(),
+        account_address: test::account::devnet::ADDRESS.into(),
+        audience: auth::devnet::AUDIENCE.into(),
+        signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, Environment::Devnet)
         .await?
         .access_token;
 
@@ -151,7 +151,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_account_info(
         &auth_token,
-        Environment::Testnet,
+        Environment::Devnet,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
@@ -173,7 +173,7 @@ async fn main() -> Result<()> {
     });
 
     let asset = get_exchange_info(&Configuration {
-        base_path: exchange::testnet::URL.into(),
+        base_path: exchange::devnet::URL.into(),
         ..Configuration::default()
     })
     .await?
@@ -183,23 +183,23 @@ async fn main() -> Result<()> {
     .to_owned();
 
     // We get the exchange info to fetch the EDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
 
     // Then, we construct a request.
     let request = WithdrawRequest {
         signed_fields: WithdrawRequestSignedFields {
             asset_symbol: asset.symbol.clone(),
-            account_address: test::account::testnet::ADDRESS.into(),
+            account_address: test::account::devnet::ADDRESS.into(),
             amount_e9: (10.e9()).to_string(),
             salt: random::<u64>().to_string(),
             eds_id: contracts_info.eds_id,
-            signed_at_utc_millis: Utc::now().timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
         },
         ..Default::default()
     };
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
         SignatureScheme::Ed25519,
     )?;
 

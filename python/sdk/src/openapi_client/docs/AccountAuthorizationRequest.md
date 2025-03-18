@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **signed_fields** | [**AccountAuthorizationRequestSignedFields**](AccountAuthorizationRequestSignedFields.md) |  | 
 **signature** | **str** | The signature of the request, encoded from the signedFields | 
-**request_hash** | **str** | Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields. | 
 
 ## Example
 

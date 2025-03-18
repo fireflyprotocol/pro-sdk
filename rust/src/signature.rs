@@ -95,8 +95,8 @@ pub mod conversion {
     pub enum ClientPayloadType {
         WithdrawRequest,
         OrderRequest,
-        LeverageAdjustment,
         AuthorizeAccount,
+        LeverageAdjustment,
     }
 
     impl PartialEq for ClientPayloadType {
@@ -110,10 +110,10 @@ pub mod conversion {
             match self {
                 ClientPayloadType::WithdrawRequest => write!(f, "Bluefin Pro Withdrawal"),
                 ClientPayloadType::OrderRequest => write!(f, "Bluefin Pro Order"),
+                ClientPayloadType::AuthorizeAccount => write!(f, "Bluefin Pro Authorize Account"),
                 ClientPayloadType::LeverageAdjustment => {
                     write!(f, "Bluefin Pro Leverage Adjustment")
                 }
-                ClientPayloadType::AuthorizeAccount => write!(f, "Bluefin Pro Authorize Account"),
             }
         }
     }
@@ -157,8 +157,8 @@ pub mod conversion {
         pub price: String,
         pub quantity: String,
         pub leverage: String,
-        pub side: String,
-        pub position_type: String,
+        pub side: String,          // [`SHORT`, `LONG`] string
+        pub position_type: String, // [`PositionType`] enum as a string
         pub expiration: String,
         pub salt: String,
         pub signed_at: String,
@@ -212,7 +212,7 @@ pub mod conversion {
                 account: val.signed_fields.account_address,
                 amount: val.signed_fields.amount_e9,
                 salt: val.signed_fields.salt,
-                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
         }
     }
@@ -233,9 +233,9 @@ pub mod conversion {
                 } else {
                     PositionType::Cross.to_string()
                 },
-                expiration: val.signed_fields.expires_at_utc_millis.to_string(),
+                expiration: val.signed_fields.expires_at_millis.to_string(),
                 salt: val.signed_fields.salt,
-                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
         }
     }
@@ -249,7 +249,7 @@ pub mod conversion {
                 market: val.signed_fields.symbol,
                 leverage: val.signed_fields.leverage_e9,
                 salt: val.signed_fields.salt,
-                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
         }
     }
@@ -263,7 +263,7 @@ pub mod conversion {
                 user: val.signed_fields.authorized_account_address,
                 status: true,
                 salt: val.signed_fields.salt,
-                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
         }
     }
@@ -277,7 +277,7 @@ pub mod conversion {
                 user: val.signed_fields.authorized_account_address,
                 status: false,
                 salt: val.signed_fields.salt,
-                signed_at: val.signed_fields.signed_at_utc_millis.to_string(),
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
         }
     }

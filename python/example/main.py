@@ -96,10 +96,10 @@ async def main():
         exchange_info = await client.exchange_data_api.get_exchange_info()
         log.info(f"{exchange_info=}")
 
-        # We'll work with the SUI-PERP market for this example, but you could just as
+        # We'll work with the ETH-PERP market for this example, but you could just as
         # well choose any other market available on the Bluefin Pro exchange.
         market = next(
-            market for market in exchange_info.markets if market.symbol == "SUI-PERP"
+            market for market in exchange_info.markets if market.symbol == "ETH-PERP"
         )
         log.info(f"{market=}")
 
@@ -190,7 +190,7 @@ async def main():
                         leverage_e9="2000000000",
                         is_isolated=False,
                         # Ten minutes hence.
-                        expires_at_utc_millis=now() + 60 * 10 * 1000,
+                        expires_at_millis=now() + 60 * 10 * 1000,
                     )
                 )
                 log.info(f"{order_creation_result=}")

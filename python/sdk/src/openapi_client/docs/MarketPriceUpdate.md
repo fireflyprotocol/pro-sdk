@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **symbol** | **str** | The symbol of the market. | 
 **price_e9** | **str** | The price in scientific notation with 9 decimal places of precision. | 
 **source** | **str** |  | 
-**updated_at_utc_millis** | **int** | The timestamp of the price update. | 
+**updated_at_millis** | **int** | The timestamp of the price update. | 
 
 ## Example
 

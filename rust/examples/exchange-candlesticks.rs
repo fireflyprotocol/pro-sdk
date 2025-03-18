@@ -16,8 +16,8 @@ async fn main() -> Result<()> {
         symbols::perps::ETH,       // symbol
         KlineInterval::Variant12h, // interval
         CandlePriceType::Last,     // type
-        None,                      // start_time_at_utc_millis
-        None,                      // end_time_at_utc_millis
+        None,                      // start_time_at_millis
+        None,                      // end_time_at_millis
         None,                      // limit
         None,                      // page
     )

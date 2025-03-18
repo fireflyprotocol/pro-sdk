@@ -52,7 +52,7 @@ class Order:
     side: OrderSide
     leverage_e9: str
     is_isolated: bool
-    expires_at_utc_millis: int
+    expires_at_millis: int
     reduce_only: bool = False
     post_only: bool = False
     time_in_force: OrderTimeInForce = OrderTimeInForce.GTT
@@ -77,11 +77,11 @@ class BluefinProSdk:
     # todo set to dynamic value
     __contracts_config = None
 
-    def __init__(self, 
-                 sui_wallet: SuiWallet, 
+    def __init__(self,
+                 sui_wallet: SuiWallet,
                  contracts: ProContracts | None,
                  rpc_url: str,
-                 env: Environment = Environment.PRODUCTION, 
+                 env: Environment = Environment.PRODUCTION,
                  authorized_address: str = None,
                  debug: bool = False
                  ):
@@ -146,7 +146,7 @@ class BluefinProSdk:
             symbol=symbol,
             leverage_e9=leverage_e9,
             salt=generate_salt(),
-            signed_at_utc_millis=int(time.time() * 1000),
+            signed_at_millis=int(time.time() * 1000),
             ids_id=self.__contracts_config.ids_id
         )
 
@@ -165,8 +165,8 @@ class BluefinProSdk:
                                                        quantity_e9=order.quantity_e9, side=order.side,
                                                        leverage_e9=order.leverage_e9, is_isolated=order.is_isolated,
                                                        salt=generate_salt(),
-                                                       expires_at_utc_millis=order.expires_at_utc_millis,
-                                                       signed_at_utc_millis=int(time.time() * 1000))
+                                                       expires_at_millis=order.expires_at_millis,
+                                                       signed_at_millis=int(time.time() * 1000))
 
         signature = self.sign.order(signed_fields)
 
@@ -196,7 +196,7 @@ class BluefinProSdk:
             account_address=self.current_account_address,
             amount_e9=amount_e9,
             salt=generate_salt(),
-            signed_at_utc_millis=int(time.time() * 1000),
+            signed_at_millis=int(time.time() * 1000),
             eds_id=self.__contracts_config.eds_id,
         )
 
@@ -214,7 +214,7 @@ class BluefinProSdk:
             authorized_account_address=authorized_account_address,
             ids_id=self.__contracts_config.ids_id,
             salt=generate_salt(),
-            signed_at_utc_millis=int(time.time() * 1000),
+            signed_at_millis=int(time.time() * 1000),
         )
 
         signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.AUTHORIZE.value)
@@ -232,7 +232,7 @@ class BluefinProSdk:
             authorized_account_address=authorized_account_address,
             ids_id=self.__contracts_config.ids_id,
             salt=generate_salt(),
-            signed_at_utc_millis=int(time.time() * 1000),
+            signed_at_millis=int(time.time() * 1000),
         )
 
         signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.DEAUTHORIZE.value)
@@ -264,7 +264,7 @@ class BluefinProSdk:
         logger.info(f"Logging in as {self.current_account_address}")
         login_request = LoginRequest(
             account_address=self.current_account_address,
-            signed_at_utc_millis=int(time.time() * 1000),
+            signed_at_millis=int(time.time() * 1000),
             audience="api"
         )
         # Generate a signature for the login request with our private key and public key bytes.

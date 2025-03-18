@@ -43,6 +43,8 @@
 
 * `CANDLESTICK_4H_LAST` (value: `'Candlestick_4h_Last'`)
 
+* `CANDLESTICK_6H_LAST` (value: `'Candlestick_6h_Last'`)
+
 * `CANDLESTICK_8H_LAST` (value: `'Candlestick_8h_Last'`)
 
 * `CANDLESTICK_12H_LAST` (value: `'Candlestick_12h_Last'`)
@@ -68,6 +70,8 @@
 * `CANDLESTICK_2H_ORACLE` (value: `'Candlestick_2h_Oracle'`)
 
 * `CANDLESTICK_4H_ORACLE` (value: `'Candlestick_4h_Oracle'`)
+
+* `CANDLESTICK_6H_ORACLE` (value: `'Candlestick_6h_Oracle'`)
 
 * `CANDLESTICK_8H_ORACLE` (value: `'Candlestick_8h_Oracle'`)
 
@@ -95,6 +99,8 @@
 
 * `CANDLESTICK_4H_MARK` (value: `'Candlestick_4h_Mark'`)
 
+* `CANDLESTICK_6H_MARK` (value: `'Candlestick_6h_Mark'`)
+
 * `CANDLESTICK_8H_MARK` (value: `'Candlestick_8h_Mark'`)
 
 * `CANDLESTICK_12H_MARK` (value: `'Candlestick_12h_Mark'`)
@@ -120,6 +126,8 @@
 * `CANDLESTICK_2H_MARKET` (value: `'Candlestick_2h_Market'`)
 
 * `CANDLESTICK_4H_MARKET` (value: `'Candlestick_4h_Market'`)
+
+* `CANDLESTICK_6H_MARKET` (value: `'Candlestick_6h_Market'`)
 
 * `CANDLESTICK_8H_MARKET` (value: `'Candlestick_8h_Market'`)
 

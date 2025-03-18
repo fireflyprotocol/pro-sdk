@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.asset2 import Asset2
-from openapi_client.models.fee_tier import FeeTier
+from openapi_client.models.trading_fees1 import TradingFees1
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class AccountUpdate(BaseModel):
     """
     Account information for the data stream.
     """ # noqa: E501
-    fee_tier: Optional[FeeTier] = Field(default=None, alias="feeTier")
+    trading_fees: Optional[TradingFees1] = Field(default=None, alias="tradingFees")
     can_trade: StrictBool = Field(description="Indicates if trading is enabled.", alias="canTrade")
     can_deposit: StrictBool = Field(description="Indicates if deposits are enabled.", alias="canDeposit")
     can_withdraw: StrictBool = Field(description="Indicates if withdrawals are enabled.", alias="canWithdraw")
@@ -42,9 +42,9 @@ class AccountUpdate(BaseModel):
     account_leverage_e9: StrictStr = Field(description="The account leverage.", alias="accountLeverageE9")
     total_unrealized_pnl_e9: StrictStr = Field(description="The total unrealized profit and loss.", alias="totalUnrealizedPnlE9")
     total_cross_unrealized_pnl_e9: StrictStr = Field(description="The total cross unrealized profit and loss.", alias="totalCrossUnrealizedPnlE9")
-    updated_at_utc_millis: StrictInt = Field(description="The timestamp of the last update in milliseconds.", alias="updatedAtUtcMillis")
+    updated_at_millis: StrictInt = Field(description="The timestamp of the last update in milliseconds.", alias="updatedAtMillis")
     assets: List[Asset2] = Field(description="The list of assets.")
-    __properties: ClassVar[List[str]] = ["feeTier", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "updatedAtUtcMillis", "assets"]
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "updatedAtMillis", "assets"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,9 +85,9 @@ class AccountUpdate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of fee_tier
-        if self.fee_tier:
-            _dict['feeTier'] = self.fee_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of trading_fees
+        if self.trading_fees:
+            _dict['tradingFees'] = self.trading_fees.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in assets (list)
         _items = []
         if self.assets:
@@ -107,7 +107,7 @@ class AccountUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "feeTier": FeeTier.from_dict(obj["feeTier"]) if obj.get("feeTier") is not None else None,
+            "tradingFees": TradingFees1.from_dict(obj["tradingFees"]) if obj.get("tradingFees") is not None else None,
             "canTrade": obj.get("canTrade"),
             "canDeposit": obj.get("canDeposit"),
             "canWithdraw": obj.get("canWithdraw"),
@@ -121,7 +121,7 @@ class AccountUpdate(BaseModel):
             "accountLeverageE9": obj.get("accountLeverageE9"),
             "totalUnrealizedPnlE9": obj.get("totalUnrealizedPnlE9"),
             "totalCrossUnrealizedPnlE9": obj.get("totalCrossUnrealizedPnlE9"),
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis"),
+            "updatedAtMillis": obj.get("updatedAtMillis"),
             "assets": [Asset2.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None
         })
         return _obj

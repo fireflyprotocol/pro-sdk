@@ -220,6 +220,7 @@ components:
           enum:
             - USDC
             - BLUE
+            - UNSPECIFIED
           description: Asset used for trading fee.
           example: USDC
         gasFeeE9:
@@ -244,12 +245,11 @@ components:
         - leverageE9
         - markPriceE9
         - notionalValueE9
-        - positionSizeE9
+        - sizeE9
         - unrealizedPnlE9
-        - positionSide
+        - side
         - isIsolated
         - liquidationPriceE9
-        - maxNotionalValueE9
         - lastUpdatedAtMillis
         - initialMarginE9
         - maintenanceMarginE9
@@ -278,11 +278,7 @@ components:
           type: string
           description: Notional value (e9 format).
           example: "0"
-        maxNotionalValueE9:
-          type: string
-          description: Max notional value at current leverage (e9 format).
-          example: "20000000000000" # 20,000,000 USD
-        positionSizeE9:
+        sizeE9:
           type: string
           description: Position size (e9 format).
           example: "100000000" # 100 units
@@ -290,7 +286,7 @@ components:
           type: string
           description: Unrealized profit (e9 format).
           example: "-1000000000" # -1,000 USD
-        positionSide:
+        side:
           $ref: "#/components/schemas/PositionSideEnum"
         initialMarginE9:
           type: string
@@ -378,18 +374,21 @@ components:
         - ORDER
         - LIQUIDATION
         - DELEVERAGE
+        - UNSPECIFIED
     PositionSideEnum:
       type: string
       description: "The side of the position, either long or short"
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
     TradeSideEnum:
       type: string
       description: Trade side based on the user order in this trade.
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
     TransactionTypeEnum:
       description: Transaction type (what caused the change in the asset balance).
       type: string
@@ -402,12 +401,14 @@ components:
         - TRADING_FEE
         - TRADING_GAS_FEE
         - BONUS
+        - UNSPECIFIED
     MarginTypeEnum:
       type: string
       description: Margin type.
       enum:
         - CROSS
         - ISOLATED
+        - UNSPECIFIED
     Error:
       required:
         - message
@@ -549,7 +550,7 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/TradeTypeEnum"
-          description: Type of trade. By default returns all.
+          description: Type of trade. By default returns all. UNSPECIFIED returns all.
         - name: page
           in: query
           required: false

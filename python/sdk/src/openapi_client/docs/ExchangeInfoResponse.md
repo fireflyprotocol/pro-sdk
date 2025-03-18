@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **contracts_config** | [**ContractsConfig**](ContractsConfig.md) |  | [optional] 
 **markets** | [**List[Market]**](Market.md) | List of markets available on the exchange. | 
 **trading_gas_fee_e9** | **str** | Current gas fee set for subsidized trades (e9 format) | 
-**server_time_at_utc_millis** | **int** | Server time in milliseconds. | 
+**server_time_at_millis** | **int** | Server time in milliseconds. | 
 **timezone** | **str** | Timezone of the exchange. | 
 
 ## Example

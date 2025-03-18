@@ -27,8 +27,8 @@ pub struct OrderCancellationUpdate {
     #[serde(rename = "accountAddress")]
     pub account_address: String,
     /// The timestamp of the order creation in milliseconds.
-    #[serde(rename = "createdAtUtcMillis")]
-    pub created_at_utc_millis: i64,
+    #[serde(rename = "createdAtMillis")]
+    pub created_at_millis: i64,
     #[serde(rename = "cancellationReason")]
     pub cancellation_reason: models::OrderCancelReason,
     #[serde(rename = "failureToCancelReason", skip_serializing_if = "Option::is_none")]
@@ -40,13 +40,13 @@ pub struct OrderCancellationUpdate {
 
 impl OrderCancellationUpdate {
     /// Details of an order cancellation.
-    pub fn new(order_hash: String, symbol: String, account_address: String, created_at_utc_millis: i64, cancellation_reason: models::OrderCancelReason, remaining_quantity_e9: String) -> OrderCancellationUpdate {
+    pub fn new(order_hash: String, symbol: String, account_address: String, created_at_millis: i64, cancellation_reason: models::OrderCancelReason, remaining_quantity_e9: String) -> OrderCancellationUpdate {
         OrderCancellationUpdate {
             order_hash,
             client_order_id: None,
             symbol,
             account_address,
-            created_at_utc_millis,
+            created_at_millis,
             cancellation_reason,
             failure_to_cancel_reason: None,
             remaining_quantity_e9,

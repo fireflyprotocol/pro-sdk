@@ -26,13 +26,13 @@ class OrderbookPartialDepthUpdate(BaseModel):
     """
     OrderbookPartialDepthUpdate
     """ # noqa: E501
-    updated_at_utc_millis: StrictInt = Field(description="The timestamp of the partial depth update.", alias="updatedAtUtcMillis")
+    updated_at_millis: StrictInt = Field(description="The timestamp of the partial depth update.", alias="updatedAtMillis")
     symbol: StrictStr = Field(description="The symbol of the market for the partial depth update.")
     bids_e9: List[List[StrictStr]] = Field(alias="bidsE9")
     asks_e9: List[List[StrictStr]] = Field(alias="asksE9")
     orderbook_update_id: StrictInt = Field(description="The unique identifier for the orderbook update.", alias="orderbookUpdateId")
     depth_level: StrictStr = Field(description="The depth level of the orderbook snapshot.", alias="depthLevel")
-    __properties: ClassVar[List[str]] = ["updatedAtUtcMillis", "symbol", "bidsE9", "asksE9", "orderbookUpdateId", "depthLevel"]
+    __properties: ClassVar[List[str]] = ["updatedAtMillis", "symbol", "bidsE9", "asksE9", "orderbookUpdateId", "depthLevel"]
 
     @field_validator('depth_level')
     def depth_level_validate_enum(cls, value):
@@ -92,7 +92,7 @@ class OrderbookPartialDepthUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "updatedAtUtcMillis": obj.get("updatedAtUtcMillis"),
+            "updatedAtMillis": obj.get("updatedAtMillis"),
             "symbol": obj.get("symbol"),
             "bidsE9": obj.get("bidsE9"),
             "asksE9": obj.get("asksE9"),

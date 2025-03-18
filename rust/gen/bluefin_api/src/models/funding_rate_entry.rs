@@ -17,18 +17,18 @@ pub struct FundingRateEntry {
     #[serde(rename = "symbol")]
     pub symbol: String,
     /// Timestamp of the funding time in milliseconds.
-    #[serde(rename = "fundingTimeAtUtcMillis")]
-    pub funding_time_at_utc_millis: i64,
+    #[serde(rename = "fundingTimeAtMillis")]
+    pub funding_time_at_millis: i64,
     /// Funding rate for the market address.
     #[serde(rename = "fundingRateE9")]
     pub funding_rate_e9: String,
 }
 
 impl FundingRateEntry {
-    pub fn new(symbol: String, funding_time_at_utc_millis: i64, funding_rate_e9: String) -> FundingRateEntry {
+    pub fn new(symbol: String, funding_time_at_millis: i64, funding_rate_e9: String) -> FundingRateEntry {
         FundingRateEntry {
             symbol,
-            funding_time_at_utc_millis,
+            funding_time_at_millis,
             funding_rate_e9,
         }
     }

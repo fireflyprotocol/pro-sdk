@@ -11,10 +11,9 @@ Name | Type | Description | Notes
 **liquidation_price_e9** | **str** | Liquidation price (e9 format). | 
 **mark_price_e9** | **str** | Mark price (e9 format). | 
 **notional_value_e9** | **str** | Notional value (e9 format). | 
-**max_notional_value_e9** | **str** | Max notional value at current leverage (e9 format). | 
-**position_size_e9** | **str** | Position size (e9 format). | 
+**size_e9** | **str** | Position size (e9 format). | 
 **unrealized_pnl_e9** | **str** | Unrealized profit (e9 format). | 
-**position_side** | [**PositionSideEnum**](PositionSideEnum.md) |  | 
+**side** | [**PositionSideEnum**](PositionSideEnum.md) |  | 
 **initial_margin_e9** | **str** | Initial margin required with current mark price (e9 format). | 
 **maintenance_margin_e9** | **str** | Maintenance margin required with current mark price (e9 format). | 
 **is_isolated** | **bool** | If the position is isolated. | 

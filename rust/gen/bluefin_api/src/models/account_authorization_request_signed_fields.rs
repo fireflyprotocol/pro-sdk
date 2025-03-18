@@ -26,18 +26,18 @@ pub struct AccountAuthorizationRequestSignedFields {
     #[serde(rename = "idsId")]
     pub ids_id: String,
     /// The timestamp when the request was signed
-    #[serde(rename = "signedAtUtcMillis")]
-    pub signed_at_utc_millis: i64,
+    #[serde(rename = "signedAtMillis")]
+    pub signed_at_millis: i64,
 }
 
 impl AccountAuthorizationRequestSignedFields {
-    pub fn new(account_address: String, authorized_account_address: String, salt: String, ids_id: String, signed_at_utc_millis: i64) -> AccountAuthorizationRequestSignedFields {
+    pub fn new(account_address: String, authorized_account_address: String, salt: String, ids_id: String, signed_at_millis: i64) -> AccountAuthorizationRequestSignedFields {
         AccountAuthorizationRequestSignedFields {
             account_address,
             authorized_account_address,
             salt,
             ids_id,
-            signed_at_utc_millis,
+            signed_at_millis,
         }
     }
 }

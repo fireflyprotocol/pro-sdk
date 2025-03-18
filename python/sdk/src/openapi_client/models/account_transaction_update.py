@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.transaction_type import TransactionType
 from typing import Optional, Set
@@ -32,7 +32,8 @@ class AccountTransactionUpdate(BaseModel):
     amount_e9: StrictStr = Field(description="The amount of the transaction in scientific notation with 9 decimal places.", alias="amountE9")
     asset_symbol: Optional[StrictStr] = Field(default=None, description="The symbol of the asset.", alias="assetSymbol")
     trade_id: Optional[StrictStr] = Field(default=None, description="The trade ID associated with the transaction.", alias="tradeId")
-    __properties: ClassVar[List[str]] = ["symbol", "transactionType", "amountE9", "assetSymbol", "tradeId"]
+    executed_at_millis: StrictInt = Field(description="The timestamp when the transaction was executed in milliseconds.", alias="executedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "transactionType", "amountE9", "assetSymbol", "tradeId", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +90,8 @@ class AccountTransactionUpdate(BaseModel):
             "transactionType": obj.get("transactionType"),
             "amountE9": obj.get("amountE9"),
             "assetSymbol": obj.get("assetSymbol"),
-            "tradeId": obj.get("tradeId")
+            "tradeId": obj.get("tradeId"),
+            "executedAtMillis": obj.get("executedAtMillis")
         })
         return _obj
 

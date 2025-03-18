@@ -7,19 +7,21 @@ import {
   OrderType,
   OrderSide,
   MarketDataStreamName,
-  MarketSubscriptionStreams,
   MarketStreamMessage,
   MarketEventType,
   AccountStreamMessage,
   AccountEventType,
   OrderTimeInForce,
+  OrderParams,
+  Market,
+  BluefinRequestSigner,
+  BluefinProSdk,
+  makeAddressableKeyPair,
 } from "./index";
 
-import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
-import { BluefinProSdk, OrderParams } from "./index";
-import { BluefinRequestSigner, makeAddressableKeyPair } from "./index";
-import { hexToBytes } from "@noble/hashes/utils";
-import { SuiClient } from "@firefly-exchange/library-sui";
+import {Ed25519Keypair} from "@mysten/sui/keypairs/ed25519";
+import {hexToBytes} from "@noble/hashes/utils";
+import {SuiClient} from "@firefly-exchange/library-sui";
 
 // Configure logging
 const logger = {
@@ -116,7 +118,7 @@ async function main() {
 
     // Find SUI-PERP market
     const perpMarket = exchangeInfo.markets.find(
-      (m) => m.symbol === "SUI-PERP",
+      (m: Market) => m.symbol === "SUI-PERP",
     );
     if (!perpMarket) {
       throw new Error("SUI-PERP market not found");
@@ -235,7 +237,7 @@ async function main() {
       side: OrderSide.Long,
       leverageE9: "1000000000",
       isIsolated: false,
-      expiresAtUtcMillis: Date.now() + 6 * 60 * 1000,
+      expiresAtMillis: Date.now() + 6 * 60 * 1000,
       postOnly: false,
       reduceOnly: false,
       timeInForce: OrderTimeInForce.Gtt,

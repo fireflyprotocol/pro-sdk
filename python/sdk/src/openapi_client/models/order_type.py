@@ -30,6 +30,7 @@ class OrderType(str, Enum):
     MARKET = 'MARKET'
     STOP_LIMIT = 'STOP_LIMIT'
     STOP_MARKET = 'STOP_MARKET'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

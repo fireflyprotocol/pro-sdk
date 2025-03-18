@@ -14,7 +14,7 @@ servers:
         enum:
           - sui-staging
           - sui-prod
-
+    
 components:
   schemas:
     OrderSide:
@@ -22,10 +22,11 @@ components:
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
       description: Side of the order
     OrderStatus:
       type: string
-      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED ]
+      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED, UNSPECIFIED ]
       description: |
         The statuses of the Orders
         
@@ -40,10 +41,12 @@ components:
         CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book
         
         REJECTED: The Order has been rejected and has not been put on the order book.
+        
+        UNSPECIFIED: The Order status is unspecified
     SelfTradePreventionType:
       type: string
-      enum: [ TAKER, MAKER, BOTH ]
-      default: "TAKER"
+      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
+      default: "MAKER"
       description: |
         The strategy used to resolve self trades. 
         
@@ -52,14 +55,24 @@ components:
         MAKER: On a self trade, the maker order will be cancelled
         
         BOTH: On a self trade, both the taker and the maker order will be cancelled
+        
+        UNSPECIFIED: set to default value
     OrderType:
       type: string
-      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET ]
+      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET, UNSPECIFIED ]
       description: The type of the order
     OrderTimeInForce:
       type: string
-      enum: [ GTT, IOC, FOK ]
-      description: Specify order execution, and by default, all orders are GTT.
+      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
+      default: "GTT"
+      description: |
+        Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.
+        
+        GTT: Good Til Time
+        
+        IOC: Immediate Or Cancel
+        
+        FOK: Fill Or Kill
 
     AccountAuthorizationRequest:
       type: object
@@ -80,7 +93,7 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp when the request was signed
@@ -90,17 +103,13 @@ components:
             - authorizedAccountAddress
             - salt
             - idsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     CreateOrderRequest:
       type: object
@@ -140,12 +149,12 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            expiresAtUtcMillis:
+            expiresAtMillis:
               type: integer
               format: int64
               description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
               example: 12345665432
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in millis at which the request was signed
@@ -160,14 +169,11 @@ components:
             - isIsolated
             - salt
             - idsId
-            - expiresAtUtcMillis
-            - signedAtUtcMillis
+            - expiresAtMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        orderHash:
-          type: string
-          description: The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
         clientOrderId:
           type: string
           description: The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
@@ -179,8 +185,18 @@ components:
         postOnly:
           type: boolean
           description: If set to TRUE, the order can only be a maker order
+          default: false
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          allOf:
+            - $ref: '#/components/schemas/OrderTimeInForce'
+          description: | 
+            Omit or set to null for market orders; otherwise, choose a valid time-in-force value.
+            GTT: Good Til Time
+            
+            IOC: Immediate Or Cancel
+            
+            FOK: Fill Or Kill
+
         triggerPriceE9:
           type: string
           description: Trigger price in base e9 for stop orders. This should always be a number
@@ -190,11 +206,8 @@ components:
       required:
         - signedFields
         - signature
-        - orderHash
         - type
         - reduceOnly
-        - postOnly
-        - timeInForce
 
     WithdrawRequest:
       type: object
@@ -222,7 +235,7 @@ components:
               type: string
               description: the ID of the external datastore for the target network
               example: "eds_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in milliseconds when the HTTP Request payload has been signed
@@ -233,17 +246,13 @@ components:
             - amountE9
             - salt
             - edsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     CancelOrdersRequest:
       description: Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -285,7 +294,7 @@ components:
               type: string
               description: the ID of the internal datastore for the target network
               example: "ids_id"
-            signedAtUtcMillis:
+            signedAtMillis:
               type: integer
               format: int64
               description: The timestamp in millis at which the request was signed
@@ -296,17 +305,13 @@ components:
             - leverageE9
             - salt
             - idsId
-            - signedAtUtcMillis
+            - signedAtMillis
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
-        requestHash:
-          type: string
-          description: Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
       required:
         - signedFields
         - signature
-        - requestHash
 
     OpenOrderResponse:
       properties:
@@ -345,12 +350,12 @@ components:
           type: string
           description: The random generated SALT. Should always be a number
           example: "123335432"
-        expiresAtUtcMillis:
+        expiresAtMillis:
           type: integer
           format: int64
           description: Unix timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
           example: 123456734567
-        signedAtUtcMillis:
+        signedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis at which the request was signed
@@ -379,11 +384,11 @@ components:
           $ref: '#/components/schemas/OrderStatus'
         selfTradePreventionType:
           $ref: '#/components/schemas/SelfTradePreventionType'
-        orderTimeAtUtcMillis:
+        orderTimeAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis when the order was opened
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis that this order was last updated (including status updates)
@@ -397,8 +402,8 @@ components:
         - leverageE9
         - isIsolated
         - salt
-        - expiresAtUtcMillis
-        - signedAtUtcMillis
+        - expiresAtMillis
+        - signedAtMillis
         - type
         - reduceOnly
         - postOnly
@@ -406,8 +411,8 @@ components:
         - filledQuantityE9
         - status
         - selfTradePreventionType
-        - orderTimeAtUtcMillis
-        - lastUpdatedAtUtcMillis
+        - orderTimeAtMillis
+        - lastUpdatedAtMillis
 
     Error:
       type: object

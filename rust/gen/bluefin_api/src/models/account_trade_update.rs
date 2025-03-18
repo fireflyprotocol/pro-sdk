@@ -28,8 +28,8 @@ pub struct AccountTradeUpdate {
     pub order_hash: String,
     #[serde(rename = "type")]
     pub r#type: models::TradeType,
-    #[serde(rename = "orderSide")]
-    pub order_side: models::Side,
+    #[serde(rename = "tradeSide")]
+    pub trade_side: models::Side,
     /// Indicates if the trade was a maker order.
     #[serde(rename = "isMaker")]
     pub is_maker: bool,
@@ -54,20 +54,20 @@ pub struct AccountTradeUpdate {
     #[serde(rename = "tradingFeeAssetSymbol")]
     pub trading_fee_asset_symbol: String,
     /// The timestamp when the trade was executed in milliseconds.
-    #[serde(rename = "executedAtUtcMillis")]
-    pub executed_at_utc_millis: i64,
+    #[serde(rename = "executedAtMillis")]
+    pub executed_at_millis: i64,
 }
 
 impl AccountTradeUpdate {
     /// Details about a trade in the account.
-    pub fn new(trade_id: String, symbol: String, order_hash: String, r#type: models::TradeType, order_side: models::Side, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, realized_pnl_e9: String, position_side: models::Side, trading_fee_e9: String, trading_fee_asset_symbol: String, executed_at_utc_millis: i64) -> AccountTradeUpdate {
+    pub fn new(trade_id: String, symbol: String, order_hash: String, r#type: models::TradeType, trade_side: models::Side, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, realized_pnl_e9: String, position_side: models::Side, trading_fee_e9: String, trading_fee_asset_symbol: String, executed_at_millis: i64) -> AccountTradeUpdate {
         AccountTradeUpdate {
             trade_id,
             client_order_id: None,
             symbol,
             order_hash,
             r#type,
-            order_side,
+            trade_side,
             is_maker,
             price_e9,
             quantity_e9,
@@ -76,7 +76,7 @@ impl AccountTradeUpdate {
             position_side,
             trading_fee_e9,
             trading_fee_asset_symbol,
-            executed_at_utc_millis,
+            executed_at_millis,
         }
     }
 }

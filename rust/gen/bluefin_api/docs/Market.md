@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **symbol** | **String** | Symbol of the market. | 
+**market_address** | **String** | Market address. | 
 **status** | [**models::MarketStatus**](MarketStatus.md) |  | 
 **base_asset_symbol** | **String** | Base asset symbol. | 
 **base_asset_name** | **String** | Base asset name. | 
@@ -30,7 +31,7 @@ Name | Type | Description | Notes
 **default_taker_fee_e9** | **String** | Default taker fee (e9 format). | 
 **insurance_pool_address** | **String** | Insurance pool address. | 
 **fee_pool_address** | **String** | Fee pool address. | 
-**trading_start_time_at_utc_millis** | **String** | The time when trading will start/have started on the market. | 
+**trading_start_time_at_millis** | **String** | The time when trading will start/have started on the market. | 
 **mtb_long_e9** | **String** | Maximum take bound for long positions (e9 format). | 
 **mtb_short_e9** | **String** | Maximum take bound for short positions (e9 format). | 
 **delisting_price_e9** | **String** | Delisting price (e9 format). | 

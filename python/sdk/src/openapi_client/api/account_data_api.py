@@ -561,7 +561,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all.")] = None,
+        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -587,7 +587,7 @@ class AccountDataApi:
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param trade_type: Type of trade. By default returns all.
+        :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
         :type trade_type: TradeTypeEnum
         :param page: The page number to retrieve in a paginated response.
         :type page: int
@@ -651,7 +651,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all.")] = None,
+        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -677,7 +677,7 @@ class AccountDataApi:
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param trade_type: Type of trade. By default returns all.
+        :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
         :type trade_type: TradeTypeEnum
         :param page: The page number to retrieve in a paginated response.
         :type page: int
@@ -741,7 +741,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all.")] = None,
+        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -767,7 +767,7 @@ class AccountDataApi:
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
-        :param trade_type: Type of trade. By default returns all.
+        :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
         :type trade_type: TradeTypeEnum
         :param page: The page number to retrieve in a paginated response.
         :type page: int

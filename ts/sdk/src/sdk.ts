@@ -74,7 +74,7 @@ export interface OrderParams {
   side: OrderSide;
   leverageE9: string;
   isIsolated: boolean;
-  expiresAtUtcMillis: number;
+  expiresAtMillis: number;
   reduceOnly?: boolean;
   postOnly?: boolean;
   timeInForce?: OrderTimeInForce;
@@ -264,7 +264,7 @@ export class BluefinProSdk {
 
     const loginRequest: LoginRequest = {
       accountAddress: this.currentAccountAddress,
-      signedAtUtcMillis: Date.now(),
+      signedAtMillis: Date.now(),
       audience: "api",
     };
 
@@ -299,7 +299,7 @@ export class BluefinProSdk {
       symbol: symbol,
       leverageE9: leverageE9,
       salt: this.generateSalt(),
-      signedAtUtcMillis: Date.now(),
+      signedAtMillis: Date.now(),
     };
 
     const request = await this.bfSigner.signLeverageUpdateRequest(signedFields);
@@ -307,7 +307,6 @@ export class BluefinProSdk {
     return await this.tradeApi.putLeverageUpdate({
       signedFields,
       signature: request,
-      requestHash: "",
     });
   }
 
@@ -326,8 +325,8 @@ export class BluefinProSdk {
       leverageE9: params.leverageE9,
       isIsolated: params.isIsolated,
       salt: this.generateSalt(),
-      expiresAtUtcMillis: params.expiresAtUtcMillis,
-      signedAtUtcMillis: Date.now(),
+      expiresAtMillis: params.expiresAtMillis,
+      signedAtMillis: Date.now(),
     };
 
     const signature = await this.bfSigner.signOrderRequest(signedFields);
@@ -335,12 +334,11 @@ export class BluefinProSdk {
     const createOrderRequest: CreateOrderRequest = {
       signedFields,
       signature,
-      orderHash: "",
       clientOrderId: params.clientOrderId,
       type: params.type,
       reduceOnly: params.reduceOnly ?? false,
       postOnly: params.postOnly ?? false,
-      timeInForce: params.timeInForce ?? OrderTimeInForce.Gtt,
+      timeInForce: params.timeInForce,
       triggerPriceE9: params.triggerPriceE9,
       selfTradePreventionType: params.selfTradePreventionType,
     };
@@ -372,7 +370,7 @@ export class BluefinProSdk {
       accountAddress: this.currentAccountAddress!,
       amountE9,
       salt: this.generateSalt(),
-      signedAtUtcMillis: Date.now(),
+      signedAtMillis: Date.now(),
     };
 
     const signature = await this.bfSigner.signWithdrawRequest(signedFields);
@@ -380,7 +378,6 @@ export class BluefinProSdk {
     await this.tradeApi.postWithdraw({
       signedFields,
       signature,
-      requestHash: "",
     });
     console.log("Withdraw request sent:", signedFields);
   }
@@ -395,7 +392,7 @@ export class BluefinProSdk {
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
       salt: this.generateSalt(),
-      signedAtUtcMillis: Date.now(),
+      signedAtMillis: Date.now(),
     };
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
@@ -406,7 +403,6 @@ export class BluefinProSdk {
     await this.tradeApi.putAuthorizeAccount({
       signedFields,
       signature,
-      requestHash: "",
     });
     console.log("Authorize account request sent:", signedFields);
   }
@@ -421,7 +417,7 @@ export class BluefinProSdk {
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
       salt: this.generateSalt(),
-      signedAtUtcMillis: Date.now(),
+      signedAtMillis: Date.now(),
     };
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
@@ -432,7 +428,6 @@ export class BluefinProSdk {
     await this.tradeApi.putDeauthorizeAccount({
       signedFields,
       signature,
-      requestHash: "",
     });
     console.log("Deauthorize account request sent:", signedFields);
   }

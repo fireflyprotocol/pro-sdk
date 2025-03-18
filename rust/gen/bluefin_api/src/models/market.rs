@@ -16,6 +16,9 @@ pub struct Market {
     /// Symbol of the market.
     #[serde(rename = "symbol")]
     pub symbol: String,
+    /// Market address.
+    #[serde(rename = "marketAddress")]
+    pub market_address: String,
     #[serde(rename = "status")]
     pub status: models::MarketStatus,
     /// Base asset symbol.
@@ -91,8 +94,8 @@ pub struct Market {
     #[serde(rename = "feePoolAddress")]
     pub fee_pool_address: String,
     /// The time when trading will start/have started on the market.
-    #[serde(rename = "tradingStartTimeAtUtcMillis")]
-    pub trading_start_time_at_utc_millis: String,
+    #[serde(rename = "tradingStartTimeAtMillis")]
+    pub trading_start_time_at_millis: String,
     /// Maximum take bound for long positions (e9 format).
     #[serde(rename = "mtbLongE9")]
     pub mtb_long_e9: String,
@@ -108,9 +111,10 @@ pub struct Market {
 }
 
 impl Market {
-    pub fn new(symbol: String, status: models::MarketStatus, base_asset_symbol: String, base_asset_name: String, base_asset_decimals: i64, step_size_e9: String, tick_size_e9: String, min_order_quantity_e9: String, max_limit_order_quantity_e9: String, max_market_order_quantity_e9: String, min_order_price_e9: String, max_order_price_e9: String, maintenance_margin_ratio_e9: String, initial_margin_ratio_e9: String, insurance_pool_ratio_e9: String, default_leverage_e9: String, max_notional_at_open_e9: Vec<String>, min_trade_quantity_e9: String, max_trade_quantity_e9: String, min_trade_price_e9: String, max_trade_price_e9: String, max_funding_rate_e9: String, default_maker_fee_e9: String, default_taker_fee_e9: String, insurance_pool_address: String, fee_pool_address: String, trading_start_time_at_utc_millis: String, mtb_long_e9: String, mtb_short_e9: String, delisting_price_e9: String, isolated_only: bool) -> Market {
+    pub fn new(symbol: String, market_address: String, status: models::MarketStatus, base_asset_symbol: String, base_asset_name: String, base_asset_decimals: i64, step_size_e9: String, tick_size_e9: String, min_order_quantity_e9: String, max_limit_order_quantity_e9: String, max_market_order_quantity_e9: String, min_order_price_e9: String, max_order_price_e9: String, maintenance_margin_ratio_e9: String, initial_margin_ratio_e9: String, insurance_pool_ratio_e9: String, default_leverage_e9: String, max_notional_at_open_e9: Vec<String>, min_trade_quantity_e9: String, max_trade_quantity_e9: String, min_trade_price_e9: String, max_trade_price_e9: String, max_funding_rate_e9: String, default_maker_fee_e9: String, default_taker_fee_e9: String, insurance_pool_address: String, fee_pool_address: String, trading_start_time_at_millis: String, mtb_long_e9: String, mtb_short_e9: String, delisting_price_e9: String, isolated_only: bool) -> Market {
         Market {
             symbol,
+            market_address,
             status,
             base_asset_symbol,
             base_asset_name,
@@ -136,7 +140,7 @@ impl Market {
             default_taker_fee_e9,
             insurance_pool_address,
             fee_pool_address,
-            trading_start_time_at_utc_millis,
+            trading_start_time_at_millis,
             mtb_long_e9,
             mtb_short_e9,
             delisting_price_e9,

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **authorized_account_address** | **str** | The address of the account that should be authorized/deauthorized | 
 **salt** | **str** | The random generated salt. Should always be a number | 
 **ids_id** | **str** | the ID of the internal datastore for the target network | 
-**signed_at_utc_millis** | **int** | The timestamp when the request was signed | 
+**signed_at_millis** | **int** | The timestamp when the request was signed | 
 
 ## Example
 

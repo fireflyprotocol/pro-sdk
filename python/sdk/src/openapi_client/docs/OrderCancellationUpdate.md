@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **client_order_id** | **str** | The client-provided order ID. | [optional] 
 **symbol** | **str** | The symbol of the market. | 
 **account_address** | **str** | The address of the account. | 
-**created_at_utc_millis** | **int** | The timestamp of the order creation in milliseconds. | 
+**created_at_millis** | **int** | The timestamp of the order creation in milliseconds. | 
 **cancellation_reason** | [**OrderCancelReason**](OrderCancelReason.md) |  | 
 **failure_to_cancel_reason** | [**OrderCancellationFailureReason**](OrderCancellationFailureReason.md) |  | [optional] 
 **remaining_quantity_e9** | **str** | The remaining quantity of the order. | 

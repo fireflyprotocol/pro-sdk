@@ -156,12 +156,6 @@ export interface AccountAuthorizationRequest {
      * @memberof AccountAuthorizationRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof AccountAuthorizationRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
@@ -198,7 +192,7 @@ export interface AccountAuthorizationRequestSignedFields {
      * @type {number}
      * @memberof AccountAuthorizationRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 /**
  * Represents the type of account data stream.
@@ -298,12 +292,6 @@ export interface AccountPositionLeverageUpdateRequest {
      * @memberof AccountPositionLeverageUpdateRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof AccountPositionLeverageUpdateRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
@@ -346,7 +334,7 @@ export interface AccountPositionLeverageUpdateRequestSignedFields {
      * @type {number}
      * @memberof AccountPositionLeverageUpdateRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 /**
  * Details about an account position update.
@@ -443,7 +431,7 @@ export interface AccountPositionUpdate {
      * @type {number}
      * @memberof AccountPositionUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -574,7 +562,7 @@ export interface AccountTradeUpdate {
      * @type {Side}
      * @memberof AccountTradeUpdate
      */
-    'orderSide': Side;
+    'tradeSide': Side;
     /**
      * Indicates if the trade was a maker order.
      * @type {boolean}
@@ -628,7 +616,7 @@ export interface AccountTradeUpdate {
      * @type {number}
      * @memberof AccountTradeUpdate
      */
-    'executedAtUtcMillis': number;
+    'executedAtMillis': number;
 }
 
 
@@ -668,6 +656,12 @@ export interface AccountTransactionUpdate {
      * @memberof AccountTransactionUpdate
      */
     'tradeId'?: string;
+    /**
+     * The timestamp when the transaction was executed in milliseconds.
+     * @type {number}
+     * @memberof AccountTransactionUpdate
+     */
+    'executedAtMillis': number;
 }
 
 
@@ -679,10 +673,10 @@ export interface AccountTransactionUpdate {
 export interface AccountUpdate {
     /**
      * 
-     * @type {FeeTier}
+     * @type {TradingFees1}
      * @memberof AccountUpdate
      */
-    'feeTier'?: FeeTier;
+    'tradingFees'?: TradingFees1;
     /**
      * Indicates if trading is enabled.
      * @type {boolean}
@@ -766,7 +760,7 @@ export interface AccountUpdate {
      * @type {number}
      * @memberof AccountUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The list of assets.
      * @type {Array<Asset2>}
@@ -851,13 +845,13 @@ export interface ActiveOrderUpdate {
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The signing timestamp of the order in milliseconds.
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * 
      * @type {OrderType1}
@@ -905,13 +899,13 @@ export interface ActiveOrderUpdate {
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'createdAtUtcMillis': number;
+    'createdAtMillis': number;
     /**
      * The timestamp of the last update of the order in milliseconds.
      * @type {number}
      * @memberof ActiveOrderUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -1024,7 +1018,7 @@ export interface Asset2 {
      * @type {number}
      * @memberof Asset2
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 /**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -1054,7 +1048,8 @@ export interface CancelOrdersRequest {
 export const CandlePriceType = {
     Last: 'Last',
     Market: 'Market',
-    Oracle: 'Oracle'
+    Oracle: 'Oracle',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type CandlePriceType = typeof CandlePriceType[keyof typeof CandlePriceType];
@@ -1204,12 +1199,6 @@ export interface CreateOrderRequest {
      */
     'signature': string;
     /**
-     * The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof CreateOrderRequest
-     */
-    'orderHash': string;
-    /**
      * The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
      * @type {string}
      * @memberof CreateOrderRequest
@@ -1232,13 +1221,13 @@ export interface CreateOrderRequest {
      * @type {boolean}
      * @memberof CreateOrderRequest
      */
-    'postOnly': boolean;
+    'postOnly'?: boolean;
     /**
-     * 
+     * Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
      * @type {OrderTimeInForce}
      * @memberof CreateOrderRequest
      */
-    'timeInForce': OrderTimeInForce;
+    'timeInForce'?: OrderTimeInForce;
     /**
      * Trigger price in base e9 for stop orders. This should always be a number
      * @type {string}
@@ -1319,13 +1308,13 @@ export interface CreateOrderRequestSignedFields {
      * @type {number}
      * @memberof CreateOrderRequestSignedFields
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The timestamp in millis at which the request was signed
      * @type {number}
      * @memberof CreateOrderRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 
 
@@ -1396,38 +1385,13 @@ export interface ExchangeInfoResponse {
      * @type {number}
      * @memberof ExchangeInfoResponse
      */
-    'serverTimeAtUtcMillis': number;
+    'serverTimeAtMillis': number;
     /**
      * Timezone of the exchange.
      * @type {string}
      * @memberof ExchangeInfoResponse
      */
     'timezone': string;
-}
-/**
- * Details about the fee tier.
- * @export
- * @interface FeeTier
- */
-export interface FeeTier {
-    /**
-     * The maker fee.
-     * @type {string}
-     * @memberof FeeTier
-     */
-    'makerFeeE9': string;
-    /**
-     * The taker fee.
-     * @type {string}
-     * @memberof FeeTier
-     */
-    'takerFeeE9': string;
-    /**
-     * Indicates if the fee tier is applied.
-     * @type {boolean}
-     * @memberof FeeTier
-     */
-    'isApplied': boolean;
 }
 /**
  * 
@@ -1446,7 +1410,7 @@ export interface FundingRateEntry {
      * @type {number}
      * @memberof FundingRateEntry
      */
-    'fundingTimeAtUtcMillis': number;
+    'fundingTimeAtMillis': number;
     /**
      * Funding rate for the market address.
      * @type {string}
@@ -1474,7 +1438,8 @@ export const KlineInterval = {
     _12h: '12h',
     _1d: '1d',
     _1w: '1w',
-    _1Mo: '1Mo'
+    _1Mo: '1Mo',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type KlineInterval = typeof KlineInterval[keyof typeof KlineInterval];
@@ -1497,7 +1462,7 @@ export interface LoginRequest {
      * @type {number}
      * @memberof LoginRequest
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * The intended audience of the login request.
      * @type {string}
@@ -1544,7 +1509,8 @@ export interface LoginResponse {
 
 export const MarginTypeEnum = {
     Cross: 'CROSS',
-    Isolated: 'ISOLATED'
+    Isolated: 'ISOLATED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type MarginTypeEnum = typeof MarginTypeEnum[keyof typeof MarginTypeEnum];
@@ -1579,7 +1545,7 @@ export interface MarkPriceUpdate {
      * @type {number}
      * @memberof MarkPriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const MarkPriceUpdateSourceEnum = {
@@ -1600,6 +1566,12 @@ export interface Market {
      * @memberof Market
      */
     'symbol': string;
+    /**
+     * Market address.
+     * @type {string}
+     * @memberof Market
+     */
+    'marketAddress': string;
     /**
      * 
      * @type {MarketStatus}
@@ -1755,7 +1727,7 @@ export interface Market {
      * @type {string}
      * @memberof Market
      */
-    'tradingStartTimeAtUtcMillis': string;
+    'tradingStartTimeAtMillis': string;
     /**
      * Maximum take bound for long positions (e9 format).
      * @type {string}
@@ -1810,6 +1782,7 @@ export const MarketDataStreamName = {
     Candlestick1hLast: 'Candlestick_1h_Last',
     Candlestick2hLast: 'Candlestick_2h_Last',
     Candlestick4hLast: 'Candlestick_4h_Last',
+    Candlestick6hLast: 'Candlestick_6h_Last',
     Candlestick8hLast: 'Candlestick_8h_Last',
     Candlestick12hLast: 'Candlestick_12h_Last',
     Candlestick1dLast: 'Candlestick_1d_Last',
@@ -1823,6 +1796,7 @@ export const MarketDataStreamName = {
     Candlestick1hOracle: 'Candlestick_1h_Oracle',
     Candlestick2hOracle: 'Candlestick_2h_Oracle',
     Candlestick4hOracle: 'Candlestick_4h_Oracle',
+    Candlestick6hOracle: 'Candlestick_6h_Oracle',
     Candlestick8hOracle: 'Candlestick_8h_Oracle',
     Candlestick12hOracle: 'Candlestick_12h_Oracle',
     Candlestick1dOracle: 'Candlestick_1d_Oracle',
@@ -1836,6 +1810,7 @@ export const MarketDataStreamName = {
     Candlestick1hMark: 'Candlestick_1h_Mark',
     Candlestick2hMark: 'Candlestick_2h_Mark',
     Candlestick4hMark: 'Candlestick_4h_Mark',
+    Candlestick6hMark: 'Candlestick_6h_Mark',
     Candlestick8hMark: 'Candlestick_8h_Mark',
     Candlestick12hMark: 'Candlestick_12h_Mark',
     Candlestick1dMark: 'Candlestick_1d_Mark',
@@ -1849,6 +1824,7 @@ export const MarketDataStreamName = {
     Candlestick1hMarket: 'Candlestick_1h_Market',
     Candlestick2hMarket: 'Candlestick_2h_Market',
     Candlestick4hMarket: 'Candlestick_4h_Market',
+    Candlestick6hMarket: 'Candlestick_6h_Market',
     Candlestick8hMarket: 'Candlestick_8h_Market',
     Candlestick12hMarket: 'Candlestick_12h_Market',
     Candlestick1dMarket: 'Candlestick_1d_Market',
@@ -1909,7 +1885,7 @@ export interface MarketPriceUpdate {
      * @type {number}
      * @memberof MarketPriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const MarketPriceUpdateSourceEnum = {
@@ -1928,7 +1904,8 @@ export const MarketStatus = {
     Active: 'ACTIVE',
     Beta: 'BETA',
     Maintenance: 'MAINTENANCE',
-    Delisted: 'DELISTED'
+    Delisted: 'DELISTED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type MarketStatus = typeof MarketStatus[keyof typeof MarketStatus];
@@ -2086,13 +2063,13 @@ export interface OpenOrderResponse {
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'expiresAtUtcMillis': number;
+    'expiresAtMillis': number;
     /**
      * The timestamp in millis at which the request was signed
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
     /**
      * 
      * @type {OrderType}
@@ -2146,13 +2123,13 @@ export interface OpenOrderResponse {
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'orderTimeAtUtcMillis': number;
+    'orderTimeAtMillis': number;
     /**
      * The timestamp in millis that this order was last updated (including status updates)
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 
 
@@ -2222,7 +2199,7 @@ export interface OraclePriceUpdate {
      * @type {number}
      * @memberof OraclePriceUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 export const OraclePriceUpdateSourceEnum = {
@@ -2321,7 +2298,7 @@ export interface OrderCancellationUpdate {
      * @type {number}
      * @memberof OrderCancellationUpdate
      */
-    'createdAtUtcMillis': number;
+    'createdAtMillis': number;
     /**
      * 
      * @type {OrderCancelReason}
@@ -2351,14 +2328,15 @@ export interface OrderCancellationUpdate {
 
 export const OrderSide = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderSide = typeof OrderSide[keyof typeof OrderSide];
 
 
 /**
- * The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book. 
+ * The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book.  UNSPECIFIED: The Order status is unspecified 
  * @export
  * @enum {string}
  */
@@ -2369,7 +2347,8 @@ export const OrderStatus = {
     Filled: 'FILLED',
     PartiallyFilled: 'PARTIALLY_FILLED',
     Cancelled: 'CANCELLED',
-    Rejected: 'REJECTED'
+    Rejected: 'REJECTED',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
@@ -2396,7 +2375,7 @@ export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
 
 
 /**
- * Specify order execution, and by default, all orders are GTT.
+ * Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.  GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
  * @export
  * @enum {string}
  */
@@ -2404,7 +2383,8 @@ export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
 export const OrderTimeInForce = {
     Gtt: 'GTT',
     Ioc: 'IOC',
-    Fok: 'FOK'
+    Fok: 'FOK',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInForce];
@@ -2436,7 +2416,8 @@ export const OrderType = {
     Limit: 'LIMIT',
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
-    StopMarket: 'STOP_MARKET'
+    StopMarket: 'STOP_MARKET',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type OrderType = typeof OrderType[keyof typeof OrderType];
@@ -2484,13 +2465,13 @@ export interface OrderbookDepthResponse {
      * @type {number}
      * @memberof OrderbookDepthResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
     /**
      * The time at which the orderbook server sent the response, in milliseconds.
      * @type {number}
      * @memberof OrderbookDepthResponse
      */
-    'responseSentAtUtcMillis': number;
+    'responseSentAtMillis': number;
     /**
      * The best bid price on orderbook at the moment (e9 format).
      * @type {string}
@@ -2539,7 +2520,7 @@ export interface OrderbookDiffDepthUpdate {
      * @type {number}
      * @memberof OrderbookDiffDepthUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The symbol of the market for the orderbook update.
      * @type {string}
@@ -2582,7 +2563,7 @@ export interface OrderbookPartialDepthUpdate {
      * @type {number}
      * @memberof OrderbookPartialDepthUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
     /**
      * The symbol of the market for the partial depth update.
      * @type {string}
@@ -2666,17 +2647,11 @@ export interface Position {
      */
     'notionalValueE9': string;
     /**
-     * Max notional value at current leverage (e9 format).
-     * @type {string}
-     * @memberof Position
-     */
-    'maxNotionalValueE9': string;
-    /**
      * Position size (e9 format).
      * @type {string}
      * @memberof Position
      */
-    'positionSizeE9': string;
+    'sizeE9': string;
     /**
      * Unrealized profit (e9 format).
      * @type {string}
@@ -2688,7 +2663,7 @@ export interface Position {
      * @type {PositionSideEnum}
      * @memberof Position
      */
-    'positionSide': PositionSideEnum;
+    'side': PositionSideEnum;
     /**
      * Initial margin required with current mark price (e9 format).
      * @type {string}
@@ -2730,7 +2705,8 @@ export interface Position {
 
 export const PositionSideEnum = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type PositionSideEnum = typeof PositionSideEnum[keyof typeof PositionSideEnum];
@@ -2809,7 +2785,7 @@ export interface RecentTradesUpdate {
      * @type {number}
      * @memberof RecentTradesUpdate
      */
-    'updatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -2871,7 +2847,7 @@ export interface RefreshTokenResponse {
     'refreshTokenValidForSeconds': number;
 }
 /**
- * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled 
+ * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
  * @export
  * @enum {string}
  */
@@ -2879,7 +2855,8 @@ export interface RefreshTokenResponse {
 export const SelfTradePreventionType = {
     Taker: 'TAKER',
     Maker: 'MAKER',
-    Both: 'BOTH'
+    Both: 'BOTH',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeof SelfTradePreventionType];
@@ -2985,7 +2962,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'lastTimeAtUtcMillis': number;
+    'lastTimeAtMillis': number;
     /**
      * Last trade price (e9 format).
      * @type {string}
@@ -3003,7 +2980,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'nextFundingTimeAtUtcMillis': number;
+    'nextFundingTimeAtMillis': number;
     /**
      * 8 hr average funding rate (e9 format).
      * @type {string}
@@ -3117,13 +3094,13 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'closeTime24hrAtUtcMillis': number;
+    'closeTime24hrAtMillis': number;
     /**
      * 24 hour open time in milliseconds.
      * @type {number}
      * @memberof TickerResponse
      */
-    'openTime24hrAtUtcMillis': number;
+    'openTime24hrAtMillis': number;
     /**
      * First trade id in 24hr.
      * @type {number}
@@ -3159,7 +3136,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'lastUpdatedAtUtcMillis': number;
+    'lastUpdatedAtMillis': number;
 }
 /**
  * Represents detailed market ticker information.
@@ -3184,7 +3161,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'lastTimeAtUtcMillis': number;
+    'lastTimeAtMillis': number;
     /**
      * Last trade price (e9 format).
      * @type {string}
@@ -3202,7 +3179,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'nextFundingTimeAtUtcMillis': number;
+    'nextFundingTimeAtMillis': number;
     /**
      * 8 hr average funding rate (e9 format).
      * @type {string}
@@ -3316,13 +3293,13 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'closeTime24hrAtUtcMillis': number;
+    'closeTime24hrAtMillis': number;
     /**
      * 24 hour open timetamp in milliseconds.
      * @type {number}
      * @memberof TickerUpdate
      */
-    'openTime24hrAtUtcMillis': number;
+    'openTime24hrAtMillis': number;
     /**
      * First trade ID in the last 24 hours.
      * @type {number}
@@ -3358,7 +3335,7 @@ export interface TickerUpdate {
      * @type {number}
      * @memberof TickerUpdate
      */
-    'lastUpdatedAtUtcMillis': number;
+    'updatedAtMillis': number;
 }
 /**
  * 
@@ -3472,7 +3449,8 @@ export interface Trade {
 
 export const TradeTradingFeeAssetEnum = {
     Usdc: 'USDC',
-    Blue: 'BLUE'
+    Blue: 'BLUE',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeTradingFeeAssetEnum = typeof TradeTradingFeeAssetEnum[keyof typeof TradeTradingFeeAssetEnum];
@@ -3524,7 +3502,7 @@ export interface Trade1 {
      * @type {number}
      * @memberof Trade1
      */
-    'timeAtUtcMillis': number;
+    'timeAtMillis': number;
 }
 
 
@@ -3536,7 +3514,8 @@ export interface Trade1 {
 
 export const TradeSide = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeSide = typeof TradeSide[keyof typeof TradeSide];
@@ -3550,7 +3529,8 @@ export type TradeSide = typeof TradeSide[keyof typeof TradeSide];
 
 export const TradeSideEnum = {
     Long: 'LONG',
-    Short: 'SHORT'
+    Short: 'SHORT',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeSideEnum = typeof TradeSideEnum[keyof typeof TradeSideEnum];
@@ -3581,7 +3561,8 @@ export type TradeType = typeof TradeType[keyof typeof TradeType];
 export const TradeTypeEnum = {
     Order: 'ORDER',
     Liquidation: 'LIQUIDATION',
-    Deleverage: 'DELEVERAGE'
+    Deleverage: 'DELEVERAGE',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TradeTypeEnum = typeof TradeTypeEnum[keyof typeof TradeTypeEnum];
@@ -3609,6 +3590,31 @@ export interface TradingFees {
      * Are the fees applied on the account?
      * @type {boolean}
      * @memberof TradingFees
+     */
+    'isApplied': boolean;
+}
+/**
+ * Details about the fee tier.
+ * @export
+ * @interface TradingFees1
+ */
+export interface TradingFees1 {
+    /**
+     * The maker fee.
+     * @type {string}
+     * @memberof TradingFees1
+     */
+    'makerFeeE9': string;
+    /**
+     * The taker fee.
+     * @type {string}
+     * @memberof TradingFees1
+     */
+    'takerFeeE9': string;
+    /**
+     * Indicates if the fee tier is applied.
+     * @type {boolean}
+     * @memberof TradingFees1
      */
     'isApplied': boolean;
 }
@@ -3695,7 +3701,8 @@ export const TransactionTypeEnum = {
     FundingFee: 'FUNDING_FEE',
     TradingFee: 'TRADING_FEE',
     TradingGasFee: 'TRADING_GAS_FEE',
-    Bonus: 'BONUS'
+    Bonus: 'BONUS',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 
 export type TransactionTypeEnum = typeof TransactionTypeEnum[keyof typeof TransactionTypeEnum];
@@ -3719,12 +3726,6 @@ export interface WithdrawRequest {
      * @memberof WithdrawRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof WithdrawRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
@@ -3767,7 +3768,7 @@ export interface WithdrawRequestSignedFields {
      * @type {number}
      * @memberof WithdrawRequestSignedFields
      */
-    'signedAtUtcMillis': number;
+    'signedAtMillis': number;
 }
 
 /**
@@ -3851,7 +3852,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4015,7 +4016,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4079,7 +4080,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4141,7 +4142,7 @@ export class AccountDataApi extends BaseAPI {
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
-     * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all.
+     * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4338,7 +4339,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authJwksGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authJwksGet']?.[localVarOperationServerIndex]?.url;
@@ -4397,7 +4398,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
             return localVarFp.authJwksGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -4499,14 +4500,14 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCandlestickData: async (symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCandlestickData: async (symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getCandlestickData', 'symbol', symbol)
             // verify required parameter 'interval' is not null or undefined
@@ -4537,12 +4538,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['type'] = type;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (limit !== undefined) {
@@ -4599,13 +4600,13 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFundingRateHistory: async (symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFundingRateHistory: async (symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getFundingRateHistory', 'symbol', symbol)
             const localVarPath = `/v1/exchange/fundingRateHistory`;
@@ -4628,12 +4629,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['limit'] = limit;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (page !== undefined) {
@@ -4736,13 +4737,13 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades: async (symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRecentTrades: async (symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getRecentTrades', 'symbol', symbol)
             const localVarPath = `/v1/exchange/trades`;
@@ -4769,12 +4770,12 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['limit'] = limit;
             }
 
-            if (startTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['startTimeAtUtcMillis'] = startTimeAtUtcMillis;
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
             }
 
-            if (endTimeAtUtcMillis !== undefined) {
-                localVarQueryParameter['endTimeAtUtcMillis'] = endTimeAtUtcMillis;
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
             if (page !== undefined) {
@@ -4808,15 +4809,15 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<string>>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options);
+        async getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<string>>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getCandlestickData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4838,14 +4839,14 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FundingRateEntry>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options);
+        async getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FundingRateEntry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getFundingRateHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4883,14 +4884,14 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options);
+        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getRecentTrades']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4911,15 +4912,15 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-         * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-         * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Array<string>>> {
-            return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(axios, basePath));
+        getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Array<string>>> {
+            return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the current exchange information including available margin assets, markets, and rules.
@@ -4935,14 +4936,14 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @summary Get funding rate history
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
-            return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(axios, basePath));
+        getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
+            return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4971,14 +4972,14 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-         * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+         * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+         * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
-            return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(axios, basePath));
+        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
+            return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4996,16 +4997,16 @@ export class ExchangeApi extends BaseAPI {
      * @param {string} symbol The market symbol to get the klines for.
      * @param {KlineInterval} interval The interval to get the klines for.
      * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
-     * @param {number} [startTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines from.
-     * @param {number} [endTimeAtUtcMillis] Timestamp in milliseconds in ms to get klines until.
+     * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
+     * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
      * @param {number} [limit] Default 50; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getCandlestickData(symbol, interval, type, startTimeAtUtcMillis, endTimeAtUtcMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    public getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5024,15 +5025,15 @@ export class ExchangeApi extends BaseAPI {
      * @summary Get funding rate history
      * @param {string} symbol The market symbol to get funding rate history for
      * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
-     * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-     * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+     * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+     * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getFundingRateHistory(symbol: string, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getFundingRateHistory(symbol, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(this.axios, this.basePath));
+    public getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5066,15 +5067,15 @@ export class ExchangeApi extends BaseAPI {
      * @param {string} symbol The market symbol to get the trades for.
      * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
      * @param {number} [limit] Default 500; max 1000.
-     * @param {number} [startTimeAtUtcMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
-     * @param {number} [endTimeAtUtcMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
+     * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
+     * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtUtcMillis?: number, endTimeAtUtcMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return ExchangeApiFp(this.configuration).getRecentTrades(symbol, tradeType, limit, startTimeAtUtcMillis, endTimeAtUtcMillis, page, options).then((request) => request(this.axios, this.basePath));
+    public getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5084,7 +5085,8 @@ export class ExchangeApi extends BaseAPI {
 export const GetRecentTradesTradeTypeEnum = {
     Order: 'Order',
     Liquidation: 'Liquidation',
-    Deleverage: 'Deleverage'
+    Deleverage: 'Deleverage',
+    Unspecified: 'UNSPECIFIED'
 } as const;
 export type GetRecentTradesTradeTypeEnum = typeof GetRecentTradesTradeTypeEnum[keyof typeof GetRecentTradesTradeTypeEnum];
 

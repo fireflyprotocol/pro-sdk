@@ -34,7 +34,7 @@ components:
         tradingGasFeeE9:
           type: string
           description: Current gas fee set for subsidized trades (e9 format)
-        serverTimeAtUtcMillis:
+        serverTimeAtMillis:
           type: integer
           format: int64
           description: Server time in milliseconds.
@@ -45,7 +45,7 @@ components:
         - assets
         - markets
         - tradingGasFeeE9
-        - serverTimeAtUtcMillis
+        - serverTimeAtMillis
         - timezone
 
     OrderbookDepthResponse:
@@ -59,11 +59,11 @@ components:
           type: integer
           format: int64
           description: Count indicating the number of changes in orderbook state.
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: Timestamp at which the last change in orderbook state took place, in milliseconds.
-        responseSentAtUtcMillis:
+        responseSentAtMillis:
           type: integer
           format: int64
           description: The time at which the orderbook server sent the response, in milliseconds.
@@ -97,9 +97,9 @@ components:
           example: [["4000002000", "12000000000"]]
       example:
         symbol: "0x123"
-        lastUpdatedAtUtcMillis: 1628078846123
+        lastUpdatedAtMillis: 1628078846123
         lastUpdateId: 56789
-        responseSentAtUtcMillis: 1628078846133
+        responseSentAtMillis: 1628078846133
         bestBidPriceE9: "4000000000"
         bestBidQuantityE9: "431000000000"
         bestAskPriceE9: "4000002000"
@@ -109,8 +109,8 @@ components:
       required:
         - symbol
         - lastUpdateId
-        - lastUpdatedAtUtcMillis
-        - responseSentAtUtcMillis
+        - lastUpdatedAtMillis
+        - responseSentAtMillis
         - bestBidPriceE9
         - bestBidQuantityE9
         - bestAskPriceE9
@@ -129,7 +129,7 @@ components:
           quantityE9: "12000000000"
           quoteQuantityE9: "48000012000"
           side: "LONG"
-          timeAtUtcMillis: 1499865549590
+          timeAtMillis: 1499865549590
           txHash: "0x123456789abcdef"
 
     CandlesticksResponse:
@@ -179,7 +179,7 @@ components:
           type: string
           description: Last trade quantity (e9 format).
           example: 10000000000
-        lastTimeAtUtcMillis:
+        lastTimeAtMillis:
           type: integer
           format: int64
           description: Last trade time in milliseconds.
@@ -192,7 +192,7 @@ components:
           type: string
           description: Funding rate value (e9 format).
           example: 10000000
-        nextFundingTimeAtUtcMillis:
+        nextFundingTimeAtMillis:
           type: integer
           format: int64
           description: Time in milliseconds of next funding rate update.
@@ -269,12 +269,12 @@ components:
           type: string
           description: Open price in the last 24hrs (e9 format).
           example: 5000000000000
-        closeTime24hrAtUtcMillis:
+        closeTime24hrAtMillis:
           type: integer
           format: int64
           description: 24 hour close time in milliseconds.
           example: 1724121094751
-        openTime24hrAtUtcMillis:
+        openTime24hrAtMillis:
           type: integer
           format: int64
           description: 24 hour open time in milliseconds.
@@ -299,7 +299,7 @@ components:
           type: string
           description: 24hr Market price change in percentage (e9 format).
           example: 5000000000
-        lastUpdatedAtUtcMillis:
+        lastUpdatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds.
@@ -308,10 +308,10 @@ components:
         {
           "symbol": "0x123456",
           "lastQuantityE9": "500000000",
-          "lastTimeAtUtcMillis": 1625792400000,
+          "lastTimeAtMillis": 1625792400000,
           "lastPriceE9": "32000000000000",
           "lastFundingRateE9": "10000000",
-          "nextFundingTimeAtUtcMillis": 1625800000000,
+          "nextFundingTimeAtMillis": 1625800000000,
           "avgFundingRate8hrE9": "5000000",
           "oraclePriceE9": "32010000000000",
           "oraclePriceDirection": 1,
@@ -330,22 +330,22 @@ components:
           "quoteVolume24hrE9": "38000000000000000",
           "closePrice24hrE9": "31500000000000",
           "openPrice24hrE9": "31800000000000",
-          "closeTime24hrAtUtcMillis": 1625706000000,
-          "openTime24hrAtUtcMillis": 1625619600000,
+          "closeTime24hrAtMillis": 1625706000000,
+          "openTime24hrAtMillis": 1625619600000,
           "firstId24hr": 12345678,
           "lastId24hr": 12345999,
           "count24hr": "321",
           "priceChange24hrE9": "-200000000000",
           "priceChangePercent24hrE9": "-630000000",
-          "lastUpdatedAtUtcMillis": 1625792500000,
+          "lastUpdatedAtMillis": 1625792500000,
         }
       required:
         - symbol
         - lastQuantityE9
-        - lastTimeAtUtcMillis
+        - lastTimeAtMillis
         - lastPriceE9
         - lastFundingRateE9
-        - nextFundingTimeAtUtcMillis
+        - nextFundingTimeAtMillis
         - avgFundingRate8hrE9
         - oraclePriceE9
         - oraclePriceDirection
@@ -364,14 +364,14 @@ components:
         - quoteVolume24hrE9
         - closePrice24hrE9
         - openPrice24hrE9
-        - closeTime24hrAtUtcMillis
-        - openTime24hrAtUtcMillis
+        - closeTime24hrAtMillis
+        - openTime24hrAtMillis
         - firstId24hr
         - lastId24hr
         - count24hr
         - priceChange24hrE9
         - priceChangePercent24hrE9
-        - lastUpdatedAtUtcMillis
+        - lastUpdatedAtMillis
 
     FundingRateResponse:
       type: array
@@ -385,11 +385,13 @@ components:
         - BETA
         - MAINTENANCE
         - DELISTED
+        - UNSPECIFIED
     TradeSide:
       type: string
       enum:
         - LONG
         - SHORT
+        - UNSPECIFIED
     KlineInterval:
       type: string
       enum:
@@ -407,12 +409,14 @@ components:
         - "1d"
         - "1w"
         - "1Mo"
+        - "UNSPECIFIED"
     CandlePriceType:
       type: string
       enum:
         - "Last"
         - "Market"
         - "Oracle"
+        - "UNSPECIFIED"
     Trade:
       type: object
       properties:
@@ -438,7 +442,7 @@ components:
           example: 1000000000000
         side:
           $ref: "#/components/schemas/TradeSide"
-        timeAtUtcMillis:
+        timeAtMillis:
           type: integer
           format: int64
           description: Trade timestamp.
@@ -450,7 +454,7 @@ components:
         - quantityE9
         - quoteQuantityE9
         - side
-        - timeAtUtcMillis
+        - timeAtMillis
     ContractsConfig:
       type: object
       description: Contract configuration for the exchange.
@@ -549,6 +553,10 @@ components:
           type: string
           description: Symbol of the market.
           example: BTC-PERP
+        marketAddress:
+          type: string
+          description: Market address.
+          example: 0x123
         status:
           $ref: "#/components/schemas/MarketStatus"
         baseAssetSymbol:
@@ -644,7 +652,7 @@ components:
         feePoolAddress:
           type: string
           description: Fee pool address.
-        tradingStartTimeAtUtcMillis:
+        tradingStartTimeAtMillis:
           type: string
           description: The time when trading will start/have started on the market.
           example: 1724121094751
@@ -665,6 +673,7 @@ components:
           description: Indicates whether the market only allows isolated margin.
       required:
         - symbol
+        - marketAddress
         - status
         - baseAssetSymbol
         - baseAssetName
@@ -690,7 +699,7 @@ components:
         - defaultTakerFeeE9
         - insurancePoolAddress
         - feePoolAddress
-        - tradingStartTimeAtUtcMillis
+        - tradingStartTimeAtMillis
         - mtbLongE9
         - mtbShortE9
         - delistingPriceE9
@@ -702,7 +711,7 @@ components:
           type: string
           description: The market symbol.
           example: 0x123
-        fundingTimeAtUtcMillis:
+        fundingTimeAtMillis:
           type: integer
           format: int64
           description: Timestamp of the funding time in milliseconds.
@@ -711,7 +720,7 @@ components:
           description: Funding rate for the market address.
       required:
         - symbol
-        - fundingTimeAtUtcMillis
+        - fundingTimeAtMillis
         - fundingRateE9
     Error:
       required:
@@ -793,6 +802,7 @@ paths:
               - Order
               - Liquidation
               - Deleverage
+              - UNSPECIFIED
             default: Order
           description: Type of trade. # We only show order trades on our recent trades UI
         - name: limit
@@ -805,14 +815,14 @@ paths:
             default: 500
             maximum: 1000
             minimum: 0
-        - name: startTimeAtUtcMillis
+        - name: startTimeAtMillis
           in: query
           required: false
           description: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
           schema:
             type: integer
             format: int64
-        - name: endTimeAtUtcMillis
+        - name: endTimeAtMillis
           in: query
           required: false
           description: The timestamp specifies the latest point in time for which data should be returned. The value is included.
@@ -862,7 +872,7 @@ paths:
           description: Candle price type (last price, market price or oracle).
           schema:
             $ref: "#/components/schemas/CandlePriceType"
-        - name: startTimeAtUtcMillis
+        - name: startTimeAtMillis
           in: query
           required: false
           description: Timestamp in milliseconds in ms to get klines from.
@@ -871,7 +881,7 @@ paths:
             type: integer
             format: int64
             minimum: 0
-        - name: endTimeAtUtcMillis
+        - name: endTimeAtMillis
           in: query
           required: false
           description: Timestamp in milliseconds in ms to get klines until.
@@ -959,7 +969,7 @@ paths:
             default: 100
             minimum: 0
             maximum: 1000
-        - name: startTimeAtUtcMillis
+        - name: startTimeAtMillis
           in: query
           required: false
           description: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -967,7 +977,7 @@ paths:
             type: integer
             format: int64
             minimum: 0
-        - name: endTimeAtUtcMillis
+        - name: endTimeAtMillis
           in: query
           required: false
           description: The timestamp specifies the latest point in time for which data should be returned. The value is included.

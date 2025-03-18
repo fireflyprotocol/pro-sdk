@@ -32,15 +32,14 @@ class CreateOrderRequest(BaseModel):
     """ # noqa: E501
     signed_fields: CreateOrderRequestSignedFields = Field(alias="signedFields")
     signature: StrictStr = Field(description="The signature of the request, encoded from the signedFields")
-    order_hash: StrictStr = Field(description="The identifier of this order used for lookup. This should always be unique. Created by hex encoding the bcs encoded signedFields.", alias="orderHash")
     client_order_id: Optional[StrictStr] = Field(default=None, description="The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.", alias="clientOrderId")
     type: OrderType
     reduce_only: StrictBool = Field(description="Is this order to only reduce a position? Default false", alias="reduceOnly")
-    post_only: StrictBool = Field(description="If set to TRUE, the order can only be a maker order", alias="postOnly")
-    time_in_force: OrderTimeInForce = Field(alias="timeInForce")
+    post_only: Optional[StrictBool] = Field(default=False, description="If set to TRUE, the order can only be a maker order", alias="postOnly")
+    time_in_force: Optional[OrderTimeInForce] = Field(default=None, description="Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill ", alias="timeInForce")
     trigger_price_e9: Optional[StrictStr] = Field(default=None, description="Trigger price in base e9 for stop orders. This should always be a number", alias="triggerPriceE9")
-    self_trade_prevention_type: Optional[SelfTradePreventionType] = Field(default=SelfTradePreventionType.TAKER, alias="selfTradePreventionType")
-    __properties: ClassVar[List[str]] = ["signedFields", "signature", "orderHash", "clientOrderId", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "selfTradePreventionType"]
+    self_trade_prevention_type: Optional[SelfTradePreventionType] = Field(default=SelfTradePreventionType.MAKER, alias="selfTradePreventionType")
+    __properties: ClassVar[List[str]] = ["signedFields", "signature", "clientOrderId", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "selfTradePreventionType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -98,14 +97,13 @@ class CreateOrderRequest(BaseModel):
         _obj = cls.model_validate({
             "signedFields": CreateOrderRequestSignedFields.from_dict(obj["signedFields"]) if obj.get("signedFields") is not None else None,
             "signature": obj.get("signature"),
-            "orderHash": obj.get("orderHash"),
             "clientOrderId": obj.get("clientOrderId"),
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly"),
-            "postOnly": obj.get("postOnly"),
+            "postOnly": obj.get("postOnly") if obj.get("postOnly") is not None else False,
             "timeInForce": obj.get("timeInForce"),
             "triggerPriceE9": obj.get("triggerPriceE9"),
-            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.TAKER
+            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER
         })
         return _obj
 

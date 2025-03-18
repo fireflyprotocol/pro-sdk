@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **symbol** | **str** | The market symbol. | 
-**funding_time_at_utc_millis** | **int** | Timestamp of the funding time in milliseconds. | 
+**funding_time_at_millis** | **int** | Timestamp of the funding time in milliseconds. | 
 **funding_rate_e9** | **str** | Funding rate for the market address. | 
 
 ## Example

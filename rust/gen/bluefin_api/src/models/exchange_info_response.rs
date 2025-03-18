@@ -25,21 +25,21 @@ pub struct ExchangeInfoResponse {
     #[serde(rename = "tradingGasFeeE9")]
     pub trading_gas_fee_e9: String,
     /// Server time in milliseconds.
-    #[serde(rename = "serverTimeAtUtcMillis")]
-    pub server_time_at_utc_millis: i64,
+    #[serde(rename = "serverTimeAtMillis")]
+    pub server_time_at_millis: i64,
     /// Timezone of the exchange.
     #[serde(rename = "timezone")]
     pub timezone: String,
 }
 
 impl ExchangeInfoResponse {
-    pub fn new(assets: Vec<models::Asset1>, markets: Vec<models::Market>, trading_gas_fee_e9: String, server_time_at_utc_millis: i64, timezone: String) -> ExchangeInfoResponse {
+    pub fn new(assets: Vec<models::Asset1>, markets: Vec<models::Market>, trading_gas_fee_e9: String, server_time_at_millis: i64, timezone: String) -> ExchangeInfoResponse {
         ExchangeInfoResponse {
             assets,
             contracts_config: None,
             markets,
             trading_gas_fee_e9,
-            server_time_at_utc_millis,
+            server_time_at_millis,
             timezone,
         }
     }

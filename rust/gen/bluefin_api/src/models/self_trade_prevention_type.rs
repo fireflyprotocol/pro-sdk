@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SelfTradePreventionType : The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled 
-/// The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled 
+/// SelfTradePreventionType : The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
+/// The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SelfTradePreventionType {
     #[serde(rename = "TAKER")]
@@ -21,6 +21,8 @@ pub enum SelfTradePreventionType {
     Maker,
     #[serde(rename = "BOTH")]
     Both,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
@@ -30,6 +32,7 @@ impl std::fmt::Display for SelfTradePreventionType {
             Self::Taker => write!(f, "TAKER"),
             Self::Maker => write!(f, "MAKER"),
             Self::Both => write!(f, "BOTH"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }

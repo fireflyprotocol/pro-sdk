@@ -29,8 +29,7 @@ class WithdrawRequest(BaseModel):
     """ # noqa: E501
     signed_fields: WithdrawRequestSignedFields = Field(alias="signedFields")
     signature: StrictStr = Field(description="The signature of the request, encoded from the signedFields")
-    request_hash: StrictStr = Field(description="Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.", alias="requestHash")
-    __properties: ClassVar[List[str]] = ["signedFields", "signature", "requestHash"]
+    __properties: ClassVar[List[str]] = ["signedFields", "signature"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,8 +86,7 @@ class WithdrawRequest(BaseModel):
 
         _obj = cls.model_validate({
             "signedFields": WithdrawRequestSignedFields.from_dict(obj["signedFields"]) if obj.get("signedFields") is not None else None,
-            "signature": obj.get("signature"),
-            "requestHash": obj.get("requestHash")
+            "signature": obj.get("signature")
         })
         return _obj
 
