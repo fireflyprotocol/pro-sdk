@@ -51,7 +51,7 @@ class TestTrade(unittest.TestCase):
                 trading_fee_asset = 'USDC',
                 gas_fee_e9 = 0,
                 gas_fee_asset = 'USDC',
-                executed_at_utc_milli = 1569514978020
+                executed_at_milli = 1569514978020
             )
         else:
             return Trade(
@@ -65,7 +65,7 @@ class TestTrade(unittest.TestCase):
                 position_side = 'LONG',
                 trading_fee_e9 = '-780000000',
                 trading_fee_asset = 'USDC',
-                executed_at_utc_milli = 1569514978020,
+                executed_at_milli = 1569514978020,
         )
         """
 

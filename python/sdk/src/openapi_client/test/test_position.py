@@ -49,7 +49,7 @@ class TestPosition(unittest.TestCase):
                 maint_margin_e9 = '0',
                 is_isolated = True,
                 isolated_margin_e9 = '1000000000',
-                last_updated_at_utc_millis = 1733899435274
+                last_updated_at_millis = 1733899435274
             )
         else:
             return Position(
@@ -67,7 +67,7 @@ class TestPosition(unittest.TestCase):
                 maint_margin_e9 = '0',
                 is_isolated = True,
                 isolated_margin_e9 = '1000000000',
-                last_updated_at_utc_millis = 1733899435274,
+                last_updated_at_millis = 1733899435274,
         )
         """
 

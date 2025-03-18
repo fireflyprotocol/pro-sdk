@@ -36,13 +36,13 @@ class TestLoginRequest(unittest.TestCase):
         if include_optional:
             return LoginRequest(
                 account_address = '',
-                signed_at_utc_millis = 56,
+                signed_at_millis = 56,
                 audience = ''
             )
         else:
             return LoginRequest(
                 account_address = '',
-                signed_at_utc_millis = 56,
+                signed_at_millis = 56,
                 audience = '',
         )
         """

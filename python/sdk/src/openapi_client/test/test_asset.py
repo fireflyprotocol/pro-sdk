@@ -39,7 +39,7 @@ class TestAsset(unittest.TestCase):
                 quantity_e9 = '6000000000',
                 effective_balance_e9 = '6000000000',
                 max_withdraw_quantity_e9 = '3000000000',
-                last_updated_at_utc_millis = 1627872345678
+                last_updated_at_millis = 1627872345678
             )
         else:
             return Asset(
@@ -47,7 +47,7 @@ class TestAsset(unittest.TestCase):
                 quantity_e9 = '6000000000',
                 effective_balance_e9 = '6000000000',
                 max_withdraw_quantity_e9 = '3000000000',
-                last_updated_at_utc_millis = 1627872345678,
+                last_updated_at_millis = 1627872345678,
         )
         """
 

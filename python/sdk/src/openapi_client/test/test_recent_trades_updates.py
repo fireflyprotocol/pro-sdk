@@ -37,26 +37,26 @@ class TestRecentTradesUpdates(unittest.TestCase):
             return RecentTradesUpdates(
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
-                        id = 56, 
-                        symbol = '', 
-                        price_e9 = '', 
-                        quantity_e9 = '', 
-                        quote_quantity_e9 = '', 
-                        side = 'LONG', 
-                        updated_at_utc_millis = 56, )
+                        id = 56,
+                        symbol = '',
+                        price_e9 = '',
+                        quantity_e9 = '',
+                        quote_quantity_e9 = '',
+                        side = 'LONG',
+                        updated_at_millis = 56, )
                     ]
             )
         else:
             return RecentTradesUpdates(
                 recent_trades = [
                     openapi_client.models.recent_trades_update.RecentTradesUpdate(
-                        id = 56, 
-                        symbol = '', 
-                        price_e9 = '', 
-                        quantity_e9 = '', 
-                        quote_quantity_e9 = '', 
-                        side = 'LONG', 
-                        updated_at_utc_millis = 56, )
+                        id = 56,
+                        symbol = '',
+                        price_e9 = '',
+                        quantity_e9 = '',
+                        quote_quantity_e9 = '',
+                        side = 'LONG',
+                        updated_at_millis = 56, )
                     ],
         )
         """

@@ -49,7 +49,7 @@ class TestAccountPositionUpdate(unittest.TestCase):
                 maintenance_margin_e9 = '',
                 is_isolated = True,
                 isolated_margin_e9 = '',
-                updated_at_utc_millis = 56
+                updated_at_millis = 56
             )
         else:
             return AccountPositionUpdate(
@@ -67,7 +67,7 @@ class TestAccountPositionUpdate(unittest.TestCase):
                 maintenance_margin_e9 = '',
                 is_isolated = True,
                 isolated_margin_e9 = '',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

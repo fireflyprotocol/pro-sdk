@@ -41,7 +41,7 @@ class TestRecentTradesUpdate(unittest.TestCase):
                 quantity_e9 = '',
                 quote_quantity_e9 = '',
                 side = 'LONG',
-                updated_at_utc_millis = 56
+                updated_at_millis = 56
             )
         else:
             return RecentTradesUpdate(
@@ -51,7 +51,7 @@ class TestRecentTradesUpdate(unittest.TestCase):
                 quantity_e9 = '',
                 quote_quantity_e9 = '',
                 side = 'LONG',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

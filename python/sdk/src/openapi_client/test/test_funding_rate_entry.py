@@ -36,13 +36,13 @@ class TestFundingRateEntry(unittest.TestCase):
         if include_optional:
             return FundingRateEntry(
                 symbol = '291',
-                funding_time_at_utc_millis = 56,
+                funding_time_at_millis = 56,
                 funding_rate_e9 = ''
             )
         else:
             return FundingRateEntry(
                 symbol = '291',
-                funding_time_at_utc_millis = 56,
+                funding_time_at_millis = 56,
                 funding_rate_e9 = '',
         )
         """

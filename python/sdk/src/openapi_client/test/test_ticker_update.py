@@ -37,10 +37,10 @@ class TestTickerUpdate(unittest.TestCase):
             return TickerUpdate(
                 symbol = 'ETH-PERP',
                 last_quantity_e9 = '10000000000',
-                last_time_at_utc_millis = 1724121094751,
+                last_time_at_millis = 1724121094751,
                 last_price_e9 = '5000000000000',
                 last_funding_rate_e9 = '10000000',
-                next_funding_time_at_utc_millis = 1724121094751,
+                next_funding_time_at_millis = 1724121094751,
                 avg_funding_rate8hr_e9 = '10000000',
                 oracle_price_e9 = '50000000000000',
                 oracle_price_direction = 56,
@@ -59,23 +59,23 @@ class TestTickerUpdate(unittest.TestCase):
                 quote_volume24hr_e9 = '5000000000000',
                 close_price24hr_e9 = '5000000000000',
                 open_price24hr_e9 = '5000000000000',
-                close_time24hr_at_utc_millis = 1724121094751,
-                open_time24hr_at_utc_millis = 1724121094751,
+                close_time24hr_at_millis = 1724121094751,
+                open_time24hr_at_millis = 1724121094751,
                 first_id24hr = 56,
                 last_id24hr = 56,
                 count24hr = '123456',
                 price_change24hr_e9 = '50000000000',
                 price_change_percent24hr_e9 = '5000000000',
-                last_updated_at_utc_millis = 1724121094751
+                last_updated_at_millis = 1724121094751
             )
         else:
             return TickerUpdate(
                 symbol = 'ETH-PERP',
                 last_quantity_e9 = '10000000000',
-                last_time_at_utc_millis = 1724121094751,
+                last_time_at_millis = 1724121094751,
                 last_price_e9 = '5000000000000',
                 last_funding_rate_e9 = '10000000',
-                next_funding_time_at_utc_millis = 1724121094751,
+                next_funding_time_at_millis = 1724121094751,
                 avg_funding_rate8hr_e9 = '10000000',
                 oracle_price_e9 = '50000000000000',
                 oracle_price_direction = 56,
@@ -94,14 +94,14 @@ class TestTickerUpdate(unittest.TestCase):
                 quote_volume24hr_e9 = '5000000000000',
                 close_price24hr_e9 = '5000000000000',
                 open_price24hr_e9 = '5000000000000',
-                close_time24hr_at_utc_millis = 1724121094751,
-                open_time24hr_at_utc_millis = 1724121094751,
+                close_time24hr_at_millis = 1724121094751,
+                open_time24hr_at_millis = 1724121094751,
                 first_id24hr = 56,
                 last_id24hr = 56,
                 count24hr = '123456',
                 price_change24hr_e9 = '50000000000',
                 price_change_percent24hr_e9 = '5000000000',
-                last_updated_at_utc_millis = 1724121094751,
+                last_updated_at_millis = 1724121094751,
         )
         """
 

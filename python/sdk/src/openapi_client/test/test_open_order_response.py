@@ -45,8 +45,8 @@ class TestOpenOrderResponse(unittest.TestCase):
                 leverage_e9 = '4000000000',
                 is_isolated = True,
                 salt = '123335432',
-                expires_at_utc_millis = 123456734567,
-                signed_at_utc_millis = 1234567856,
+                expires_at_millis = 123456734567,
+                signed_at_millis = 1234567856,
                 type = 'LIMIT',
                 reduce_only = True,
                 post_only = True,
@@ -55,8 +55,8 @@ class TestOpenOrderResponse(unittest.TestCase):
                 filled_quantity_e9 = '300000000',
                 status = 'OPEN',
                 self_trade_prevention_type = 'TAKER',
-                order_time_at_utc_millis = 56,
-                last_updated_at_utc_millis = 56
+                order_time_at_millis = 56,
+                last_updated_at_millis = 56
             )
         else:
             return OpenOrderResponse(
@@ -69,8 +69,8 @@ class TestOpenOrderResponse(unittest.TestCase):
                 leverage_e9 = '4000000000',
                 is_isolated = True,
                 salt = '123335432',
-                expires_at_utc_millis = 123456734567,
-                signed_at_utc_millis = 1234567856,
+                expires_at_millis = 123456734567,
+                signed_at_millis = 1234567856,
                 type = 'LIMIT',
                 reduce_only = True,
                 post_only = True,
@@ -78,8 +78,8 @@ class TestOpenOrderResponse(unittest.TestCase):
                 filled_quantity_e9 = '300000000',
                 status = 'OPEN',
                 self_trade_prevention_type = 'TAKER',
-                order_time_at_utc_millis = 56,
-                last_updated_at_utc_millis = 56,
+                order_time_at_millis = 56,
+                last_updated_at_millis = 56,
         )
         """
 

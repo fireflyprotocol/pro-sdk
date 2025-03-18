@@ -44,8 +44,8 @@ class TestCreateOrderRequestSignedFields(unittest.TestCase):
                 is_isolated = True,
                 salt = '123335432',
                 ids_id = 'ids_id',
-                expires_at_utc_millis = 12345665432,
-                signed_at_utc_millis = 1234567856
+                expires_at_millis = 12345665432,
+                signed_at_millis = 1234567856
             )
         else:
             return CreateOrderRequestSignedFields(
@@ -58,8 +58,8 @@ class TestCreateOrderRequestSignedFields(unittest.TestCase):
                 is_isolated = True,
                 salt = '123335432',
                 ids_id = 'ids_id',
-                expires_at_utc_millis = 12345665432,
-                signed_at_utc_millis = 1234567856,
+                expires_at_millis = 12345665432,
+                signed_at_millis = 1234567856,
         )
         """
 
