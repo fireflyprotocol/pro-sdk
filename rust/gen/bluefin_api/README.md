@@ -139,7 +139,6 @@ Class | Method | HTTP request | Description
  - [TradeType](docs/TradeType.md)
  - [TradeTypeEnum](docs/TradeTypeEnum.md)
  - [TradingFees](docs/TradingFees.md)
- - [TradingFees1](docs/TradingFees1.md)
  - [Transaction](docs/Transaction.md)
  - [TransactionType](docs/TransactionType.md)
  - [TransactionTypeEnum](docs/TransactionTypeEnum.md)

@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.asset2 import Asset2
-from openapi_client.models.trading_fees1 import TradingFees1
+from openapi_client.models.trading_fees import TradingFees
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class AccountUpdate(BaseModel):
     """
     Account information for the data stream.
     """ # noqa: E501
-    trading_fees: Optional[TradingFees1] = Field(default=None, alias="tradingFees")
+    trading_fees: Optional[TradingFees] = Field(default=None, alias="tradingFees")
     can_trade: StrictBool = Field(description="Indicates if trading is enabled.", alias="canTrade")
     can_deposit: StrictBool = Field(description="Indicates if deposits are enabled.", alias="canDeposit")
     can_withdraw: StrictBool = Field(description="Indicates if withdrawals are enabled.", alias="canWithdraw")
@@ -107,7 +107,7 @@ class AccountUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tradingFees": TradingFees1.from_dict(obj["tradingFees"]) if obj.get("tradingFees") is not None else None,
+            "tradingFees": TradingFees.from_dict(obj["tradingFees"]) if obj.get("tradingFees") is not None else None,
             "canTrade": obj.get("canTrade"),
             "canDeposit": obj.get("canDeposit"),
             "canWithdraw": obj.get("canWithdraw"),

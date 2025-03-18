@@ -187,7 +187,6 @@ Class | Method | HTTP request | Description
  - [TradeType](openapi_client/docs/TradeType.md)
  - [TradeTypeEnum](openapi_client/docs/TradeTypeEnum.md)
  - [TradingFees](openapi_client/docs/TradingFees.md)
- - [TradingFees1](openapi_client/docs/TradingFees1.md)
  - [Transaction](openapi_client/docs/Transaction.md)
  - [TransactionType](openapi_client/docs/TransactionType.md)
  - [TransactionTypeEnum](openapi_client/docs/TransactionTypeEnum.md)

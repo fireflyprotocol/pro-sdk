@@ -99,7 +99,6 @@ openapi_client/docs/TradeSideEnum.md
 openapi_client/docs/TradeType.md
 openapi_client/docs/TradeTypeEnum.md
 openapi_client/docs/TradingFees.md
-openapi_client/docs/TradingFees1.md
 openapi_client/docs/Transaction.md
 openapi_client/docs/TransactionType.md
 openapi_client/docs/TransactionTypeEnum.md
@@ -193,7 +192,6 @@ openapi_client/models/trade_side_enum.py
 openapi_client/models/trade_type.py
 openapi_client/models/trade_type_enum.py
 openapi_client/models/trading_fees.py
-openapi_client/models/trading_fees1.py
 openapi_client/models/transaction.py
 openapi_client/models/transaction_type.py
 openapi_client/models/transaction_type_enum.py

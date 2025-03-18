@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Bluefin API
+  version: v1
+  description: |
+    All numeric quantities are represented as string in e9 format.
+tags:
+- name: Common Schemas
+  description: "Common Schemas"
+components:
+  schemas:
+    TradingFees:
+      type: object
+      required:
+      - makerFeeE9
+      - takerFeeE9
+      - isApplied
+      properties:
+        makerFeeE9:
+          type: string
+          description: The Account Maker Fee (e9 format).
+          example: "1000000"
+        takerFeeE9:
+          type: string
+          description: The Account Taker Fee (e9 format).
+          example: "1000000"
+        isApplied:
+          type: boolean
+          description: Are the fees applied on the account?

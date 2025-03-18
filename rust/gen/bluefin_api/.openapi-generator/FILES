@@ -93,7 +93,6 @@ docs/TradeSideEnum.md
 docs/TradeType.md
 docs/TradeTypeEnum.md
 docs/TradingFees.md
-docs/TradingFees1.md
 docs/Transaction.md
 docs/TransactionType.md
 docs/TransactionTypeEnum.md
@@ -195,7 +194,6 @@ src/models/trade_side_enum.rs
 src/models/trade_type.rs
 src/models/trade_type_enum.rs
 src/models/trading_fees.rs
-src/models/trading_fees_1.rs
 src/models/transaction.rs
 src/models/transaction_type.rs
 src/models/transaction_type_enum.rs
