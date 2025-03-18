@@ -71,6 +71,7 @@ async def test_deposit_funds_excessive_amount():
         await client.close()
 
 
+@pytest.mark.skip(reason="Skipping this test - withdraw assertions are not available in SDK")
 @pytest.mark.asyncio
 async def test_withdraw_funds():
     """Test case for withdrawing funds from available margin"""

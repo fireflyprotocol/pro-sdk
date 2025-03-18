@@ -75,7 +75,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def order(self, payload: CreateOrderRequestSignedFields) -> bytes:
+    def order(self, payload: CreateOrderRequestSignedFields) -> str:
         """
         Creates an order and signs it
 
@@ -169,7 +169,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def authorize_account(self, payload: AccountAuthorizationRequestSignedFields, *, is_authorize: bool) -> bytes:
+    def authorize_account(self, payload: AccountAuthorizationRequestSignedFields, *, is_authorize: bool) -> str:
         """
         Signs an account authorization request
 
@@ -199,7 +199,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def close_position(self, payload) -> bytes:
+    def close_position(self, payload) -> str:
         """
         Signs close position request
 
