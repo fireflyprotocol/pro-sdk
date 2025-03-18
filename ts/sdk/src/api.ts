@@ -674,10 +674,10 @@ export interface AccountTransactionUpdate {
 export interface AccountUpdate {
     /**
      * 
-     * @type {TradingFees1}
+     * @type {TradingFees}
      * @memberof AccountUpdate
      */
-    'tradingFees'?: TradingFees1;
+    'tradingFees'?: TradingFees;
     /**
      * Indicates if trading is enabled.
      * @type {boolean}
@@ -3591,31 +3591,6 @@ export interface TradingFees {
      * Are the fees applied on the account?
      * @type {boolean}
      * @memberof TradingFees
-     */
-    'isApplied': boolean;
-}
-/**
- * Details about the fee tier.
- * @export
- * @interface TradingFees1
- */
-export interface TradingFees1 {
-    /**
-     * The maker fee.
-     * @type {string}
-     * @memberof TradingFees1
-     */
-    'makerFeeE9': string;
-    /**
-     * The taker fee.
-     * @type {string}
-     * @memberof TradingFees1
-     */
-    'takerFeeE9': string;
-    /**
-     * Indicates if the fee tier is applied.
-     * @type {boolean}
-     * @memberof TradingFees1
      */
     'isApplied': boolean;
 }

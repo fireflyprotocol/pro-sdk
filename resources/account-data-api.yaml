@@ -15,25 +15,6 @@ components:
       name: x-user-token
       bearerFormat: JWT # Optional, arbitrary value for documentation purposes
   schemas:
-    TradingFees:
-      type: object
-      required:
-        - makerFeeE9
-        - takerFeeE9
-        - isApplied
-      properties:
-        makerFeeE9:
-          type: string
-          description: The Account Maker Fee (e9 format).
-          example: "1000000"
-        takerFeeE9:
-          type: string
-          description: The Account Taker Fee (e9 format).
-          example: "1000000"
-        isApplied:
-          type: boolean
-          description: Are the fees applied on the account?
-
     Account:
       type: object
       required:
@@ -57,7 +38,7 @@ components:
         - authorizedAccounts
       properties:
         tradingFees:
-          $ref: "#/components/schemas/TradingFees"
+          $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:
           type: boolean
           description: If the user can trade.
