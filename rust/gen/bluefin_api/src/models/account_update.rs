@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountUpdate {
     #[serde(rename = "tradingFees", skip_serializing_if = "Option::is_none")]
-    pub trading_fees: Option<models::TradingFees >,
+    pub trading_fees: Option<models::TradingFees>,
     /// Indicates if trading is enabled.
     #[serde(rename = "canTrade")]
     pub can_trade: bool,

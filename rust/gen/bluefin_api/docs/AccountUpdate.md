@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trading_fees** | Option<[**models::TradingFees1**](TradingFees_1.md)> |  | [optional]
+**trading_fees** | Option<[**models::TradingFees**](TradingFees.md)> |  | [optional]
 **can_trade** | **bool** | Indicates if trading is enabled. | 
 **can_deposit** | **bool** | Indicates if deposits are enabled. | 
 **can_withdraw** | **bool** | Indicates if withdrawals are enabled. | 

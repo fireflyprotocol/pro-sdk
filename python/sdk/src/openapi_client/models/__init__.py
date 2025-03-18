@@ -100,7 +100,6 @@ from openapi_client.models.trade_side_enum import TradeSideEnum
 from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trade_type_enum import TradeTypeEnum
 from openapi_client.models.trading_fees import TradingFees
-from openapi_client.models.trading_fees1 import TradingFees1
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
 from openapi_client.models.transaction_type_enum import TransactionTypeEnum

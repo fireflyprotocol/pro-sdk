@@ -6,7 +6,7 @@ The payload of the message, which varies based on the event type.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trading_fees** | [**TradingFees1**](TradingFees1.md) |  | [optional] 
+**trading_fees** | [**TradingFees**](TradingFees.md) |  | [optional] 
 **can_trade** | **bool** | Indicates if trading is enabled. | 
 **can_deposit** | **bool** | Indicates if deposits are enabled. | 
 **can_withdraw** | **bool** | Indicates if withdrawals are enabled. | 
