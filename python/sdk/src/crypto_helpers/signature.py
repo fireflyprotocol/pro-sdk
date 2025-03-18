@@ -109,7 +109,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def adjust_leverage(self, payload: AccountPositionLeverageUpdateRequestSignedFields) -> bytes:
+    def adjust_leverage(self, payload: AccountPositionLeverageUpdateRequestSignedFields) -> str:
         """
         Signs adjust leverage request
 
@@ -138,7 +138,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def adjust_margin(self, payload) -> bytes:
+    def adjust_margin(self, payload) -> str:
         """
         Signs adjust margin request
 
