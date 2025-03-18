@@ -560,7 +560,7 @@ components:
       description: "Account information for the data stream."
       properties:
         tradingFees:
-          $ref: '#/components/schemas/TradingFees'
+          $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:
           type: boolean
           description: "Indicates if trading is enabled."
@@ -625,24 +625,6 @@ components:
         - totalCrossUnrealizedPnlE9
         - updatedAtMillis
         - assets
-
-    TradingFees:
-      type: object
-      description: "Details about the fee tier."
-      properties:
-        makerFeeE9:
-          type: string
-          description: "The maker fee."
-        takerFeeE9:
-          type: string
-          description: "The taker fee."
-        isApplied:
-          type: boolean
-          description: "Indicates if the fee tier is applied."
-      required:
-        - makerFeeE9
-        - takerFeeE9
-        - isApplied
 
     Asset:
       type: object

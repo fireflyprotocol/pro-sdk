@@ -55,8 +55,6 @@ components:
       $ref: './websocket-api.yaml#/components/schemas/AccountPositionUpdate'
     AccountUpdate:
       $ref: './websocket-api.yaml#/components/schemas/AccountUpdate'
-    TradingFees:
-      $ref: './websocket-api.yaml#/components/schemas/TradingFees'
     Asset:
       $ref: './websocket-api.yaml#/components/schemas/Asset'
     AccountTradeUpdate:
