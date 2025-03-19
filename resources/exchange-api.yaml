@@ -23,7 +23,7 @@ components:
           type: array
           description: List of assets available on the exchange.
           items:
-            $ref: "#/components/schemas/Asset"
+            $ref: "#/components/schemas/AssetConfig"
         contractsConfig:
           $ref: "#/components/schemas/ContractsConfig"
         markets:
@@ -517,7 +517,7 @@ components:
           type: string
           description: Fee operator address
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
-    Asset:
+    AssetConfig:
       type: object
       properties:
         assetType:
