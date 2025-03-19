@@ -38,11 +38,6 @@ components:
         BOTH: On a self trade, both the taker and the maker order will be cancelled
         
         UNSPECIFIED: set to default value
-    OrderType:
-      type: string
-      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET, UNSPECIFIED ]
-      description: The type of the order
-
 
     AccountAuthorizationRequest:
       type: object
@@ -148,7 +143,7 @@ components:
           type: string
           description: The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: Is this order to only reduce a position? Default false
@@ -331,7 +326,7 @@ components:
           description: The timestamp in millis at which the request was signed
           example: 1234567856
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: Is this order to only reduce a position? Default false
