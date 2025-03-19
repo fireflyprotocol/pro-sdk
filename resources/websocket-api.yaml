@@ -364,7 +364,7 @@ components:
           format: int64
           description: "The signing timestamp of the order in milliseconds."
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: "Indicates if the order is reduce-only."
@@ -409,18 +409,6 @@ components:
         - selfTradePreventionType
         - createdAtMillis
         - updatedAtMillis
-
-    OrderType:
-      type: string
-      description: "The type of order."
-      enum:
-        - LIMIT
-        - MARKET
-        - STOP_LIMIT
-        - STOP_MARKET
-        - LIQUIDATION
-        - BANKRUPTCY_LIQUIDATION
-        - UNSPECIFIED
 
     SelfTradePreventionType:
       type: string

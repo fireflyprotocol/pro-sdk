@@ -34,6 +34,17 @@ components:
         IOC: Immediate Or Cancel
         
         FOK: Fill Or Kill    
+    OrderType:
+      type: string
+      description: "The type of order."
+      enum:
+      - LIMIT
+      - MARKET
+      - STOP_LIMIT
+      - STOP_MARKET
+      - LIQUIDATION
+      - BANKRUPTCY_LIQUIDATION
+      - UNSPECIFIED
 
     # objects
     Asset:

@@ -39,8 +39,6 @@ components:
       $ref: './websocket-api.yaml#/components/schemas/AccountOrderUpdate'
     ActiveOrderUpdate:
       $ref: './websocket-api.yaml#/components/schemas/ActiveOrderUpdate'
-    OrderType:
-      $ref: './websocket-api.yaml#/components/schemas/OrderType'
     SelfTradePreventionType:
       $ref: './websocket-api.yaml#/components/schemas/SelfTradePreventionType'
     TransactionType:
