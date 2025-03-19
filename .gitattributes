@@ -3,6 +3,8 @@
 openapitools.json binary linguist-generated
 python/sdk/src/openapi_client* binary linguist-generated
 python/sdk/src/openapi_client*/** binary linguist-generated
+python/sdk/src/.openapi-generator* binary linguist-generated
+python/sdk/src/.openapi-generator/* binary linguist-generated
 ts/sdk/src/.openapi-generator* binary linguist-generated
 ts/sdk/src/.openapi-generator/* binary linguist-generated
 ts/sdk/src/configuration.ts binary linguist-generated
