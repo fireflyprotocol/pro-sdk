@@ -10,6 +10,18 @@ tags:
 components:
   schemas:
     # enums
+    OrderStatus:
+      type: string
+      description: "The current status of the order."
+      enum:
+      - OPEN
+      - PARTIALLY_FILLED_OPEN
+      - PARTIALLY_FILLED_CANCELED
+      - FILLED
+      - CANCELLED
+      - EXPIRED
+      - PARTIALLY_FILLED_EXPIRED
+      - UNSPECIFIED
     OrderTimeInForce:
       type: string
       enum: [ GTT, IOC, FOK, UNSPECIFIED ]

@@ -377,7 +377,7 @@ components:
           type: string
           description: "The trigger price for stop-limit or stop-market orders."
         status:
-          $ref: '#/components/schemas/OrderStatus'
+          $ref: './common.yaml#/components/schemas/OrderStatus'
         selfTradePreventionType:
           $ref: '#/components/schemas/SelfTradePreventionType'
         createdAtMillis:
@@ -420,19 +420,6 @@ components:
         - STOP_MARKET
         - LIQUIDATION
         - BANKRUPTCY_LIQUIDATION
-        - UNSPECIFIED
-
-    OrderStatus:
-      type: string
-      description: "The current status of the order."
-      enum:
-        - OPEN
-        - PARTIALLY_FILLED_OPEN
-        - PARTIALLY_FILLED_CANCELED
-        - FILLED
-        - CANCELLED
-        - EXPIRED
-        - PARTIALLY_FILLED_EXPIRED
         - UNSPECIFIED
 
     SelfTradePreventionType:
