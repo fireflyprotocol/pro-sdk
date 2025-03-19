@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// OrderType : The type of the order
-/// The type of the order
+/// OrderType : The type of order.
+/// The type of order.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OrderType {
     #[serde(rename = "LIMIT")]
@@ -23,6 +23,10 @@ pub enum OrderType {
     StopLimit,
     #[serde(rename = "STOP_MARKET")]
     StopMarket,
+    #[serde(rename = "LIQUIDATION")]
+    Liquidation,
+    #[serde(rename = "BANKRUPTCY_LIQUIDATION")]
+    BankruptcyLiquidation,
     #[serde(rename = "UNSPECIFIED")]
     Unspecified,
 
@@ -35,6 +39,8 @@ impl std::fmt::Display for OrderType {
             Self::Market => write!(f, "MARKET"),
             Self::StopLimit => write!(f, "STOP_LIMIT"),
             Self::StopMarket => write!(f, "STOP_MARKET"),
+            Self::Liquidation => write!(f, "LIQUIDATION"),
+            Self::BankruptcyLiquidation => write!(f, "BANKRUPTCY_LIQUIDATION"),
             Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }

@@ -107,12 +107,12 @@ pub struct TickerResponse {
     #[serde(rename = "priceChangePercent24hrE9")]
     pub price_change_percent24hr_e9: String,
     /// Last update time in milliseconds.
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl TickerResponse {
-    pub fn new(symbol: String, last_quantity_e9: String, last_time_at_millis: i64, last_price_e9: String, last_funding_rate_e9: String, next_funding_time_at_millis: i64, avg_funding_rate8hr_e9: String, oracle_price_e9: String, oracle_price_direction: i64, mark_price_e9: String, mark_price_direction: i64, market_price_e9: String, market_price_direction: i32, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, open_interest_e9: String, high_price24hr_e9: String, low_price24hr_e9: String, volume24hr_e9: String, quote_volume24hr_e9: String, close_price24hr_e9: String, open_price24hr_e9: String, close_time24hr_at_millis: i64, open_time24hr_at_millis: i64, first_id24hr: i64, last_id24hr: i64, count24hr: String, price_change24hr_e9: String, price_change_percent24hr_e9: String, last_updated_at_millis: i64) -> TickerResponse {
+    pub fn new(symbol: String, last_quantity_e9: String, last_time_at_millis: i64, last_price_e9: String, last_funding_rate_e9: String, next_funding_time_at_millis: i64, avg_funding_rate8hr_e9: String, oracle_price_e9: String, oracle_price_direction: i64, mark_price_e9: String, mark_price_direction: i64, market_price_e9: String, market_price_direction: i32, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, open_interest_e9: String, high_price24hr_e9: String, low_price24hr_e9: String, volume24hr_e9: String, quote_volume24hr_e9: String, close_price24hr_e9: String, open_price24hr_e9: String, close_time24hr_at_millis: i64, open_time24hr_at_millis: i64, first_id24hr: i64, last_id24hr: i64, count24hr: String, price_change24hr_e9: String, price_change_percent24hr_e9: String, updated_at_millis: i64) -> TickerResponse {
         TickerResponse {
             symbol,
             last_quantity_e9,
@@ -145,7 +145,7 @@ impl TickerResponse {
             count24hr,
             price_change24hr_e9,
             price_change_percent24hr_e9,
-            last_updated_at_millis,
+            updated_at_millis,
         }
     }
 }

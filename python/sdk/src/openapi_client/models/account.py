@@ -43,11 +43,11 @@ class Account(BaseModel):
     account_leverage_e9: StrictStr = Field(description="The leverage of the account (e9 format).", alias="accountLeverageE9")
     total_unrealized_pnl_e9: StrictStr = Field(description="Total unrealized profit (e9 format).", alias="totalUnrealizedPnlE9")
     total_cross_unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit of crossed positions (e9 format).", alias="totalCrossUnrealizedPnlE9")
-    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtMillis")
+    updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="updatedAtMillis")
     assets: List[Asset]
     positions: List[Position]
     authorized_accounts: List[StrictStr] = Field(description="The accounts that are authorized to trade on behalf of the current account.", alias="authorizedAccounts")
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "lastUpdatedAtMillis", "assets", "positions", "authorizedAccounts"]
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -131,7 +131,7 @@ class Account(BaseModel):
             "accountLeverageE9": obj.get("accountLeverageE9"),
             "totalUnrealizedPnlE9": obj.get("totalUnrealizedPnlE9"),
             "totalCrossUnrealizedPnlE9": obj.get("totalCrossUnrealizedPnlE9"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis"),
+            "updatedAtMillis": obj.get("updatedAtMillis"),
             "assets": [Asset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,
             "authorizedAccounts": obj.get("authorizedAccounts")

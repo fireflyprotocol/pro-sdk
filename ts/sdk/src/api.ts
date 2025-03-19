@@ -118,7 +118,7 @@ export interface Account {
      * @type {number}
      * @memberof Account
      */
-    'lastUpdatedAtMillis': number;
+    'updatedAtMillis': number;
     /**
      * 
      * @type {Array<Asset>}
@@ -255,10 +255,10 @@ export type AccountEventType = typeof AccountEventType[keyof typeof AccountEvent
 export interface AccountMarketPreference {
     /**
      * 
-     * @type {MarginTypeEnum}
+     * @type {MarginType}
      * @memberof AccountMarketPreference
      */
-    'marginType'?: MarginTypeEnum;
+    'marginType'?: MarginType;
     /**
      * User set leverage (e.g., 10x).
      * @type {number}
@@ -764,10 +764,10 @@ export interface AccountUpdate {
     'updatedAtMillis': number;
     /**
      * The list of assets.
-     * @type {Array<Asset2>}
+     * @type {Array<Asset>}
      * @memberof AccountUpdate
      */
-    'assets': Array<Asset2>;
+    'assets': Array<Asset>;
 }
 /**
  * Information about an order update.
@@ -855,10 +855,10 @@ export interface ActiveOrderUpdate {
     'signedAtMillis': number;
     /**
      * 
-     * @type {OrderType1}
+     * @type {OrderType}
      * @memberof ActiveOrderUpdate
      */
-    'type': OrderType1;
+    'type': OrderType;
     /**
      * Indicates if the order is reduce-only.
      * @type {boolean}
@@ -873,10 +873,10 @@ export interface ActiveOrderUpdate {
     'postOnly': boolean;
     /**
      * 
-     * @type {OrderTimeInForce1}
+     * @type {OrderTimeInForce}
      * @memberof ActiveOrderUpdate
      */
-    'timeInForce': OrderTimeInForce1;
+    'timeInForce': OrderTimeInForce;
     /**
      * The trigger price for stop-limit or stop-market orders.
      * @type {string}
@@ -885,16 +885,16 @@ export interface ActiveOrderUpdate {
     'triggerPriceE9'?: string;
     /**
      * 
-     * @type {OrderStatus1}
+     * @type {OrderStatus}
      * @memberof ActiveOrderUpdate
      */
-    'status': OrderStatus1;
+    'status': OrderStatus;
     /**
      * 
-     * @type {SelfTradePreventionType1}
+     * @type {SelfTradePreventionType}
      * @memberof ActiveOrderUpdate
      */
-    'selfTradePreventionType': SelfTradePreventionType1;
+    'selfTradePreventionType': SelfTradePreventionType;
     /**
      * The timestamp when the order was placed, in milliseconds.
      * @type {number}
@@ -911,115 +911,78 @@ export interface ActiveOrderUpdate {
 
 
 /**
- * 
+ * Details about an asset in the account.
  * @export
  * @interface Asset
  */
 export interface Asset {
     /**
-     * On-chain address of the asset bank on the blockchain.
-     * @type {string}
-     * @memberof Asset
-     */
-    'symbol': string;
-    /**
-     * Asset quantity (e9 format).
-     * @type {string}
-     * @memberof Asset
-     */
-    'quantityE9': string;
-    /**
-     * Value of this asset balance based on current market price and asset weight (e9 format).
-     * @type {string}
-     * @memberof Asset
-     */
-    'effectiveBalanceE9': string;
-    /**
-     * Maximum quantity for transfer out (e9 format).
-     * @type {string}
-     * @memberof Asset
-     */
-    'maxWithdrawQuantityE9': string;
-    /**
-     * Last update time in milliseconds since Unix epoch.
-     * @type {number}
-     * @memberof Asset
-     */
-    'lastUpdatedAtMillis': number;
-}
-/**
- * 
- * @export
- * @interface Asset1
- */
-export interface Asset1 {
-    /**
-     * The bank address of the asset.
-     * @type {string}
-     * @memberof Asset1
-     */
-    'assetType': string;
-    /**
-     * Asset symbol.
-     * @type {string}
-     * @memberof Asset1
-     */
-    'symbol': string;
-    /**
-     * Default precision for rendering this asset.
-     * @type {number}
-     * @memberof Asset1
-     */
-    'decimals': number;
-    /**
-     * Weight applied to asset to use as margin in Multi-Assets mode.
-     * @type {string}
-     * @memberof Asset1
-     */
-    'weight': string;
-    /**
-     * Indicates if the asset can be used as margin in Multi-Assets mode.
-     * @type {boolean}
-     * @memberof Asset1
-     */
-    'marginAvailable': boolean;
-}
-/**
- * Details about an asset in the account.
- * @export
- * @interface Asset2
- */
-export interface Asset2 {
-    /**
      * The symbol of the asset.
      * @type {string}
-     * @memberof Asset2
+     * @memberof Asset
      */
     'symbol': string;
     /**
      * The quantity of the asset.
      * @type {string}
-     * @memberof Asset2
+     * @memberof Asset
      */
     'quantityE9': string;
     /**
      * The effective balance of the asset.
      * @type {string}
-     * @memberof Asset2
+     * @memberof Asset
      */
     'effectiveBalanceE9': string;
     /**
      * The maximum quantity that can be withdrawn.
      * @type {string}
-     * @memberof Asset2
+     * @memberof Asset
      */
     'maxWithdrawQuantityE9': string;
     /**
      * The timestamp of the last update in milliseconds.
      * @type {number}
-     * @memberof Asset2
+     * @memberof Asset
      */
     'updatedAtMillis': number;
+}
+/**
+ * 
+ * @export
+ * @interface AssetConfig
+ */
+export interface AssetConfig {
+    /**
+     * The bank address of the asset.
+     * @type {string}
+     * @memberof AssetConfig
+     */
+    'assetType': string;
+    /**
+     * Asset symbol.
+     * @type {string}
+     * @memberof AssetConfig
+     */
+    'symbol': string;
+    /**
+     * Default precision for rendering this asset.
+     * @type {number}
+     * @memberof AssetConfig
+     */
+    'decimals': number;
+    /**
+     * Weight applied to asset to use as margin in Multi-Assets mode.
+     * @type {string}
+     * @memberof AssetConfig
+     */
+    'weight': string;
+    /**
+     * Indicates if the asset can be used as margin in Multi-Assets mode.
+     * @type {boolean}
+     * @memberof AssetConfig
+     */
+    'marginAvailable': boolean;
 }
 /**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -1322,47 +1285,15 @@ export interface CreateOrderRequestSignedFields {
 /**
  * 
  * @export
- * @interface Error1
- */
-export interface Error1 {
-    /**
-     * Error message.
-     * @type {string}
-     * @memberof Error1
-     */
-    'message': string;
-}
-/**
- * 
- * @export
- * @interface Error2
- */
-export interface Error2 {
-    /**
-     * A code representing the type of error.
-     * @type {string}
-     * @memberof Error2
-     */
-    'errorCode'?: string;
-    /**
-     * A human-readable message describing the error.
-     * @type {string}
-     * @memberof Error2
-     */
-    'message': string;
-}
-/**
- * 
- * @export
  * @interface ExchangeInfoResponse
  */
 export interface ExchangeInfoResponse {
     /**
      * List of assets available on the exchange.
-     * @type {Array<Asset1>}
+     * @type {Array<AssetConfig>}
      * @memberof ExchangeInfoResponse
      */
-    'assets': Array<Asset1>;
+    'assets': Array<AssetConfig>;
     /**
      * 
      * @type {ContractsConfig}
@@ -1508,13 +1439,13 @@ export interface LoginResponse {
  * @enum {string}
  */
 
-export const MarginTypeEnum = {
+export const MarginType = {
     Cross: 'CROSS',
     Isolated: 'ISOLATED',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
-export type MarginTypeEnum = typeof MarginTypeEnum[keyof typeof MarginTypeEnum];
+export type MarginType = typeof MarginType[keyof typeof MarginType];
 
 
 /**
@@ -1987,7 +1918,13 @@ export interface MarketSubscriptionStreams {
  */
 export interface ModelError {
     /**
-     * Error message
+     * A code representing the type of error.
+     * @type {string}
+     * @memberof ModelError
+     */
+    'errorCode'?: string;
+    /**
+     * A human-readable message describing the error.
      * @type {string}
      * @memberof ModelError
      */
@@ -2130,7 +2067,7 @@ export interface OpenOrderResponse {
      * @type {number}
      * @memberof OpenOrderResponse
      */
-    'lastUpdatedAtMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -2337,31 +2274,12 @@ export type OrderSide = typeof OrderSide[keyof typeof OrderSide];
 
 
 /**
- * The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book.  UNSPECIFIED: The Order status is unspecified 
- * @export
- * @enum {string}
- */
-
-export const OrderStatus = {
-    Open: 'OPEN',
-    Pending: 'PENDING',
-    Filled: 'FILLED',
-    PartiallyFilled: 'PARTIALLY_FILLED',
-    Cancelled: 'CANCELLED',
-    Rejected: 'REJECTED',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
-
-
-/**
  * The current status of the order.
  * @export
  * @enum {string}
  */
 
-export const OrderStatus1 = {
+export const OrderStatus = {
     Open: 'OPEN',
     PartiallyFilledOpen: 'PARTIALLY_FILLED_OPEN',
     PartiallyFilledCanceled: 'PARTIALLY_FILLED_CANCELED',
@@ -2372,11 +2290,11 @@ export const OrderStatus1 = {
     Unspecified: 'UNSPECIFIED'
 } as const;
 
-export type OrderStatus1 = typeof OrderStatus1[keyof typeof OrderStatus1];
+export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
 
 
 /**
- * Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.  GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill 
+ * The time-in-force policy for the order. By default, all orders are GTT. UNSPECIFIED is set to default.  GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill     
  * @export
  * @enum {string}
  */
@@ -2392,23 +2310,7 @@ export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInF
 
 
 /**
- * The time-in-force policy for the order.
- * @export
- * @enum {string}
- */
-
-export const OrderTimeInForce1 = {
-    Gtt: 'GTT',
-    Ioc: 'IOC',
-    Fok: 'FOK',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type OrderTimeInForce1 = typeof OrderTimeInForce1[keyof typeof OrderTimeInForce1];
-
-
-/**
- * The type of the order
+ * The type of order.
  * @export
  * @enum {string}
  */
@@ -2418,29 +2320,12 @@ export const OrderType = {
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
     StopMarket: 'STOP_MARKET',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type OrderType = typeof OrderType[keyof typeof OrderType];
-
-
-/**
- * The type of order.
- * @export
- * @enum {string}
- */
-
-export const OrderType1 = {
-    Limit: 'LIMIT',
-    Market: 'MARKET',
-    StopLimit: 'STOP_LIMIT',
-    StopMarket: 'STOP_MARKET',
     Liquidation: 'LIQUIDATION',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
-export type OrderType1 = typeof OrderType1[keyof typeof OrderType1];
+export type OrderType = typeof OrderType[keyof typeof OrderType];
 
 
 /**
@@ -2466,7 +2351,7 @@ export interface OrderbookDepthResponse {
      * @type {number}
      * @memberof OrderbookDepthResponse
      */
-    'lastUpdatedAtMillis': number;
+    'updatedAtMillis': number;
     /**
      * The time at which the orderbook server sent the response, in milliseconds.
      * @type {number}
@@ -2661,10 +2546,10 @@ export interface Position {
     'unrealizedPnlE9': string;
     /**
      * 
-     * @type {PositionSideEnum}
+     * @type {PositionSide}
      * @memberof Position
      */
-    'side': PositionSideEnum;
+    'side': PositionSide;
     /**
      * Initial margin required with current mark price (e9 format).
      * @type {string}
@@ -2694,7 +2579,7 @@ export interface Position {
      * @type {number}
      * @memberof Position
      */
-    'lastUpdatedAtMillis': number;
+    'updatedAtMillis': number;
 }
 
 
@@ -2704,13 +2589,13 @@ export interface Position {
  * @enum {string}
  */
 
-export const PositionSideEnum = {
+export const PositionSide = {
     Long: 'LONG',
     Short: 'SHORT',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
-export type PositionSideEnum = typeof PositionSideEnum[keyof typeof PositionSideEnum];
+export type PositionSide = typeof PositionSide[keyof typeof PositionSide];
 
 
 /**
@@ -2861,22 +2746,6 @@ export const SelfTradePreventionType = {
 } as const;
 
 export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeof SelfTradePreventionType];
-
-
-/**
- * The type of self-trade prevention applied to the order.
- * @export
- * @enum {string}
- */
-
-export const SelfTradePreventionType1 = {
-    Taker: 'TAKER',
-    Maker: 'MAKER',
-    Both: 'BOTH',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type SelfTradePreventionType1 = typeof SelfTradePreventionType1[keyof typeof SelfTradePreventionType1];
 
 
 /**
@@ -3137,7 +3006,7 @@ export interface TickerResponse {
      * @type {number}
      * @memberof TickerResponse
      */
-    'lastUpdatedAtMillis': number;
+    'updatedAtMillis': number;
 }
 /**
  * Represents detailed market ticker information.
@@ -3349,7 +3218,7 @@ export interface Trade {
      * @type {string}
      * @memberof Trade
      */
-    'tradeId': string;
+    'id': string;
     /**
      * Client order ID.
      * @type {string}
@@ -3370,22 +3239,22 @@ export interface Trade {
     'orderHash'?: string;
     /**
      * 
-     * @type {TradeTypeEnum}
+     * @type {TradeType}
      * @memberof Trade
      */
-    'tradeType': TradeTypeEnum;
+    'tradeType'?: TradeType;
     /**
      * 
-     * @type {TradeSideEnum}
+     * @type {TradeSide}
      * @memberof Trade
      */
-    'side': TradeSideEnum;
+    'side': TradeSide;
     /**
      * Indicates if the user was a maker to the trade.
      * @type {boolean}
      * @memberof Trade
      */
-    'isMaker': boolean;
+    'isMaker'?: boolean;
     /**
      * Trade price (e9 format).
      * @type {string}
@@ -3412,22 +3281,22 @@ export interface Trade {
     'realizedPnlE9'?: string;
     /**
      * 
-     * @type {PositionSideEnum}
+     * @type {PositionSide}
      * @memberof Trade
      */
-    'positionSide': PositionSideEnum;
+    'positionSide'?: PositionSide;
     /**
      * Trading fee (e9 format).
      * @type {string}
      * @memberof Trade
      */
-    'tradingFeeE9': string;
+    'tradingFeeE9'?: string;
     /**
      * Asset used for trading fee.
      * @type {string}
      * @memberof Trade
      */
-    'tradingFeeAsset': TradeTradingFeeAssetEnum;
+    'tradingFeeAsset'?: TradeTradingFeeAssetEnum;
     /**
      * Gas fee.
      * @type {number}
@@ -3457,58 +3326,7 @@ export const TradeTradingFeeAssetEnum = {
 export type TradeTradingFeeAssetEnum = typeof TradeTradingFeeAssetEnum[keyof typeof TradeTradingFeeAssetEnum];
 
 /**
- * 
- * @export
- * @interface Trade1
- */
-export interface Trade1 {
-    /**
-     * Trade ID
-     * @type {number}
-     * @memberof Trade1
-     */
-    'id': number;
-    /**
-     * Market symbol.
-     * @type {string}
-     * @memberof Trade1
-     */
-    'symbol': string;
-    /**
-     * Trade price (e9 format).
-     * @type {string}
-     * @memberof Trade1
-     */
-    'priceE9': string;
-    /**
-     * Trade quantity (e9 format).
-     * @type {string}
-     * @memberof Trade1
-     */
-    'quantityE9': string;
-    /**
-     * Trade quote quantity (e9 format).
-     * @type {string}
-     * @memberof Trade1
-     */
-    'quoteQuantityE9': string;
-    /**
-     * 
-     * @type {TradeSide}
-     * @memberof Trade1
-     */
-    'side': TradeSide;
-    /**
-     * Trade timestamp.
-     * @type {number}
-     * @memberof Trade1
-     */
-    'timeAtMillis': number;
-}
-
-
-/**
- * 
+ * Trade side based on the user order in this trade.
  * @export
  * @enum {string}
  */
@@ -3523,22 +3341,7 @@ export type TradeSide = typeof TradeSide[keyof typeof TradeSide];
 
 
 /**
- * Trade side based on the user order in this trade.
- * @export
- * @enum {string}
- */
-
-export const TradeSideEnum = {
-    Long: 'LONG',
-    Short: 'SHORT',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type TradeSideEnum = typeof TradeSideEnum[keyof typeof TradeSideEnum];
-
-
-/**
- * The type of trade.
+ * Type of trade.
  * @export
  * @enum {string}
  */
@@ -3551,22 +3354,6 @@ export const TradeType = {
 } as const;
 
 export type TradeType = typeof TradeType[keyof typeof TradeType];
-
-
-/**
- * Type of trade.
- * @export
- * @enum {string}
- */
-
-export const TradeTypeEnum = {
-    Order: 'ORDER',
-    Liquidation: 'LIQUIDATION',
-    Deleverage: 'DELEVERAGE',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type TradeTypeEnum = typeof TradeTypeEnum[keyof typeof TradeTypeEnum];
 
 
 /**
@@ -3614,10 +3401,10 @@ export interface Transaction {
     'symbol'?: string;
     /**
      * 
-     * @type {TransactionTypeEnum}
+     * @type {TransactionType}
      * @memberof Transaction
      */
-    'type': TransactionTypeEnum;
+    'type': TransactionType;
     /**
      * Amount in e9 format (positive or negative).
      * @type {string}
@@ -3646,30 +3433,12 @@ export interface Transaction {
 
 
 /**
- * The type of transaction.
- * @export
- * @enum {string}
- */
-
-export const TransactionType = {
-    Deposit: 'DEPOSIT',
-    Withdraw: 'WITHDRAW',
-    RealizedPnl: 'REALIZED_PNL',
-    FundingFee: 'FUNDING_FEE',
-    TradingFee: 'TRADING_FEE',
-    TradingGasFee: 'TRADING_GAS_FEE'
-} as const;
-
-export type TransactionType = typeof TransactionType[keyof typeof TransactionType];
-
-
-/**
  * Transaction type (what caused the change in the asset balance).
  * @export
  * @enum {string}
  */
 
-export const TransactionTypeEnum = {
+export const TransactionType = {
     Transfer: 'TRANSFER',
     Deposit: 'DEPOSIT',
     Withdraw: 'WITHDRAW',
@@ -3681,7 +3450,7 @@ export const TransactionTypeEnum = {
     Unspecified: 'UNSPECIFIED'
 } as const;
 
-export type TransactionTypeEnum = typeof TransactionTypeEnum[keyof typeof TransactionTypeEnum];
+export type TransactionType = typeof TransactionType[keyof typeof TransactionType];
 
 
 /**
@@ -3828,12 +3597,12 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
+         * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades: async (symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountTrades: async (symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getAccountTrades', 'symbol', symbol)
             const localVarPath = `/api/v1/account/trades`;
@@ -3890,7 +3659,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Get user\'s transaction history (any change in balance).
-         * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
+         * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -3899,7 +3668,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTransactionHistory: async (types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountTransactionHistory: async (types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/account/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3992,12 +3761,12 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
+         * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
+        async getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTrades']?.[localVarOperationServerIndex]?.url;
@@ -4006,7 +3775,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get user\'s transaction history (any change in balance).
-         * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
+         * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -4015,7 +3784,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Transaction>>> {
+        async getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Transaction>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTransactionHistory']?.[localVarOperationServerIndex]?.url;
@@ -4056,18 +3825,18 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
-         * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
+         * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
+        getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
             return localVarFp.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get user\'s transaction history (any change in balance).
-         * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
+         * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -4076,7 +3845,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
+        getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
     };
@@ -4118,20 +3887,20 @@ export class AccountDataApi extends BaseAPI {
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
-     * @param {TradeTypeEnum} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
+     * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeTypeEnum, page?: number, options?: RawAxiosRequestConfig) {
+    public getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Get user\'s transaction history (any change in balance).
-     * @param {Array<TransactionTypeEnum>} [types] Optional query parameter to filter transactions by type.
+     * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
      * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -4141,7 +3910,7 @@ export class AccountDataApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountTransactionHistory(types?: Array<TransactionTypeEnum>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+    public getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -4866,7 +4635,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade1>>> {
+        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getRecentTrades']?.[localVarOperationServerIndex]?.url;
@@ -4954,7 +4723,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade1>> {
+        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
             return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
     };

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assets** | [**Vec<models::Asset1>**](Asset_1.md) | List of assets available on the exchange. | 
+**assets** | [**Vec<models::AssetConfig>**](AssetConfig.md) | List of assets available on the exchange. | 
 **contracts_config** | Option<[**models::ContractsConfig**](ContractsConfig.md)> |  | [optional]
 **markets** | [**Vec<models::Market>**](Market.md) | List of markets available on the exchange. | 
 **trading_gas_fee_e9** | **String** | Current gas fee set for subsidized trades (e9 format) | 

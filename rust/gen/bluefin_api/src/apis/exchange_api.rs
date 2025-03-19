@@ -233,7 +233,7 @@ pub async fn get_orderbook_depth(configuration: &configuration::Configuration, s
     }
 }
 
-pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade1>, Error<GetRecentTradesError>> {
+pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetRecentTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_trade_type = trade_type;

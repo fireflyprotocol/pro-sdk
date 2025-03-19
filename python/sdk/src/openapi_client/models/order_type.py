@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class OrderType(str, Enum):
     """
-    The type of the order
+    The type of order.
     """
 
     """
@@ -30,6 +30,8 @@ class OrderType(str, Enum):
     MARKET = 'MARKET'
     STOP_LIMIT = 'STOP_LIMIT'
     STOP_MARKET = 'STOP_MARKET'
+    LIQUIDATION = 'LIQUIDATION'
+    BANKRUPTCY_LIQUIDATION = 'BANKRUPTCY_LIQUIDATION'
     UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod

@@ -1,15 +1,16 @@
 # Asset
 
+Details about an asset in the account.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**symbol** | **str** | On-chain address of the asset bank on the blockchain. | 
-**quantity_e9** | **str** | Asset quantity (e9 format). | 
-**effective_balance_e9** | **str** | Value of this asset balance based on current market price and asset weight (e9 format). | 
-**max_withdraw_quantity_e9** | **str** | Maximum quantity for transfer out (e9 format). | 
-**last_updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
+**symbol** | **str** | The symbol of the asset. | 
+**quantity_e9** | **str** | The quantity of the asset. | 
+**effective_balance_e9** | **str** | The effective balance of the asset. | 
+**max_withdraw_quantity_e9** | **str** | The maximum quantity that can be withdrawn. | 
+**updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
 
 ## Example
 

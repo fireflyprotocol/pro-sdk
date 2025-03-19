@@ -174,7 +174,7 @@ Get user's trade history.
 ```python
 import openapi_client
 from openapi_client.models.trade import Trade
-from openapi_client.models.trade_type_enum import TradeTypeEnum
+from openapi_client.models.trade_type import TradeType
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -202,7 +202,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
     end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
-    trade_type = openapi_client.TradeTypeEnum() # TradeTypeEnum | Type of trade. By default returns all. UNSPECIFIED returns all. (optional)
+    trade_type = openapi_client.TradeType() # TradeType | Type of trade. By default returns all. UNSPECIFIED returns all. (optional)
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
  **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
  **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
- **trade_type** | [**TradeTypeEnum**](.md)| Type of trade. By default returns all. UNSPECIFIED returns all. | [optional] 
+ **trade_type** | [**TradeType**](.md)| Type of trade. By default returns all. UNSPECIFIED returns all. | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
 
 ### Return type
@@ -265,7 +265,7 @@ Get user's transaction history (any change in balance).
 ```python
 import openapi_client
 from openapi_client.models.transaction import Transaction
-from openapi_client.models.transaction_type_enum import TransactionTypeEnum
+from openapi_client.models.transaction_type import TransactionType
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -289,7 +289,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.AccountDataApi(api_client)
-    types = [openapi_client.TransactionTypeEnum()] # List[TransactionTypeEnum] | Optional query parameter to filter transactions by type. (optional)
+    types = [openapi_client.TransactionType()] # List[TransactionType] | Optional query parameter to filter transactions by type. (optional)
     asset_symbol = 'asset_symbol_example' # str | Optional query parameter to filter transactions by asset bank address. (optional)
     start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
     end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
@@ -312,7 +312,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **types** | [**List[TransactionTypeEnum]**](TransactionTypeEnum.md)| Optional query parameter to filter transactions by type. | [optional] 
+ **types** | [**List[TransactionType]**](TransactionType.md)| Optional query parameter to filter transactions by type. | [optional] 
  **asset_symbol** | **str**| Optional query parameter to filter transactions by asset bank address. | [optional] 
  **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
  **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 

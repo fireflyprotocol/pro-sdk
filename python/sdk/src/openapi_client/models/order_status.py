@@ -20,18 +20,19 @@ from typing_extensions import Self
 
 class OrderStatus(str, Enum):
     """
-    The statuses of the Orders  PENDING: The Order has been acknowledged and is currently pending  OPEN: The Order has passed all checks and is open on the order book.  PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN  FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.  CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book  REJECTED: The Order has been rejected and has not been put on the order book.  UNSPECIFIED: The Order status is unspecified 
+    The current status of the order.
     """
 
     """
     allowed enum values
     """
     OPEN = 'OPEN'
-    PENDING = 'PENDING'
+    PARTIALLY_FILLED_OPEN = 'PARTIALLY_FILLED_OPEN'
+    PARTIALLY_FILLED_CANCELED = 'PARTIALLY_FILLED_CANCELED'
     FILLED = 'FILLED'
-    PARTIALLY_FILLED = 'PARTIALLY_FILLED'
     CANCELLED = 'CANCELLED'
-    REJECTED = 'REJECTED'
+    EXPIRED = 'EXPIRED'
+    PARTIALLY_FILLED_EXPIRED = 'PARTIALLY_FILLED_EXPIRED'
     UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod

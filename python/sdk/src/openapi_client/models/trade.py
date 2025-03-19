@@ -19,9 +19,9 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from openapi_client.models.position_side_enum import PositionSideEnum
-from openapi_client.models.trade_side_enum import TradeSideEnum
-from openapi_client.models.trade_type_enum import TradeTypeEnum
+from openapi_client.models.position_side import PositionSide
+from openapi_client.models.trade_side import TradeSide
+from openapi_client.models.trade_type import TradeType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,28 +29,31 @@ class Trade(BaseModel):
     """
     Trade
     """ # noqa: E501
-    trade_id: StrictStr = Field(description="Trade ID", alias="tradeId")
+    id: StrictStr = Field(description="Trade ID")
     client_order_id: Optional[StrictStr] = Field(default=None, description="Client order ID.", alias="clientOrderId")
     symbol: Optional[StrictStr] = Field(default=None, description="Market address.")
     order_hash: Optional[StrictStr] = Field(default=None, description="Order hash.", alias="orderHash")
-    trade_type: TradeTypeEnum = Field(alias="tradeType")
-    side: TradeSideEnum
-    is_maker: StrictBool = Field(description="Indicates if the user was a maker to the trade.", alias="isMaker")
+    trade_type: Optional[TradeType] = Field(default=None, alias="tradeType")
+    side: TradeSide
+    is_maker: Optional[StrictBool] = Field(default=None, description="Indicates if the user was a maker to the trade.", alias="isMaker")
     price_e9: StrictStr = Field(description="Trade price (e9 format).", alias="priceE9")
     quantity_e9: StrictStr = Field(description="Trade quantity (e9 format).", alias="quantityE9")
     quote_quantity_e9: StrictStr = Field(description="Quote quantity (e9 format).", alias="quoteQuantityE9")
     realized_pnl_e9: Optional[StrictStr] = Field(default=None, description="Realized profit and loss (e9 format).", alias="realizedPnlE9")
-    position_side: PositionSideEnum = Field(alias="positionSide")
-    trading_fee_e9: StrictStr = Field(description="Trading fee (e9 format).", alias="tradingFeeE9")
-    trading_fee_asset: StrictStr = Field(description="Asset used for trading fee.", alias="tradingFeeAsset")
+    position_side: Optional[PositionSide] = Field(default=None, alias="positionSide")
+    trading_fee_e9: Optional[StrictStr] = Field(default=None, description="Trading fee (e9 format).", alias="tradingFeeE9")
+    trading_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for trading fee.", alias="tradingFeeAsset")
     gas_fee_e9: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gas fee.", alias="gasFeeE9")
     gas_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for gas fee.", alias="gasFeeAsset")
     executed_at_millis: StrictInt = Field(description="Trade timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
+    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
 
     @field_validator('trading_fee_asset')
     def trading_fee_asset_validate_enum(cls, value):
         """Validates the enum"""
+        if value is None:
+            return value
+
         if value not in set(['USDC', 'BLUE', 'UNSPECIFIED']):
             raise ValueError("must be one of enum values ('USDC', 'BLUE', 'UNSPECIFIED')")
         return value
@@ -106,7 +109,7 @@ class Trade(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tradeId": obj.get("tradeId"),
+            "id": obj.get("id"),
             "clientOrderId": obj.get("clientOrderId"),
             "symbol": obj.get("symbol"),
             "orderHash": obj.get("orderHash"),

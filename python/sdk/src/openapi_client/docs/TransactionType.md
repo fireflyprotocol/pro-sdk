@@ -1,8 +1,10 @@
 # TransactionType
 
-The type of transaction.
+Transaction type (what caused the change in the asset balance).
 
 ## Enum
+
+* `TRANSFER` (value: `'TRANSFER'`)
 
 * `DEPOSIT` (value: `'DEPOSIT'`)
 
@@ -15,6 +17,10 @@ The type of transaction.
 * `TRADING_FEE` (value: `'TRADING_FEE'`)
 
 * `TRADING_GAS_FEE` (value: `'TRADING_GAS_FEE'`)
+
+* `BONUS` (value: `'BONUS'`)
+
+* `UNSPECIFIED` (value: `'UNSPECIFIED'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

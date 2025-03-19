@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.transaction_type_enum import TransactionTypeEnum
+from openapi_client.models.transaction_type import TransactionType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +29,7 @@ class Transaction(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Transaction ID.")
     symbol: Optional[StrictStr] = Field(default=None, description="Market address.")
-    type: TransactionTypeEnum
+    type: TransactionType
     amount_e9: StrictStr = Field(description="Amount in e9 format (positive or negative).", alias="amountE9")
     asset_symbol: StrictStr = Field(description="Asset bank address.", alias="assetSymbol")
     trade_id: Optional[StrictStr] = Field(default=None, description="Trade ID", alias="tradeId")

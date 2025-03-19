@@ -13,7 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Error {
-    /// Error message
+    /// A code representing the type of error.
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    pub error_code: Option<String>,
+    /// A human-readable message describing the error.
     #[serde(rename = "message")]
     pub message: String,
 }
@@ -21,6 +24,7 @@ pub struct Error {
 impl Error {
     pub fn new(message: String) -> Error {
         Error {
+            error_code: None,
             message,
         }
     }

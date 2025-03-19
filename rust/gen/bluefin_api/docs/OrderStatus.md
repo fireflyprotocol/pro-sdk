@@ -5,11 +5,12 @@
 | Name | Value |
 |---- | -----|
 | Open | OPEN |
-| Pending | PENDING |
+| PartiallyFilledOpen | PARTIALLY_FILLED_OPEN |
+| PartiallyFilledCanceled | PARTIALLY_FILLED_CANCELED |
 | Filled | FILLED |
-| PartiallyFilled | PARTIALLY_FILLED |
 | Cancelled | CANCELLED |
-| Rejected | REJECTED |
+| Expired | EXPIRED |
+| PartiallyFilledExpired | PARTIALLY_FILLED_EXPIRED |
 | Unspecified | UNSPECIFIED |
 
 

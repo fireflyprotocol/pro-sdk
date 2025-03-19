@@ -20,18 +20,21 @@ from typing_extensions import Self
 
 class TransactionType(str, Enum):
     """
-    The type of transaction.
+    Transaction type (what caused the change in the asset balance).
     """
 
     """
     allowed enum values
     """
+    TRANSFER = 'TRANSFER'
     DEPOSIT = 'DEPOSIT'
     WITHDRAW = 'WITHDRAW'
     REALIZED_PNL = 'REALIZED_PNL'
     FUNDING_FEE = 'FUNDING_FEE'
     TRADING_FEE = 'TRADING_FEE'
     TRADING_GAS_FEE = 'TRADING_GAS_FEE'
+    BONUS = 'BONUS'
+    UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

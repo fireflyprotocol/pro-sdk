@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **total_unrealized_pnl_e9** | **str** | The total unrealized profit and loss. | 
 **total_cross_unrealized_pnl_e9** | **str** | The total cross unrealized profit and loss. | 
 **updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
-**assets** | [**List[Asset2]**](Asset2.md) | The list of assets. | 
+**assets** | [**List[Asset]**](Asset.md) | The list of assets. | 
 
 ## Example
 

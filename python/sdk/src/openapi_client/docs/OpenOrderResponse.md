@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **status** | [**OrderStatus**](OrderStatus.md) |  | 
 **self_trade_prevention_type** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [default to SelfTradePreventionType.MAKER]
 **order_time_at_millis** | **int** | The timestamp in millis when the order was opened | 
-**last_updated_at_millis** | **int** | The timestamp in millis that this order was last updated (including status updates) | 
+**updated_at_millis** | **int** | The timestamp in millis that this order was last updated (including status updates) | 
 
 ## Example
 

@@ -72,12 +72,12 @@ pub struct OpenOrderResponse {
     #[serde(rename = "orderTimeAtMillis")]
     pub order_time_at_millis: i64,
     /// The timestamp in millis that this order was last updated (including status updates)
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl OpenOrderResponse {
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_millis: i64, last_updated_at_millis: i64) -> OpenOrderResponse {
+    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_millis: i64, updated_at_millis: i64) -> OpenOrderResponse {
         OpenOrderResponse {
             order_hash,
             client_order_id: None,
@@ -100,7 +100,7 @@ impl OpenOrderResponse {
             status,
             self_trade_prevention_type,
             order_time_at_millis,
-            last_updated_at_millis,
+            updated_at_millis,
         }
     }
 }

@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class TradeSide(str, Enum):
     """
-    TradeSide
+    Trade side based on the user order in this trade.
     """
 
     """
