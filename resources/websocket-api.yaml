@@ -372,7 +372,7 @@ components:
           type: boolean
           description: "Indicates if the order is post-only."
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          $ref: './common.yaml#/components/schemas/OrderTimeInForce'
         triggerPriceE9:
           type: string
           description: "The trigger price for stop-limit or stop-market orders."
@@ -420,15 +420,6 @@ components:
         - STOP_MARKET
         - LIQUIDATION
         - BANKRUPTCY_LIQUIDATION
-        - UNSPECIFIED
-
-    OrderTimeInForce:
-      type: string
-      description: "The time-in-force policy for the order."
-      enum:
-        - GTT
-        - IOC
-        - FOK
         - UNSPECIFIED
 
     OrderStatus:

@@ -61,18 +61,7 @@ components:
       type: string
       enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET, UNSPECIFIED ]
       description: The type of the order
-    OrderTimeInForce:
-      type: string
-      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
-      default: "GTT"
-      description: |
-        Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.
-        
-        GTT: Good Til Time
-        
-        IOC: Immediate Or Cancel
-        
-        FOK: Fill Or Kill
+
 
     AccountAuthorizationRequest:
       type: object
@@ -188,7 +177,7 @@ components:
           default: false
         timeInForce:
           allOf:
-            - $ref: '#/components/schemas/OrderTimeInForce'
+            - $ref: './common.yaml#/components/schemas/OrderTimeInForce'
           description: | 
             Omit or set to null for market orders; otherwise, choose a valid time-in-force value.
             GTT: Good Til Time
@@ -371,7 +360,7 @@ components:
           description: If set to TRUE, the order can only be a maker order
           default: false
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          $ref: './common.yaml#/components/schemas/OrderTimeInForce'
         triggerPriceE9:
           type: string
           description: Trigger price in base e9 for stop orders. This should always be a number
