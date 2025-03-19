@@ -199,7 +199,7 @@ components:
           description: Market address.
           example: "0x123456789abcdef"
         type:
-          $ref: "#/components/schemas/TransactionTypeEnum"
+          $ref: "./common.yaml#/components/schemas/TransactionType"
         amountE9:
           type: string
           description: Amount in e9 format (positive or negative).
@@ -239,19 +239,6 @@ components:
           type: integer
           description: User set leverage (e.g., 10x).
           example: 100
-    TransactionTypeEnum:
-      description: Transaction type (what caused the change in the asset balance).
-      type: string
-      enum:
-        - TRANSFER
-        - DEPOSIT
-        - WITHDRAW
-        - REALIZED_PNL
-        - FUNDING_FEE
-        - TRADING_FEE
-        - TRADING_GAS_FEE
-        - BONUS
-        - UNSPECIFIED
     MarginTypeEnum:
       type: string
       description: Margin type.
@@ -451,7 +438,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/TransactionTypeEnum"
+              $ref: "./common.yaml#/components/schemas/TransactionType"
         - name: assetSymbol
           schema:
             type: string
