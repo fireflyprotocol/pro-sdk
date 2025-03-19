@@ -122,7 +122,7 @@ impl FromStr for Lang {
 ///
 /// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
-    let command = "openapi-generator";
+    let command = "openapi-generator-cli";
     Command::new(command)
         .arg("generate")
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
