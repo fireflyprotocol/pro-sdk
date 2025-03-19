@@ -9,6 +9,21 @@ tags:
   description: "Common Schemas"
 components:
   schemas:
+    # enums
+    OrderTimeInForce:
+      type: string
+      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
+      default: "GTT"
+      description: |
+        The time-in-force policy for the order. By default, all orders are GTT. UNSPECIFIED is set to default.
+        
+        GTT: Good Til Time
+        
+        IOC: Immediate Or Cancel
+        
+        FOK: Fill Or Kill    
+
+    # objects
     Asset:
       type: object
       description: "Details about an asset in the account."
