@@ -33,6 +33,8 @@ directory contains a main method that fully runs the SDK functions.
 
 Now you can run the example in the ./example dir by running `python main.py`.
 
+### Run tests
+`poetry run pytest`
 
 Generating the OpenAPI Client
 ----------------------------

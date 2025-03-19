@@ -38,14 +38,14 @@ class TestMarkPriceUpdate(unittest.TestCase):
                 symbol = '',
                 price_e9 = '',
                 source = 'Mark',
-                updated_at_utc_millis = 56
+                updated_at_millis = 56
             )
         else:
             return MarkPriceUpdate(
                 symbol = '',
                 price_e9 = '',
                 source = 'Mark',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

@@ -46,8 +46,8 @@ class TestActiveOrderUpdate(unittest.TestCase):
                 leverage_e9 = '',
                 is_isolated = True,
                 salt = '',
-                expires_at_utc_millis = 56,
-                signed_at_utc_millis = 56,
+                expires_at_millis = 56,
+                signed_at_millis = 56,
                 type = 'LIMIT',
                 reduce_only = True,
                 post_only = True,
@@ -55,8 +55,8 @@ class TestActiveOrderUpdate(unittest.TestCase):
                 trigger_price_e9 = '',
                 status = 'OPEN',
                 self_trade_prevention_type = 'TAKER',
-                created_at_utc_millis = 56,
-                updated_at_utc_millis = 56
+                created_at_millis = 56,
+                updated_at_millis = 56
             )
         else:
             return ActiveOrderUpdate(
@@ -70,16 +70,16 @@ class TestActiveOrderUpdate(unittest.TestCase):
                 leverage_e9 = '',
                 is_isolated = True,
                 salt = '',
-                expires_at_utc_millis = 56,
-                signed_at_utc_millis = 56,
+                expires_at_millis = 56,
+                signed_at_millis = 56,
                 type = 'LIMIT',
                 reduce_only = True,
                 post_only = True,
                 time_in_force = 'GTT',
                 status = 'OPEN',
                 self_trade_prevention_type = 'TAKER',
-                created_at_utc_millis = 56,
-                updated_at_utc_millis = 56,
+                created_at_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

@@ -49,7 +49,7 @@ class TestAccountTradeUpdate(unittest.TestCase):
                 position_side = 'LONG',
                 trading_fee_e9 = '',
                 trading_fee_asset_symbol = '',
-                executed_at_utc_millis = 56
+                executed_at_millis = 56
             )
         else:
             return AccountTradeUpdate(
@@ -66,7 +66,7 @@ class TestAccountTradeUpdate(unittest.TestCase):
                 position_side = 'LONG',
                 trading_fee_e9 = '',
                 trading_fee_asset_symbol = '',
-                executed_at_utc_millis = 56,
+                executed_at_millis = 56,
         )
         """
 

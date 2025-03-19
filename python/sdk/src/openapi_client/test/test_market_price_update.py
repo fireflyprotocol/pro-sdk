@@ -38,14 +38,14 @@ class TestMarketPriceUpdate(unittest.TestCase):
                 symbol = '',
                 price_e9 = '',
                 source = 'Market',
-                updated_at_utc_millis = 56
+                updated_at_millis = 56
             )
         else:
             return MarketPriceUpdate(
                 symbol = '',
                 price_e9 = '',
                 source = 'Market',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

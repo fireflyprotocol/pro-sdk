@@ -38,14 +38,14 @@ class TestOraclePriceUpdate(unittest.TestCase):
                 symbol = '',
                 price_e9 = '',
                 source = 'Oracle',
-                updated_at_utc_millis = 56
+                updated_at_millis = 56
             )
         else:
             return OraclePriceUpdate(
                 symbol = '',
                 price_e9 = '',
                 source = 'Oracle',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
         )
         """
 

@@ -36,24 +36,24 @@ class TestWithdrawRequest(unittest.TestCase):
         if include_optional:
             return WithdrawRequest(
                 signed_fields = openapi_client.models.withdraw_request_signed_fields.WithdrawRequest_signedFields(
-                    asset_symbol = 'ETH', 
-                    account_address = '2748', 
-                    amount_e9 = '1000000000', 
-                    salt = '432558574839487', 
-                    eds_id = 'eds_id', 
-                    signed_at_utc_millis = 12454325432, ),
+                    asset_symbol = 'ETH',
+                    account_address = '2748',
+                    amount_e9 = '1000000000',
+                    salt = '432558574839487',
+                    eds_id = 'eds_id',
+                    signed_at_millis = 12454325432, ),
                 signature = '',
                 request_hash = ''
             )
         else:
             return WithdrawRequest(
                 signed_fields = openapi_client.models.withdraw_request_signed_fields.WithdrawRequest_signedFields(
-                    asset_symbol = 'ETH', 
-                    account_address = '2748', 
-                    amount_e9 = '1000000000', 
-                    salt = '432558574839487', 
-                    eds_id = 'eds_id', 
-                    signed_at_utc_millis = 12454325432, ),
+                    asset_symbol = 'ETH',
+                    account_address = '2748',
+                    amount_e9 = '1000000000',
+                    salt = '432558574839487',
+                    eds_id = 'eds_id',
+                    signed_at_millis = 12454325432, ),
                 signature = '',
                 request_hash = '',
         )

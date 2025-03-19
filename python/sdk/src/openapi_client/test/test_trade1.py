@@ -41,7 +41,7 @@ class TestTrade1(unittest.TestCase):
                 quantity_e9 = '1000000000',
                 quote_quantity_e9 = '1000000000000',
                 side = 'LONG',
-                time_at_utc_millis = 1569514978020
+                time_at_millis = 1569514978020
             )
         else:
             return Trade1(
@@ -51,7 +51,7 @@ class TestTrade1(unittest.TestCase):
                 quantity_e9 = '1000000000',
                 quote_quantity_e9 = '1000000000000',
                 side = 'LONG',
-                time_at_utc_millis = 1569514978020,
+                time_at_millis = 1569514978020,
         )
         """
 

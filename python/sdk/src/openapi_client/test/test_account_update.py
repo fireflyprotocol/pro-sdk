@@ -36,8 +36,8 @@ class TestAccountUpdate(unittest.TestCase):
         if include_optional:
             return AccountUpdate(
                 fee_tier = openapi_client.models.fee_tier.FeeTier(
-                    maker_fee_e9 = '', 
-                    taker_fee_e9 = '', 
+                    maker_fee_e9 = '',
+                    taker_fee_e9 = '',
                     is_applied = True, ),
                 can_trade = True,
                 can_deposit = True,
@@ -52,14 +52,14 @@ class TestAccountUpdate(unittest.TestCase):
                 account_leverage_e9 = '',
                 total_unrealized_pnl_e9 = '',
                 total_cross_unrealized_pnl_e9 = '',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
                 assets = [
                     openapi_client.models.asset_2.Asset_2(
-                        symbol = '', 
-                        quantity_e9 = '', 
-                        effective_balance_e9 = '', 
-                        max_withdraw_quantity_e9 = '', 
-                        updated_at_utc_millis = 56, )
+                        symbol = '',
+                        quantity_e9 = '',
+                        effective_balance_e9 = '',
+                        max_withdraw_quantity_e9 = '',
+                        updated_at_millis = 56, )
                     ]
             )
         else:
@@ -77,14 +77,14 @@ class TestAccountUpdate(unittest.TestCase):
                 account_leverage_e9 = '',
                 total_unrealized_pnl_e9 = '',
                 total_cross_unrealized_pnl_e9 = '',
-                updated_at_utc_millis = 56,
+                updated_at_millis = 56,
                 assets = [
                     openapi_client.models.asset_2.Asset_2(
-                        symbol = '', 
-                        quantity_e9 = '', 
-                        effective_balance_e9 = '', 
-                        max_withdraw_quantity_e9 = '', 
-                        updated_at_utc_millis = 56, )
+                        symbol = '',
+                        quantity_e9 = '',
+                        effective_balance_e9 = '',
+                        max_withdraw_quantity_e9 = '',
+                        updated_at_millis = 56, )
                     ],
         )
         """

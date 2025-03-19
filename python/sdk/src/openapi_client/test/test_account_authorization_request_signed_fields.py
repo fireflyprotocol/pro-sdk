@@ -39,7 +39,7 @@ class TestAccountAuthorizationRequestSignedFields(unittest.TestCase):
                 authorized_account_address = '',
                 salt = '123335432',
                 ids_id = 'ids_id',
-                signed_at_utc_millis = 1234567856
+                signed_at_millis = 1234567856
             )
         else:
             return AccountAuthorizationRequestSignedFields(
@@ -47,7 +47,7 @@ class TestAccountAuthorizationRequestSignedFields(unittest.TestCase):
                 authorized_account_address = '',
                 salt = '123335432',
                 ids_id = 'ids_id',
-                signed_at_utc_millis = 1234567856,
+                signed_at_millis = 1234567856,
         )
         """
 

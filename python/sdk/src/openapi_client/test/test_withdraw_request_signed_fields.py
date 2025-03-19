@@ -40,7 +40,7 @@ class TestWithdrawRequestSignedFields(unittest.TestCase):
                 amount_e9 = '1000000000',
                 salt = '432558574839487',
                 eds_id = 'eds_id',
-                signed_at_utc_millis = 12454325432
+                signed_at_millis = 12454325432
             )
         else:
             return WithdrawRequestSignedFields(
@@ -49,7 +49,7 @@ class TestWithdrawRequestSignedFields(unittest.TestCase):
                 amount_e9 = '1000000000',
                 salt = '432558574839487',
                 eds_id = 'eds_id',
-                signed_at_utc_millis = 12454325432,
+                signed_at_millis = 12454325432,
         )
         """
 

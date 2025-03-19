@@ -39,7 +39,7 @@ class TestOrderCancellationUpdate(unittest.TestCase):
                 client_order_id = '',
                 symbol = '',
                 account_address = '',
-                created_at_utc_millis = 56,
+                created_at_millis = 56,
                 cancellation_reason = 'UNSPECIFIED',
                 failure_to_cancel_reason = 'ORDER_NOT_FOUND',
                 remaining_quantity_e9 = ''
@@ -49,7 +49,7 @@ class TestOrderCancellationUpdate(unittest.TestCase):
                 order_hash = '',
                 symbol = '',
                 account_address = '',
-                created_at_utc_millis = 56,
+                created_at_millis = 56,
                 cancellation_reason = 'UNSPECIFIED',
                 remaining_quantity_e9 = '',
         )
