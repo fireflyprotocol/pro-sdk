@@ -45,6 +45,20 @@ components:
       - LIQUIDATION
       - BANKRUPTCY_LIQUIDATION
       - UNSPECIFIED
+    SelfTradePreventionType:
+      type: string
+      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
+      default: "MAKER"
+      description: |
+        The strategy used to resolve self trades. 
+        
+        TAKER: On a self trade, the taker order will be cancelled
+        
+        MAKER: On a self trade, the maker order will be cancelled
+        
+        BOTH: On a self trade, both the taker and the maker order will be cancelled
+        
+        UNSPECIFIED: set to default value
 
     # objects
     Asset:

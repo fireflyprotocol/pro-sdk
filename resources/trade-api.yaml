@@ -24,20 +24,6 @@ components:
         - SHORT
         - UNSPECIFIED
       description: Side of the order
-    SelfTradePreventionType:
-      type: string
-      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
-      default: "MAKER"
-      description: |
-        The strategy used to resolve self trades. 
-        
-        TAKER: On a self trade, the taker order will be cancelled
-        
-        MAKER: On a self trade, the maker order will be cancelled
-        
-        BOTH: On a self trade, both the taker and the maker order will be cancelled
-        
-        UNSPECIFIED: set to default value
 
     AccountAuthorizationRequest:
       type: object
@@ -167,7 +153,7 @@ components:
           description: Trigger price in base e9 for stop orders. This should always be a number
           example: 300000000
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
       required:
         - signedFields
         - signature
@@ -348,7 +334,7 @@ components:
         status:
           $ref: './common.yaml#/components/schemas/OrderStatus'
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
         orderTimeAtMillis:
           type: integer
           format: int64

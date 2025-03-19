@@ -379,7 +379,7 @@ components:
         status:
           $ref: './common.yaml#/components/schemas/OrderStatus'
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
         createdAtMillis:
           type: integer
           format: int64
@@ -409,15 +409,6 @@ components:
         - selfTradePreventionType
         - createdAtMillis
         - updatedAtMillis
-
-    SelfTradePreventionType:
-      type: string
-      description: "The type of self-trade prevention applied to the order."
-      enum:
-        - TAKER
-        - MAKER
-        - BOTH
-        - UNSPECIFIED
 
     TransactionType:
       type: string
