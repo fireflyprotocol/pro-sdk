@@ -602,7 +602,7 @@ components:
           type: string
           description: "The hash of the order."
         type:
-          $ref: '#/components/schemas/TradeType'
+          $ref: './common.yaml#/components/schemas/TradeType'
         tradeSide:
           $ref: '#/components/schemas/Side'
         isMaker:
@@ -647,15 +647,6 @@ components:
         - tradingFeeE9
         - tradingFeeAssetSymbol
         - executedAtMillis
-
-    TradeType:
-      type: string
-      description: "The type of trade."
-      enum:
-        - ORDER
-        - LIQUIDATION
-        - DELEVERAGE
-        - UNSPECIFIED
 
     # Market Streams
     MarketStreamMessage:

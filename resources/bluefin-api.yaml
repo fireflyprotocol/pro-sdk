@@ -49,8 +49,6 @@ components:
       $ref: './websocket-api.yaml#/components/schemas/AccountUpdate'
     AccountTradeUpdate:
       $ref: './websocket-api.yaml#/components/schemas/AccountTradeUpdate'
-    TradeType:
-      $ref: './websocket-api.yaml#/components/schemas/TradeType'
     MarketStreamMessage:
       $ref: './websocket-api.yaml#/components/schemas/MarketStreamMessage'
     MarketEventType:

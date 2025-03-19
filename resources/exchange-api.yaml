@@ -121,7 +121,7 @@ components:
     TradesResponse:
       type: array
       items:
-        $ref: "#/components/schemas/Trade"
+        $ref: "./common.yaml#/components/schemas/Trade"
       example:
         - id: 28457
           symbol: "0x123"
@@ -386,12 +386,6 @@ components:
         - MAINTENANCE
         - DELISTED
         - UNSPECIFIED
-    TradeSide:
-      type: string
-      enum:
-        - LONG
-        - SHORT
-        - UNSPECIFIED
     KlineInterval:
       type: string
       enum:
@@ -417,44 +411,6 @@ components:
         - "Market"
         - "Oracle"
         - "UNSPECIFIED"
-    Trade:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Trade ID
-        symbol:
-          type: string
-          description: Market symbol.
-          example: 0x123
-        priceE9:
-          type: string
-          description: Trade price (e9 format).
-          example: 10000000000
-        quantityE9:
-          type: string
-          description: Trade quantity (e9 format).
-          example: 1000000000
-        quoteQuantityE9:
-          type: string
-          description: Trade quote quantity (e9 format).
-          example: 1000000000000
-        side:
-          $ref: "#/components/schemas/TradeSide"
-        timeAtMillis:
-          type: integer
-          format: int64
-          description: Trade timestamp.
-          example: 1569514978020
-      required:
-        - id
-        - symbol
-        - priceE9
-        - quantityE9
-        - quoteQuantityE9
-        - side
-        - timeAtMillis
     ContractsConfig:
       type: object
       description: Contract configuration for the exchange.
