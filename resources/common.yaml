@@ -10,6 +10,13 @@ tags:
 components:
   schemas:
     # enums, please sort it in alphabetical order
+    MarginType:
+      type: string
+      description: Margin type.
+      enum:
+      - CROSS
+      - ISOLATED
+      - UNSPECIFIED
     OrderStatus:
       type: string
       description: "The current status of the order."
@@ -137,7 +144,6 @@ components:
       type: object
       required:
       - id
-      - symbol
       - side
       - priceE9
       - quantityE9

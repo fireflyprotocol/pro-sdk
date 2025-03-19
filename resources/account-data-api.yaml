@@ -234,18 +234,11 @@ components:
       type: object
       properties:
         marginType:
-          $ref: "#/components/schemas/MarginTypeEnum"
+          $ref: "./common.yaml#/components/schemas/MarginType"
         setLeverage:
           type: integer
           description: User set leverage (e.g., 10x).
           example: 100
-    MarginTypeEnum:
-      type: string
-      description: Margin type.
-      enum:
-        - CROSS
-        - ISOLATED
-        - UNSPECIFIED
   responses:
     DefaultError:
       description: Unexpected error
