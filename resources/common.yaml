@@ -81,6 +81,19 @@ components:
       - LIQUIDATION
       - DELEVERAGE
       - UNSPECIFIED
+    TransactionType:
+      description: Transaction type (what caused the change in the asset balance).
+      type: string
+      enum:
+      - TRANSFER
+      - DEPOSIT
+      - WITHDRAW
+      - REALIZED_PNL
+      - FUNDING_FEE
+      - TRADING_FEE
+      - TRADING_GAS_FEE
+      - BONUS
+      - UNSPECIFIED
 
     # objects, please sort it in alphabetical order
     Asset:
