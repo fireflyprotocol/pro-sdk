@@ -9,7 +9,7 @@ tags:
   description: "Common Schemas"
 components:
   schemas:
-    # enums
+    # enums, please sort it in alphabetical order
     OrderStatus:
       type: string
       description: "The current status of the order."
@@ -45,6 +45,13 @@ components:
       - LIQUIDATION
       - BANKRUPTCY_LIQUIDATION
       - UNSPECIFIED
+    PositionSide:
+      type: string
+      description: "The side of the position, either long or short"
+      enum:
+      - LONG
+      - SHORT
+      - UNSPECIFIED
     SelfTradePreventionType:
       type: string
       enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
@@ -59,8 +66,23 @@ components:
         BOTH: On a self trade, both the taker and the maker order will be cancelled
         
         UNSPECIFIED: set to default value
+    TradeSide:
+      type: string
+      description: Trade side based on the user order in this trade.
+      enum:
+      - LONG
+      - SHORT
+      - UNSPECIFIED
+    TradeType:
+      type: string
+      description: Type of trade.
+      enum:
+      - ORDER
+      - LIQUIDATION
+      - DELEVERAGE
+      - UNSPECIFIED
 
-    # objects
+    # objects, please sort it in alphabetical order
     Asset:
       type: object
       description: "Details about an asset in the account."
@@ -98,6 +120,83 @@ components:
           description: A human-readable message describing the error.
       required:
       - message
+    Trade:
+      type: object
+      required:
+      - id
+      - symbol
+      - side
+      - priceE9
+      - quantityE9
+      - quoteQuantityE9
+      - executedAtMillis
+      properties:
+        id:
+          type: string
+          description: Trade ID
+        clientOrderId:
+          type: string
+          description: Client order ID.
+          example: "25851813"
+        symbol:
+          type: string
+          description: Market address.
+          example: 0x123
+        orderHash:
+          type: string
+          description: Order hash.
+        tradeType:
+          $ref: "#/components/schemas/TradeType"
+        side:
+          $ref: "#/components/schemas/TradeSide"
+        isMaker:
+          type: boolean
+          description: Indicates if the user was a maker to the trade.
+          example: false
+        priceE9:
+          type: string
+          description: Trade price (e9 format).
+          example: "7819010000000" # 7,819.01 USD
+        quantityE9:
+          type: string
+          description: Trade quantity (e9 format).
+          example: "20000000000" # 20,000 units
+        quoteQuantityE9:
+          type: string
+          description: Quote quantity (e9 format).
+          example: "150000000000000" # 150,000 USD
+        realizedPnlE9:
+          type: string
+          description: Realized profit and loss (e9 format).
+          example: "-9000000000" # -9,000 USD
+        positionSide:
+          $ref: "#/components/schemas/PositionSide"
+        tradingFeeE9:
+          type: string
+          description: Trading fee (e9 format).
+          example: "-780000000" # -780 USD
+        tradingFeeAsset:
+          type: string
+          enum:
+          - USDC
+          - BLUE
+          - UNSPECIFIED
+          description: Asset used for trading fee.
+          example: USDC
+        gasFeeE9:
+          type: number
+          format: float
+          description: Gas fee.
+          example: 0
+        gasFeeAsset:
+          type: string
+          description: Asset used for gas fee.
+          example: USDC
+        executedAtMillis:
+          type: integer
+          format: int64
+          description: Trade timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
     TradingFees:
       type: object
       required:
