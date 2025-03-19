@@ -27,6 +27,8 @@ pub enum AccountEventReason {
     OrderCancelled,
     #[serde(rename = "OrdersForMarketCancelled")]
     OrdersForMarketCancelled,
+    #[serde(rename = "LeverageUpdated")]
+    LeverageUpdated,
 
 }
 
@@ -39,6 +41,7 @@ impl std::fmt::Display for AccountEventReason {
             Self::OrderMatched => write!(f, "OrderMatched"),
             Self::OrderCancelled => write!(f, "OrderCancelled"),
             Self::OrdersForMarketCancelled => write!(f, "OrdersForMarketCancelled"),
+            Self::LeverageUpdated => write!(f, "LeverageUpdated"),
         }
     }
 }

@@ -223,7 +223,8 @@ export const AccountEventReason = {
     OrderCreated: 'OrderCreated',
     OrderMatched: 'OrderMatched',
     OrderCancelled: 'OrderCancelled',
-    OrdersForMarketCancelled: 'OrdersForMarketCancelled'
+    OrdersForMarketCancelled: 'OrdersForMarketCancelled',
+    LeverageUpdated: 'LeverageUpdated'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];

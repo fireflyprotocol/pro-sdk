@@ -233,6 +233,8 @@ components:
         - OrderMatched
         - OrderCancelled
         - OrdersForMarketCancelled
+        - LeverageUpdated
+
 
     OrderCancelReason:
       type: string
