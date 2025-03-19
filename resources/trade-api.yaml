@@ -414,18 +414,6 @@ components:
         - orderTimeAtMillis
         - lastUpdatedAtMillis
 
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: A code representing the type of error.
-        message:
-          type: string
-          description: A human-readable message describing the error.
-      required:
-        - message
-
   securitySchemes:
     bearerAuth:
       type: apiKey
@@ -467,7 +455,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -478,19 +466,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/orders/cancel:
     put:
@@ -522,13 +510,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/accounts/authorize:
     put:
@@ -553,7 +541,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -564,13 +552,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/accounts/deauthorize:
     put:
@@ -595,7 +583,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -606,13 +594,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/leverage:
     put:
@@ -637,7 +625,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -648,19 +636,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/openOrders:
     get:
@@ -692,7 +680,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -703,19 +691,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account address was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/withdraw:
     post:
@@ -740,7 +728,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -751,16 +739,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested resource was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'

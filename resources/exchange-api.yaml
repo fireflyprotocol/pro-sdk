@@ -722,14 +722,6 @@ components:
         - symbol
         - fundingTimeAtMillis
         - fundingRateE9
-    Error:
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Error message.
-          example: "Invalid request parameters"
 
 paths:
   /v1/exchange/info:
@@ -942,7 +934,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/exchange/fundingRateHistory:
     get:

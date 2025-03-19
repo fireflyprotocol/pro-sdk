@@ -22,7 +22,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: './common.yaml#/components/schemas/Error'
   schemas:
     JwksResponse:
       type: object
@@ -94,13 +94,6 @@ components:
           type: integer
           format: int64
           x-go-type: int64
-    Error:
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Error message
 paths:
   /auth/jwks:
     get:
@@ -144,25 +137,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '401':
           description: "invalid signature"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '403':
           description: "invalid audience"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '500':
           description: internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'
   /auth/v2/token:
@@ -194,25 +187,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '401':
           description: "invalid signature"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '403':
           description: "invalid audience"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '500':
           description: internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'
   /auth/token/refresh:
@@ -237,18 +230,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '400':
           description: "missing refresh token in request"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         '500':
           description: internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'

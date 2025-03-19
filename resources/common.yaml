@@ -35,6 +35,17 @@ components:
       - effectiveBalanceE9
       - maxWithdrawQuantityE9
       - updatedAtMillis
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: A code representing the type of error.
+        message:
+          type: string
+          description: A human-readable message describing the error.
+      required:
+      - message
     TradingFees:
       type: object
       required:

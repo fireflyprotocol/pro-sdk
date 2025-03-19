@@ -361,21 +361,13 @@ components:
         - CROSS
         - ISOLATED
         - UNSPECIFIED
-    Error:
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Error message.
-          example: "Invalid request parameters"
   responses:
     DefaultError:
       description: Unexpected error
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: "./common.yaml#/components/schemas/Error"
 paths:
   /api/v1/account/preferences:
     get:
@@ -397,25 +389,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /api/v1/account:
     get:
@@ -437,25 +429,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /api/v1/account/trades:
     get:
@@ -524,25 +516,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
   /api/v1/account/transactions:
     get:
       tags:
@@ -614,22 +606,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
