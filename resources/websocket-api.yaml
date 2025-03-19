@@ -609,7 +609,7 @@ components:
         assets:
           type: array
           items:
-            $ref: '#/components/schemas/Asset'
+            $ref: './common.yaml#/components/schemas/Asset'
           description: "The list of assets."
       required:
         - canTrade
@@ -627,33 +627,6 @@ components:
         - totalCrossUnrealizedPnlE9
         - updatedAtMillis
         - assets
-
-    Asset:
-      type: object
-      description: "Details about an asset in the account."
-      properties:
-        symbol:
-          type: string
-          description: "The symbol of the asset."
-        quantityE9:
-          type: string
-          description: "The quantity of the asset."
-        effectiveBalanceE9:
-          type: string
-          description: "The effective balance of the asset."
-        maxWithdrawQuantityE9:
-          type: string
-          description: "The maximum quantity that can be withdrawn."
-        updatedAtMillis:
-          type: integer
-          format: int64
-          description: "The timestamp of the last update in milliseconds."
-      required:
-        - symbol
-        - quantityE9
-        - effectiveBalanceE9
-        - maxWithdrawQuantityE9
-        - updatedAtMillis
 
     AccountTradeUpdate:
       type: object

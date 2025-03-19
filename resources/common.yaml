@@ -9,6 +9,32 @@ tags:
   description: "Common Schemas"
 components:
   schemas:
+    Asset:
+      type: object
+      description: "Details about an asset in the account."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the asset."
+        quantityE9:
+          type: string
+          description: "The quantity of the asset."
+        effectiveBalanceE9:
+          type: string
+          description: "The effective balance of the asset."
+        maxWithdrawQuantityE9:
+          type: string
+          description: "The maximum quantity that can be withdrawn."
+        updatedAtMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the last update in milliseconds."
+      required:
+      - symbol
+      - quantityE9
+      - effectiveBalanceE9
+      - maxWithdrawQuantityE9
+      - updatedAtMillis
     TradingFees:
       type: object
       required:

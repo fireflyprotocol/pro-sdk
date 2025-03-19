@@ -99,7 +99,7 @@ components:
         assets:
           type: array
           items:
-            $ref: "#/components/schemas/Asset"
+            $ref: "./common.yaml#/components/schemas/Asset"
         positions:
           type: array
           items:
@@ -109,35 +109,6 @@ components:
           items:
             type: string
           description: The accounts that are authorized to trade on behalf of the current account.
-    Asset:
-      type: object
-      required:
-        - symbol
-        - quantityE9
-        - effectiveBalanceE9
-        - maxWithdrawQuantityE9
-        - lastUpdatedAtMillis
-      properties:
-        symbol:
-          type: string
-          description: On-chain address of the asset bank on the blockchain.
-        quantityE9:
-          type: string
-          description: Asset quantity (e9 format).
-          example: "6000000000" # 6,000 units
-        effectiveBalanceE9:
-          type: string
-          description: Value of this asset balance based on current market price and asset weight (e9 format).
-          example: "6000000000" # 6,000 USD
-        maxWithdrawQuantityE9:
-          type: string
-          description: Maximum quantity for transfer out (e9 format).
-          example: "3000000000" # 3,000 units
-        lastUpdatedAtMillis:
-          type: integer
-          format: int64
-          description: Last update time in milliseconds since Unix epoch.
-          example: 1627872345678
     Trade:
       type: object
       required:
