@@ -11,33 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// Asset : Details about an asset in the account.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Asset {
-    /// On-chain address of the asset bank on the blockchain.
+    /// The symbol of the asset.
     #[serde(rename = "symbol")]
     pub symbol: String,
-    /// Asset quantity (e9 format).
+    /// The quantity of the asset.
     #[serde(rename = "quantityE9")]
     pub quantity_e9: String,
-    /// Value of this asset balance based on current market price and asset weight (e9 format).
+    /// The effective balance of the asset.
     #[serde(rename = "effectiveBalanceE9")]
     pub effective_balance_e9: String,
-    /// Maximum quantity for transfer out (e9 format).
+    /// The maximum quantity that can be withdrawn.
     #[serde(rename = "maxWithdrawQuantityE9")]
     pub max_withdraw_quantity_e9: String,
-    /// Last update time in milliseconds since Unix epoch.
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    /// The timestamp of the last update in milliseconds.
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl Asset {
-    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, last_updated_at_millis: i64) -> Asset {
+    /// Details about an asset in the account.
+    pub fn new(symbol: String, quantity_e9: String, effective_balance_e9: String, max_withdraw_quantity_e9: String, updated_at_millis: i64) -> Asset {
         Asset {
             symbol,
             quantity_e9,
             effective_balance_e9,
             max_withdraw_quantity_e9,
-            last_updated_at_millis,
+            updated_at_millis,
         }
     }
 }

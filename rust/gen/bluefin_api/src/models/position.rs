@@ -38,7 +38,7 @@ pub struct Position {
     #[serde(rename = "unrealizedPnlE9")]
     pub unrealized_pnl_e9: String,
     #[serde(rename = "side")]
-    pub side: models::PositionSideEnum,
+    pub side: models::PositionSide,
     /// Initial margin required with current mark price (e9 format).
     #[serde(rename = "initialMarginE9")]
     pub initial_margin_e9: String,
@@ -52,12 +52,12 @@ pub struct Position {
     #[serde(rename = "isolatedMarginE9")]
     pub isolated_margin_e9: String,
     /// Last update time.
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
 }
 
 impl Position {
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSideEnum, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, last_updated_at_millis: i64) -> Position {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> Position {
         Position {
             symbol,
             avg_entry_price_e9,
@@ -72,7 +72,7 @@ impl Position {
             maintenance_margin_e9,
             is_isolated,
             isolated_margin_e9,
-            last_updated_at_millis,
+            updated_at_millis,
         }
     }
 }

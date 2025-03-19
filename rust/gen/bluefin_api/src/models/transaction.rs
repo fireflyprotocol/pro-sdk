@@ -20,7 +20,7 @@ pub struct Transaction {
     #[serde(rename = "symbol", skip_serializing_if = "Option::is_none")]
     pub symbol: Option<String>,
     #[serde(rename = "type")]
-    pub r#type: models::TransactionTypeEnum,
+    pub r#type: models::TransactionType,
     /// Amount in e9 format (positive or negative).
     #[serde(rename = "amountE9")]
     pub amount_e9: String,
@@ -36,7 +36,7 @@ pub struct Transaction {
 }
 
 impl Transaction {
-    pub fn new(id: String, r#type: models::TransactionTypeEnum, amount_e9: String, asset_symbol: String, executed_at_millis: i64) -> Transaction {
+    pub fn new(id: String, r#type: models::TransactionType, amount_e9: String, asset_symbol: String, executed_at_millis: i64) -> Transaction {
         Transaction {
             id,
             symbol: None,

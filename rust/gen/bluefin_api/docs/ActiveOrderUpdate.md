@@ -17,13 +17,13 @@ Name | Type | Description | Notes
 **salt** | **String** | A unique salt for the order. | 
 **expires_at_millis** | **i64** | The expiration timestamp of the order in milliseconds. | 
 **signed_at_millis** | **i64** | The signing timestamp of the order in milliseconds. | 
-**r#type** | [**models::OrderType1**](OrderType_1.md) |  | 
+**r#type** | [**models::OrderType**](OrderType.md) |  | 
 **reduce_only** | **bool** | Indicates if the order is reduce-only. | 
 **post_only** | **bool** | Indicates if the order is post-only. | 
-**time_in_force** | [**models::OrderTimeInForce1**](OrderTimeInForce_1.md) |  | 
+**time_in_force** | [**models::OrderTimeInForce**](OrderTimeInForce.md) |  | 
 **trigger_price_e9** | Option<**String**> | The trigger price for stop-limit or stop-market orders. | [optional]
-**status** | [**models::OrderStatus1**](OrderStatus_1.md) |  | 
-**self_trade_prevention_type** | [**models::SelfTradePreventionType1**](SelfTradePreventionType_1.md) |  | 
+**status** | [**models::OrderStatus**](OrderStatus.md) |  | 
+**self_trade_prevention_type** | [**models::SelfTradePreventionType**](SelfTradePreventionType.md) |  | 
 **created_at_millis** | **i64** | The timestamp when the order was placed, in milliseconds. | 
 **updated_at_millis** | **i64** | The timestamp of the last update of the order in milliseconds. | 
 

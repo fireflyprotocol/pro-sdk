@@ -167,7 +167,7 @@ No authorization required
 
 ## get_recent_trades
 
-> Vec<models::Trade1> get_recent_trades(symbol, trade_type, limit, start_time_at_millis, end_time_at_millis, page)
+> Vec<models::Trade> get_recent_trades(symbol, trade_type, limit, start_time_at_millis, end_time_at_millis, page)
 Recent trades list
 
 ### Parameters
@@ -184,7 +184,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::Trade1>**](Trade_1.md)
+[**Vec<models::Trade>**](Trade.md)
 
 ### Authorization
 

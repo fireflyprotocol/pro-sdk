@@ -14,24 +14,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Trade {
     /// Trade ID
-    #[serde(rename = "tradeId")]
-    pub trade_id: String,
+    #[serde(rename = "id")]
+    pub id: String,
     /// Client order ID.
     #[serde(rename = "clientOrderId", skip_serializing_if = "Option::is_none")]
     pub client_order_id: Option<String>,
     /// Market address.
-    #[serde(rename = "symbol", skip_serializing_if = "Option::is_none")]
-    pub symbol: Option<String>,
+    #[serde(rename = "symbol")]
+    pub symbol: String,
     /// Order hash.
     #[serde(rename = "orderHash", skip_serializing_if = "Option::is_none")]
     pub order_hash: Option<String>,
-    #[serde(rename = "tradeType")]
-    pub trade_type: models::TradeTypeEnum,
+    #[serde(rename = "tradeType", skip_serializing_if = "Option::is_none")]
+    pub trade_type: Option<models::TradeType>,
     #[serde(rename = "side")]
-    pub side: models::TradeSideEnum,
+    pub side: models::TradeSide,
     /// Indicates if the user was a maker to the trade.
-    #[serde(rename = "isMaker")]
-    pub is_maker: bool,
+    #[serde(rename = "isMaker", skip_serializing_if = "Option::is_none")]
+    pub is_maker: Option<bool>,
     /// Trade price (e9 format).
     #[serde(rename = "priceE9")]
     pub price_e9: String,
@@ -44,14 +44,14 @@ pub struct Trade {
     /// Realized profit and loss (e9 format).
     #[serde(rename = "realizedPnlE9", skip_serializing_if = "Option::is_none")]
     pub realized_pnl_e9: Option<String>,
-    #[serde(rename = "positionSide")]
-    pub position_side: models::PositionSideEnum,
+    #[serde(rename = "positionSide", skip_serializing_if = "Option::is_none")]
+    pub position_side: Option<models::PositionSide>,
     /// Trading fee (e9 format).
-    #[serde(rename = "tradingFeeE9")]
-    pub trading_fee_e9: String,
+    #[serde(rename = "tradingFeeE9", skip_serializing_if = "Option::is_none")]
+    pub trading_fee_e9: Option<String>,
     /// Asset used for trading fee.
-    #[serde(rename = "tradingFeeAsset")]
-    pub trading_fee_asset: TradingFeeAsset,
+    #[serde(rename = "tradingFeeAsset", skip_serializing_if = "Option::is_none")]
+    pub trading_fee_asset: Option<TradingFeeAsset>,
     /// Gas fee.
     #[serde(rename = "gasFeeE9", skip_serializing_if = "Option::is_none")]
     pub gas_fee_e9: Option<f32>,
@@ -64,22 +64,22 @@ pub struct Trade {
 }
 
 impl Trade {
-    pub fn new(trade_id: String, trade_type: models::TradeTypeEnum, side: models::TradeSideEnum, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, position_side: models::PositionSideEnum, trading_fee_e9: String, trading_fee_asset: TradingFeeAsset, executed_at_millis: i64) -> Trade {
+    pub fn new(id: String, symbol: String, side: models::TradeSide, price_e9: String, quantity_e9: String, quote_quantity_e9: String, executed_at_millis: i64) -> Trade {
         Trade {
-            trade_id,
+            id,
             client_order_id: None,
-            symbol: None,
+            symbol,
             order_hash: None,
-            trade_type,
+            trade_type: None,
             side,
-            is_maker,
+            is_maker: None,
             price_e9,
             quantity_e9,
             quote_quantity_e9,
             realized_pnl_e9: None,
-            position_side,
-            trading_fee_e9,
-            trading_fee_asset,
+            position_side: None,
+            trading_fee_e9: None,
+            trading_fee_asset: None,
             gas_fee_e9: None,
             gas_fee_asset: None,
             executed_at_millis,

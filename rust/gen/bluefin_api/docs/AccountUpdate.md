@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **total_unrealized_pnl_e9** | **String** | The total unrealized profit and loss. | 
 **total_cross_unrealized_pnl_e9** | **String** | The total cross unrealized profit and loss. | 
 **updated_at_millis** | **i64** | The timestamp of the last update in milliseconds. | 
-**assets** | [**Vec<models::Asset2>**](Asset_2.md) | The list of assets. | 
+**assets** | [**Vec<models::Asset>**](Asset.md) | The list of assets. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -114,7 +114,7 @@ pub async fn get_account_preferences(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn get_account_trades(configuration: &configuration::Configuration, symbol: &str, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, trade_type: Option<models::TradeTypeEnum>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetAccountTradesError>> {
+pub async fn get_account_trades(configuration: &configuration::Configuration, symbol: &str, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, trade_type: Option<models::TradeType>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetAccountTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_start_time_at_millis = start_time_at_millis;
@@ -164,7 +164,7 @@ pub async fn get_account_trades(configuration: &configuration::Configuration, sy
     }
 }
 
-pub async fn get_account_transaction_history(configuration: &configuration::Configuration, types: Option<Vec<models::TransactionTypeEnum>>, asset_symbol: Option<&str>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<models::Transaction>, Error<GetAccountTransactionHistoryError>> {
+pub async fn get_account_transaction_history(configuration: &configuration::Configuration, types: Option<Vec<models::TransactionType>>, asset_symbol: Option<&str>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<models::Transaction>, Error<GetAccountTransactionHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_types = types;
     let p_asset_symbol = asset_symbol;

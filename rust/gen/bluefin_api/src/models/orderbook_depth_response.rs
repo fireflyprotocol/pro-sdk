@@ -20,8 +20,8 @@ pub struct OrderbookDepthResponse {
     #[serde(rename = "lastUpdateId")]
     pub last_update_id: i64,
     /// Timestamp at which the last change in orderbook state took place, in milliseconds.
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
     /// The time at which the orderbook server sent the response, in milliseconds.
     #[serde(rename = "responseSentAtMillis")]
     pub response_sent_at_millis: i64,
@@ -46,11 +46,11 @@ pub struct OrderbookDepthResponse {
 }
 
 impl OrderbookDepthResponse {
-    pub fn new(symbol: String, last_update_id: i64, last_updated_at_millis: i64, response_sent_at_millis: i64, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, bids_e9: Vec<Vec<String>>, asks_e9: Vec<Vec<String>>) -> OrderbookDepthResponse {
+    pub fn new(symbol: String, last_update_id: i64, updated_at_millis: i64, response_sent_at_millis: i64, best_bid_price_e9: String, best_bid_quantity_e9: String, best_ask_price_e9: String, best_ask_quantity_e9: String, bids_e9: Vec<Vec<String>>, asks_e9: Vec<Vec<String>>) -> OrderbookDepthResponse {
         OrderbookDepthResponse {
             symbol,
             last_update_id,
-            last_updated_at_millis,
+            updated_at_millis,
             response_sent_at_millis,
             best_bid_price_e9,
             best_bid_quantity_e9,

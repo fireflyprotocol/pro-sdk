@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **account_leverage_e9** | **str** | The leverage of the account (e9 format). | 
 **total_unrealized_pnl_e9** | **str** | Total unrealized profit (e9 format). | 
 **total_cross_unrealized_pnl_e9** | **str** | Unrealized profit of crossed positions (e9 format). | 
-**last_updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
+**updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
 **assets** | [**List[Asset]**](Asset.md) |  | 
 **positions** | [**List[Position]**](Position.md) |  | 
 **authorized_accounts** | **List[str]** | The accounts that are authorized to trade on behalf of the current account. | 

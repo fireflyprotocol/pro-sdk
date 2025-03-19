@@ -1,6 +1,6 @@
 # OrderType
 
-The type of the order
+The type of order.
 
 ## Enum
 
@@ -11,6 +11,10 @@ The type of the order
 * `STOP_LIMIT` (value: `'STOP_LIMIT'`)
 
 * `STOP_MARKET` (value: `'STOP_MARKET'`)
+
+* `LIQUIDATION` (value: `'LIQUIDATION'`)
+
+* `BANKRUPTCY_LIQUIDATION` (value: `'BANKRUPTCY_LIQUIDATION'`)
 
 * `UNSPECIFIED` (value: `'UNSPECIFIED'`)
 

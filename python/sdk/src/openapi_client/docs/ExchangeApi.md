@@ -367,7 +367,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_recent_trades**
-> List[Trade1] get_recent_trades(symbol, trade_type=trade_type, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
+> List[Trade] get_recent_trades(symbol, trade_type=trade_type, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
 
 Recent trades list
 
@@ -376,7 +376,7 @@ Recent trades list
 
 ```python
 import openapi_client
-from openapi_client.models.trade1 import Trade1
+from openapi_client.models.trade import Trade
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -423,7 +423,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[Trade1]**](Trade1.md)
+[**List[Trade]**](Trade.md)
 
 ### Authorization
 

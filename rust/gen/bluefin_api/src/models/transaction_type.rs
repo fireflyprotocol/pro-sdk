@@ -11,10 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TransactionType : The type of transaction.
-/// The type of transaction.
+/// TransactionType : Transaction type (what caused the change in the asset balance).
+/// Transaction type (what caused the change in the asset balance).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum TransactionType {
+    #[serde(rename = "TRANSFER")]
+    Transfer,
     #[serde(rename = "DEPOSIT")]
     Deposit,
     #[serde(rename = "WITHDRAW")]
@@ -27,25 +29,32 @@ pub enum TransactionType {
     TradingFee,
     #[serde(rename = "TRADING_GAS_FEE")]
     TradingGasFee,
+    #[serde(rename = "BONUS")]
+    Bonus,
+    #[serde(rename = "UNSPECIFIED")]
+    Unspecified,
 
 }
 
 impl std::fmt::Display for TransactionType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
+            Self::Transfer => write!(f, "TRANSFER"),
             Self::Deposit => write!(f, "DEPOSIT"),
             Self::Withdraw => write!(f, "WITHDRAW"),
             Self::RealizedPnl => write!(f, "REALIZED_PNL"),
             Self::FundingFee => write!(f, "FUNDING_FEE"),
             Self::TradingFee => write!(f, "TRADING_FEE"),
             Self::TradingGasFee => write!(f, "TRADING_GAS_FEE"),
+            Self::Bonus => write!(f, "BONUS"),
+            Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }
 }
 
 impl Default for TransactionType {
     fn default() -> TransactionType {
-        Self::Deposit
+        Self::Transfer
     }
 }
 

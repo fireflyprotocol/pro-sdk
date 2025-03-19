@@ -52,8 +52,8 @@ class OpenOrderResponse(BaseModel):
     status: OrderStatus
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
     order_time_at_millis: StrictInt = Field(description="The timestamp in millis when the order was opened", alias="orderTimeAtMillis")
-    last_updated_at_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="lastUpdatedAtMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "lastUpdatedAtMillis"]
+    updated_at_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -127,7 +127,7 @@ class OpenOrderResponse(BaseModel):
             "status": obj.get("status"),
             "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
             "orderTimeAtMillis": obj.get("orderTimeAtMillis"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

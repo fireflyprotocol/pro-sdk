@@ -57,8 +57,8 @@ class TickerResponse(BaseModel):
     count24hr: StrictStr = Field(description="Total number of trades in 24hr.")
     price_change24hr_e9: StrictStr = Field(description="24hr Market price change (e9 format).", alias="priceChange24hrE9")
     price_change_percent24hr_e9: StrictStr = Field(description="24hr Market price change in percentage (e9 format).", alias="priceChangePercent24hrE9")
-    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds.", alias="lastUpdatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtMillis", "openTime24hrAtMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "lastUpdatedAtMillis"]
+    updated_at_millis: StrictInt = Field(description="Last update time in milliseconds.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtMillis", "openTime24hrAtMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -142,7 +142,7 @@ class TickerResponse(BaseModel):
             "count24hr": obj.get("count24hr"),
             "priceChange24hrE9": obj.get("priceChange24hrE9"),
             "priceChangePercent24hrE9": obj.get("priceChangePercent24hrE9"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

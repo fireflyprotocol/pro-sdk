@@ -25,7 +25,7 @@ from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.orderbook_depth_response import OrderbookDepthResponse
 from openapi_client.models.ticker_response import TickerResponse
-from openapi_client.models.trade1 import Trade1
+from openapi_client.models.trade import Trade
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse
@@ -1540,7 +1540,7 @@ class ExchangeApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Trade1]:
+    ) -> List[Trade]:
         """Recent trades list
 
 
@@ -1592,7 +1592,7 @@ class ExchangeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Trade1]",
+            '200': "List[Trade]",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1626,7 +1626,7 @@ class ExchangeApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Trade1]]:
+    ) -> ApiResponse[List[Trade]]:
         """Recent trades list
 
 
@@ -1678,7 +1678,7 @@ class ExchangeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Trade1]",
+            '200': "List[Trade]",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1764,7 +1764,7 @@ class ExchangeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Trade1]",
+            '200': "List[Trade]",
         }
         response_data = await self.api_client.call_api(
             *_param,

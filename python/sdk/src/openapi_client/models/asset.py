@@ -24,14 +24,14 @@ from typing_extensions import Self
 
 class Asset(BaseModel):
     """
-    Asset
+    Details about an asset in the account.
     """ # noqa: E501
-    symbol: StrictStr = Field(description="On-chain address of the asset bank on the blockchain.")
-    quantity_e9: StrictStr = Field(description="Asset quantity (e9 format).", alias="quantityE9")
-    effective_balance_e9: StrictStr = Field(description="Value of this asset balance based on current market price and asset weight (e9 format).", alias="effectiveBalanceE9")
-    max_withdraw_quantity_e9: StrictStr = Field(description="Maximum quantity for transfer out (e9 format).", alias="maxWithdrawQuantityE9")
-    last_updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="lastUpdatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "quantityE9", "effectiveBalanceE9", "maxWithdrawQuantityE9", "lastUpdatedAtMillis"]
+    symbol: StrictStr = Field(description="The symbol of the asset.")
+    quantity_e9: StrictStr = Field(description="The quantity of the asset.", alias="quantityE9")
+    effective_balance_e9: StrictStr = Field(description="The effective balance of the asset.", alias="effectiveBalanceE9")
+    max_withdraw_quantity_e9: StrictStr = Field(description="The maximum quantity that can be withdrawn.", alias="maxWithdrawQuantityE9")
+    updated_at_millis: StrictInt = Field(description="The timestamp of the last update in milliseconds.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "quantityE9", "effectiveBalanceE9", "maxWithdrawQuantityE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +88,7 @@ class Asset(BaseModel):
             "quantityE9": obj.get("quantityE9"),
             "effectiveBalanceE9": obj.get("effectiveBalanceE9"),
             "maxWithdrawQuantityE9": obj.get("maxWithdrawQuantityE9"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 
