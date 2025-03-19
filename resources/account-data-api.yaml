@@ -32,7 +32,7 @@ components:
         - accountLeverageE9
         - totalUnrealizedPnlE9
         - totalCrossUnrealizedPnlE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - assets
         - positions
         - authorizedAccounts
@@ -91,7 +91,7 @@ components:
           type: string
           description: Unrealized profit of crossed positions (e9 format).
           example: "3000000000" # 3,000 USD
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds since Unix epoch.
@@ -122,7 +122,7 @@ components:
         - side
         - isIsolated
         - liquidationPriceE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - initialMarginE9
         - maintenanceMarginE9
         - isolatedMarginE9
@@ -176,7 +176,7 @@ components:
           type: string
           description: Margin value present if margin type is isolated (e9 format).
           example: "1000000000"
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time.

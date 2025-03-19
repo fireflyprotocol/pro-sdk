@@ -339,7 +339,7 @@ components:
           type: integer
           format: int64
           description: The timestamp in millis when the order was opened
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis that this order was last updated (including status updates)
@@ -363,7 +363,7 @@ components:
         - status
         - selfTradePreventionType
         - orderTimeAtMillis
-        - lastUpdatedAtMillis
+        - updatedAtMillis
 
   securitySchemes:
     bearerAuth:

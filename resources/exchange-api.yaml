@@ -59,7 +59,7 @@ components:
           type: integer
           format: int64
           description: Count indicating the number of changes in orderbook state.
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Timestamp at which the last change in orderbook state took place, in milliseconds.
@@ -97,7 +97,7 @@ components:
           example: [["4000002000", "12000000000"]]
       example:
         symbol: "0x123"
-        lastUpdatedAtMillis: 1628078846123
+        updatedAtMillis: 1628078846123
         lastUpdateId: 56789
         responseSentAtMillis: 1628078846133
         bestBidPriceE9: "4000000000"
@@ -109,7 +109,7 @@ components:
       required:
         - symbol
         - lastUpdateId
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - responseSentAtMillis
         - bestBidPriceE9
         - bestBidQuantityE9
@@ -299,7 +299,7 @@ components:
           type: string
           description: 24hr Market price change in percentage (e9 format).
           example: 5000000000
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds.
@@ -337,7 +337,7 @@ components:
           "count24hr": "321",
           "priceChange24hrE9": "-200000000000",
           "priceChangePercent24hrE9": "-630000000",
-          "lastUpdatedAtMillis": 1625792500000,
+          "updatedAtMillis": 1625792500000,
         }
       required:
         - symbol
@@ -371,7 +371,7 @@ components:
         - count24hr
         - priceChange24hrE9
         - priceChangePercent24hrE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
 
     FundingRateResponse:
       type: array
