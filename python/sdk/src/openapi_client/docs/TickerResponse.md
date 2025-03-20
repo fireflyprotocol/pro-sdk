@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **count24hr** | **str** | Total number of trades in 24hr. | 
 **price_change24hr_e9** | **str** | 24hr Market price change (e9 format). | 
 **price_change_percent24hr_e9** | **str** | 24hr Market price change in percentage (e9 format). | 
-**last_updated_at_millis** | **int** | Last update time in milliseconds. | 
+**updated_at_millis** | **int** | Last update time in milliseconds. | 
 
 ## Example
 

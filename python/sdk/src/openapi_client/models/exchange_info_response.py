@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.asset1 import Asset1
+from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.market import Market
 from typing import Optional, Set
@@ -29,7 +29,7 @@ class ExchangeInfoResponse(BaseModel):
     """
     ExchangeInfoResponse
     """ # noqa: E501
-    assets: List[Asset1] = Field(description="List of assets available on the exchange.")
+    assets: List[AssetConfig] = Field(description="List of assets available on the exchange.")
     contracts_config: Optional[ContractsConfig] = Field(default=None, alias="contractsConfig")
     markets: List[Market] = Field(description="List of markets available on the exchange.")
     trading_gas_fee_e9: StrictStr = Field(description="Current gas fee set for subsidized trades (e9 format)", alias="tradingGasFeeE9")
@@ -105,7 +105,7 @@ class ExchangeInfoResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "assets": [Asset1.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
+            "assets": [AssetConfig.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "contractsConfig": ContractsConfig.from_dict(obj["contractsConfig"]) if obj.get("contractsConfig") is not None else None,
             "markets": [Market.from_dict(_item) for _item in obj["markets"]] if obj.get("markets") is not None else None,
             "tradingGasFeeE9": obj.get("tradingGasFeeE9"),

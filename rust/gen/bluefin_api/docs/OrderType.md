@@ -8,6 +8,8 @@
 | Market | MARKET |
 | StopLimit | STOP_LIMIT |
 | StopMarket | STOP_MARKET |
+| Liquidation | LIQUIDATION |
+| BankruptcyLiquidation | BANKRUPTCY_LIQUIDATION |
 | Unspecified | UNSPECIFIED |
 
 

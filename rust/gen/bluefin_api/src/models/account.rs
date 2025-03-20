@@ -55,8 +55,8 @@ pub struct Account {
     #[serde(rename = "totalCrossUnrealizedPnlE9")]
     pub total_cross_unrealized_pnl_e9: String,
     /// Last update time in milliseconds since Unix epoch.
-    #[serde(rename = "lastUpdatedAtMillis")]
-    pub last_updated_at_millis: i64,
+    #[serde(rename = "updatedAtMillis")]
+    pub updated_at_millis: i64,
     #[serde(rename = "assets")]
     pub assets: Vec<models::Asset>,
     #[serde(rename = "positions")]
@@ -67,7 +67,7 @@ pub struct Account {
 }
 
 impl Account {
-    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, last_updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
         Account {
             trading_fees,
             can_trade,
@@ -83,7 +83,7 @@ impl Account {
             account_leverage_e9,
             total_unrealized_pnl_e9,
             total_cross_unrealized_pnl_e9,
-            last_updated_at_millis,
+            updated_at_millis,
             assets,
             positions,
             authorized_accounts,

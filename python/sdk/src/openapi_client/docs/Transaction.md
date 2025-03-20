@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Transaction ID. | 
 **symbol** | **str** | Market address. | [optional] 
-**type** | [**TransactionTypeEnum**](TransactionTypeEnum.md) |  | 
+**type** | [**TransactionType**](TransactionType.md) |  | 
 **amount_e9** | **str** | Amount in e9 format (positive or negative). | 
 **asset_symbol** | **str** | Asset bank address. | 
 **trade_id** | **str** | Trade ID | [optional] 

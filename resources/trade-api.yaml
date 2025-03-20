@@ -24,55 +24,6 @@ components:
         - SHORT
         - UNSPECIFIED
       description: Side of the order
-    OrderStatus:
-      type: string
-      enum: [ OPEN, PENDING, FILLED, PARTIALLY_FILLED, CANCELLED, REJECTED, UNSPECIFIED ]
-      description: |
-        The statuses of the Orders
-        
-        PENDING: The Order has been acknowledged and is currently pending
-        
-        OPEN: The Order has passed all checks and is open on the order book.
-        
-        PARTIALLY_FILLED: The Order has been matched for less than its full quantity. Part of the Order got filled and the rest is still OPEN
-        
-        FILLED: The Order has been fully matched and filled and is no longer on the order book and no longer cancellable.
-        
-        CANCELLED: The Order has been cancelled and is no longer able to be filled. It has been taken off the Order Book
-        
-        REJECTED: The Order has been rejected and has not been put on the order book.
-        
-        UNSPECIFIED: The Order status is unspecified
-    SelfTradePreventionType:
-      type: string
-      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
-      default: "MAKER"
-      description: |
-        The strategy used to resolve self trades. 
-        
-        TAKER: On a self trade, the taker order will be cancelled
-        
-        MAKER: On a self trade, the maker order will be cancelled
-        
-        BOTH: On a self trade, both the taker and the maker order will be cancelled
-        
-        UNSPECIFIED: set to default value
-    OrderType:
-      type: string
-      enum: [ LIMIT, MARKET, STOP_LIMIT, STOP_MARKET, UNSPECIFIED ]
-      description: The type of the order
-    OrderTimeInForce:
-      type: string
-      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
-      default: "GTT"
-      description: |
-        Specify order execution, and by default, all orders are GTT. UNSPECIFIED is set to default.
-        
-        GTT: Good Til Time
-        
-        IOC: Immediate Or Cancel
-        
-        FOK: Fill Or Kill
 
     AccountAuthorizationRequest:
       type: object
@@ -178,7 +129,7 @@ components:
           type: string
           description: The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks.
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: Is this order to only reduce a position? Default false
@@ -188,7 +139,7 @@ components:
           default: false
         timeInForce:
           allOf:
-            - $ref: '#/components/schemas/OrderTimeInForce'
+            - $ref: './common.yaml#/components/schemas/OrderTimeInForce'
           description: | 
             Omit or set to null for market orders; otherwise, choose a valid time-in-force value.
             GTT: Good Til Time
@@ -202,7 +153,7 @@ components:
           description: Trigger price in base e9 for stop orders. This should always be a number
           example: 300000000
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
       required:
         - signedFields
         - signature
@@ -361,7 +312,7 @@ components:
           description: The timestamp in millis at which the request was signed
           example: 1234567856
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: Is this order to only reduce a position? Default false
@@ -371,7 +322,7 @@ components:
           description: If set to TRUE, the order can only be a maker order
           default: false
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          $ref: './common.yaml#/components/schemas/OrderTimeInForce'
         triggerPriceE9:
           type: string
           description: Trigger price in base e9 for stop orders. This should always be a number
@@ -381,14 +332,14 @@ components:
           description: The quantity in base e9 of the asset currently filled. This should always be a number
           example: 300000000
         status:
-          $ref: '#/components/schemas/OrderStatus'
+          $ref: './common.yaml#/components/schemas/OrderStatus'
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
         orderTimeAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis when the order was opened
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: The timestamp in millis that this order was last updated (including status updates)
@@ -412,19 +363,7 @@ components:
         - status
         - selfTradePreventionType
         - orderTimeAtMillis
-        - lastUpdatedAtMillis
-
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: A code representing the type of error.
-        message:
-          type: string
-          description: A human-readable message describing the error.
-      required:
-        - message
+        - updatedAtMillis
 
   securitySchemes:
     bearerAuth:
@@ -467,7 +406,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -478,19 +417,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/orders/cancel:
     put:
@@ -522,13 +461,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/accounts/authorize:
     put:
@@ -553,7 +492,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -564,13 +503,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/accounts/deauthorize:
     put:
@@ -595,7 +534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -606,13 +545,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/leverage:
     put:
@@ -637,7 +576,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -648,19 +587,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/openOrders:
     get:
@@ -692,7 +631,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -703,19 +642,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account address was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/withdraw:
     post:
@@ -740,7 +679,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
               examples:
                 InvalidRequest:
                   value:
@@ -751,16 +690,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested resource was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: './common.yaml#/components/schemas/Error'

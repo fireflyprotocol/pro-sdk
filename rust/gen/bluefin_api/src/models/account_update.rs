@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountUpdate {
     #[serde(rename = "tradingFees", skip_serializing_if = "Option::is_none")]
-    pub trading_fees: Option<models::TradingFees1>,
+    pub trading_fees: Option<models::TradingFees>,
     /// Indicates if trading is enabled.
     #[serde(rename = "canTrade")]
     pub can_trade: bool,
@@ -60,12 +60,12 @@ pub struct AccountUpdate {
     pub updated_at_millis: i64,
     /// The list of assets.
     #[serde(rename = "assets")]
-    pub assets: Vec<models::Asset2>,
+    pub assets: Vec<models::Asset>,
 }
 
 impl AccountUpdate {
     /// Account information for the data stream.
-    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset2>) -> AccountUpdate {
+    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>) -> AccountUpdate {
         AccountUpdate {
             trading_fees: None,
             can_trade,

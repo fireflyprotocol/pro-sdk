@@ -19,10 +19,10 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.order_status1 import OrderStatus1
-from openapi_client.models.order_time_in_force1 import OrderTimeInForce1
-from openapi_client.models.order_type1 import OrderType1
-from openapi_client.models.self_trade_prevention_type1 import SelfTradePreventionType1
+from openapi_client.models.order_status import OrderStatus
+from openapi_client.models.order_time_in_force import OrderTimeInForce
+from openapi_client.models.order_type import OrderType
+from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from openapi_client.models.side import Side
 from typing import Optional, Set
 from typing_extensions import Self
@@ -44,13 +44,13 @@ class ActiveOrderUpdate(BaseModel):
     salt: StrictStr = Field(description="A unique salt for the order.")
     expires_at_millis: StrictInt = Field(description="The expiration timestamp of the order in milliseconds.", alias="expiresAtMillis")
     signed_at_millis: StrictInt = Field(description="The signing timestamp of the order in milliseconds.", alias="signedAtMillis")
-    type: OrderType1
+    type: OrderType
     reduce_only: StrictBool = Field(description="Indicates if the order is reduce-only.", alias="reduceOnly")
     post_only: StrictBool = Field(description="Indicates if the order is post-only.", alias="postOnly")
-    time_in_force: OrderTimeInForce1 = Field(alias="timeInForce")
+    time_in_force: OrderTimeInForce = Field(alias="timeInForce")
     trigger_price_e9: Optional[StrictStr] = Field(default=None, description="The trigger price for stop-limit or stop-market orders.", alias="triggerPriceE9")
-    status: OrderStatus1
-    self_trade_prevention_type: SelfTradePreventionType1 = Field(alias="selfTradePreventionType")
+    status: OrderStatus
+    self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
     created_at_millis: StrictInt = Field(description="The timestamp when the order was placed, in milliseconds.", alias="createdAtMillis")
     updated_at_millis: StrictInt = Field(description="The timestamp of the last update of the order in milliseconds.", alias="updatedAtMillis")
     __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtMillis", "updatedAtMillis"]
@@ -122,10 +122,10 @@ class ActiveOrderUpdate(BaseModel):
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly"),
             "postOnly": obj.get("postOnly"),
-            "timeInForce": obj.get("timeInForce"),
+            "timeInForce": obj.get("timeInForce") if obj.get("timeInForce") is not None else OrderTimeInForce.GTT,
             "triggerPriceE9": obj.get("triggerPriceE9"),
             "status": obj.get("status"),
-            "selfTradePreventionType": obj.get("selfTradePreventionType"),
+            "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
             "createdAtMillis": obj.get("createdAtMillis"),
             "updatedAtMillis": obj.get("updatedAtMillis")
         })

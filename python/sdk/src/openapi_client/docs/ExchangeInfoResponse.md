@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assets** | [**List[Asset1]**](Asset1.md) | List of assets available on the exchange. | 
+**assets** | [**List[AssetConfig]**](AssetConfig.md) | List of assets available on the exchange. | 
 **contracts_config** | [**ContractsConfig**](ContractsConfig.md) |  | [optional] 
 **markets** | [**List[Market]**](Market.md) | List of markets available on the exchange. | 
 **trading_gas_fee_e9** | **str** | Current gas fee set for subsidized trades (e9 format) | 

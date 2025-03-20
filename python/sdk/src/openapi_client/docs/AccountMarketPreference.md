@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**margin_type** | [**MarginTypeEnum**](MarginTypeEnum.md) |  | [optional] 
+**margin_type** | [**MarginType**](MarginType.md) |  | [optional] 
 **set_leverage** | **int** | User set leverage (e.g., 10x). | [optional] 
 
 ## Example

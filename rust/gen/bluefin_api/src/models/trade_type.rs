@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TradeType : The type of trade.
-/// The type of trade.
+/// TradeType : Type of trade.
+/// Type of trade.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum TradeType {
     #[serde(rename = "ORDER")]

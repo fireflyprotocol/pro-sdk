@@ -6,7 +6,7 @@ Account information for the data stream.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trading_fees** | [**TradingFees1**](TradingFees1.md) |  | [optional] 
+**trading_fees** | [**TradingFees**](TradingFees.md) |  | [optional] 
 **can_trade** | **bool** | Indicates if trading is enabled. | 
 **can_deposit** | **bool** | Indicates if deposits are enabled. | 
 **can_withdraw** | **bool** | Indicates if withdrawals are enabled. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **total_unrealized_pnl_e9** | **str** | The total unrealized profit and loss. | 
 **total_cross_unrealized_pnl_e9** | **str** | The total cross unrealized profit and loss. | 
 **updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
-**assets** | [**List[Asset2]**](Asset2.md) | The list of assets. | 
+**assets** | [**List[Asset]**](Asset.md) | The list of assets. | 
 
 ## Example
 

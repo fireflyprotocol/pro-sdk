@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **notional_value_e9** | **str** | Notional value (e9 format). | 
 **size_e9** | **str** | Position size (e9 format). | 
 **unrealized_pnl_e9** | **str** | Unrealized profit (e9 format). | 
-**side** | [**PositionSideEnum**](PositionSideEnum.md) |  | 
+**side** | [**PositionSide**](PositionSide.md) |  | 
 **initial_margin_e9** | **str** | Initial margin required with current mark price (e9 format). | 
 **maintenance_margin_e9** | **str** | Maintenance margin required with current mark price (e9 format). | 
 **is_isolated** | **bool** | If the position is isolated. | 
 **isolated_margin_e9** | **str** | Margin value present if margin type is isolated (e9 format). | 
-**last_updated_at_millis** | **int** | Last update time. | 
+**updated_at_millis** | **int** | Last update time. | 
 
 ## Example
 

@@ -11,7 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// 
+/// TradeSide : Trade side based on the user order in this trade.
+/// Trade side based on the user order in this trade.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum TradeSide {
     #[serde(rename = "LONG")]

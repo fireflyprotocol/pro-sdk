@@ -15,25 +15,6 @@ components:
       name: x-user-token
       bearerFormat: JWT # Optional, arbitrary value for documentation purposes
   schemas:
-    TradingFees:
-      type: object
-      required:
-        - makerFeeE9
-        - takerFeeE9
-        - isApplied
-      properties:
-        makerFeeE9:
-          type: string
-          description: The Account Maker Fee (e9 format).
-          example: "1000000"
-        takerFeeE9:
-          type: string
-          description: The Account Taker Fee (e9 format).
-          example: "1000000"
-        isApplied:
-          type: boolean
-          description: Are the fees applied on the account?
-
     Account:
       type: object
       required:
@@ -51,13 +32,13 @@ components:
         - accountLeverageE9
         - totalUnrealizedPnlE9
         - totalCrossUnrealizedPnlE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - assets
         - positions
         - authorizedAccounts
       properties:
         tradingFees:
-          $ref: "#/components/schemas/TradingFees"
+          $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:
           type: boolean
           description: If the user can trade.
@@ -110,7 +91,7 @@ components:
           type: string
           description: Unrealized profit of crossed positions (e9 format).
           example: "3000000000" # 3,000 USD
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds since Unix epoch.
@@ -118,7 +99,7 @@ components:
         assets:
           type: array
           items:
-            $ref: "#/components/schemas/Asset"
+            $ref: "./common.yaml#/components/schemas/Asset"
         positions:
           type: array
           items:
@@ -128,115 +109,6 @@ components:
           items:
             type: string
           description: The accounts that are authorized to trade on behalf of the current account.
-    Asset:
-      type: object
-      required:
-        - symbol
-        - quantityE9
-        - effectiveBalanceE9
-        - maxWithdrawQuantityE9
-        - lastUpdatedAtMillis
-      properties:
-        symbol:
-          type: string
-          description: On-chain address of the asset bank on the blockchain.
-        quantityE9:
-          type: string
-          description: Asset quantity (e9 format).
-          example: "6000000000" # 6,000 units
-        effectiveBalanceE9:
-          type: string
-          description: Value of this asset balance based on current market price and asset weight (e9 format).
-          example: "6000000000" # 6,000 USD
-        maxWithdrawQuantityE9:
-          type: string
-          description: Maximum quantity for transfer out (e9 format).
-          example: "3000000000" # 3,000 units
-        lastUpdatedAtMillis:
-          type: integer
-          format: int64
-          description: Last update time in milliseconds since Unix epoch.
-          example: 1627872345678
-    Trade:
-      type: object
-      required:
-        - tradeId
-        - tradeType
-        - side
-        - isMaker
-        - priceE9
-        - quantityE9
-        - quoteQuantityE9
-        - positionSide
-        - tradingFeeE9
-        - tradingFeeAsset
-        - executedAtMillis
-      properties:
-        tradeId:
-          type: string
-          description: Trade ID
-        clientOrderId:
-          type: string
-          description: Client order ID.
-          example: "25851813"
-        symbol:
-          type: string
-          description: Market address.
-        orderHash:
-          type: string
-          description: Order hash.
-        tradeType:
-          $ref: "#/components/schemas/TradeTypeEnum"
-        side:
-          $ref: "#/components/schemas/TradeSideEnum"
-        isMaker:
-          type: boolean
-          description: Indicates if the user was a maker to the trade.
-          example: false
-        priceE9:
-          type: string
-          description: Trade price (e9 format).
-          example: "7819010000000" # 7,819.01 USD
-        quantityE9:
-          type: string
-          description: Trade quantity (e9 format).
-          example: "20000000000" # 20,000 units
-        quoteQuantityE9:
-          type: string
-          description: Quote quantity (e9 format).
-          example: "150000000000000" # 150,000 USD
-        realizedPnlE9:
-          type: string
-          description: Realized profit and loss (e9 format).
-          example: "-9000000000" # -9,000 USD
-        positionSide:
-          $ref: "#/components/schemas/PositionSideEnum"
-        tradingFeeE9:
-          type: string
-          description: Trading fee (e9 format).
-          example: "-780000000" # -780 USD
-        tradingFeeAsset:
-          type: string
-          enum:
-            - USDC
-            - BLUE
-            - UNSPECIFIED
-          description: Asset used for trading fee.
-          example: USDC
-        gasFeeE9:
-          type: number
-          format: float
-          description: Gas fee.
-          example: 0
-        gasFeeAsset:
-          type: string
-          description: Asset used for gas fee.
-          example: USDC
-        executedAtMillis:
-          type: integer
-          format: int64
-          description: Trade timestamp in milliseconds since Unix epoch.
-          example: 1569514978020
     Position:
       type: object
       required:
@@ -250,7 +122,7 @@ components:
         - side
         - isIsolated
         - liquidationPriceE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - initialMarginE9
         - maintenanceMarginE9
         - isolatedMarginE9
@@ -287,7 +159,7 @@ components:
           description: Unrealized profit (e9 format).
           example: "-1000000000" # -1,000 USD
         side:
-          $ref: "#/components/schemas/PositionSideEnum"
+          $ref: "./common.yaml#/components/schemas/PositionSide"
         initialMarginE9:
           type: string
           description: Initial margin required with current mark price (e9 format).
@@ -304,7 +176,7 @@ components:
           type: string
           description: Margin value present if margin type is isolated (e9 format).
           example: "1000000000"
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time.
@@ -327,7 +199,7 @@ components:
           description: Market address.
           example: "0x123456789abcdef"
         type:
-          $ref: "#/components/schemas/TransactionTypeEnum"
+          $ref: "./common.yaml#/components/schemas/TransactionType"
         amountE9:
           type: string
           description: Amount in e9 format (positive or negative).
@@ -362,68 +234,18 @@ components:
       type: object
       properties:
         marginType:
-          $ref: "#/components/schemas/MarginTypeEnum"
+          $ref: "./common.yaml#/components/schemas/MarginType"
         setLeverage:
           type: integer
           description: User set leverage (e.g., 10x).
           example: 100
-    TradeTypeEnum:
-      type: string
-      description: Type of trade.
-      enum:
-        - ORDER
-        - LIQUIDATION
-        - DELEVERAGE
-        - UNSPECIFIED
-    PositionSideEnum:
-      type: string
-      description: "The side of the position, either long or short"
-      enum:
-        - LONG
-        - SHORT
-        - UNSPECIFIED
-    TradeSideEnum:
-      type: string
-      description: Trade side based on the user order in this trade.
-      enum:
-        - LONG
-        - SHORT
-        - UNSPECIFIED
-    TransactionTypeEnum:
-      description: Transaction type (what caused the change in the asset balance).
-      type: string
-      enum:
-        - TRANSFER
-        - DEPOSIT
-        - WITHDRAW
-        - REALIZED_PNL
-        - FUNDING_FEE
-        - TRADING_FEE
-        - TRADING_GAS_FEE
-        - BONUS
-        - UNSPECIFIED
-    MarginTypeEnum:
-      type: string
-      description: Margin type.
-      enum:
-        - CROSS
-        - ISOLATED
-        - UNSPECIFIED
-    Error:
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Error message.
-          example: "Invalid request parameters"
   responses:
     DefaultError:
       description: Unexpected error
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: "./common.yaml#/components/schemas/Error"
 paths:
   /api/v1/account/preferences:
     get:
@@ -445,25 +267,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /api/v1/account:
     get:
@@ -485,25 +307,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /api/v1/account/trades:
     get:
@@ -549,7 +371,7 @@ paths:
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/TradeTypeEnum"
+            $ref: "./common.yaml#/components/schemas/TradeType"
           description: Type of trade. By default returns all. UNSPECIFIED returns all.
         - name: page
           in: query
@@ -566,31 +388,31 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Trade"
+                  $ref: "./common.yaml#/components/schemas/Trade"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
   /api/v1/account/transactions:
     get:
       tags:
@@ -609,7 +431,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/TransactionTypeEnum"
+              $ref: "./common.yaml#/components/schemas/TransactionType"
         - name: assetSymbol
           schema:
             type: string
@@ -662,22 +484,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "401":
           description: "unauthorized access"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"

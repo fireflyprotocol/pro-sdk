@@ -75,7 +75,7 @@ Name | Type | Description  | Required | Notes
 **start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
 **end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
-**trade_type** | Option<[**TradeTypeEnum**](.md)> | Type of trade. By default returns all. UNSPECIFIED returns all. |  |
+**trade_type** | Option<[**TradeType**](.md)> | Type of trade. By default returns all. UNSPECIFIED returns all. |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 
 ### Return type
@@ -104,7 +104,7 @@ Get user's transaction history (any change in balance).
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**types** | Option<[**Vec<models::TransactionTypeEnum>**](models::TransactionTypeEnum.md)> | Optional query parameter to filter transactions by type. |  |
+**types** | Option<[**Vec<models::TransactionType>**](models::TransactionType.md)> | Optional query parameter to filter transactions by type. |  |
 **asset_symbol** | Option<**String**> | Optional query parameter to filter transactions by asset bank address. |  |
 **start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
 **end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |

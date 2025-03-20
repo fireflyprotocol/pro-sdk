@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class TradeType(str, Enum):
     """
-    The type of trade.
+    Type of trade.
     """
 
     """

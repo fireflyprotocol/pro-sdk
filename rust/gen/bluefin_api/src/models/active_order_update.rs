@@ -53,7 +53,7 @@ pub struct ActiveOrderUpdate {
     #[serde(rename = "signedAtMillis")]
     pub signed_at_millis: i64,
     #[serde(rename = "type")]
-    pub r#type: models::OrderType1,
+    pub r#type: models::OrderType,
     /// Indicates if the order is reduce-only.
     #[serde(rename = "reduceOnly")]
     pub reduce_only: bool,
@@ -61,14 +61,14 @@ pub struct ActiveOrderUpdate {
     #[serde(rename = "postOnly")]
     pub post_only: bool,
     #[serde(rename = "timeInForce")]
-    pub time_in_force: models::OrderTimeInForce1,
+    pub time_in_force: models::OrderTimeInForce,
     /// The trigger price for stop-limit or stop-market orders.
     #[serde(rename = "triggerPriceE9", skip_serializing_if = "Option::is_none")]
     pub trigger_price_e9: Option<String>,
     #[serde(rename = "status")]
-    pub status: models::OrderStatus1,
+    pub status: models::OrderStatus,
     #[serde(rename = "selfTradePreventionType")]
-    pub self_trade_prevention_type: models::SelfTradePreventionType1,
+    pub self_trade_prevention_type: models::SelfTradePreventionType,
     /// The timestamp when the order was placed, in milliseconds.
     #[serde(rename = "createdAtMillis")]
     pub created_at_millis: i64,
@@ -79,7 +79,7 @@ pub struct ActiveOrderUpdate {
 
 impl ActiveOrderUpdate {
     /// Information about an order update.
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, filled_quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType1, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce1, status: models::OrderStatus1, self_trade_prevention_type: models::SelfTradePreventionType1, created_at_millis: i64, updated_at_millis: i64) -> ActiveOrderUpdate {
+    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, filled_quantity_e9: String, side: models::Side, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, created_at_millis: i64, updated_at_millis: i64) -> ActiveOrderUpdate {
         ActiveOrderUpdate {
             order_hash,
             client_order_id: None,

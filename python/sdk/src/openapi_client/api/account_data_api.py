@@ -22,9 +22,9 @@ from typing_extensions import Annotated
 from openapi_client.models.account import Account
 from openapi_client.models.account_preference import AccountPreference
 from openapi_client.models.trade import Trade
-from openapi_client.models.trade_type_enum import TradeTypeEnum
+from openapi_client.models.trade_type import TradeType
 from openapi_client.models.transaction import Transaction
-from openapi_client.models.transaction_type_enum import TransactionTypeEnum
+from openapi_client.models.transaction_type import TransactionType
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse
@@ -561,7 +561,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -588,7 +588,7 @@ class AccountDataApi:
         :param limit: Default 500; max 1000.
         :type limit: int
         :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
-        :type trade_type: TradeTypeEnum
+        :type trade_type: TradeType
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -651,7 +651,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -678,7 +678,7 @@ class AccountDataApi:
         :param limit: Default 500; max 1000.
         :type limit: int
         :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
-        :type trade_type: TradeTypeEnum
+        :type trade_type: TradeType
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -741,7 +741,7 @@ class AccountDataApi:
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
-        trade_type: Annotated[Optional[TradeTypeEnum], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -768,7 +768,7 @@ class AccountDataApi:
         :param limit: Default 500; max 1000.
         :type limit: int
         :param trade_type: Type of trade. By default returns all. UNSPECIFIED returns all.
-        :type trade_type: TradeTypeEnum
+        :type trade_type: TradeType
         :param page: The page number to retrieve in a paginated response.
         :type page: int
         :param _request_timeout: timeout setting for this request. If one
@@ -914,7 +914,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_transaction_history(
         self,
-        types: Annotated[Optional[List[TransactionTypeEnum]], Field(description="Optional query parameter to filter transactions by type.")] = None,
+        types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
@@ -937,7 +937,7 @@ class AccountDataApi:
 
 
         :param types: Optional query parameter to filter transactions by type.
-        :type types: List[TransactionTypeEnum]
+        :type types: List[TransactionType]
         :param asset_symbol: Optional query parameter to filter transactions by asset bank address.
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -1004,7 +1004,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_transaction_history_with_http_info(
         self,
-        types: Annotated[Optional[List[TransactionTypeEnum]], Field(description="Optional query parameter to filter transactions by type.")] = None,
+        types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
@@ -1027,7 +1027,7 @@ class AccountDataApi:
 
 
         :param types: Optional query parameter to filter transactions by type.
-        :type types: List[TransactionTypeEnum]
+        :type types: List[TransactionType]
         :param asset_symbol: Optional query parameter to filter transactions by asset bank address.
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -1094,7 +1094,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_transaction_history_without_preload_content(
         self,
-        types: Annotated[Optional[List[TransactionTypeEnum]], Field(description="Optional query parameter to filter transactions by type.")] = None,
+        types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
@@ -1117,7 +1117,7 @@ class AccountDataApi:
 
 
         :param types: Optional query parameter to filter transactions by type.
-        :type types: List[TransactionTypeEnum]
+        :type types: List[TransactionType]
         :param asset_symbol: Optional query parameter to filter transactions by asset bank address.
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.

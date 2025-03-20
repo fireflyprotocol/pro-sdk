@@ -1,7 +1,7 @@
 import {
   AccountDataStream,
-  TradeTypeEnum,
-  TransactionTypeEnum,
+  TradeType,
+  TransactionType,
   KlineInterval,
   CandlePriceType,
   OrderType,
@@ -159,7 +159,7 @@ async function main() {
         Date.now() - 10000000,
         Date.now(),
         1000,
-        TradeTypeEnum.Order,
+        TradeType.Order,
         1,
       )
     ).data;
@@ -167,7 +167,7 @@ async function main() {
 
     const depositHistory = (
       await client.accountDataApi.getAccountTransactionHistory(
-        [TransactionTypeEnum.Deposit, TransactionTypeEnum.Withdraw],
+        [TransactionType.Deposit, TransactionType.Withdraw],
         symbol,
         Date.now() - 10000000,
         Date.now(),

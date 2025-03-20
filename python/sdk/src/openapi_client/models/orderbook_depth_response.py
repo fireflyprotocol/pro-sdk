@@ -28,7 +28,7 @@ class OrderbookDepthResponse(BaseModel):
     """ # noqa: E501
     symbol: StrictStr = Field(description="Market symbol.")
     last_update_id: StrictInt = Field(description="Count indicating the number of changes in orderbook state.", alias="lastUpdateId")
-    last_updated_at_millis: StrictInt = Field(description="Timestamp at which the last change in orderbook state took place, in milliseconds.", alias="lastUpdatedAtMillis")
+    updated_at_millis: StrictInt = Field(description="Timestamp at which the last change in orderbook state took place, in milliseconds.", alias="updatedAtMillis")
     response_sent_at_millis: StrictInt = Field(description="The time at which the orderbook server sent the response, in milliseconds.", alias="responseSentAtMillis")
     best_bid_price_e9: StrictStr = Field(description="The best bid price on orderbook at the moment (e9 format).", alias="bestBidPriceE9")
     best_bid_quantity_e9: StrictStr = Field(description="The best bid quantity on orderbook at the moment (e9 format).", alias="bestBidQuantityE9")
@@ -36,7 +36,7 @@ class OrderbookDepthResponse(BaseModel):
     best_ask_quantity_e9: StrictStr = Field(description="The best ask quantity on orderbook at the moment (e9 format).", alias="bestAskQuantityE9")
     bids_e9: List[List[StrictStr]] = Field(description="Bids to be filled. Index 0 is price, index 1 is quantity at price bin. Prices are in e9 format.", alias="bidsE9")
     asks_e9: List[List[StrictStr]] = Field(description="Asks to be filled. Index 0 is price, index 1 is quantity at price bin. Prices are in e9 format.", alias="asksE9")
-    __properties: ClassVar[List[str]] = ["symbol", "lastUpdateId", "lastUpdatedAtMillis", "responseSentAtMillis", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "bidsE9", "asksE9"]
+    __properties: ClassVar[List[str]] = ["symbol", "lastUpdateId", "updatedAtMillis", "responseSentAtMillis", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "bidsE9", "asksE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +91,7 @@ class OrderbookDepthResponse(BaseModel):
         _obj = cls.model_validate({
             "symbol": obj.get("symbol"),
             "lastUpdateId": obj.get("lastUpdateId"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis"),
+            "updatedAtMillis": obj.get("updatedAtMillis"),
             "responseSentAtMillis": obj.get("responseSentAtMillis"),
             "bestBidPriceE9": obj.get("bestBidPriceE9"),
             "bestBidQuantityE9": obj.get("bestBidQuantityE9"),

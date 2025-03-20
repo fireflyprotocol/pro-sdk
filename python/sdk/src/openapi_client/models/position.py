@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
-from openapi_client.models.position_side_enum import PositionSideEnum
+from openapi_client.models.position_side import PositionSide
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,13 +35,13 @@ class Position(BaseModel):
     notional_value_e9: StrictStr = Field(description="Notional value (e9 format).", alias="notionalValueE9")
     size_e9: StrictStr = Field(description="Position size (e9 format).", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit (e9 format).", alias="unrealizedPnlE9")
-    side: PositionSideEnum
+    side: PositionSide
     initial_margin_e9: StrictStr = Field(description="Initial margin required with current mark price (e9 format).", alias="initialMarginE9")
     maintenance_margin_e9: StrictStr = Field(description="Maintenance margin required with current mark price (e9 format).", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="If the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="Margin value present if margin type is isolated (e9 format).", alias="isolatedMarginE9")
-    last_updated_at_millis: StrictInt = Field(description="Last update time.", alias="lastUpdatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "lastUpdatedAtMillis"]
+    updated_at_millis: StrictInt = Field(description="Last update time.", alias="updatedAtMillis")
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,7 +107,7 @@ class Position(BaseModel):
             "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),
             "isolatedMarginE9": obj.get("isolatedMarginE9"),
-            "lastUpdatedAtMillis": obj.get("lastUpdatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis")
         })
         return _obj
 

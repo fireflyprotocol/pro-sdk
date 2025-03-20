@@ -364,7 +364,7 @@ components:
           format: int64
           description: "The signing timestamp of the order in milliseconds."
         type:
-          $ref: '#/components/schemas/OrderType'
+          $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
           type: boolean
           description: "Indicates if the order is reduce-only."
@@ -372,14 +372,14 @@ components:
           type: boolean
           description: "Indicates if the order is post-only."
         timeInForce:
-          $ref: '#/components/schemas/OrderTimeInForce'
+          $ref: './common.yaml#/components/schemas/OrderTimeInForce'
         triggerPriceE9:
           type: string
           description: "The trigger price for stop-limit or stop-market orders."
         status:
-          $ref: '#/components/schemas/OrderStatus'
+          $ref: './common.yaml#/components/schemas/OrderStatus'
         selfTradePreventionType:
-          $ref: '#/components/schemas/SelfTradePreventionType'
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
         createdAtMillis:
           type: integer
           format: int64
@@ -410,60 +410,6 @@ components:
         - createdAtMillis
         - updatedAtMillis
 
-    OrderType:
-      type: string
-      description: "The type of order."
-      enum:
-        - LIMIT
-        - MARKET
-        - STOP_LIMIT
-        - STOP_MARKET
-        - LIQUIDATION
-        - BANKRUPTCY_LIQUIDATION
-        - UNSPECIFIED
-
-    OrderTimeInForce:
-      type: string
-      description: "The time-in-force policy for the order."
-      enum:
-        - GTT
-        - IOC
-        - FOK
-        - UNSPECIFIED
-
-    OrderStatus:
-      type: string
-      description: "The current status of the order."
-      enum:
-        - OPEN
-        - PARTIALLY_FILLED_OPEN
-        - PARTIALLY_FILLED_CANCELED
-        - FILLED
-        - CANCELLED
-        - EXPIRED
-        - PARTIALLY_FILLED_EXPIRED
-        - UNSPECIFIED
-
-    SelfTradePreventionType:
-      type: string
-      description: "The type of self-trade prevention applied to the order."
-      enum:
-        - TAKER
-        - MAKER
-        - BOTH
-        - UNSPECIFIED
-
-    TransactionType:
-      type: string
-      description: "The type of transaction."
-      enum:
-        - DEPOSIT
-        - WITHDRAW
-        - REALIZED_PNL
-        - FUNDING_FEE
-        - TRADING_FEE
-        - TRADING_GAS_FEE
-
     AccountTransactionUpdate:
       type: object
       description: "Details about a transaction in the account."
@@ -472,7 +418,7 @@ components:
           type: string
           description: "The symbol of the market."
         transactionType:
-          $ref: '#/components/schemas/TransactionType'
+          $ref: './common.yaml#/components/schemas/TransactionType'
         amountE9:
           type: string
           description: "The amount of the transaction in scientific notation with 9 decimal places."
@@ -562,7 +508,7 @@ components:
       description: "Account information for the data stream."
       properties:
         tradingFees:
-          $ref: '#/components/schemas/TradingFees'
+          $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:
           type: boolean
           description: "Indicates if trading is enabled."
@@ -609,7 +555,7 @@ components:
         assets:
           type: array
           items:
-            $ref: '#/components/schemas/Asset'
+            $ref: './common.yaml#/components/schemas/Asset'
           description: "The list of assets."
       required:
         - canTrade
@@ -628,51 +574,6 @@ components:
         - updatedAtMillis
         - assets
 
-    TradingFees:
-      type: object
-      description: "Details about the fee tier."
-      properties:
-        makerFeeE9:
-          type: string
-          description: "The maker fee."
-        takerFeeE9:
-          type: string
-          description: "The taker fee."
-        isApplied:
-          type: boolean
-          description: "Indicates if the fee tier is applied."
-      required:
-        - makerFeeE9
-        - takerFeeE9
-        - isApplied
-
-    Asset:
-      type: object
-      description: "Details about an asset in the account."
-      properties:
-        symbol:
-          type: string
-          description: "The symbol of the asset."
-        quantityE9:
-          type: string
-          description: "The quantity of the asset."
-        effectiveBalanceE9:
-          type: string
-          description: "The effective balance of the asset."
-        maxWithdrawQuantityE9:
-          type: string
-          description: "The maximum quantity that can be withdrawn."
-        updatedAtMillis:
-          type: integer
-          format: int64
-          description: "The timestamp of the last update in milliseconds."
-      required:
-        - symbol
-        - quantityE9
-        - effectiveBalanceE9
-        - maxWithdrawQuantityE9
-        - updatedAtMillis
-
     AccountTradeUpdate:
       type: object
       description: "Details about a trade in the account."
@@ -690,7 +591,7 @@ components:
           type: string
           description: "The hash of the order."
         type:
-          $ref: '#/components/schemas/TradeType'
+          $ref: './common.yaml#/components/schemas/TradeType'
         tradeSide:
           $ref: '#/components/schemas/Side'
         isMaker:
@@ -735,15 +636,6 @@ components:
         - tradingFeeE9
         - tradingFeeAssetSymbol
         - executedAtMillis
-
-    TradeType:
-      type: string
-      description: "The type of trade."
-      enum:
-        - ORDER
-        - LIQUIDATION
-        - DELEVERAGE
-        - UNSPECIFIED
 
     # Market Streams
     MarketStreamMessage:

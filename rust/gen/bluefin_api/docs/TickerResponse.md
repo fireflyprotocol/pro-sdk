@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **count24hr** | **String** | Total number of trades in 24hr. | 
 **price_change24hr_e9** | **String** | 24hr Market price change (e9 format). | 
 **price_change_percent24hr_e9** | **String** | 24hr Market price change in percentage (e9 format). | 
-**last_updated_at_millis** | **i64** | Last update time in milliseconds. | 
+**updated_at_millis** | **i64** | Last update time in milliseconds. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

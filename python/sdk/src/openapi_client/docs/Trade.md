@@ -5,20 +5,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trade_id** | **str** | Trade ID | 
+**id** | **str** | Trade ID | 
 **client_order_id** | **str** | Client order ID. | [optional] 
 **symbol** | **str** | Market address. | [optional] 
 **order_hash** | **str** | Order hash. | [optional] 
-**trade_type** | [**TradeTypeEnum**](TradeTypeEnum.md) |  | 
-**side** | [**TradeSideEnum**](TradeSideEnum.md) |  | 
-**is_maker** | **bool** | Indicates if the user was a maker to the trade. | 
+**trade_type** | [**TradeType**](TradeType.md) |  | [optional] 
+**side** | [**TradeSide**](TradeSide.md) |  | 
+**is_maker** | **bool** | Indicates if the user was a maker to the trade. | [optional] 
 **price_e9** | **str** | Trade price (e9 format). | 
 **quantity_e9** | **str** | Trade quantity (e9 format). | 
 **quote_quantity_e9** | **str** | Quote quantity (e9 format). | 
 **realized_pnl_e9** | **str** | Realized profit and loss (e9 format). | [optional] 
-**position_side** | [**PositionSideEnum**](PositionSideEnum.md) |  | 
-**trading_fee_e9** | **str** | Trading fee (e9 format). | 
-**trading_fee_asset** | **str** | Asset used for trading fee. | 
+**position_side** | [**PositionSide**](PositionSide.md) |  | [optional] 
+**trading_fee_e9** | **str** | Trading fee (e9 format). | [optional] 
+**trading_fee_asset** | **str** | Asset used for trading fee. | [optional] 
 **gas_fee_e9** | **float** | Gas fee. | [optional] 
 **gas_fee_asset** | **str** | Asset used for gas fee. | [optional] 
 **executed_at_millis** | **int** | Trade timestamp in milliseconds since Unix epoch. | 

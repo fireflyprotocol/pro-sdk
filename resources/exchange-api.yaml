@@ -23,7 +23,7 @@ components:
           type: array
           description: List of assets available on the exchange.
           items:
-            $ref: "#/components/schemas/Asset"
+            $ref: "#/components/schemas/AssetConfig"
         contractsConfig:
           $ref: "#/components/schemas/ContractsConfig"
         markets:
@@ -59,7 +59,7 @@ components:
           type: integer
           format: int64
           description: Count indicating the number of changes in orderbook state.
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Timestamp at which the last change in orderbook state took place, in milliseconds.
@@ -97,7 +97,7 @@ components:
           example: [["4000002000", "12000000000"]]
       example:
         symbol: "0x123"
-        lastUpdatedAtMillis: 1628078846123
+        updatedAtMillis: 1628078846123
         lastUpdateId: 56789
         responseSentAtMillis: 1628078846133
         bestBidPriceE9: "4000000000"
@@ -109,7 +109,7 @@ components:
       required:
         - symbol
         - lastUpdateId
-        - lastUpdatedAtMillis
+        - updatedAtMillis
         - responseSentAtMillis
         - bestBidPriceE9
         - bestBidQuantityE9
@@ -121,7 +121,7 @@ components:
     TradesResponse:
       type: array
       items:
-        $ref: "#/components/schemas/Trade"
+        $ref: "./common.yaml#/components/schemas/Trade"
       example:
         - id: 28457
           symbol: "0x123"
@@ -299,7 +299,7 @@ components:
           type: string
           description: 24hr Market price change in percentage (e9 format).
           example: 5000000000
-        lastUpdatedAtMillis:
+        updatedAtMillis:
           type: integer
           format: int64
           description: Last update time in milliseconds.
@@ -337,7 +337,7 @@ components:
           "count24hr": "321",
           "priceChange24hrE9": "-200000000000",
           "priceChangePercent24hrE9": "-630000000",
-          "lastUpdatedAtMillis": 1625792500000,
+          "updatedAtMillis": 1625792500000,
         }
       required:
         - symbol
@@ -371,7 +371,7 @@ components:
         - count24hr
         - priceChange24hrE9
         - priceChangePercent24hrE9
-        - lastUpdatedAtMillis
+        - updatedAtMillis
 
     FundingRateResponse:
       type: array
@@ -385,12 +385,6 @@ components:
         - BETA
         - MAINTENANCE
         - DELISTED
-        - UNSPECIFIED
-    TradeSide:
-      type: string
-      enum:
-        - LONG
-        - SHORT
         - UNSPECIFIED
     KlineInterval:
       type: string
@@ -417,44 +411,6 @@ components:
         - "Market"
         - "Oracle"
         - "UNSPECIFIED"
-    Trade:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Trade ID
-        symbol:
-          type: string
-          description: Market symbol.
-          example: 0x123
-        priceE9:
-          type: string
-          description: Trade price (e9 format).
-          example: 10000000000
-        quantityE9:
-          type: string
-          description: Trade quantity (e9 format).
-          example: 1000000000
-        quoteQuantityE9:
-          type: string
-          description: Trade quote quantity (e9 format).
-          example: 1000000000000
-        side:
-          $ref: "#/components/schemas/TradeSide"
-        timeAtMillis:
-          type: integer
-          format: int64
-          description: Trade timestamp.
-          example: 1569514978020
-      required:
-        - id
-        - symbol
-        - priceE9
-        - quantityE9
-        - quoteQuantityE9
-        - side
-        - timeAtMillis
     ContractsConfig:
       type: object
       description: Contract configuration for the exchange.
@@ -517,7 +473,7 @@ components:
           type: string
           description: Fee operator address
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
-    Asset:
+    AssetConfig:
       type: object
       properties:
         assetType:
@@ -722,14 +678,6 @@ components:
         - symbol
         - fundingTimeAtMillis
         - fundingRateE9
-    Error:
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Error message.
-          example: "Invalid request parameters"
 
 paths:
   /v1/exchange/info:
@@ -942,7 +890,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/exchange/fundingRateHistory:
     get:

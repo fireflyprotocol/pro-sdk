@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **account_leverage_e9** | **String** | The leverage of the account (e9 format). | 
 **total_unrealized_pnl_e9** | **String** | Total unrealized profit (e9 format). | 
 **total_cross_unrealized_pnl_e9** | **String** | Unrealized profit of crossed positions (e9 format). | 
-**last_updated_at_millis** | **i64** | Last update time in milliseconds since Unix epoch. | 
+**updated_at_millis** | **i64** | Last update time in milliseconds since Unix epoch. | 
 **assets** | [**Vec<models::Asset>**](Asset.md) |  | 
 **positions** | [**Vec<models::Position>**](Position.md) |  | 
 **authorized_accounts** | **Vec<String>** | The accounts that are authorized to trade on behalf of the current account. | 

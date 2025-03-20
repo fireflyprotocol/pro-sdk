@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **str** | Error message | 
+**error_code** | **str** | A code representing the type of error. | [optional] 
+**message** | **str** | A human-readable message describing the error. | 
 
 ## Example
 

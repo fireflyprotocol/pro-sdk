@@ -1,5 +1,6 @@
 # TradeSide
 
+Trade side based on the user order in this trade.
 
 ## Enum
 

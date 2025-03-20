@@ -1,6 +1,6 @@
 # TradeType
 
-The type of trade.
+Type of trade.
 
 ## Enum
 

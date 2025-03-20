@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ExchangeInfoResponse {
     /// List of assets available on the exchange.
     #[serde(rename = "assets")]
-    pub assets: Vec<models::Asset1>,
+    pub assets: Vec<models::AssetConfig>,
     #[serde(rename = "contractsConfig", skip_serializing_if = "Option::is_none")]
     pub contracts_config: Option<models::ContractsConfig>,
     /// List of markets available on the exchange.
@@ -33,7 +33,7 @@ pub struct ExchangeInfoResponse {
 }
 
 impl ExchangeInfoResponse {
-    pub fn new(assets: Vec<models::Asset1>, markets: Vec<models::Market>, trading_gas_fee_e9: String, server_time_at_millis: i64, timezone: String) -> ExchangeInfoResponse {
+    pub fn new(assets: Vec<models::AssetConfig>, markets: Vec<models::Market>, trading_gas_fee_e9: String, server_time_at_millis: i64, timezone: String) -> ExchangeInfoResponse {
         ExchangeInfoResponse {
             assets,
             contracts_config: None,

@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.margin_type_enum import MarginTypeEnum
+from openapi_client.models.margin_type import MarginType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class AccountMarketPreference(BaseModel):
     """
     AccountMarketPreference
     """ # noqa: E501
-    margin_type: Optional[MarginTypeEnum] = Field(default=None, alias="marginType")
+    margin_type: Optional[MarginType] = Field(default=None, alias="marginType")
     set_leverage: Optional[StrictInt] = Field(default=None, description="User set leverage (e.g., 10x).", alias="setLeverage")
     __properties: ClassVar[List[str]] = ["marginType", "setLeverage"]
 

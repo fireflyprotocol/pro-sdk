@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trading_fees** | Option<[**models::TradingFees1**](TradingFees_1.md)> |  | [optional]
+**trading_fees** | Option<[**models::TradingFees**](TradingFees.md)> |  | [optional]
 **can_trade** | **bool** | Indicates if trading is enabled. | 
 **can_deposit** | **bool** | Indicates if deposits are enabled. | 
 **can_withdraw** | **bool** | Indicates if withdrawals are enabled. | 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **total_unrealized_pnl_e9** | **String** | The total unrealized profit and loss. | 
 **total_cross_unrealized_pnl_e9** | **String** | The total cross unrealized profit and loss. | 
 **updated_at_millis** | **i64** | The timestamp of the last update in milliseconds. | 
-**assets** | [**Vec<models::Asset2>**](Asset_2.md) | The list of assets. | 
+**assets** | [**Vec<models::Asset>**](Asset.md) | The list of assets. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: Bluefin API
+  version: v1
+  description: |
+    All numeric quantities are represented as string in e9 format.
+tags:
+- name: Common Schemas
+  description: "Common Schemas"
+components:
+  schemas:
+    # enums, please sort it in alphabetical order
+    MarginType:
+      type: string
+      description: Margin type.
+      enum:
+      - CROSS
+      - ISOLATED
+      - UNSPECIFIED
+    OrderStatus:
+      type: string
+      description: "The current status of the order."
+      enum:
+      - OPEN
+      - PARTIALLY_FILLED_OPEN
+      - PARTIALLY_FILLED_CANCELED
+      - FILLED
+      - CANCELLED
+      - EXPIRED
+      - PARTIALLY_FILLED_EXPIRED
+      - UNSPECIFIED
+    OrderTimeInForce:
+      type: string
+      enum: [ GTT, IOC, FOK, UNSPECIFIED ]
+      default: "GTT"
+      description: |
+        The time-in-force policy for the order. By default, all orders are GTT. UNSPECIFIED is set to default.
+        
+        GTT: Good Til Time
+        
+        IOC: Immediate Or Cancel
+        
+        FOK: Fill Or Kill    
+    OrderType:
+      type: string
+      description: "The type of order."
+      enum:
+      - LIMIT
+      - MARKET
+      - STOP_LIMIT
+      - STOP_MARKET
+      - LIQUIDATION
+      - BANKRUPTCY_LIQUIDATION
+      - UNSPECIFIED
+    PositionSide:
+      type: string
+      description: "The side of the position, either long or short"
+      enum:
+      - LONG
+      - SHORT
+      - UNSPECIFIED
+    SelfTradePreventionType:
+      type: string
+      enum: [ TAKER, MAKER, BOTH, UNSPECIFIED ]
+      default: "MAKER"
+      description: |
+        The strategy used to resolve self trades. 
+        
+        TAKER: On a self trade, the taker order will be cancelled
+        
+        MAKER: On a self trade, the maker order will be cancelled
+        
+        BOTH: On a self trade, both the taker and the maker order will be cancelled
+        
+        UNSPECIFIED: set to default value
+    TradeSide:
+      type: string
+      description: Trade side based on the user order in this trade.
+      enum:
+      - LONG
+      - SHORT
+      - UNSPECIFIED
+    TradeType:
+      type: string
+      description: Type of trade.
+      enum:
+      - ORDER
+      - LIQUIDATION
+      - DELEVERAGE
+      - UNSPECIFIED
+    TransactionType:
+      description: Transaction type (what caused the change in the asset balance).
+      type: string
+      enum:
+      - TRANSFER
+      - DEPOSIT
+      - WITHDRAW
+      - REALIZED_PNL
+      - FUNDING_FEE
+      - TRADING_FEE
+      - TRADING_GAS_FEE
+      - BONUS
+      - UNSPECIFIED
+
+    # objects, please sort it in alphabetical order
+    Asset:
+      type: object
+      description: "Details about an asset in the account."
+      properties:
+        symbol:
+          type: string
+          description: "The symbol of the asset."
+        quantityE9:
+          type: string
+          description: "The quantity of the asset."
+        effectiveBalanceE9:
+          type: string
+          description: "The effective balance of the asset."
+        maxWithdrawQuantityE9:
+          type: string
+          description: "The maximum quantity that can be withdrawn."
+        updatedAtMillis:
+          type: integer
+          format: int64
+          description: "The timestamp of the last update in milliseconds."
+      required:
+      - symbol
+      - quantityE9
+      - effectiveBalanceE9
+      - maxWithdrawQuantityE9
+      - updatedAtMillis
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: A code representing the type of error.
+        message:
+          type: string
+          description: A human-readable message describing the error.
+      required:
+      - message
+    Trade:
+      type: object
+      required:
+      - id
+      - side
+      - priceE9
+      - quantityE9
+      - quoteQuantityE9
+      - executedAtMillis
+      properties:
+        id:
+          type: string
+          description: Trade ID
+        clientOrderId:
+          type: string
+          description: Client order ID.
+          example: "25851813"
+        symbol:
+          type: string
+          description: Market address.
+          example: 0x123
+        orderHash:
+          type: string
+          description: Order hash.
+        tradeType:
+          $ref: "#/components/schemas/TradeType"
+        side:
+          $ref: "#/components/schemas/TradeSide"
+        isMaker:
+          type: boolean
+          description: Indicates if the user was a maker to the trade.
+          example: false
+        priceE9:
+          type: string
+          description: Trade price (e9 format).
+          example: "7819010000000" # 7,819.01 USD
+        quantityE9:
+          type: string
+          description: Trade quantity (e9 format).
+          example: "20000000000" # 20,000 units
+        quoteQuantityE9:
+          type: string
+          description: Quote quantity (e9 format).
+          example: "150000000000000" # 150,000 USD
+        realizedPnlE9:
+          type: string
+          description: Realized profit and loss (e9 format).
+          example: "-9000000000" # -9,000 USD
+        positionSide:
+          $ref: "#/components/schemas/PositionSide"
+        tradingFeeE9:
+          type: string
+          description: Trading fee (e9 format).
+          example: "-780000000" # -780 USD
+        tradingFeeAsset:
+          type: string
+          enum:
+          - USDC
+          - BLUE
+          - UNSPECIFIED
+          description: Asset used for trading fee.
+          example: USDC
+        gasFeeE9:
+          type: number
+          format: float
+          description: Gas fee.
+          example: 0
+        gasFeeAsset:
+          type: string
+          description: Asset used for gas fee.
+          example: USDC
+        executedAtMillis:
+          type: integer
+          format: int64
+          description: Trade timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
+    TradingFees:
+      type: object
+      required:
+      - makerFeeE9
+      - takerFeeE9
+      - isApplied
+      properties:
+        makerFeeE9:
+          type: string
+          description: The Account Maker Fee (e9 format).
+          example: "1000000"
+        takerFeeE9:
+          type: string
+          description: The Account Taker Fee (e9 format).
+          example: "1000000"
+        isApplied:
+          type: boolean
+          description: Are the fees applied on the account?
