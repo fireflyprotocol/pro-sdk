@@ -17,7 +17,7 @@ import {
   AccountStreamMessage,
   LoginResponse,
   ContractsConfig,
-  Asset1,
+  AssetConfig,
   AccountAuthorizationRequestSignedFields,
 } from "./api";
 
@@ -116,7 +116,7 @@ export class BluefinProSdk {
   private isConnected: boolean;
   private updateTokenInterval: NodeJS.Timeout | null;
   private contractsConfig: ContractsConfig | undefined;
-  private assets: Array<Asset1> | undefined;
+  private assets: Array<AssetConfig> | undefined;
   private txBuilder: TxBuilder | undefined;
   private currentAccountAddress: string | undefined;
 
@@ -210,7 +210,7 @@ export class BluefinProSdk {
       Package: this.contractsConfig?.currentContractAddress || "",
       Perpetuals: {},
       SupportedAssets:
-        this.assets?.reduce((agg: Record<string, IAsset>, x: Asset1) => {
+        this.assets?.reduce((agg: Record<string, IAsset>, x: AssetConfig) => {
           agg[x.symbol] = { ...x, coinType: x.assetType };
           return agg;
         }, {}) || {},
