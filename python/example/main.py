@@ -17,7 +17,7 @@ import time
 from bluefin_pro_sdk import BluefinProSdk, Order, Environment, RpcUrl
 from crypto_helpers.signature import SuiWallet
 from openapi_client.models.account_data_stream import AccountDataStream
-from openapi_client.models.transaction_type_enum import TransactionTypeEnum
+from openapi_client.models.transaction_type import TransactionType
 import openapi_client as api
 
 log = logging.getLogger("main")
@@ -132,7 +132,7 @@ async def main():
         log.info(f"{trade_history=}")
 
         deposit_history = await account_data_api.get_account_transaction_history(
-            [TransactionTypeEnum.DEPOSIT, TransactionTypeEnum.WITHDRAW],
+            [TransactionType.DEPOSIT, TransactionType.WITHDRAW],
             market.symbol,
             *when,
         )
