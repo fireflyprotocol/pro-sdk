@@ -32,7 +32,9 @@ pro_rpc_calls = ProRpcCalls(
 @pytest.mark.asyncio
 async def test_deposit():
     
-    # USDC amount is in 1e6
+    # USDC amount is in 6 decimal places
+    # 0.15 USDC == 150000
+    
     success, _ = pro_rpc_calls.deposit_to_asset_bank("USDC", 1500)
 
     assert success == True

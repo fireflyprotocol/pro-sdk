@@ -196,7 +196,6 @@ def get_coin_having_balance(user_address: str = None, coin_type: str = "0x::sui:
         coin_list = get_coins(user_address, coin_type, url)
         
         for coin in coin_list:
-            print(coin["balance"], balance, int(coin["balance"]) >= balance, exact_match)
             if exact_match:
                  if int(coin["balance"]) == int(balance):
                       return coin["coinObjectId"]
