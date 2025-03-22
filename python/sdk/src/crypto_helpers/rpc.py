@@ -45,7 +45,7 @@ class ProRpcCalls:
         Args:
 
             coin_symbol (str): The symbol of the coin being deposited
-            amount (uint): The amount to be deposited
+            amount (uint): The amount to be deposited in the units of the coin being deposited (for example, 1 USDC == 1000000)
             destination (str): Optional destination account to which funds are being deposited.
                                By default, funds are always deposited to the depositor's account
 
