@@ -223,7 +223,7 @@ export class BluefinProSdk {
     await this.setContractsConfig();
     await this.initializeTxBuilder();
     await this.loginAndUpdateToken();
-    this.updateTokenInterval = setInterval(() => this.refreshToken(), 10000);
+    this.updateTokenInterval = setInterval(() => this.refreshToken(), 120000);
     this.isConnected = true;
   }
 
