@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **is_isolated** | **bool** | If the position is isolated. | 
 **isolated_margin_e9** | **String** | Margin value present if margin type is isolated (e9 format). | 
 **updated_at_millis** | **i64** | Last update time. | 
+**funding_rate_payment_all_time_e9** | **String** | Total funding rate payment (e9 format). | 
+**funding_rate_payment_since_change_e9** | **String** | Funding rate payment since last funding rate change (e9 format). | 
+**funding_rate_payment_since_opened_e9** | **String** | Funding rate payment since position opened (e9 format). | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

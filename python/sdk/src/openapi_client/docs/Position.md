@@ -19,6 +19,9 @@ Name | Type | Description | Notes
 **is_isolated** | **bool** | If the position is isolated. | 
 **isolated_margin_e9** | **str** | Margin value present if margin type is isolated (e9 format). | 
 **updated_at_millis** | **int** | Last update time. | 
+**funding_rate_payment_all_time_e9** | **str** | Total funding rate payment (e9 format). | 
+**funding_rate_payment_since_change_e9** | **str** | Funding rate payment since last funding rate change (e9 format). | 
+**funding_rate_payment_since_opened_e9** | **str** | Funding rate payment since position opened (e9 format). | 
 
 ## Example
 

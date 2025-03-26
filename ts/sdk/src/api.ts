@@ -2580,6 +2580,24 @@ export interface Position {
      * @memberof Position
      */
     'updatedAtMillis': number;
+    /**
+     * Total funding rate payment (e9 format).
+     * @type {string}
+     * @memberof Position
+     */
+    'fundingRatePaymentAllTimeE9': string;
+    /**
+     * Funding rate payment since last funding rate change (e9 format).
+     * @type {string}
+     * @memberof Position
+     */
+    'fundingRatePaymentSinceChangeE9': string;
+    /**
+     * Funding rate payment since position opened (e9 format).
+     * @type {string}
+     * @memberof Position
+     */
+    'fundingRatePaymentSinceOpenedE9': string;
 }
 
 

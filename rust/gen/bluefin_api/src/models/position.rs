@@ -54,10 +54,19 @@ pub struct Position {
     /// Last update time.
     #[serde(rename = "updatedAtMillis")]
     pub updated_at_millis: i64,
+    /// Total funding rate payment (e9 format).
+    #[serde(rename = "fundingRatePaymentAllTimeE9")]
+    pub funding_rate_payment_all_time_e9: String,
+    /// Funding rate payment since last funding rate change (e9 format).
+    #[serde(rename = "fundingRatePaymentSinceChangeE9")]
+    pub funding_rate_payment_since_change_e9: String,
+    /// Funding rate payment since position opened (e9 format).
+    #[serde(rename = "fundingRatePaymentSinceOpenedE9")]
+    pub funding_rate_payment_since_opened_e9: String,
 }
 
 impl Position {
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> Position {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64, funding_rate_payment_all_time_e9: String, funding_rate_payment_since_change_e9: String, funding_rate_payment_since_opened_e9: String) -> Position {
         Position {
             symbol,
             avg_entry_price_e9,
@@ -73,6 +82,9 @@ impl Position {
             is_isolated,
             isolated_margin_e9,
             updated_at_millis,
+            funding_rate_payment_all_time_e9,
+            funding_rate_payment_since_change_e9,
+            funding_rate_payment_since_opened_e9,
         }
     }
 }
