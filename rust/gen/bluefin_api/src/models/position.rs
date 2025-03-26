@@ -57,7 +57,7 @@ pub struct Position {
     /// Total funding rate payment (e9 format).
     #[serde(rename = "fundingRatePaymentAllTimeE9")]
     pub funding_rate_payment_all_time_e9: String,
-    /// Funding rate payment since last funding rate change (e9 format).
+    /// Funding rate payment since last position change (e9 format).
     #[serde(rename = "fundingRatePaymentSinceChangeE9")]
     pub funding_rate_payment_since_change_e9: String,
     /// Funding rate payment since position opened (e9 format).

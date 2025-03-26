@@ -190,7 +190,7 @@ components:
           example: "0"
         fundingRatePaymentSinceChangeE9:
           type: string
-          description: Funding rate payment since last funding rate change (e9 format).
+          description: Funding rate payment since last position change (e9 format).
           example: "0"
         fundingRatePaymentSinceOpenedE9:
           type: string

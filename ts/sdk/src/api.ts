@@ -2587,7 +2587,7 @@ export interface Position {
      */
     'fundingRatePaymentAllTimeE9': string;
     /**
-     * Funding rate payment since last funding rate change (e9 format).
+     * Funding rate payment since last position change (e9 format).
      * @type {string}
      * @memberof Position
      */

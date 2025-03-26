@@ -42,7 +42,7 @@ class Position(BaseModel):
     isolated_margin_e9: StrictStr = Field(description="Margin value present if margin type is isolated (e9 format).", alias="isolatedMarginE9")
     updated_at_millis: StrictInt = Field(description="Last update time.", alias="updatedAtMillis")
     funding_rate_payment_all_time_e9: StrictStr = Field(description="Total funding rate payment (e9 format).", alias="fundingRatePaymentAllTimeE9")
-    funding_rate_payment_since_change_e9: StrictStr = Field(description="Funding rate payment since last funding rate change (e9 format).", alias="fundingRatePaymentSinceChangeE9")
+    funding_rate_payment_since_change_e9: StrictStr = Field(description="Funding rate payment since last position change (e9 format).", alias="fundingRatePaymentSinceChangeE9")
     funding_rate_payment_since_opened_e9: StrictStr = Field(description="Funding rate payment since position opened (e9 format).", alias="fundingRatePaymentSinceOpenedE9")
     __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis", "fundingRatePaymentAllTimeE9", "fundingRatePaymentSinceChangeE9", "fundingRatePaymentSinceOpenedE9"]
 
