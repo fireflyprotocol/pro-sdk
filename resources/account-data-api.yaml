@@ -126,6 +126,9 @@ components:
         - initialMarginE9
         - maintenanceMarginE9
         - isolatedMarginE9
+        - fundingRatePaymentAllTimeE9
+        - fundingRatePaymentSinceChangeE9
+        - fundingRatePaymentSinceOpenedE9
       properties:
         symbol:
           type: string
@@ -181,6 +184,18 @@ components:
           format: int64
           description: Last update time.
           example: 1733899435274
+        fundingRatePaymentAllTimeE9:
+          type: string
+          description: Total funding rate payment (e9 format).
+          example: "0"
+        fundingRatePaymentSinceChangeE9:
+          type: string
+          description: Funding rate payment since last position change (e9 format).
+          example: "0"
+        fundingRatePaymentSinceOpenedE9:
+          type: string
+          description: Funding rate payment since position opened (e9 format).
+          example: "0"
     Transaction:
       type: object
       required:
