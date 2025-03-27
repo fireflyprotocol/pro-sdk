@@ -109,6 +109,41 @@ components:
           items:
             type: string
           description: The accounts that are authorized to trade on behalf of the current account.
+    AccountFundingRateHistory:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountFundingRateHistoryData"
+    AccountFundingRateHistoryData:
+      type: object
+      required:
+        - payment_amount_e9
+        - symbol
+        - executed_at
+        - computed_at
+      properties:
+        payment_amount_e9:
+          type: string
+          description: Payment amount in e9 format.
+          example: "1000000"
+        symbol:
+          type: string
+          description: Market address.
+          example: "0x123456789abcdef"
+        executed_at:
+          type: integer
+          format: int64
+          description: Execution timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
+        computed_at:
+          type: integer
+          format: int64
+          description: Computed timestamp in milliseconds since Unix epoch.
+          example: 1569514978020
     Position:
       type: object
       required:
@@ -262,6 +297,66 @@ components:
           schema:
             $ref: "./common.yaml#/components/schemas/Error"
 paths:
+  /api/v1/account/fundingRateHistory:
+    get:
+      tags:
+        - Account Data
+      summary: Get user's funding rate history
+      operationId: getAccountFundingRateHistory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountAddress
+          in: query
+          schema:
+              type: string
+          description: Account address to filter funding rate history by.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 500
+            minimum: 1
+            maximum: 1000
+          description: Default 500; max 1000.
+        - name: page
+          in: query
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response with funding rate history.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountFundingRateHistory"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
   /api/v1/account/preferences:
     get:
       tags:

@@ -84,6 +84,8 @@ paths:
 
   /api/v1/account:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account"
+  /api/v1/account/fundingRateHistory:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1fundingRateHistory"
   /api/v1/account/preferences:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1preferences"
   /api/v1/account/transactions:

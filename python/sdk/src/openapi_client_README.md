@@ -75,6 +75,7 @@ All URIs are relative to *http://localhost:8080*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountDataApi* | [**get_account_details**](openapi_client/docs/AccountDataApi.md#get_account_details) | **GET** /api/v1/account | Get user&#39;s account details.
+*AccountDataApi* | [**get_account_funding_rate_history**](openapi_client/docs/AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | Get user&#39;s funding rate history
 *AccountDataApi* | [**get_account_preferences**](openapi_client/docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user&#39;s account preferences.
 *AccountDataApi* | [**get_account_trades**](openapi_client/docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user&#39;s trade history.
 *AccountDataApi* | [**get_account_transaction_history**](openapi_client/docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user&#39;s transaction history (any change in balance).
@@ -107,6 +108,8 @@ Class | Method | HTTP request | Description
  - [AccountDataStream](openapi_client/docs/AccountDataStream.md)
  - [AccountEventReason](openapi_client/docs/AccountEventReason.md)
  - [AccountEventType](openapi_client/docs/AccountEventType.md)
+ - [AccountFundingRateHistory](openapi_client/docs/AccountFundingRateHistory.md)
+ - [AccountFundingRateHistoryData](openapi_client/docs/AccountFundingRateHistoryData.md)
  - [AccountMarketPreference](openapi_client/docs/AccountMarketPreference.md)
  - [AccountOrderUpdate](openapi_client/docs/AccountOrderUpdate.md)
  - [AccountPositionLeverageUpdateRequest](openapi_client/docs/AccountPositionLeverageUpdateRequest.md)

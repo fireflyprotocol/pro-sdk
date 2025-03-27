@@ -26,6 +26,17 @@ pub enum GetAccountDetailsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_account_funding_rate_history`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAccountFundingRateHistoryError {
+    Status400(models::Error),
+    Status401(models::Error),
+    Status404(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_account_preferences`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -83,6 +94,46 @@ pub async fn get_account_details(configuration: &configuration::Configuration, )
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAccountDetailsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn get_account_funding_rate_history(configuration: &configuration::Configuration, account_address: Option<&str>, limit: Option<u32>, page: Option<u32>) -> Result<models::AccountFundingRateHistory, Error<GetAccountFundingRateHistoryError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_account_address = account_address;
+    let p_limit = limit;
+    let p_page = page;
+
+    let uri_str = format!("{}/api/v1/account/fundingRateHistory", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_account_address {
+        req_builder = req_builder.query(&[("accountAddress", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAccountFundingRateHistoryError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

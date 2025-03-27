@@ -9,6 +9,8 @@ docs/AccountDataApi.md
 docs/AccountDataStream.md
 docs/AccountEventReason.md
 docs/AccountEventType.md
+docs/AccountFundingRateHistory.md
+docs/AccountFundingRateHistoryData.md
 docs/AccountMarketPreference.md
 docs/AccountOrderUpdate.md
 docs/AccountPositionLeverageUpdateRequest.md
@@ -102,6 +104,8 @@ src/models/account_authorization_request_signed_fields.rs
 src/models/account_data_stream.rs
 src/models/account_event_reason.rs
 src/models/account_event_type.rs
+src/models/account_funding_rate_history.rs
+src/models/account_funding_rate_history_data.rs
 src/models/account_market_preference.rs
 src/models/account_order_update.rs
 src/models/account_position_leverage_update_request.rs
