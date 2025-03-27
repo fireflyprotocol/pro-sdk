@@ -250,6 +250,50 @@ export type AccountEventType = typeof AccountEventType[keyof typeof AccountEvent
 /**
  * 
  * @export
+ * @interface AccountFundingRateHistory
+ */
+export interface AccountFundingRateHistory {
+    /**
+     * 
+     * @type {Array<AccountFundingRateHistoryData>}
+     * @memberof AccountFundingRateHistory
+     */
+    'data': Array<AccountFundingRateHistoryData>;
+}
+/**
+ * 
+ * @export
+ * @interface AccountFundingRateHistoryData
+ */
+export interface AccountFundingRateHistoryData {
+    /**
+     * Payment amount in e9 format.
+     * @type {string}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'payment_amount_e9': string;
+    /**
+     * Market address.
+     * @type {string}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'symbol': string;
+    /**
+     * Execution timestamp in milliseconds since Unix epoch.
+     * @type {number}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'executed_at': number;
+    /**
+     * Computed timestamp in milliseconds since Unix epoch.
+     * @type {number}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'computed_at': number;
+}
+/**
+ * 
+ * @export
  * @interface AccountMarketPreference
  */
 export interface AccountMarketPreference {
@@ -3576,6 +3620,55 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
+         * @summary Get user\'s funding rate history
+         * @param {string} [accountAddress] Account address to filter funding rate history by.
+         * @param {number} [limit] Default 500; max 1000.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccountFundingRateHistory: async (accountAddress?: string, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/account/fundingRateHistory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (accountAddress !== undefined) {
+                localVarQueryParameter['accountAddress'] = accountAddress;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get user\'s account preferences.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3762,6 +3855,21 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get user\'s funding rate history
+         * @param {string} [accountAddress] Account address to filter funding rate history by.
+         * @param {number} [limit] Default 500; max 1000.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountFundingRateHistory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountFundingRateHistory(accountAddress, limit, page, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountFundingRateHistory']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Get user\'s account preferences.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3829,6 +3937,18 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
+         * @summary Get user\'s funding rate history
+         * @param {string} [accountAddress] Account address to filter funding rate history by.
+         * @param {number} [limit] Default 500; max 1000.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<AccountFundingRateHistory> {
+            return localVarFp.getAccountFundingRateHistory(accountAddress, limit, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get user\'s account preferences.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3885,6 +4005,20 @@ export class AccountDataApi extends BaseAPI {
      */
     public getAccountDetails(options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountDetails(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get user\'s funding rate history
+     * @param {string} [accountAddress] Account address to filter funding rate history by.
+     * @param {number} [limit] Default 500; max 1000.
+     * @param {number} [page] The page number to retrieve in a paginated response.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountDataApi
+     */
+    public getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountFundingRateHistory(accountAddress, limit, page, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

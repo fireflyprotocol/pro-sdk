@@ -27,6 +27,7 @@ All URIs are relative to *http://localhost:8080*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountDataApi* | [**get_account_details**](docs/AccountDataApi.md#get_account_details) | **GET** /api/v1/account | Get user's account details.
+*AccountDataApi* | [**get_account_funding_rate_history**](docs/AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | Get user's funding rate history
 *AccountDataApi* | [**get_account_preferences**](docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user's account preferences.
 *AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user's trade history.
 *AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user's transaction history (any change in balance).
@@ -59,6 +60,8 @@ Class | Method | HTTP request | Description
  - [AccountDataStream](docs/AccountDataStream.md)
  - [AccountEventReason](docs/AccountEventReason.md)
  - [AccountEventType](docs/AccountEventType.md)
+ - [AccountFundingRateHistory](docs/AccountFundingRateHistory.md)
+ - [AccountFundingRateHistoryData](docs/AccountFundingRateHistoryData.md)
  - [AccountMarketPreference](docs/AccountMarketPreference.md)
  - [AccountOrderUpdate](docs/AccountOrderUpdate.md)
  - [AccountPositionLeverageUpdateRequest](docs/AccountPositionLeverageUpdateRequest.md)
