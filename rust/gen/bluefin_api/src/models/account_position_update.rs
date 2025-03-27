@@ -32,9 +32,6 @@ pub struct AccountPositionUpdate {
     /// The notional value of the position.
     #[serde(rename = "notionalValueE9")]
     pub notional_value_e9: String,
-    /// The maximum notional value for the position.
-    #[serde(rename = "maxNotionalValueE9")]
-    pub max_notional_value_e9: String,
     /// The size of the position.
     #[serde(rename = "sizeE9")]
     pub size_e9: String,
@@ -62,7 +59,7 @@ pub struct AccountPositionUpdate {
 
 impl AccountPositionUpdate {
     /// Details about an account position update.
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, max_notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::Side, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::Side, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
         AccountPositionUpdate {
             symbol,
             avg_entry_price_e9,
@@ -70,7 +67,6 @@ impl AccountPositionUpdate {
             liquidation_price_e9,
             mark_price_e9,
             notional_value_e9,
-            max_notional_value_e9,
             size_e9,
             unrealized_pnl_e9,
             side,

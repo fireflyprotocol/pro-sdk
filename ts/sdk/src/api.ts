@@ -424,12 +424,6 @@ export interface AccountPositionUpdate {
      */
     'notionalValueE9': string;
     /**
-     * The maximum notional value for the position.
-     * @type {string}
-     * @memberof AccountPositionUpdate
-     */
-    'maxNotionalValueE9': string;
-    /**
      * The size of the position.
      * @type {string}
      * @memberof AccountPositionUpdate
