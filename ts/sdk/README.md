@@ -40,6 +40,6 @@ openapi-generator generate -i ../resources/bluefin-api.yaml -c ./sdk/openapitool
 
 ```bash
 npm install
-npm install ts-node
+npm install -g ts-node
 ts-node example.ts
 ```
