@@ -165,7 +165,7 @@ pub async fn get_account_preferences(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn get_account_trades(configuration: &configuration::Configuration, symbol: &str, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, trade_type: Option<models::TradeType>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetAccountTradesError>> {
+pub async fn get_account_trades(configuration: &configuration::Configuration, symbol: Option<&str>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, trade_type: Option<models::TradeType>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetAccountTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_start_time_at_millis = start_time_at_millis;
@@ -177,7 +177,9 @@ pub async fn get_account_trades(configuration: &configuration::Configuration, sy
     let uri_str = format!("{}/api/v1/account/trades", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("symbol", &p_symbol.to_string())]);
+    if let Some(ref param_value) = p_symbol {
+        req_builder = req_builder.query(&[("symbol", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_start_time_at_millis {
         req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
     }

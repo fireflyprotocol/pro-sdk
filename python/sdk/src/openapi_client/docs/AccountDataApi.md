@@ -248,7 +248,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_account_trades**
-> List[Trade] get_account_trades(symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
+> List[Trade] get_account_trades(symbol=symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
 
 Get user's trade history.
 
@@ -283,7 +283,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.AccountDataApi(api_client)
-    symbol = 'symbol_example' # str | Market address to filter trades by.
+    symbol = 'symbol_example' # str | Market address to filter trades by. If not specified, returns trades for all markets. (optional)
     start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
     end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
@@ -292,7 +292,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get user's trade history.
-        api_response = await api_instance.get_account_trades(symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
+        api_response = await api_instance.get_account_trades(symbol=symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
         print("The response of AccountDataApi->get_account_trades:\n")
         pprint(api_response)
     except Exception as e:
@@ -306,7 +306,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **symbol** | **str**| Market address to filter trades by. | 
+ **symbol** | **str**| Market address to filter trades by. If not specified, returns trades for all markets. | [optional] 
  **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
  **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
