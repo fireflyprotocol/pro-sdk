@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **liquidation_price_e9** | **String** | The liquidation price of the position. | 
 **mark_price_e9** | **String** | The current mark price of the position. | 
 **notional_value_e9** | **String** | The notional value of the position. | 
-**max_notional_value_e9** | **String** | The maximum notional value for the position. | 
 **size_e9** | **String** | The size of the position. | 
 **unrealized_pnl_e9** | **String** | The unrealized profit and loss for the position. | 
 **side** | [**models::Side**](Side.md) |  | 

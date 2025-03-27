@@ -459,9 +459,6 @@ components:
         notionalValueE9:
           type: string
           description: "The notional value of the position."
-        maxNotionalValueE9:
-          type: string
-          description: "The maximum notional value for the position."
         sizeE9:
           type: string
           description: "The size of the position."
@@ -493,7 +490,6 @@ components:
         - liquidationPriceE9
         - markPriceE9
         - notionalValueE9
-        - maxNotionalValueE9
         - sizeE9
         - unrealizedPnlE9
         - side

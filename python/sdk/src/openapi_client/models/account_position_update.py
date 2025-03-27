@@ -33,7 +33,6 @@ class AccountPositionUpdate(BaseModel):
     liquidation_price_e9: StrictStr = Field(description="The liquidation price of the position.", alias="liquidationPriceE9")
     mark_price_e9: StrictStr = Field(description="The current mark price of the position.", alias="markPriceE9")
     notional_value_e9: StrictStr = Field(description="The notional value of the position.", alias="notionalValueE9")
-    max_notional_value_e9: StrictStr = Field(description="The maximum notional value for the position.", alias="maxNotionalValueE9")
     size_e9: StrictStr = Field(description="The size of the position.", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="The unrealized profit and loss for the position.", alias="unrealizedPnlE9")
     side: Side
@@ -42,7 +41,7 @@ class AccountPositionUpdate(BaseModel):
     is_isolated: StrictBool = Field(description="Indicates if the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="The isolated margin applied to the position.", alias="isolatedMarginE9")
     updated_at_millis: StrictInt = Field(description="The last update time for the position in milliseconds.", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "maxNotionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,7 +100,6 @@ class AccountPositionUpdate(BaseModel):
             "liquidationPriceE9": obj.get("liquidationPriceE9"),
             "markPriceE9": obj.get("markPriceE9"),
             "notionalValueE9": obj.get("notionalValueE9"),
-            "maxNotionalValueE9": obj.get("maxNotionalValueE9"),
             "sizeE9": obj.get("sizeE9"),
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
             "side": obj.get("side"),
