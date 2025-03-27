@@ -102,7 +102,7 @@ Get user's trade history.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**symbol** | **String** | Market address to filter trades by. | [required] |
+**symbol** | Option<**String**> | Market address to filter trades by. If not specified, returns trades for all markets. |  |
 **start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
 **end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]

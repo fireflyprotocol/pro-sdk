@@ -864,7 +864,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_trades(
         self,
-        symbol: Annotated[StrictStr, Field(description="Market address to filter trades by.")],
+        symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
@@ -886,7 +886,7 @@ class AccountDataApi:
         """Get user's trade history.
 
 
-        :param symbol: Market address to filter trades by. (required)
+        :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
@@ -954,7 +954,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_trades_with_http_info(
         self,
-        symbol: Annotated[StrictStr, Field(description="Market address to filter trades by.")],
+        symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
@@ -976,7 +976,7 @@ class AccountDataApi:
         """Get user's trade history.
 
 
-        :param symbol: Market address to filter trades by. (required)
+        :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
@@ -1044,7 +1044,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_trades_without_preload_content(
         self,
-        symbol: Annotated[StrictStr, Field(description="Market address to filter trades by.")],
+        symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
@@ -1066,7 +1066,7 @@ class AccountDataApi:
         """Get user's trade history.
 
 
-        :param symbol: Market address to filter trades by. (required)
+        :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int

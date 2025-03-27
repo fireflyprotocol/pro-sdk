@@ -3704,7 +3704,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Get user\'s trade history.
-         * @param {string} symbol Market address to filter trades by.
+         * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
@@ -3713,9 +3713,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades: async (symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'symbol' is not null or undefined
-            assertParamExists('getAccountTrades', 'symbol', symbol)
+        getAccountTrades: async (symbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/account/trades`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3883,7 +3881,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get user\'s trade history.
-         * @param {string} symbol Market address to filter trades by.
+         * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
@@ -3892,7 +3890,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
+        async getAccountTrades(symbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTrades']?.[localVarOperationServerIndex]?.url;
@@ -3959,7 +3957,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @summary Get user\'s trade history.
-         * @param {string} symbol Market address to filter trades by.
+         * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
          * @param {number} [limit] Default 500; max 1000.
@@ -3968,7 +3966,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
+        getAccountTrades(symbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
             return localVarFp.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4035,7 +4033,7 @@ export class AccountDataApi extends BaseAPI {
     /**
      * 
      * @summary Get user\'s trade history.
-     * @param {string} symbol Market address to filter trades by.
+     * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
      * @param {number} [limit] Default 500; max 1000.
@@ -4045,7 +4043,7 @@ export class AccountDataApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountTrades(symbol: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig) {
+    public getAccountTrades(symbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, tradeType?: TradeType, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(this.axios, this.basePath));
     }
 

@@ -111,18 +111,15 @@ async function main() {
   await client.initialize();
 
   try {
-    await client.deposit("1000");
+    // Disable for now as the account does not have enough coins
+    // await client.deposit((0.03*1e9).toString());
+
     // Get Market Data from Exchange Data API
     const exchangeInfo = (await client.exchangeDataApi.getExchangeInfo()).data;
     logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);
 
-    // Find SUI-PERP market
-    const perpMarket = exchangeInfo.markets.find(
-      (m: Market) => m.symbol === "SUI-PERP",
-    );
-    if (!perpMarket) {
-      throw new Error("SUI-PERP market not found");
-    }
+    // Find the first market available if any
+    const perpMarket = exchangeInfo.markets.length > 0 ? exchangeInfo.markets[0] : (() => { throw new Error("No market is available"); })();
     logger.info(`Selected market: ${JSON.stringify(perpMarket)}`);
 
     const symbol = perpMarket.symbol;

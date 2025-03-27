@@ -9,7 +9,7 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 /// Sends a request for account trades, and returns the deserialized response.
-async fn send_request(auth_token: &str, symbol: &str) -> Result<Vec<Trade>> {
+async fn send_request(auth_token: &str, symbol: Option<&str>) -> Result<Vec<Trade>> {
     println!("Sending request...");
     Ok(get_account_trades(
         &Configuration {
@@ -45,7 +45,7 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    let trades = send_request(&auth_token, symbols::perps::ETH).await?;
+    let trades = send_request(&auth_token, Some(symbols::perps::ETH)).await?;
 
     println!("{trades:#?}");
 

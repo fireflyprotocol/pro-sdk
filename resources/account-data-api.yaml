@@ -448,10 +448,9 @@ paths:
       parameters:
         - name: symbol
           in: query
-          required: true
           schema:
             type: string
-          description: Market address to filter trades by.
+          description: Market address to filter trades by. If not specified, returns trades for all markets.
         - name: startTimeAtMillis
           in: query
           required: false
