@@ -271,7 +271,19 @@ export interface AccountFundingRateHistoryData {
      * @type {string}
      * @memberof AccountFundingRateHistoryData
      */
-    'payment_amount_e9': string;
+    'paymentAmountE9': string;
+    /**
+     * 
+     * @type {PositionSide}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'positionSide': PositionSide;
+    /**
+     * Funding rate value (e9 format).
+     * @type {string}
+     * @memberof AccountFundingRateHistoryData
+     */
+    'rateE9': string;
     /**
      * Market address.
      * @type {string}
@@ -283,14 +295,16 @@ export interface AccountFundingRateHistoryData {
      * @type {number}
      * @memberof AccountFundingRateHistoryData
      */
-    'executed_at': number;
+    'executedAtMillis': number;
     /**
      * Computed timestamp in milliseconds since Unix epoch.
      * @type {number}
      * @memberof AccountFundingRateHistoryData
      */
-    'computed_at': number;
+    'computedAtMillis': number;
 }
+
+
 /**
  * 
  * @export

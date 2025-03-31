@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
+from openapi_client.models.position_side import PositionSide
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,11 +27,13 @@ class AccountFundingRateHistoryData(BaseModel):
     """
     AccountFundingRateHistoryData
     """ # noqa: E501
-    payment_amount_e9: StrictStr = Field(description="Payment amount in e9 format.")
+    payment_amount_e9: StrictStr = Field(description="Payment amount in e9 format.", alias="paymentAmountE9")
+    position_side: PositionSide = Field(alias="positionSide")
+    rate_e9: StrictStr = Field(description="Funding rate value (e9 format).", alias="rateE9")
     symbol: StrictStr = Field(description="Market address.")
-    executed_at: StrictInt = Field(description="Execution timestamp in milliseconds since Unix epoch.")
-    computed_at: StrictInt = Field(description="Computed timestamp in milliseconds since Unix epoch.")
-    __properties: ClassVar[List[str]] = ["payment_amount_e9", "symbol", "executed_at", "computed_at"]
+    executed_at_millis: StrictInt = Field(description="Execution timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
+    computed_at_millis: StrictInt = Field(description="Computed timestamp in milliseconds since Unix epoch.", alias="computedAtMillis")
+    __properties: ClassVar[List[str]] = ["paymentAmountE9", "positionSide", "rateE9", "symbol", "executedAtMillis", "computedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,10 +86,12 @@ class AccountFundingRateHistoryData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "payment_amount_e9": obj.get("payment_amount_e9"),
+            "paymentAmountE9": obj.get("paymentAmountE9"),
+            "positionSide": obj.get("positionSide"),
+            "rateE9": obj.get("rateE9"),
             "symbol": obj.get("symbol"),
-            "executed_at": obj.get("executed_at"),
-            "computed_at": obj.get("computed_at")
+            "executedAtMillis": obj.get("executedAtMillis"),
+            "computedAtMillis": obj.get("computedAtMillis")
         })
         return _obj
 

@@ -144,6 +144,9 @@ async def main():
         account_preferences = await account_data_api.get_account_preferences()
         log.info(f"{account_preferences=}")
 
+        account_funding_rate_history = await account_data_api.get_account_funding_rate_history()
+        log.info(f"{account_funding_rate_history=}")
+
         # Subscribe to WebSockets and log events as they arrive.
         async with await client.create_account_data_stream_listener(
             handler=log_update

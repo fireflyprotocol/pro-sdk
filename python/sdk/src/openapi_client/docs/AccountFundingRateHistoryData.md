@@ -6,9 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payment_amount_e9** | **str** | Payment amount in e9 format. | 
+**position_side** | [**PositionSide**](PositionSide.md) |  | 
+**rate_e9** | **str** | Funding rate value (e9 format). | 
 **symbol** | **str** | Market address. | 
-**executed_at** | **int** | Execution timestamp in milliseconds since Unix epoch. | 
-**computed_at** | **int** | Computed timestamp in milliseconds since Unix epoch. | 
+**executed_at_millis** | **int** | Execution timestamp in milliseconds since Unix epoch. | 
+**computed_at_millis** | **int** | Computed timestamp in milliseconds since Unix epoch. | 
 
 ## Example
 

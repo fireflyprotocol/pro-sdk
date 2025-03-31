@@ -183,6 +183,11 @@ async function main() {
     ).data;
     logger.info(`Account Preferences: ${JSON.stringify(accountPreferences)}`);
 
+    const accountFundingrateHistory = (
+        await client.accountDataApi.getAccountFundingRateHistory()
+    ).data;
+    logger.info(`Account Funding Rate history: ${JSON.stringify(accountFundingrateHistory)}`);
+
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
       handleAccountDataEvent,
