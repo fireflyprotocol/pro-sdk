@@ -1,0 +1,42 @@
+name: PR checks
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pr_checks_rs.yaml'
+      - 'rust/**/*.rs'
+      - 'rust/**/Cargo.toml'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Tests
+    runs-on: self-hosted
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      # This dependency cache allows us to skip downloading and rebuilding dependencies. It saves us a lot of time.
+      # Since we're using self-hosted runners, it would be interesting to try sharing attached storage instead of
+      # using this over-network cache
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2.7.5
+        with:
+          prefix-key: 'v1-rust'
+          # regardless of the 'shared-key', env vars, and cargo lock files are *always* automatically added to the cache key
+          # https://github.com/Swatinem/rust-cache/blob/v2.7.5/src/config.ts#L51
+          shared-key: "pro-sdk"
+          # this causes painfully slow (~3 min) cache uploading the first time dependencies are updated
+          # it saves more than that on all future builds, so it's worth the 1 time cost
+          cache-targets: true
+          # github does not allow branches to access caches that aren't from the main branch so there's no point in publishing them
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Run doc and unit tests
+        run: cargo test --doc --workspace && cargo test --lib --workspace
