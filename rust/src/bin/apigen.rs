@@ -16,7 +16,7 @@ use std::{env, fmt, io};
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
 
-const USAGE: &str = "apigen { -l | --lang } { rust | python | typescript-axios }";
+const USAGE: &str = "apigen { -l } { rust | python | ts }. Please ensure that npm and openapi-generator-cli are installed following the instructions at https://openapi-generator.tech/docs/installation";
 
 #[derive(Debug)]
 pub enum Error {
@@ -122,7 +122,42 @@ impl FromStr for Lang {
 ///
 /// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
-    let command = "openapi-generator";
+    // Check if npm is installed
+    let npm_check = Command::new("npm")
+        .arg("--version")
+        .output()
+        .map_err(|_| Error::Status { command: "npm" })?;
+
+    if !npm_check.status.success() {
+        return Err(Error::Status { command: "npm" });
+    }
+
+    // Check if openapi-generator-cli is installed
+    let openapi_check = Command::new("openapi-generator-cli")
+        .arg("version")
+        .output();
+
+    if openapi_check.is_err() || !openapi_check.unwrap().status.success() {
+        return Err(Error::Status {
+            command: "openapi-generator-cli",
+        });
+    }
+
+    // Set openapi-generator-cli version to 7.11.0
+    let version_set = Command::new("openapi-generator-cli")
+        .args(["version-manager", "set", "7.11.0"])
+        .status()
+        .map_err(|_| Error::Status {
+            command: "openapi-generator-cli version-manager",
+        })?;
+
+    if !version_set.success() {
+        return Err(Error::Status {
+            command: "openapi-generator-cli version-manager",
+        });
+    }
+
+    let command = "openapi-generator-cli";
     Command::new(command)
         .arg("generate")
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
@@ -162,7 +197,10 @@ fn main_imp() -> Result<()> {
     let mut args = args.into_iter();
     while let Some(arg) = args.next() {
         match arg.as_str() {
-            "-h" | "--help" => println!("usage: {USAGE}"),
+            "-h" | "--help" => {
+                println!("usage: {USAGE}");
+                return Ok(());
+            }
             "-l" | "--lang" => lang = Some(args.next().ok_or(Error::Flag(arg))?.parse()?),
             _ => return Err(Error::Flag(arg)),
         }
