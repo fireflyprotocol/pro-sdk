@@ -67,6 +67,9 @@ Name | Type | Description | Notes
 **initial_margin_e9** | **str** | The initial margin required for the position. | 
 **maintenance_margin_e9** | **str** | The maintenance margin required for the position. | 
 **isolated_margin_e9** | **str** | The isolated margin applied to the position. | 
+**reason** | **str** | The reason for the failure. | 
+**failed_command_type** | **str** | The type of command that failed. | 
+**failed_at_millis** | **int** | The timestamp when the command failed in milliseconds. | 
 
 ## Example
 

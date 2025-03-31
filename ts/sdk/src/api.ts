@@ -195,6 +195,31 @@ export interface AccountAuthorizationRequestSignedFields {
     'signedAtMillis': number;
 }
 /**
+ * Details about a failure during an account command execution.
+ * @export
+ * @interface AccountCommandFailureUpdate
+ */
+export interface AccountCommandFailureUpdate {
+    /**
+     * The reason for the failure.
+     * @type {string}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'reason': string;
+    /**
+     * The type of command that failed.
+     * @type {string}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'failedCommandType': string;
+    /**
+     * The timestamp when the command failed in milliseconds.
+     * @type {number}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'failedAtMillis': number;
+}
+/**
  * Represents the type of account data stream.
  * @export
  * @enum {string}
@@ -205,7 +230,8 @@ export const AccountDataStream = {
     AccountTradeUpdate: 'AccountTradeUpdate',
     AccountPositionUpdate: 'AccountPositionUpdate',
     AccountUpdate: 'AccountUpdate',
-    AccountTransactionUpdate: 'AccountTransactionUpdate'
+    AccountTransactionUpdate: 'AccountTransactionUpdate',
+    AccountCommandFailureUpdate: 'AccountCommandFailureUpdate'
 } as const;
 
 export type AccountDataStream = typeof AccountDataStream[keyof typeof AccountDataStream];
@@ -224,7 +250,8 @@ export const AccountEventReason = {
     OrderMatched: 'OrderMatched',
     OrderCancelled: 'OrderCancelled',
     OrdersForMarketCancelled: 'OrdersForMarketCancelled',
-    LeverageUpdated: 'LeverageUpdated'
+    LeverageUpdated: 'LeverageUpdated',
+    IsolatedMarginUpdated: 'IsolatedMarginUpdated'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];
@@ -241,7 +268,8 @@ export const AccountEventType = {
     AccountTradeUpdate: 'AccountTradeUpdate',
     AccountOrderUpdate: 'AccountOrderUpdate',
     AccountPositionUpdate: 'AccountPositionUpdate',
-    AccountTransactionUpdate: 'AccountTransactionUpdate'
+    AccountTransactionUpdate: 'AccountTransactionUpdate',
+    AccountLeverageFailureUpdate: 'AccountLeverageFailureUpdate'
 } as const;
 
 export type AccountEventType = typeof AccountEventType[keyof typeof AccountEventType];
@@ -545,7 +573,7 @@ export interface AccountStreamMessage {
  * The payload of the message, which varies based on the event type.
  * @export
  */
-export type AccountStreamMessagePayload = AccountOrderUpdate | AccountPositionUpdate | AccountTradeUpdate | AccountTransactionUpdate | AccountUpdate;
+export type AccountStreamMessagePayload = AccountCommandFailureUpdate | AccountOrderUpdate | AccountPositionUpdate | AccountTradeUpdate | AccountTransactionUpdate | AccountUpdate;
 
 /**
  * Subscription message for account data streams.

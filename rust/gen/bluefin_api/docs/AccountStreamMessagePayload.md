@@ -4,6 +4,7 @@
 
 | Name | Description |
 |---- | -----|
+| AccountCommandFailureUpdate | The payload of the message, which varies based on the event type. |
 | AccountOrderUpdate | The payload of the message, which varies based on the event type. |
 | AccountPositionUpdate | The payload of the message, which varies based on the event type. |
 | AccountTradeUpdate | The payload of the message, which varies based on the event type. |

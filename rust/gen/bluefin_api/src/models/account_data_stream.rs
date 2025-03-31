@@ -25,6 +25,8 @@ pub enum AccountDataStream {
     AccountUpdate,
     #[serde(rename = "AccountTransactionUpdate")]
     AccountTransactionUpdate,
+    #[serde(rename = "AccountCommandFailureUpdate")]
+    AccountCommandFailureUpdate,
 
 }
 
@@ -36,6 +38,7 @@ impl std::fmt::Display for AccountDataStream {
             Self::AccountPositionUpdate => write!(f, "AccountPositionUpdate"),
             Self::AccountUpdate => write!(f, "AccountUpdate"),
             Self::AccountTransactionUpdate => write!(f, "AccountTransactionUpdate"),
+            Self::AccountCommandFailureUpdate => write!(f, "AccountCommandFailureUpdate"),
         }
     }
 }

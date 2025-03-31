@@ -31,6 +31,7 @@ class AccountDataStream(str, Enum):
     ACCOUNTPOSITIONUPDATE = 'AccountPositionUpdate'
     ACCOUNTUPDATE = 'AccountUpdate'
     ACCOUNTTRANSACTIONUPDATE = 'AccountTransactionUpdate'
+    ACCOUNTCOMMANDFAILUREUPDATE = 'AccountCommandFailureUpdate'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

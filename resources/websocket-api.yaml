@@ -58,6 +58,7 @@ components:
         - AccountPositionUpdate
         - AccountUpdate
         - AccountTransactionUpdate
+        - AccountCommandFailureUpdate
 
     AccountSubscriptionMessage:
       type: object
@@ -190,6 +191,7 @@ components:
           AccountOrderUpdate: '#/components/schemas/AccountOrderUpdate'
           AccountPositionUpdate: '#/components/schemas/AccountPositionUpdate'
           AccountTransactionUpdate: '#/components/schemas/AccountTransactionUpdate'
+          AccountCommandFailureUpdate: '#/components/schemas/AccountCommandFailureUpdate'
       type: object
       description: |
         Account stream message for account-related events.
@@ -207,6 +209,7 @@ components:
             - $ref: '#/components/schemas/AccountOrderUpdate'
             - $ref: '#/components/schemas/AccountTransactionUpdate'
             - $ref: '#/components/schemas/AccountPositionUpdate'
+            - $ref: '#/components/schemas/AccountCommandFailureUpdate'
 
       required:
         - event
@@ -222,6 +225,7 @@ components:
         - AccountOrderUpdate
         - AccountPositionUpdate
         - AccountTransactionUpdate
+        - AccountLeverageFailureUpdate
 
     AccountEventReason:
       type: string
@@ -234,7 +238,7 @@ components:
         - OrderCancelled
         - OrdersForMarketCancelled
         - LeverageUpdated
-
+        - IsolatedMarginUpdated
 
     OrderCancelReason:
       type: string
@@ -276,6 +280,26 @@ components:
         - NO_OPEN_ORDERS_ON_MARKET
         - NO_FAILURE
         - UNSPECIFIED
+
+    AccountCommandFailureUpdate:
+      type: object
+      description: "Details about a failure during an account command execution."
+      properties:
+        reason:
+          type: string
+          description: "The reason for the failure."
+        failedCommandType:
+          type: string
+          description: "The type of command that failed."
+        failedAtMillis:
+          type: integer
+          format: int64
+          minimum: 0
+          description: "The timestamp when the command failed in milliseconds."
+      required:
+        - reason
+        - failedCommandType
+        - failedAtMillis
 
     AccountOrderUpdate:
       type: object

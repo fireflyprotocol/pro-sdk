@@ -105,6 +105,7 @@ Class | Method | HTTP request | Description
  - [Account](openapi_client/docs/Account.md)
  - [AccountAuthorizationRequest](openapi_client/docs/AccountAuthorizationRequest.md)
  - [AccountAuthorizationRequestSignedFields](openapi_client/docs/AccountAuthorizationRequestSignedFields.md)
+ - [AccountCommandFailureUpdate](openapi_client/docs/AccountCommandFailureUpdate.md)
  - [AccountDataStream](openapi_client/docs/AccountDataStream.md)
  - [AccountEventReason](openapi_client/docs/AccountEventReason.md)
  - [AccountEventType](openapi_client/docs/AccountEventType.md)
