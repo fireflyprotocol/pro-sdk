@@ -14,26 +14,33 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountFundingRateHistoryData {
     /// Payment amount in e9 format.
-    #[serde(rename = "payment_amount_e9")]
+    #[serde(rename = "paymentAmountE9")]
     pub payment_amount_e9: String,
+    #[serde(rename = "positionSide")]
+    pub position_side: models::PositionSide,
+    /// Funding rate value (e9 format).
+    #[serde(rename = "rateE9")]
+    pub rate_e9: String,
     /// Market address.
     #[serde(rename = "symbol")]
     pub symbol: String,
     /// Execution timestamp in milliseconds since Unix epoch.
-    #[serde(rename = "executed_at")]
-    pub executed_at: i64,
+    #[serde(rename = "executedAtMillis")]
+    pub executed_at_millis: i64,
     /// Computed timestamp in milliseconds since Unix epoch.
-    #[serde(rename = "computed_at")]
-    pub computed_at: i64,
+    #[serde(rename = "computedAtMillis")]
+    pub computed_at_millis: i64,
 }
 
 impl AccountFundingRateHistoryData {
-    pub fn new(payment_amount_e9: String, symbol: String, executed_at: i64, computed_at: i64) -> AccountFundingRateHistoryData {
+    pub fn new(payment_amount_e9: String, position_side: models::PositionSide, rate_e9: String, symbol: String, executed_at_millis: i64, computed_at_millis: i64) -> AccountFundingRateHistoryData {
         AccountFundingRateHistoryData {
             payment_amount_e9,
+            position_side,
+            rate_e9,
             symbol,
-            executed_at,
-            computed_at,
+            executed_at_millis,
+            computed_at_millis,
         }
     }
 }

@@ -121,25 +121,33 @@ components:
     AccountFundingRateHistoryData:
       type: object
       required:
-        - payment_amount_e9
+        - paymentAmountE9
+        - positionSide
+        - rateE9
         - symbol
-        - executed_at
-        - computed_at
+        - executedAtMillis
+        - computedAtMillis
       properties:
-        payment_amount_e9:
+        paymentAmountE9:
           type: string
           description: Payment amount in e9 format.
           example: "1000000"
+        positionSide:
+          $ref: "./common.yaml#/components/schemas/PositionSide"
+        rateE9:
+          type: string
+          description: "Funding rate value (e9 format)."
+          example: "10000000"
         symbol:
           type: string
           description: Market address.
           example: "0x123456789abcdef"
-        executed_at:
+        executedAtMillis:
           type: integer
           format: int64
           description: Execution timestamp in milliseconds since Unix epoch.
           example: 1569514978020
-        computed_at:
+        computedAtMillis:
           type: integer
           format: int64
           description: Computed timestamp in milliseconds since Unix epoch.
