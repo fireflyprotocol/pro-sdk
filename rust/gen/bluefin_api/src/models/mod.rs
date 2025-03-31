@@ -4,6 +4,8 @@ pub mod account_authorization_request;
 pub use self::account_authorization_request::AccountAuthorizationRequest;
 pub mod account_authorization_request_signed_fields;
 pub use self::account_authorization_request_signed_fields::AccountAuthorizationRequestSignedFields;
+pub mod account_command_failure_update;
+pub use self::account_command_failure_update::AccountCommandFailureUpdate;
 pub mod account_data_stream;
 pub use self::account_data_stream::AccountDataStream;
 pub mod account_event_reason;

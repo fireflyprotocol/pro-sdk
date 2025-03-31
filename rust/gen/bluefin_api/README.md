@@ -57,6 +57,7 @@ Class | Method | HTTP request | Description
  - [Account](docs/Account.md)
  - [AccountAuthorizationRequest](docs/AccountAuthorizationRequest.md)
  - [AccountAuthorizationRequestSignedFields](docs/AccountAuthorizationRequestSignedFields.md)
+ - [AccountCommandFailureUpdate](docs/AccountCommandFailureUpdate.md)
  - [AccountDataStream](docs/AccountDataStream.md)
  - [AccountEventReason](docs/AccountEventReason.md)
  - [AccountEventType](docs/AccountEventType.md)

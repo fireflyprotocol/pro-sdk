@@ -21,6 +21,7 @@ pub enum AccountStreamMessagePayload {
     AccountOrderUpdate(models::AccountOrderUpdate),
     AccountTransactionUpdate(models::AccountTransactionUpdate),
     AccountPositionUpdate(models::AccountPositionUpdate),
+    AccountCommandFailureUpdate(models::AccountCommandFailureUpdate),
 }
 
 impl Default for AccountStreamMessagePayload {
