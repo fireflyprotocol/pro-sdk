@@ -11,6 +11,7 @@ openapi_client/configuration.py
 openapi_client/docs/Account.md
 openapi_client/docs/AccountAuthorizationRequest.md
 openapi_client/docs/AccountAuthorizationRequestSignedFields.md
+openapi_client/docs/AccountCommandFailureUpdate.md
 openapi_client/docs/AccountDataApi.md
 openapi_client/docs/AccountDataStream.md
 openapi_client/docs/AccountEventReason.md
@@ -100,6 +101,7 @@ openapi_client/models/__init__.py
 openapi_client/models/account.py
 openapi_client/models/account_authorization_request.py
 openapi_client/models/account_authorization_request_signed_fields.py
+openapi_client/models/account_command_failure_update.py
 openapi_client/models/account_data_stream.py
 openapi_client/models/account_event_reason.py
 openapi_client/models/account_event_type.py
@@ -181,4 +183,5 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_account_command_failure_update.py
 openapi_client_README.md
