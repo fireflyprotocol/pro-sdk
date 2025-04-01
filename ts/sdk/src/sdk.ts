@@ -93,7 +93,6 @@ enum Services {
 
 export interface BluefinProSdkOptions {
   currentAccountAddress?: string;
-
   refreshToken?: string;
   refreshTokenValidForSeconds?: number;
 
