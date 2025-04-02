@@ -3394,7 +3394,7 @@ export interface Trade {
      * @type {string}
      * @memberof Trade
      */
-    'tradingFeeAsset'?: TradeTradingFeeAssetEnum;
+    'tradingFeeAsset'?: string;
     /**
      * Gas fee.
      * @type {string}
@@ -3415,13 +3415,6 @@ export interface Trade {
     'executedAtMillis': number;
 }
 
-export const TradeTradingFeeAssetEnum = {
-    Usdc: 'USDC',
-    Blue: 'BLUE',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type TradeTradingFeeAssetEnum = typeof TradeTradingFeeAssetEnum[keyof typeof TradeTradingFeeAssetEnum];
 
 /**
  * Trade side based on the user order in this trade.
