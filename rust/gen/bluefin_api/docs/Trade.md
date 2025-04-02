@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **position_side** | Option<[**models::PositionSide**](PositionSide.md)> |  | [optional]
 **trading_fee_e9** | Option<**String**> | Trading fee (e9 format). | [optional]
 **trading_fee_asset** | Option<**String**> | Asset used for trading fee. | [optional]
-**gas_fee_e9** | Option<**f32**> | Gas fee. | [optional]
+**gas_fee_e9** | Option<**String**> | Gas fee. | [optional]
 **gas_fee_asset** | Option<**String**> | Asset used for gas fee. | [optional]
 **executed_at_millis** | **i64** | Trade timestamp in milliseconds since Unix epoch. | 
 

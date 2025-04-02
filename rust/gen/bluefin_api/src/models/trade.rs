@@ -54,7 +54,7 @@ pub struct Trade {
     pub trading_fee_asset: Option<TradingFeeAsset>,
     /// Gas fee.
     #[serde(rename = "gasFeeE9", skip_serializing_if = "Option::is_none")]
-    pub gas_fee_e9: Option<f32>,
+    pub gas_fee_e9: Option<String>,
     /// Asset used for gas fee.
     #[serde(rename = "gasFeeAsset", skip_serializing_if = "Option::is_none")]
     pub gas_fee_asset: Option<String>,

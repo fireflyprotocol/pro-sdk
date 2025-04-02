@@ -203,10 +203,9 @@ components:
           description: Asset used for trading fee.
           example: USDC
         gasFeeE9:
-          type: number
-          format: float
+          type: string
           description: Gas fee.
-          example: 0
+          example: "1234"
         gasFeeAsset:
           type: string
           description: Asset used for gas fee.
