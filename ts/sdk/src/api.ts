@@ -3397,10 +3397,10 @@ export interface Trade {
     'tradingFeeAsset'?: TradeTradingFeeAssetEnum;
     /**
      * Gas fee.
-     * @type {number}
+     * @type {string}
      * @memberof Trade
      */
-    'gasFeeE9'?: number;
+    'gasFeeE9'?: string;
     /**
      * Asset used for gas fee.
      * @type {string}
