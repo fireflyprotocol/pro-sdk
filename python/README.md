@@ -4,7 +4,7 @@
 We will soon be publishing the library to a public repository on PyPI.  For now, you can pull the code with github as sumbodule
 and install it locally.  To do this, run the following commands:
 ```bash 
-git submodule add git@github.com:fireflyprotocol/bluefin-pro-sdk.git submodules/bluefin-pro-sdk 
+git submodule add git@github.com:fireflyprotocol/pro-sdk.git submodules/pro-sdk 
 ```
 
 NOTE: Due to a limitation you need to use python version `3.12` or older.
