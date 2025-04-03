@@ -16,7 +16,8 @@ use std::{env, fmt, io};
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
 
-const USAGE: &str = "apigen { -l } { rust | python | ts }. Please ensure that npm and openapi-generator-cli are installed following the instructions at https://openapi-generator.tech/docs/installation";
+const USAGE: &str = "apigen { -l } { rust | python | ts }. 
+Please ensure that npm and openapi-generator-cli are installed following the instructions at https://openapi-generator.tech/docs/installation";
 
 #[derive(Debug)]
 pub enum Error {
@@ -35,6 +36,10 @@ pub enum Error {
 }
 
 impl Error {
+    fn status(command: &'static str) -> Self {
+        Error::Status { command }
+    }
+
     /// Returns true if this error was definitely the user's mistake.
     fn is_user(&self) -> bool {
         matches!(self, Error::Flag(_))
@@ -122,42 +127,32 @@ impl FromStr for Lang {
 ///
 /// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
-    // Check if npm is installed
-    let npm_check = Command::new("npm")
+    let npm_command = "npm";
+    // Check whether npm is installed.
+    Command::new(npm_command)
         .arg("--version")
-        .output()
-        .map_err(|_| Error::Status { command: "npm" })?;
+        .status()?
+        .success()
+        .then_some(())
+        .ok_or(Error::status(npm_command))?;
 
-    if !npm_check.status.success() {
-        return Err(Error::Status { command: "npm" });
-    }
-
-    // Check if openapi-generator-cli is installed
-    let openapi_check = Command::new("openapi-generator-cli")
-        .arg("version")
-        .output();
-
-    if openapi_check.is_err() || !openapi_check.unwrap().status.success() {
-        return Err(Error::Status {
-            command: "openapi-generator-cli",
-        });
-    }
-
-    // Set openapi-generator-cli version to 7.11.0
-    let version_set = Command::new("openapi-generator-cli")
-        .args(["version-manager", "set", "7.11.0"])
-        .status()
-        .map_err(|_| Error::Status {
-            command: "openapi-generator-cli version-manager",
-        })?;
-
-    if !version_set.success() {
-        return Err(Error::Status {
-            command: "openapi-generator-cli version-manager",
-        });
-    }
-
+    // Check whether openapi-generator-cli is installed.
     let command = "openapi-generator-cli";
+    Command::new(command)
+        .arg("version")
+        .status()?
+        .success()
+        .then_some(())
+        .ok_or(Error::status(command))?;
+
+    // Set openapi-generator-cli version to 7.11.0 and run code generation.
+    Command::new(command)
+        .args(["version-manager", "set", "7.11.0"])
+        .status()?
+        .success()
+        .then_some(())
+        .ok_or(Error::status(command))?;
+
     Command::new(command)
         .arg("generate")
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
@@ -167,7 +162,7 @@ fn generate(lang: Lang) -> Result<()> {
         .status()?
         .success()
         .then_some(())
-        .ok_or(Error::Status { command })
+        .ok_or(Error::status(command))
 }
 
 /// Returns the nearest ancestor of the current working directory containing a "resources" folder.
@@ -199,7 +194,6 @@ fn main_imp() -> Result<()> {
         match arg.as_str() {
             "-h" | "--help" => {
                 println!("usage: {USAGE}");
-                return Ok(());
             }
             "-l" | "--lang" => lang = Some(args.next().ok_or(Error::Flag(arg))?.parse()?),
             _ => return Err(Error::Flag(arg)),
