@@ -16,8 +16,11 @@ use std::{env, fmt, io};
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
 
-const USAGE: &str = "apigen { -l } { rust | python | ts }. 
-Please ensure that npm and openapi-generator-cli are installed following the instructions at https://openapi-generator.tech/docs/installation";
+const USAGE: &str = "apigen { -l } { rust | python | ts }
+
+Please ensure that npm and openapi-generator-cli are installed following the instructions at:
+https://openapi-generator.tech/docs/installation
+";
 
 #[derive(Debug)]
 pub enum Error {
@@ -194,6 +197,11 @@ fn main_imp() -> Result<()> {
         match arg.as_str() {
             "-h" | "--help" => {
                 println!("usage: {USAGE}");
+                let args = args.collect::<Vec<_>>();
+                if !args.is_empty() {
+                    eprintln!("warning: ignoring args: {args:?}");
+                }
+                return Ok(());
             }
             "-l" | "--lang" => lang = Some(args.next().ok_or(Error::Flag(arg))?.parse()?),
             _ => return Err(Error::Flag(arg)),
