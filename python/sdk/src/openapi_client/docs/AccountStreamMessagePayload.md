@@ -22,29 +22,21 @@ Name | Type | Description | Notes
 **total_cross_unrealized_pnl_e9** | **str** | The total cross unrealized profit and loss. | 
 **updated_at_millis** | **int** | The last update time for the position in milliseconds. | 
 **assets** | [**List[Asset]**](Asset.md) | The list of assets. | 
-**trade_id** | **str** | The trade ID associated with the transaction. | 
+**trade** | [**Trade**](Trade.md) |  | 
+**order_hash** | **str** | The unique hash of the order. | 
 **client_order_id** | **str** | The client-provided order ID. | [optional] 
 **symbol** | **str** | The symbol of the market. | 
-**order_hash** | **str** | The unique hash of the order. | 
-**type** | [**OrderType**](OrderType.md) |  | 
-**trade_side** | [**Side**](Side.md) |  | 
-**is_maker** | **bool** | Indicates if the trade was a maker order. | 
+**account_address** | **str** | The address of the account. | 
 **price_e9** | **str** | The price of the order in scientific notation with 9 decimal places. | 
 **quantity_e9** | **str** | The quantity of the order in scientific notation with 9 decimal places. | 
-**quote_quantity_e9** | **str** | The quote quantity of the trade. | 
-**realized_pnl_e9** | **str** | The realized profit and loss. | 
-**position_side** | [**Side**](Side.md) |  | 
-**trading_fee_e9** | **str** | The trading fee for the trade. | 
-**trading_fee_asset_symbol** | **str** | The market symbol of the asset used for the trading fee. | 
-**executed_at_millis** | **int** | The timestamp when the transaction was executed in milliseconds. | 
-**account_address** | **str** | The address of the account. | 
 **filled_quantity_e9** | **str** | The filled quantity of the order in scientific notation with 9 decimal places. | 
-**side** | [**Side**](Side.md) |  | 
+**side** | [**PositionSide**](PositionSide.md) |  | 
 **leverage_e9** | **str** | The leverage applied to the position. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 
 **salt** | **str** | A unique salt for the order. | 
 **expires_at_millis** | **int** | The expiration timestamp of the order in milliseconds. | 
 **signed_at_millis** | **int** | The signing timestamp of the order in milliseconds. | 
+**type** | [**OrderType**](OrderType.md) |  | 
 **reduce_only** | **bool** | Indicates if the order is reduce-only. | 
 **post_only** | **bool** | Indicates if the order is post-only. | 
 **time_in_force** | [**OrderTimeInForce**](OrderTimeInForce.md) |  | [default to OrderTimeInForce.GTT]
@@ -58,6 +50,8 @@ Name | Type | Description | Notes
 **transaction_type** | [**TransactionType**](TransactionType.md) |  | 
 **amount_e9** | **str** | The amount of the transaction in scientific notation with 9 decimal places. | 
 **asset_symbol** | **str** | The symbol of the asset. | [optional] 
+**trade_id** | **str** | The trade ID associated with the transaction. | [optional] 
+**executed_at_millis** | **int** | The timestamp when the transaction was executed in milliseconds. | 
 **avg_entry_price_e9** | **str** | The average entry price for the position. | 
 **liquidation_price_e9** | **str** | The liquidation price of the position. | 
 **mark_price_e9** | **str** | The current mark price of the position. | 
@@ -67,6 +61,9 @@ Name | Type | Description | Notes
 **initial_margin_e9** | **str** | The initial margin required for the position. | 
 **maintenance_margin_e9** | **str** | The maintenance margin required for the position. | 
 **isolated_margin_e9** | **str** | The isolated margin applied to the position. | 
+**reason** | **str** | The reason for the failure. | 
+**failed_command_type** | **str** | The type of command that failed. | 
+**failed_at_millis** | **int** | The timestamp when the command failed in milliseconds. | 
 
 ## Example
 

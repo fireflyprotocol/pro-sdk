@@ -196,17 +196,12 @@ components:
           example: "-780000000" # -780 USD
         tradingFeeAsset:
           type: string
-          enum:
-          - USDC
-          - BLUE
-          - UNSPECIFIED
           description: Asset used for trading fee.
-          example: USDC
+          example: USDC, BLUE
         gasFeeE9:
-          type: number
-          format: float
+          type: string
           description: Gas fee.
-          example: 0
+          example: "1234"
         gasFeeAsset:
           type: string
           description: Asset used for gas fee.

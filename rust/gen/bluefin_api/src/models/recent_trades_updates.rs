@@ -13,14 +13,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RecentTradesUpdates {
-    #[serde(rename = "recentTrades")]
-    pub recent_trades: Vec<models::RecentTradesUpdate>,
+    #[serde(rename = "trades")]
+    pub trades: Vec<models::Trade>,
 }
 
 impl RecentTradesUpdates {
-    pub fn new(recent_trades: Vec<models::RecentTradesUpdate>) -> RecentTradesUpdates {
+    pub fn new(trades: Vec<models::Trade>) -> RecentTradesUpdates {
         RecentTradesUpdates {
-            recent_trades,
+            trades,
         }
     }
 }

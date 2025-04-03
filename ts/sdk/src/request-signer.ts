@@ -33,15 +33,19 @@ export interface IBluefinSigner {
   ) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
 }
 
-export interface IAddressable {
-  getAddress(): string;
+export interface ISigner {
+  toSuiAddress(): string;
+  isUIWallet(): boolean;
 }
 
-export function makeAddressableKeyPair<T extends Keypair>(
-  keyPair: T
-): T & IAddressable {
+
+export function makeSigner<T extends Keypair>(
+  keyPair: T,
+  isUIWallet: boolean,
+): T & ISigner {
   return Object.assign(keyPair, {
-    getAddress: () => keyPair.getPublicKey().toSuiAddress(),
+    toSuiAddress: () => keyPair.getPublicKey().toSuiAddress(),
+    isUIWallet: () => isUIWallet
   });
 }
 
@@ -106,7 +110,7 @@ interface UIAuthorizeAccountRequest {
   signedAt: string;
 }
 
-interface UIDeauthorizeAccountRequest {
+interface UIDeAuthorizeAccountRequest {
   type: string;
   ids: string;
   account: string;
@@ -178,9 +182,9 @@ function toUIAuthorizeAccountRequest(
   };
 }
 
-function toUIDeauthorizeAccountRequest(
+function toUIDeAuthorizeAccountRequest(
   val: AccountAuthorizationRequestSignedFields
-): UIDeauthorizeAccountRequest {
+): UIDeAuthorizeAccountRequest {
   return {
     type: ClientPayloadType.AuthorizeAccount,
     ids: val.idsId,
@@ -200,7 +204,7 @@ function toJson(
     | UIUpdateAccountPositionLeverageRequest
     | UIWithdrawRequest
     | UIAuthorizeAccountRequest
-    | UIDeauthorizeAccountRequest
+    | UIDeAuthorizeAccountRequest
 ): string {
   return JSON.stringify(val, null, 2);
 }
@@ -209,7 +213,7 @@ function toJson(
 
 export class BluefinRequestSigner implements IBluefinSigner {
   constructor(
-    private readonly wallet: Pick<Signer, "signPersonalMessage"> & IAddressable
+    private readonly wallet: Pick<Signer, "signPersonalMessage"> & ISigner
   ) {}
 
   /**
@@ -307,7 +311,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
     const requestJson = toJson(
       is_authorize
         ? toUIAuthorizeAccountRequest(signedFields)
-        : toUIDeauthorizeAccountRequest(signedFields)
+        : toUIDeAuthorizeAccountRequest(signedFields)
     );
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(
@@ -326,13 +330,20 @@ export class BluefinRequestSigner implements IBluefinSigner {
   }
 
   async executeTx(txb: TransactionBlock, suiClient: SuiClient) {
-    return SuiBlocks.execCall(txb, suiClient, this.wallet, false);
+    return SuiBlocks.execCall(txb, suiClient, this.wallet, false, this.wallet.isUIWallet());
   }
 
   /**
    * Get the wallet's address
    */
   getAddress(): string {
-    return this.wallet.getAddress();
+    return this.wallet.toSuiAddress();
+  }
+
+  /**
+   * Get the wallet type (ui wallet or backend)
+   */
+  isUIWallet(): boolean {
+      return this.wallet.isUIWallet();
   }
 }

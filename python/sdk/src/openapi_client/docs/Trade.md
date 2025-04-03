@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **position_side** | [**PositionSide**](PositionSide.md) |  | [optional] 
 **trading_fee_e9** | **str** | Trading fee (e9 format). | [optional] 
 **trading_fee_asset** | **str** | Asset used for trading fee. | [optional] 
-**gas_fee_e9** | **float** | Gas fee. | [optional] 
+**gas_fee_e9** | **str** | Gas fee. | [optional] 
 **gas_fee_asset** | **str** | Asset used for gas fee. | [optional] 
 **executed_at_millis** | **int** | Trade timestamp in milliseconds since Unix epoch. | 
 

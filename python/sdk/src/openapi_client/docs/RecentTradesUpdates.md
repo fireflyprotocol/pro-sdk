@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**recent_trades** | [**List[RecentTradesUpdate]**](RecentTradesUpdate.md) |  | 
+**trades** | [**List[Trade]**](Trade.md) |  | 
 
 ## Example
 

@@ -51,10 +51,10 @@ pub struct Trade {
     pub trading_fee_e9: Option<String>,
     /// Asset used for trading fee.
     #[serde(rename = "tradingFeeAsset", skip_serializing_if = "Option::is_none")]
-    pub trading_fee_asset: Option<TradingFeeAsset>,
+    pub trading_fee_asset: Option<String>,
     /// Gas fee.
     #[serde(rename = "gasFeeE9", skip_serializing_if = "Option::is_none")]
-    pub gas_fee_e9: Option<f32>,
+    pub gas_fee_e9: Option<String>,
     /// Asset used for gas fee.
     #[serde(rename = "gasFeeAsset", skip_serializing_if = "Option::is_none")]
     pub gas_fee_asset: Option<String>,
@@ -84,22 +84,6 @@ impl Trade {
             gas_fee_asset: None,
             executed_at_millis,
         }
-    }
-}
-/// Asset used for trading fee.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TradingFeeAsset {
-    #[serde(rename = "USDC")]
-    Usdc,
-    #[serde(rename = "BLUE")]
-    Blue,
-    #[serde(rename = "UNSPECIFIED")]
-    Unspecified,
-}
-
-impl Default for TradingFeeAsset {
-    fn default() -> TradingFeeAsset {
-        Self::Usdc
     }
 }
 

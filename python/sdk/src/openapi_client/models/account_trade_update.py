@@ -17,10 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.side import Side
-from openapi_client.models.trade_type import TradeType
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List
+from openapi_client.models.trade import Trade
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,22 +27,8 @@ class AccountTradeUpdate(BaseModel):
     """
     Details about a trade in the account.
     """ # noqa: E501
-    trade_id: StrictStr = Field(description="The unique identifier for the trade.", alias="tradeId")
-    client_order_id: Optional[StrictStr] = Field(default=None, description="The client order ID associated with the trade.", alias="clientOrderId")
-    symbol: StrictStr = Field(description="The symbol of the market.")
-    order_hash: StrictStr = Field(description="The hash of the order.", alias="orderHash")
-    type: TradeType
-    trade_side: Side = Field(alias="tradeSide")
-    is_maker: StrictBool = Field(description="Indicates if the trade was a maker order.", alias="isMaker")
-    price_e9: StrictStr = Field(description="The price of the trade.", alias="priceE9")
-    quantity_e9: StrictStr = Field(description="The quantity of the trade.", alias="quantityE9")
-    quote_quantity_e9: StrictStr = Field(description="The quote quantity of the trade.", alias="quoteQuantityE9")
-    realized_pnl_e9: StrictStr = Field(description="The realized profit and loss.", alias="realizedPnlE9")
-    position_side: Side = Field(alias="positionSide")
-    trading_fee_e9: StrictStr = Field(description="The trading fee for the trade.", alias="tradingFeeE9")
-    trading_fee_asset_symbol: StrictStr = Field(description="The market symbol of the asset used for the trading fee.", alias="tradingFeeAssetSymbol")
-    executed_at_millis: StrictInt = Field(description="The timestamp when the trade was executed in milliseconds.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["tradeId", "clientOrderId", "symbol", "orderHash", "type", "tradeSide", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAssetSymbol", "executedAtMillis"]
+    trade: Trade
+    __properties: ClassVar[List[str]] = ["trade"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,6 +69,9 @@ class AccountTradeUpdate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of trade
+        if self.trade:
+            _dict['trade'] = self.trade.to_dict()
         return _dict
 
     @classmethod
@@ -96,21 +84,7 @@ class AccountTradeUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tradeId": obj.get("tradeId"),
-            "clientOrderId": obj.get("clientOrderId"),
-            "symbol": obj.get("symbol"),
-            "orderHash": obj.get("orderHash"),
-            "type": obj.get("type"),
-            "tradeSide": obj.get("tradeSide"),
-            "isMaker": obj.get("isMaker"),
-            "priceE9": obj.get("priceE9"),
-            "quantityE9": obj.get("quantityE9"),
-            "quoteQuantityE9": obj.get("quoteQuantityE9"),
-            "realizedPnlE9": obj.get("realizedPnlE9"),
-            "positionSide": obj.get("positionSide"),
-            "tradingFeeE9": obj.get("tradingFeeE9"),
-            "tradingFeeAssetSymbol": obj.get("tradingFeeAssetSymbol"),
-            "executedAtMillis": obj.get("executedAtMillis")
+            "trade": Trade.from_dict(obj["trade"]) if obj.get("trade") is not None else None
         })
         return _obj
 

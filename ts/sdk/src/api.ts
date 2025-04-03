@@ -139,6 +139,19 @@ export interface Account {
     'authorizedAccounts': Array<string>;
 }
 /**
+ * Aggregated details about a trade in the account.
+ * @export
+ * @interface AccountAggregatedTradeUpdate
+ */
+export interface AccountAggregatedTradeUpdate {
+    /**
+     * 
+     * @type {Trade}
+     * @memberof AccountAggregatedTradeUpdate
+     */
+    'trade': Trade;
+}
+/**
  * 
  * @export
  * @interface AccountAuthorizationRequest
@@ -195,6 +208,31 @@ export interface AccountAuthorizationRequestSignedFields {
     'signedAtMillis': number;
 }
 /**
+ * Details about a failure during an account command execution.
+ * @export
+ * @interface AccountCommandFailureUpdate
+ */
+export interface AccountCommandFailureUpdate {
+    /**
+     * The reason for the failure.
+     * @type {string}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'reason': string;
+    /**
+     * The type of command that failed.
+     * @type {string}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'failedCommandType': string;
+    /**
+     * The timestamp when the command failed in milliseconds.
+     * @type {number}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'failedAtMillis': number;
+}
+/**
  * Represents the type of account data stream.
  * @export
  * @enum {string}
@@ -203,9 +241,11 @@ export interface AccountAuthorizationRequestSignedFields {
 export const AccountDataStream = {
     AccountOrderUpdate: 'AccountOrderUpdate',
     AccountTradeUpdate: 'AccountTradeUpdate',
+    AccountAggregatedTradeUpdate: 'AccountAggregatedTradeUpdate',
     AccountPositionUpdate: 'AccountPositionUpdate',
     AccountUpdate: 'AccountUpdate',
-    AccountTransactionUpdate: 'AccountTransactionUpdate'
+    AccountTransactionUpdate: 'AccountTransactionUpdate',
+    AccountCommandFailureUpdate: 'AccountCommandFailureUpdate'
 } as const;
 
 export type AccountDataStream = typeof AccountDataStream[keyof typeof AccountDataStream];
@@ -224,7 +264,8 @@ export const AccountEventReason = {
     OrderMatched: 'OrderMatched',
     OrderCancelled: 'OrderCancelled',
     OrdersForMarketCancelled: 'OrdersForMarketCancelled',
-    LeverageUpdated: 'LeverageUpdated'
+    LeverageUpdated: 'LeverageUpdated',
+    IsolatedMarginUpdated: 'IsolatedMarginUpdated'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];
@@ -239,9 +280,11 @@ export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountE
 export const AccountEventType = {
     AccountUpdate: 'AccountUpdate',
     AccountTradeUpdate: 'AccountTradeUpdate',
+    AccountAggregatedTradeUpdate: 'AccountAggregatedTradeUpdate',
     AccountOrderUpdate: 'AccountOrderUpdate',
     AccountPositionUpdate: 'AccountPositionUpdate',
-    AccountTransactionUpdate: 'AccountTransactionUpdate'
+    AccountTransactionUpdate: 'AccountTransactionUpdate',
+    AccountLeverageFailureUpdate: 'AccountLeverageFailureUpdate'
 } as const;
 
 export type AccountEventType = typeof AccountEventType[keyof typeof AccountEventType];
@@ -451,10 +494,10 @@ export interface AccountPositionUpdate {
     'unrealizedPnlE9': string;
     /**
      * 
-     * @type {Side}
+     * @type {PositionSide}
      * @memberof AccountPositionUpdate
      */
-    'side': Side;
+    'side': PositionSide;
     /**
      * The initial margin required for the position.
      * @type {string}
@@ -545,7 +588,7 @@ export interface AccountStreamMessage {
  * The payload of the message, which varies based on the event type.
  * @export
  */
-export type AccountStreamMessagePayload = AccountOrderUpdate | AccountPositionUpdate | AccountTradeUpdate | AccountTransactionUpdate | AccountUpdate;
+export type AccountStreamMessagePayload = AccountAggregatedTradeUpdate | AccountCommandFailureUpdate | AccountOrderUpdate | AccountPositionUpdate | AccountTradeUpdate | AccountTransactionUpdate | AccountUpdate;
 
 /**
  * Subscription message for account data streams.
@@ -581,98 +624,12 @@ export interface AccountSubscriptionMessage {
  */
 export interface AccountTradeUpdate {
     /**
-     * The unique identifier for the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'tradeId': string;
-    /**
-     * The client order ID associated with the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'clientOrderId'?: string;
-    /**
-     * The symbol of the market.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'symbol': string;
-    /**
-     * The hash of the order.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'orderHash': string;
-    /**
      * 
-     * @type {TradeType}
+     * @type {Trade}
      * @memberof AccountTradeUpdate
      */
-    'type': TradeType;
-    /**
-     * 
-     * @type {Side}
-     * @memberof AccountTradeUpdate
-     */
-    'tradeSide': Side;
-    /**
-     * Indicates if the trade was a maker order.
-     * @type {boolean}
-     * @memberof AccountTradeUpdate
-     */
-    'isMaker': boolean;
-    /**
-     * The price of the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'priceE9': string;
-    /**
-     * The quantity of the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'quantityE9': string;
-    /**
-     * The quote quantity of the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'quoteQuantityE9': string;
-    /**
-     * The realized profit and loss.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'realizedPnlE9': string;
-    /**
-     * 
-     * @type {Side}
-     * @memberof AccountTradeUpdate
-     */
-    'positionSide': Side;
-    /**
-     * The trading fee for the trade.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'tradingFeeE9': string;
-    /**
-     * The market symbol of the asset used for the trading fee.
-     * @type {string}
-     * @memberof AccountTradeUpdate
-     */
-    'tradingFeeAssetSymbol': string;
-    /**
-     * The timestamp when the trade was executed in milliseconds.
-     * @type {number}
-     * @memberof AccountTradeUpdate
-     */
-    'executedAtMillis': number;
+    'trade': Trade;
 }
-
-
 /**
  * Details about a transaction in the account.
  * @export
@@ -871,10 +828,10 @@ export interface ActiveOrderUpdate {
     'filledQuantityE9': string;
     /**
      * 
-     * @type {Side}
+     * @type {TradeSide}
      * @memberof ActiveOrderUpdate
      */
-    'side': Side;
+    'side': TradeSide;
     /**
      * The leverage of the order in scientific notation with 9 decimal places.
      * @type {string}
@@ -2684,79 +2641,15 @@ export interface PostCreateOrder202Response {
 /**
  * 
  * @export
- * @interface RecentTradeUpdates
- */
-export interface RecentTradeUpdates {
-    /**
-     * 
-     * @type {Array<RecentTradesUpdate>}
-     * @memberof RecentTradeUpdates
-     */
-    'recentTrades': Array<RecentTradesUpdate>;
-}
-/**
- * 
- * @export
- * @interface RecentTradesUpdate
- */
-export interface RecentTradesUpdate {
-    /**
-     * The unique identifier of the trade.
-     * @type {number}
-     * @memberof RecentTradesUpdate
-     */
-    'id': number;
-    /**
-     * The symbol of the market where the trade occurred.
-     * @type {string}
-     * @memberof RecentTradesUpdate
-     */
-    'symbol': string;
-    /**
-     * The trade price in scientific notation with 9 decimal places of precision.
-     * @type {string}
-     * @memberof RecentTradesUpdate
-     */
-    'priceE9': string;
-    /**
-     * The quantity traded in scientific notation with 9 decimal places of precision.
-     * @type {string}
-     * @memberof RecentTradesUpdate
-     */
-    'quantityE9': string;
-    /**
-     * The quote quantity traded in scientific notation with 9 decimal places of precision.
-     * @type {string}
-     * @memberof RecentTradesUpdate
-     */
-    'quoteQuantityE9': string;
-    /**
-     * 
-     * @type {Side}
-     * @memberof RecentTradesUpdate
-     */
-    'side': Side;
-    /**
-     * The timestamp of the trade.
-     * @type {number}
-     * @memberof RecentTradesUpdate
-     */
-    'updatedAtMillis': number;
-}
-
-
-/**
- * 
- * @export
  * @interface RecentTradesUpdates
  */
 export interface RecentTradesUpdates {
     /**
      * 
-     * @type {Array<RecentTradesUpdate>}
+     * @type {Array<Trade>}
      * @memberof RecentTradesUpdates
      */
-    'recentTrades': Array<RecentTradesUpdate>;
+    'trades': Array<Trade>;
 }
 /**
  * 
@@ -2816,21 +2709,6 @@ export const SelfTradePreventionType = {
 } as const;
 
 export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeof SelfTradePreventionType];
-
-
-/**
- * Indicates the side of the trade.
- * @export
- * @enum {string}
- */
-
-export const Side = {
-    Long: 'LONG',
-    Short: 'SHORT',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type Side = typeof Side[keyof typeof Side];
 
 
 /**
@@ -3366,13 +3244,13 @@ export interface Trade {
      * @type {string}
      * @memberof Trade
      */
-    'tradingFeeAsset'?: TradeTradingFeeAssetEnum;
+    'tradingFeeAsset'?: string;
     /**
      * Gas fee.
-     * @type {number}
+     * @type {string}
      * @memberof Trade
      */
-    'gasFeeE9'?: number;
+    'gasFeeE9'?: string;
     /**
      * Asset used for gas fee.
      * @type {string}
@@ -3387,13 +3265,6 @@ export interface Trade {
     'executedAtMillis': number;
 }
 
-export const TradeTradingFeeAssetEnum = {
-    Usdc: 'USDC',
-    Blue: 'BLUE',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-
-export type TradeTradingFeeAssetEnum = typeof TradeTradingFeeAssetEnum[keyof typeof TradeTradingFeeAssetEnum];
 
 /**
  * Trade side based on the user order in this trade.

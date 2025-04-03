@@ -181,6 +181,8 @@ class AccountDataStreamListener(WebsocketEventsListener):
                 deserialize_object = AccountUpdate.from_dict(payload)
             elif event_type is AccountEventType.ACCOUNTTRADEUPDATE:
                 deserialize_object = AccountTradeUpdate.from_dict(payload)
+            elif event_type is AccountEventType.ACCOUNTAGGREGATEDTRADEUPDATE:
+                deserialize_object = AccountAggregatedTradeUpdate.from_dict(payload)
             elif event_type is AccountEventType.ACCOUNTORDERUPDATE:
                 deserialize_object = AccountOrderUpdate.from_dict(payload)
             elif event_type is AccountEventType.ACCOUNTPOSITIONUPDATE:

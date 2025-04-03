@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.trade_side import TradeSide
 from openapi_client.models.trade_type import TradeType
@@ -43,20 +43,10 @@ class Trade(BaseModel):
     position_side: Optional[PositionSide] = Field(default=None, alias="positionSide")
     trading_fee_e9: Optional[StrictStr] = Field(default=None, description="Trading fee (e9 format).", alias="tradingFeeE9")
     trading_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for trading fee.", alias="tradingFeeAsset")
-    gas_fee_e9: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gas fee.", alias="gasFeeE9")
+    gas_fee_e9: Optional[StrictStr] = Field(default=None, description="Gas fee.", alias="gasFeeE9")
     gas_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for gas fee.", alias="gasFeeAsset")
     executed_at_millis: StrictInt = Field(description="Trade timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
     __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
-
-    @field_validator('trading_fee_asset')
-    def trading_fee_asset_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['USDC', 'BLUE', 'UNSPECIFIED']):
-            raise ValueError("must be one of enum values ('USDC', 'BLUE', 'UNSPECIFIED')")
-        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

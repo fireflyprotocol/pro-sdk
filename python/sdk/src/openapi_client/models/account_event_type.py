@@ -28,9 +28,11 @@ class AccountEventType(str, Enum):
     """
     ACCOUNTUPDATE = 'AccountUpdate'
     ACCOUNTTRADEUPDATE = 'AccountTradeUpdate'
+    ACCOUNTAGGREGATEDTRADEUPDATE = 'AccountAggregatedTradeUpdate'
     ACCOUNTORDERUPDATE = 'AccountOrderUpdate'
     ACCOUNTPOSITIONUPDATE = 'AccountPositionUpdate'
     ACCOUNTTRANSACTIONUPDATE = 'AccountTransactionUpdate'
+    ACCOUNTLEVERAGEFAILUREUPDATE = 'AccountLeverageFailureUpdate'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

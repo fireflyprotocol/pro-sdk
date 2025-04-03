@@ -18,9 +18,11 @@ use serde::{Deserialize, Serialize};
 pub enum AccountStreamMessagePayload {
     AccountUpdate(models::AccountUpdate),
     AccountTradeUpdate(models::AccountTradeUpdate),
+    AccountAggregatedTradeUpdate(models::AccountAggregatedTradeUpdate),
     AccountOrderUpdate(models::AccountOrderUpdate),
     AccountTransactionUpdate(models::AccountTransactionUpdate),
     AccountPositionUpdate(models::AccountPositionUpdate),
+    AccountCommandFailureUpdate(models::AccountCommandFailureUpdate),
 }
 
 impl Default for AccountStreamMessagePayload {

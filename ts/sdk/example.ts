@@ -16,7 +16,7 @@ import {
   Market,
   BluefinRequestSigner,
   BluefinProSdk,
-  makeAddressableKeyPair,
+  makeSigner,
 } from "./index";
 
 import {Ed25519Keypair} from "@mysten/sui/keypairs/ed25519";
@@ -102,7 +102,7 @@ async function main() {
 
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
 
-  const bfSigner = new BluefinRequestSigner(makeAddressableKeyPair(suiWallet));
+  const bfSigner = new BluefinRequestSigner(makeSigner(suiWallet, false));
   const client = new BluefinProSdk(
     bfSigner,
     "devnet",

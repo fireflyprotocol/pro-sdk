@@ -17,15 +17,6 @@ servers:
 
 components:
   schemas:
-    # Common Schemas
-    Side:
-      type: string
-      description: "Indicates the side of the trade."
-      enum:
-        - LONG
-        - SHORT
-        - UNSPECIFIED
-
     # Common Subscription
     SubscriptionResponseMessage:
       type: object
@@ -55,9 +46,11 @@ components:
       enum:
         - AccountOrderUpdate
         - AccountTradeUpdate
+        - AccountAggregatedTradeUpdate
         - AccountPositionUpdate
         - AccountUpdate
         - AccountTransactionUpdate
+        - AccountCommandFailureUpdate
 
     AccountSubscriptionMessage:
       type: object
@@ -187,9 +180,11 @@ components:
         mapping:
           AccountUpdate: '#/components/schemas/AccountUpdate'
           AccountTradeUpdate: '#/components/schemas/AccountTradeUpdate'
+          AccountAggregatedTradeUpdate: '#/components/schemas/AccountAggregatedTradeUpdate'
           AccountOrderUpdate: '#/components/schemas/AccountOrderUpdate'
           AccountPositionUpdate: '#/components/schemas/AccountPositionUpdate'
           AccountTransactionUpdate: '#/components/schemas/AccountTransactionUpdate'
+          AccountCommandFailureUpdate: '#/components/schemas/AccountCommandFailureUpdate'
       type: object
       description: |
         Account stream message for account-related events.
@@ -204,9 +199,11 @@ components:
           oneOf:
             - $ref: '#/components/schemas/AccountUpdate'
             - $ref: '#/components/schemas/AccountTradeUpdate'
+            - $ref: '#/components/schemas/AccountAggregatedTradeUpdate'
             - $ref: '#/components/schemas/AccountOrderUpdate'
             - $ref: '#/components/schemas/AccountTransactionUpdate'
             - $ref: '#/components/schemas/AccountPositionUpdate'
+            - $ref: '#/components/schemas/AccountCommandFailureUpdate'
 
       required:
         - event
@@ -219,9 +216,11 @@ components:
       enum:
         - AccountUpdate
         - AccountTradeUpdate
+        - AccountAggregatedTradeUpdate
         - AccountOrderUpdate
         - AccountPositionUpdate
         - AccountTransactionUpdate
+        - AccountLeverageFailureUpdate
 
     AccountEventReason:
       type: string
@@ -234,7 +233,7 @@ components:
         - OrderCancelled
         - OrdersForMarketCancelled
         - LeverageUpdated
-
+        - IsolatedMarginUpdated
 
     OrderCancelReason:
       type: string
@@ -276,6 +275,26 @@ components:
         - NO_OPEN_ORDERS_ON_MARKET
         - NO_FAILURE
         - UNSPECIFIED
+
+    AccountCommandFailureUpdate:
+      type: object
+      description: "Details about a failure during an account command execution."
+      properties:
+        reason:
+          type: string
+          description: "The reason for the failure."
+        failedCommandType:
+          type: string
+          description: "The type of command that failed."
+        failedAtMillis:
+          type: integer
+          format: int64
+          minimum: 0
+          description: "The timestamp when the command failed in milliseconds."
+      required:
+        - reason
+        - failedCommandType
+        - failedAtMillis
 
     AccountOrderUpdate:
       type: object
@@ -345,7 +364,7 @@ components:
           type: string
           description: "The filled quantity of the order in scientific notation with 9 decimal places."
         side:
-          $ref: '#/components/schemas/Side'
+          $ref: './common.yaml#/components/schemas/TradeSide'
         leverageE9:
           type: string
           description: "The leverage of the order in scientific notation with 9 decimal places."
@@ -466,7 +485,7 @@ components:
           type: string
           description: "The unrealized profit and loss for the position."
         side:
-          $ref: '#/components/schemas/Side'
+          $ref: './common.yaml#/components/schemas/PositionSide'
         initialMarginE9:
           type: string
           description: "The initial margin required for the position."
@@ -574,64 +593,19 @@ components:
       type: object
       description: "Details about a trade in the account."
       properties:
-        tradeId:
-          type: string
-          description: "The unique identifier for the trade."
-        clientOrderId:
-          type: string
-          description: "The client order ID associated with the trade."
-        symbol:
-          type: string
-          description: "The symbol of the market."
-        orderHash:
-          type: string
-          description: "The hash of the order."
-        type:
-          $ref: './common.yaml#/components/schemas/TradeType'
-        tradeSide:
-          $ref: '#/components/schemas/Side'
-        isMaker:
-          type: boolean
-          description: "Indicates if the trade was a maker order."
-        priceE9:
-          type: string
-          description: "The price of the trade."
-        quantityE9:
-          type: string
-          description: "The quantity of the trade."
-        quoteQuantityE9:
-          type: string
-          description: "The quote quantity of the trade."
-        realizedPnlE9:
-          type: string
-          description: "The realized profit and loss."
-        positionSide:
-          $ref: '#/components/schemas/Side'
-        tradingFeeE9:
-          type: string
-          description: "The trading fee for the trade."
-        tradingFeeAssetSymbol:
-          type: string
-          description: "The market symbol of the asset used for the trading fee."
-        executedAtMillis:
-          type: integer
-          format: int64
-          description: "The timestamp when the trade was executed in milliseconds."
+        trade:
+          $ref: './common.yaml#/components/schemas/Trade'
       required:
-        - tradeId
-        - symbol
-        - orderHash
-        - type
-        - tradeSide
-        - isMaker
-        - priceE9
-        - quantityE9
-        - quoteQuantityE9
-        - realizedPnlE9
-        - positionSide
-        - tradingFeeE9
-        - tradingFeeAssetSymbol
-        - executedAtMillis
+        - trade
+
+    AccountAggregatedTradeUpdate:
+      type: object
+      description: "Aggregated details about a trade in the account."
+      properties:
+        trade:
+          $ref: './common.yaml#/components/schemas/Trade'
+      required:
+        - trade
 
     # Market Streams
     MarketStreamMessage:
@@ -983,46 +957,12 @@ components:
     RecentTradesUpdates:
       type: object
       properties:
-        recentTrades:
+        trades:
           type: array
           items:
-            $ref: '#/components/schemas/RecentTradesUpdate'
+            $ref: './common.yaml#/components/schemas/Trade'
       required:
-        - recentTrades
-
-    RecentTradesUpdate:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: "The unique identifier of the trade."
-        symbol:
-          type: string
-          description: "The symbol of the market where the trade occurred."
-        priceE9:
-          type: string
-          description: "The trade price in scientific notation with 9 decimal places of precision."
-        quantityE9:
-          type: string
-          description: "The quantity traded in scientific notation with 9 decimal places of precision."
-        quoteQuantityE9:
-          type: string
-          description: "The quote quantity traded in scientific notation with 9 decimal places of precision."
-        side:
-          $ref: '#/components/schemas/Side'
-        updatedAtMillis:
-          type: integer
-          format: int64
-          description: "The timestamp of the trade."
-      required:
-        - id
-        - symbol
-        - priceE9
-        - quantityE9
-        - quoteQuantityE9
-        - side
-        - updatedAtMillis
+        - trades      
 
     OrderbookDiffDepthUpdate:
       type: object
