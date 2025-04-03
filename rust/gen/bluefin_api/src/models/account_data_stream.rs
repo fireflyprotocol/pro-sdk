@@ -19,6 +19,8 @@ pub enum AccountDataStream {
     AccountOrderUpdate,
     #[serde(rename = "AccountTradeUpdate")]
     AccountTradeUpdate,
+    #[serde(rename = "AccountAggregatedTradeUpdate")]
+    AccountAggregatedTradeUpdate,
     #[serde(rename = "AccountPositionUpdate")]
     AccountPositionUpdate,
     #[serde(rename = "AccountUpdate")]
@@ -35,6 +37,7 @@ impl std::fmt::Display for AccountDataStream {
         match self {
             Self::AccountOrderUpdate => write!(f, "AccountOrderUpdate"),
             Self::AccountTradeUpdate => write!(f, "AccountTradeUpdate"),
+            Self::AccountAggregatedTradeUpdate => write!(f, "AccountAggregatedTradeUpdate"),
             Self::AccountPositionUpdate => write!(f, "AccountPositionUpdate"),
             Self::AccountUpdate => write!(f, "AccountUpdate"),
             Self::AccountTransactionUpdate => write!(f, "AccountTransactionUpdate"),

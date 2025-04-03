@@ -8,6 +8,8 @@ Represents the type of account data stream.
 
 * `ACCOUNTTRADEUPDATE` (value: `'AccountTradeUpdate'`)
 
+* `ACCOUNTAGGREGATEDTRADEUPDATE` (value: `'AccountAggregatedTradeUpdate'`)
+
 * `ACCOUNTPOSITIONUPDATE` (value: `'AccountPositionUpdate'`)
 
 * `ACCOUNTUPDATE` (value: `'AccountUpdate'`)

@@ -6,7 +6,7 @@ The payload of the message, which varies based on the event type.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**recent_trades** | [**List[RecentTradesUpdate]**](RecentTradesUpdate.md) |  | 
+**trades** | [**List[Trade]**](Trade.md) |  | 
 **symbol** | **str** | The symbol of the market for the partial depth update. | 
 **last_quantity_e9** | **str** | Last trade quantity (e9 format). | 
 **last_time_at_millis** | **int** | Last trade time in milliseconds. | 

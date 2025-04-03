@@ -3,6 +3,7 @@
 Cargo.toml
 README.md
 docs/Account.md
+docs/AccountAggregatedTradeUpdate.md
 docs/AccountAuthorizationRequest.md
 docs/AccountAuthorizationRequestSignedFields.md
 docs/AccountCommandFailureUpdate.md
@@ -68,13 +69,10 @@ docs/OrderbookPartialDepthUpdate.md
 docs/Position.md
 docs/PositionSide.md
 docs/PostCreateOrder202Response.md
-docs/RecentTradeUpdates.md
-docs/RecentTradesUpdate.md
 docs/RecentTradesUpdates.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/SelfTradePreventionType.md
-docs/Side.md
 docs/StreamsApi.md
 docs/SubscriptionResponseMessage.md
 docs/SubscriptionType.md
@@ -100,6 +98,7 @@ src/apis/streams_api.rs
 src/apis/trade_api.rs
 src/lib.rs
 src/models/account.rs
+src/models/account_aggregated_trade_update.rs
 src/models/account_authorization_request.rs
 src/models/account_authorization_request_signed_fields.rs
 src/models/account_command_failure_update.rs
@@ -163,13 +162,10 @@ src/models/orderbook_partial_depth_update.rs
 src/models/position.rs
 src/models/position_side.rs
 src/models/post_create_order_202_response.rs
-src/models/recent_trade_updates.rs
-src/models/recent_trades_update.rs
 src/models/recent_trades_updates.rs
 src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
 src/models/self_trade_prevention_type.rs
-src/models/side.rs
 src/models/subscription_response_message.rs
 src/models/subscription_type.rs
 src/models/ticker_all_update.rs

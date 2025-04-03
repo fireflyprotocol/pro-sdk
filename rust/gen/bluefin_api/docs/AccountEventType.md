@@ -6,6 +6,7 @@
 |---- | -----|
 | AccountUpdate | AccountUpdate |
 | AccountTradeUpdate | AccountTradeUpdate |
+| AccountAggregatedTradeUpdate | AccountAggregatedTradeUpdate |
 | AccountOrderUpdate | AccountOrderUpdate |
 | AccountPositionUpdate | AccountPositionUpdate |
 | AccountTransactionUpdate | AccountTransactionUpdate |

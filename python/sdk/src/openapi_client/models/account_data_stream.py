@@ -28,6 +28,7 @@ class AccountDataStream(str, Enum):
     """
     ACCOUNTORDERUPDATE = 'AccountOrderUpdate'
     ACCOUNTTRADEUPDATE = 'AccountTradeUpdate'
+    ACCOUNTAGGREGATEDTRADEUPDATE = 'AccountAggregatedTradeUpdate'
     ACCOUNTPOSITIONUPDATE = 'AccountPositionUpdate'
     ACCOUNTUPDATE = 'AccountUpdate'
     ACCOUNTTRANSACTIONUPDATE = 'AccountTransactionUpdate'

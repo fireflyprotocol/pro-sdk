@@ -15,6 +15,7 @@
 
 # import models into model package
 from openapi_client.models.account import Account
+from openapi_client.models.account_aggregated_trade_update import AccountAggregatedTradeUpdate
 from openapi_client.models.account_authorization_request import AccountAuthorizationRequest
 from openapi_client.models.account_authorization_request_signed_fields import AccountAuthorizationRequestSignedFields
 from openapi_client.models.account_command_failure_update import AccountCommandFailureUpdate
@@ -77,13 +78,10 @@ from openapi_client.models.orderbook_partial_depth_update import OrderbookPartia
 from openapi_client.models.position import Position
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.post_create_order202_response import PostCreateOrder202Response
-from openapi_client.models.recent_trade_updates import RecentTradeUpdates
-from openapi_client.models.recent_trades_update import RecentTradesUpdate
 from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
-from openapi_client.models.side import Side
 from openapi_client.models.subscription_response_message import SubscriptionResponseMessage
 from openapi_client.models.subscription_type import SubscriptionType
 from openapi_client.models.ticker_all_update import TickerAllUpdate
