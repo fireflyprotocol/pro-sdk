@@ -1,8 +1,23 @@
 # Python Bluefin Pro SDK
 
-## Example
+## Install the SDK 
+We will soon be publishing the library to a public repository on PyPI.  For now, you can pull the code with github as sumbodule
+and install it locally.  To do this, run the following commands:
+```bash 
+git submodule add git@github.com:fireflyprotocol/pro-sdk.git submodules/pro-sdk 
+```
 
-The ./example directory contains a full example of using the SDK, end-to-end.
+NOTE: Due to a limitation you need to use python version `3.12` or older.
+then using pip, install the SDK locally here is example pip requirements.txt contents:
+```text
+./submodules/pro-sdk/python/sdk
+```
+Run pip install to install the SDK locally:
+```bash
+pip install -r requirements.txt
+```
+
+Examples of usage are in the `python/example` directory.  The example is a simple script that
 
 ## Contributing
 
