@@ -28,6 +28,7 @@ class AccountEventType(str, Enum):
     """
     ACCOUNTUPDATE = 'AccountUpdate'
     ACCOUNTTRADEUPDATE = 'AccountTradeUpdate'
+    ACCOUNTAGGREGATEDTRADEUPDATE = 'AccountAggregatedTradeUpdate'
     ACCOUNTORDERUPDATE = 'AccountOrderUpdate'
     ACCOUNTPOSITIONUPDATE = 'AccountPositionUpdate'
     ACCOUNTTRANSACTIONUPDATE = 'AccountTransactionUpdate'

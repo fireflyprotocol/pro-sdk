@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
-from openapi_client.models.side import Side
+from openapi_client.models.position_side import PositionSide
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,7 +35,7 @@ class AccountPositionUpdate(BaseModel):
     notional_value_e9: StrictStr = Field(description="The notional value of the position.", alias="notionalValueE9")
     size_e9: StrictStr = Field(description="The size of the position.", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="The unrealized profit and loss for the position.", alias="unrealizedPnlE9")
-    side: Side
+    side: PositionSide
     initial_margin_e9: StrictStr = Field(description="The initial margin required for the position.", alias="initialMarginE9")
     maintenance_margin_e9: StrictStr = Field(description="The maintenance margin required for the position.", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="Indicates if the position is isolated.", alias="isIsolated")

@@ -23,7 +23,7 @@ from openapi_client.models.order_status import OrderStatus
 from openapi_client.models.order_time_in_force import OrderTimeInForce
 from openapi_client.models.order_type import OrderType
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
-from openapi_client.models.side import Side
+from openapi_client.models.trade_side import TradeSide
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -38,7 +38,7 @@ class ActiveOrderUpdate(BaseModel):
     price_e9: StrictStr = Field(description="The price of the order in scientific notation with 9 decimal places.", alias="priceE9")
     quantity_e9: StrictStr = Field(description="The quantity of the order in scientific notation with 9 decimal places.", alias="quantityE9")
     filled_quantity_e9: StrictStr = Field(description="The filled quantity of the order in scientific notation with 9 decimal places.", alias="filledQuantityE9")
-    side: Side
+    side: TradeSide
     leverage_e9: StrictStr = Field(description="The leverage of the order in scientific notation with 9 decimal places.", alias="leverageE9")
     is_isolated: StrictBool = Field(description="Indicates if the order is isolated.", alias="isIsolated")
     salt: StrictStr = Field(description="A unique salt for the order.")

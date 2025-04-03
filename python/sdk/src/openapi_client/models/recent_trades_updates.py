@@ -17,9 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List
-from openapi_client.models.recent_trades_update import RecentTradesUpdate
+from openapi_client.models.trade import Trade
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class RecentTradesUpdates(BaseModel):
     """
     RecentTradesUpdates
     """ # noqa: E501
-    recent_trades: List[RecentTradesUpdate] = Field(alias="recentTrades")
-    __properties: ClassVar[List[str]] = ["recentTrades"]
+    trades: List[Trade]
+    __properties: ClassVar[List[str]] = ["trades"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,13 +69,13 @@ class RecentTradesUpdates(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in recent_trades (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in trades (list)
         _items = []
-        if self.recent_trades:
-            for _item_recent_trades in self.recent_trades:
-                if _item_recent_trades:
-                    _items.append(_item_recent_trades.to_dict())
-            _dict['recentTrades'] = _items
+        if self.trades:
+            for _item_trades in self.trades:
+                if _item_trades:
+                    _items.append(_item_trades.to_dict())
+            _dict['trades'] = _items
         return _dict
 
     @classmethod
@@ -88,7 +88,7 @@ class RecentTradesUpdates(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "recentTrades": [RecentTradesUpdate.from_dict(_item) for _item in obj["recentTrades"]] if obj.get("recentTrades") is not None else None
+            "trades": [Trade.from_dict(_item) for _item in obj["trades"]] if obj.get("trades") is not None else None
         })
         return _obj
 

@@ -17,6 +17,7 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
+from openapi_client.models.account_aggregated_trade_update import AccountAggregatedTradeUpdate
 from openapi_client.models.account_command_failure_update import AccountCommandFailureUpdate
 from openapi_client.models.account_order_update import AccountOrderUpdate
 from openapi_client.models.account_position_update import AccountPositionUpdate
@@ -27,7 +28,7 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-ACCOUNTSTREAMMESSAGEPAYLOAD_ONE_OF_SCHEMAS = ["AccountCommandFailureUpdate", "AccountOrderUpdate", "AccountPositionUpdate", "AccountTradeUpdate", "AccountTransactionUpdate", "AccountUpdate"]
+ACCOUNTSTREAMMESSAGEPAYLOAD_ONE_OF_SCHEMAS = ["AccountAggregatedTradeUpdate", "AccountCommandFailureUpdate", "AccountOrderUpdate", "AccountPositionUpdate", "AccountTradeUpdate", "AccountTransactionUpdate", "AccountUpdate"]
 
 class AccountStreamMessagePayload(BaseModel):
     """
@@ -37,16 +38,18 @@ class AccountStreamMessagePayload(BaseModel):
     oneof_schema_1_validator: Optional[AccountUpdate] = None
     # data type: AccountTradeUpdate
     oneof_schema_2_validator: Optional[AccountTradeUpdate] = None
+    # data type: AccountAggregatedTradeUpdate
+    oneof_schema_3_validator: Optional[AccountAggregatedTradeUpdate] = None
     # data type: AccountOrderUpdate
-    oneof_schema_3_validator: Optional[AccountOrderUpdate] = None
+    oneof_schema_4_validator: Optional[AccountOrderUpdate] = None
     # data type: AccountTransactionUpdate
-    oneof_schema_4_validator: Optional[AccountTransactionUpdate] = None
+    oneof_schema_5_validator: Optional[AccountTransactionUpdate] = None
     # data type: AccountPositionUpdate
-    oneof_schema_5_validator: Optional[AccountPositionUpdate] = None
+    oneof_schema_6_validator: Optional[AccountPositionUpdate] = None
     # data type: AccountCommandFailureUpdate
-    oneof_schema_6_validator: Optional[AccountCommandFailureUpdate] = None
-    actual_instance: Optional[Union[AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate]] = None
-    one_of_schemas: Set[str] = { "AccountCommandFailureUpdate", "AccountOrderUpdate", "AccountPositionUpdate", "AccountTradeUpdate", "AccountTransactionUpdate", "AccountUpdate" }
+    oneof_schema_7_validator: Optional[AccountCommandFailureUpdate] = None
+    actual_instance: Optional[Union[AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate]] = None
+    one_of_schemas: Set[str] = { "AccountAggregatedTradeUpdate", "AccountCommandFailureUpdate", "AccountOrderUpdate", "AccountPositionUpdate", "AccountTradeUpdate", "AccountTransactionUpdate", "AccountUpdate" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -79,6 +82,11 @@ class AccountStreamMessagePayload(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `AccountTradeUpdate`")
         else:
             match += 1
+        # validate data type: AccountAggregatedTradeUpdate
+        if not isinstance(v, AccountAggregatedTradeUpdate):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `AccountAggregatedTradeUpdate`")
+        else:
+            match += 1
         # validate data type: AccountOrderUpdate
         if not isinstance(v, AccountOrderUpdate):
             error_messages.append(f"Error! Input type `{type(v)}` is not `AccountOrderUpdate`")
@@ -101,10 +109,10 @@ class AccountStreamMessagePayload(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in AccountStreamMessagePayload with oneOf schemas: AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in AccountStreamMessagePayload with oneOf schemas: AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in AccountStreamMessagePayload with oneOf schemas: AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in AccountStreamMessagePayload with oneOf schemas: AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -128,6 +136,12 @@ class AccountStreamMessagePayload(BaseModel):
         # deserialize data into AccountTradeUpdate
         try:
             instance.actual_instance = AccountTradeUpdate.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into AccountAggregatedTradeUpdate
+        try:
+            instance.actual_instance = AccountAggregatedTradeUpdate.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
@@ -158,10 +172,10 @@ class AccountStreamMessagePayload(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into AccountStreamMessagePayload with oneOf schemas: AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into AccountStreamMessagePayload with oneOf schemas: AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into AccountStreamMessagePayload with oneOf schemas: AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into AccountStreamMessagePayload with oneOf schemas: AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -175,7 +189,7 @@ class AccountStreamMessagePayload(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], AccountAggregatedTradeUpdate, AccountCommandFailureUpdate, AccountOrderUpdate, AccountPositionUpdate, AccountTradeUpdate, AccountTransactionUpdate, AccountUpdate]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

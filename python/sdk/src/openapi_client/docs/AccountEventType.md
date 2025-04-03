@@ -8,6 +8,8 @@ The type of account-related event.
 
 * `ACCOUNTTRADEUPDATE` (value: `'AccountTradeUpdate'`)
 
+* `ACCOUNTAGGREGATEDTRADEUPDATE` (value: `'AccountAggregatedTradeUpdate'`)
+
 * `ACCOUNTORDERUPDATE` (value: `'AccountOrderUpdate'`)
 
 * `ACCOUNTPOSITIONUPDATE` (value: `'AccountPositionUpdate'`)

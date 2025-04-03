@@ -9,6 +9,7 @@ openapi_client/api_client.py
 openapi_client/api_response.py
 openapi_client/configuration.py
 openapi_client/docs/Account.md
+openapi_client/docs/AccountAggregatedTradeUpdate.md
 openapi_client/docs/AccountAuthorizationRequest.md
 openapi_client/docs/AccountAuthorizationRequestSignedFields.md
 openapi_client/docs/AccountCommandFailureUpdate.md
@@ -74,13 +75,10 @@ openapi_client/docs/OrderbookPartialDepthUpdate.md
 openapi_client/docs/Position.md
 openapi_client/docs/PositionSide.md
 openapi_client/docs/PostCreateOrder202Response.md
-openapi_client/docs/RecentTradeUpdates.md
-openapi_client/docs/RecentTradesUpdate.md
 openapi_client/docs/RecentTradesUpdates.md
 openapi_client/docs/RefreshTokenRequest.md
 openapi_client/docs/RefreshTokenResponse.md
 openapi_client/docs/SelfTradePreventionType.md
-openapi_client/docs/Side.md
 openapi_client/docs/StreamsApi.md
 openapi_client/docs/SubscriptionResponseMessage.md
 openapi_client/docs/SubscriptionType.md
@@ -99,6 +97,7 @@ openapi_client/docs/WithdrawRequestSignedFields.md
 openapi_client/exceptions.py
 openapi_client/models/__init__.py
 openapi_client/models/account.py
+openapi_client/models/account_aggregated_trade_update.py
 openapi_client/models/account_authorization_request.py
 openapi_client/models/account_authorization_request_signed_fields.py
 openapi_client/models/account_command_failure_update.py
@@ -161,13 +160,10 @@ openapi_client/models/orderbook_partial_depth_update.py
 openapi_client/models/position.py
 openapi_client/models/position_side.py
 openapi_client/models/post_create_order202_response.py
-openapi_client/models/recent_trade_updates.py
-openapi_client/models/recent_trades_update.py
 openapi_client/models/recent_trades_updates.py
 openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
 openapi_client/models/self_trade_prevention_type.py
-openapi_client/models/side.py
 openapi_client/models/subscription_response_message.py
 openapi_client/models/subscription_type.py
 openapi_client/models/ticker_all_update.py
@@ -183,4 +179,5 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_account_aggregated_trade_update.py
 openapi_client_README.md
