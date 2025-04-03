@@ -7,7 +7,7 @@ and install it locally.  To do this, run the following commands:
 git submodule add git@github.com:fireflyprotocol/bluefin-pro-sdk.git submodules/bluefin-pro-sdk 
 ```
 
-NOTE: Due to a limitation you need to use `3.12` or orlder
+NOTE: Due to a limitation you need to use python version `3.12` or older.
 then using pip, install the SDK locally here is example pip requirements.txt contents:
 ```text
 ./submodules/pro-sdk/python/sdk
