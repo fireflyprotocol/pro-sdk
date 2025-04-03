@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **price_e9** | **String** | The price of the order in scientific notation with 9 decimal places. | 
 **quantity_e9** | **String** | The quantity of the order in scientific notation with 9 decimal places. | 
 **filled_quantity_e9** | **String** | The filled quantity of the order in scientific notation with 9 decimal places. | 
-**side** | [**models::Side**](Side.md) |  | 
+**side** | [**models::TradeSide**](TradeSide.md) |  | 
 **leverage_e9** | **String** | The leverage of the order in scientific notation with 9 decimal places. | 
 **is_isolated** | **bool** | Indicates if the order is isolated. | 
 **salt** | **String** | A unique salt for the order. | 

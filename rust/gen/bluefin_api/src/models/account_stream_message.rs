@@ -15,6 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "event")]
 pub enum AccountStreamMessage {
+    #[serde(rename="AccountAggregatedTradeUpdate")]
+    AccountAggregatedTradeUpdate {
+        #[serde(rename = "reason")]
+        reason: models::AccountEventReason,
+        #[serde(rename = "payload")]
+        payload: models::AccountStreamMessagePayload,
+    },
     #[serde(rename="AccountCommandFailureUpdate")]
     AccountCommandFailureUpdate {
         #[serde(rename = "reason")]
@@ -61,7 +68,7 @@ pub enum AccountStreamMessage {
 
 impl Default for AccountStreamMessage {
     fn default() -> Self {
-        Self::AccountCommandFailureUpdate {
+        Self::AccountAggregatedTradeUpdate {
             reason: Default::default(),
             payload: Default::default(),
         }

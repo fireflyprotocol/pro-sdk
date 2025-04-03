@@ -14,69 +14,15 @@ use serde::{Deserialize, Serialize};
 /// AccountTradeUpdate : Details about a trade in the account.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountTradeUpdate {
-    /// The unique identifier for the trade.
-    #[serde(rename = "tradeId")]
-    pub trade_id: String,
-    /// The client order ID associated with the trade.
-    #[serde(rename = "clientOrderId", skip_serializing_if = "Option::is_none")]
-    pub client_order_id: Option<String>,
-    /// The symbol of the market.
-    #[serde(rename = "symbol")]
-    pub symbol: String,
-    /// The hash of the order.
-    #[serde(rename = "orderHash")]
-    pub order_hash: String,
-    #[serde(rename = "type")]
-    pub r#type: models::TradeType,
-    #[serde(rename = "tradeSide")]
-    pub trade_side: models::Side,
-    /// Indicates if the trade was a maker order.
-    #[serde(rename = "isMaker")]
-    pub is_maker: bool,
-    /// The price of the trade.
-    #[serde(rename = "priceE9")]
-    pub price_e9: String,
-    /// The quantity of the trade.
-    #[serde(rename = "quantityE9")]
-    pub quantity_e9: String,
-    /// The quote quantity of the trade.
-    #[serde(rename = "quoteQuantityE9")]
-    pub quote_quantity_e9: String,
-    /// The realized profit and loss.
-    #[serde(rename = "realizedPnlE9")]
-    pub realized_pnl_e9: String,
-    #[serde(rename = "positionSide")]
-    pub position_side: models::Side,
-    /// The trading fee for the trade.
-    #[serde(rename = "tradingFeeE9")]
-    pub trading_fee_e9: String,
-    /// The market symbol of the asset used for the trading fee.
-    #[serde(rename = "tradingFeeAssetSymbol")]
-    pub trading_fee_asset_symbol: String,
-    /// The timestamp when the trade was executed in milliseconds.
-    #[serde(rename = "executedAtMillis")]
-    pub executed_at_millis: i64,
+    #[serde(rename = "trade")]
+    pub trade: models::Trade,
 }
 
 impl AccountTradeUpdate {
     /// Details about a trade in the account.
-    pub fn new(trade_id: String, symbol: String, order_hash: String, r#type: models::TradeType, trade_side: models::Side, is_maker: bool, price_e9: String, quantity_e9: String, quote_quantity_e9: String, realized_pnl_e9: String, position_side: models::Side, trading_fee_e9: String, trading_fee_asset_symbol: String, executed_at_millis: i64) -> AccountTradeUpdate {
+    pub fn new(trade: models::Trade) -> AccountTradeUpdate {
         AccountTradeUpdate {
-            trade_id,
-            client_order_id: None,
-            symbol,
-            order_hash,
-            r#type,
-            trade_side,
-            is_maker,
-            price_e9,
-            quantity_e9,
-            quote_quantity_e9,
-            realized_pnl_e9,
-            position_side,
-            trading_fee_e9,
-            trading_fee_asset_symbol,
-            executed_at_millis,
+            trade,
         }
     }
 }

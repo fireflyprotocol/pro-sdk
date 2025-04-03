@@ -19,6 +19,8 @@ pub enum AccountEventType {
     AccountUpdate,
     #[serde(rename = "AccountTradeUpdate")]
     AccountTradeUpdate,
+    #[serde(rename = "AccountAggregatedTradeUpdate")]
+    AccountAggregatedTradeUpdate,
     #[serde(rename = "AccountOrderUpdate")]
     AccountOrderUpdate,
     #[serde(rename = "AccountPositionUpdate")]
@@ -35,6 +37,7 @@ impl std::fmt::Display for AccountEventType {
         match self {
             Self::AccountUpdate => write!(f, "AccountUpdate"),
             Self::AccountTradeUpdate => write!(f, "AccountTradeUpdate"),
+            Self::AccountAggregatedTradeUpdate => write!(f, "AccountAggregatedTradeUpdate"),
             Self::AccountOrderUpdate => write!(f, "AccountOrderUpdate"),
             Self::AccountPositionUpdate => write!(f, "AccountPositionUpdate"),
             Self::AccountTransactionUpdate => write!(f, "AccountTransactionUpdate"),
