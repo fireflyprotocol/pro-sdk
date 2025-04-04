@@ -35,9 +35,9 @@ class TestTrade(unittest.TestCase):
         model = Trade()
         if include_optional:
             return Trade(
-                trade_id = '',
+                id = '',
                 client_order_id = '25851813',
-                symbol = '',
+                symbol = '291',
                 order_hash = '',
                 trade_type = 'ORDER',
                 side = 'LONG',
@@ -48,24 +48,19 @@ class TestTrade(unittest.TestCase):
                 realized_pnl_e9 = '-9000000000',
                 position_side = 'LONG',
                 trading_fee_e9 = '-780000000',
-                trading_fee_asset = 'USDC',
-                gas_fee_e9 = 0,
+                trading_fee_asset = 'USDC, BLUE',
+                gas_fee_e9 = '1234',
                 gas_fee_asset = 'USDC',
-                executed_at_milli = 1569514978020
+                executed_at_millis = 1569514978020
             )
         else:
             return Trade(
-                trade_id = '',
-                trade_type = 'ORDER',
+                id = '',
                 side = 'LONG',
-                is_maker = False,
                 price_e9 = '7819010000000',
                 quantity_e9 = '20000000000',
                 quote_quantity_e9 = '150000000000000',
-                position_side = 'LONG',
-                trading_fee_e9 = '-780000000',
-                trading_fee_asset = 'USDC',
-                executed_at_milli = 1569514978020,
+                executed_at_millis = 1569514978020,
         )
         """
 

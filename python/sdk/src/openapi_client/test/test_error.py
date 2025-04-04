@@ -35,6 +35,7 @@ class TestError(unittest.TestCase):
         model = Error()
         if include_optional:
             return Error(
+                error_code = '',
                 message = ''
             )
         else:

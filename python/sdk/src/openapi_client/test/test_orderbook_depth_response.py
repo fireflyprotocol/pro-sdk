@@ -37,7 +37,7 @@ class TestOrderbookDepthResponse(unittest.TestCase):
             return OrderbookDepthResponse(
                 symbol = '1193046',
                 last_update_id = 56,
-                last_updated_at_millis = 56,
+                updated_at_millis = 56,
                 response_sent_at_millis = 56,
                 best_bid_price_e9 = '',
                 best_bid_quantity_e9 = '',
@@ -50,7 +50,7 @@ class TestOrderbookDepthResponse(unittest.TestCase):
             return OrderbookDepthResponse(
                 symbol = '1193046',
                 last_update_id = 56,
-                last_updated_at_millis = 56,
+                updated_at_millis = 56,
                 response_sent_at_millis = 56,
                 best_bid_price_e9 = '',
                 best_bid_quantity_e9 = '',

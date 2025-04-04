@@ -36,8 +36,8 @@ class TestAccount(unittest.TestCase):
         if include_optional:
             return Account(
                 trading_fees = openapi_client.models.trading_fees.TradingFees(
-                    maker_fee_e9 = '1000000',
-                    taker_fee_e9 = '1000000',
+                    maker_fee_e9 = '1000000', 
+                    taker_fee_e9 = '1000000', 
                     is_applied = True, ),
                 can_trade = True,
                 can_deposit = True,
@@ -46,45 +46,50 @@ class TestAccount(unittest.TestCase):
                 total_initial_margin_required_e9 = '1000000000',
                 total_open_order_initial_margin_required_e9 = '1000000000',
                 initial_margin_available_e9 = '1000000000',
-                total_maint_margin_required_e9 = '5000000000',
-                maint_margin_available_e9 = '1000000000',
-                account_maint_margin_ratio_e9 = '1000000000',
+                total_maintenance_margin_required_e9 = '5000000000',
+                maintenance_margin_available_e9 = '1000000000',
+                account_maintenance_margin_ratio_e9 = '1000000000',
                 account_leverage_e9 = '1000000000',
                 total_unrealized_pnl_e9 = '2000000000',
                 total_cross_unrealized_pnl_e9 = '3000000000',
-                last_updated_at_millis = 1627872345678,
+                updated_at_millis = 1627872345678,
                 assets = [
                     openapi_client.models.asset.Asset(
-                        symbol = '',
-                        quantity_e9 = '6000000000',
-                        effective_balance_e9 = '6000000000',
-                        max_withdraw_quantity_e9 = '3000000000',
-                        last_updated_at_millis = 1627872345678, )
+                        symbol = '', 
+                        quantity_e9 = '', 
+                        effective_balance_e9 = '', 
+                        max_withdraw_quantity_e9 = '', 
+                        updated_at_millis = 56, )
                     ],
                 positions = [
                     openapi_client.models.position.Position(
-                        symbol = '',
-                        avg_entry_price_e9 = '400000000000',
-                        leverage_e9 = '100000000000',
-                        liquidation_price_e9 = '0',
-                        mark_price_e9 = '667950671178',
-                        notional_value_e9 = '0',
-                        max_notional_value_e9 = '20000000000000',
-                        position_size_e9 = '100000000',
-                        unrealized_pnl_e9 = '-1000000000',
-                        position_side = 'LONG',
-                        initial_margin_e9 = '0',
-                        maint_margin_e9 = '0',
-                        is_isolated = True,
-                        isolated_margin_e9 = '1000000000',
-                        last_updated_at_millis = 1733899435274, )
+                        symbol = '', 
+                        avg_entry_price_e9 = '400000000000', 
+                        leverage_e9 = '100000000000', 
+                        liquidation_price_e9 = '0', 
+                        mark_price_e9 = '667950671178', 
+                        notional_value_e9 = '0', 
+                        size_e9 = '100000000', 
+                        unrealized_pnl_e9 = '-1000000000', 
+                        side = 'LONG', 
+                        initial_margin_e9 = '0', 
+                        maintenance_margin_e9 = '0', 
+                        is_isolated = True, 
+                        isolated_margin_e9 = '1000000000', 
+                        updated_at_millis = 1733899435274, 
+                        funding_rate_payment_all_time_e9 = '0', 
+                        funding_rate_payment_since_change_e9 = '0', 
+                        funding_rate_payment_since_opened_e9 = '0', )
+                    ],
+                authorized_accounts = [
+                    ''
                     ]
             )
         else:
             return Account(
                 trading_fees = openapi_client.models.trading_fees.TradingFees(
-                    maker_fee_e9 = '1000000',
-                    taker_fee_e9 = '1000000',
+                    maker_fee_e9 = '1000000', 
+                    taker_fee_e9 = '1000000', 
                     is_applied = True, ),
                 can_trade = True,
                 can_deposit = True,
@@ -93,38 +98,43 @@ class TestAccount(unittest.TestCase):
                 total_initial_margin_required_e9 = '1000000000',
                 total_open_order_initial_margin_required_e9 = '1000000000',
                 initial_margin_available_e9 = '1000000000',
-                total_maint_margin_required_e9 = '5000000000',
-                maint_margin_available_e9 = '1000000000',
-                account_maint_margin_ratio_e9 = '1000000000',
+                total_maintenance_margin_required_e9 = '5000000000',
+                maintenance_margin_available_e9 = '1000000000',
+                account_maintenance_margin_ratio_e9 = '1000000000',
                 account_leverage_e9 = '1000000000',
                 total_unrealized_pnl_e9 = '2000000000',
                 total_cross_unrealized_pnl_e9 = '3000000000',
-                last_updated_at_millis = 1627872345678,
+                updated_at_millis = 1627872345678,
                 assets = [
                     openapi_client.models.asset.Asset(
-                        symbol = '',
-                        quantity_e9 = '6000000000',
-                        effective_balance_e9 = '6000000000',
-                        max_withdraw_quantity_e9 = '3000000000',
-                        last_updated_at_millis = 1627872345678, )
+                        symbol = '', 
+                        quantity_e9 = '', 
+                        effective_balance_e9 = '', 
+                        max_withdraw_quantity_e9 = '', 
+                        updated_at_millis = 56, )
                     ],
                 positions = [
                     openapi_client.models.position.Position(
-                        symbol = '',
-                        avg_entry_price_e9 = '400000000000',
-                        leverage_e9 = '100000000000',
-                        liquidation_price_e9 = '0',
-                        mark_price_e9 = '667950671178',
-                        notional_value_e9 = '0',
-                        max_notional_value_e9 = '20000000000000',
-                        position_size_e9 = '100000000',
-                        unrealized_pnl_e9 = '-1000000000',
-                        position_side = 'LONG',
-                        initial_margin_e9 = '0',
-                        maint_margin_e9 = '0',
-                        is_isolated = True,
-                        isolated_margin_e9 = '1000000000',
-                        last_updated_at_millis = 1733899435274, )
+                        symbol = '', 
+                        avg_entry_price_e9 = '400000000000', 
+                        leverage_e9 = '100000000000', 
+                        liquidation_price_e9 = '0', 
+                        mark_price_e9 = '667950671178', 
+                        notional_value_e9 = '0', 
+                        size_e9 = '100000000', 
+                        unrealized_pnl_e9 = '-1000000000', 
+                        side = 'LONG', 
+                        initial_margin_e9 = '0', 
+                        maintenance_margin_e9 = '0', 
+                        is_isolated = True, 
+                        isolated_margin_e9 = '1000000000', 
+                        updated_at_millis = 1733899435274, 
+                        funding_rate_payment_all_time_e9 = '0', 
+                        funding_rate_payment_since_change_e9 = '0', 
+                        funding_rate_payment_since_opened_e9 = '0', )
+                    ],
+                authorized_accounts = [
+                    ''
                     ],
         )
         """

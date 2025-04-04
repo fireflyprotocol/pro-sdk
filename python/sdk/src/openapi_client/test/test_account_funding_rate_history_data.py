@@ -35,18 +35,21 @@ class TestAccountFundingRateHistoryData(unittest.TestCase):
         model = AccountFundingRateHistoryData()
         if include_optional:
             return AccountFundingRateHistoryData(
-                id = '9689322392',
                 payment_amount_e9 = '1000000',
+                position_side = 'LONG',
+                rate_e9 = '10000000',
                 symbol = '0x123456789abcdef',
-                executed_at = 1569514978020,
-                computed_at = 1569514978020
+                executed_at_millis = 1569514978020,
+                computed_at_millis = 1569514978020
             )
         else:
             return AccountFundingRateHistoryData(
-                id = '9689322392',
                 payment_amount_e9 = '1000000',
-                executed_at = 1569514978020,
-                computed_at = 1569514978020,
+                position_side = 'LONG',
+                rate_e9 = '10000000',
+                symbol = '0x123456789abcdef',
+                executed_at_millis = 1569514978020,
+                computed_at_millis = 1569514978020,
         )
         """
 

@@ -54,6 +54,20 @@ class TestTradeApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
+    async def test_put_authorize_account(self) -> None:
+        """Test case for put_authorize_account
+
+        Authorizes an account
+        """
+        pass
+
+    async def test_put_deauthorize_account(self) -> None:
+        """Test case for put_deauthorize_account
+
+        Deauthorizes an account
+        """
+        pass
+
     async def test_put_leverage_update(self) -> None:
         """Test case for put_leverage_update
 

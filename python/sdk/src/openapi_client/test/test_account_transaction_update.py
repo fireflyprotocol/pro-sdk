@@ -36,15 +36,17 @@ class TestAccountTransactionUpdate(unittest.TestCase):
         if include_optional:
             return AccountTransactionUpdate(
                 symbol = '',
-                transaction_type = 'DEPOSIT',
+                transaction_type = 'TRANSFER',
                 amount_e9 = '',
                 asset_symbol = '',
-                trade_id = ''
+                trade_id = '',
+                executed_at_millis = 56
             )
         else:
             return AccountTransactionUpdate(
-                transaction_type = 'DEPOSIT',
+                transaction_type = 'TRANSFER',
                 amount_e9 = '',
+                executed_at_millis = 56,
         )
         """
 
