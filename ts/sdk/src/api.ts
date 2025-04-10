@@ -921,6 +921,90 @@ export interface ActiveOrderUpdate {
 
 
 /**
+ * 
+ * @export
+ * @interface AdjustIsolatedMarginRequest
+ */
+export interface AdjustIsolatedMarginRequest {
+    /**
+     * 
+     * @type {AdjustIsolatedMarginRequestSignedFields}
+     * @memberof AdjustIsolatedMarginRequest
+     */
+    'signedFields': AdjustIsolatedMarginRequestSignedFields;
+    /**
+     * The signature of the request, encoded from the signedFields
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequest
+     */
+    'signature': string;
+}
+/**
+ * 
+ * @export
+ * @interface AdjustIsolatedMarginRequestSignedFields
+ */
+export interface AdjustIsolatedMarginRequestSignedFields {
+    /**
+     * the ID of the internal datastore for the target network
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'idsId': string;
+    /**
+     * The account address of the account for which to adjust margin
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'accountAddress': string;
+    /**
+     * The symbol of the isolated position for which to adjust margin
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'symbol': string;
+    /**
+     * 
+     * @type {AdjustMarginOperation}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'operation': AdjustMarginOperation;
+    /**
+     * The quantity of margin to adjust for the isolated position
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'quantityE9': string;
+    /**
+     * The random generated SALT. Should always be a number
+     * @type {string}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'salt': string;
+    /**
+     * The timestamp in millis at which the request was signed
+     * @type {number}
+     * @memberof AdjustIsolatedMarginRequestSignedFields
+     */
+    'signedAtMillis': number;
+}
+
+
+/**
+ * The operation to perform on the margin
+ * @export
+ * @enum {string}
+ */
+
+export const AdjustMarginOperation = {
+    Add: 'ADD',
+    Subtract: 'SUBTRACT'
+} as const;
+
+export type AdjustMarginOperation = typeof AdjustMarginOperation[keyof typeof AdjustMarginOperation];
+
+
+/**
  * Details about an asset in the account.
  * @export
  * @interface Asset
@@ -5290,6 +5374,46 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
+         * Adjust margin for an isolated position for a symbol
+         * @summary Adjust margin for an isolated position for a symbol
+         * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAdjustIsolatedMargin: async (adjustIsolatedMarginRequest: AdjustIsolatedMarginRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'adjustIsolatedMarginRequest' is not null or undefined
+            assertParamExists('putAdjustIsolatedMargin', 'adjustIsolatedMarginRequest', adjustIsolatedMarginRequest)
+            const localVarPath = `/api/v1/trade/adjustIsolatedMargin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(adjustIsolatedMarginRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Authorizes an account to trade, perform liquidations and more, on behalf of another account
          * @summary Authorizes an account
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
@@ -5472,6 +5596,19 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Adjust margin for an isolated position for a symbol
+         * @summary Adjust margin for an isolated position for a symbol
+         * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putAdjustIsolatedMargin(adjustIsolatedMarginRequest: AdjustIsolatedMarginRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putAdjustIsolatedMargin(adjustIsolatedMarginRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TradeApi.putAdjustIsolatedMargin']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Authorizes an account to trade, perform liquidations and more, on behalf of another account
          * @summary Authorizes an account
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
@@ -5561,6 +5698,16 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.postWithdraw(withdrawRequest, options).then((request) => request(axios, basePath));
         },
         /**
+         * Adjust margin for an isolated position for a symbol
+         * @summary Adjust margin for an isolated position for a symbol
+         * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAdjustIsolatedMargin(adjustIsolatedMarginRequest: AdjustIsolatedMarginRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.putAdjustIsolatedMargin(adjustIsolatedMarginRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Authorizes an account to trade, perform liquidations and more, on behalf of another account
          * @summary Authorizes an account
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
@@ -5646,6 +5793,18 @@ export class TradeApi extends BaseAPI {
      */
     public postWithdraw(withdrawRequest: WithdrawRequest, options?: RawAxiosRequestConfig) {
         return TradeApiFp(this.configuration).postWithdraw(withdrawRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adjust margin for an isolated position for a symbol
+     * @summary Adjust margin for an isolated position for a symbol
+     * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradeApi
+     */
+    public putAdjustIsolatedMargin(adjustIsolatedMarginRequest: AdjustIsolatedMarginRequest, options?: RawAxiosRequestConfig) {
+        return TradeApiFp(this.configuration).putAdjustIsolatedMargin(adjustIsolatedMarginRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

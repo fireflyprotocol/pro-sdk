@@ -26,6 +26,9 @@ docs/AccountTradeUpdate.md
 docs/AccountTransactionUpdate.md
 docs/AccountUpdate.md
 docs/ActiveOrderUpdate.md
+docs/AdjustIsolatedMarginRequest.md
+docs/AdjustIsolatedMarginRequestSignedFields.md
+docs/AdjustMarginOperation.md
 docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
@@ -120,6 +123,9 @@ src/models/account_trade_update.rs
 src/models/account_transaction_update.rs
 src/models/account_update.rs
 src/models/active_order_update.rs
+src/models/adjust_isolated_margin_request.rs
+src/models/adjust_isolated_margin_request_signed_fields.rs
+src/models/adjust_margin_operation.rs
 src/models/asset.rs
 src/models/asset_config.rs
 src/models/cancel_orders_request.rs

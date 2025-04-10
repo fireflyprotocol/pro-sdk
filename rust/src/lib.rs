@@ -1,4 +1,5 @@
 mod account_authorization;
+mod adjust_isolated_margin;
 mod arithmetic;
 mod authenticate;
 mod create_order;

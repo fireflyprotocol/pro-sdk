@@ -9,7 +9,7 @@ from typing import Callable, Awaitable, Any
 
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
-    AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest, AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields
+    AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest, AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields, AdjustIsolatedMarginRequest, AdjustIsolatedMarginRequestSignedFields, AdjustMarginOperation
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
@@ -140,7 +140,6 @@ class BluefinProSdk:
         return await self._trade_api.get_open_orders(market_address)
 
     async def update_leverage(self, symbol: str, leverage_e9: str):
-
         signed_fields = AccountPositionLeverageUpdateRequestSignedFields(
             account_address=self.current_account_address,
             symbol=symbol,
@@ -154,6 +153,24 @@ class BluefinProSdk:
 
         return await self._trade_api.put_leverage_update(
             AccountPositionLeverageUpdateRequest(
+                signed_fields=signed_fields, signature=signature, request_hash="")
+        )
+        
+    async def adjust_isolated_margin(self, symbol: str, quantity_e9: str, add: bool):
+        signed_fields = AdjustIsolatedMarginRequestSignedFields(
+            account_address=self.current_account_address,
+            symbol=symbol,
+            quantity_e9=quantity_e9,
+            operation=AdjustMarginOperation.ADD if add else AdjustMarginOperation.SUBTRACT,
+            salt=generate_salt(),
+            signed_at_millis=int(time.time() * 1000),
+            ids_id=self.__contracts_config.ids_id
+        )
+
+        signature = self.sign.adjust_isolated_margin(signed_fields)
+
+        return await self._trade_api.put_adjust_isolated_margin(
+            AdjustIsolatedMarginRequest(
                 signed_fields=signed_fields, signature=signature, request_hash="")
         )
 

@@ -58,6 +58,9 @@ from openapi_client.models.account_trade_update import AccountTradeUpdate
 from openapi_client.models.account_transaction_update import AccountTransactionUpdate
 from openapi_client.models.account_update import AccountUpdate
 from openapi_client.models.active_order_update import ActiveOrderUpdate
+from openapi_client.models.adjust_isolated_margin_request import AdjustIsolatedMarginRequest
+from openapi_client.models.adjust_isolated_margin_request_signed_fields import AdjustIsolatedMarginRequestSignedFields
+from openapi_client.models.adjust_margin_operation import AdjustMarginOperation
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest

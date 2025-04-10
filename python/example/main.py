@@ -211,6 +211,9 @@ async def main():
 
                 # ========= Deauthorize Account =========
                 await client.deauthorize_account(sui_wallet.sui_address)
+                
+                # ========= Adjust Isolated Margin =========
+                await client.adjust_isolated_margin(market.symbol, "10000000000", True)
 
                 # Listen for WebSocket events,logging them as they arrive, for a few
                 # minutes before shutting down.
