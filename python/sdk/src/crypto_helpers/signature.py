@@ -4,7 +4,9 @@ from hashlib import blake2b
 from openapi_client import WithdrawRequestSignedFields, \
     AccountPositionLeverageUpdateRequestSignedFields, \
     CreateOrderRequestSignedFields, \
-    AccountAuthorizationRequestSignedFields
+    AccountAuthorizationRequestSignedFields, \
+    AdjustIsolatedMarginRequestSignedFields, \
+    AdjustMarginOperation
 from openapi_client.models.login_request import LoginRequest
 
 from crypto_helpers.bcs import BCSSerializer
@@ -138,12 +140,12 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def adjust_margin(self, payload) -> str:
+    def adjust_isolated_margin(self, payload: AdjustIsolatedMarginRequestSignedFields) -> str:
         """
-        Signs adjust margin request
+        Signs adjust isolated margin request
 
         Args:
-            payload: adjust margin payload.
+            payload: adjust isolated margin payload.
 
         Returns:
             base 64 encoded signature bytes
@@ -152,13 +154,13 @@ class Signature:
         """
         data = {
             "type": "Bluefin Pro Margin Adjustment",
-            "ids": payload["ids_id"],
-            "account": payload["account_address"],
-            "market": payload["symbol"],
-            "add": payload["add"],
-            "amount": payload["amount_e9"],
-            "salt": str(payload["salt"]),
-            "signedAt": str(payload["signed_at_millis"])
+            "ids": payload.ids_id,
+            "account": payload.account_address,
+            "market": payload.symbol,
+            "add": payload.operation == AdjustMarginOperation.ADD,
+            "amount": payload.quantity_e9,
+            "salt": str(payload.salt),
+            "signedAt": str(payload.signed_at_millis)
         }
 
         message = self.create_personal_sign_message(data)
