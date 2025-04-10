@@ -72,6 +72,8 @@ paths:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1accounts~1authorize"
   /api/v1/trade/accounts/deauthorize:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1accounts~1deauthorize"
+  /api/v1/trade/adjustIsolatedMargin:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1adjustIsolatedMargin"
 
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"
