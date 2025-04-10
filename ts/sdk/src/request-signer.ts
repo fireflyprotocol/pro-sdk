@@ -9,6 +9,8 @@ import {
   CreateOrderRequestSignedFields,
   WithdrawRequestSignedFields,
   AccountAuthorizationRequestSignedFields,
+  AdjustMarginOperation,
+  AdjustIsolatedMarginRequestSignedFields,
 } from "./api";
 import {
   DryRunTransactionBlockResponse,
@@ -26,6 +28,7 @@ export interface IBluefinSigner {
   signOrderRequest: (fields: CreateOrderRequestSignedFields) => Promise<string>;
   signWithdrawRequest: (fields: WithdrawRequestSignedFields) => Promise<string>;
   signAccountAuthorizationRequest: (fields: AccountAuthorizationRequestSignedFields, isAuthorize: boolean) => Promise<string>;
+  signAdjustIsolatedMarginRequest: (fields: AdjustIsolatedMarginRequestSignedFields) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
   executeTx: (
     txb: TransactionBlock,
@@ -57,6 +60,7 @@ enum ClientPayloadType {
   OrderRequest = "Bluefin Pro Order",
   LeverageAdjustment = "Bluefin Pro Leverage Adjustment",
   AuthorizeAccount = "Bluefin Pro Authorize Account",
+  AdjustIsolatedMargin = "Bluefin Pro Margin Adjustment",
 }
 
 enum PositionType {
@@ -116,6 +120,17 @@ interface UIDeAuthorizeAccountRequest {
   account: string;
   user: string;
   status: boolean;
+  salt: string;
+  signedAt: string;
+}
+
+interface UIAdjustIsolatedMarginRequest {
+  type: string;
+  ids: string;
+  account: string;
+  market: string;
+  add: boolean;
+  amount: string;
   salt: string;
   signedAt: string;
 }
@@ -196,6 +211,21 @@ function toUIDeAuthorizeAccountRequest(
   };
 }
 
+function toUIAdjustIsolatedMarginRequest(
+  val: AdjustIsolatedMarginRequestSignedFields
+): UIAdjustIsolatedMarginRequest {
+  return {
+    type: ClientPayloadType.AdjustIsolatedMargin,
+    ids: val.idsId,
+    account: val.accountAddress,
+    market: val.symbol,
+    add: val.operation === AdjustMarginOperation.Add,
+    amount: val.quantityE9,
+    salt: val.salt,
+    signedAt: val.signedAtMillis.toString(),
+  };
+}
+
 // ---------- Utils ----------
 
 function toJson(
@@ -205,6 +235,7 @@ function toJson(
     | UIWithdrawRequest
     | UIAuthorizeAccountRequest
     | UIDeAuthorizeAccountRequest
+    | UIAdjustIsolatedMarginRequest
 ): string {
   return JSON.stringify(val, null, 2);
 }
@@ -312,6 +343,31 @@ export class BluefinRequestSigner implements IBluefinSigner {
       is_authorize
         ? toUIAuthorizeAccountRequest(signedFields)
         : toUIDeAuthorizeAccountRequest(signedFields)
+    );
+
+    const signedMessageSerialized = await this.wallet.signPersonalMessage(
+      new TextEncoder().encode(requestJson)
+    );
+
+    const parsedSignature = parseSerializedSignature(
+      signedMessageSerialized.signature
+    );
+
+    if (parsedSignature.signatureScheme == "MultiSig") {
+      throw new Error("MultiSig not supported");
+    }
+
+    return signedMessageSerialized.signature;
+  }
+
+  /**
+   * Sign an isolated margin adjustment request
+   */
+  async signAdjustIsolatedMarginRequest(
+    signedFields: AdjustIsolatedMarginRequestSignedFields
+  ): Promise<string> {
+    const requestJson = toJson(
+      toUIAdjustIsolatedMarginRequest(signedFields)
     );
 
     const signedMessageSerialized = await this.wallet.signPersonalMessage(

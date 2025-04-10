@@ -19,6 +19,8 @@ import {
   ContractsConfig,
   AssetConfig,
   AccountAuthorizationRequestSignedFields,
+  AdjustIsolatedMarginRequestSignedFields,
+  AdjustMarginOperation,
 } from "./api";
 
 import { Configuration } from "./configuration";
@@ -429,6 +431,30 @@ export class BluefinProSdk {
       signature,
     });
     console.log("Deauthorize account request sent:", signedFields);
+  }
+
+  public async adjustIsolatedMargin(symbol: string, amountE9: string, add: boolean) {
+    if (!this.contractsConfig) {
+      throw new Error("Missing contractsConfig");
+    }
+
+    const signedFields: AdjustIsolatedMarginRequestSignedFields = {
+      symbol,
+      idsId: this.contractsConfig.idsId,
+      accountAddress: this.currentAccountAddress!,
+      operation: add ? AdjustMarginOperation.Add : AdjustMarginOperation.Subtract,
+      quantityE9: amountE9,
+      salt: this.generateSalt(),
+      signedAtMillis: Date.now(),
+    };
+
+    const signature = await this.bfSigner.signAdjustIsolatedMarginRequest(signedFields);
+
+    await this.tradeApi.putAdjustIsolatedMargin({
+      signedFields,
+      signature,
+    });
+    console.log("Adjust isolated margin request sent:", signedFields);
   }
 
   public async deposit(amountE9: string, accountAddress?: string) {

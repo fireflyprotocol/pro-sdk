@@ -263,6 +263,9 @@ async function main() {
     await client.deauthorizeAccount(bfSigner.getAddress());
     logger.info("Deauthorize account request success");
 
+    await client.adjustIsolatedMargin(symbol, "10000000000", true);
+    logger.info("Adjust isolated margin request success");
+
     // Keep connection alive
     await new Promise((resolve) => setTimeout(resolve, 50000));
   } finally {

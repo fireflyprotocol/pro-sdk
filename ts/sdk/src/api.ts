@@ -938,12 +938,6 @@ export interface AdjustIsolatedMarginRequest {
      * @memberof AdjustIsolatedMarginRequest
      */
     'signature': string;
-    /**
-     * Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-     * @type {string}
-     * @memberof AdjustIsolatedMarginRequest
-     */
-    'requestHash': string;
 }
 /**
  * 
