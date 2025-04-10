@@ -18,17 +18,13 @@ pub struct AdjustIsolatedMarginRequest {
     /// The signature of the request, encoded from the signedFields
     #[serde(rename = "signature")]
     pub signature: String,
-    /// Used to uniquely identify the request. Created by hex encoding the bcs encoded signedFields.
-    #[serde(rename = "requestHash")]
-    pub request_hash: String,
 }
 
 impl AdjustIsolatedMarginRequest {
-    pub fn new(signed_fields: models::AdjustIsolatedMarginRequestSignedFields, signature: String, request_hash: String) -> AdjustIsolatedMarginRequest {
+    pub fn new(signed_fields: models::AdjustIsolatedMarginRequestSignedFields, signature: String) -> AdjustIsolatedMarginRequest {
         AdjustIsolatedMarginRequest {
             signed_fields,
             signature,
-            request_hash,
         }
     }
 }
