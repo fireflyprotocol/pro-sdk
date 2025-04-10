@@ -265,7 +265,8 @@ export const AccountEventReason = {
     OrderCancelled: 'OrderCancelled',
     OrdersForMarketCancelled: 'OrdersForMarketCancelled',
     LeverageUpdated: 'LeverageUpdated',
-    IsolatedMarginUpdated: 'IsolatedMarginUpdated'
+    IsolatedMarginUpdated: 'IsolatedMarginUpdated',
+    FundingRatePayment: 'FundingRatePayment'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];

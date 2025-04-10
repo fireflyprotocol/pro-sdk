@@ -31,6 +31,8 @@ pub enum AccountEventReason {
     LeverageUpdated,
     #[serde(rename = "IsolatedMarginUpdated")]
     IsolatedMarginUpdated,
+    #[serde(rename = "FundingRatePayment")]
+    FundingRatePayment,
 
 }
 
@@ -45,6 +47,7 @@ impl std::fmt::Display for AccountEventReason {
             Self::OrdersForMarketCancelled => write!(f, "OrdersForMarketCancelled"),
             Self::LeverageUpdated => write!(f, "LeverageUpdated"),
             Self::IsolatedMarginUpdated => write!(f, "IsolatedMarginUpdated"),
+            Self::FundingRatePayment => write!(f, "FundingRatePayment"),
         }
     }
 }
