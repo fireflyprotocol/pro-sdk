@@ -58,6 +58,17 @@ pub enum PostWithdrawError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`put_adjust_isolated_margin`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PutAdjustIsolatedMarginError {
+    Status400(models::Error),
+    Status401(models::Error),
+    Status404(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`put_authorize_account`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -210,6 +221,36 @@ pub async fn post_withdraw(configuration: &configuration::Configuration, withdra
     } else {
         let content = resp.text().await?;
         let entity: Option<PostWithdrawError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Adjust margin for an isolated position for a symbol
+pub async fn put_adjust_isolated_margin(configuration: &configuration::Configuration, adjust_isolated_margin_request: models::AdjustIsolatedMarginRequest) -> Result<(), Error<PutAdjustIsolatedMarginError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_adjust_isolated_margin_request = adjust_isolated_margin_request;
+
+    let uri_str = format!("{}/api/v1/trade/adjustIsolatedMargin", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_adjust_isolated_margin_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PutAdjustIsolatedMarginError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
