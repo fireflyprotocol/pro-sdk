@@ -34,6 +34,7 @@ class AccountEventReason(str, Enum):
     ORDERSFORMARKETCANCELLED = 'OrdersForMarketCancelled'
     LEVERAGEUPDATED = 'LeverageUpdated'
     ISOLATEDMARGINUPDATED = 'IsolatedMarginUpdated'
+    FUNDINGRATEPAYMENT = 'FundingRatePayment'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
