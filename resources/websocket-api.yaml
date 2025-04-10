@@ -234,6 +234,7 @@ components:
         - OrdersForMarketCancelled
         - LeverageUpdated
         - IsolatedMarginUpdated
+        - FundingRatePayment
 
     OrderCancelReason:
       type: string
