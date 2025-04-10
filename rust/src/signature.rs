@@ -86,8 +86,8 @@ pub fn serialize<T: Serialize>(request: T) -> Result<String> {
 
 pub mod conversion {
     use bluefin_api::models::{
-        AccountAuthorizationRequest, AccountPositionLeverageUpdateRequest, CreateOrderRequest,
-        WithdrawRequest,
+        AccountAuthorizationRequest, AccountPositionLeverageUpdateRequest,
+        AdjustIsolatedMarginRequest, AdjustMarginOperation, CreateOrderRequest, WithdrawRequest,
     };
     use serde::Serialize;
     use std::fmt::{Display, Formatter};
@@ -97,6 +97,7 @@ pub mod conversion {
         OrderRequest,
         AuthorizeAccount,
         LeverageAdjustment,
+        AdjustIsolatedMargin,
     }
 
     impl PartialEq for ClientPayloadType {
@@ -113,6 +114,9 @@ pub mod conversion {
                 ClientPayloadType::AuthorizeAccount => write!(f, "Bluefin Pro Authorize Account"),
                 ClientPayloadType::LeverageAdjustment => {
                     write!(f, "Bluefin Pro Leverage Adjustment")
+                }
+                ClientPayloadType::AdjustIsolatedMargin => {
+                    write!(f, "Bluefin Pro Margin Adjustment")
                 }
             }
         }
@@ -203,6 +207,20 @@ pub mod conversion {
         pub signed_at: String,
     }
 
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UIAdjustIsolatedMarginRequest {
+        #[serde(rename = "type")]
+        pub r#type: String,
+        pub ids: String,
+        pub account: String,
+        pub market: String,
+        pub add: bool,
+        pub amount: String,
+        pub salt: String,
+        pub signed_at: String,
+    }
+
     impl From<WithdrawRequest> for UIWithdrawRequest {
         fn from(val: WithdrawRequest) -> Self {
             UIWithdrawRequest {
@@ -276,6 +294,21 @@ pub mod conversion {
                 account: val.signed_fields.account_address,
                 user: val.signed_fields.authorized_account_address,
                 status: false,
+                salt: val.signed_fields.salt,
+                signed_at: val.signed_fields.signed_at_millis.to_string(),
+            }
+        }
+    }
+
+    impl From<AdjustIsolatedMarginRequest> for UIAdjustIsolatedMarginRequest {
+        fn from(val: AdjustIsolatedMarginRequest) -> Self {
+            UIAdjustIsolatedMarginRequest {
+                r#type: ClientPayloadType::AdjustIsolatedMargin.to_string(),
+                ids: val.signed_fields.ids_id,
+                account: val.signed_fields.account_address,
+                market: val.signed_fields.symbol,
+                add: val.signed_fields.operation == AdjustMarginOperation::Add,
+                amount: val.signed_fields.quantity_e9,
                 salt: val.signed_fields.salt,
                 signed_at: val.signed_fields.signed_at_millis.to_string(),
             }
