@@ -32,6 +32,9 @@ openapi_client/docs/AccountTradeUpdate.md
 openapi_client/docs/AccountTransactionUpdate.md
 openapi_client/docs/AccountUpdate.md
 openapi_client/docs/ActiveOrderUpdate.md
+openapi_client/docs/AdjustIsolatedMarginRequest.md
+openapi_client/docs/AdjustIsolatedMarginRequestSignedFields.md
+openapi_client/docs/AdjustMarginOperation.md
 openapi_client/docs/Asset.md
 openapi_client/docs/AssetConfig.md
 openapi_client/docs/AuthApi.md
@@ -119,6 +122,9 @@ openapi_client/models/account_trade_update.py
 openapi_client/models/account_transaction_update.py
 openapi_client/models/account_update.py
 openapi_client/models/active_order_update.py
+openapi_client/models/adjust_isolated_margin_request.py
+openapi_client/models/adjust_isolated_margin_request_signed_fields.py
+openapi_client/models/adjust_margin_operation.py
 openapi_client/models/asset.py
 openapi_client/models/asset_config.py
 openapi_client/models/cancel_orders_request.py
@@ -179,4 +185,7 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_adjust_isolated_margin_request.py
+openapi_client/test/test_adjust_isolated_margin_request_signed_fields.py
+openapi_client/test/test_adjust_margin_operation.py
 openapi_client_README.md

@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
 [**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 [**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
+[**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
 [**put_authorize_account**](TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
 [**put_deauthorize_account**](TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
 [**put_leverage_update**](TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
@@ -333,6 +334,86 @@ void (empty response body)
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
 **404** | Not Found. The requested resource was not found. |  -  |
+**500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_adjust_isolated_margin**
+> put_adjust_isolated_margin(adjust_isolated_margin_request)
+
+Adjust margin for an isolated position for a symbol
+
+Adjust margin for an isolated position for a symbol
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.adjust_isolated_margin_request import AdjustIsolatedMarginRequest
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:8080
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "http://localhost:8080"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.TradeApi(api_client)
+    adjust_isolated_margin_request = openapi_client.AdjustIsolatedMarginRequest() # AdjustIsolatedMarginRequest | 
+
+    try:
+        # Adjust margin for an isolated position for a symbol
+        await api_instance.put_adjust_isolated_margin(adjust_isolated_margin_request)
+    except Exception as e:
+        print("Exception when calling TradeApi->put_adjust_isolated_margin: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adjust_isolated_margin_request** | [**AdjustIsolatedMarginRequest**](AdjustIsolatedMarginRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Adjust margin request sent successfully. |  -  |
+**400** | Bad Request. The request was invalid or malformed. |  -  |
+**401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
+**404** | Not Found. The requested account was not found. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
