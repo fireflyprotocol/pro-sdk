@@ -67,11 +67,12 @@ pub async fn web_socket_account_data(configuration: &configuration::Configuratio
 }
 
 /// WebSocket Market Streams URL.
-pub async fn web_socket_market_data(configuration: &configuration::Configuration, upgrade: &str, sec_web_socket_key: &str, sec_web_socket_version: &str) -> Result<(), Error<WebSocketMarketDataError>> {
+pub async fn web_socket_market_data(configuration: &configuration::Configuration, upgrade: &str, sec_web_socket_key: &str, sec_web_socket_version: &str, market_subscription_streams: models::MarketSubscriptionStreams) -> Result<(), Error<WebSocketMarketDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_upgrade = upgrade;
     let p_sec_web_socket_key = sec_web_socket_key;
     let p_sec_web_socket_version = sec_web_socket_version;
+    let p_market_subscription_streams = market_subscription_streams;
 
     let uri_str = format!("{}/ws/market", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -82,6 +83,7 @@ pub async fn web_socket_market_data(configuration: &configuration::Configuration
     req_builder = req_builder.header("Upgrade", p_upgrade.to_string());
     req_builder = req_builder.header("Sec-WebSocket-Key", p_sec_web_socket_key.to_string());
     req_builder = req_builder.header("Sec-WebSocket-Version", p_sec_web_socket_version.to_string());
+    req_builder = req_builder.json(&p_market_subscription_streams);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -18,6 +18,7 @@ from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr, field_validator
 from typing_extensions import Annotated
+from openapi_client.models.market_subscription_streams import MarketSubscriptionStreams
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse
@@ -342,6 +343,7 @@ class StreamsApi:
         upgrade: StrictStr,
         sec_web_socket_key: Annotated[StrictStr, Field(description="WebSocket key used during the handshake.")],
         sec_web_socket_version: Annotated[StrictStr, Field(description="WebSocket protocol version.")],
+        market_subscription_streams: Annotated[MarketSubscriptionStreams, Field(description="Initial subscription message to specify the data feed")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -365,6 +367,8 @@ class StreamsApi:
         :type sec_web_socket_key: str
         :param sec_web_socket_version: WebSocket protocol version. (required)
         :type sec_web_socket_version: str
+        :param market_subscription_streams: Initial subscription message to specify the data feed (required)
+        :type market_subscription_streams: MarketSubscriptionStreams
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -391,6 +395,7 @@ class StreamsApi:
             upgrade=upgrade,
             sec_web_socket_key=sec_web_socket_key,
             sec_web_socket_version=sec_web_socket_version,
+            market_subscription_streams=market_subscription_streams,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -417,6 +422,7 @@ class StreamsApi:
         upgrade: StrictStr,
         sec_web_socket_key: Annotated[StrictStr, Field(description="WebSocket key used during the handshake.")],
         sec_web_socket_version: Annotated[StrictStr, Field(description="WebSocket protocol version.")],
+        market_subscription_streams: Annotated[MarketSubscriptionStreams, Field(description="Initial subscription message to specify the data feed")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -440,6 +446,8 @@ class StreamsApi:
         :type sec_web_socket_key: str
         :param sec_web_socket_version: WebSocket protocol version. (required)
         :type sec_web_socket_version: str
+        :param market_subscription_streams: Initial subscription message to specify the data feed (required)
+        :type market_subscription_streams: MarketSubscriptionStreams
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -466,6 +474,7 @@ class StreamsApi:
             upgrade=upgrade,
             sec_web_socket_key=sec_web_socket_key,
             sec_web_socket_version=sec_web_socket_version,
+            market_subscription_streams=market_subscription_streams,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -492,6 +501,7 @@ class StreamsApi:
         upgrade: StrictStr,
         sec_web_socket_key: Annotated[StrictStr, Field(description="WebSocket key used during the handshake.")],
         sec_web_socket_version: Annotated[StrictStr, Field(description="WebSocket protocol version.")],
+        market_subscription_streams: Annotated[MarketSubscriptionStreams, Field(description="Initial subscription message to specify the data feed")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -515,6 +525,8 @@ class StreamsApi:
         :type sec_web_socket_key: str
         :param sec_web_socket_version: WebSocket protocol version. (required)
         :type sec_web_socket_version: str
+        :param market_subscription_streams: Initial subscription message to specify the data feed (required)
+        :type market_subscription_streams: MarketSubscriptionStreams
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -541,6 +553,7 @@ class StreamsApi:
             upgrade=upgrade,
             sec_web_socket_key=sec_web_socket_key,
             sec_web_socket_version=sec_web_socket_version,
+            market_subscription_streams=market_subscription_streams,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -562,6 +575,7 @@ class StreamsApi:
         upgrade,
         sec_web_socket_key,
         sec_web_socket_version,
+        market_subscription_streams,
         _request_auth,
         _content_type,
         _headers,
@@ -593,9 +607,24 @@ class StreamsApi:
             _header_params['Sec-WebSocket-Version'] = sec_web_socket_version
         # process the form parameters
         # process the body parameter
+        if market_subscription_streams is not None:
+            _body_params = market_subscription_streams
 
 
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [

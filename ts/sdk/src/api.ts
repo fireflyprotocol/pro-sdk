@@ -5020,16 +5020,19 @@ export const StreamsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
+         * @param {MarketSubscriptionStreams} marketSubscriptionStreams Initial subscription message to specify the data feed
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webSocketMarketData: async (upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webSocketMarketData: async (upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, marketSubscriptionStreams: MarketSubscriptionStreams, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'upgrade' is not null or undefined
             assertParamExists('webSocketMarketData', 'upgrade', upgrade)
             // verify required parameter 'secWebSocketKey' is not null or undefined
             assertParamExists('webSocketMarketData', 'secWebSocketKey', secWebSocketKey)
             // verify required parameter 'secWebSocketVersion' is not null or undefined
             assertParamExists('webSocketMarketData', 'secWebSocketVersion', secWebSocketVersion)
+            // verify required parameter 'marketSubscriptionStreams' is not null or undefined
+            assertParamExists('webSocketMarketData', 'marketSubscriptionStreams', marketSubscriptionStreams)
             const localVarPath = `/ws/market`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5044,6 +5047,8 @@ export const StreamsApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             if (upgrade != null) {
                 localVarHeaderParameter['Upgrade'] = String(upgrade);
             }
@@ -5056,6 +5061,7 @@ export const StreamsApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(marketSubscriptionStreams, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5094,11 +5100,12 @@ export const StreamsApiFp = function(configuration?: Configuration) {
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
+         * @param {MarketSubscriptionStreams} marketSubscriptionStreams Initial subscription message to specify the data feed
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, options);
+        async webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, marketSubscriptionStreams: MarketSubscriptionStreams, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, marketSubscriptionStreams, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['StreamsApi.webSocketMarketData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5132,11 +5139,12 @@ export const StreamsApiFactory = function (configuration?: Configuration, basePa
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
+         * @param {MarketSubscriptionStreams} marketSubscriptionStreams Initial subscription message to specify the data feed
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, options).then((request) => request(axios, basePath));
+        webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, marketSubscriptionStreams: MarketSubscriptionStreams, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, marketSubscriptionStreams, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5169,12 +5177,13 @@ export class StreamsApi extends BaseAPI {
      * @param {WebSocketMarketDataUpgradeEnum} upgrade 
      * @param {string} secWebSocketKey WebSocket key used during the handshake.
      * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
+     * @param {MarketSubscriptionStreams} marketSubscriptionStreams Initial subscription message to specify the data feed
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StreamsApi
      */
-    public webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, options?: RawAxiosRequestConfig) {
-        return StreamsApiFp(this.configuration).webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, options).then((request) => request(this.axios, this.basePath));
+    public webSocketMarketData(upgrade: WebSocketMarketDataUpgradeEnum, secWebSocketKey: string, secWebSocketVersion: WebSocketMarketDataSecWebSocketVersionEnum, marketSubscriptionStreams: MarketSubscriptionStreams, options?: RawAxiosRequestConfig) {
+        return StreamsApiFp(this.configuration).webSocketMarketData(upgrade, secWebSocketKey, secWebSocketVersion, marketSubscriptionStreams, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

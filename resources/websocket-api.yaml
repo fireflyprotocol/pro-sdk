@@ -1064,6 +1064,7 @@ paths:
       operationId: webSocketMarketData
       summary: WebSocket Market Streams
       description: WebSocket Market Streams URL.
+      x-websocket: true
       parameters:
         - name: Upgrade
           in: header
@@ -1085,6 +1086,13 @@ paths:
           schema:
             type: string
             enum: [ "13" ]
+      requestBody:
+        description: Initial subscription message to specify the data feed
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketSubscriptionStreams'
       responses:
         '101':
           description: Switching Protocols - The client is switching protocols as requested by the server.
@@ -1094,6 +1102,13 @@ paths:
               schema:
                 type: string
                 example: websocket
+      x-websocket-messages:
+        - type: subscription-response
+          description: "Response to the subscription request."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketStreamMessage'
 
   /ws/account:
     get:

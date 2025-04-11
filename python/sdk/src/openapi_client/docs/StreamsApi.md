@@ -90,7 +90,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **web_socket_market_data**
-> web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
+> web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version, market_subscription_streams)
 
 WebSocket Market Streams
 
@@ -101,6 +101,7 @@ WebSocket Market Streams URL.
 
 ```python
 import openapi_client
+from openapi_client.models.market_subscription_streams import MarketSubscriptionStreams
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -118,10 +119,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
     upgrade = 'upgrade_example' # str | 
     sec_web_socket_key = 'sec_web_socket_key_example' # str | WebSocket key used during the handshake.
     sec_web_socket_version = 'sec_web_socket_version_example' # str | WebSocket protocol version.
+    market_subscription_streams = openapi_client.MarketSubscriptionStreams() # MarketSubscriptionStreams | Initial subscription message to specify the data feed
 
     try:
         # WebSocket Market Streams
-        await api_instance.web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
+        await api_instance.web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version, market_subscription_streams)
     except Exception as e:
         print("Exception when calling StreamsApi->web_socket_market_data: %s\n" % e)
 ```
@@ -136,6 +138,7 @@ Name | Type | Description  | Notes
  **upgrade** | **str**|  | 
  **sec_web_socket_key** | **str**| WebSocket key used during the handshake. | 
  **sec_web_socket_version** | **str**| WebSocket protocol version. | 
+ **market_subscription_streams** | [**MarketSubscriptionStreams**](MarketSubscriptionStreams.md)| Initial subscription message to specify the data feed | 
 
 ### Return type
 
@@ -147,7 +150,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 ### HTTP response details

@@ -44,7 +44,7 @@ Name | Type | Description  | Required | Notes
 
 ## web_socket_market_data
 
-> web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
+> web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version, market_subscription_streams)
 WebSocket Market Streams
 
 WebSocket Market Streams URL.
@@ -57,6 +57,7 @@ Name | Type | Description  | Required | Notes
 **upgrade** | **String** |  | [required] |
 **sec_web_socket_key** | **String** | WebSocket key used during the handshake. | [required] |
 **sec_web_socket_version** | **String** | WebSocket protocol version. | [required] |
+**market_subscription_streams** | [**MarketSubscriptionStreams**](MarketSubscriptionStreams.md) | Initial subscription message to specify the data feed | [required] |
 
 ### Return type
 
@@ -68,7 +69,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
