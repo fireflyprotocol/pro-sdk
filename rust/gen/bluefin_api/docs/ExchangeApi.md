@@ -1,6 +1,6 @@
 # \ExchangeApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
