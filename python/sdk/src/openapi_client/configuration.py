@@ -186,7 +186,7 @@ class Configuration:
     ) -> None:
         """Constructor
         """
-        self._base_path = "http://localhost:8080" if host is None else host
+        self._base_path = "https://api.sui-staging.bluefin.io" if host is None else host
         """Default Base url
         """
         self.server_index = 0 if server_index is None and host is None else server_index
@@ -510,8 +510,18 @@ class Configuration:
         """
         return [
             {
-                'url': "http://localhost:8080",
+                'url': "https://api.{env}.bluefin.io",
                 'description': "No description provided",
+                'variables': {
+                    'env': {
+                        'description': "No description provided",
+                        'default_value': "sui-staging",
+                        'enum_values': [
+                            "sui-staging",
+                            "sui-prod"
+                        ]
+                        }
+                    }
             }
         ]
 
