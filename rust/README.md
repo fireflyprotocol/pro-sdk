@@ -6,8 +6,12 @@ The **Bluefin Pro SDK for Rust** allows developers to interact with the Bluefin 
 libraries from OpenAPI 3.0 specifications. This SDK enables seamless interaction with REST and WebSocket APIs to perform
 various trading operations, such as placing orders, withdrawing funds, and subscribing to market feeds.
 
-Generate rust client code command
-```cargo run --bin apigen -- -l rust```
+To generate Rust client code:
+
+```sh
+cd tools
+cargo run --bin apigen -- -l rust
+```
 
 ## Features
 
