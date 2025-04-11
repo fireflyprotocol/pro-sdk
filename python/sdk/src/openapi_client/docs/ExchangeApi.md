@@ -1,6 +1,6 @@
 # openapi_client.ExchangeApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -27,10 +27,10 @@ from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
@@ -107,10 +107,10 @@ from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
@@ -171,10 +171,10 @@ from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
@@ -245,10 +245,10 @@ from openapi_client.models.ticker_response import TickerResponse
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
@@ -312,10 +312,10 @@ from openapi_client.models.orderbook_depth_response import OrderbookDepthRespons
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
@@ -380,10 +380,10 @@ from openapi_client.models.trade import Trade
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 

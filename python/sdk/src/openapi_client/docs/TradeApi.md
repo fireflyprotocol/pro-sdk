@@ -1,6 +1,6 @@
 # openapi_client.TradeApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,10 +31,10 @@ from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -110,10 +110,10 @@ from openapi_client.models.open_order_response import OpenOrderResponse
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -193,10 +193,10 @@ from openapi_client.models.post_create_order202_response import PostCreateOrder2
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -275,10 +275,10 @@ from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -355,10 +355,10 @@ from openapi_client.models.adjust_isolated_margin_request import AdjustIsolatedM
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -435,10 +435,10 @@ from openapi_client.models.account_authorization_request import AccountAuthoriza
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -514,10 +514,10 @@ from openapi_client.models.account_authorization_request import AccountAuthoriza
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -593,10 +593,10 @@ from openapi_client.models.account_position_leverage_update_request import Accou
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
