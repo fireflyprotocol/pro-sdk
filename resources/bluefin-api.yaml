@@ -49,6 +49,8 @@ paths:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1depth"
   /v1/exchange/ticker:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1ticker"
+  /v1/exchange/tickers:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1tickers"
   /v1/exchange/info:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1info"
   /v1/exchange/trades:

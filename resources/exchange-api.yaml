@@ -459,7 +459,8 @@ components:
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
         operator:
           type: string
-          description: General operator address
+          description: General operator address; AKA Guardian
+          deprecated: true
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
         sequencer:
           type: string
@@ -468,10 +469,12 @@ components:
         funding:
           type: string
           description: Funding operator address
+          deprecated: true
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
         fee:
           type: string
           description: Fee operator address
+          deprecated: true
           example: "0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0"
     AssetConfig:
       type: object
@@ -891,6 +894,21 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
+  /v1/exchange/tickers:
+    get:
+      tags:
+        - Exchange
+      operationId: getAllMarketTicker
+      summary: Get all market ticker information
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TickerResponse"
 
   /v1/exchange/fundingRateHistory:
     get:
