@@ -2178,9 +2178,10 @@ export interface Operators {
      */
     'admin': string;
     /**
-     * General operator address
+     * General operator address; AKA Guardian
      * @type {string}
      * @memberof Operators
+     * @deprecated
      */
     'operator': string;
     /**
@@ -2193,12 +2194,14 @@ export interface Operators {
      * Funding operator address
      * @type {string}
      * @memberof Operators
+     * @deprecated
      */
     'funding': string;
     /**
      * Fee operator address
      * @type {string}
      * @memberof Operators
+     * @deprecated
      */
     'fee': string;
 }
@@ -4355,6 +4358,36 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Get all market ticker information
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllMarketTicker: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/exchange/tickers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Kline/candlestick data.
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
@@ -4664,6 +4697,18 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get all market ticker information
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllMarketTicker(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TickerResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMarketTicker(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getAllMarketTicker']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Kline/candlestick data.
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
@@ -4767,6 +4812,15 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary Get all market ticker information
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllMarketTicker(options?: RawAxiosRequestConfig): AxiosPromise<Array<TickerResponse>> {
+            return localVarFp.getAllMarketTicker(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Kline/candlestick data.
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
@@ -4850,6 +4904,17 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
  * @extends {BaseAPI}
  */
 export class ExchangeApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get all market ticker information
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeApi
+     */
+    public getAllMarketTicker(options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getAllMarketTicker(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Kline/candlestick data.
