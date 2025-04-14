@@ -22,7 +22,7 @@ bluefin_api = { path = "./bluefin_api" }
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
