@@ -140,6 +140,9 @@ async function main() {
     const ticker = (await client.exchangeDataApi.getMarketTicker(symbol)).data;
     logger.info(`Exchange Market ticker: ${JSON.stringify(ticker)}`);
 
+    const tickers = (await client.exchangeDataApi.getAllMarketTicker()).data;
+    logger.info(`All Market ticker: ${JSON.stringify(tickers)}`);
+
     const recentTrades = (await client.exchangeDataApi.getRecentTrades(symbol))
       .data;
     logger.info(`Recent Trades: ${JSON.stringify(recentTrades)}`);

@@ -54,6 +54,27 @@ class TestTradeApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
+    async def test_put_adjust_isolated_margin(self) -> None:
+        """Test case for put_adjust_isolated_margin
+
+        Adjust margin for an isolated position for a symbol
+        """
+        pass
+
+    async def test_put_authorize_account(self) -> None:
+        """Test case for put_authorize_account
+
+        Authorizes an account
+        """
+        pass
+
+    async def test_put_deauthorize_account(self) -> None:
+        """Test case for put_deauthorize_account
+
+        Deauthorizes an account
+        """
+        pass
+
     async def test_put_leverage_update(self) -> None:
         """Test case for put_leverage_update
 

@@ -54,7 +54,7 @@ class TestActiveOrderUpdate(unittest.TestCase):
                 time_in_force = 'GTT',
                 trigger_price_e9 = '',
                 status = 'OPEN',
-                self_trade_prevention_type = 'TAKER',
+                self_trade_prevention_type = 'MAKER',
                 created_at_millis = 56,
                 updated_at_millis = 56
             )
@@ -77,7 +77,7 @@ class TestActiveOrderUpdate(unittest.TestCase):
                 post_only = True,
                 time_in_force = 'GTT',
                 status = 'OPEN',
-                self_trade_prevention_type = 'TAKER',
+                self_trade_prevention_type = 'MAKER',
                 created_at_millis = 56,
                 updated_at_millis = 56,
         )

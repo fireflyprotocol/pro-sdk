@@ -36,24 +36,22 @@ class TestAccountAuthorizationRequest(unittest.TestCase):
         if include_optional:
             return AccountAuthorizationRequest(
                 signed_fields = openapi_client.models.account_authorization_request_signed_fields.AccountAuthorizationRequest_signedFields(
-                    account_address = '',
-                    authorized_account_address = '',
-                    salt = '123335432',
-                    ids_id = 'ids_id',
+                    account_address = '', 
+                    authorized_account_address = '', 
+                    salt = '123335432', 
+                    ids_id = 'ids_id', 
                     signed_at_millis = 1234567856, ),
-                signature = '',
-                request_hash = ''
+                signature = ''
             )
         else:
             return AccountAuthorizationRequest(
                 signed_fields = openapi_client.models.account_authorization_request_signed_fields.AccountAuthorizationRequest_signedFields(
-                    account_address = '',
-                    authorized_account_address = '',
-                    salt = '123335432',
-                    ids_id = 'ids_id',
+                    account_address = '', 
+                    authorized_account_address = '', 
+                    salt = '123335432', 
+                    ids_id = 'ids_id', 
                     signed_at_millis = 1234567856, ),
                 signature = '',
-                request_hash = '',
         )
         """
 

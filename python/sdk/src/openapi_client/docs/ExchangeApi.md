@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:8080*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | Get all market ticker information
 [**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.
 [**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | Get exchange information
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history
@@ -11,6 +12,68 @@ Method | HTTP request | Description
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
 [**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
 
+
+# **get_all_market_ticker**
+> List[TickerResponse] get_all_market_ticker()
+
+Get all market ticker information
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.ticker_response import TickerResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:8080
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "http://localhost:8080"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ExchangeApi(api_client)
+
+    try:
+        # Get all market ticker information
+        api_response = await api_instance.get_all_market_ticker()
+        print("The response of ExchangeApi->get_all_market_ticker:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExchangeApi->get_all_market_ticker: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List[TickerResponse]**](TickerResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_candlestick_data**
 > List[List[str]] get_candlestick_data(symbol, interval, type, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)

@@ -66,7 +66,7 @@ class TestTickerResponse(unittest.TestCase):
                 count24hr = '123456',
                 price_change24hr_e9 = '50000000000',
                 price_change_percent24hr_e9 = '5000000000',
-                last_updated_at_millis = 1724121094751
+                updated_at_millis = 1724121094751
             )
         else:
             return TickerResponse(
@@ -101,7 +101,7 @@ class TestTickerResponse(unittest.TestCase):
                 count24hr = '123456',
                 price_change24hr_e9 = '50000000000',
                 price_change_percent24hr_e9 = '5000000000',
-                last_updated_at_millis = 1724121094751,
+                updated_at_millis = 1724121094751,
         )
         """
 

@@ -36,18 +36,18 @@ class TestAsset(unittest.TestCase):
         if include_optional:
             return Asset(
                 symbol = '',
-                quantity_e9 = '6000000000',
-                effective_balance_e9 = '6000000000',
-                max_withdraw_quantity_e9 = '3000000000',
-                last_updated_at_millis = 1627872345678
+                quantity_e9 = '',
+                effective_balance_e9 = '',
+                max_withdraw_quantity_e9 = '',
+                updated_at_millis = 56
             )
         else:
             return Asset(
                 symbol = '',
-                quantity_e9 = '6000000000',
-                effective_balance_e9 = '6000000000',
-                max_withdraw_quantity_e9 = '3000000000',
-                last_updated_at_millis = 1627872345678,
+                quantity_e9 = '',
+                effective_balance_e9 = '',
+                max_withdraw_quantity_e9 = '',
+                updated_at_millis = 56,
         )
         """
 

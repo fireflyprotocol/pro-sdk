@@ -36,47 +36,43 @@ class TestCreateOrderRequest(unittest.TestCase):
         if include_optional:
             return CreateOrderRequest(
                 signed_fields = openapi_client.models.create_order_request_signed_fields.CreateOrderRequest_signedFields(
-                    symbol = '',
-                    account_address = '',
-                    price_e9 = '452400000',
-                    quantity_e9 = '452400000',
-                    side = 'LONG',
-                    leverage_e9 = '4000000000',
-                    is_isolated = True,
-                    salt = '123335432',
-                    ids_id = 'ids_id',
-                    expires_at_millis = 12345665432,
+                    symbol = '', 
+                    account_address = '', 
+                    price_e9 = '452400000', 
+                    quantity_e9 = '452400000', 
+                    side = 'LONG', 
+                    leverage_e9 = '4000000000', 
+                    is_isolated = True, 
+                    salt = '123335432', 
+                    ids_id = 'ids_id', 
+                    expires_at_millis = 12345665432, 
                     signed_at_millis = 1234567856, ),
                 signature = '',
-                order_hash = '',
                 client_order_id = '',
                 type = 'LIMIT',
                 reduce_only = True,
                 post_only = True,
                 time_in_force = 'GTT',
                 trigger_price_e9 = '300000000',
-                self_trade_prevention_type = 'TAKER'
+                self_trade_prevention_type = 'MAKER'
             )
         else:
             return CreateOrderRequest(
                 signed_fields = openapi_client.models.create_order_request_signed_fields.CreateOrderRequest_signedFields(
-                    symbol = '',
-                    account_address = '',
-                    price_e9 = '452400000',
-                    quantity_e9 = '452400000',
-                    side = 'LONG',
-                    leverage_e9 = '4000000000',
-                    is_isolated = True,
-                    salt = '123335432',
-                    ids_id = 'ids_id',
-                    expires_at_millis = 12345665432,
+                    symbol = '', 
+                    account_address = '', 
+                    price_e9 = '452400000', 
+                    quantity_e9 = '452400000', 
+                    side = 'LONG', 
+                    leverage_e9 = '4000000000', 
+                    is_isolated = True, 
+                    salt = '123335432', 
+                    ids_id = 'ids_id', 
+                    expires_at_millis = 12345665432, 
                     signed_at_millis = 1234567856, ),
                 signature = '',
-                order_hash = '',
                 type = 'LIMIT',
                 reduce_only = True,
-                post_only = True,
-                time_in_force = 'GTT',
         )
         """
 

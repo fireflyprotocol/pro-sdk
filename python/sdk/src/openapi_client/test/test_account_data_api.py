@@ -33,6 +33,13 @@ class TestAccountDataApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
+    async def test_get_account_funding_rate_history(self) -> None:
+        """Test case for get_account_funding_rate_history
+
+        Get user's funding rate history
+        """
+        pass
+
     async def test_get_account_preferences(self) -> None:
         """Test case for get_account_preferences
 

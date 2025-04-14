@@ -27,7 +27,7 @@ class Operators(BaseModel):
     Operators
     """ # noqa: E501
     admin: StrictStr = Field(description="Admin operator address")
-    operator: StrictStr = Field(description="General operator address")
+    operator: StrictStr = Field(description="General operator address; AKA Guardian")
     sequencer: StrictStr = Field(description="Sequencer operator address")
     funding: StrictStr = Field(description="Funding operator address")
     fee: StrictStr = Field(description="Fee operator address")

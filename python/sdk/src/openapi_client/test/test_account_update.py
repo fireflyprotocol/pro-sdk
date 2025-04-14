@@ -35,9 +35,9 @@ class TestAccountUpdate(unittest.TestCase):
         model = AccountUpdate()
         if include_optional:
             return AccountUpdate(
-                fee_tier = openapi_client.models.fee_tier.FeeTier(
-                    maker_fee_e9 = '',
-                    taker_fee_e9 = '',
+                trading_fees = openapi_client.models.trading_fees.TradingFees(
+                    maker_fee_e9 = '1000000', 
+                    taker_fee_e9 = '1000000', 
                     is_applied = True, ),
                 can_trade = True,
                 can_deposit = True,
@@ -54,11 +54,11 @@ class TestAccountUpdate(unittest.TestCase):
                 total_cross_unrealized_pnl_e9 = '',
                 updated_at_millis = 56,
                 assets = [
-                    openapi_client.models.asset_2.Asset_2(
-                        symbol = '',
-                        quantity_e9 = '',
-                        effective_balance_e9 = '',
-                        max_withdraw_quantity_e9 = '',
+                    openapi_client.models.asset.Asset(
+                        symbol = '', 
+                        quantity_e9 = '', 
+                        effective_balance_e9 = '', 
+                        max_withdraw_quantity_e9 = '', 
                         updated_at_millis = 56, )
                     ]
             )
@@ -79,11 +79,11 @@ class TestAccountUpdate(unittest.TestCase):
                 total_cross_unrealized_pnl_e9 = '',
                 updated_at_millis = 56,
                 assets = [
-                    openapi_client.models.asset_2.Asset_2(
-                        symbol = '',
-                        quantity_e9 = '',
-                        effective_balance_e9 = '',
-                        max_withdraw_quantity_e9 = '',
+                    openapi_client.models.asset.Asset(
+                        symbol = '', 
+                        quantity_e9 = '', 
+                        effective_balance_e9 = '', 
+                        max_withdraw_quantity_e9 = '', 
                         updated_at_millis = 56, )
                     ],
         )

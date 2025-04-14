@@ -54,9 +54,9 @@ class TestOpenOrderResponse(unittest.TestCase):
                 trigger_price_e9 = '452400000',
                 filled_quantity_e9 = '300000000',
                 status = 'OPEN',
-                self_trade_prevention_type = 'TAKER',
+                self_trade_prevention_type = 'MAKER',
                 order_time_at_millis = 56,
-                last_updated_at_millis = 56
+                updated_at_millis = 56
             )
         else:
             return OpenOrderResponse(
@@ -77,9 +77,9 @@ class TestOpenOrderResponse(unittest.TestCase):
                 time_in_force = 'GTT',
                 filled_quantity_e9 = '300000000',
                 status = 'OPEN',
-                self_trade_prevention_type = 'TAKER',
+                self_trade_prevention_type = 'MAKER',
                 order_time_at_millis = 56,
-                last_updated_at_millis = 56,
+                updated_at_millis = 56,
         )
         """
 
