@@ -6,3 +6,4 @@
 /ts/sdk/node_modules
 /ts/sdk/dist
 **/openapitools.json
+out

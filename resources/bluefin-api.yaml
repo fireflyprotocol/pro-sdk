@@ -9,7 +9,6 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      name: Authorization
       bearerFormat: JWT  # Optional, arbitrary value for documentation purposes
 
   schemas:
