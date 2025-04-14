@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **admin** | **String** | Admin operator address | 
-**operator** | **String** | General operator address | 
+**operator** | **String** | General operator address; AKA Guardian | 
 **sequencer** | **String** | Sequencer operator address | 
 **funding** | **String** | Funding operator address | 
 **fee** | **String** | Fee operator address | 

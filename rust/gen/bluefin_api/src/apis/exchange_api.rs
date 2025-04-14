@@ -15,6 +15,13 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration};
 
 
+/// struct for typed errors of method [`get_all_market_ticker`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAllMarketTickerError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_candlestick_data`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -58,6 +65,30 @@ pub enum GetRecentTradesError {
     UnknownValue(serde_json::Value),
 }
 
+
+pub async fn get_all_market_ticker(configuration: &configuration::Configuration, ) -> Result<Vec<models::TickerResponse>, Error<GetAllMarketTickerError>> {
+
+    let uri_str = format!("{}/v1/exchange/tickers", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAllMarketTickerError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 pub async fn get_candlestick_data(configuration: &configuration::Configuration, symbol: &str, interval: models::KlineInterval, r#type: models::CandlePriceType, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<Vec<String>>, Error<GetCandlestickDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions

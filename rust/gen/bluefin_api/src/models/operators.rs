@@ -16,7 +16,7 @@ pub struct Operators {
     /// Admin operator address
     #[serde(rename = "admin")]
     pub admin: String,
-    /// General operator address
+    /// General operator address; AKA Guardian
     #[serde(rename = "operator")]
     pub operator: String,
     /// Sequencer operator address
