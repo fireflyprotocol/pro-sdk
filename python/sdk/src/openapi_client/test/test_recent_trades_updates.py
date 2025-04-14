@@ -35,28 +35,48 @@ class TestRecentTradesUpdates(unittest.TestCase):
         model = RecentTradesUpdates()
         if include_optional:
             return RecentTradesUpdates(
-                recent_trades = [
-                    openapi_client.models.recent_trades_update.RecentTradesUpdate(
-                        id = 56,
-                        symbol = '',
-                        price_e9 = '',
-                        quantity_e9 = '',
-                        quote_quantity_e9 = '',
-                        side = 'LONG',
-                        updated_at_millis = 56, )
+                trades = [
+                    openapi_client.models.trade.Trade(
+                        id = '', 
+                        client_order_id = '25851813', 
+                        symbol = '291', 
+                        order_hash = '', 
+                        trade_type = 'ORDER', 
+                        side = 'LONG', 
+                        is_maker = False, 
+                        price_e9 = '7819010000000', 
+                        quantity_e9 = '20000000000', 
+                        quote_quantity_e9 = '150000000000000', 
+                        realized_pnl_e9 = '-9000000000', 
+                        position_side = 'LONG', 
+                        trading_fee_e9 = '-780000000', 
+                        trading_fee_asset = 'USDC, BLUE', 
+                        gas_fee_e9 = '1234', 
+                        gas_fee_asset = 'USDC', 
+                        executed_at_millis = 1569514978020, )
                     ]
             )
         else:
             return RecentTradesUpdates(
-                recent_trades = [
-                    openapi_client.models.recent_trades_update.RecentTradesUpdate(
-                        id = 56,
-                        symbol = '',
-                        price_e9 = '',
-                        quantity_e9 = '',
-                        quote_quantity_e9 = '',
-                        side = 'LONG',
-                        updated_at_millis = 56, )
+                trades = [
+                    openapi_client.models.trade.Trade(
+                        id = '', 
+                        client_order_id = '25851813', 
+                        symbol = '291', 
+                        order_hash = '', 
+                        trade_type = 'ORDER', 
+                        side = 'LONG', 
+                        is_maker = False, 
+                        price_e9 = '7819010000000', 
+                        quantity_e9 = '20000000000', 
+                        quote_quantity_e9 = '150000000000000', 
+                        realized_pnl_e9 = '-9000000000', 
+                        position_side = 'LONG', 
+                        trading_fee_e9 = '-780000000', 
+                        trading_fee_asset = 'USDC, BLUE', 
+                        gas_fee_e9 = '1234', 
+                        gas_fee_asset = 'USDC', 
+                        executed_at_millis = 1569514978020, )
                     ],
         )
         """

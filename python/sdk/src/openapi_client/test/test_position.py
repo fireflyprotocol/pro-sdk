@@ -41,15 +41,17 @@ class TestPosition(unittest.TestCase):
                 liquidation_price_e9 = '0',
                 mark_price_e9 = '667950671178',
                 notional_value_e9 = '0',
-                max_notional_value_e9 = '20000000000000',
-                position_size_e9 = '100000000',
+                size_e9 = '100000000',
                 unrealized_pnl_e9 = '-1000000000',
-                position_side = 'LONG',
+                side = 'LONG',
                 initial_margin_e9 = '0',
-                maint_margin_e9 = '0',
+                maintenance_margin_e9 = '0',
                 is_isolated = True,
                 isolated_margin_e9 = '1000000000',
-                last_updated_at_millis = 1733899435274
+                updated_at_millis = 1733899435274,
+                funding_rate_payment_all_time_e9 = '0',
+                funding_rate_payment_since_change_e9 = '0',
+                funding_rate_payment_since_opened_e9 = '0'
             )
         else:
             return Position(
@@ -59,15 +61,17 @@ class TestPosition(unittest.TestCase):
                 liquidation_price_e9 = '0',
                 mark_price_e9 = '667950671178',
                 notional_value_e9 = '0',
-                max_notional_value_e9 = '20000000000000',
-                position_size_e9 = '100000000',
+                size_e9 = '100000000',
                 unrealized_pnl_e9 = '-1000000000',
-                position_side = 'LONG',
+                side = 'LONG',
                 initial_margin_e9 = '0',
-                maint_margin_e9 = '0',
+                maintenance_margin_e9 = '0',
                 is_isolated = True,
                 isolated_margin_e9 = '1000000000',
-                last_updated_at_millis = 1733899435274,
+                updated_at_millis = 1733899435274,
+                funding_rate_payment_all_time_e9 = '0',
+                funding_rate_payment_since_change_e9 = '0',
+                funding_rate_payment_since_opened_e9 = '0',
         )
         """
 

@@ -116,13 +116,13 @@ async def main():
         # sample script; for example:
         #
         #   ../example/main.py |& cut -b -160
-        depth, ticker, recent_trades, funding_rate_history = await asyncio.gather(
+        depth, tickers, recent_trades, funding_rate_history = await asyncio.gather(
             exchange_data_api.get_orderbook_depth(market.symbol),
-            exchange_data_api.get_market_ticker(market.symbol),
+            exchange_data_api.get_all_market_ticker(),
             exchange_data_api.get_recent_trades(market.symbol),
             exchange_data_api.get_funding_rate_history(market.symbol),
         )
-        log.info(f"{depth=} {ticker=} {recent_trades=} {funding_rate_history=}")
+        log.info(f"{depth=} {tickers=} {recent_trades=} {funding_rate_history=}")
 
         # ========= Account Data API =========
         account_data_api = client.account_data_api

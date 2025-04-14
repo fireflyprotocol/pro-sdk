@@ -26,6 +26,13 @@ class TestExchangeApi(unittest.IsolatedAsyncioTestCase):
     async def asyncTearDown(self) -> None:
         await self.api.api_client.close()
 
+    async def test_get_all_market_ticker(self) -> None:
+        """Test case for get_all_market_ticker
+
+        Get all market ticker information
+        """
+        pass
+
     async def test_get_candlestick_data(self) -> None:
         """Test case for get_candlestick_data
 

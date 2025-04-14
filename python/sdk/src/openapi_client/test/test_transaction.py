@@ -40,7 +40,8 @@ class TestTransaction(unittest.TestCase):
                 type = 'TRANSFER',
                 amount_e9 = '-1000000',
                 asset_symbol = '',
-                trade_id = ''
+                trade_id = '',
+                executed_at_millis = 1569514978020
             )
         else:
             return Transaction(
@@ -48,6 +49,7 @@ class TestTransaction(unittest.TestCase):
                 type = 'TRANSFER',
                 amount_e9 = '-1000000',
                 asset_symbol = '',
+                executed_at_millis = 1569514978020,
         )
         """
 

@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](openapi_client/docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](openapi_client/docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](openapi_client/docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
+*ExchangeApi* | [**get_all_market_ticker**](openapi_client/docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | Get all market ticker information
 *ExchangeApi* | [**get_candlestick_data**](openapi_client/docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.
 *ExchangeApi* | [**get_exchange_info**](openapi_client/docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | Get exchange information
 *ExchangeApi* | [**get_funding_rate_history**](openapi_client/docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history

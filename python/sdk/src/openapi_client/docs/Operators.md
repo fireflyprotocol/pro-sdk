@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **admin** | **str** | Admin operator address | 
-**operator** | **str** | General operator address | 
+**operator** | **str** | General operator address; AKA Guardian | 
 **sequencer** | **str** | Sequencer operator address | 
 **funding** | **str** | Funding operator address | 
 **fee** | **str** | Fee operator address | 

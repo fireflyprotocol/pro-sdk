@@ -37,22 +37,24 @@ class TestAccountFundingRateHistory(unittest.TestCase):
             return AccountFundingRateHistory(
                 data = [
                     openapi_client.models.account_funding_rate_history_data.AccountFundingRateHistoryData(
-                        id = '9689322392', 
                         payment_amount_e9 = '1000000', 
+                        position_side = 'LONG', 
+                        rate_e9 = '10000000', 
                         symbol = '0x123456789abcdef', 
-                        executed_at = 1569514978020, 
-                        computed_at = 1569514978020, )
+                        executed_at_millis = 1569514978020, 
+                        computed_at_millis = 1569514978020, )
                     ]
             )
         else:
             return AccountFundingRateHistory(
                 data = [
                     openapi_client.models.account_funding_rate_history_data.AccountFundingRateHistoryData(
-                        id = '9689322392', 
                         payment_amount_e9 = '1000000', 
+                        position_side = 'LONG', 
+                        rate_e9 = '10000000', 
                         symbol = '0x123456789abcdef', 
-                        executed_at = 1569514978020, 
-                        computed_at = 1569514978020, )
+                        executed_at_millis = 1569514978020, 
+                        computed_at_millis = 1569514978020, )
                     ],
         )
         """
