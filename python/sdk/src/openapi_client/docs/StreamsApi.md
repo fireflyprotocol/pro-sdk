@@ -1,6 +1,6 @@
 # openapi_client.StreamsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,10 +24,10 @@ import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -104,10 +104,10 @@ import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.sui-staging.bluefin.io"
 )
 
 
