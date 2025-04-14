@@ -1,6 +1,13 @@
 import pytest
 from crypto_helpers.signature import SuiWallet, Signature
-from openapi_client import WithdrawRequestSignedFields, CreateOrderRequestSignedFields, AccountPositionLeverageUpdateRequestSignedFields, AccountAuthorizationRequestSignedFields
+from openapi_client import (
+    AccountAuthorizationRequestSignedFields,
+    AccountPositionLeverageUpdateRequestSignedFields,
+    AdjustIsolatedMarginRequestSignedFields,
+    AdjustMarginOperation,
+    CreateOrderRequestSignedFields,
+    WithdrawRequestSignedFields,
+)
 
 sui_wallet = SuiWallet(
     mnemonic="dilemma salmon lake ceiling moral glide cute that ginger float area aunt vague remind cage mother concert inch dizzy present proud program time urge"
@@ -72,18 +79,17 @@ async def test_adjust_leverage_signature():
 @pytest.mark.asyncio
 async def test_adjust_margin_signature():
 
-    payload = {
-        "ids_id":"0x38a9b1c542212bccc84bdf315afda5a15f00662520c25b31b47cdf87a3705ac9",
-        "account_address":"0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
-        "symbol":"ETH-PERP",
-        "add":True,
-        "amount_e9":"1000000000000000000",
-        "salt":"1739493867512",
-        "signed_at_millis":1739495292517
-        }
+    payload = AdjustIsolatedMarginRequestSignedFields(
+        ids_id="0x38a9b1c542212bccc84bdf315afda5a15f00662520c25b31b47cdf87a3705ac9",
+        account_address="0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
+        symbol="ETH-PERP",
+        operation=AdjustMarginOperation.ADD,
+        quantity_e9="1000000000000000000",
+        salt="1739493867512",
+        signed_at_millis=1739495292517,
+    )
 
-
-    signature = sign.adjust_margin(payload)
+    signature = sign.adjust_isolated_margin(payload)
 
     # the expected signature is created using TS SDK
     assert signature == "AO7Tz9GZq8m8CnIjisUw+rdZbx8wOnPxzlDMyKcPUrruFPi/LbTuuTbump/AJoI4TaX7vpNlCxEiTEkHPu6flggaLlCCRHvA/vqN6nW+Jej9zfcjU6QQk7w6d0FUK1vlwg=="
