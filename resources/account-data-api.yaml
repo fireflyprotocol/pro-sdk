@@ -7,12 +7,19 @@ info:
 tags:
   - name: Account Data
     description: "Account Data Service"
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      name: x-user-token
       bearerFormat: JWT # Optional, arbitrary value for documentation purposes
   schemas:
     Account:
