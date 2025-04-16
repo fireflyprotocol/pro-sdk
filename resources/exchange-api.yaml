@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Bluefin Perpetuals API
+  title: Bluefin Exchange API
   description: Exchange Info Endpoints |
     All numeric quantities are represented as string in e9 format.
   version: 1.0.0

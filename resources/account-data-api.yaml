@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Bluefin API
+  title: Bluefin Account Data API
   version: v1
   description: |
     All numeric quantities are represented as string in e9 format.
