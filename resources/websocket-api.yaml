@@ -7,7 +7,7 @@ tags:
     description: "WebSocket Streams"
 
 servers:
-  - url: https://stream.api.{env}.bluefin.io
+  - url: wss://stream.api.{env}.bluefin.io
     variables:
       env:
         default: sui-staging

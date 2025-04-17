@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Bluefin API
+  title: Bluefin Trade API
   version: 1.0.0
 tags:
   - name: Trade

@@ -1,18 +1,25 @@
 openapi: 3.0.3
 info:
-  title: Bluefin API
+  title: Bluefin Account Data API
   version: v1
   description: |
     All numeric quantities are represented as string in e9 format.
 tags:
   - name: Account Data
     description: "Account Data Service"
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      name: x-user-token
       bearerFormat: JWT # Optional, arbitrary value for documentation purposes
   schemas:
     Account:
