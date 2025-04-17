@@ -9,7 +9,7 @@ For now please use the readme that is located inside each supported language dir
 ## Generate OpenAPI spec
 1. Bundle the openapi specs into one
 ```bash
-docker run --rm -v $PWD:/spec redocly/cli bundle -o /spec/out/bluefin.bundle.yaml /spec/resources/bluefin-api.yaml
+docker run --rm -v $PWD:/spec redocly/cli bundle -o /spec/out/bluefin.bundle.yaml /spec/resources/v1/bluefin-api.yaml
 ```
 2. View the spec
 ```bash

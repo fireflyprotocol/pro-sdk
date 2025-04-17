@@ -54,7 +54,7 @@ repository. These APIs include:
 ### WebSocket APIs
 
 WebSocket APIs enable real-time market data and event subscription. Documentation for WebSocket messages is available
-within the OpenAPI specs in `resources/websocket-api.yaml` file.
+within the OpenAPI specs in `resources/v1/websocket-api.yaml` file.
 
 - **Market**: Real-time market updates such as Ticker, Recent Trades, Oracle Price and more
 - **Account**: Real-time account updates such as Order Updates, Balance Changes and more (requires authentication token)

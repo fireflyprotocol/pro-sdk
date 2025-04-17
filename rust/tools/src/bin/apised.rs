@@ -56,7 +56,7 @@ fn input_parent() -> Result<PathBuf> {
 }
 
 fn run(spec: &str) -> Result<()> {
-    let path = format!("{INPUT_DIR}/{spec}-api.yaml");
+    let path = format!("{INPUT_DIR}/v1/{spec}-api.yaml");
     let loaded_spec = fs::read_to_string(&path)?;
     let new_spec = loaded_spec.replace("x-user-token", "Authorization");
 

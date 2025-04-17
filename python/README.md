@@ -58,12 +58,12 @@ The OpenAPI client code in the ``sdk/src`` directory is automatically generated 
 To regenerate the client code, run (from the ``sdk`` directory):
 
 ```bash
-openapi-generator generate -i ../../resources/bluefin-api.yaml -c config.yaml -g python -o src
+openapi-generator generate -i ../../resources/v1/bluefin-api.yaml -c config.yaml -g python -o src
 ```
 
 This will:
 
-1. Use the OpenAPI spec from ``../../resources/bluefin-api.yaml``
+1. Use the OpenAPI spec from ``../../resources/v1/bluefin-api.yaml``
 2. Apply configuration from ``config.yaml`` 
 3. Generate a Python client
 4. Output the generated code to the ``src`` directory

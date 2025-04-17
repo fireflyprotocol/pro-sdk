@@ -33,7 +33,7 @@ npm install PATH_TO_GENERATED_PACKAGE --save
 
 Generated via 
 ```
-openapi-generator generate -i ../resources/bluefin-api.yaml -c ./sdk/openapitools.json -g typescript-axios -o sdk/src --skip-validate-spec
+openapi-generator generate -i ../resources/v1/bluefin-api.yaml -c ./sdk/openapitools.json -g typescript-axios -o sdk/src --skip-validate-spec
 ```
 
 ## Examples
