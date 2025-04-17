@@ -53,7 +53,7 @@ impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Error::Flag(flag) => write!(f, "{flag} is not recognized"),
-            Error::Io(err) => write!(f, "{err}; is `openapi-generator` in your PATH?"),
+            Error::Io(err) => write!(f, "{err}; are npm and openapi-generator-cli in your PATH?"),
             Error::Lang(s) => write!(f, "{s} is not a supported language"),
             Error::NoLang => write!(f, "expected --lang LANGUAGE"),
             Error::Path => write!(f, "{INPUT_DIR}: directory not found"),
