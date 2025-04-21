@@ -125,7 +125,7 @@ export class BluefinProSdk {
     private readonly bfSigner: IBluefinSigner,
     private environment: "mainnet" | "testnet" | "devnet" = "mainnet",
     private suiClient: SuiClient,
-    opts?: BluefinProSdkOptions,
+    opts?: BluefinProSdkOptions
   ) {
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
@@ -289,7 +289,7 @@ export class BluefinProSdk {
     const signature = await this.bfSigner.signLoginRequest(loginRequest);
     const response = await this.authApi.authV2TokenPost(
       signature,
-      loginRequest,
+      loginRequest
     );
     this.tokenResponse = response.data;
   }
@@ -302,7 +302,6 @@ export class BluefinProSdk {
   }
 
   public async getOpenOrders(symbol?: string) {
-    await this.setAccessToken();
     return await this.tradeApi.getOpenOrders(symbol);
   }
 
@@ -371,7 +370,7 @@ export class BluefinProSdk {
   public async withdraw(assetSymbol: string, amountE9: string) {
     const exchangeInfo = await this.exchangeDataApi.getExchangeInfo();
     const asset = exchangeInfo.data.assets.find(
-      (asset) => asset.symbol === assetSymbol,
+      (asset) => asset.symbol === assetSymbol
     );
 
     if (!asset) {
@@ -415,7 +414,7 @@ export class BluefinProSdk {
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
       signedFields,
-      true,
+      true
     );
 
     await this.tradeApi.putAuthorizeAccount({
@@ -440,7 +439,7 @@ export class BluefinProSdk {
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
       signedFields,
-      false,
+      false
     );
 
     await this.tradeApi.putDeauthorizeAccount({
@@ -450,7 +449,11 @@ export class BluefinProSdk {
     console.log("Deauthorize account request sent:", signedFields);
   }
 
-  public async adjustIsolatedMargin(symbol: string, amountE9: string, add: boolean) {
+  public async adjustIsolatedMargin(
+    symbol: string,
+    amountE9: string,
+    add: boolean
+  ) {
     if (!this.contractsConfig) {
       throw new Error("Missing contractsConfig");
     }
@@ -459,13 +462,17 @@ export class BluefinProSdk {
       symbol,
       idsId: this.contractsConfig.idsId,
       accountAddress: this.currentAccountAddress!,
-      operation: add ? AdjustMarginOperation.Add : AdjustMarginOperation.Subtract,
+      operation: add
+        ? AdjustMarginOperation.Add
+        : AdjustMarginOperation.Subtract,
       quantityE9: amountE9,
       salt: this.generateSalt(),
       signedAtMillis: Date.now(),
     };
 
-    const signature = await this.bfSigner.signAdjustIsolatedMarginRequest(signedFields);
+    const signature = await this.bfSigner.signAdjustIsolatedMarginRequest(
+      signedFields
+    );
 
     await this.tradeApi.putAdjustIsolatedMargin({
       signedFields,
@@ -478,7 +485,7 @@ export class BluefinProSdk {
     const assetSymbol = "USDC";
     const txb = new TransactionBlock();
     const assetType = this.assets?.find(
-      (x) => x.symbol === assetSymbol,
+      (x) => x.symbol === assetSymbol
     )?.assetType;
     if (!assetType) {
       throw new Error("Missing USDC asset type");
@@ -488,46 +495,35 @@ export class BluefinProSdk {
       txb,
       amountE9,
       assetType,
-      this.currentAccountAddress || this.bfSigner.getAddress(),
+      this.currentAccountAddress || this.bfSigner.getAddress()
     );
 
     this.txBuilder?.depositToAssetBank(
       assetSymbol,
       accountAddress ||
-      this.currentAccountAddress ||
-      this.bfSigner.getAddress(),
+        this.currentAccountAddress ||
+        this.bfSigner.getAddress(),
       amountE9,
       splitCoin,
       {
         txBlock: txb,
-      },
+      }
     );
 
     if (mergedCoin) {
       txb.transferObjects(
         [mergedCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress(),
+        this.currentAccountAddress || this.bfSigner.getAddress()
       );
     }
     if (splitCoin) {
       txb.transferObjects(
         [splitCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress(),
+        this.currentAccountAddress || this.bfSigner.getAddress()
       );
     }
 
     return this.bfSigner.executeTx(txb, this.suiClient);
-  }
-
-  private async setAccessToken(): Promise<void> {
-    await this.login();
-    if (!this.tokenResponse) {
-      throw new Error("Missing tokenResponse");
-    }
-
-    this.configs[Services.Account]!.accessToken =
-      this.tokenResponse.accessToken;
-    this.configs[Services.Trade]!.accessToken = this.tokenResponse.accessToken;
   }
 
   public async refreshToken(): Promise<void> {
@@ -538,7 +534,7 @@ export class BluefinProSdk {
       !this.tokenResponse ||
       !this.tokenSetAtSeconds ||
       Date.now() / 1000 - this.tokenSetAtSeconds >
-      this.tokenResponse.accessTokenValidForSeconds
+        this.tokenResponse.accessTokenValidForSeconds
     ) {
       console.log("Refreshing token");
       this.tokenSetAtSeconds = Date.now() / 1000;
@@ -547,7 +543,7 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
-    handler: (data: AccountStreamMessage) => Promise<void>,
+    handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve) => {
       if (!this.tokenResponse) {
@@ -559,7 +555,7 @@ export class BluefinProSdk {
           headers: {
             Authorization: `Bearer ${this.tokenResponse.accessToken}`,
           },
-        },
+        }
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
@@ -571,11 +567,11 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
-    handler: (data: MarketStreamMessage) => Promise<void>,
+    handler: (data: MarketStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
     return new Promise((resolve) => {
       const ws = new WebSocket(
-        this.configs[Services.MarketWebsocket]!.basePath!,
+        this.configs[Services.MarketWebsocket]!.basePath!
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
