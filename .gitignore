@@ -1,4 +1,5 @@
 /rust/target
+/rust/tools/target
 .idea/
 .vscode/
 .venv
