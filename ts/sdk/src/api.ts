@@ -500,11 +500,11 @@ export interface AccountPositionUpdate {
      */
     'side': PositionSide;
     /**
-     * The initial margin required for the position.
+     * The margin required for the position.
      * @type {string}
      * @memberof AccountPositionUpdate
      */
-    'initialMarginE9': string;
+    'marginRequiredE9': string;
     /**
      * The maintenance margin required for the position.
      * @type {string}
@@ -689,95 +689,119 @@ export interface AccountUpdate {
      */
     'tradingFees'?: TradingFees;
     /**
-     * Indicates if trading is enabled.
+     * If the user can trade.
      * @type {boolean}
      * @memberof AccountUpdate
      */
     'canTrade': boolean;
     /**
-     * Indicates if deposits are enabled.
+     * If the current user can deposit to the account.
      * @type {boolean}
      * @memberof AccountUpdate
      */
     'canDeposit': boolean;
     /**
-     * Indicates if withdrawals are enabled.
+     * If the current user can withdraw from the account.
      * @type {boolean}
      * @memberof AccountUpdate
      */
     'canWithdraw': boolean;
     /**
-     * The total effective balance.
+     * Total effective balance in USD (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'totalEffectiveBalanceE9': string;
+    'crossEffectiveBalanceE9': string;
     /**
-     * The total initial margin required.
+     * The sum of initial margin required across all cross positions (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'totalInitialMarginRequiredE9': string;
+    'crossMarginRequiredE9': string;
     /**
-     * The initial margin required for open orders.
+     * The sum of initial margin required across all open orders (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'totalOpenOrderInitialMarginRequiredE9': string;
+    'totalOrderMarginRequiredE9': string;
     /**
-     * The available initial margin.
+     * The amount of margin available to open new positions and orders (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'initialMarginAvailableE9': string;
+    'marginAvailableE9': string;
     /**
-     * The total maintenance margin required.
+     * The sum of maintenance margin required across all cross positions (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'totalMaintenanceMarginRequiredE9': string;
+    'crossMaintenanceMarginRequiredE9': string;
     /**
-     * The available maintenance margin.
+     * The amount of margin available before liquidation (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'maintenanceMarginAvailableE9': string;
+    'crossMaintenanceMarginAvailableE9': string;
     /**
-     * The maintenance margin ratio.
+     * The ratio of the maintenance margin required to the account value (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'accountMaintenanceMarginRatioE9': string;
+    'crossMaintenanceMarginRatioE9': string;
     /**
-     * The account leverage.
+     * The leverage of the account (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'accountLeverageE9': string;
+    'crossLeverageE9': string;
     /**
-     * The total unrealized profit and loss.
+     * Total unrealized profit (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
     'totalUnrealizedPnlE9': string;
     /**
-     * The total cross unrealized profit and loss.
+     * Unrealized profit of cross positions (e9 format).
      * @type {string}
      * @memberof AccountUpdate
      */
-    'totalCrossUnrealizedPnlE9': string;
+    'crossUnrealizedPnlE9': string;
     /**
-     * The timestamp of the last update in milliseconds.
+     * An implicitly negative number that sums only the losses of all cross positions.
+     * @type {string}
+     * @memberof AccountUpdate
+     */
+    'crossUnrealizedLossE9': string;
+    /**
+     * The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position. 
+     * @type {string}
+     * @memberof AccountUpdate
+     */
+    'crossAccountValueE9': string;
+    /**
+     * The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position. 
+     * @type {string}
+     * @memberof AccountUpdate
+     */
+    'totalAccountValueE9': string;
+    /**
+     * Last update time in milliseconds since Unix epoch.
      * @type {number}
      * @memberof AccountUpdate
      */
     'updatedAtMillis': number;
     /**
-     * The list of assets.
+     * 
      * @type {Array<Asset>}
      * @memberof AccountUpdate
      */
     'assets': Array<Asset>;
+    /**
+     * The accounts that are authorized to trade on behalf of the current account.
+     * @type {Array<string>}
+     * @memberof AccountUpdate
+     */
+    'authorizedAccounts': Array<string>;
 }
 /**
  * Information about an order update.
