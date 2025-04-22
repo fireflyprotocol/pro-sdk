@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **symbol** | Option<**String**> | Market address. | [optional]
 **r#type** | [**models::TransactionType**](TransactionType.md) |  | 
 **amount_e9** | **String** | Amount in e9 format (positive or negative). | 
+**status** | Option<**String**> | Transaction status (SUCCESS, REJECTED). | [optional]
 **asset_symbol** | **String** | Asset bank address. | 
 **trade_id** | Option<**String**> | Trade ID | [optional]
 **executed_at_millis** | **i64** | Transaction timestamp in milliseconds since Unix epoch. | 

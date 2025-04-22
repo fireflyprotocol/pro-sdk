@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **symbol** | **str** | Market address. | [optional] 
 **type** | [**TransactionType**](TransactionType.md) |  | 
 **amount_e9** | **str** | Amount in e9 format (positive or negative). | 
+**status** | **str** | Transaction status (SUCCESS, REJECTED). | [optional] 
 **asset_symbol** | **str** | Asset bank address. | 
 **trade_id** | **str** | Trade ID | [optional] 
 **executed_at_millis** | **int** | Transaction timestamp in milliseconds since Unix epoch. | 

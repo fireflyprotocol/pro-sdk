@@ -33,21 +33,24 @@ class Account(BaseModel):
     can_trade: StrictBool = Field(description="If the user can trade.", alias="canTrade")
     can_deposit: StrictBool = Field(description="If the current user can deposit to the account.", alias="canDeposit")
     can_withdraw: StrictBool = Field(description="If the current user can withdraw from the account.", alias="canWithdraw")
-    total_effective_balance_e9: StrictStr = Field(description="Total effective balance in USD (e9 format).", alias="totalEffectiveBalanceE9")
-    total_initial_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all cross positions (e9 format).", alias="totalInitialMarginRequiredE9")
-    total_open_order_initial_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all open orders (e9 format).", alias="totalOpenOrderInitialMarginRequiredE9")
-    initial_margin_available_e9: StrictStr = Field(description="The amount of margin available to open new positions and orders (e9 format).", alias="initialMarginAvailableE9")
-    total_maintenance_margin_required_e9: StrictStr = Field(description="The sum of maintenance margin required across all cross positions (e9 format).", alias="totalMaintenanceMarginRequiredE9")
-    maintenance_margin_available_e9: StrictStr = Field(description="The amount of margin available before liquidation (e9 format).", alias="maintenanceMarginAvailableE9")
-    account_maintenance_margin_ratio_e9: StrictStr = Field(description="The ratio of the maintenance margin required to the account value (e9 format).", alias="accountMaintenanceMarginRatioE9")
-    account_leverage_e9: StrictStr = Field(description="The leverage of the account (e9 format).", alias="accountLeverageE9")
+    cross_effective_balance_e9: StrictStr = Field(description="Total effective balance in USD (e9 format).", alias="crossEffectiveBalanceE9")
+    cross_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all cross positions (e9 format).", alias="crossMarginRequiredE9")
+    total_order_margin_required_e9: StrictStr = Field(description="The sum of initial margin required across all open orders (e9 format).", alias="totalOrderMarginRequiredE9")
+    margin_available_e9: StrictStr = Field(description="The amount of margin available to open new positions and orders (e9 format).", alias="marginAvailableE9")
+    cross_maintenance_margin_required_e9: StrictStr = Field(description="The sum of maintenance margin required across all cross positions (e9 format).", alias="crossMaintenanceMarginRequiredE9")
+    cross_maintenance_margin_available_e9: StrictStr = Field(description="The amount of margin available before liquidation (e9 format).", alias="crossMaintenanceMarginAvailableE9")
+    cross_maintenance_margin_ratio_e9: StrictStr = Field(description="The ratio of the maintenance margin required to the account value (e9 format).", alias="crossMaintenanceMarginRatioE9")
+    cross_leverage_e9: StrictStr = Field(description="The leverage of the account (e9 format).", alias="crossLeverageE9")
     total_unrealized_pnl_e9: StrictStr = Field(description="Total unrealized profit (e9 format).", alias="totalUnrealizedPnlE9")
-    total_cross_unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit of crossed positions (e9 format).", alias="totalCrossUnrealizedPnlE9")
+    cross_unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit of cross positions (e9 format).", alias="crossUnrealizedPnlE9")
+    cross_unrealized_loss_e9: StrictStr = Field(description="An implicitly negative number that sums only the losses of all cross positions.", alias="crossUnrealizedLossE9")
+    cross_account_value_e9: StrictStr = Field(description="The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position. ", alias="crossAccountValueE9")
+    total_account_value_e9: StrictStr = Field(description="The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position. ", alias="totalAccountValueE9")
     updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="updatedAtMillis")
     assets: List[Asset]
     positions: List[Position]
     authorized_accounts: List[StrictStr] = Field(description="The accounts that are authorized to trade on behalf of the current account.", alias="authorizedAccounts")
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "totalEffectiveBalanceE9", "totalInitialMarginRequiredE9", "totalOpenOrderInitialMarginRequiredE9", "initialMarginAvailableE9", "totalMaintenanceMarginRequiredE9", "maintenanceMarginAvailableE9", "accountMaintenanceMarginRatioE9", "accountLeverageE9", "totalUnrealizedPnlE9", "totalCrossUnrealizedPnlE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts"]
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -121,16 +124,19 @@ class Account(BaseModel):
             "canTrade": obj.get("canTrade"),
             "canDeposit": obj.get("canDeposit"),
             "canWithdraw": obj.get("canWithdraw"),
-            "totalEffectiveBalanceE9": obj.get("totalEffectiveBalanceE9"),
-            "totalInitialMarginRequiredE9": obj.get("totalInitialMarginRequiredE9"),
-            "totalOpenOrderInitialMarginRequiredE9": obj.get("totalOpenOrderInitialMarginRequiredE9"),
-            "initialMarginAvailableE9": obj.get("initialMarginAvailableE9"),
-            "totalMaintenanceMarginRequiredE9": obj.get("totalMaintenanceMarginRequiredE9"),
-            "maintenanceMarginAvailableE9": obj.get("maintenanceMarginAvailableE9"),
-            "accountMaintenanceMarginRatioE9": obj.get("accountMaintenanceMarginRatioE9"),
-            "accountLeverageE9": obj.get("accountLeverageE9"),
+            "crossEffectiveBalanceE9": obj.get("crossEffectiveBalanceE9"),
+            "crossMarginRequiredE9": obj.get("crossMarginRequiredE9"),
+            "totalOrderMarginRequiredE9": obj.get("totalOrderMarginRequiredE9"),
+            "marginAvailableE9": obj.get("marginAvailableE9"),
+            "crossMaintenanceMarginRequiredE9": obj.get("crossMaintenanceMarginRequiredE9"),
+            "crossMaintenanceMarginAvailableE9": obj.get("crossMaintenanceMarginAvailableE9"),
+            "crossMaintenanceMarginRatioE9": obj.get("crossMaintenanceMarginRatioE9"),
+            "crossLeverageE9": obj.get("crossLeverageE9"),
             "totalUnrealizedPnlE9": obj.get("totalUnrealizedPnlE9"),
-            "totalCrossUnrealizedPnlE9": obj.get("totalCrossUnrealizedPnlE9"),
+            "crossUnrealizedPnlE9": obj.get("crossUnrealizedPnlE9"),
+            "crossUnrealizedLossE9": obj.get("crossUnrealizedLossE9"),
+            "crossAccountValueE9": obj.get("crossAccountValueE9"),
+            "totalAccountValueE9": obj.get("totalAccountValueE9"),
             "updatedAtMillis": obj.get("updatedAtMillis"),
             "assets": [Asset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,

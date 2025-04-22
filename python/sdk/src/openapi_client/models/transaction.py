@@ -31,10 +31,11 @@ class Transaction(BaseModel):
     symbol: Optional[StrictStr] = Field(default=None, description="Market address.")
     type: TransactionType
     amount_e9: StrictStr = Field(description="Amount in e9 format (positive or negative).", alias="amountE9")
+    status: Optional[StrictStr] = Field(default=None, description="Transaction status (SUCCESS, REJECTED).")
     asset_symbol: StrictStr = Field(description="Asset bank address.", alias="assetSymbol")
     trade_id: Optional[StrictStr] = Field(default=None, description="Trade ID", alias="tradeId")
     executed_at_millis: StrictInt = Field(description="Transaction timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["id", "symbol", "type", "amountE9", "assetSymbol", "tradeId", "executedAtMillis"]
+    __properties: ClassVar[List[str]] = ["id", "symbol", "type", "amountE9", "status", "assetSymbol", "tradeId", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,6 +92,7 @@ class Transaction(BaseModel):
             "symbol": obj.get("symbol"),
             "type": obj.get("type"),
             "amountE9": obj.get("amountE9"),
+            "status": obj.get("status"),
             "assetSymbol": obj.get("assetSymbol"),
             "tradeId": obj.get("tradeId"),
             "executedAtMillis": obj.get("executedAtMillis")

@@ -29,16 +29,19 @@ components:
         - canTrade
         - canDeposit
         - canWithdraw
-        - totalEffectiveBalanceE9
-        - totalInitialMarginRequiredE9
-        - totalOpenOrderInitialMarginRequiredE9
-        - initialMarginAvailableE9
-        - totalMaintenanceMarginRequiredE9
-        - maintenanceMarginAvailableE9
-        - accountMaintenanceMarginRatioE9
-        - accountLeverageE9
+        - crossEffectiveBalanceE9
+        - crossMarginRequiredE9
+        - totalOrderMarginRequiredE9
+        - marginAvailableE9
+        - crossMaintenanceMarginRequiredE9
+        - crossMaintenanceMarginAvailableE9
+        - crossMaintenanceMarginRatioE9
+        - crossLeverageE9
+        - crossUnrealizedPnlE9
         - totalUnrealizedPnlE9
-        - totalCrossUnrealizedPnlE9
+        - crossUnrealizedLossE9
+        - crossAccountValueE9
+        - totalAccountValueE9
         - updatedAtMillis
         - assets
         - positions
@@ -58,35 +61,35 @@ components:
           type: boolean
           description: If the current user can withdraw from the account.
           example: false
-        totalEffectiveBalanceE9:
+        crossEffectiveBalanceE9:
           type: string
-          description: Total effective balance in USD (e9 format).
+          description: "Total effective balance in USD (e9 format)."
           example: "12000000000000" # 12,000 USD
-        totalInitialMarginRequiredE9:
+        crossMarginRequiredE9:
           type: string
           description: The sum of initial margin required across all cross positions (e9 format).
           example: "1000000000" # 1,000 USD
-        totalOpenOrderInitialMarginRequiredE9:
+        totalOrderMarginRequiredE9:
           type: string
           description: The sum of initial margin required across all open orders (e9 format).
           example: "1000000000" # 1,000 USD
-        initialMarginAvailableE9:
+        marginAvailableE9:
           type: string
           description: The amount of margin available to open new positions and orders (e9 format).
           example: "1000000000" # 1,000 USD
-        totalMaintenanceMarginRequiredE9:
+        crossMaintenanceMarginRequiredE9:
           type: string
           description: The sum of maintenance margin required across all cross positions (e9 format).
           example: "5000000000" # 5,000 USD
-        maintenanceMarginAvailableE9:
+        crossMaintenanceMarginAvailableE9:
           type: string
           description: The amount of margin available before liquidation (e9 format).
           example: "1000000000" # 1,000 USD
-        accountMaintenanceMarginRatioE9:
+        crossMaintenanceMarginRatioE9:
           type: string
           description: The ratio of the maintenance margin required to the account value (e9 format).
           example: "1000000000" # 1,000 USD
-        accountLeverageE9:
+        crossLeverageE9:
           type: string
           description: The leverage of the account (e9 format).
           example: "1000000000" # 1,000 USD
@@ -94,10 +97,28 @@ components:
           type: string
           description: Total unrealized profit (e9 format).
           example: "2000000000" # 2,000 USD
-        totalCrossUnrealizedPnlE9:
+        crossUnrealizedPnlE9:
           type: string
-          description: Unrealized profit of crossed positions (e9 format).
-          example: "3000000000" # 3,000 USD
+          description: Unrealized profit of cross positions (e9 format).
+          example: "2000000000" # 2,000 USD
+        crossUnrealizedLossE9:
+          type: string
+          description: An implicitly negative number that sums only the losses of all cross positions.
+          example: "1000000000" # 1,000 USD
+        crossAccountValueE9:
+          type: string
+          description: | 
+            The total value of the cross account, combining the cross effective
+            balance and unrealized PnL across all cross positions, and subtracting any pending
+            funding payments on any cross position.
+          example: "1000000000" # 1,000 USD
+        totalAccountValueE9:
+          type: string
+          description: | 
+            The total value of the account, combining the total effective
+            balance and unrealized PnL across all positions, and subtracting any pending
+            funding payments on any position.
+          example: "1000000000" # 1,000 USD
         updatedAtMillis:
           type: integer
           format: int64
@@ -164,17 +185,17 @@ components:
       required:
         - symbol
         - avgEntryPriceE9
-        - leverageE9
+        - clientSetLeverageE9
+        - liquidationPriceE9
         - markPriceE9
         - notionalValueE9
         - sizeE9
         - unrealizedPnlE9
         - side
-        - isIsolated
-        - liquidationPriceE9
-        - updatedAtMillis
-        - initialMarginE9
+        - marginRequiredE9
         - maintenanceMarginE9
+        - isIsolated
+        - updatedAtMillis
         - isolatedMarginE9
         - fundingRatePaymentAllTimeE9
         - fundingRatePaymentSinceChangeE9
@@ -187,7 +208,7 @@ components:
           type: string
           description: Average entry price determined by a simple average of all entry prices resulting in this position size (e9 format).
           example: "400000000000" # 400 USD
-        leverageE9:
+        clientSetLeverageE9:
           type: string
           description: Isolated position leverage (e9 format).
           example: "100000000000" # 100
@@ -213,7 +234,7 @@ components:
           example: "-1000000000" # -1,000 USD
         side:
           $ref: "./common.yaml#/components/schemas/PositionSide"
-        initialMarginE9:
+        marginRequiredE9:
           type: string
           description: Initial margin required with current mark price (e9 format).
           example: "0"
@@ -269,6 +290,10 @@ components:
           type: string
           description: Amount in e9 format (positive or negative).
           example: "-1000000"
+        status:
+          type: string
+          description: Transaction status (SUCCESS, REJECTED).
+          example: "SUCCESS"
         assetSymbol:
           type: string
           description: Asset bank address.

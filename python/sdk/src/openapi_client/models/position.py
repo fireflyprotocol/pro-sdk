@@ -29,14 +29,14 @@ class Position(BaseModel):
     """ # noqa: E501
     symbol: StrictStr = Field(description="Market address.")
     avg_entry_price_e9: StrictStr = Field(description="Average entry price determined by a simple average of all entry prices resulting in this position size (e9 format).", alias="avgEntryPriceE9")
-    leverage_e9: StrictStr = Field(description="Isolated position leverage (e9 format).", alias="leverageE9")
+    client_set_leverage_e9: StrictStr = Field(description="Isolated position leverage (e9 format).", alias="clientSetLeverageE9")
     liquidation_price_e9: StrictStr = Field(description="Liquidation price (e9 format).", alias="liquidationPriceE9")
     mark_price_e9: StrictStr = Field(description="Mark price (e9 format).", alias="markPriceE9")
     notional_value_e9: StrictStr = Field(description="Notional value (e9 format).", alias="notionalValueE9")
     size_e9: StrictStr = Field(description="Position size (e9 format).", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="Unrealized profit (e9 format).", alias="unrealizedPnlE9")
     side: PositionSide
-    initial_margin_e9: StrictStr = Field(description="Initial margin required with current mark price (e9 format).", alias="initialMarginE9")
+    margin_required_e9: StrictStr = Field(description="Initial margin required with current mark price (e9 format).", alias="marginRequiredE9")
     maintenance_margin_e9: StrictStr = Field(description="Maintenance margin required with current mark price (e9 format).", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="If the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="Margin value present if margin type is isolated (e9 format).", alias="isolatedMarginE9")
@@ -44,7 +44,7 @@ class Position(BaseModel):
     funding_rate_payment_all_time_e9: StrictStr = Field(description="Total funding rate payment (e9 format).", alias="fundingRatePaymentAllTimeE9")
     funding_rate_payment_since_change_e9: StrictStr = Field(description="Funding rate payment since last position change (e9 format).", alias="fundingRatePaymentSinceChangeE9")
     funding_rate_payment_since_opened_e9: StrictStr = Field(description="Funding rate payment since position opened (e9 format).", alias="fundingRatePaymentSinceOpenedE9")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis", "fundingRatePaymentAllTimeE9", "fundingRatePaymentSinceChangeE9", "fundingRatePaymentSinceOpenedE9"]
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "clientSetLeverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "marginRequiredE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis", "fundingRatePaymentAllTimeE9", "fundingRatePaymentSinceChangeE9", "fundingRatePaymentSinceOpenedE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,14 +99,14 @@ class Position(BaseModel):
         _obj = cls.model_validate({
             "symbol": obj.get("symbol"),
             "avgEntryPriceE9": obj.get("avgEntryPriceE9"),
-            "leverageE9": obj.get("leverageE9"),
+            "clientSetLeverageE9": obj.get("clientSetLeverageE9"),
             "liquidationPriceE9": obj.get("liquidationPriceE9"),
             "markPriceE9": obj.get("markPriceE9"),
             "notionalValueE9": obj.get("notionalValueE9"),
             "sizeE9": obj.get("sizeE9"),
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
             "side": obj.get("side"),
-            "initialMarginE9": obj.get("initialMarginE9"),
+            "marginRequiredE9": obj.get("marginRequiredE9"),
             "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),
             "isolatedMarginE9": obj.get("isolatedMarginE9"),

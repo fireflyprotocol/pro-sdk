@@ -25,35 +25,44 @@ pub struct Account {
     #[serde(rename = "canWithdraw")]
     pub can_withdraw: bool,
     /// Total effective balance in USD (e9 format).
-    #[serde(rename = "totalEffectiveBalanceE9")]
-    pub total_effective_balance_e9: String,
+    #[serde(rename = "crossEffectiveBalanceE9")]
+    pub cross_effective_balance_e9: String,
     /// The sum of initial margin required across all cross positions (e9 format).
-    #[serde(rename = "totalInitialMarginRequiredE9")]
-    pub total_initial_margin_required_e9: String,
+    #[serde(rename = "crossMarginRequiredE9")]
+    pub cross_margin_required_e9: String,
     /// The sum of initial margin required across all open orders (e9 format).
-    #[serde(rename = "totalOpenOrderInitialMarginRequiredE9")]
-    pub total_open_order_initial_margin_required_e9: String,
+    #[serde(rename = "totalOrderMarginRequiredE9")]
+    pub total_order_margin_required_e9: String,
     /// The amount of margin available to open new positions and orders (e9 format).
-    #[serde(rename = "initialMarginAvailableE9")]
-    pub initial_margin_available_e9: String,
+    #[serde(rename = "marginAvailableE9")]
+    pub margin_available_e9: String,
     /// The sum of maintenance margin required across all cross positions (e9 format).
-    #[serde(rename = "totalMaintenanceMarginRequiredE9")]
-    pub total_maintenance_margin_required_e9: String,
+    #[serde(rename = "crossMaintenanceMarginRequiredE9")]
+    pub cross_maintenance_margin_required_e9: String,
     /// The amount of margin available before liquidation (e9 format).
-    #[serde(rename = "maintenanceMarginAvailableE9")]
-    pub maintenance_margin_available_e9: String,
+    #[serde(rename = "crossMaintenanceMarginAvailableE9")]
+    pub cross_maintenance_margin_available_e9: String,
     /// The ratio of the maintenance margin required to the account value (e9 format).
-    #[serde(rename = "accountMaintenanceMarginRatioE9")]
-    pub account_maintenance_margin_ratio_e9: String,
+    #[serde(rename = "crossMaintenanceMarginRatioE9")]
+    pub cross_maintenance_margin_ratio_e9: String,
     /// The leverage of the account (e9 format).
-    #[serde(rename = "accountLeverageE9")]
-    pub account_leverage_e9: String,
+    #[serde(rename = "crossLeverageE9")]
+    pub cross_leverage_e9: String,
     /// Total unrealized profit (e9 format).
     #[serde(rename = "totalUnrealizedPnlE9")]
     pub total_unrealized_pnl_e9: String,
-    /// Unrealized profit of crossed positions (e9 format).
-    #[serde(rename = "totalCrossUnrealizedPnlE9")]
-    pub total_cross_unrealized_pnl_e9: String,
+    /// Unrealized profit of cross positions (e9 format).
+    #[serde(rename = "crossUnrealizedPnlE9")]
+    pub cross_unrealized_pnl_e9: String,
+    /// An implicitly negative number that sums only the losses of all cross positions.
+    #[serde(rename = "crossUnrealizedLossE9")]
+    pub cross_unrealized_loss_e9: String,
+    /// The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position. 
+    #[serde(rename = "crossAccountValueE9")]
+    pub cross_account_value_e9: String,
+    /// The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position. 
+    #[serde(rename = "totalAccountValueE9")]
+    pub total_account_value_e9: String,
     /// Last update time in milliseconds since Unix epoch.
     #[serde(rename = "updatedAtMillis")]
     pub updated_at_millis: i64,
@@ -67,22 +76,25 @@ pub struct Account {
 }
 
 impl Account {
-    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
         Account {
             trading_fees,
             can_trade,
             can_deposit,
             can_withdraw,
-            total_effective_balance_e9,
-            total_initial_margin_required_e9,
-            total_open_order_initial_margin_required_e9,
-            initial_margin_available_e9,
-            total_maintenance_margin_required_e9,
-            maintenance_margin_available_e9,
-            account_maintenance_margin_ratio_e9,
-            account_leverage_e9,
+            cross_effective_balance_e9,
+            cross_margin_required_e9,
+            total_order_margin_required_e9,
+            margin_available_e9,
+            cross_maintenance_margin_required_e9,
+            cross_maintenance_margin_available_e9,
+            cross_maintenance_margin_ratio_e9,
+            cross_leverage_e9,
             total_unrealized_pnl_e9,
-            total_cross_unrealized_pnl_e9,
+            cross_unrealized_pnl_e9,
+            cross_unrealized_loss_e9,
+            cross_account_value_e9,
+            total_account_value_e9,
             updated_at_millis,
             assets,
             positions,

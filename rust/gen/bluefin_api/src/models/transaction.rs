@@ -24,6 +24,9 @@ pub struct Transaction {
     /// Amount in e9 format (positive or negative).
     #[serde(rename = "amountE9")]
     pub amount_e9: String,
+    /// Transaction status (SUCCESS, REJECTED).
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
     /// Asset bank address.
     #[serde(rename = "assetSymbol")]
     pub asset_symbol: String,
@@ -42,6 +45,7 @@ impl Transaction {
             symbol: None,
             r#type,
             amount_e9,
+            status: None,
             asset_symbol,
             trade_id: None,
             executed_at_millis,

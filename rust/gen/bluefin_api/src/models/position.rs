@@ -20,8 +20,8 @@ pub struct Position {
     #[serde(rename = "avgEntryPriceE9")]
     pub avg_entry_price_e9: String,
     /// Isolated position leverage (e9 format).
-    #[serde(rename = "leverageE9")]
-    pub leverage_e9: String,
+    #[serde(rename = "clientSetLeverageE9")]
+    pub client_set_leverage_e9: String,
     /// Liquidation price (e9 format).
     #[serde(rename = "liquidationPriceE9")]
     pub liquidation_price_e9: String,
@@ -40,8 +40,8 @@ pub struct Position {
     #[serde(rename = "side")]
     pub side: models::PositionSide,
     /// Initial margin required with current mark price (e9 format).
-    #[serde(rename = "initialMarginE9")]
-    pub initial_margin_e9: String,
+    #[serde(rename = "marginRequiredE9")]
+    pub margin_required_e9: String,
     /// Maintenance margin required with current mark price (e9 format).
     #[serde(rename = "maintenanceMarginE9")]
     pub maintenance_margin_e9: String,
@@ -66,18 +66,18 @@ pub struct Position {
 }
 
 impl Position {
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64, funding_rate_payment_all_time_e9: String, funding_rate_payment_since_change_e9: String, funding_rate_payment_since_opened_e9: String) -> Position {
+    pub fn new(symbol: String, avg_entry_price_e9: String, client_set_leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, margin_required_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64, funding_rate_payment_all_time_e9: String, funding_rate_payment_since_change_e9: String, funding_rate_payment_since_opened_e9: String) -> Position {
         Position {
             symbol,
             avg_entry_price_e9,
-            leverage_e9,
+            client_set_leverage_e9,
             liquidation_price_e9,
             mark_price_e9,
             notional_value_e9,
             size_e9,
             unrealized_pnl_e9,
             side,
-            initial_margin_e9,
+            margin_required_e9,
             maintenance_margin_e9,
             is_isolated,
             isolated_margin_e9,
