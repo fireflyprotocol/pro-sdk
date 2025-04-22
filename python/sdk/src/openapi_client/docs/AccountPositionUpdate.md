@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **size_e9** | **str** | The size of the position. | 
 **unrealized_pnl_e9** | **str** | The unrealized profit and loss for the position. | 
 **side** | [**PositionSide**](PositionSide.md) |  | 
-**initial_margin_e9** | **str** | The initial margin required for the position. | 
+**margin_required_e9** | **str** | The margin required for the position. | 
 **maintenance_margin_e9** | **str** | The maintenance margin required for the position. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 
 **isolated_margin_e9** | **str** | The isolated margin applied to the position. | 

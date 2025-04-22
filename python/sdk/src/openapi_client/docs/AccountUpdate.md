@@ -7,21 +7,25 @@ Account information for the data stream.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **trading_fees** | [**TradingFees**](TradingFees.md) |  | [optional] 
-**can_trade** | **bool** | Indicates if trading is enabled. | 
-**can_deposit** | **bool** | Indicates if deposits are enabled. | 
-**can_withdraw** | **bool** | Indicates if withdrawals are enabled. | 
-**total_effective_balance_e9** | **str** | The total effective balance. | 
-**total_initial_margin_required_e9** | **str** | The total initial margin required. | 
-**total_open_order_initial_margin_required_e9** | **str** | The initial margin required for open orders. | 
-**initial_margin_available_e9** | **str** | The available initial margin. | 
-**total_maintenance_margin_required_e9** | **str** | The total maintenance margin required. | 
-**maintenance_margin_available_e9** | **str** | The available maintenance margin. | 
-**account_maintenance_margin_ratio_e9** | **str** | The maintenance margin ratio. | 
-**account_leverage_e9** | **str** | The account leverage. | 
-**total_unrealized_pnl_e9** | **str** | The total unrealized profit and loss. | 
-**total_cross_unrealized_pnl_e9** | **str** | The total cross unrealized profit and loss. | 
-**updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
-**assets** | [**List[Asset]**](Asset.md) | The list of assets. | 
+**can_trade** | **bool** | If the user can trade. | 
+**can_deposit** | **bool** | If the current user can deposit to the account. | 
+**can_withdraw** | **bool** | If the current user can withdraw from the account. | 
+**cross_effective_balance_e9** | **str** | Total effective balance in USD (e9 format). | 
+**cross_margin_required_e9** | **str** | The sum of initial margin required across all cross positions (e9 format). | 
+**total_order_margin_required_e9** | **str** | The sum of initial margin required across all open orders (e9 format). | 
+**margin_available_e9** | **str** | The amount of margin available to open new positions and orders (e9 format). | 
+**cross_maintenance_margin_required_e9** | **str** | The sum of maintenance margin required across all cross positions (e9 format). | 
+**cross_maintenance_margin_available_e9** | **str** | The amount of margin available before liquidation (e9 format). | 
+**cross_maintenance_margin_ratio_e9** | **str** | The ratio of the maintenance margin required to the account value (e9 format). | 
+**cross_leverage_e9** | **str** | The leverage of the account (e9 format). | 
+**total_unrealized_pnl_e9** | **str** | Total unrealized profit (e9 format). | 
+**cross_unrealized_pnl_e9** | **str** | Unrealized profit of cross positions (e9 format). | 
+**cross_unrealized_loss_e9** | **str** | An implicitly negative number that sums only the losses of all cross positions. | 
+**cross_account_value_e9** | **str** | The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position.  | 
+**total_account_value_e9** | **str** | The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position.  | 
+**updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
+**assets** | [**List[Asset]**](Asset.md) |  | 
+**authorized_accounts** | **List[str]** | The accounts that are authorized to trade on behalf of the current account. | 
 
 ## Example
 
