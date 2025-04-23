@@ -16,73 +16,88 @@ use serde::{Deserialize, Serialize};
 pub struct AccountUpdate {
     #[serde(rename = "tradingFees", skip_serializing_if = "Option::is_none")]
     pub trading_fees: Option<models::TradingFees>,
-    /// Indicates if trading is enabled.
+    /// If the user can trade.
     #[serde(rename = "canTrade")]
     pub can_trade: bool,
-    /// Indicates if deposits are enabled.
+    /// If the current user can deposit to the account.
     #[serde(rename = "canDeposit")]
     pub can_deposit: bool,
-    /// Indicates if withdrawals are enabled.
+    /// If the current user can withdraw from the account.
     #[serde(rename = "canWithdraw")]
     pub can_withdraw: bool,
-    /// The total effective balance.
-    #[serde(rename = "totalEffectiveBalanceE9")]
-    pub total_effective_balance_e9: String,
-    /// The total initial margin required.
-    #[serde(rename = "totalInitialMarginRequiredE9")]
-    pub total_initial_margin_required_e9: String,
-    /// The initial margin required for open orders.
-    #[serde(rename = "totalOpenOrderInitialMarginRequiredE9")]
-    pub total_open_order_initial_margin_required_e9: String,
-    /// The available initial margin.
-    #[serde(rename = "initialMarginAvailableE9")]
-    pub initial_margin_available_e9: String,
-    /// The total maintenance margin required.
-    #[serde(rename = "totalMaintenanceMarginRequiredE9")]
-    pub total_maintenance_margin_required_e9: String,
-    /// The available maintenance margin.
-    #[serde(rename = "maintenanceMarginAvailableE9")]
-    pub maintenance_margin_available_e9: String,
-    /// The maintenance margin ratio.
-    #[serde(rename = "accountMaintenanceMarginRatioE9")]
-    pub account_maintenance_margin_ratio_e9: String,
-    /// The account leverage.
-    #[serde(rename = "accountLeverageE9")]
-    pub account_leverage_e9: String,
-    /// The total unrealized profit and loss.
+    /// Total effective balance in USD (e9 format).
+    #[serde(rename = "crossEffectiveBalanceE9")]
+    pub cross_effective_balance_e9: String,
+    /// The sum of initial margin required across all cross positions (e9 format).
+    #[serde(rename = "crossMarginRequiredE9")]
+    pub cross_margin_required_e9: String,
+    /// The sum of initial margin required across all open orders (e9 format).
+    #[serde(rename = "totalOrderMarginRequiredE9")]
+    pub total_order_margin_required_e9: String,
+    /// The amount of margin available to open new positions and orders (e9 format).
+    #[serde(rename = "marginAvailableE9")]
+    pub margin_available_e9: String,
+    /// The sum of maintenance margin required across all cross positions (e9 format).
+    #[serde(rename = "crossMaintenanceMarginRequiredE9")]
+    pub cross_maintenance_margin_required_e9: String,
+    /// The amount of margin available before liquidation (e9 format).
+    #[serde(rename = "crossMaintenanceMarginAvailableE9")]
+    pub cross_maintenance_margin_available_e9: String,
+    /// The ratio of the maintenance margin required to the account value (e9 format).
+    #[serde(rename = "crossMaintenanceMarginRatioE9")]
+    pub cross_maintenance_margin_ratio_e9: String,
+    /// The leverage of the account (e9 format).
+    #[serde(rename = "crossLeverageE9")]
+    pub cross_leverage_e9: String,
+    /// Total unrealized profit (e9 format).
     #[serde(rename = "totalUnrealizedPnlE9")]
     pub total_unrealized_pnl_e9: String,
-    /// The total cross unrealized profit and loss.
-    #[serde(rename = "totalCrossUnrealizedPnlE9")]
-    pub total_cross_unrealized_pnl_e9: String,
-    /// The timestamp of the last update in milliseconds.
+    /// Unrealized profit of cross positions (e9 format).
+    #[serde(rename = "crossUnrealizedPnlE9")]
+    pub cross_unrealized_pnl_e9: String,
+    /// An implicitly negative number that sums only the losses of all cross positions.
+    #[serde(rename = "crossUnrealizedLossE9")]
+    pub cross_unrealized_loss_e9: String,
+    /// The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position. 
+    #[serde(rename = "crossAccountValueE9")]
+    pub cross_account_value_e9: String,
+    /// The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position. 
+    #[serde(rename = "totalAccountValueE9")]
+    pub total_account_value_e9: String,
+    /// Last update time in milliseconds since Unix epoch.
     #[serde(rename = "updatedAtMillis")]
     pub updated_at_millis: i64,
-    /// The list of assets.
     #[serde(rename = "assets")]
     pub assets: Vec<models::Asset>,
+    /// The accounts that are authorized to trade on behalf of the current account.
+    #[serde(rename = "authorizedAccounts")]
+    pub authorized_accounts: Vec<String>,
 }
 
 impl AccountUpdate {
     /// Account information for the data stream.
-    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, total_effective_balance_e9: String, total_initial_margin_required_e9: String, total_open_order_initial_margin_required_e9: String, initial_margin_available_e9: String, total_maintenance_margin_required_e9: String, maintenance_margin_available_e9: String, account_maintenance_margin_ratio_e9: String, account_leverage_e9: String, total_unrealized_pnl_e9: String, total_cross_unrealized_pnl_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>) -> AccountUpdate {
+    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, authorized_accounts: Vec<String>) -> AccountUpdate {
         AccountUpdate {
             trading_fees: None,
             can_trade,
             can_deposit,
             can_withdraw,
-            total_effective_balance_e9,
-            total_initial_margin_required_e9,
-            total_open_order_initial_margin_required_e9,
-            initial_margin_available_e9,
-            total_maintenance_margin_required_e9,
-            maintenance_margin_available_e9,
-            account_maintenance_margin_ratio_e9,
-            account_leverage_e9,
+            cross_effective_balance_e9,
+            cross_margin_required_e9,
+            total_order_margin_required_e9,
+            margin_available_e9,
+            cross_maintenance_margin_required_e9,
+            cross_maintenance_margin_available_e9,
+            cross_maintenance_margin_ratio_e9,
+            cross_leverage_e9,
             total_unrealized_pnl_e9,
-            total_cross_unrealized_pnl_e9,
+            cross_unrealized_pnl_e9,
+            cross_unrealized_loss_e9,
+            cross_account_value_e9,
+            total_account_value_e9,
             updated_at_millis,
             assets,
+            authorized_accounts,
         }
     }
 }

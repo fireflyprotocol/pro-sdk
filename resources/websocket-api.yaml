@@ -487,9 +487,9 @@ components:
           description: "The unrealized profit and loss for the position."
         side:
           $ref: './common.yaml#/components/schemas/PositionSide'
-        initialMarginE9:
+        marginRequiredE9:
           type: string
-          description: "The initial margin required for the position."
+          description: "The margin required for the position."
         maintenanceMarginE9:
           type: string
           description: "The maintenance margin required for the position."
@@ -513,7 +513,7 @@ components:
         - sizeE9
         - unrealizedPnlE9
         - side
-        - initialMarginE9
+        - marginRequiredE9
         - maintenanceMarginE9
         - isIsolated
         - isolatedMarginE9
@@ -527,69 +527,109 @@ components:
           $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:
           type: boolean
-          description: "Indicates if trading is enabled."
+          description: If the user can trade.
+          example: true
         canDeposit:
           type: boolean
-          description: "Indicates if deposits are enabled."
+          description: If the current user can deposit to the account.
+          example: true
         canWithdraw:
           type: boolean
-          description: "Indicates if withdrawals are enabled."
-        totalEffectiveBalanceE9:
+          description: If the current user can withdraw from the account.
+          example: false
+        crossEffectiveBalanceE9:
           type: string
-          description: "The total effective balance."
-        totalInitialMarginRequiredE9:
+          description: "Total effective balance in USD (e9 format)."
+          example: "12000000000000" # 12,000 USD
+        crossMarginRequiredE9:
           type: string
-          description: "The total initial margin required."
-        totalOpenOrderInitialMarginRequiredE9:
+          description: The sum of initial margin required across all cross positions (e9 format).
+          example: "1000000000" # 1,000 USD
+        totalOrderMarginRequiredE9:
           type: string
-          description: "The initial margin required for open orders."
-        initialMarginAvailableE9:
+          description: The sum of initial margin required across all open orders (e9 format).
+          example: "1000000000" # 1,000 USD
+        marginAvailableE9:
           type: string
-          description: "The available initial margin."
-        totalMaintenanceMarginRequiredE9:
+          description: The amount of margin available to open new positions and orders (e9 format).
+          example: "1000000000" # 1,000 USD
+        crossMaintenanceMarginRequiredE9:
           type: string
-          description: "The total maintenance margin required."
-        maintenanceMarginAvailableE9:
+          description: The sum of maintenance margin required across all cross positions (e9 format).
+          example: "5000000000" # 5,000 USD
+        crossMaintenanceMarginAvailableE9:
           type: string
-          description: "The available maintenance margin."
-        accountMaintenanceMarginRatioE9:
+          description: The amount of margin available before liquidation (e9 format).
+          example: "1000000000" # 1,000 USD
+        crossMaintenanceMarginRatioE9:
           type: string
-          description: "The maintenance margin ratio."
-        accountLeverageE9:
+          description: The ratio of the maintenance margin required to the account value (e9 format).
+          example: "1000000000" # 1,000 USD
+        crossLeverageE9:
           type: string
-          description: "The account leverage."
+          description: The leverage of the account (e9 format).
+          example: "1000000000" # 1,000 USD
         totalUnrealizedPnlE9:
           type: string
-          description: "The total unrealized profit and loss."
-        totalCrossUnrealizedPnlE9:
+          description: Total unrealized profit (e9 format).
+          example: "2000000000" # 2,000 USD
+        crossUnrealizedPnlE9:
           type: string
-          description: "The total cross unrealized profit and loss."
+          description: Unrealized profit of cross positions (e9 format).
+          example: "2000000000" # 2,000 USD
+        crossUnrealizedLossE9:
+          type: string
+          description: An implicitly negative number that sums only the losses of all cross positions.
+          example: "1000000000" # 1,000 USD
+        crossAccountValueE9:
+          type: string
+          description: | 
+            The total value of the cross account, combining the cross effective
+            balance and unrealized PnL across all cross positions, and subtracting any pending
+            funding payments on any cross position.
+          example: "1000000000" # 1,000 USD
+        totalAccountValueE9:
+          type: string
+          description: | 
+            The total value of the account, combining the total effective
+            balance and unrealized PnL across all positions, and subtracting any pending
+            funding payments on any position.
+          example: "1000000000" # 1,000 USD
         updatedAtMillis:
           type: integer
           format: int64
-          description: "The timestamp of the last update in milliseconds."
+          description: Last update time in milliseconds since Unix epoch.
+          example: 1627872345678
         assets:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/Asset'
-          description: "The list of assets."
+            $ref: "./common.yaml#/components/schemas/Asset"
+        authorizedAccounts:
+          type: array
+          items:
+            type: string
+          description: The accounts that are authorized to trade on behalf of the current account.
       required:
         - canTrade
         - canDeposit
         - canWithdraw
-        - totalEffectiveBalanceE9
-        - totalInitialMarginRequiredE9
-        - totalOpenOrderInitialMarginRequiredE9
-        - initialMarginAvailableE9
-        - totalMaintenanceMarginRequiredE9
-        - maintenanceMarginAvailableE9
-        - accountMaintenanceMarginRatioE9
-        - accountLeverageE9
+        - crossEffectiveBalanceE9
+        - crossMarginRequiredE9
+        - totalOrderMarginRequiredE9
+        - marginAvailableE9
+        - crossMaintenanceMarginRequiredE9
+        - crossMaintenanceMarginAvailableE9
+        - crossMaintenanceMarginRatioE9
+        - crossLeverageE9
+        - crossUnrealizedPnlE9
         - totalUnrealizedPnlE9
-        - totalCrossUnrealizedPnlE9
+        - crossUnrealizedLossE9
+        - crossAccountValueE9
+        - totalAccountValueE9
         - updatedAtMillis
         - assets
-
+        - authorizedAccounts
+        
     AccountTradeUpdate:
       type: object
       description: "Details about a trade in the account."

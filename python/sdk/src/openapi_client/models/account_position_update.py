@@ -36,12 +36,12 @@ class AccountPositionUpdate(BaseModel):
     size_e9: StrictStr = Field(description="The size of the position.", alias="sizeE9")
     unrealized_pnl_e9: StrictStr = Field(description="The unrealized profit and loss for the position.", alias="unrealizedPnlE9")
     side: PositionSide
-    initial_margin_e9: StrictStr = Field(description="The initial margin required for the position.", alias="initialMarginE9")
+    margin_required_e9: StrictStr = Field(description="The margin required for the position.", alias="marginRequiredE9")
     maintenance_margin_e9: StrictStr = Field(description="The maintenance margin required for the position.", alias="maintenanceMarginE9")
     is_isolated: StrictBool = Field(description="Indicates if the position is isolated.", alias="isIsolated")
     isolated_margin_e9: StrictStr = Field(description="The isolated margin applied to the position.", alias="isolatedMarginE9")
     updated_at_millis: StrictInt = Field(description="The last update time for the position in milliseconds.", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "initialMarginE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["symbol", "avgEntryPriceE9", "leverageE9", "liquidationPriceE9", "markPriceE9", "notionalValueE9", "sizeE9", "unrealizedPnlE9", "side", "marginRequiredE9", "maintenanceMarginE9", "isIsolated", "isolatedMarginE9", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,7 +103,7 @@ class AccountPositionUpdate(BaseModel):
             "sizeE9": obj.get("sizeE9"),
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
             "side": obj.get("side"),
-            "initialMarginE9": obj.get("initialMarginE9"),
+            "marginRequiredE9": obj.get("marginRequiredE9"),
             "maintenanceMarginE9": obj.get("maintenanceMarginE9"),
             "isIsolated": obj.get("isIsolated"),
             "isolatedMarginE9": obj.get("isolatedMarginE9"),

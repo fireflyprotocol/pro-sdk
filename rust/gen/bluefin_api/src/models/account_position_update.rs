@@ -40,9 +40,9 @@ pub struct AccountPositionUpdate {
     pub unrealized_pnl_e9: String,
     #[serde(rename = "side")]
     pub side: models::PositionSide,
-    /// The initial margin required for the position.
-    #[serde(rename = "initialMarginE9")]
-    pub initial_margin_e9: String,
+    /// The margin required for the position.
+    #[serde(rename = "marginRequiredE9")]
+    pub margin_required_e9: String,
     /// The maintenance margin required for the position.
     #[serde(rename = "maintenanceMarginE9")]
     pub maintenance_margin_e9: String,
@@ -59,7 +59,7 @@ pub struct AccountPositionUpdate {
 
 impl AccountPositionUpdate {
     /// Details about an account position update.
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, initial_margin_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
+    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, margin_required_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
         AccountPositionUpdate {
             symbol,
             avg_entry_price_e9,
@@ -70,7 +70,7 @@ impl AccountPositionUpdate {
             size_e9,
             unrealized_pnl_e9,
             side,
-            initial_margin_e9,
+            margin_required_e9,
             maintenance_margin_e9,
             is_isolated,
             isolated_margin_e9,
