@@ -58,49 +58,49 @@ export interface Account {
      * @type {string}
      * @memberof Account
      */
-    'totalEffectiveBalanceE9': string;
+    'crossEffectiveBalanceE9': string;
     /**
      * The sum of initial margin required across all cross positions (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'totalInitialMarginRequiredE9': string;
+    'crossMarginRequiredE9': string;
     /**
      * The sum of initial margin required across all open orders (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'totalOpenOrderInitialMarginRequiredE9': string;
+    'totalOrderMarginRequiredE9': string;
     /**
      * The amount of margin available to open new positions and orders (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'initialMarginAvailableE9': string;
+    'marginAvailableE9': string;
     /**
      * The sum of maintenance margin required across all cross positions (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'totalMaintenanceMarginRequiredE9': string;
+    'crossMaintenanceMarginRequiredE9': string;
     /**
      * The amount of margin available before liquidation (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'maintenanceMarginAvailableE9': string;
+    'crossMaintenanceMarginAvailableE9': string;
     /**
      * The ratio of the maintenance margin required to the account value (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'accountMaintenanceMarginRatioE9': string;
+    'crossMaintenanceMarginRatioE9': string;
     /**
      * The leverage of the account (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'accountLeverageE9': string;
+    'crossLeverageE9': string;
     /**
      * Total unrealized profit (e9 format).
      * @type {string}
@@ -108,11 +108,29 @@ export interface Account {
      */
     'totalUnrealizedPnlE9': string;
     /**
-     * Unrealized profit of crossed positions (e9 format).
+     * Unrealized profit of cross positions (e9 format).
      * @type {string}
      * @memberof Account
      */
-    'totalCrossUnrealizedPnlE9': string;
+    'crossUnrealizedPnlE9': string;
+    /**
+     * An implicitly negative number that sums only the losses of all cross positions.
+     * @type {string}
+     * @memberof Account
+     */
+    'crossUnrealizedLossE9': string;
+    /**
+     * The total value of the cross account, combining the cross effective balance and unrealized PnL across all cross positions, and subtracting any pending funding payments on any cross position. 
+     * @type {string}
+     * @memberof Account
+     */
+    'crossAccountValueE9': string;
+    /**
+     * The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position. 
+     * @type {string}
+     * @memberof Account
+     */
+    'totalAccountValueE9': string;
     /**
      * Last update time in milliseconds since Unix epoch.
      * @type {number}
@@ -2634,7 +2652,7 @@ export interface Position {
      * @type {string}
      * @memberof Position
      */
-    'leverageE9': string;
+    'clientSetLeverageE9': string;
     /**
      * Liquidation price (e9 format).
      * @type {string}
@@ -2676,7 +2694,7 @@ export interface Position {
      * @type {string}
      * @memberof Position
      */
-    'initialMarginE9': string;
+    'marginRequiredE9': string;
     /**
      * Maintenance margin required with current mark price (e9 format).
      * @type {string}
@@ -3464,6 +3482,12 @@ export interface Transaction {
      * @memberof Transaction
      */
     'amountE9': string;
+    /**
+     * Transaction status (SUCCESS, REJECTED).
+     * @type {string}
+     * @memberof Transaction
+     */
+    'status'?: string;
     /**
      * Asset bank address.
      * @type {string}
