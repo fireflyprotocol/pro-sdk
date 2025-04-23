@@ -206,6 +206,6 @@ info:
   # The "identifier" key is not supported by all versions of the OpenAPI generator,
   # but the commented SPDX license expression is accurate.
   license:
-    name: "MIT or Apache 2.0"
+    name: "MIT OR Apache-2.0"
     # identifier: "MIT OR Apache-2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0"
