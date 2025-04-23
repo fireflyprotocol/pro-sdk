@@ -63,7 +63,7 @@ components:
           example: false
         crossEffectiveBalanceE9:
           type: string
-          description: "Total effective balance in USD (e9 format)."
+          description: Total effective balance in USD (e9 format).
           example: "12000000000000" # 12,000 USD
         crossMarginRequiredE9:
           type: string
