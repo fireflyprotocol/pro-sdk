@@ -9,7 +9,6 @@ servers:
           - sui-prod
 openapi: "3.0.3"
 
-
 components:
   securitySchemes:
     bearerAuth:
@@ -203,3 +202,10 @@ info:
   title: "Bluefin API"
   description: "Bluefin API"
   version: "1.0.0"
+
+  # The "identifier" key is not supported by all versions of the OpenAPI generator,
+  # but the commented SPDX license expression is accurate.
+  license:
+    name: "MIT or Apache 2.0"
+    # identifier: "MIT OR Apache-2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0"

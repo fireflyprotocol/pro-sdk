@@ -3,8 +3,15 @@ name = "bluefin-pro"
 version = "1.0.0"
 edition = "2021"
 
+license = "Unlicense"
+description = "Software Development Kit for Bluefin Pro"
+homepage = "https://bluefin.io/"
+repository = "https://github.com/fireflyprotocol/pro-sdk"
+keywords = ["blue", "bluefin", "sui"]
+categories = ["api-bindings", "authentication", "cryptography::cryptocurrencies", "finance"]
+
 [dependencies]
-bluefin_api = { path = "gen/bluefin_api" }
+bluefin_api = { path = "gen/bluefin_api", version = "1.0.0" }
 
 hex = "0.4.3"
 sha2 = "0.10.8"
