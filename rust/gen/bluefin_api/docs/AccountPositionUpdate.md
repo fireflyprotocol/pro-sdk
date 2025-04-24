@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **symbol** | **String** | The symbol of the market. | 
 **avg_entry_price_e9** | **String** | The average entry price for the position. | 
-**leverage_e9** | **String** | The leverage applied to the position. | 
+**client_set_leverage_e9** | **String** | The leverage applied to the position. | 
 **liquidation_price_e9** | **String** | The liquidation price of the position. | 
 **mark_price_e9** | **String** | The current mark price of the position. | 
 **notional_value_e9** | **String** | The notional value of the position. | 
