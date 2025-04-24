@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **quantity_e9** | **str** | The quantity of the order in scientific notation with 9 decimal places. | 
 **filled_quantity_e9** | **str** | The filled quantity of the order in scientific notation with 9 decimal places. | 
 **side** | [**PositionSide**](PositionSide.md) |  | 
-**leverage_e9** | **str** | The leverage applied to the position. | 
+**leverage_e9** | **str** | The leverage of the order in scientific notation with 9 decimal places. | 
 **is_isolated** | **bool** | Indicates if the position is isolated. | 
 **salt** | **str** | A unique salt for the order. | 
 **expires_at_millis** | **int** | The expiration timestamp of the order in milliseconds. | 
@@ -57,6 +57,7 @@ Name | Type | Description | Notes
 **trade_id** | **str** | The trade ID associated with the transaction. | [optional] 
 **executed_at_millis** | **int** | The timestamp when the transaction was executed in milliseconds. | 
 **avg_entry_price_e9** | **str** | The average entry price for the position. | 
+**client_set_leverage_e9** | **str** | The leverage applied to the position. | 
 **liquidation_price_e9** | **str** | The liquidation price of the position. | 
 **mark_price_e9** | **str** | The current mark price of the position. | 
 **notional_value_e9** | **str** | The notional value of the position. | 

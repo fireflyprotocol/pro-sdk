@@ -467,7 +467,7 @@ components:
         avgEntryPriceE9:
           type: string
           description: "The average entry price for the position."
-        leverageE9:
+        clientSetLeverageE9:
           type: string
           description: "The leverage applied to the position."
         liquidationPriceE9:
@@ -506,7 +506,7 @@ components:
       required:
         - symbol
         - avgEntryPriceE9
-        - leverageE9
+        - clientSetLeverageE9
         - liquidationPriceE9
         - markPriceE9
         - notionalValueE9

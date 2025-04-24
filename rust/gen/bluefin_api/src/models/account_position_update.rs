@@ -21,8 +21,8 @@ pub struct AccountPositionUpdate {
     #[serde(rename = "avgEntryPriceE9")]
     pub avg_entry_price_e9: String,
     /// The leverage applied to the position.
-    #[serde(rename = "leverageE9")]
-    pub leverage_e9: String,
+    #[serde(rename = "clientSetLeverageE9")]
+    pub client_set_leverage_e9: String,
     /// The liquidation price of the position.
     #[serde(rename = "liquidationPriceE9")]
     pub liquidation_price_e9: String,
@@ -59,11 +59,11 @@ pub struct AccountPositionUpdate {
 
 impl AccountPositionUpdate {
     /// Details about an account position update.
-    pub fn new(symbol: String, avg_entry_price_e9: String, leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, margin_required_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
+    pub fn new(symbol: String, avg_entry_price_e9: String, client_set_leverage_e9: String, liquidation_price_e9: String, mark_price_e9: String, notional_value_e9: String, size_e9: String, unrealized_pnl_e9: String, side: models::PositionSide, margin_required_e9: String, maintenance_margin_e9: String, is_isolated: bool, isolated_margin_e9: String, updated_at_millis: i64) -> AccountPositionUpdate {
         AccountPositionUpdate {
             symbol,
             avg_entry_price_e9,
-            leverage_e9,
+            client_set_leverage_e9,
             liquidation_price_e9,
             mark_price_e9,
             notional_value_e9,

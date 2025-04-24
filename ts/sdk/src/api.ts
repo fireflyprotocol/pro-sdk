@@ -480,7 +480,7 @@ export interface AccountPositionUpdate {
      * @type {string}
      * @memberof AccountPositionUpdate
      */
-    'leverageE9': string;
+    'clientSetLeverageE9': string;
     /**
      * The liquidation price of the position.
      * @type {string}
