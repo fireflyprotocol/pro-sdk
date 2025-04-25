@@ -89,7 +89,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
         let request = account_authorization_request(true)
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
@@ -106,7 +106,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
 
         let request = account_authorization_request(true)
@@ -123,7 +123,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
         let request = account_authorization_request(false)
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
@@ -140,7 +140,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
 
         let request = account_authorization_request(false)

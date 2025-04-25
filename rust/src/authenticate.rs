@@ -191,7 +191,7 @@ pub mod tests {
 
         match signature {
             UserSignature::Simple(SimpleSignature::Ed25519 { public_key, .. }) => {
-                let sui_address = public_key.to_address().to_hex();
+                let sui_address = public_key.derive_address().to_hex();
 
                 Ed25519Verifier::new()
                     .verify_personal_message(&personal_message, &signature)
@@ -212,7 +212,7 @@ pub mod tests {
         let public_key = private_key.verifying_key().to_bytes();
         let public_key = Ed25519PublicKey::new(public_key);
 
-        let sui_address = public_key.to_address().to_hex();
+        let sui_address = public_key.derive_address().to_hex();
 
         let auth_request = LoginRequest {
             account_address: sui_address,
@@ -280,7 +280,7 @@ pub mod tests {
         let public_key = private_key.verifying_key().to_bytes();
         let public_key = Ed25519PublicKey::new(public_key);
 
-        let sui_address = public_key.to_address().to_hex();
+        let sui_address = public_key.derive_address().to_hex();
 
         let auth_request = LoginRequest {
             account_address: sui_address,
@@ -304,7 +304,7 @@ pub mod tests {
         let (private_key, public_key) = secp256k1::generate_keypair(&mut OsRng);
         let public_key = Secp256k1PublicKey::new(public_key.serialize());
 
-        let sui_address = public_key.to_address().to_hex();
+        let sui_address = public_key.derive_address().to_hex();
 
         let auth_request = LoginRequest {
             account_address: sui_address,
