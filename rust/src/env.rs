@@ -80,14 +80,17 @@ pub mod trade {
 
     pub mod devnet {
         pub const URL: &str = "https://trade.api.sui-dev.bluefin.io";
+        pub const COLOCATED_URL: &str = "http://api.coloc.sui-dev.int.bluefin.io:9090";
     }
 
     pub mod testnet {
         pub const URL: &str = "https://trade.api.sui-staging.bluefin.io";
+        pub const COLOCATED_URL: &str = "http://api.coloc.sui-staging.int.bluefin.io:9090";
     }
 
     pub mod mainnet {
         pub const URL: &str = "https://trade.api.sui-prod.bluefin.io";
+        pub const COLOCATED_URL: &str = "http://api.coloc.sui-prod.int.bluefin.io:9090";
     }
 
     pub fn url<'a>(environment: Environment) -> &'a str {
@@ -182,14 +185,19 @@ pub mod websocket {
 
         pub mod devnet {
             pub const URL: &str = "wss://stream.api.sui-dev.bluefin.io/ws/account";
+            pub const COLOCATED_URL: &str = "ws://api.coloc.sui-dev.int.bluefin.io:9091/ws/account";
         }
 
         pub mod testnet {
             pub const URL: &str = "wss://stream.api.sui-staging.bluefin.io/ws/account";
+            pub const COLOCATED_URL: &str =
+                "ws://api.coloc.sui-staging.int.bluefin.io:9091/ws/account";
         }
 
         pub mod mainnet {
             pub const URL: &str = "wss://stream.api.sui-prod.bluefin.io/ws/account";
+            pub const COLOCATED_URL: &str =
+                "ws://api.coloc.sui-prod.int.bluefin.io:9091/ws/account";
         }
 
         pub fn url<'a>(environment: Environment) -> &'a str {
@@ -206,14 +214,18 @@ pub mod websocket {
 
         pub mod devnet {
             pub const URL: &str = "wss://stream.api.sui-dev.bluefin.io/ws/market";
+            pub const COLOCATED_URL: &str = "ws://api.coloc.sui-dev.int.bluefin.io:9091/ws/market";
         }
 
         pub mod testnet {
             pub const URL: &str = "wss://stream.api.sui-staging.bluefin.io/ws/market";
+            pub const COLOCATED_URL: &str =
+                "ws://api.coloc.sui-staging.int.bluefin.io:9091/ws/market";
         }
 
         pub mod mainnet {
             pub const URL: &str = "wss://stream.api.sui-prod.bluefin.io/ws/market";
+            pub const COLOCATED_URL: &str = "ws://api.coloc.sui-prod.int.bluefin.io:9091/ws/market";
         }
 
         pub fn url<'a>(environment: Environment) -> &'a str {
