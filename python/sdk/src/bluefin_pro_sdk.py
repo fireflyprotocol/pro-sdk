@@ -100,7 +100,7 @@ class BluefinProSdk:
             # Through AWS private link traffic is already secured and we don't need encryption.
             self.trade_host = f"http://api.coloc.{env_name}.int.bluefin.io:9090"
             self.account_data_stream_url = f"ws://api.coloc.{env_name}.int.bluefin.io:9091/ws/account"
-            self.market_data_stream_url = f"ws://api.coloc.{env_name}.int.bluefin.io:9091/ws/mark t"
+            self.market_data_stream_url = f"ws://api.coloc.{env_name}.int.bluefin.io:9091/ws/market"
         else:
             self.trade_host = f"https://trade.api.{env_name}.bluefin.io"
             self.account_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/account"
