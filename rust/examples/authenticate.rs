@@ -16,7 +16,7 @@ async fn auth_secp256k1() -> Result<LoginResponse> {
 
     // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: public_key.to_address().to_hex(),
+        account_address: public_key.derive_address().to_hex(),
         audience: auth::testnet::AUDIENCE.into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
@@ -45,7 +45,7 @@ async fn auth_ed25519() -> Result<LoginResponse> {
 
     // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: public_key.to_address().to_hex(),
+        account_address: public_key.derive_address().to_hex(),
         audience: auth::testnet::AUDIENCE.into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };

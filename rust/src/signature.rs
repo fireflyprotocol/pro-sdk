@@ -346,7 +346,7 @@ pub mod testing {
                     .verify_personal_message(&personal_message, &signature)
                     .map_err(|_| "Error verifying ed25519 signature")?;
 
-                assert_eq!(signer_address, public_key.to_address().to_hex());
+                assert_eq!(signer_address, public_key.derive_address().to_hex());
             }
 
             UserSignature::Simple(SimpleSignature::Secp256k1 { public_key, .. }) => {
@@ -354,7 +354,7 @@ pub mod testing {
                     .verify_personal_message(&personal_message, &signature)
                     .map_err(|_| "Error verifying secp256k1 signature")?;
 
-                assert_eq!(signer_address, public_key.to_address().to_hex());
+                assert_eq!(signer_address, public_key.derive_address().to_hex());
             }
 
             _ => Err("Unsupported signature type".to_string())?,

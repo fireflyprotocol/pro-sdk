@@ -46,7 +46,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
         let request = adjust_isolated_margin_request()
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
@@ -63,7 +63,7 @@ mod tests {
         ))
         .unwrap()
         .public_key()
-        .to_address()
+        .derive_address()
         .to_hex();
 
         let request = adjust_isolated_margin_request()
