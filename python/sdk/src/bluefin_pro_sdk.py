@@ -83,7 +83,8 @@ class BluefinProSdk:
                  rpc_url: str,
                  env: Environment = Environment.PRODUCTION,
                  authorized_address: str = None,
-                 debug: bool = False
+                 debug: bool = False,
+                 colocation_enabled: bool = False,
                  ):
         """
         :param sui_wallet: SuiWallet instance
@@ -94,9 +95,16 @@ class BluefinProSdk:
         self._sui_wallet = sui_wallet
         self.auth_host = f"https://auth.api.{env_name}.bluefin.io"
         self.api_host = f"https://api.{env_name}.bluefin.io"
-        self.trade_host = f"https://trade.api.{env_name}.bluefin.io"
-        self.account_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/account"
-        self.market_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/market"
+
+        if colocation_enabled:
+            # Through AWS private link traffic is already secured and we don't need encryption.
+            self.trade_host = f"http://api.coloc.{env_name}.int.bluefin.io:9090"
+            self.account_data_stream_url = f"ws://api.coloc.{env_name}.int.bluefin.io:9091/ws/account"
+            self.market_data_stream_url = f"ws://api.coloc.{env_name}.int.bluefin.io:9091/ws/market"
+        else:
+            self.trade_host = f"https://trade.api.{env_name}.bluefin.io"
+            self.account_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/account"
+            self.market_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/market"
 
         self.current_account_address = authorized_address
         auth_api_config = Configuration(
@@ -155,7 +163,7 @@ class BluefinProSdk:
             AccountPositionLeverageUpdateRequest(
                 signed_fields=signed_fields, signature=signature, request_hash="")
         )
-        
+
     async def adjust_isolated_margin(self, symbol: str, quantity_e9: str, add: bool):
         signed_fields = AdjustIsolatedMarginRequestSignedFields(
             account_address=self.current_account_address,
