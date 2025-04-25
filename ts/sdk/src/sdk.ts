@@ -97,6 +97,8 @@ export interface BluefinProSdkOptions {
   currentAccountAddress?: string;
   refreshToken?: string;
   refreshTokenValidForSeconds?: number;
+  disableLoginPromptOnLogout?: boolean;
+  onLogout?: () => void;
 
   // if needed to point to different services
   authHost?: string;
@@ -120,6 +122,8 @@ export class BluefinProSdk {
   private assets: Array<AssetConfig> | undefined;
   private txBuilder: TxBuilder | undefined;
   private currentAccountAddress: string | undefined;
+  private disableLoginPromptOnLogout: boolean;
+  private onLogout?: (() => void);
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
@@ -133,6 +137,9 @@ export class BluefinProSdk {
     this.contractsConfig = undefined;
     this.tokenResponse = null;
     this.tokenSetAtSeconds = null;
+    this.disableLoginPromptOnLogout =
+      opts?.disableLoginPromptOnLogout ?? false;
+    this.onLogout = opts?.onLogout;
 
     if (opts?.refreshToken && opts?.refreshTokenValidForSeconds) {
       this.tokenResponse = {
@@ -261,13 +268,13 @@ export class BluefinProSdk {
   private async login(): Promise<void> {
     console.log("Logging in to get the access token");
     this.tokenSetAtSeconds = Date.now() / 1000;
-
+  
     if (!this.currentAccountAddress) {
       this.currentAccountAddress = this.bfSigner.getAddress();
     }
-
+  
     console.log(`Logging in as ${this.currentAccountAddress}`);
-
+  
     if (this.tokenResponse && this.tokenResponse.refreshTokenValidForSeconds) {
       try {
         const response = await this.authApi.authTokenRefreshPut({
@@ -276,16 +283,23 @@ export class BluefinProSdk {
         this.tokenResponse = response.data;
         return;
       } catch (e) {
-        console.error("Error refreshing token:", e); // skipping refresh in favour of login
+        console.error("Error refreshing token:", e);
+  
+        // If refreshing the token fails, the user should be logged in again
+        if (this.disableLoginPromptOnLogout) {
+          this.logout();
+          return;
+        }
       }
     }
-
+  
+    // fallback login (modal) only happens if not disabled
     const loginRequest: LoginRequest = {
       accountAddress: this.currentAccountAddress,
       signedAtMillis: Date.now(),
       audience: "api",
     };
-
+  
     const signature = await this.bfSigner.signLoginRequest(loginRequest);
     const response = await this.authApi.authV2TokenPost(
       signature,
@@ -528,8 +542,9 @@ export class BluefinProSdk {
 
   public async refreshToken(): Promise<void> {
     if (!this.isConnected) return;
-
+  
     console.log("Checking token for refresh");
+  
     if (
       !this.tokenResponse ||
       !this.tokenSetAtSeconds ||
@@ -537,8 +552,13 @@ export class BluefinProSdk {
         this.tokenResponse.accessTokenValidForSeconds
     ) {
       console.log("Refreshing token");
-      this.tokenSetAtSeconds = Date.now() / 1000;
-      await this.loginAndUpdateToken();
+      
+      try {
+        await this.loginAndUpdateToken();
+        this.tokenSetAtSeconds = Date.now() / 1000;
+      } catch (error) {
+        console.log("Error refreshing token:", error);
+      }
     }
   }
 
@@ -581,6 +601,15 @@ export class BluefinProSdk {
       });
     });
   }
+
+  public async logout(): Promise<void> {
+    console.log("Logging out");
+    this.tokenResponse = null;
+    this.tokenSetAtSeconds = null;
+    this.isConnected = false;
+
+    this.onLogout?.();
+  };
 
   public async dispose(): Promise<void> {
     console.log("Disposing SDK resources");
