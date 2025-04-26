@@ -82,14 +82,14 @@ class BluefinProSdk:
                  contracts: ProContracts | None,
                  rpc_url: str,
                  env: Environment = Environment.PRODUCTION,
-                 authorized_address: str = None,
+                 target_account_address: str = None,
                  debug: bool = False,
                  colocation_enabled: bool = False,
                  ):
         """
         :param sui_wallet: SuiWallet instance
         :param env: Environment enum, default is Environment.PRODUCTION
-        :param authorized_address: default is None, specify If you want to act on behalf of another accountAddress (if that user authorized you to do so)
+        :param target_account_address: default is None if target account belongs to the same sui wallet, if you need to act on behalf of another sui wallet on its own accountAddress (if that wallet authorized you to do so)
         """
         env_name = env.value
         self._sui_wallet = sui_wallet
@@ -106,7 +106,7 @@ class BluefinProSdk:
             self.account_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/account"
             self.market_data_stream_url = f"wss://stream.api.{env_name}.bluefin.io/ws/market"
 
-        self.current_account_address = authorized_address
+        self.current_account_address = target_account_address
         auth_api_config = Configuration(
             host=self.auth_host, debug=debug)
         self._auth_api = AuthApi(ApiClient(auth_api_config))
