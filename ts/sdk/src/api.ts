@@ -5548,10 +5548,6 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -5587,10 +5583,6 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     

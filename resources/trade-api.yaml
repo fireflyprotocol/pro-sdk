@@ -522,8 +522,6 @@ paths:
 
   /api/v1/trade/accounts/authorize:
     put:
-      security:
-        - bearerAuth: [ ]
       tags:
         - Trade
       operationId: putAuthorizeAccount
@@ -564,8 +562,6 @@ paths:
 
   /api/v1/trade/accounts/deauthorize:
     put:
-      security:
-        - bearerAuth: [ ]
       tags:
         - Trade
       operationId: putDeauthorizeAccount

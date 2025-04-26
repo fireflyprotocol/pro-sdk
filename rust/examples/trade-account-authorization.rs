@@ -3,7 +3,7 @@ use bluefin_api::{
         configuration::Configuration,
         trade_api::{put_authorize_account, put_deauthorize_account},
     },
-    models::{AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields, LoginRequest},
+    models::{AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields},
 };
 use bluefin_pro::prelude::*;
 use chrono::Utc;
@@ -30,11 +30,9 @@ type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 ///
 async fn send_request(
     request: AccountAuthorizationRequestExt,
-    auth_token: &str,
     environment: Environment,
 ) -> Result<()> {
     let mut config = Configuration::new();
-    config.bearer_access_token = Some(auth_token.into());
     config.base_path = trade::url(environment).into();
 
     if request.is_authorize {
@@ -49,22 +47,6 @@ async fn send_request(
 #[tokio::main]
 async fn main() -> Result<()> {
     let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
-
-    let login_request = LoginRequest {
-        account_address: test::account::devnet::ADDRESS.into(),
-        audience: auth::devnet::AUDIENCE.into(),
-        signed_at_millis: Utc::now().timestamp_millis(),
-    };
-
-    let signature = login_request.signature(
-        SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
-    )?;
-
-    let auth_token = login_request
-        .authenticate(&signature, Environment::Devnet)
-        .await?
-        .access_token;
 
     let environment = Environment::Devnet;
     let time_now = Utc::now().timestamp_millis();
@@ -89,7 +71,7 @@ async fn main() -> Result<()> {
         SignatureScheme::Ed25519,
     )?;
 
-    send_request(request, &auth_token, environment).await?;
+    send_request(request, environment).await?;
     println!("Authorized account");
 
     // Deauthorize account
@@ -112,7 +94,7 @@ async fn main() -> Result<()> {
         SignatureScheme::Ed25519,
     )?;
 
-    send_request(request, &auth_token, environment).await?;
+    send_request(request, environment).await?;
     println!("Deauthorized account");
 
     Ok(())
