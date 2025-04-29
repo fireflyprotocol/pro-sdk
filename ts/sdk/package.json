@@ -1,6 +1,6 @@
 {
   "name": "@bluefin-exchange/pro-sdk",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "description": "OpenAPI client for @bluefin-exchange/pro-sdk",
   "author": "Bluefin",
   "repository": {
@@ -18,7 +18,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@firefly-exchange/library-sui": "^2.5.8",
+    "@firefly-exchange/library-sui": "^2.6.10",
     "@mysten/bcs": "^1.2.1",
     "@mysten/sui": "^1.28.2",
     "@noble/hashes": "^1.7.0",
@@ -36,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

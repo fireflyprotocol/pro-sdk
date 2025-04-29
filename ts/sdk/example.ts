@@ -19,9 +19,8 @@ import {
   makeSigner,
 } from "./index";
 
-import {Ed25519Keypair} from "@mysten/sui/keypairs/ed25519";
-import {hexToBytes} from "@noble/hashes/utils";
-import {SuiClient} from "@firefly-exchange/library-sui";
+import { hexToBytes } from "@noble/hashes/utils";
+import { SuiClient, Ed25519Keypair } from "@firefly-exchange/library-sui";
 
 // Configure logging
 const logger = {
@@ -64,7 +63,7 @@ async function handleMarketDataEvent(msg: MarketStreamMessage): Promise<void> {
 
 // Handle account data stream events
 async function handleAccountDataEvent(
-  msg: AccountStreamMessage,
+  msg: AccountStreamMessage
 ): Promise<void> {
   if (msg.event == AccountEventType.AccountUpdate) {
     logger.info(`AccountUpdate: ${JSON.stringify(msg)}`);
@@ -96,8 +95,8 @@ async function main() {
 
   const suiWallet = Ed25519Keypair.fromSecretKey(
     hexToBytes(
-      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1",
-    ),
+      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
+    )
   );
 
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
@@ -106,7 +105,7 @@ async function main() {
   const client = new BluefinProSdk(
     bfSigner,
     "devnet",
-    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" }),
+    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
   );
   await client.initialize();
 
@@ -119,7 +118,12 @@ async function main() {
     logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);
 
     // Find the first market available if any
-    const perpMarket = exchangeInfo.markets.length > 0 ? exchangeInfo.markets[0] : (() => { throw new Error("No market is available"); })();
+    const perpMarket =
+      exchangeInfo.markets.length > 0
+        ? exchangeInfo.markets[0]
+        : (() => {
+            throw new Error("No market is available");
+          })();
     logger.info(`Selected market: ${JSON.stringify(perpMarket)}`);
 
     const symbol = perpMarket.symbol;
@@ -129,7 +133,7 @@ async function main() {
       await client.exchangeDataApi.getCandlestickData(
         symbol,
         KlineInterval._1m,
-        CandlePriceType.Oracle,
+        CandlePriceType.Oracle
       )
     ).data;
     logger.info(`Candle stick: ${JSON.stringify(candleStick)}`);
@@ -160,7 +164,7 @@ async function main() {
         Date.now(),
         1000,
         TradeType.Order,
-        1,
+        1
       )
     ).data;
     logger.info(`Trades History ${JSON.stringify(accountTrades)}`);
@@ -172,7 +176,7 @@ async function main() {
         Date.now() - 10000000,
         Date.now(),
         1000,
-        1,
+        1
       )
     ).data;
     logger.info(`Deposits history: ${JSON.stringify(depositHistory)}`);
@@ -187,16 +191,20 @@ async function main() {
     logger.info(`Account Preferences: ${JSON.stringify(accountPreferences)}`);
 
     const accountFundingrateHistory = (
-        await client.accountDataApi.getAccountFundingRateHistory()
+      await client.accountDataApi.getAccountFundingRateHistory()
     ).data;
-    logger.info(`Account Funding Rate history: ${JSON.stringify(accountFundingrateHistory)}`);
+    logger.info(
+      `Account Funding Rate history: ${JSON.stringify(
+        accountFundingrateHistory
+      )}`
+    );
 
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
-      handleAccountDataEvent,
+      handleAccountDataEvent
     );
     const marketDataListener = await client.createMarketDataStreamListener(
-      handleMarketDataEvent,
+      handleMarketDataEvent
     );
 
     await accountDataListener.send(
@@ -209,7 +217,7 @@ async function main() {
           AccountDataStream.AccountTransactionUpdate,
           AccountDataStream.AccountUpdate,
         ],
-      }),
+      })
     );
 
     await marketDataListener.send(
@@ -229,7 +237,7 @@ async function main() {
             ],
           },
         ],
-      }),
+      })
     );
 
     // Place order
@@ -250,7 +258,7 @@ async function main() {
 
     const orderCreationResult = (await client.createOrder(orderParams)).data;
     logger.info(
-      `Order Creation Result: ${JSON.stringify(orderCreationResult)}`,
+      `Order Creation Result: ${JSON.stringify(orderCreationResult)}`
     );
 
     logger.info("Update Leverage to 2");

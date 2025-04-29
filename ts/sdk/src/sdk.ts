@@ -31,7 +31,10 @@ import {
   CoinUtils,
   SuiClient,
   TransactionBlock,
+  Ed25519Keypair,
+  decodeSuiPrivateKey,
 } from "@firefly-exchange/library-sui";
+import { toHex } from "@mysten/bcs";
 
 interface EnvironmentConfig {
   [key: string]: {
@@ -210,6 +213,19 @@ export class BluefinProSdk {
       baseOptions: baseOptions,
     });
     this.configs[Services.AccountWebsocket] = accountWsConfig;
+  }
+
+  public createWallet() {
+    const wallet = Ed25519Keypair.generate();
+    const signerKey = wallet.getSecretKey();
+    const keyPair = decodeSuiPrivateKey(signerKey);
+
+    const publicAddress = wallet.toSuiAddress();
+
+    return {
+      privateKey: toHex(keyPair.secretKey),
+      publicAddress,
+    };
   }
 
   public getTokenResponse() {
