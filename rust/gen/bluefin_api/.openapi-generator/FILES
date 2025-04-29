@@ -46,6 +46,7 @@ docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
 docs/FundingRateEntry.md
+docs/GetRewardsIntervalMetadataIntervalParameter.md
 docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/KlineInterval.md
@@ -98,7 +99,6 @@ docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
 docs/UserCampaignRewards.md
-docs/V1RewardsMetadataIntervalGetIntervalParameter.md
 docs/WithdrawRequest.md
 docs/WithdrawRequestSignedFields.md
 git_push.sh
@@ -111,7 +111,6 @@ src/apis/rewards_api.rs
 src/apis/streams_api.rs
 src/apis/trade_api.rs
 src/lib.rs
-src/models/_v1_rewards_metadata_interval_get_interval_parameter.rs
 src/models/account.rs
 src/models/account_aggregated_trade_update.rs
 src/models/account_authorization_request.rs
@@ -153,6 +152,7 @@ src/models/epoch_metadata.rs
 src/models/error.rs
 src/models/exchange_info_response.rs
 src/models/funding_rate_entry.rs
+src/models/get_rewards_interval_metadata_interval_parameter.rs
 src/models/interval_metadata.rs
 src/models/interval_rewards.rs
 src/models/kline_interval.rs

@@ -90,13 +90,13 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
 *ExchangeApi* | [**get_recent_trades**](openapi_client/docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
-*RewardsApi* | [**v1_rewards_campaign_get**](openapi_client/docs/RewardsApi.md#v1_rewards_campaign_get) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-*RewardsApi* | [**v1_rewards_get**](openapi_client/docs/RewardsApi.md#v1_rewards_get) | **GET** /v1/rewards | Get rewards information for the intervals
-*RewardsApi* | [**v1_rewards_metadata_campaign_get**](openapi_client/docs/RewardsApi.md#v1_rewards_metadata_campaign_get) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-*RewardsApi* | [**v1_rewards_metadata_epoch_configs_get**](openapi_client/docs/RewardsApi.md#v1_rewards_metadata_epoch_configs_get) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-*RewardsApi* | [**v1_rewards_metadata_epoch_get**](openapi_client/docs/RewardsApi.md#v1_rewards_metadata_epoch_get) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-*RewardsApi* | [**v1_rewards_metadata_interval_get**](openapi_client/docs/RewardsApi.md#v1_rewards_metadata_interval_get) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-*RewardsApi* | [**v1_rewards_summary_get**](openapi_client/docs/RewardsApi.md#v1_rewards_summary_get) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+*RewardsApi* | [**get_campaign_rewards**](openapi_client/docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
+*RewardsApi* | [**get_rewards**](openapi_client/docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
+*RewardsApi* | [**get_rewards_campaign_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
+*RewardsApi* | [**get_rewards_epoch_config_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
+*RewardsApi* | [**get_rewards_epoch_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
+*RewardsApi* | [**get_rewards_interval_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
+*RewardsApi* | [**get_rewards_summary**](openapi_client/docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
 *StreamsApi* | [**web_socket_account_data**](openapi_client/docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](openapi_client/docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](openapi_client/docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
@@ -152,6 +152,7 @@ Class | Method | HTTP request | Description
  - [Error](openapi_client/docs/Error.md)
  - [ExchangeInfoResponse](openapi_client/docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](openapi_client/docs/FundingRateEntry.md)
+ - [GetRewardsIntervalMetadataIntervalParameter](openapi_client/docs/GetRewardsIntervalMetadataIntervalParameter.md)
  - [IntervalMetadata](openapi_client/docs/IntervalMetadata.md)
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
@@ -201,7 +202,6 @@ Class | Method | HTTP request | Description
  - [Transaction](openapi_client/docs/Transaction.md)
  - [TransactionType](openapi_client/docs/TransactionType.md)
  - [UserCampaignRewards](openapi_client/docs/UserCampaignRewards.md)
- - [V1RewardsMetadataIntervalGetIntervalParameter](openapi_client/docs/V1RewardsMetadataIntervalGetIntervalParameter.md)
  - [WithdrawRequest](openapi_client/docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](openapi_client/docs/WithdrawRequestSignedFields.md)
 

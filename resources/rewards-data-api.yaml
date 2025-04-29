@@ -286,6 +286,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewards
       summary: Get rewards information for the intervals
       description: Returns the rewards earned by users for the intervals .
       security:
@@ -314,6 +315,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getCampaignRewards
       summary: Get rewards information for a specific campaign
       description: Returns the rewards earned by users for a specific campaign
       security:
@@ -347,6 +349,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewardsSummary
       summary: Get rewards information for all time rewards earned
       description: Returns the all time rewards earned by users.
       security:
@@ -367,6 +370,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewardsCampaignMetadata
       summary: Get rewards metadata for the campaigns
       description: Returns the metadata for the rewards campaigns.
       parameters:
@@ -402,6 +406,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewardsEpochMetadata
       summary: Gets the latest or next epoch for campaign.
       description: Returns the latest or next epocht epoch for campaign.
       parameters:
@@ -434,6 +439,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewardsEpochConfigMetadata
       summary: Gets the latest epoch configs for the campaigns
       description: Returns the latest epoch configs for the campaigns
       responses:
@@ -451,6 +457,7 @@ paths:
     get:
       tags:
         - Rewards
+      operationId: getRewardsIntervalMetadata
       summary: Gets the interval metadata for provided parameters
       description: Returns the interval metadata for provided parameters
       parameters:

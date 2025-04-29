@@ -4,19 +4,19 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v1_rewards_campaign_get**](RewardsApi.md#v1_rewards_campaign_get) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-[**v1_rewards_get**](RewardsApi.md#v1_rewards_get) | **GET** /v1/rewards | Get rewards information for the intervals
-[**v1_rewards_metadata_campaign_get**](RewardsApi.md#v1_rewards_metadata_campaign_get) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-[**v1_rewards_metadata_epoch_configs_get**](RewardsApi.md#v1_rewards_metadata_epoch_configs_get) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-[**v1_rewards_metadata_epoch_get**](RewardsApi.md#v1_rewards_metadata_epoch_get) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-[**v1_rewards_metadata_interval_get**](RewardsApi.md#v1_rewards_metadata_interval_get) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-[**v1_rewards_summary_get**](RewardsApi.md#v1_rewards_summary_get) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
+[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
+[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
+[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
+[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
+[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
+[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
 
 
 
-## v1_rewards_campaign_get
+## get_campaign_rewards
 
-> Vec<models::CampaignRewards> v1_rewards_campaign_get(campaign_name, epoch_number)
+> Vec<models::CampaignRewards> get_campaign_rewards(campaign_name, epoch_number)
 Get rewards information for a specific campaign
 
 Returns the rewards earned by users for a specific campaign
@@ -45,9 +45,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_get
+## get_rewards
 
-> Vec<models::IntervalRewards> v1_rewards_get(interval_number)
+> Vec<models::IntervalRewards> get_rewards(interval_number)
 Get rewards information for the intervals
 
 Returns the rewards earned by users for the intervals .
@@ -75,9 +75,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_metadata_campaign_get
+## get_rewards_campaign_metadata
 
-> Vec<models::CampaignMetadata> v1_rewards_metadata_campaign_get(campaign_name, status)
+> Vec<models::CampaignMetadata> get_rewards_campaign_metadata(campaign_name, status)
 Get rewards metadata for the campaigns
 
 Returns the metadata for the rewards campaigns.
@@ -106,9 +106,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_metadata_epoch_configs_get
+## get_rewards_epoch_config_metadata
 
-> Vec<models::EpochConfigs> v1_rewards_metadata_epoch_configs_get()
+> Vec<models::EpochConfigs> get_rewards_epoch_config_metadata()
 Gets the latest epoch configs for the campaigns
 
 Returns the latest epoch configs for the campaigns
@@ -133,9 +133,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_metadata_epoch_get
+## get_rewards_epoch_metadata
 
-> Vec<models::EpochMetadata> v1_rewards_metadata_epoch_get(campaign_name, epoch)
+> Vec<models::EpochMetadata> get_rewards_epoch_metadata(campaign_name, epoch)
 Gets the latest or next epoch for campaign.
 
 Returns the latest or next epocht epoch for campaign.
@@ -164,9 +164,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_metadata_interval_get
+## get_rewards_interval_metadata
 
-> Vec<models::IntervalMetadata> v1_rewards_metadata_interval_get(interval)
+> Vec<models::IntervalMetadata> get_rewards_interval_metadata(interval)
 Gets the interval metadata for provided parameters
 
 Returns the interval metadata for provided parameters
@@ -176,7 +176,7 @@ Returns the interval metadata for provided parameters
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**interval** | Option<[**V1RewardsMetadataIntervalGetIntervalParameter**](.md)> | Either specify an interval number or the string \"next\" or \"latest\". |  |
+**interval** | Option<[**GetRewardsIntervalMetadataIntervalParameter**](.md)> | Either specify an interval number or the string \"next\" or \"latest\". |  |
 
 ### Return type
 
@@ -194,9 +194,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## v1_rewards_summary_get
+## get_rewards_summary
 
-> Vec<models::RewardsSummary> v1_rewards_summary_get()
+> Vec<models::RewardsSummary> get_rewards_summary()
 Get rewards information for all time rewards earned
 
 Returns the all time rewards earned by users.

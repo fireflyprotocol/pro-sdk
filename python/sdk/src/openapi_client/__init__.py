@@ -77,6 +77,7 @@ from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
+from openapi_client.models.get_rewards_interval_metadata_interval_parameter import GetRewardsIntervalMetadataIntervalParameter
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.kline_interval import KlineInterval
@@ -126,6 +127,5 @@ from openapi_client.models.trading_fees import TradingFees
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
-from openapi_client.models.v1_rewards_metadata_interval_get_interval_parameter import V1RewardsMetadataIntervalGetIntervalParameter
 from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.models.withdraw_request_signed_fields import WithdrawRequestSignedFields

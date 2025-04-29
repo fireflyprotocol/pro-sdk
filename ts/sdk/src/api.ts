@@ -1641,6 +1641,12 @@ export interface FundingRateEntry {
     'fundingRateE9': string;
 }
 /**
+ * @type GetRewardsIntervalMetadataIntervalParameter
+ * @export
+ */
+export type GetRewardsIntervalMetadataIntervalParameter = number | string;
+
+/**
  * 
  * @export
  * @interface IntervalMetadata
@@ -3887,12 +3893,6 @@ export const UserCampaignRewardsStatusEnum = {
 export type UserCampaignRewardsStatusEnum = typeof UserCampaignRewardsStatusEnum[keyof typeof UserCampaignRewardsStatusEnum];
 
 /**
- * @type V1RewardsMetadataIntervalGetIntervalParameter
- * @export
- */
-export type V1RewardsMetadataIntervalGetIntervalParameter = number | string;
-
-/**
  * 
  * @export
  * @interface WithdrawRequest
@@ -5439,9 +5439,9 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsCampaignGet: async (campaignName: string, epochNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCampaignRewards: async (campaignName: string, epochNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'campaignName' is not null or undefined
-            assertParamExists('v1RewardsCampaignGet', 'campaignName', campaignName)
+            assertParamExists('getCampaignRewards', 'campaignName', campaignName)
             const localVarPath = `/v1/rewards/campaign`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5480,7 +5480,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsGet: async (intervalNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewards: async (intervalNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5512,11 +5512,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * Returns the metadata for the rewards campaigns.
          * @summary Get rewards metadata for the campaigns
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataCampaignGetStatusEnum} [status] Optionally specify the status of the campaigns.
+         * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataCampaignGet: async (campaignName?: string, status?: V1RewardsMetadataCampaignGetStatusEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsCampaignMetadata: async (campaignName?: string, status?: GetRewardsCampaignMetadataStatusEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/campaign`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5554,7 +5554,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataEpochConfigsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsEpochConfigMetadata: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/epoch/configs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5582,11 +5582,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * Returns the latest or next epocht epoch for campaign.
          * @summary Gets the latest or next epoch for campaign.
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataEpochGetEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataEpochGet: async (campaignName?: string, epoch?: V1RewardsMetadataEpochGetEpochEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsEpochMetadata: async (campaignName?: string, epoch?: GetRewardsEpochMetadataEpochEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/epoch`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5621,11 +5621,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {V1RewardsMetadataIntervalGetIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataIntervalGet: async (interval?: V1RewardsMetadataIntervalGetIntervalParameter, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsIntervalMetadata: async (interval?: GetRewardsIntervalMetadataIntervalParameter, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/interval`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5659,7 +5659,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsSummaryGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsSummary: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/summary`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5701,10 +5701,10 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsCampaignGet(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignRewards>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsCampaignGet(campaignName, epochNumber, options);
+        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignRewards>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignRewards(campaignName, epochNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsCampaignGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getCampaignRewards']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5714,24 +5714,24 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsGet(intervalNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalRewards>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsGet(intervalNumber, options);
+        async getRewards(intervalNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalRewards>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewards(intervalNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewards']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Returns the metadata for the rewards campaigns.
          * @summary Get rewards metadata for the campaigns
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataCampaignGetStatusEnum} [status] Optionally specify the status of the campaigns.
+         * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsMetadataCampaignGet(campaignName?: string, status?: V1RewardsMetadataCampaignGetStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignMetadata>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsMetadataCampaignGet(campaignName, status, options);
+        async getRewardsCampaignMetadata(campaignName?: string, status?: GetRewardsCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsCampaignMetadata(campaignName, status, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsMetadataCampaignGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsCampaignMetadata']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5740,37 +5740,37 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsMetadataEpochConfigsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsMetadataEpochConfigsGet(options);
+        async getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochConfigMetadata(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsMetadataEpochConfigsGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsEpochConfigMetadata']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Returns the latest or next epocht epoch for campaign.
          * @summary Gets the latest or next epoch for campaign.
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataEpochGetEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsMetadataEpochGet(campaignName?: string, epoch?: V1RewardsMetadataEpochGetEpochEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochMetadata>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsMetadataEpochGet(campaignName, epoch, options);
+        async getRewardsEpochMetadata(campaignName?: string, epoch?: GetRewardsEpochMetadataEpochEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochMetadata(campaignName, epoch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsMetadataEpochGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsEpochMetadata']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {V1RewardsMetadataIntervalGetIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsMetadataIntervalGet(interval?: V1RewardsMetadataIntervalGetIntervalParameter, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalMetadata>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsMetadataIntervalGet(interval, options);
+        async getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsIntervalMetadata(interval, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsMetadataIntervalGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsIntervalMetadata']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5779,10 +5779,10 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1RewardsSummaryGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RewardsSummary>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1RewardsSummaryGet(options);
+        async getRewardsSummary(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RewardsSummary>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsSummary(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.v1RewardsSummaryGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsSummary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -5803,8 +5803,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsCampaignGet(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignRewards>> {
-            return localVarFp.v1RewardsCampaignGet(campaignName, epochNumber, options).then((request) => request(axios, basePath));
+        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignRewards>> {
+            return localVarFp.getCampaignRewards(campaignName, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the rewards earned by users for the intervals .
@@ -5813,19 +5813,19 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsGet(intervalNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalRewards>> {
-            return localVarFp.v1RewardsGet(intervalNumber, options).then((request) => request(axios, basePath));
+        getRewards(intervalNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalRewards>> {
+            return localVarFp.getRewards(intervalNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the metadata for the rewards campaigns.
          * @summary Get rewards metadata for the campaigns
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataCampaignGetStatusEnum} [status] Optionally specify the status of the campaigns.
+         * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataCampaignGet(campaignName?: string, status?: V1RewardsMetadataCampaignGetStatusEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignMetadata>> {
-            return localVarFp.v1RewardsMetadataCampaignGet(campaignName, status, options).then((request) => request(axios, basePath));
+        getRewardsCampaignMetadata(campaignName?: string, status?: GetRewardsCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignMetadata>> {
+            return localVarFp.getRewardsCampaignMetadata(campaignName, status, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the latest epoch configs for the campaigns
@@ -5833,29 +5833,29 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataEpochConfigsGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
-            return localVarFp.v1RewardsMetadataEpochConfigsGet(options).then((request) => request(axios, basePath));
+        getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
+            return localVarFp.getRewardsEpochConfigMetadata(options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the latest or next epocht epoch for campaign.
          * @summary Gets the latest or next epoch for campaign.
          * @param {string} [campaignName] Specify the campaign name
-         * @param {V1RewardsMetadataEpochGetEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataEpochGet(campaignName?: string, epoch?: V1RewardsMetadataEpochGetEpochEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochMetadata>> {
-            return localVarFp.v1RewardsMetadataEpochGet(campaignName, epoch, options).then((request) => request(axios, basePath));
+        getRewardsEpochMetadata(campaignName?: string, epoch?: GetRewardsEpochMetadataEpochEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochMetadata>> {
+            return localVarFp.getRewardsEpochMetadata(campaignName, epoch, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {V1RewardsMetadataIntervalGetIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsMetadataIntervalGet(interval?: V1RewardsMetadataIntervalGetIntervalParameter, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalMetadata>> {
-            return localVarFp.v1RewardsMetadataIntervalGet(interval, options).then((request) => request(axios, basePath));
+        getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalMetadata>> {
+            return localVarFp.getRewardsIntervalMetadata(interval, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the all time rewards earned by users.
@@ -5863,8 +5863,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1RewardsSummaryGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
-            return localVarFp.v1RewardsSummaryGet(options).then((request) => request(axios, basePath));
+        getRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
+            return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5885,8 +5885,8 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsCampaignGet(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsCampaignGet(campaignName, epochNumber, options).then((request) => request(this.axios, this.basePath));
+    public getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getCampaignRewards(campaignName, epochNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5897,21 +5897,21 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsGet(intervalNumber?: number, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsGet(intervalNumber, options).then((request) => request(this.axios, this.basePath));
+    public getRewards(intervalNumber?: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewards(intervalNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns the metadata for the rewards campaigns.
      * @summary Get rewards metadata for the campaigns
      * @param {string} [campaignName] Specify the campaign name
-     * @param {V1RewardsMetadataCampaignGetStatusEnum} [status] Optionally specify the status of the campaigns.
+     * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsMetadataCampaignGet(campaignName?: string, status?: V1RewardsMetadataCampaignGetStatusEnum, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsMetadataCampaignGet(campaignName, status, options).then((request) => request(this.axios, this.basePath));
+    public getRewardsCampaignMetadata(campaignName?: string, status?: GetRewardsCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsCampaignMetadata(campaignName, status, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5921,33 +5921,33 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsMetadataEpochConfigsGet(options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsMetadataEpochConfigsGet(options).then((request) => request(this.axios, this.basePath));
+    public getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsEpochConfigMetadata(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns the latest or next epocht epoch for campaign.
      * @summary Gets the latest or next epoch for campaign.
      * @param {string} [campaignName] Specify the campaign name
-     * @param {V1RewardsMetadataEpochGetEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
+     * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsMetadataEpochGet(campaignName?: string, epoch?: V1RewardsMetadataEpochGetEpochEnum, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsMetadataEpochGet(campaignName, epoch, options).then((request) => request(this.axios, this.basePath));
+    public getRewardsEpochMetadata(campaignName?: string, epoch?: GetRewardsEpochMetadataEpochEnum, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsEpochMetadata(campaignName, epoch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns the interval metadata for provided parameters
      * @summary Gets the interval metadata for provided parameters
-     * @param {V1RewardsMetadataIntervalGetIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+     * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsMetadataIntervalGet(interval?: V1RewardsMetadataIntervalGetIntervalParameter, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsMetadataIntervalGet(interval, options).then((request) => request(this.axios, this.basePath));
+    public getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsIntervalMetadata(interval, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5957,27 +5957,27 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public v1RewardsSummaryGet(options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).v1RewardsSummaryGet(options).then((request) => request(this.axios, this.basePath));
+    public getRewardsSummary(options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsSummary(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 /**
  * @export
  */
-export const V1RewardsMetadataCampaignGetStatusEnum = {
+export const GetRewardsCampaignMetadataStatusEnum = {
     Active: 'ACTIVE',
     Inactive: 'INACTIVE'
 } as const;
-export type V1RewardsMetadataCampaignGetStatusEnum = typeof V1RewardsMetadataCampaignGetStatusEnum[keyof typeof V1RewardsMetadataCampaignGetStatusEnum];
+export type GetRewardsCampaignMetadataStatusEnum = typeof GetRewardsCampaignMetadataStatusEnum[keyof typeof GetRewardsCampaignMetadataStatusEnum];
 /**
  * @export
  */
-export const V1RewardsMetadataEpochGetEpochEnum = {
+export const GetRewardsEpochMetadataEpochEnum = {
     Next: 'next',
     Latest: 'latest'
 } as const;
-export type V1RewardsMetadataEpochGetEpochEnum = typeof V1RewardsMetadataEpochGetEpochEnum[keyof typeof V1RewardsMetadataEpochGetEpochEnum];
+export type GetRewardsEpochMetadataEpochEnum = typeof GetRewardsEpochMetadataEpochEnum[keyof typeof GetRewardsEpochMetadataEpochEnum];
 
 
 /**

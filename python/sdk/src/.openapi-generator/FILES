@@ -53,6 +53,7 @@ openapi_client/docs/Error.md
 openapi_client/docs/ExchangeApi.md
 openapi_client/docs/ExchangeInfoResponse.md
 openapi_client/docs/FundingRateEntry.md
+openapi_client/docs/GetRewardsIntervalMetadataIntervalParameter.md
 openapi_client/docs/IntervalMetadata.md
 openapi_client/docs/IntervalRewards.md
 openapi_client/docs/KlineInterval.md
@@ -105,7 +106,6 @@ openapi_client/docs/TradingFees.md
 openapi_client/docs/Transaction.md
 openapi_client/docs/TransactionType.md
 openapi_client/docs/UserCampaignRewards.md
-openapi_client/docs/V1RewardsMetadataIntervalGetIntervalParameter.md
 openapi_client/docs/WithdrawRequest.md
 openapi_client/docs/WithdrawRequestSignedFields.md
 openapi_client/exceptions.py
@@ -151,6 +151,7 @@ openapi_client/models/epoch_metadata.py
 openapi_client/models/error.py
 openapi_client/models/exchange_info_response.py
 openapi_client/models/funding_rate_entry.py
+openapi_client/models/get_rewards_interval_metadata_interval_parameter.py
 openapi_client/models/interval_metadata.py
 openapi_client/models/interval_rewards.py
 openapi_client/models/kline_interval.py
@@ -200,19 +201,9 @@ openapi_client/models/trading_fees.py
 openapi_client/models/transaction.py
 openapi_client/models/transaction_type.py
 openapi_client/models/user_campaign_rewards.py
-openapi_client/models/v1_rewards_metadata_interval_get_interval_parameter.py
 openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_campaign_metadata.py
-openapi_client/test/test_campaign_rewards.py
-openapi_client/test/test_epoch_configs.py
-openapi_client/test/test_epoch_metadata.py
-openapi_client/test/test_interval_metadata.py
-openapi_client/test/test_interval_rewards.py
-openapi_client/test/test_rewards_api.py
-openapi_client/test/test_rewards_summary.py
-openapi_client/test/test_user_campaign_rewards.py
-openapi_client/test/test_v1_rewards_metadata_interval_get_interval_parameter.py
+openapi_client/test/test_get_rewards_interval_metadata_interval_parameter.py
 openapi_client_README.md

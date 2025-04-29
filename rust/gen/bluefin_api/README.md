@@ -42,13 +42,13 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
 *ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
-*RewardsApi* | [**v1_rewards_campaign_get**](docs/RewardsApi.md#v1_rewards_campaign_get) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-*RewardsApi* | [**v1_rewards_get**](docs/RewardsApi.md#v1_rewards_get) | **GET** /v1/rewards | Get rewards information for the intervals
-*RewardsApi* | [**v1_rewards_metadata_campaign_get**](docs/RewardsApi.md#v1_rewards_metadata_campaign_get) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-*RewardsApi* | [**v1_rewards_metadata_epoch_configs_get**](docs/RewardsApi.md#v1_rewards_metadata_epoch_configs_get) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-*RewardsApi* | [**v1_rewards_metadata_epoch_get**](docs/RewardsApi.md#v1_rewards_metadata_epoch_get) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-*RewardsApi* | [**v1_rewards_metadata_interval_get**](docs/RewardsApi.md#v1_rewards_metadata_interval_get) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-*RewardsApi* | [**v1_rewards_summary_get**](docs/RewardsApi.md#v1_rewards_summary_get) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+*RewardsApi* | [**get_campaign_rewards**](docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
+*RewardsApi* | [**get_rewards**](docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
+*RewardsApi* | [**get_rewards_campaign_metadata**](docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
+*RewardsApi* | [**get_rewards_epoch_config_metadata**](docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
+*RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
+*RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
+*RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
 *StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
@@ -104,6 +104,7 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [ExchangeInfoResponse](docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](docs/FundingRateEntry.md)
+ - [GetRewardsIntervalMetadataIntervalParameter](docs/GetRewardsIntervalMetadataIntervalParameter.md)
  - [IntervalMetadata](docs/IntervalMetadata.md)
  - [IntervalRewards](docs/IntervalRewards.md)
  - [KlineInterval](docs/KlineInterval.md)
@@ -153,7 +154,6 @@ Class | Method | HTTP request | Description
  - [Transaction](docs/Transaction.md)
  - [TransactionType](docs/TransactionType.md)
  - [UserCampaignRewards](docs/UserCampaignRewards.md)
- - [V1RewardsMetadataIntervalGetIntervalParameter](docs/V1RewardsMetadataIntervalGetIntervalParameter.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](docs/WithdrawRequestSignedFields.md)
 

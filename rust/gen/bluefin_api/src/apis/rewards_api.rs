@@ -15,58 +15,58 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
-/// struct for typed errors of method [`v1_rewards_campaign_get`]
+/// struct for typed errors of method [`get_campaign_rewards`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsCampaignGetError {
+pub enum GetCampaignRewardsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_get`]
+/// struct for typed errors of method [`get_rewards`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsGetError {
+pub enum GetRewardsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_metadata_campaign_get`]
+/// struct for typed errors of method [`get_rewards_campaign_metadata`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsMetadataCampaignGetError {
+pub enum GetRewardsCampaignMetadataError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_metadata_epoch_configs_get`]
+/// struct for typed errors of method [`get_rewards_epoch_config_metadata`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsMetadataEpochConfigsGetError {
+pub enum GetRewardsEpochConfigMetadataError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_metadata_epoch_get`]
+/// struct for typed errors of method [`get_rewards_epoch_metadata`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsMetadataEpochGetError {
+pub enum GetRewardsEpochMetadataError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_metadata_interval_get`]
+/// struct for typed errors of method [`get_rewards_interval_metadata`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsMetadataIntervalGetError {
+pub enum GetRewardsIntervalMetadataError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`v1_rewards_summary_get`]
+/// struct for typed errors of method [`get_rewards_summary`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum V1RewardsSummaryGetError {
+pub enum GetRewardsSummaryError {
     UnknownValue(serde_json::Value),
 }
 
 
 /// Returns the rewards earned by users for a specific campaign
-pub async fn v1_rewards_campaign_get(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::CampaignRewards>, Error<V1RewardsCampaignGetError>> {
+pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::CampaignRewards>, Error<GetCampaignRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
     let p_epoch_number = epoch_number;
@@ -102,13 +102,13 @@ pub async fn v1_rewards_campaign_get(configuration: &configuration::Configuratio
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsCampaignGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetCampaignRewardsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the rewards earned by users for the intervals .
-pub async fn v1_rewards_get(configuration: &configuration::Configuration, interval_number: Option<i32>) -> Result<Vec<models::IntervalRewards>, Error<V1RewardsGetError>> {
+pub async fn get_rewards(configuration: &configuration::Configuration, interval_number: Option<i32>) -> Result<Vec<models::IntervalRewards>, Error<GetRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval_number = interval_number;
 
@@ -142,13 +142,13 @@ pub async fn v1_rewards_get(configuration: &configuration::Configuration, interv
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the metadata for the rewards campaigns.
-pub async fn v1_rewards_metadata_campaign_get(configuration: &configuration::Configuration, campaign_name: Option<&str>, status: Option<&str>) -> Result<Vec<models::CampaignMetadata>, Error<V1RewardsMetadataCampaignGetError>> {
+pub async fn get_rewards_campaign_metadata(configuration: &configuration::Configuration, campaign_name: Option<&str>, status: Option<&str>) -> Result<Vec<models::CampaignMetadata>, Error<GetRewardsCampaignMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
     let p_status = status;
@@ -186,13 +186,13 @@ pub async fn v1_rewards_metadata_campaign_get(configuration: &configuration::Con
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsMetadataCampaignGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsCampaignMetadataError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the latest epoch configs for the campaigns
-pub async fn v1_rewards_metadata_epoch_configs_get(configuration: &configuration::Configuration, ) -> Result<Vec<models::EpochConfigs>, Error<V1RewardsMetadataEpochConfigsGetError>> {
+pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, ) -> Result<Vec<models::EpochConfigs>, Error<GetRewardsEpochConfigMetadataError>> {
 
     let uri_str = format!("{}/v1/rewards/metadata/epoch/configs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -221,13 +221,13 @@ pub async fn v1_rewards_metadata_epoch_configs_get(configuration: &configuration
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsMetadataEpochConfigsGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsEpochConfigMetadataError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the latest or next epocht epoch for campaign.
-pub async fn v1_rewards_metadata_epoch_get(configuration: &configuration::Configuration, campaign_name: Option<&str>, epoch: Option<&str>) -> Result<Vec<models::EpochMetadata>, Error<V1RewardsMetadataEpochGetError>> {
+pub async fn get_rewards_epoch_metadata(configuration: &configuration::Configuration, campaign_name: Option<&str>, epoch: Option<&str>) -> Result<Vec<models::EpochMetadata>, Error<GetRewardsEpochMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
     let p_epoch = epoch;
@@ -265,13 +265,13 @@ pub async fn v1_rewards_metadata_epoch_get(configuration: &configuration::Config
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsMetadataEpochGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsEpochMetadataError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the interval metadata for provided parameters
-pub async fn v1_rewards_metadata_interval_get(configuration: &configuration::Configuration, interval: Option<models::V1RewardsMetadataIntervalGetIntervalParameter>) -> Result<Vec<models::IntervalMetadata>, Error<V1RewardsMetadataIntervalGetError>> {
+pub async fn get_rewards_interval_metadata(configuration: &configuration::Configuration, interval: Option<models::GetRewardsIntervalMetadataIntervalParameter>) -> Result<Vec<models::IntervalMetadata>, Error<GetRewardsIntervalMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval = interval;
 
@@ -305,13 +305,13 @@ pub async fn v1_rewards_metadata_interval_get(configuration: &configuration::Con
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsMetadataIntervalGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsIntervalMetadataError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the all time rewards earned by users.
-pub async fn v1_rewards_summary_get(configuration: &configuration::Configuration, ) -> Result<Vec<models::RewardsSummary>, Error<V1RewardsSummaryGetError>> {
+pub async fn get_rewards_summary(configuration: &configuration::Configuration, ) -> Result<Vec<models::RewardsSummary>, Error<GetRewardsSummaryError>> {
 
     let uri_str = format!("{}/v1/rewards/summary", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -340,7 +340,7 @@ pub async fn v1_rewards_summary_get(configuration: &configuration::Configuration
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<V1RewardsSummaryGetError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetRewardsSummaryError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

@@ -46,7 +46,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_campaign_get(
+    async def get_campaign_rewards(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
@@ -93,7 +93,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_campaign_get_serialize(
+        _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
@@ -117,7 +117,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_campaign_get_with_http_info(
+    async def get_campaign_rewards_with_http_info(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
@@ -164,7 +164,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_campaign_get_serialize(
+        _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
@@ -188,7 +188,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_campaign_get_without_preload_content(
+    async def get_campaign_rewards_without_preload_content(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
@@ -235,7 +235,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_campaign_get_serialize(
+        _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
@@ -254,7 +254,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_campaign_get_serialize(
+    def _get_campaign_rewards_serialize(
         self,
         campaign_name,
         epoch_number,
@@ -325,7 +325,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_get(
+    async def get_rewards(
         self,
         interval_number: Annotated[Optional[StrictInt], Field(description="Optionally specify interval number.")] = None,
         _request_timeout: Union[
@@ -369,7 +369,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_get_serialize(
+        _param = self._get_rewards_serialize(
             interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -392,7 +392,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_get_with_http_info(
+    async def get_rewards_with_http_info(
         self,
         interval_number: Annotated[Optional[StrictInt], Field(description="Optionally specify interval number.")] = None,
         _request_timeout: Union[
@@ -436,7 +436,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_get_serialize(
+        _param = self._get_rewards_serialize(
             interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -459,7 +459,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_get_without_preload_content(
+    async def get_rewards_without_preload_content(
         self,
         interval_number: Annotated[Optional[StrictInt], Field(description="Optionally specify interval number.")] = None,
         _request_timeout: Union[
@@ -503,7 +503,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_get_serialize(
+        _param = self._get_rewards_serialize(
             interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -521,7 +521,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_get_serialize(
+    def _get_rewards_serialize(
         self,
         interval_number,
         _request_auth,
@@ -587,7 +587,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_campaign_get(
+    async def get_rewards_campaign_metadata(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Optionally specify the status of the campaigns.")] = None,
@@ -634,7 +634,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_campaign_get_serialize(
+        _param = self._get_rewards_campaign_metadata_serialize(
             campaign_name=campaign_name,
             status=status,
             _request_auth=_request_auth,
@@ -658,7 +658,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_campaign_get_with_http_info(
+    async def get_rewards_campaign_metadata_with_http_info(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Optionally specify the status of the campaigns.")] = None,
@@ -705,7 +705,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_campaign_get_serialize(
+        _param = self._get_rewards_campaign_metadata_serialize(
             campaign_name=campaign_name,
             status=status,
             _request_auth=_request_auth,
@@ -729,7 +729,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_campaign_get_without_preload_content(
+    async def get_rewards_campaign_metadata_without_preload_content(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Optionally specify the status of the campaigns.")] = None,
@@ -776,7 +776,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_campaign_get_serialize(
+        _param = self._get_rewards_campaign_metadata_serialize(
             campaign_name=campaign_name,
             status=status,
             _request_auth=_request_auth,
@@ -795,7 +795,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_metadata_campaign_get_serialize(
+    def _get_rewards_campaign_metadata_serialize(
         self,
         campaign_name,
         status,
@@ -866,7 +866,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_configs_get(
+    async def get_rewards_epoch_config_metadata(
         self,
         _request_timeout: Union[
             None,
@@ -907,7 +907,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_configs_get_serialize(
+        _param = self._get_rewards_epoch_config_metadata_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -929,7 +929,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_configs_get_with_http_info(
+    async def get_rewards_epoch_config_metadata_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -970,7 +970,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_configs_get_serialize(
+        _param = self._get_rewards_epoch_config_metadata_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -992,7 +992,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_configs_get_without_preload_content(
+    async def get_rewards_epoch_config_metadata_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1033,7 +1033,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_configs_get_serialize(
+        _param = self._get_rewards_epoch_config_metadata_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1050,7 +1050,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_metadata_epoch_configs_get_serialize(
+    def _get_rewards_epoch_config_metadata_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1111,7 +1111,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_get(
+    async def get_rewards_epoch_metadata(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         epoch: Annotated[Optional[StrictStr], Field(description="Specify the string \"next\" or \"latest\".")] = None,
@@ -1158,7 +1158,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_get_serialize(
+        _param = self._get_rewards_epoch_metadata_serialize(
             campaign_name=campaign_name,
             epoch=epoch,
             _request_auth=_request_auth,
@@ -1182,7 +1182,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_get_with_http_info(
+    async def get_rewards_epoch_metadata_with_http_info(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         epoch: Annotated[Optional[StrictStr], Field(description="Specify the string \"next\" or \"latest\".")] = None,
@@ -1229,7 +1229,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_get_serialize(
+        _param = self._get_rewards_epoch_metadata_serialize(
             campaign_name=campaign_name,
             epoch=epoch,
             _request_auth=_request_auth,
@@ -1253,7 +1253,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_epoch_get_without_preload_content(
+    async def get_rewards_epoch_metadata_without_preload_content(
         self,
         campaign_name: Annotated[Optional[StrictStr], Field(description="Specify the campaign name")] = None,
         epoch: Annotated[Optional[StrictStr], Field(description="Specify the string \"next\" or \"latest\".")] = None,
@@ -1300,7 +1300,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_epoch_get_serialize(
+        _param = self._get_rewards_epoch_metadata_serialize(
             campaign_name=campaign_name,
             epoch=epoch,
             _request_auth=_request_auth,
@@ -1319,7 +1319,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_metadata_epoch_get_serialize(
+    def _get_rewards_epoch_metadata_serialize(
         self,
         campaign_name,
         epoch,
@@ -1390,7 +1390,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_interval_get(
+    async def get_rewards_interval_metadata(
         self,
         interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
@@ -1411,7 +1411,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: V1RewardsMetadataIntervalGetIntervalParameter
+        :type interval: GetRewardsIntervalMetadataIntervalParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1434,7 +1434,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_interval_get_serialize(
+        _param = self._get_rewards_interval_metadata_serialize(
             interval=interval,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1457,7 +1457,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_interval_get_with_http_info(
+    async def get_rewards_interval_metadata_with_http_info(
         self,
         interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
@@ -1478,7 +1478,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: V1RewardsMetadataIntervalGetIntervalParameter
+        :type interval: GetRewardsIntervalMetadataIntervalParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1501,7 +1501,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_interval_get_serialize(
+        _param = self._get_rewards_interval_metadata_serialize(
             interval=interval,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1524,7 +1524,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_metadata_interval_get_without_preload_content(
+    async def get_rewards_interval_metadata_without_preload_content(
         self,
         interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
@@ -1545,7 +1545,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: V1RewardsMetadataIntervalGetIntervalParameter
+        :type interval: GetRewardsIntervalMetadataIntervalParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1568,7 +1568,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_metadata_interval_get_serialize(
+        _param = self._get_rewards_interval_metadata_serialize(
             interval=interval,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1586,7 +1586,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_metadata_interval_get_serialize(
+    def _get_rewards_interval_metadata_serialize(
         self,
         interval,
         _request_auth,
@@ -1652,7 +1652,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_summary_get(
+    async def get_rewards_summary(
         self,
         _request_timeout: Union[
             None,
@@ -1693,7 +1693,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_summary_get_serialize(
+        _param = self._get_rewards_summary_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1715,7 +1715,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_summary_get_with_http_info(
+    async def get_rewards_summary_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1756,7 +1756,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_summary_get_serialize(
+        _param = self._get_rewards_summary_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1778,7 +1778,7 @@ class RewardsApi:
 
 
     @validate_call
-    async def v1_rewards_summary_get_without_preload_content(
+    async def get_rewards_summary_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1819,7 +1819,7 @@ class RewardsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_rewards_summary_get_serialize(
+        _param = self._get_rewards_summary_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1836,7 +1836,7 @@ class RewardsApi:
         return response_data.response
 
 
-    def _v1_rewards_summary_get_serialize(
+    def _get_rewards_summary_serialize(
         self,
         _request_auth,
         _content_type,

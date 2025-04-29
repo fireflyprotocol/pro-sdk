@@ -4,17 +4,17 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v1_rewards_campaign_get**](RewardsApi.md#v1_rewards_campaign_get) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-[**v1_rewards_get**](RewardsApi.md#v1_rewards_get) | **GET** /v1/rewards | Get rewards information for the intervals
-[**v1_rewards_metadata_campaign_get**](RewardsApi.md#v1_rewards_metadata_campaign_get) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-[**v1_rewards_metadata_epoch_configs_get**](RewardsApi.md#v1_rewards_metadata_epoch_configs_get) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-[**v1_rewards_metadata_epoch_get**](RewardsApi.md#v1_rewards_metadata_epoch_get) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-[**v1_rewards_metadata_interval_get**](RewardsApi.md#v1_rewards_metadata_interval_get) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-[**v1_rewards_summary_get**](RewardsApi.md#v1_rewards_summary_get) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
+[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
+[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
+[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
+[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
+[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
+[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
 
 
-# **v1_rewards_campaign_get**
-> List[CampaignRewards] v1_rewards_campaign_get(campaign_name, epoch_number=epoch_number)
+# **get_campaign_rewards**
+> List[CampaignRewards] get_campaign_rewards(campaign_name, epoch_number=epoch_number)
 
 Get rewards information for a specific campaign
 
@@ -45,11 +45,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get rewards information for a specific campaign
-        api_response = await api_instance.v1_rewards_campaign_get(campaign_name, epoch_number=epoch_number)
-        print("The response of RewardsApi->v1_rewards_campaign_get:\n")
+        api_response = await api_instance.get_campaign_rewards(campaign_name, epoch_number=epoch_number)
+        print("The response of RewardsApi->get_campaign_rewards:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_campaign_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_campaign_rewards: %s\n" % e)
 ```
 
 
@@ -83,8 +83,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_get**
-> List[IntervalRewards] v1_rewards_get(interval_number=interval_number)
+# **get_rewards**
+> List[IntervalRewards] get_rewards(interval_number=interval_number)
 
 Get rewards information for the intervals
 
@@ -114,11 +114,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get rewards information for the intervals
-        api_response = await api_instance.v1_rewards_get(interval_number=interval_number)
-        print("The response of RewardsApi->v1_rewards_get:\n")
+        api_response = await api_instance.get_rewards(interval_number=interval_number)
+        print("The response of RewardsApi->get_rewards:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards: %s\n" % e)
 ```
 
 
@@ -151,8 +151,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_metadata_campaign_get**
-> List[CampaignMetadata] v1_rewards_metadata_campaign_get(campaign_name=campaign_name, status=status)
+# **get_rewards_campaign_metadata**
+> List[CampaignMetadata] get_rewards_campaign_metadata(campaign_name=campaign_name, status=status)
 
 Get rewards metadata for the campaigns
 
@@ -183,11 +183,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get rewards metadata for the campaigns
-        api_response = await api_instance.v1_rewards_metadata_campaign_get(campaign_name=campaign_name, status=status)
-        print("The response of RewardsApi->v1_rewards_metadata_campaign_get:\n")
+        api_response = await api_instance.get_rewards_campaign_metadata(campaign_name=campaign_name, status=status)
+        print("The response of RewardsApi->get_rewards_campaign_metadata:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_metadata_campaign_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards_campaign_metadata: %s\n" % e)
 ```
 
 
@@ -221,8 +221,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_metadata_epoch_configs_get**
-> List[EpochConfigs] v1_rewards_metadata_epoch_configs_get()
+# **get_rewards_epoch_config_metadata**
+> List[EpochConfigs] get_rewards_epoch_config_metadata()
 
 Gets the latest epoch configs for the campaigns
 
@@ -251,11 +251,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Gets the latest epoch configs for the campaigns
-        api_response = await api_instance.v1_rewards_metadata_epoch_configs_get()
-        print("The response of RewardsApi->v1_rewards_metadata_epoch_configs_get:\n")
+        api_response = await api_instance.get_rewards_epoch_config_metadata()
+        print("The response of RewardsApi->get_rewards_epoch_config_metadata:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_metadata_epoch_configs_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards_epoch_config_metadata: %s\n" % e)
 ```
 
 
@@ -285,8 +285,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_metadata_epoch_get**
-> List[EpochMetadata] v1_rewards_metadata_epoch_get(campaign_name=campaign_name, epoch=epoch)
+# **get_rewards_epoch_metadata**
+> List[EpochMetadata] get_rewards_epoch_metadata(campaign_name=campaign_name, epoch=epoch)
 
 Gets the latest or next epoch for campaign.
 
@@ -317,11 +317,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Gets the latest or next epoch for campaign.
-        api_response = await api_instance.v1_rewards_metadata_epoch_get(campaign_name=campaign_name, epoch=epoch)
-        print("The response of RewardsApi->v1_rewards_metadata_epoch_get:\n")
+        api_response = await api_instance.get_rewards_epoch_metadata(campaign_name=campaign_name, epoch=epoch)
+        print("The response of RewardsApi->get_rewards_epoch_metadata:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_metadata_epoch_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards_epoch_metadata: %s\n" % e)
 ```
 
 
@@ -355,8 +355,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_metadata_interval_get**
-> List[IntervalMetadata] v1_rewards_metadata_interval_get(interval=interval)
+# **get_rewards_interval_metadata**
+> List[IntervalMetadata] get_rewards_interval_metadata(interval=interval)
 
 Gets the interval metadata for provided parameters
 
@@ -382,15 +382,15 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    interval = openapi_client.V1RewardsMetadataIntervalGetIntervalParameter() # V1RewardsMetadataIntervalGetIntervalParameter | Either specify an interval number or the string \"next\" or \"latest\". (optional)
+    interval = openapi_client.GetRewardsIntervalMetadataIntervalParameter() # GetRewardsIntervalMetadataIntervalParameter | Either specify an interval number or the string \"next\" or \"latest\". (optional)
 
     try:
         # Gets the interval metadata for provided parameters
-        api_response = await api_instance.v1_rewards_metadata_interval_get(interval=interval)
-        print("The response of RewardsApi->v1_rewards_metadata_interval_get:\n")
+        api_response = await api_instance.get_rewards_interval_metadata(interval=interval)
+        print("The response of RewardsApi->get_rewards_interval_metadata:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_metadata_interval_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards_interval_metadata: %s\n" % e)
 ```
 
 
@@ -400,7 +400,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **interval** | [**V1RewardsMetadataIntervalGetIntervalParameter**](.md)| Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;. | [optional] 
+ **interval** | [**GetRewardsIntervalMetadataIntervalParameter**](.md)| Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;. | [optional] 
 
 ### Return type
 
@@ -423,8 +423,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_rewards_summary_get**
-> List[RewardsSummary] v1_rewards_summary_get()
+# **get_rewards_summary**
+> List[RewardsSummary] get_rewards_summary()
 
 Get rewards information for all time rewards earned
 
@@ -453,11 +453,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get rewards information for all time rewards earned
-        api_response = await api_instance.v1_rewards_summary_get()
-        print("The response of RewardsApi->v1_rewards_summary_get:\n")
+        api_response = await api_instance.get_rewards_summary()
+        print("The response of RewardsApi->get_rewards_summary:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RewardsApi->v1_rewards_summary_get: %s\n" % e)
+        print("Exception when calling RewardsApi->get_rewards_summary: %s\n" % e)
 ```
 
 
