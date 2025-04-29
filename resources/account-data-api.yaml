@@ -46,6 +46,7 @@ components:
         - assets
         - positions
         - authorizedAccounts
+        - accountAddress
       properties:
         tradingFees:
           $ref: './common.yaml#/components/schemas/TradingFees'
@@ -137,6 +138,10 @@ components:
           items:
             type: string
           description: The accounts that are authorized to trade on behalf of the current account.
+        accountAddress:
+          type: string
+          description: The address of the account.
+          example: "0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde"
     AccountFundingRateHistory:
       type: object
       required:
@@ -443,8 +448,13 @@ paths:
         - Account Data
       summary: Get user's account details.
       operationId: getAccountDetails
-      security:
-        - bearerAuth: []
+      security: []
+      parameters:
+        - name: accountAddress
+          in: query
+          schema:
+            type: string
+          description: Account address to fetch account details by.
       responses:
         "200":
           description: Successful response with account details.

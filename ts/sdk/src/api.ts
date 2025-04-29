@@ -155,6 +155,12 @@ export interface Account {
      * @memberof Account
      */
     'authorizedAccounts': Array<string>;
+    /**
+     * The address of the account.
+     * @type {string}
+     * @memberof Account
+     */
+    'accountAddress': string;
 }
 /**
  * Aggregated details about a trade in the account.
@@ -3602,10 +3608,11 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Get user\'s account details.
+         * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountDetails: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountDetails: async (accountAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/account`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3618,9 +3625,9 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            if (accountAddress !== undefined) {
+                localVarQueryParameter['accountAddress'] = accountAddress;
+            }
 
 
     
@@ -3857,11 +3864,12 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get user\'s account details.
+         * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountDetails(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Account>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountDetails(options);
+        async getAccountDetails(accountAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Account>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountDetails(accountAddress, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountDetails']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -3942,11 +3950,12 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @summary Get user\'s account details.
+         * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountDetails(options?: RawAxiosRequestConfig): AxiosPromise<Account> {
-            return localVarFp.getAccountDetails(options).then((request) => request(axios, basePath));
+        getAccountDetails(accountAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<Account> {
+            return localVarFp.getAccountDetails(accountAddress, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4012,12 +4021,13 @@ export class AccountDataApi extends BaseAPI {
     /**
      * 
      * @summary Get user\'s account details.
+     * @param {string} [accountAddress] Account address to fetch account details by.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountDetails(options?: RawAxiosRequestConfig) {
-        return AccountDataApiFp(this.configuration).getAccountDetails(options).then((request) => request(this.axios, this.basePath));
+    public getAccountDetails(accountAddress?: string, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountDetails(accountAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **assets** | [**Vec<models::Asset>**](Asset.md) |  | 
 **positions** | [**Vec<models::Position>**](Position.md) |  | 
 **authorized_accounts** | **Vec<String>** | The accounts that are authorized to trade on behalf of the current account. | 
+**account_address** | **String** | The address of the account. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

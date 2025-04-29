@@ -71,17 +71,19 @@ pub enum GetAccountTransactionHistoryError {
 }
 
 
-pub async fn get_account_details(configuration: &configuration::Configuration, ) -> Result<models::Account, Error<GetAccountDetailsError>> {
+pub async fn get_account_details(configuration: &configuration::Configuration, account_address: Option<&str>) -> Result<models::Account, Error<GetAccountDetailsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_account_address = account_address;
 
     let uri_str = format!("{}/api/v1/account", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_account_address {
+        req_builder = req_builder.query(&[("accountAddress", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

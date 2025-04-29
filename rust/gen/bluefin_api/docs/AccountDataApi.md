@@ -14,12 +14,15 @@ Method | HTTP request | Description
 
 ## get_account_details
 
-> models::Account get_account_details()
+> models::Account get_account_details(account_address)
 Get user's account details.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_address** | Option<**String**> | Account address to fetch account details by. |  |
 
 ### Return type
 
@@ -27,7 +30,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

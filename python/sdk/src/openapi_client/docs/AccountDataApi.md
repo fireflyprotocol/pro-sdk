@@ -12,13 +12,12 @@ Method | HTTP request | Description
 
 
 # **get_account_details**
-> Account get_account_details()
+> Account get_account_details(account_address=account_address)
 
 Get user's account details.
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -32,24 +31,16 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.AccountDataApi(api_client)
+    account_address = 'account_address_example' # str | Account address to fetch account details by. (optional)
 
     try:
         # Get user's account details.
-        api_response = await api_instance.get_account_details()
+        api_response = await api_instance.get_account_details(account_address=account_address)
         print("The response of AccountDataApi->get_account_details:\n")
         pprint(api_response)
     except Exception as e:
@@ -60,7 +51,10 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_address** | **str**| Account address to fetch account details by. | [optional] 
 
 ### Return type
 
@@ -68,7 +62,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -48,6 +48,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_details(
         self,
+        account_address: Annotated[Optional[StrictStr], Field(description="Account address to fetch account details by.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -64,6 +65,8 @@ class AccountDataApi:
         """Get user's account details.
 
 
+        :param account_address: Account address to fetch account details by.
+        :type account_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -87,6 +90,7 @@ class AccountDataApi:
         """ # noqa: E501
 
         _param = self._get_account_details_serialize(
+            account_address=account_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -114,6 +118,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_details_with_http_info(
         self,
+        account_address: Annotated[Optional[StrictStr], Field(description="Account address to fetch account details by.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -130,6 +135,8 @@ class AccountDataApi:
         """Get user's account details.
 
 
+        :param account_address: Account address to fetch account details by.
+        :type account_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -153,6 +160,7 @@ class AccountDataApi:
         """ # noqa: E501
 
         _param = self._get_account_details_serialize(
+            account_address=account_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -180,6 +188,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_details_without_preload_content(
         self,
+        account_address: Annotated[Optional[StrictStr], Field(description="Account address to fetch account details by.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -196,6 +205,8 @@ class AccountDataApi:
         """Get user's account details.
 
 
+        :param account_address: Account address to fetch account details by.
+        :type account_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -219,6 +230,7 @@ class AccountDataApi:
         """ # noqa: E501
 
         _param = self._get_account_details_serialize(
+            account_address=account_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -241,6 +253,7 @@ class AccountDataApi:
 
     def _get_account_details_serialize(
         self,
+        account_address,
         _request_auth,
         _content_type,
         _headers,
@@ -263,6 +276,10 @@ class AccountDataApi:
 
         # process the path parameters
         # process the query parameters
+        if account_address is not None:
+            
+            _query_params.append(('accountAddress', account_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -279,7 +296,6 @@ class AccountDataApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(

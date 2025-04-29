@@ -50,7 +50,8 @@ class Account(BaseModel):
     assets: List[Asset]
     positions: List[Position]
     authorized_accounts: List[StrictStr] = Field(description="The accounts that are authorized to trade on behalf of the current account.", alias="authorizedAccounts")
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts"]
+    account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts", "accountAddress"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -140,7 +141,8 @@ class Account(BaseModel):
             "updatedAtMillis": obj.get("updatedAtMillis"),
             "assets": [Asset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,
-            "authorizedAccounts": obj.get("authorizedAccounts")
+            "authorizedAccounts": obj.get("authorizedAccounts"),
+            "accountAddress": obj.get("accountAddress")
         })
         return _obj
 
