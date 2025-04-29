@@ -177,6 +177,77 @@ paths:
               - sui-staging
               - sui-prod
 
+  /v1/rewards:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/campaign:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1campaign"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/summary:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1summary"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/metadata/campaign:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1campaign"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/metadata/epoch:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1epoch"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/metadata/epoch/configs:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1epoch~1configs"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /v1/rewards/metadata/interval:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1interval"
+    servers:
+      - url: https://rewards.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+              
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"
     servers:
