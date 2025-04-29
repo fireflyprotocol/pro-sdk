@@ -787,15 +787,15 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@firefly-exchange/library-sui@^2.5.8":
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/@firefly-exchange/library-sui/-/library-sui-2.6.1.tgz"
-  integrity sha512-PFqwl5qobjY2mj7ALP9xBe4icc9D3AIAVTDlnKQ/sazd0ejG9qxAKfOWrMv4NAVfGFQ9PSyFE2+QAy0OPXiO5g==
+"@firefly-exchange/library-sui@^2.6.10":
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/@firefly-exchange/library-sui/-/library-sui-2.6.10.tgz#e41afe03d8ee95c0f1702cd694b487842b1d2814"
+  integrity sha512-AgIh5MbDCwDB8F0Vh79ZzB5JwKexeHCytgUW+bwmodpVy0rkq/Q6Cix0LTSj14GqobBg6b7JjpoVjwYwJDLhqA==
   dependencies:
     "@aws-sdk/client-kms" "^3.438.0"
     "@mysten/bcs" "^1.1.0"
     "@mysten/dapp-kit" "^0.14.25"
-    "@mysten/sui" "^1.17.0"
+    "@mysten/sui" "^1.21.1"
     "@mysten/wallet-standard" "^0.13.7"
     "@mysten/zklogin" "^0.7.22"
     "@noble/hashes" "^1.2.0"
@@ -812,6 +812,7 @@
     eth-crypto "^2.6.0"
     ethereumjs-wallet "^1.0.2"
     lodash "^4.17.21"
+    shio-fast-sdk "0.0.5"
     socket.io-client "^4.6.2"
     ts-binary-serializer "^2.1.3"
     tweetnacl "^1.0.3"
@@ -922,7 +923,7 @@
     tweetnacl "^1.0.3"
     valibot "^0.36.0"
 
-"@mysten/sui@1.24.0", "@mysten/sui@^1.17.0":
+"@mysten/sui@1.24.0":
   version "1.24.0"
   resolved "https://registry.npmjs.org/@mysten/sui/-/sui-1.24.0.tgz"
   integrity sha512-lmJJLM7eMrxM6Qpr6cdLr07UBXlxCM7SJjfcDO7NGrqZTx7/3TD2QhhRpDx0fS2tODxrNwQxCoHPApLVPjokIA==
@@ -934,6 +935,24 @@
     "@scure/base" "^1.2.4"
     "@scure/bip32" "^1.4.0"
     "@scure/bip39" "^1.3.0"
+    gql.tada "^1.8.2"
+    graphql "^16.9.0"
+    poseidon-lite "^0.2.0"
+    valibot "^0.36.0"
+
+"@mysten/sui@^1.21.1":
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/@mysten/sui/-/sui-1.29.0.tgz#cd277e8299cf4cdafad4e9dcff4e0d44af96cd9a"
+  integrity sha512-0rOGYy97DZaD+TocjKOgqPalPh/IZnbMYVI1ncAKYGR59SMeunuk7RCWL6rGA8hN//JBor4nVkXpId6FlbhEeA==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.2.0"
+    "@mysten/bcs" "1.6.0"
+    "@mysten/utils" "0.0.0"
+    "@noble/curves" "^1.8.1"
+    "@noble/hashes" "^1.7.1"
+    "@scure/base" "^1.2.4"
+    "@scure/bip32" "^1.6.2"
+    "@scure/bip39" "^1.5.4"
     gql.tada "^1.8.2"
     graphql "^16.9.0"
     poseidon-lite "^0.2.0"
@@ -1883,6 +1902,15 @@ axios@^1.6.1:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^1.7.2:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.9.0.tgz#25534e3b72b54540077d33046f77e3b8d7081901"
+  integrity sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 base-x@^3.0.2:
   version "3.0.11"
   resolved "https://registry.npmjs.org/base-x/-/base-x-3.0.11.tgz"
@@ -2165,6 +2193,11 @@ dotenv@^16.0.3:
   version "16.4.7"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.7.tgz"
   integrity sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==
+
+dotenv@^16.4.7:
+  version "16.5.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.5.0.tgz#092b49f25f808f020050051d1ff258e404c78692"
+  integrity sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==
 
 drbg.js@^1.0.1:
   version "1.0.1"
@@ -2716,6 +2749,15 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+shio-fast-sdk@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/shio-fast-sdk/-/shio-fast-sdk-0.0.5.tgz#394a0e6d81a86976a144da51035f8d07b85326fd"
+  integrity sha512-AjnV1M2eCFHzuyfDVvxZAetn9l5CeQTwTUCrNVFiR6LoMKLBZzlIuU1xR/zz0VmulAAjiA/qfye+4w8n9u9Qcw==
+  dependencies:
+    "@mysten/sui" "^1.21.1"
+    axios "^1.7.2"
+    dotenv "^16.4.7"
 
 socket.io-client@^4.6.2:
   version "4.8.1"
