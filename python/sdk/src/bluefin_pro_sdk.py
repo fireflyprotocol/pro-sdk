@@ -13,7 +13,6 @@ from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
-from openapi_client.api.rewards_api import RewardsApi
 from openapi_client.api.trade_api import TradeApi
 from openapi_client.api_client import ApiClient
 from openapi_client.configuration import Configuration
@@ -115,10 +114,6 @@ class BluefinProSdk:
         exchange_api_config = Configuration(
             host=self.api_host, debug=debug)
         self.exchange_data_api = ExchangeApi(ApiClient(exchange_api_config))
-
-        rewards_api_config = Configuration(
-            host=self.api_host, debug=debug)
-        self.rewards_api = RewardsApi(ApiClient(rewards_api_config))
 
         account_data_api_config = Configuration(
             host=self.api_host, debug=debug)

@@ -20,7 +20,6 @@ __version__ = "1.0.0"
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
-from openapi_client.api.rewards_api import RewardsApi
 from openapi_client.api.streams_api import StreamsApi
 from openapi_client.api.trade_api import TradeApi
 
@@ -64,22 +63,15 @@ from openapi_client.models.adjust_isolated_margin_request_signed_fields import A
 from openapi_client.models.adjust_margin_operation import AdjustMarginOperation
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
-from openapi_client.models.campaign_metadata import CampaignMetadata
-from openapi_client.models.campaign_rewards import CampaignRewards
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
-from openapi_client.models.epoch_configs import EpochConfigs
-from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
-from openapi_client.models.get_rewards_interval_metadata_interval_parameter import GetRewardsIntervalMetadataIntervalParameter
-from openapi_client.models.interval_metadata import IntervalMetadata
-from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
@@ -113,7 +105,6 @@ from openapi_client.models.post_create_order202_response import PostCreateOrder2
 from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
-from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from openapi_client.models.subscription_response_message import SubscriptionResponseMessage
 from openapi_client.models.subscription_type import SubscriptionType
@@ -126,6 +117,5 @@ from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trading_fees import TradingFees
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
-from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.models.withdraw_request_signed_fields import WithdrawRequestSignedFields

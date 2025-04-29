@@ -13,6 +13,8 @@ Method | HTTP request | Description
 # **auth_jwks_get**
 > Dict[str, object] auth_jwks_get()
 
+
+
 ### Example
 
 
@@ -71,6 +73,8 @@ No authorization required
 
 # **auth_token_post**
 > LoginResponse auth_token_post(payload_signature, login_request)
+
+
 
 login with token
 
@@ -145,6 +149,8 @@ No authorization required
 # **auth_token_refresh_put**
 > RefreshTokenResponse auth_token_refresh_put(refresh_token_request)
 
+
+
 ### Example
 
 
@@ -212,6 +218,8 @@ No authorization required
 
 # **auth_v2_token_post**
 > LoginResponse auth_v2_token_post(payload_signature, login_request)
+
+
 
 login compatible with BCS payload with intent bytes
 
