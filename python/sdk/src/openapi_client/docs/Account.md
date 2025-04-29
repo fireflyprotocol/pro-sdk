@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **assets** | [**List[Asset]**](Asset.md) |  | 
 **positions** | [**List[Position]**](Position.md) |  | 
 **authorized_accounts** | **List[str]** | The accounts that are authorized to trade on behalf of the current account. | 
+**account_address** | **str** | The address of the account. | 
 
 ## Example
 

@@ -73,10 +73,13 @@ pub struct Account {
     /// The accounts that are authorized to trade on behalf of the current account.
     #[serde(rename = "authorizedAccounts")]
     pub authorized_accounts: Vec<String>,
+    /// The address of the account.
+    #[serde(rename = "accountAddress")]
+    pub account_address: String,
 }
 
 impl Account {
-    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>, account_address: String) -> Account {
         Account {
             trading_fees,
             can_trade,
@@ -99,6 +102,7 @@ impl Account {
             assets,
             positions,
             authorized_accounts,
+            account_address,
         }
     }
 }

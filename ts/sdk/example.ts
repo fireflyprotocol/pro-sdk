@@ -181,8 +181,9 @@ async function main() {
     ).data;
     logger.info(`Deposits history: ${JSON.stringify(depositHistory)}`);
 
-    const accountDetails = (await client.accountDataApi.getAccountDetails())
-      .data;
+    const accountDetails = (
+        await client.accountDataApi.getAccountDetails(suiWallet.getPublicKey().toSuiAddress())
+    ).data;
     logger.info(`Account Details: ${JSON.stringify(accountDetails)}`);
 
     const accountPreferences = (
