@@ -21,7 +21,6 @@ import {
   AccountAuthorizationRequestSignedFields,
   AdjustIsolatedMarginRequestSignedFields,
   AdjustMarginOperation,
-  RewardsApi,
 } from "./api";
 
 import { Configuration } from "./configuration";
@@ -91,7 +90,6 @@ export interface OrderParams {
 enum Services {
   Account,
   Exchange,
-  Rewards,
   Trade,
   Auth,
   MarketWebsocket,
@@ -116,7 +114,6 @@ export interface BluefinProSdkOptions {
 export class BluefinProSdk {
   private readonly configs: Partial<Record<Services, Configuration>> = {};
   public readonly exchangeDataApi: ExchangeApi;
-  public readonly rewardsApi: RewardsApi;
   public readonly accountDataApi: AccountDataApi;
   private readonly tradeApi: TradeApi;
   private readonly authApi: AuthApi;
@@ -190,13 +187,6 @@ export class BluefinProSdk {
     });
     this.configs[Services.Exchange] = exchangeApiConfig;
     this.exchangeDataApi = new ExchangeApi(exchangeApiConfig);
-
-    const rewardsApiConfig = new Configuration({
-      basePath: basePaths.apiHost,
-      baseOptions: baseOptions,
-    });
-    this.configs[Services.Rewards] = rewardsApiConfig;
-    this.rewardsApi = new RewardsApi(rewardsApiConfig);
 
     const accountDataApiConfig = new Configuration({
       basePath: basePaths.apiHost,

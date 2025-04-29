@@ -19,12 +19,7 @@ Method | HTTP request | Description
 
 Cancel orders for a market using order hashes
 
-- May be a single order hash or a list of order hashes.
-- All orders must belong to the same account.
-- If no order hashes are specified, then will cancel all orders for the given market
-
-- All orders being cancelled by request will receive the same time priority.
-
+- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
 ### Example
 
