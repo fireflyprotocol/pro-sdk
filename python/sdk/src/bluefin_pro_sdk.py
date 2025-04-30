@@ -13,6 +13,7 @@ from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
+from openapi_client.api.rewards_api import RewardsApi
 from openapi_client.api.trade_api import TradeApi
 from openapi_client.api_client import ApiClient
 from openapi_client.configuration import Configuration
@@ -114,6 +115,10 @@ class BluefinProSdk:
         exchange_api_config = Configuration(
             host=self.api_host, debug=debug)
         self.exchange_data_api = ExchangeApi(ApiClient(exchange_api_config))
+
+        rewards_api_config = Configuration(
+            host=self.api_host, debug=debug)
+        self.rewards_data_api = RewardsApi(ApiClient(rewards_api_config))
 
         account_data_api_config = Configuration(
             host=self.api_host, debug=debug)
@@ -332,6 +337,7 @@ class BluefinProSdk:
         await self._trade_api.api_client.close()
         await self.account_data_api.api_client.close()
         await self.exchange_data_api.api_client.close()
+        await self.rewards_data_api.api_client.close()
         await self._auth_api.api_client.close()
 
     async def __refresh_token(self):

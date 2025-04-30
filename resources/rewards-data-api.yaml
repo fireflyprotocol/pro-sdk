@@ -1,0 +1,490 @@
+openapi: 3.0.3
+info:
+  title: Bluefin Rewards API
+  description: Rewards Info Endpoints |
+    All numeric quantities are represented as string in e9 format.
+  version: 1.0.0
+tags:
+  - name: Rewards
+    description: Rewards Info Endpoints
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    CampaignRewards:
+      type: object
+      properties:
+        rewards:
+          $ref: "#/components/schemas/UserCampaignRewards"
+        # Add other campaign data types as needed
+
+    # Campaign rewards schema can be extended to have custom fields for the campaign once start adding more campaign specific data
+    UserCampaignRewards:
+      type: object
+      required:
+        - UserAddress
+        - CampaignName
+        - EpochNumber
+        - IntervalNumber
+        - MarketAddress
+        - Status
+        - BlueRewards
+        - SuiRewards
+        - CashRewards
+      properties:
+        UserAddress:
+          type: string
+          description: User address for the rewards earned data.
+          example: "0x1234567890abcdef"
+        CampaignName:
+          type: string
+          description: Name of the campaign.
+          example: "Trade and Earn"
+        EpochNumber:
+          type: integer
+          description: Epoch number for the rewards earned data.
+          example: 6
+        IntervalNumber:
+          type: integer
+          description: Interval number for the rewards earned data.
+          example: 6
+        MarketAddress:
+          type: string
+          description: Market MarketAddress.
+          example: "BTC-PERP"
+        Status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        BlueRewards:
+          type: string
+          description: Total Blue token rewards earned in the epoch (e9 format).
+          example: 10000000
+        SuiRewards:
+          type: string
+          description: Total Sui token rewards earned in the epoch (e9 format).
+          example: 10000000
+        CashRewards:
+          type: string
+          description: Total cash rewards earned in the epoch (e9 format).
+          example: 10000000
+
+    IntervalRewards:
+
+      type: object
+      required:
+        - UserAddress
+        - IntervalNumber
+        - Status
+        - BlueRewards
+        - SuiRewards
+        - CashRewards
+      properties:
+        UserAddress:
+          type: string
+          description: User address for the rewards earned data.
+          example: "0x1234567890abcdef"
+        Status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        BlueRewards:
+          type: string
+          description: Total Blue token rewards earned in the interval (e9 format).
+          example: 10000000
+        SuiRewards:
+          type: string
+          description: Total Sui token rewards earned in the interval (e9 format).
+          example: 10000000
+        CashRewards:
+          type: string
+          description: Total cash rewards earned in the interval (e9 format).
+          example: 10000000
+        IntervalNumber:
+          type: integer
+          description: Interval Id of the interval for the rewards earned data.
+          example: 6
+    
+    RewardsSummary:
+      type: object
+      required:
+        - UserAddress
+        - BlueRewards
+        - SuiRewards
+        - CashRewards
+      properties:
+        UserAddress:
+          type: string
+          description: User address for the rewards earned data.
+          example: "0x1234567890abcdef"
+        BlueRewards:
+          type: string
+          description: Total Blue token rewards earned by the user (e9 format).
+          example: 10000000
+        SuiRewards:
+          type: string
+          description: Total Sui token rewards earned by the user (e9 format).
+          example: 10000000
+        CashRewards:
+          type: string
+          description: Total cash rewards earned by the user (e9 format).
+          example: 10000000
+
+    CampaignMetadata:
+      type: object
+      required:
+        - Status
+        - CampaignName
+        - ParentCampaignName
+        - StartDate
+        - EndDate
+      properties:
+        Status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+        CampaignName:
+          type: string
+          description: Name of the campaign.
+          example: "Trade and Earn"
+        ParentCampaignName:
+          type: string
+          description: Name of the parent campaign.
+          example: ""
+        StartDate:
+          type: integer
+          description: Time in milliseconds for campaign start date.
+          example: 1724121094751
+        EndDate:
+          type: integer
+          description: Time in milliseconds for campaign end date.
+          example: 1724121094751
+
+    EpochMetadata:
+      type: object
+      required:
+        - Status
+        - CampaignName
+        - EpochId
+        - EpochNumber
+        - StartDate
+        - EndDate
+      properties:
+        Status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        CampaignName:
+          type: string
+          description: Name of the campaign.
+          example: "Trade and Earn"
+        EpochId:
+          type: integer
+          description: Epoch Id of the epoch.
+          example: 6
+        EpochNumber:
+          type: integer
+          description: Epoch number for the queried epoch.
+          example: 6
+        StartDate:
+          type: integer
+          description: Time in milliseconds for campaign start date.
+          example: 1724121094751
+        EndDate:
+          type: integer
+          description: Time in milliseconds for campaign end date.
+          example: 1724121094751
+
+    IntervalMetadata:
+      type: object
+      required:
+        - Status
+        - StartDate
+        - EndDate
+        - IntervalId
+        - IntervalType
+      properties:
+        Status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        StartDate:
+          type: integer
+          description: Time in milliseconds for interval start date.
+          example: 1724121094751
+        EndDate:
+          type: integer
+          description: Time in milliseconds for interval end date.
+          example: 1724121094751
+        IntervalId:
+          type: integer
+          description: Interval Id of the interval.
+          example: 6
+        IntervalType:
+          type: string
+          description: Type of the interval.
+          example: "WEEK"
+
+    EpochConfigs:
+      type: object
+      required:
+        - campaignName
+        - epochDuration
+        - suiRewardsAllocation
+        - blueRewardsAllocation
+        - cashRewardsAllocation
+        - config
+      properties:
+        campaignName:
+          type: string
+          description: The name of the campaign.
+          example: "Trade and Earn"
+        epochDuration:
+          type: integer
+          description: Duration of the epoch in milliseconds.
+          example: 604800000
+        suiRewardsAllocation:
+          type: string
+          description: Allocation of Sui token rewards in the epoch (e9 format).
+          example: 200000000000
+        blueRewardsAllocation:
+          type: string
+          description: Allocation of Blue token rewards in the epoch (e9 format).
+          example: 5000000000
+        cashRewardsAllocation:
+          type: string
+          description:  Allocation of cash token rewards in the epoch (e9 format)
+          example: 200000000000
+        config:
+          type: object
+          description: Object to add custom configurations for campaigns.
+          additionalProperties: true
+  # Not adding userAddress as it is not required for the API if we are extracting it from auth token
+  # Post endpoints are for admin-only access, need to add auth for these endpoints
+
+paths:
+  # Rewards endpoints
+  /v1/rewards:
+    # Get rewards information for the intervals; intervals define how frequent rewards are made available for claim or disbursement
+    # Intervals are irrespective of the campaign or epoch's duration, multiple campaigns/epochs rewards can be distributed in a single interval
+    get:
+      tags:
+        - Rewards
+      operationId: getRewards
+      summary: Get rewards information for the intervals
+      description: Returns the rewards earned by users for the intervals .
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: intervalNumber
+          in: query
+          required: false
+          description: Optionally specify interval number.
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of epoch rewards objects.
+                items:
+                  $ref: "#/components/schemas/IntervalRewards"
+  /v1/rewards/campaign:
+    # Get rewards information for the epochs; epochs define how frequent rewards for a campaign are finalized and locked
+    # Epochs are specific to a campaign
+    get:
+      tags:
+        - Rewards
+      operationId: getCampaignRewards
+      summary: Get rewards information for a specific campaign
+      description: Returns the rewards earned by users for a specific campaign
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: campaignName
+          in: query
+          required: true
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "Trade and Earn"
+        - name: epochNumber
+          in: query
+          required: false
+          description: Optionally specify epoch number.
+          schema:
+            type: integer
+            example: 7
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CampaignRewards"
+  /v1/rewards/summary:
+    # Get rewards information for all time
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsSummary
+      summary: Get rewards information for all time rewards earned
+      description: Returns the all time rewards earned by users.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: "#/components/schemas/RewardsSummary"
+  
+  # Rewards metadata endpoints
+  /v1/rewards/metadata/campaign:
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsCampaignMetadata
+      summary: Get rewards metadata for the campaigns
+      description: Returns the metadata for the rewards campaigns.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "Trade and Earn"
+        - name: Status
+          in: query
+          required: false
+          description: Optionally specify the status of the campaigns.
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - INACTIVE
+            default: ACTIVE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of campaign metadata objects.
+                items:
+                  $ref: "#/components/schemas/CampaignMetadata"
+    
+  /v1/rewards/metadata/epoch:
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsEpochMetadata
+      summary: Gets the latest or next epoch for campaign.
+      description: Returns the latest or next epocht epoch for campaign.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "Trade and Earn"
+        - name: epoch
+          in: query
+          required: false
+          description: Specify the string "next" or "latest".
+          schema:
+            type: string
+            enum: ["next", "latest"]
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of campaign metadata objects.
+                items:
+                  $ref: "#/components/schemas/EpochMetadata"
+
+  /v1/rewards/metadata/epoch/configs:
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsEpochConfigMetadata
+      summary: Gets the latest epoch configs for the campaigns
+      description: Returns the latest epoch configs for the campaigns
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of campaign metadata objects.
+                items:
+                  $ref: "#/components/schemas/EpochConfigs"
+    
+  /v1/rewards/metadata/interval:
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsIntervalMetadata
+      summary: Gets the interval metadata for provided parameters
+      description: Returns the interval metadata for provided parameters
+      parameters:
+        - name: interval
+          in: query
+          required: false
+          description: Either specify an interval number or the string "next" or "latest".
+          schema:
+            type: integer
+            example: 2
+          examples:
+            numberExample:
+              summary: Interval Number
+              value: 2
+            stringExample:
+              summary: Latest or Next Interval
+              value: next
+
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of campaign metadata objects.
+                items:
+                  $ref: "#/components/schemas/IntervalMetadata"
+
+
+  
