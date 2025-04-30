@@ -176,7 +176,7 @@ Returns the interval metadata for provided parameters
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**interval** | Option<[**GetRewardsIntervalMetadataIntervalParameter**](.md)> | Either specify an interval number or the string \"next\" or \"latest\". |  |
+**interval** | Option<**i32**> | Either specify an interval number or the string \"next\" or \"latest\". |  |
 
 ### Return type
 

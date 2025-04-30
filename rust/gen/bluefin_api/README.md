@@ -104,7 +104,6 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [ExchangeInfoResponse](docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](docs/FundingRateEntry.md)
- - [GetRewardsIntervalMetadataIntervalParameter](docs/GetRewardsIntervalMetadataIntervalParameter.md)
  - [IntervalMetadata](docs/IntervalMetadata.md)
  - [IntervalRewards](docs/IntervalRewards.md)
  - [KlineInterval](docs/KlineInterval.md)

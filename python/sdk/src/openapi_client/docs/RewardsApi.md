@@ -382,7 +382,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    interval = openapi_client.GetRewardsIntervalMetadataIntervalParameter() # GetRewardsIntervalMetadataIntervalParameter | Either specify an interval number or the string \"next\" or \"latest\". (optional)
+    interval = 2 # int | Either specify an interval number or the string \"next\" or \"latest\". (optional)
 
     try:
         # Gets the interval metadata for provided parameters
@@ -400,7 +400,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **interval** | [**GetRewardsIntervalMetadataIntervalParameter**](.md)| Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;. | [optional] 
+ **interval** | **int**| Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;. | [optional] 
 
 ### Return type
 

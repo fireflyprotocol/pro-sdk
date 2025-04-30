@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr, field_validator
-from typing import Any, List, Optional
+from typing import List, Optional
 from typing_extensions import Annotated
 from openapi_client.models.campaign_metadata import CampaignMetadata
 from openapi_client.models.campaign_rewards import CampaignRewards
@@ -1392,7 +1392,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_interval_metadata(
         self,
-        interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
+        interval: Annotated[Optional[StrictInt], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1411,7 +1411,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: GetRewardsIntervalMetadataIntervalParameter
+        :type interval: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1459,7 +1459,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_interval_metadata_with_http_info(
         self,
-        interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
+        interval: Annotated[Optional[StrictInt], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1478,7 +1478,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: GetRewardsIntervalMetadataIntervalParameter
+        :type interval: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1526,7 +1526,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_interval_metadata_without_preload_content(
         self,
-        interval: Annotated[Optional[Any], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
+        interval: Annotated[Optional[StrictInt], Field(description="Either specify an interval number or the string \"next\" or \"latest\".")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1545,7 +1545,7 @@ class RewardsApi:
         Returns the interval metadata for provided parameters
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
-        :type interval: GetRewardsIntervalMetadataIntervalParameter
+        :type interval: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

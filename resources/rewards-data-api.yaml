@@ -465,11 +465,8 @@ paths:
           required: false
           description: Either specify an interval number or the string "next" or "latest".
           schema:
-            oneOf:
-              - type: integer
-                example: 2
-              - type: string
-                enum: ["next", "latest"]
+            type: integer
+            example: 2
           examples:
             numberExample:
               summary: Interval Number

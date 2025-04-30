@@ -1647,12 +1647,6 @@ export interface FundingRateEntry {
     'fundingRateE9': string;
 }
 /**
- * @type GetRewardsIntervalMetadataIntervalParameter
- * @export
- */
-export type GetRewardsIntervalMetadataIntervalParameter = number | string;
-
-/**
  * 
  * @export
  * @interface IntervalMetadata
@@ -5631,11 +5625,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsIntervalMetadata: async (interval?: GetRewardsIntervalMetadataIntervalParameter, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsIntervalMetadata: async (interval?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/interval`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5773,11 +5767,11 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalMetadata>>> {
+        async getRewardsIntervalMetadata(interval?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IntervalMetadata>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsIntervalMetadata(interval, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsIntervalMetadata']?.[localVarOperationServerIndex]?.url;
@@ -5860,11 +5854,11 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         /**
          * Returns the interval metadata for provided parameters
          * @summary Gets the interval metadata for provided parameters
-         * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+         * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalMetadata>> {
+        getRewardsIntervalMetadata(interval?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<IntervalMetadata>> {
             return localVarFp.getRewardsIntervalMetadata(interval, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5951,12 +5945,12 @@ export class RewardsApi extends BaseAPI {
     /**
      * Returns the interval metadata for provided parameters
      * @summary Gets the interval metadata for provided parameters
-     * @param {GetRewardsIntervalMetadataIntervalParameter} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
+     * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getRewardsIntervalMetadata(interval?: GetRewardsIntervalMetadataIntervalParameter, options?: RawAxiosRequestConfig) {
+    public getRewardsIntervalMetadata(interval?: number, options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getRewardsIntervalMetadata(interval, options).then((request) => request(this.axios, this.basePath));
     }
 

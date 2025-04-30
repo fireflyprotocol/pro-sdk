@@ -144,7 +144,6 @@ Class | Method | HTTP request | Description
  - [Error](openapi_client/docs/Error.md)
  - [ExchangeInfoResponse](openapi_client/docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](openapi_client/docs/FundingRateEntry.md)
- - [GetRewardsIntervalMetadataIntervalParameter](openapi_client/docs/GetRewardsIntervalMetadataIntervalParameter.md)
  - [IntervalMetadata](openapi_client/docs/IntervalMetadata.md)
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)

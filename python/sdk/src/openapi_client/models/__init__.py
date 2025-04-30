@@ -55,7 +55,6 @@ from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
-from openapi_client.models.get_rewards_interval_metadata_interval_parameter import GetRewardsIntervalMetadataIntervalParameter
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.kline_interval import KlineInterval

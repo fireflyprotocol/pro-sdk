@@ -80,8 +80,6 @@ pub mod exchange_info_response;
 pub use self::exchange_info_response::ExchangeInfoResponse;
 pub mod funding_rate_entry;
 pub use self::funding_rate_entry::FundingRateEntry;
-pub mod get_rewards_interval_metadata_interval_parameter;
-pub use self::get_rewards_interval_metadata_interval_parameter::GetRewardsIntervalMetadataIntervalParameter;
 pub mod interval_metadata;
 pub use self::interval_metadata::IntervalMetadata;
 pub mod interval_rewards;

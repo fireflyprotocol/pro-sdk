@@ -221,7 +221,7 @@ pub async fn get_rewards_epoch_metadata(configuration: &configuration::Configura
 }
 
 /// Returns the interval metadata for provided parameters
-pub async fn get_rewards_interval_metadata(configuration: &configuration::Configuration, interval: Option<models::GetRewardsIntervalMetadataIntervalParameter>) -> Result<Vec<models::IntervalMetadata>, Error<GetRewardsIntervalMetadataError>> {
+pub async fn get_rewards_interval_metadata(configuration: &configuration::Configuration, interval: Option<i32>) -> Result<Vec<models::IntervalMetadata>, Error<GetRewardsIntervalMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval = interval;
 
