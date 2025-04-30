@@ -29,7 +29,7 @@ components:
         - CampaignName
         - EpochNumber
         - IntervalNumber
-        - MarketAddress
+        - Symbol
         - Status
         - BlueRewards
         - SuiRewards
@@ -51,9 +51,9 @@ components:
           type: integer
           description: Interval number for the rewards earned data.
           example: 6
-        MarketAddress:
+        Symbol:
           type: string
-          description: Market MarketAddress.
+          description: Market Symbol.
           example: "BTC-PERP"
         Status:
           type: string

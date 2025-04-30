@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **campaign_name** | **str** | Name of the campaign. | 
 **epoch_number** | **int** | Epoch number for the rewards earned data. | 
 **interval_number** | **int** | Interval number for the rewards earned data. | 
-**market_address** | **str** | Market MarketAddress. | 
+**symbol** | **str** | Market Symbol. | 
 **status** | **str** |  | 
 **blue_rewards** | **str** | Total Blue token rewards earned in the epoch (e9 format). | 
 **sui_rewards** | **str** | Total Sui token rewards earned in the epoch (e9 format). | 

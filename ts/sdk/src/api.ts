@@ -3852,11 +3852,11 @@ export interface UserCampaignRewards {
      */
     'IntervalNumber': number;
     /**
-     * Market MarketAddress.
+     * Market Symbol.
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'MarketAddress': string;
+    'Symbol': string;
     /**
      * 
      * @type {string}
