@@ -350,11 +350,14 @@ async fn main() -> Result<()> {
     println!("Exchange info received: {exchange_info:#?}",);
 
     // ===== Get Account Details =====
-    let account_details = get_account_details(&Configuration {
-        base_path: account_service_url.into(),
-        bearer_access_token: Some(auth_token.clone()),
-        ..Configuration::new()
-    })
+    let account_details = get_account_details(
+        &Configuration {
+            base_path: account_service_url.into(),
+            bearer_access_token: Some(auth_token.clone()),
+            ..Configuration::new()
+        },
+        ACCOUNT.into(),
+    )
     .await?;
     println!("Account details received: {account_details:#?}",);
 
