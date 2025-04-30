@@ -205,14 +205,4 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_campaign_metadata.py
-openapi_client/test/test_campaign_rewards.py
-openapi_client/test/test_epoch_configs.py
-openapi_client/test/test_epoch_metadata.py
-openapi_client/test/test_get_rewards_interval_metadata_interval_parameter.py
-openapi_client/test/test_interval_metadata.py
-openapi_client/test/test_interval_rewards.py
-openapi_client/test/test_rewards_api.py
-openapi_client/test/test_rewards_summary.py
-openapi_client/test/test_user_campaign_rewards.py
 openapi_client_README.md
