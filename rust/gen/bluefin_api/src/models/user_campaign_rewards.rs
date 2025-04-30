@@ -25,9 +25,9 @@ pub struct UserCampaignRewards {
     /// Interval number for the rewards earned data.
     #[serde(rename = "IntervalNumber")]
     pub interval_number: i32,
-    /// Market MarketAddress.
-    #[serde(rename = "MarketAddress")]
-    pub market_address: String,
+    /// Market Symbol.
+    #[serde(rename = "Symbol")]
+    pub symbol: String,
     #[serde(rename = "Status")]
     pub status: Status,
     /// Total Blue token rewards earned in the epoch (e9 format).
@@ -42,13 +42,13 @@ pub struct UserCampaignRewards {
 }
 
 impl UserCampaignRewards {
-    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, market_address: String, status: Status, blue_rewards: String, sui_rewards: String, cash_rewards: String) -> UserCampaignRewards {
+    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards: String, sui_rewards: String, cash_rewards: String) -> UserCampaignRewards {
         UserCampaignRewards {
             user_address,
             campaign_name,
             epoch_number,
             interval_number,
-            market_address,
+            symbol,
             status,
             blue_rewards,
             sui_rewards,
