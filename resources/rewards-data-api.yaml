@@ -9,7 +9,7 @@ tags:
     description: Rewards Info Endpoints
 components:
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -290,7 +290,7 @@ paths:
       summary: Get rewards information for the intervals
       description: Returns the rewards earned by users for the intervals .
       security:
-        - BearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: intervalNumber
           in: query
@@ -319,7 +319,7 @@ paths:
       summary: Get rewards information for a specific campaign
       description: Returns the rewards earned by users for a specific campaign
       security:
-        - BearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: campaignName
           in: query
@@ -353,7 +353,7 @@ paths:
       summary: Get rewards information for all time rewards earned
       description: Returns the all time rewards earned by users.
       security:
-        - BearerAuth: []
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response

@@ -290,6 +290,7 @@ export class BluefinProSdk {
     this.configs[Services.Account]!.accessToken =
       this.tokenResponse!.accessToken;
     this.configs[Services.Trade]!.accessToken = this.tokenResponse!.accessToken;
+    this.configs[Services.Rewards]!.accessToken = this.tokenResponse!.accessToken;
   }
 
   private async login(): Promise<void> {
