@@ -7,10 +7,15 @@ use crate::signature::RequestExt;
 
 impl RequestExt for WithdrawRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
-        let converted = signature::conversion::UIWithdrawRequest::from(self.clone());
+        let converted = signature::conversion::signable::WithdrawRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
         Ok(WithdrawRequest { signature, ..self })
+    }
+
+    fn compute_hash(self) -> Result<String> {
+        let converted = signature::conversion::hashable::WithdrawRequest::try_from(self.clone())?;
+        signature::compute_hash(&converted)
     }
 }
 
@@ -32,7 +37,7 @@ mod tests {
             signer_address,
             &request.signature.clone(),
             request.clone(),
-            signature::conversion::UIWithdrawRequest::from,
+            signature::conversion::signable::WithdrawRequest::from,
         ) {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
@@ -71,6 +76,13 @@ mod tests {
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
         verify_request_signature(request, &signer_address);
+    }
+
+    #[test]
+    fn compute_hash_is_successful() {
+        let request = withdraw_request();
+        let hash = request.compute_hash().unwrap();
+        assert!(!hash.is_empty());
     }
 
     fn withdraw_request() -> WithdrawRequest {

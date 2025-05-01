@@ -7,10 +7,16 @@ use crate::signature::RequestExt;
 
 impl RequestExt for CreateOrderRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
-        let converted = signature::conversion::UICreateOrderRequest::from(self.clone());
+        let converted = signature::conversion::signable::CreateOrderRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
         Ok(CreateOrderRequest { signature, ..self })
+    }
+
+    fn compute_hash(self) -> Result<String> {
+        let converted =
+            signature::conversion::hashable::CreateOrderRequest::try_from(self.clone())?;
+        signature::compute_hash(&converted)
     }
 }
 
@@ -32,7 +38,7 @@ mod tests {
             signer_address,
             &request.signature.clone(),
             request.clone(),
-            signature::conversion::UICreateOrderRequest::from,
+            signature::conversion::signable::CreateOrderRequest::from,
         ) {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
@@ -71,6 +77,13 @@ mod tests {
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
         verify_request_signature(request, &signer_address);
+    }
+
+    #[test]
+    fn compute_hash_is_successful() {
+        let request = create_order_request();
+        let hash = request.compute_hash().unwrap();
+        assert!(!hash.is_empty());
     }
 
     fn create_order_request() -> CreateOrderRequest {
