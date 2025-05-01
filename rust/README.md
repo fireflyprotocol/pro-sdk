@@ -18,7 +18,7 @@ cargo run --bin apigen -- -l rust
 - **REST API Client**: Interact with Bluefin Pro’s REST APIs to perform operations such as creating orders, managing
   accounts, and retrieving trading data.
 - **WebSocket API Client**: Subscribable channels for real-time market data and updates, generated from OpenAPI specs.
-- **Signature Utilities**: Built-in cryptographic utilities to sign `update_leverage`, `create order` and `withdraw` requests securely.
+- **Signature Utilities**: Built-in cryptographic utilities to sign `account_authorization`, `adjust_isolated_margin`, `update_leverage`, `create order` and `withdraw` requests securely.
 - **Environment Support**: Example configurations and code provided to connect to **DEVNET** **TESTNET** or **MAINNET**
   environments.
 
@@ -70,7 +70,7 @@ The SDK provides example code to demonstrate how to use the APIs.
 - **Connecting to DEVNET, TESTNET or MAINNET**: The examples are configured for DEVNET, TESTNET and MAINNET environments. You can
   toggle between environments based on your use case.
 - **Signing Requests**: Ensure secure interactions by leveraging the built-in signing utilities before making
-  `create order`, `update leverage` and `withdraw` requests.
+  `account_authorization`, `adjust_isolated_margin`, `update_leverage`, `create order` and `withdraw` requests.
 
 To run examples, navigate to the `examples` directory and execute them using:
 
@@ -94,6 +94,8 @@ The SDK comes with built-in support for signing specific API requests:
 - **Sign `Create Order` Requests**: Cryptographically sign your order requests securely.
 - **Sign `Withdraw` Requests**: Cryptographically sign your withdrawal requests.
 - **Sign `Update Leverage` Requests**: Cryptographically sign your update leverage requests.
+- **Sign `Adjust Isolated Margin` Requests**: Cryptographically sign your adjust isolated margin requests.
+- **Sign `Account Authorization` Requests**: Cryptographically sign your account authorization requests.
 
 For other API interactions, refer to the examples folder for detailed guidance.
 
