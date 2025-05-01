@@ -147,6 +147,8 @@ class BluefinProSdk:
                                                             "Bearer " + self._token_response.access_token)
         self._trade_api.api_client.set_default_header("Authorization",
                                                       "Bearer " + self._token_response.access_token)
+        self.rewards_data_api.api_client.set_default_header("Authorization",
+                                                            "Bearer " + self._token_response.access_token)
 
     async def get_open_orders(self, market_address: str):
         await self._set_access_token(self._trade_api.api_client)

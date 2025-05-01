@@ -169,6 +169,9 @@ async function main() {
     ).data;
     logger.info(`Trades History ${JSON.stringify(accountTrades)}`);
 
+    const rewards = ( await client.rewardsDataApi.getCampaignRewards("TRADE_AND_EARN")).data;
+    logger.info(`Rewards: ${JSON.stringify(rewards)}`);
+
     const depositHistory = (
       await client.accountDataApi.getAccountTransactionHistory(
         [TransactionType.Deposit, TransactionType.Withdraw],
