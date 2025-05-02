@@ -23,13 +23,17 @@ impl RequestExt for AccountAuthorizationRequestExt {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
         let signature = if self.is_authorize {
             signature::signature(
-                signature::conversion::UIAuthorizeAccountRequest::from(self.request.clone()),
+                signature::conversion::signable::AuthorizeAccountRequest::from(
+                    self.request.clone(),
+                ),
                 private_key,
                 scheme,
             )?
         } else {
             signature::signature(
-                signature::conversion::UIDeauthorizeAccountRequest::from(self.request.clone()),
+                signature::conversion::signable::DeauthorizeAccountRequest::from(
+                    self.request.clone(),
+                ),
                 private_key,
                 scheme,
             )?
@@ -42,6 +46,20 @@ impl RequestExt for AccountAuthorizationRequestExt {
             },
             is_authorize: self.is_authorize,
         })
+    }
+
+    fn compute_hash(self) -> Result<String> {
+        if self.is_authorize {
+            let converted = signature::conversion::hashable::AuthorizeAccountRequest::try_from(
+                self.request.clone(),
+            )?;
+            signature::compute_hash(&converted)
+        } else {
+            let converted = signature::conversion::hashable::DeauthorizeAccountRequest::try_from(
+                self.request.clone(),
+            )?;
+            signature::compute_hash(&converted)
+        }
     }
 }
 
@@ -64,14 +82,14 @@ mod tests {
                 signer_address,
                 &request.request.signature.clone(),
                 request.request.clone(),
-                signature::conversion::UIAuthorizeAccountRequest::from,
+                signature::conversion::signable::AuthorizeAccountRequest::from,
             )
         } else {
             verify_signature(
                 signer_address,
                 &request.request.signature.clone(),
                 request.request.clone(),
-                signature::conversion::UIDeauthorizeAccountRequest::from,
+                signature::conversion::signable::DeauthorizeAccountRequest::from,
             )
         };
 
@@ -147,6 +165,20 @@ mod tests {
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
         verify_request_signature(request, &signer_address);
+    }
+
+    #[test]
+    fn compute_hash_is_successful_authorize() {
+        let request = account_authorization_request(true);
+        let hash = request.compute_hash().unwrap();
+        assert!(!hash.is_empty());
+    }
+
+    #[test]
+    fn compute_hash_is_successful_deauthorize() {
+        let request = account_authorization_request(false);
+        let hash = request.compute_hash().unwrap();
+        assert!(!hash.is_empty());
     }
 
     fn account_authorization_request(is_authorize: bool) -> AccountAuthorizationRequestExt {

@@ -9,7 +9,7 @@ class BCSSerializer:
 
     def __init__(self):
         self.buffer = bytearray()
-        self.MAX_SEQUENCE_LENGTH = 0xFFFFFFFF  # u32::MAX
+        self.MAX_SEQUENCE_LENGTH = 0x7FFFFFFFF  # u32::MAX (2^31 -1)
 
     def serialize_bool(self, value: bool) -> None:
         if not isinstance(value, bool):
@@ -67,7 +67,7 @@ class BCSSerializer:
         encoded = value.encode("utf-8")
         if len(encoded) > self.MAX_SEQUENCE_LENGTH:
             raise ValueError(f"String length {len(encoded)} exceeds maximum {self.MAX_SEQUENCE_LENGTH}")
-        self.serialize_u32(len(encoded))  # Change from u8 to u32
+        self.serialize_u32_as_uleb128(len(encoded))
         self.buffer.extend(encoded)
 
     def serialize_list(self, values: list, element_serializer: callable) -> None:
@@ -113,7 +113,7 @@ class BCSSerializer:
     def serialize_address(self, address: str) -> None:
         """
         Serializes an Address (fixed-size byte array).
-        For example, in Diem/Aptos, an Address is a 16-byte or 32-byte identifier.
+        For example, in Sui, an Address is a 32-byte identifier.
         """
 
         address = hex_to_byte_array(address)
@@ -121,8 +121,8 @@ class BCSSerializer:
         if not isinstance(address, (bytes, bytearray)):
             raise TypeError("Address must be a byte array.")
 
-        if len(address) not in {16, 32}:
-            raise ValueError("Address must be 16 or 32 bytes in length.")
+        if len(address) not in {32}:
+            raise ValueError("Address must be 32 bytes in length.")
         self.buffer.extend(address)
 
     def serialize_uint8_array(self, array: list):
@@ -163,6 +163,31 @@ class BCSSerializer:
                 f"Value out of range for {byte_size * 8}-bit integer.")
         # Little-endian format
         self.buffer.extend(struct.pack("<" + format_char, value))
+        
+    def _serialize_uleb128(self, value: int) -> None:
+        """
+        Serialize an unsigned integer using ULEB128 encoding.
+        
+        Args:
+            value: Non-negative integer to serialize
+        """
+        while value >= 0x80:
+        # Write 7 (lowest) bits of data and set the 8th bit to 1
+            byte = (value & 0x7f) | 0x80
+            self.buffer.append(byte)
+            value >>= 7
+    
+        # Write the remaining bits of data and set the highest bit to 0
+        self.buffer.append(value)
+                
+    def serialize_u32_as_uleb128(self, value: int) -> None:
+        """
+        Serialize a u32 value as ULEB128.
+        
+        Args:
+            value: Non-negative integer to serialize
+        """
+        self._serialize_uleb128(value)
 
     def serialize_bytes(self, bytes_data: bytes) -> None:
         """

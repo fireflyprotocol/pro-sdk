@@ -9,10 +9,13 @@ type Result<T> = std::result::Result<T, Error>;
 /// Sends a request for account details, and returns the deserialized response.
 async fn send_request(account_address: &str) -> Result<Account> {
     println!("Sending request...");
-    Ok(get_account_details(&Configuration {
-        base_path: account::testnet::URL.into(),
-        ..Configuration::new()
-    }, Some(account_address.into()))
+    Ok(get_account_details(
+        &Configuration {
+            base_path: account::testnet::URL.into(),
+            ..Configuration::new()
+        },
+        Some(account_address),
+    )
     .await?)
 }
 
