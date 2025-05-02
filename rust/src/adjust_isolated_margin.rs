@@ -6,10 +6,17 @@ use crate::{core::PrivateKey, signature::RequestExt};
 
 impl RequestExt for AdjustIsolatedMarginRequest {
     fn sign(self, private_key: PrivateKey, scheme: SignatureScheme) -> Result<Self> {
-        let converted = signature::conversion::UIAdjustIsolatedMarginRequest::from(self.clone());
+        let converted =
+            signature::conversion::signable::AdjustIsolatedMarginRequest::from(self.clone());
 
         let signature = signature::signature(converted, private_key, scheme)?;
         Ok(AdjustIsolatedMarginRequest { signature, ..self })
+    }
+
+    fn compute_hash(self) -> Result<String> {
+        let converted =
+            signature::conversion::hashable::AdjustIsolatedMarginRequest::try_from(self.clone())?;
+        signature::compute_hash(&converted)
     }
 }
 
@@ -31,7 +38,7 @@ mod tests {
             signer_address,
             &request.signature.clone(),
             request.clone(),
-            signature::conversion::UIAdjustIsolatedMarginRequest::from,
+            signature::conversion::signable::AdjustIsolatedMarginRequest::from,
         ) {
             Ok(_) => {}
             Err(e) => panic!("{e}"),
@@ -70,6 +77,13 @@ mod tests {
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
         verify_request_signature(request, &signer_address);
+    }
+
+    #[test]
+    fn compute_hash_is_successful() {
+        let request = adjust_isolated_margin_request();
+        let hash = request.compute_hash().unwrap();
+        assert!(!hash.is_empty());
     }
 
     fn adjust_isolated_margin_request() -> AdjustIsolatedMarginRequest {

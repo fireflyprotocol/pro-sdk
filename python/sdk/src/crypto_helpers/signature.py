@@ -268,40 +268,6 @@ class Signature:
 
         return message
 
-    def create_hash(self, data:json) -> bytes:
-        """
-        Creates the data
-        1. JSON stringify the data and convert to bytes
-        2. BCS serialize the data bytes
-        3. Append personal message intent bytes
-        4. Take blake2b hash of the above message with intent bytes
-
-        Args:
-            data (json): A JSON payload to be signed
-
-        Returns:
-            A personal sign message ready to be signed
-        """
-
-        serializer = BCSSerializer()
-
-        # Json stringify with indent and encode to ut8 bytes
-        uint8_array = list(json.dumps(data, indent=2).encode("utf-8"))
-
-        # bcs serialize
-        serializer.serialize_bytes(uint8_array)
-
-        # serialized bytes
-        serialized_bytes = list(serializer.get_bytes())
-
-        # append intent bytes
-        message_with_intent = [3,0,0] + serialized_bytes
-
-        # 32 bytes hash
-        message = blake2b(bytes(message_with_intent), digest_size=32).digest()
-
-        return message
-
     def sign(self, message: bytes) -> bytes:
         """
         Signs the given bytes of message and returns the signature
