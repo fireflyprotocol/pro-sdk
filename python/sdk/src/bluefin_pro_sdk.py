@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from enum import Enum
 from os import environ
 from random import randint
-from typing import Callable, Awaitable, Any
+from typing import Callable, Awaitable, Any, Hashable
 
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
@@ -25,7 +25,7 @@ from crypto_helpers.wallet import SuiWallet
 from crypto_helpers.signature import Signature
 from crypto_helpers.contracts import ProContracts
 from crypto_helpers.rpc import ProRpcCalls
-
+from crypto_helpers.hash import Hashable as BluefinHashable
 from websocket.listener import MarketDataStreamListener, AccountDataStreamListener
 
 
@@ -148,6 +148,32 @@ class BluefinProSdk:
         self._trade_api.api_client.set_default_header("Authorization",
                                                       "Bearer " + self._token_response.access_token)
 
+
+    def compute_hash(self, request: CreateOrderRequest | AdjustIsolatedMarginRequest | AccountAuthorizationRequest | AccountPositionLeverageUpdateRequest | WithdrawRequest):
+        """
+        Computes the hash for various request types.
+        
+        Args:
+            request: The request object to hash (CreateOrderRequest, AdjustIsolatedMarginRequest, 
+                    AccountAuthorizationRequest, AccountPositionLeverageUpdateRequest, or WithdrawRequest)
+                    
+        Returns:
+            str: The computed hash as a hexadecimal string
+        """
+        
+        if isinstance(request, CreateOrderRequest):
+            hashable = BluefinHashable.CreateOrderRequest(request)
+        elif isinstance(request, AdjustIsolatedMarginRequest):
+            hashable = BluefinHashable.AdjustIsolatedMarginRequest(request)
+        elif isinstance(request, AccountAuthorizationRequest):
+            hashable = BluefinHashable.AuthorizeAccountRequest(request)
+        elif isinstance(request, AccountPositionLeverageUpdateRequest):
+            hashable = BluefinHashable.AdjustLeverageRequest(request)
+        elif isinstance(request, WithdrawRequest):
+            hashable = BluefinHashable.WithdrawRequest(request)
+            
+        return hashable.hash()
+
     async def get_open_orders(self, market_address: str):
         await self._set_access_token(self._trade_api.api_client)
         return await self._trade_api.get_open_orders(market_address)
@@ -212,6 +238,7 @@ class BluefinProSdk:
             trigger_price_e9=order.trigger_price_e9,
             self_trade_prevention_type=order.self_trade_prevention_type,
         )
+        
         logger.debug(
             f"Send order creation payload {create_order_request.to_json()}")
         return await self._trade_api.post_create_order(create_order_request)
