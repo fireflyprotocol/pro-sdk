@@ -22,6 +22,7 @@ Returns the rewards earned by users for a specific campaign
 
 ### Example
 
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -35,12 +36,21 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    campaign_name = 'Trade and Earn' # str | Specify the campaign name
+    campaign_name = 'TRADE_AND_EARN' # str | Specify the campaign name
     epoch_number = 7 # int | Optionally specify epoch number. (optional)
 
     try:
@@ -68,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -92,6 +102,7 @@ Returns the rewards earned by users for the intervals .
 
 ### Example
 
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -105,6 +116,15 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
@@ -136,7 +156,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -178,7 +198,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    campaign_name = 'Trade and Earn' # str | Specify the campaign name (optional)
+    campaign_name = 'TRADE_AND_EARN' # str | Specify the campaign name (optional)
     status = ACTIVE # str | Optionally specify the status of the campaigns. (optional) (default to ACTIVE)
 
     try:
@@ -312,7 +332,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    campaign_name = 'Trade and Earn' # str | Specify the campaign name (optional)
+    campaign_name = 'TRADE_AND_EARN' # str | Specify the campaign name (optional)
     epoch = 'epoch_example' # str | Specify the string \"next\" or \"latest\". (optional)
 
     try:
@@ -432,6 +452,7 @@ Returns the all time rewards earned by users.
 
 ### Example
 
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -445,6 +466,15 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
@@ -472,7 +502,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

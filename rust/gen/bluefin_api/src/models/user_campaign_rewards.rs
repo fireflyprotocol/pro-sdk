@@ -39,10 +39,16 @@ pub struct UserCampaignRewards {
     /// Total cash rewards earned in the epoch (e9 format).
     #[serde(rename = "CashRewards")]
     pub cash_rewards: String,
+    /// Time in milliseconds for interval start date.
+    #[serde(rename = "IntervalStartDate")]
+    pub interval_start_date: i32,
+    /// Time in milliseconds for interval end date.
+    #[serde(rename = "IntervalEndDate")]
+    pub interval_end_date: i32,
 }
 
 impl UserCampaignRewards {
-    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards: String, sui_rewards: String, cash_rewards: String) -> UserCampaignRewards {
+    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards: String, sui_rewards: String, cash_rewards: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
         UserCampaignRewards {
             user_address,
             campaign_name,
@@ -53,6 +59,8 @@ impl UserCampaignRewards {
             blue_rewards,
             sui_rewards,
             cash_rewards,
+            interval_start_date,
+            interval_end_date,
         }
     }
 }

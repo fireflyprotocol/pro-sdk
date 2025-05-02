@@ -34,6 +34,8 @@ components:
         - BlueRewards
         - SuiRewards
         - CashRewards
+        - IntervalStartDate
+        - IntervalEndDate
       properties:
         UserAddress:
           type: string
@@ -42,7 +44,7 @@ components:
         CampaignName:
           type: string
           description: Name of the campaign.
-          example: "Trade and Earn"
+          example: "TRADE_AND_EARN"
         EpochNumber:
           type: integer
           description: Epoch number for the rewards earned data.
@@ -74,6 +76,14 @@ components:
           type: string
           description: Total cash rewards earned in the epoch (e9 format).
           example: 10000000
+        IntervalStartDate:
+          type: integer
+          description: Time in milliseconds for interval start date.
+          example: 1724121094751
+        IntervalEndDate:
+          type: integer
+          description: Time in milliseconds for interval end date.
+          example: 1724121094751
 
     IntervalRewards:
 
@@ -156,7 +166,7 @@ components:
         CampaignName:
           type: string
           description: Name of the campaign.
-          example: "Trade and Earn"
+          example: "TRADE_AND_EARN"
         ParentCampaignName:
           type: string
           description: Name of the parent campaign.
@@ -190,7 +200,7 @@ components:
         CampaignName:
           type: string
           description: Name of the campaign.
-          example: "Trade and Earn"
+          example: "TRADE_AND_EARN"
         EpochId:
           type: integer
           description: Epoch Id of the epoch.
@@ -254,7 +264,7 @@ components:
         campaignName:
           type: string
           description: The name of the campaign.
-          example: "Trade and Earn"
+          example: "TRADE_AND_EARN"
         epochDuration:
           type: integer
           description: Duration of the epoch in milliseconds.
@@ -327,7 +337,7 @@ paths:
           description: Specify the campaign name
           schema:
             type: string
-            example: "Trade and Earn"
+            example: "TRADE_AND_EARN"
         - name: epochNumber
           in: query
           required: false
@@ -379,7 +389,7 @@ paths:
           description: Specify the campaign name
           schema:
             type: string
-            example: "Trade and Earn"
+            example: "TRADE_AND_EARN"
         - name: Status
           in: query
           required: false
@@ -415,7 +425,7 @@ paths:
           description: Specify the campaign name
           schema:
             type: string
-            example: "Trade and Earn"
+            example: "TRADE_AND_EARN"
         - name: epoch
           in: query
           required: false

@@ -104,7 +104,7 @@ async function main() {
   const bfSigner = new BluefinRequestSigner(makeSigner(suiWallet, false));
   const client = new BluefinProSdk(
     bfSigner,
-    "devnet",
+    "testnet",
     new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
   );
   await client.initialize();
@@ -138,6 +138,10 @@ async function main() {
     ).data;
     logger.info(`Candle stick: ${JSON.stringify(candleStick)}`);
 
+
+    const rewards = ( await client.rewardsDataApi.getCampaignRewards("TRADE_AND_EARN")).data;
+    logger.info(`Rewards: ${JSON.stringify(rewards)}`);
+
     const depth = (await client.exchangeDataApi.getOrderbookDepth(symbol)).data;
     logger.info(`Depth: ${JSON.stringify(depth)}`);
 
@@ -168,9 +172,6 @@ async function main() {
       )
     ).data;
     logger.info(`Trades History ${JSON.stringify(accountTrades)}`);
-
-    const rewards = ( await client.rewardsDataApi.getCampaignRewards("TRADE_AND_EARN")).data;
-    logger.info(`Rewards: ${JSON.stringify(rewards)}`);
 
     const depositHistory = (
       await client.accountDataApi.getAccountTransactionHistory(

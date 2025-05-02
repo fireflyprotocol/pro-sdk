@@ -3881,6 +3881,18 @@ export interface UserCampaignRewards {
      * @memberof UserCampaignRewards
      */
     'CashRewards': string;
+    /**
+     * Time in milliseconds for interval start date.
+     * @type {number}
+     * @memberof UserCampaignRewards
+     */
+    'IntervalStartDate': number;
+    /**
+     * Time in milliseconds for interval end date.
+     * @type {number}
+     * @memberof UserCampaignRewards
+     */
+    'IntervalEndDate': number;
 }
 
 export const UserCampaignRewardsStatusEnum = {
