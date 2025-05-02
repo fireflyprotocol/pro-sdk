@@ -40,8 +40,6 @@ class Hashable:
             bcs_bytes = serializer.get_bytes()
             hex_encoded = bcs_bytes.hex()
             
-            print(hex_encoded)
-            
             return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
         
     
