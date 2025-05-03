@@ -38,8 +38,9 @@ class Hashable:
             serializer.serialize_u64(self.signed_at)
             
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
         
     
     class AuthorizeAccountRequest:
@@ -62,9 +63,10 @@ class Hashable:
             
             # Get serialized bytes and convert to hex
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
             # Use Blake2b hash on the hex-encoded bytes
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
             
     class DeauthorizeAccountRequest:
         def __init__(self, request: AccountAuthorizationRequest):
@@ -85,9 +87,12 @@ class Hashable:
             serializer.serialize_u64(self.salt)
             serializer.serialize_u64(self.signed_at)
             
+            # Get serialized bytes and convert to hex
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            # Use Blake2b hash on the hex-encoded bytes
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
     
     class CreateOrderRequest:
         def __init__(self, request: CreateOrderRequest):
@@ -117,9 +122,12 @@ class Hashable:
             serializer.serialize_u64(self.salt)
             serializer.serialize_u64(self.signed_at)
             
+            # Get serialized bytes and convert to hex
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            # Use Blake2b hash on the hex-encoded bytes
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
     
     class AdjustLeverageRequest:
         def __init__(self, request: AccountPositionLeverageUpdateRequest):
@@ -139,9 +147,12 @@ class Hashable:
             serializer.serialize_u64(self.salt)
             serializer.serialize_u64(self.signed_at)
             
+            # Get serialized bytes and convert to hex
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            # Use Blake2b hash on the hex-encoded bytes
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
     
     class AdjustIsolatedMarginRequest:
         def __init__(self, request: AdjustIsolatedMarginRequest):            
@@ -163,8 +174,11 @@ class Hashable:
             serializer.serialize_u64(self.salt)
             serializer.serialize_u64(self.signed_at)
             
+            # Get serialized bytes and convert to hex
             bcs_bytes = serializer.get_bytes()
+            hex_encoded = bcs_bytes.hex()
             
-            return blake2b(bcs_bytes, digest_size=32).hexdigest()
+            # Use Blake2b hash on the hex-encoded bytes
+            return blake2b(hex_encoded.encode(), digest_size=32).hexdigest()
     
 
