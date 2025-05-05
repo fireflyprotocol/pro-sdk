@@ -5,7 +5,9 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
+[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
 [**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
+[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
 [**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 [**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
 [**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
@@ -87,6 +89,88 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Order cancellation submitted successfully. |  -  |
+**400** | Bad Request. Invalid body parameters. |  -  |
+**401** | Unauthorized. Authentication is required or invalid. |  -  |
+**500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **cancel_standby_orders**
+> CancelOrdersResponse cancel_standby_orders(cancel_orders_request)
+
+Cancel orders in standby for a market using order hashes
+
+- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.cancel_orders_request import CancelOrdersRequest
+from openapi_client.models.cancel_orders_response import CancelOrdersResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.TradeApi(api_client)
+    cancel_orders_request = openapi_client.CancelOrdersRequest() # CancelOrdersRequest | 
+
+    try:
+        # Cancel orders in standby for a market using order hashes
+        api_response = await api_instance.cancel_standby_orders(cancel_orders_request)
+        print("The response of TradeApi->cancel_standby_orders:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TradeApi->cancel_standby_orders: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cancel_orders_request** | [**CancelOrdersRequest**](CancelOrdersRequest.md)|  | 
+
+### Return type
+
+[**CancelOrdersResponse**](CancelOrdersResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Orders cancelled successfully. |  -  |
 **400** | Bad Request. Invalid body parameters. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
@@ -175,8 +259,89 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_standby_orders**
+> List[OpenOrderResponse] get_standby_orders(symbol=symbol)
+
+Get Orders in Standby
+
+Retrieve details of orders in standby for a specific account.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.open_order_response import OpenOrderResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.TradeApi(api_client)
+    symbol = 'ETHc  -PERP' # str | Filter by specific perpetual symbol (optional) (optional)
+
+    try:
+        # Get Orders in Standby
+        api_response = await api_instance.get_standby_orders(symbol=symbol)
+        print("The response of TradeApi->get_standby_orders:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TradeApi->get_standby_orders: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **symbol** | **str**| Filter by specific perpetual symbol (optional) | [optional] 
+
+### Return type
+
+[**List[OpenOrderResponse]**](OpenOrderResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Orders in standby retrieved successfully. |  -  |
+**400** | Bad Request. The request was invalid or malformed. |  -  |
+**401** | Unauthorized. Authentication is required or invalid. |  -  |
+**500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_create_order**
-> PostCreateOrder202Response post_create_order(create_order_request)
+> CreateOrderResponse post_create_order(create_order_request)
 
 Create a new order
 
@@ -189,7 +354,7 @@ Submit a new order for execution.
 ```python
 import openapi_client
 from openapi_client.models.create_order_request import CreateOrderRequest
-from openapi_client.models.post_create_order202_response import PostCreateOrder202Response
+from openapi_client.models.create_order_response import CreateOrderResponse
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -235,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PostCreateOrder202Response**](PostCreateOrder202Response.md)
+[**CreateOrderResponse**](CreateOrderResponse.md)
 
 ### Authorization
 
@@ -250,6 +415,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | Order creation successful. |  -  |
 **202** | Order creation submitted successfully. |  -  |
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |

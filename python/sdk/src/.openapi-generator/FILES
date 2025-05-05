@@ -42,11 +42,13 @@ openapi_client/docs/AuthApi.md
 openapi_client/docs/CampaignMetadata.md
 openapi_client/docs/CampaignRewards.md
 openapi_client/docs/CancelOrdersRequest.md
+openapi_client/docs/CancelOrdersResponse.md
 openapi_client/docs/CandlePriceType.md
 openapi_client/docs/CandlestickUpdate.md
 openapi_client/docs/ContractsConfig.md
 openapi_client/docs/CreateOrderRequest.md
 openapi_client/docs/CreateOrderRequestSignedFields.md
+openapi_client/docs/CreateOrderResponse.md
 openapi_client/docs/EpochConfigs.md
 openapi_client/docs/EpochMetadata.md
 openapi_client/docs/Error.md
@@ -84,7 +86,6 @@ openapi_client/docs/OrderbookDiffDepthUpdate.md
 openapi_client/docs/OrderbookPartialDepthUpdate.md
 openapi_client/docs/Position.md
 openapi_client/docs/PositionSide.md
-openapi_client/docs/PostCreateOrder202Response.md
 openapi_client/docs/RecentTradesUpdates.md
 openapi_client/docs/RefreshTokenRequest.md
 openapi_client/docs/RefreshTokenResponse.md
@@ -140,11 +141,13 @@ openapi_client/models/asset_config.py
 openapi_client/models/campaign_metadata.py
 openapi_client/models/campaign_rewards.py
 openapi_client/models/cancel_orders_request.py
+openapi_client/models/cancel_orders_response.py
 openapi_client/models/candle_price_type.py
 openapi_client/models/candlestick_update.py
 openapi_client/models/contracts_config.py
 openapi_client/models/create_order_request.py
 openapi_client/models/create_order_request_signed_fields.py
+openapi_client/models/create_order_response.py
 openapi_client/models/epoch_configs.py
 openapi_client/models/epoch_metadata.py
 openapi_client/models/error.py
@@ -181,7 +184,6 @@ openapi_client/models/orderbook_diff_depth_update.py
 openapi_client/models/orderbook_partial_depth_update.py
 openapi_client/models/position.py
 openapi_client/models/position_side.py
-openapi_client/models/post_create_order202_response.py
 openapi_client/models/recent_trades_updates.py
 openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
@@ -203,4 +205,5 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_cancel_orders_response.py
 openapi_client_README.md
