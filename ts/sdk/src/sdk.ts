@@ -191,12 +191,12 @@ export class BluefinProSdk {
     this.configs[Services.Exchange] = exchangeApiConfig;
     this.exchangeDataApi = new ExchangeApi(exchangeApiConfig);
 
-    const rewarsaApiConfig = new Configuration({
+    const rewardsaApiConfig = new Configuration({
       basePath: basePaths.apiHost,
       baseOptions: baseOptions,
     });
-    this.configs[Services.Rewards] = rewarsaApiConfig;
-    this.rewardsDataApi = new RewardsApi(rewarsaApiConfig);
+    this.configs[Services.Rewards] = rewardsaApiConfig;
+    this.rewardsDataApi = new RewardsApi(rewardsaApiConfig);
     
 
     const accountDataApiConfig = new Configuration({
