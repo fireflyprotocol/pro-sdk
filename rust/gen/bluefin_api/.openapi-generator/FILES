@@ -35,11 +35,13 @@ docs/AuthApi.md
 docs/CampaignMetadata.md
 docs/CampaignRewards.md
 docs/CancelOrdersRequest.md
+docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ContractsConfig.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
+docs/CreateOrderResponse.md
 docs/EpochConfigs.md
 docs/EpochMetadata.md
 docs/Error.md
@@ -77,7 +79,6 @@ docs/OrderbookDiffDepthUpdate.md
 docs/OrderbookPartialDepthUpdate.md
 docs/Position.md
 docs/PositionSide.md
-docs/PostCreateOrder202Response.md
 docs/RecentTradesUpdates.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
@@ -141,11 +142,13 @@ src/models/asset_config.rs
 src/models/campaign_metadata.rs
 src/models/campaign_rewards.rs
 src/models/cancel_orders_request.rs
+src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
 src/models/candlestick_update.rs
 src/models/contracts_config.rs
 src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
+src/models/create_order_response.rs
 src/models/epoch_configs.rs
 src/models/epoch_metadata.rs
 src/models/error.rs
@@ -183,7 +186,6 @@ src/models/orderbook_diff_depth_update.rs
 src/models/orderbook_partial_depth_update.rs
 src/models/position.rs
 src/models/position_side.rs
-src/models/post_create_order_202_response.rs
 src/models/recent_trades_updates.rs
 src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs

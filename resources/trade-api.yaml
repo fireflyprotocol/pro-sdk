@@ -62,66 +62,110 @@ components:
         - signedFields
         - signature
 
+    CreateOrderRequestSignedFields:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: The symbol of the perpetual for which to create the order
+        accountAddress:
+          type: string
+          description: The account address of the order. May be an account user is authorized for.
+        priceE9:
+          type: string
+          description: The price in base e9 of the asset to be traded. Should always be a number
+          example: 452400000
+        quantityE9:
+          type: string
+          description: The quantity in base e9 of the asset to be traded. Should always be a number
+          example: 452400000
+        side:
+          $ref: '#/components/schemas/OrderSide'
+        leverageE9:
+          type: string
+          description: The leverage in base e9 of the order to be traded. Should always be a number
+          example: 4000000000
+        isIsolated:
+          type: boolean
+          description: Is this order isolated or cross margin. Note market must be set to the same mode.
+          default: false
+        salt:
+          type: string
+          description: The random generated SALT. Should always be a number
+          example: "123335432"
+        idsId:
+          type: string
+          description: the ID of the internal datastore for the target network
+          example: "ids_id"
+        expiresAtMillis:
+          type: integer
+          format: int64
+          description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+          example: 12345665432
+        signedAtMillis:
+          type: integer
+          format: int64
+          description: The timestamp in millis at which the request was signed
+          example: 1234567856
+      required:
+        - symbol
+        - accountAddress
+        - priceE9
+        - quantityE9
+        - side
+        - leverageE9
+        - isIsolated
+        - salt
+        - idsId
+        - expiresAtMillis
+        - signedAtMillis
+            
+
+    CreateStandbyOrderRequest:
+      type: object
+      properties:
+        signedFields:
+          $ref: '#/components/schemas/CreateOrderRequestSignedFields'
+        signature:
+          type: string
+        clientOrderId:
+          type: string
+        type:
+          $ref: './common.yaml#/components/schemas/OrderType'
+        reduceOnly:
+          type: boolean
+        postOnly:
+          type: boolean
+          default: false
+        timeInForce:
+          $ref: './common.yaml#/components/schemas/OrderTimeInForce'
+        triggerPriceE9:
+          type: string
+          example: "300000000"
+        selfTradePreventionType:
+          $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
+        orderHash:
+          type: string
+          example: "0x123abc"
+        signerAddress:
+          type: string
+          example: "0x123abc"
+      required:
+        - orderHash
+        - signedFields
+        - signature
+        - type
+        - reduceOnly
+        - postOnly
+        - timeInForce
+        - triggerPriceE9
+        - selfTradePreventionType
+        - signerAddress
     CreateOrderRequest:
       type: object
       properties:
         signedFields:
-          type: object
-          properties:
-            symbol:
-              type: string
-              description: The symbol of the perpetual for which to create the order
-            accountAddress:
-              type: string
-              description: The account address of the order. May be an account user is authorized for.
-            priceE9:
-              type: string
-              description: The price in base e9 of the asset to be traded. Should always be a number
-              example: 452400000
-            quantityE9:
-              type: string
-              description: The quantity in base e9 of the asset to be traded. Should always be a number
-              example: 452400000
-            side:
-              $ref: '#/components/schemas/OrderSide'
-            leverageE9:
-              type: string
-              description: The leverage in base e9 of the order to be traded. Should always be a number
-              example: 4000000000
-            isIsolated:
-              type: boolean
-              description: Is this order isolated or cross margin. Note market must be set to the same mode.
-              default: false
-            salt:
-              type: string
-              description: The random generated SALT. Should always be a number
-              example: "123335432"
-            idsId:
-              type: string
-              description: the ID of the internal datastore for the target network
-              example: "ids_id"
-            expiresAtMillis:
-              type: integer
-              format: int64
-              description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
-              example: 12345665432
-            signedAtMillis:
-              type: integer
-              format: int64
-              description: The timestamp in millis at which the request was signed
-              example: 1234567856
-          required:
-            - symbol
-            - accountAddress
-            - priceE9
-            - quantityE9
-            - side
-            - leverageE9
-            - isIsolated
-            - salt
-            - idsId
-            - expiresAtMillis
-            - signedAtMillis
+          $ref: '#/components/schemas/CreateOrderRequestSignedFields'
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
@@ -147,7 +191,6 @@ components:
             IOC: Immediate Or Cancel
             
             FOK: Fill Or Kill
-
         triggerPriceE9:
           type: string
           description: Trigger price in base e9 for stop orders. This should always be a number
@@ -220,6 +263,17 @@ components:
           example: [ order_hash1, order_hash2 ]
       required:
         - symbol
+
+    CancelOrdersResponse:
+      description: Response to a request to cancel orders.
+      properties:
+        orderHashes:
+          description: The order hashes of the cancelled orders.
+          type: array
+          items:
+            type: string
+      required:
+        - orderHashes
 
     AccountPositionLeverageUpdateRequest:
       properties:
@@ -416,6 +470,15 @@ components:
         - "SUBTRACT"
       description: The operation to perform on the margin
 
+    CreateOrderResponse:
+      type: object
+      properties:
+        orderHash:
+          type: string
+          description: The unique identifier of this order, to be used as a lookup key
+      required:
+        - orderHash
+
   securitySchemes:
     bearerAuth:
       type: apiKey
@@ -440,18 +503,18 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateOrderRequest'
       responses:
+        '200':
+          description: Order creation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
         '202':
           description: Order creation submitted successfully.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  orderHash:
-                    type: string
-                    description: The unique identifier of this order, to be used as a lookup key
-                required:
-                  - orderHash
+                $ref: '#/components/schemas/CreateOrderResponse'
         '400':
           description: Bad Request. The request was invalid or malformed.
           content:
@@ -519,6 +582,48 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+  /api/v1/trade/orders/cancel/standby:
+    put:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: cancelStandbyOrders
+      summary: Cancel orders in standby for a market using order hashes
+      description: |
+        - May be a single order hash or a list of order hashes.
+        - All orders must belong to the same account.
+        - If no order hashes are specified, then will cancel all orders for the given market
+        - All orders being cancelled by request will receive the same time priority.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOrdersRequest'
+      responses:
+        '200':
+          description: Orders cancelled successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrdersResponse'
+        '400':
+          description: Bad Request. Invalid body parameters.
+        '401':
+          description: Unauthorized. Authentication is required or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+
 
   /api/v1/trade/accounts/authorize:
     put:
@@ -692,6 +797,55 @@ paths:
                 $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account address was not found.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+  
+  /api/v1/trade/standbyOrders:
+    get:
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - Trade
+      operationId: getStandbyOrders
+      summary: Get Orders in Standby
+      description: Retrieve details of orders in standby for a specific account.
+      parameters:
+        - in: query
+          name: symbol
+          schema:
+            type: string
+          description: Filter by specific perpetual symbol (optional)
+          example: "ETHc  -PERP"
+      responses:
+        '200':
+          description: Orders in standby retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenOrderResponse'
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+              examples:
+                InvalidRequest:
+                  value:
+                    errorCode: INVALID_REQUEST
+                    message: The provided request is invalid.
+        '401':
+          description: Unauthorized. Authentication is required or invalid.
           content:
             application/json:
               schema:

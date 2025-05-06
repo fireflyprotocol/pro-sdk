@@ -25,6 +25,16 @@ pub enum CancelOrdersError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`cancel_standby_orders`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CancelStandbyOrdersError {
+    Status400(),
+    Status401(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_open_orders`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -32,6 +42,16 @@ pub enum GetOpenOrdersError {
     Status400(models::Error),
     Status401(models::Error),
     Status404(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_standby_orders`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetStandbyOrdersError {
+    Status400(models::Error),
+    Status401(models::Error),
     Status500(models::Error),
     UnknownValue(serde_json::Value),
 }
@@ -131,6 +151,37 @@ pub async fn cancel_orders(configuration: &configuration::Configuration, cancel_
     }
 }
 
+/// - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+pub async fn cancel_standby_orders(configuration: &configuration::Configuration, cancel_orders_request: models::CancelOrdersRequest) -> Result<models::CancelOrdersResponse, Error<CancelStandbyOrdersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_cancel_orders_request = cancel_orders_request;
+
+    let uri_str = format!("{}/api/v1/trade/orders/cancel/standby", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_cancel_orders_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CancelStandbyOrdersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// Retrieve details of open orders for a specific account.
 pub async fn get_open_orders(configuration: &configuration::Configuration, symbol: Option<&str>) -> Result<Vec<models::OpenOrderResponse>, Error<GetOpenOrdersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -164,8 +215,41 @@ pub async fn get_open_orders(configuration: &configuration::Configuration, symbo
     }
 }
 
+/// Retrieve details of orders in standby for a specific account.
+pub async fn get_standby_orders(configuration: &configuration::Configuration, symbol: Option<&str>) -> Result<Vec<models::OpenOrderResponse>, Error<GetStandbyOrdersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_symbol = symbol;
+
+    let uri_str = format!("{}/api/v1/trade/standbyOrders", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_symbol {
+        req_builder = req_builder.query(&[("symbol", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetStandbyOrdersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// Submit a new order for execution.
-pub async fn post_create_order(configuration: &configuration::Configuration, create_order_request: models::CreateOrderRequest) -> Result<models::PostCreateOrder202Response, Error<PostCreateOrderError>> {
+pub async fn post_create_order(configuration: &configuration::Configuration, create_order_request: models::CreateOrderRequest) -> Result<models::CreateOrderResponse, Error<PostCreateOrderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_create_order_request = create_order_request;
 

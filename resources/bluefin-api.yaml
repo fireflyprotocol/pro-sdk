@@ -116,6 +116,16 @@ paths:
             enum:
               - sui-staging
               - sui-prod
+  /api/v1/trade/orders/cancel/standby:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1orders~1cancel~1standby"
+    servers:
+      - url: https://trade.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
   /api/v1/trade/orders:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1orders"
     servers:
@@ -128,6 +138,16 @@ paths:
               - sui-prod
   /api/v1/trade/openOrders:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1openOrders"
+    servers:
+      - url: https://trade.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /api/v1/trade/standbyOrders:
+    $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1standbyOrders"
     servers:
       - url: https://trade.api.{env}.bluefin.io
         variables:

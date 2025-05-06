@@ -5,7 +5,9 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
+[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
 [**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
+[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
 [**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 [**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
 [**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
@@ -32,6 +34,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## cancel_standby_orders
+
+> models::CancelOrdersResponse cancel_standby_orders(cancel_orders_request)
+Cancel orders in standby for a market using order hashes
+
+- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**cancel_orders_request** | [**CancelOrdersRequest**](CancelOrdersRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CancelOrdersResponse**](CancelOrdersResponse.md)
 
 ### Authorization
 
@@ -75,9 +107,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_standby_orders
+
+> Vec<models::OpenOrderResponse> get_standby_orders(symbol)
+Get Orders in Standby
+
+Retrieve details of orders in standby for a specific account.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**symbol** | Option<**String**> | Filter by specific perpetual symbol (optional) |  |
+
+### Return type
+
+[**Vec<models::OpenOrderResponse>**](OpenOrderResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## post_create_order
 
-> models::PostCreateOrder202Response post_create_order(create_order_request)
+> models::CreateOrderResponse post_create_order(create_order_request)
 Create a new order
 
 Submit a new order for execution.
@@ -91,7 +153,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::PostCreateOrder202Response**](postCreateOrder_202_response.md)
+[**models::CreateOrderResponse**](CreateOrderResponse.md)
 
 ### Authorization
 
