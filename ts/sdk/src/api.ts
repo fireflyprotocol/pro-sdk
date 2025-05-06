@@ -2745,6 +2745,10 @@ export const OrderType = {
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
     StopMarket: 'STOP_MARKET',
+    TakeProfitLimit: 'TAKE_PROFIT_LIMIT',
+    TakeProfitMarket: 'TAKE_PROFIT_MARKET',
+    StopLossLimit: 'STOP_LOSS_LIMIT',
+    StopLossMarket: 'STOP_LOSS_MARKET',
     Liquidation: 'LIQUIDATION',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
     Unspecified: 'UNSPECIFIED'
