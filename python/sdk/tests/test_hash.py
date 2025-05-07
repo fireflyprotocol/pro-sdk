@@ -36,7 +36,7 @@ class TestHashable(unittest.TestCase):
         
         hash = hashable.hash()
         # Generated from the RUST SDK. The payload should give this hash.
-        self.assertEqual(hash, "0beb74c9380b819b0967faf19c4849251f7ec251ff4d7f8e35ee9d8a23c1a752")
+        self.assertEqual(hash, "f637fa05edf97b1201520411dfa9656efc94e090a0e8dcdae7f24bc951ac13da")
     
     def test_authorize_account_request_hash(self): 
         # Create signed fields
@@ -66,7 +66,7 @@ class TestHashable(unittest.TestCase):
         
         # Test hash method
         hash_result = authorize_request.hash()
-        self.assertEqual(hash_result, "951f991dc312d66a5069d903e8a14adc1b6ae7ffbdac22f8a865f51c0c7d5d02")
+        self.assertEqual(hash_result, "833f2bb970c74b3b2007d9be4e81386712586f4b34bde45228428a51e62113af")
     
     def test_deauthorize_account_request_hash(self):
         # Create signed fields
@@ -96,7 +96,7 @@ class TestHashable(unittest.TestCase):
         
         # Test hash method
         hash_result = deauthorize_request.hash()
-        self.assertEqual(hash_result, "572258eda64fa127aa5a8b3dd0eefb3fd9c4b72b1819b8c20ac4846de9dfc73b")
+        self.assertEqual(hash_result, "13b284bb260af6b7086038981d7595275589620071fe02121ed9dabc653816e6")
     
     def test_create_order_request_hash(self):
         signed_fields = CreateOrderRequestSignedFields(
@@ -144,7 +144,7 @@ class TestHashable(unittest.TestCase):
         
         # Test hash method
         hash_result = hashable.hash()
-        self.assertEqual(hash_result, "ebe39b7d325186cbb2bb36d047a3d773301ab3fb2244aca1c0fc9ec2be9ed80c")
+        self.assertEqual(hash_result, "c372f185f8ba230f4144102b7d4ce0a8840d17516696fdbe0ca2a135e147370e")
 
 
     def test_adjust_leverage_request_hash(self):
@@ -175,7 +175,7 @@ class TestHashable(unittest.TestCase):
         
         # Test hash method
         hash_result = hashable.hash()
-        self.assertEqual(hash_result, "b5447ac916820dc6188a23f3ea27bc009497302fbe0aacc8bbbad5b022cb9f25")
+        self.assertEqual(hash_result, "e4200a4f1a8d977ba86d5a7e1218499bd4a1b9ee47d42cc91096236833d74d69")
     
     def test_adjust_isolated_margin_request_hash(self):
         signed_fields = AdjustIsolatedMarginRequestSignedFields(
@@ -207,7 +207,7 @@ class TestHashable(unittest.TestCase):
 
         # Test hash method
         hash_result = hashable.hash()
-        self.assertEqual(hash_result, "50680da7129ada2a9a7dd4819d0c6e3a557c4b2bfa79c77f94491fddfe193c70")
+        self.assertEqual(hash_result, "8f12ca81965e16955d523103a440eca598e9b3155c431ce8ef1d7a4268c48f43")
     
     
 if __name__ == '__main__':

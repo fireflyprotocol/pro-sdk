@@ -66,7 +66,7 @@ pub trait RequestExt: Sized {
 
 pub fn compute_hash<T: Serialize>(request: &T) -> Result<String> {
     let bcs = bcs::to_bytes(request).map_err(|_| Error::Hash)?;
-    Ok(hex::encode(Blake2b::<U32>::digest(hex::encode(bcs))))
+    Ok(hex::encode(Blake2b::<U32>::digest(bcs)))
 }
 
 pub fn signature<T: Serialize>(
