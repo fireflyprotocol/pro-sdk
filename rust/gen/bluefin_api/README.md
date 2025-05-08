@@ -52,7 +52,9 @@ Class | Method | HTTP request | Description
 *StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
+*TradeApi* | [**cancel_standby_orders**](docs/TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
 *TradeApi* | [**get_open_orders**](docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
+*TradeApi* | [**get_standby_orders**](docs/TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
 *TradeApi* | [**post_create_order**](docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 *TradeApi* | [**post_withdraw**](docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
 *TradeApi* | [**put_adjust_isolated_margin**](docs/TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
@@ -94,11 +96,13 @@ Class | Method | HTTP request | Description
  - [CampaignMetadata](docs/CampaignMetadata.md)
  - [CampaignRewards](docs/CampaignRewards.md)
  - [CancelOrdersRequest](docs/CancelOrdersRequest.md)
+ - [CancelOrdersResponse](docs/CancelOrdersResponse.md)
  - [CandlePriceType](docs/CandlePriceType.md)
  - [CandlestickUpdate](docs/CandlestickUpdate.md)
  - [ContractsConfig](docs/ContractsConfig.md)
  - [CreateOrderRequest](docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](docs/CreateOrderRequestSignedFields.md)
+ - [CreateOrderResponse](docs/CreateOrderResponse.md)
  - [EpochConfigs](docs/EpochConfigs.md)
  - [EpochMetadata](docs/EpochMetadata.md)
  - [Error](docs/Error.md)
@@ -135,7 +139,6 @@ Class | Method | HTTP request | Description
  - [OrderbookPartialDepthUpdate](docs/OrderbookPartialDepthUpdate.md)
  - [Position](docs/Position.md)
  - [PositionSide](docs/PositionSide.md)
- - [PostCreateOrder202Response](docs/PostCreateOrder202Response.md)
  - [RecentTradesUpdates](docs/RecentTradesUpdates.md)
  - [RefreshTokenRequest](docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](docs/RefreshTokenResponse.md)

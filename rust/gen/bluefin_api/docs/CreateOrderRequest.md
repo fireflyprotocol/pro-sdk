@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**signed_fields** | [**models::CreateOrderRequestSignedFields**](CreateOrderRequest_signedFields.md) |  | 
+**signed_fields** | [**models::CreateOrderRequestSignedFields**](CreateOrderRequestSignedFields.md) |  | 
 **signature** | **String** | The signature of the request, encoded from the signedFields | 
 **client_order_id** | Option<**String**> | The client-defined unique identifier of this order used for lookup. This should always be unique; however, the server will not gurantee this or impose any checks. | [optional]
 **r#type** | [**models::OrderType**](OrderType.md) |  | 
