@@ -1,8 +1,8 @@
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::apis::trade_api::{cancel_standby_orders, post_create_order};
+use bluefin_api::apis::trade_api::post_create_order;
 use bluefin_api::models::{
-    CancelOrdersRequest, CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest,
-    OrderSide, OrderType, SelfTradePreventionType,
+    CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest, OrderSide, OrderType,
+    SelfTradePreventionType,
 };
 use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
