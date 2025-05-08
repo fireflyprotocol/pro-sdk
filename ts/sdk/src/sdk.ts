@@ -347,6 +347,10 @@ export class BluefinProSdk {
     return await this.tradeApi.getOpenOrders(symbol);
   }
 
+  public async getStandbyOrders(symbol?: string) {
+    return await this.tradeApi.getStandbyOrders(symbol);
+  }
+
   public async updateLeverage(symbol: string, leverageE9: string) {
     if (!this.contractsConfig) {
       throw new Error("Missing contracts config");
@@ -407,6 +411,10 @@ export class BluefinProSdk {
 
   public async cancelOrder(cancelOrdersRequest: CancelOrdersRequest) {
     return await this.tradeApi.cancelOrders(cancelOrdersRequest);
+  }
+
+  public async cancelStandbyOrder(cancelOrdersRequest: CancelOrdersRequest) {
+    return await this.tradeApi.cancelStandbyOrders(cancelOrdersRequest);
   }
 
   public async withdraw(assetSymbol: string, amountE9: string) {

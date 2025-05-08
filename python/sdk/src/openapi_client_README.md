@@ -92,7 +92,9 @@ Class | Method | HTTP request | Description
 *StreamsApi* | [**web_socket_account_data**](openapi_client/docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](openapi_client/docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](openapi_client/docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
+*TradeApi* | [**cancel_standby_orders**](openapi_client/docs/TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
 *TradeApi* | [**get_open_orders**](openapi_client/docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
+*TradeApi* | [**get_standby_orders**](openapi_client/docs/TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
 *TradeApi* | [**post_create_order**](openapi_client/docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
 *TradeApi* | [**post_withdraw**](openapi_client/docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
 *TradeApi* | [**put_adjust_isolated_margin**](openapi_client/docs/TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
@@ -134,11 +136,13 @@ Class | Method | HTTP request | Description
  - [CampaignMetadata](openapi_client/docs/CampaignMetadata.md)
  - [CampaignRewards](openapi_client/docs/CampaignRewards.md)
  - [CancelOrdersRequest](openapi_client/docs/CancelOrdersRequest.md)
+ - [CancelOrdersResponse](openapi_client/docs/CancelOrdersResponse.md)
  - [CandlePriceType](openapi_client/docs/CandlePriceType.md)
  - [CandlestickUpdate](openapi_client/docs/CandlestickUpdate.md)
  - [ContractsConfig](openapi_client/docs/ContractsConfig.md)
  - [CreateOrderRequest](openapi_client/docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](openapi_client/docs/CreateOrderRequestSignedFields.md)
+ - [CreateOrderResponse](openapi_client/docs/CreateOrderResponse.md)
  - [EpochConfigs](openapi_client/docs/EpochConfigs.md)
  - [EpochMetadata](openapi_client/docs/EpochMetadata.md)
  - [Error](openapi_client/docs/Error.md)
@@ -175,7 +179,6 @@ Class | Method | HTTP request | Description
  - [OrderbookPartialDepthUpdate](openapi_client/docs/OrderbookPartialDepthUpdate.md)
  - [Position](openapi_client/docs/Position.md)
  - [PositionSide](openapi_client/docs/PositionSide.md)
- - [PostCreateOrder202Response](openapi_client/docs/PostCreateOrder202Response.md)
  - [RecentTradesUpdates](openapi_client/docs/RecentTradesUpdates.md)
  - [RefreshTokenRequest](openapi_client/docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](openapi_client/docs/RefreshTokenResponse.md)

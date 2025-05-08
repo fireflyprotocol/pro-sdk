@@ -51,6 +51,10 @@ components:
       - STOP_MARKET
       - LIQUIDATION
       - BANKRUPTCY_LIQUIDATION
+      - STOP_LOSS_MARKET
+      - TAKE_PROFIT_MARKET
+      - STOP_LOSS_LIMIT
+      - TAKE_PROFIT_LIMIT
       - UNSPECIFIED
     PositionSide:
       type: string
