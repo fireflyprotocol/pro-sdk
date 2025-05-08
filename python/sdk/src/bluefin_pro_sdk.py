@@ -176,9 +176,13 @@ class BluefinProSdk:
             
         return hashable.hash()
 
-    async def get_open_orders(self, market_address: str):
+    async def get_open_orders(self, symbol: str):
         await self._set_access_token(self._trade_api.api_client)
-        return await self._trade_api.get_open_orders(market_address)
+        return await self._trade_api.get_open_orders(symbol)
+    
+    async def get_standby_orders(self, symbol: str):
+        await self._set_access_token(self._trade_api.api_client)
+        return await self._trade_api.get_standby_orders(symbol)
 
     async def update_leverage(self, symbol: str, leverage_e9: str):
         signed_fields = AccountPositionLeverageUpdateRequestSignedFields(
@@ -247,6 +251,9 @@ class BluefinProSdk:
 
     async def cancel_order(self, cancel_orders_request: CancelOrdersRequest):
         return await self._trade_api.cancel_orders(cancel_orders_request)
+    
+    async def cancel_standby_order(self, cancel_orders_request: CancelOrdersRequest):
+        return await self._trade_api.cancel_standby_orders(cancel_orders_request)
 
     async def withdraw(self, asset_symbol: str, amount_e9: str):
         signed_fields = WithdrawRequestSignedFields(
