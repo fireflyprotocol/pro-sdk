@@ -67,11 +67,13 @@ from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.campaign_metadata import CampaignMetadata
 from openapi_client.models.campaign_rewards import CampaignRewards
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest
+from openapi_client.models.cancel_orders_response import CancelOrdersResponse
 from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
+from openapi_client.models.create_order_response import CreateOrderResponse
 from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
@@ -108,7 +110,6 @@ from openapi_client.models.orderbook_diff_depth_update import OrderbookDiffDepth
 from openapi_client.models.orderbook_partial_depth_update import OrderbookPartialDepthUpdate
 from openapi_client.models.position import Position
 from openapi_client.models.position_side import PositionSide
-from openapi_client.models.post_create_order202_response import PostCreateOrder202Response
 from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
