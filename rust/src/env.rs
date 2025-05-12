@@ -230,7 +230,7 @@ pub mod exchange {
                 ..Configuration::default()
             })
             .await
-            .map_err(|error| error.to_string())?
+            .map_err(|error| -> Error { error.to_string().into() })?
             .contracts_config
             .ok_or("No Contracts Config found".into())
         }
@@ -246,10 +246,8 @@ pub mod exchange {
                 ..Configuration::default()
             })
             .await
-            .map_err(|error| error.to_string())
-            .map_or(Err("No Markets found".into()), |response| {
-                Ok(response.markets)
-            })
+            .map(|response| response.markets)
+            .map_err(|error| -> Error { error.to_string().into() })
         }
 
         /// Returns a list of all assets.
@@ -263,11 +261,8 @@ pub mod exchange {
                 ..Configuration::default()
             })
             .await
-            .map_err(|error| error.to_string())
-            .map_or(
-                Err("No Assets found".into()),
-                |response| Ok(response.assets),
-            )
+            .map(|response| response.assets)
+            .map_err(|error| -> Error { error.to_string().into() })
         }
     }
 
