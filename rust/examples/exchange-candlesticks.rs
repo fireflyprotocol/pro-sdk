@@ -8,12 +8,13 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let response = get_candlestick_data(
         &Configuration {
-            base_path: exchange::testnet::URL.into(),
+            base_path: exchange::url(environment).into(),
             ..Configuration::default()
         },
-        symbols::perps::ETH,       // symbol
+        "ETH-PERP",                // symbol
         KlineInterval::Variant12h, // interval
         CandlePriceType::Last,     // type
         None,                      // start_time_at_millis

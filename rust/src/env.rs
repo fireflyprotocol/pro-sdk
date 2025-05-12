@@ -13,14 +13,16 @@ pub enum Environment {
     Mainnet,
 }
 
-#[deprecated(note = "Will not be updated. Use exchange::info::markets() function instead")]
+#[deprecated(note = "Will not be updated anymore.")]
 pub mod symbols {
+    #[deprecated(note = "Use exchange::info::markets() function instead")]
     pub mod perps {
         pub const ETH: &str = "ETH-PERP";
         pub const BTC: &str = "BTC-PERP";
         pub const SUI: &str = "SUI-PERP";
     }
 
+    #[deprecated(note = "Use exchange::info::assets() function instead")]
     pub mod assets {
         pub const USDC: &str = "USDC";
     }
@@ -212,11 +214,13 @@ pub mod exchange {
     pub mod info {
         use super::*;
         use bluefin_api::apis::configuration::Configuration;
-        use bluefin_api::models::{ContractsConfig, Market};
+        use bluefin_api::models::{AssetConfig, ContractsConfig, Market};
 
         type Error = Box<dyn std::error::Error>;
         type Result<T> = std::result::Result<T, Error>;
 
+        /// Returns the contracts config.
+        ///
         /// # Errors
         ///
         /// Will return [`Err`] if client/server communication fails.
@@ -231,6 +235,11 @@ pub mod exchange {
             .ok_or("No Contracts Config found".into())
         }
 
+        /// Returns a list of all markets.
+        ///
+        /// # Errors
+        ///
+        /// Will return [`Err`] if client/server communication fails.
         pub async fn markets(environment: Environment) -> Result<Vec<Market>> {
             bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
                 base_path: super::url(environment).to_string(),
@@ -241,6 +250,24 @@ pub mod exchange {
             .map_or(Err("No Markets found".into()), |response| {
                 Ok(response.markets)
             })
+        }
+
+        /// Returns a list of all assets.
+        ///
+        /// # Errors
+        ///
+        /// Will return [`Err`] if client/server communication fails.
+        pub async fn assets(environment: Environment) -> Result<Vec<AssetConfig>> {
+            bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
+                base_path: super::url(environment).to_string(),
+                ..Configuration::default()
+            })
+            .await
+            .map_err(|error| error.to_string())
+            .map_or(
+                Err("No Assets found".into()),
+                |response| Ok(response.assets),
+            )
         }
     }
 

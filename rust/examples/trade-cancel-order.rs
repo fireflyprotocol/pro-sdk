@@ -31,12 +31,16 @@ type Result<T> = std::result::Result<T, Error>;
 /// # Errors
 ///
 /// Will return `Err` if the request fails, or cannot be submitted.
-async fn send_request(request: CancelOrdersRequest, auth_token: &str) -> Result<()> {
+async fn send_request(
+    request: CancelOrdersRequest,
+    auth_token: &str,
+    environment: Environment,
+) -> Result<()> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
+    config.base_path = trade::url(environment).into();
     cancel_orders(&config, request).await?;
 
     Ok(())
@@ -45,12 +49,13 @@ async fn send_request(request: CancelOrdersRequest, auth_token: &str) -> Result<
 async fn send_create_order_request(
     request: CreateOrderRequest,
     auth_token: &str,
+    environment: Environment,
 ) -> Result<String> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
+    config.base_path = trade::url(environment).into();
 
     let order_hash = post_create_order(&config, request).await?.order_hash;
 
@@ -146,22 +151,23 @@ async fn listen_to_account_order_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: test::account::address(environment).into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for our request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
@@ -171,7 +177,7 @@ async fn main() -> Result<()> {
     let mut cancellation_receiver = sender.subscribe();
     listen_to_account_order_updates(
         &auth_token,
-        Environment::Testnet,
+        environment,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
@@ -196,13 +202,13 @@ async fn main() -> Result<()> {
     });
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Let's open an order on the book
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: symbols::perps::ETH.into(),
-            account_address: test::account::testnet::ADDRESS.into(),
+            symbol: "ETH-PERP".to_string(),
+            account_address: test::account::address(environment).into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -225,22 +231,22 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
         SignatureScheme::Ed25519,
     )?;
 
-    let order_hash = send_create_order_request(request, &auth_token).await?;
+    let order_hash = send_create_order_request(request, &auth_token, environment).await?;
 
     handle.await.expect("Could not join handle");
 
     // Next, we construct our cancellation request.
     let request = CancelOrdersRequest {
-        symbol: symbols::perps::ETH.into(),
+        symbol: "ETH-PERP".to_string(),
         order_hashes: Some(vec![order_hash.clone()]),
     };
 
     // Now, we submit our cancellation request to Blufin.
-    send_request(request, &auth_token).await?;
+    send_request(request, &auth_token, environment).await?;
 
     // Finally, we print a confirmation message.
     println!("Orders Cancellation submitted successfully.");

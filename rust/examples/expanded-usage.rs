@@ -20,10 +20,7 @@ use bluefin_api::{
         WithdrawRequestSignedFields,
     },
 };
-use bluefin_pro::prelude::{
-    symbols::{assets::USDC, perps::ETH},
-    *,
-};
+use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -217,23 +214,24 @@ async fn main() -> Result<()> {
     const MARKET_STREAM_TIMEOUT: u64 = 30;
     const SLEEP_TIME: u64 = 30;
 
-    let account_service_url = account::url(Environment::Testnet);
-    let exchange_service_url = exchange::url(Environment::Testnet);
-    let trade_service_url = trade::url(Environment::Testnet);
-    let ws_market_service_url = ws::market::url(Environment::Testnet);
-    let ws_account_service_url = ws::account::url(Environment::Testnet);
+    let environment = Environment::Staging;
+    let account_service_url = account::url(environment);
+    let exchange_service_url = exchange::url(environment);
+    let trade_service_url = trade::url(environment);
+    let ws_market_service_url = ws::market::url(environment);
+    let ws_account_service_url = ws::account::url(environment);
 
     let login_request = LoginRequest::new(
         ACCOUNT.into(),
         Utc::now().timestamp_millis(),
-        auth::testnet::AUDIENCE.into(),
+        auth::audience(environment).into(),
     );
 
     let signature =
         login_request.signature(SignatureScheme::Ed25519, PrivateKey::from_hex(PRIVATE_KEY)?)?;
 
     let auth_token = login_request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
@@ -304,7 +302,7 @@ async fn main() -> Result<()> {
     let (market_sender, mut market_receiver) = tokio::sync::mpsc::channel(100);
     let websocket_signal = Arc::clone(&shutdown_signal);
     let subscriptions = vec![MarketSubscriptionStreams {
-        symbol: ETH.to_string(),
+        symbol: "ETH-PERP".to_string(),
         streams: vec![MarketDataStreamName::OraclePrice],
     }];
     listen_to_market_stream_websocket(
@@ -368,13 +366,13 @@ async fn main() -> Result<()> {
             bearer_access_token: Some(auth_token.clone()),
             ..Configuration::new()
         },
-        Some(ETH),
+        Some("ETH-PERP"),
     )
     .await?;
     // println!("Open orders received: {open_orders:#?}",);
 
     // ====== Create Order ======
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     let leverage_e9 = open_orders
         .first()
@@ -384,7 +382,7 @@ async fn main() -> Result<()> {
     // Next, we construct an unsigned request.
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: ETH.to_string(),
+            symbol: "ETH-PERP".to_string(),
             account_address: ACCOUNT.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: 1.e9().to_string(),
@@ -429,7 +427,7 @@ async fn main() -> Result<()> {
     let withdraw_request = WithdrawRequest {
         signed_fields: WithdrawRequestSignedFields {
             amount_e9: 10.e9().to_string(),
-            asset_symbol: USDC.to_string(),
+            asset_symbol: "USDC".to_string(),
             account_address: ACCOUNT.into(),
             salt: Utc::now()
                 .timestamp_millis()

@@ -46,17 +46,17 @@ async fn send_request(
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
+    let environment = Environment::Staging;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
-    let environment = Environment::Devnet;
     let time_now = Utc::now().timestamp_millis();
 
     // Authorize account
     let request = AccountAuthorizationRequestExt::new(
         AccountAuthorizationRequest {
             signed_fields: AccountAuthorizationRequestSignedFields {
-                account_address: test::account::devnet::ADDRESS.into(),
-                authorized_account_address: test::account::devnet::ADDRESS.into(),
+                account_address: test::account::address(environment).into(),
+                authorized_account_address: test::account::address(environment).into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
                 signed_at_millis: time_now,
@@ -67,7 +67,7 @@ async fn main() -> Result<()> {
     );
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
         SignatureScheme::Ed25519,
     )?;
 
@@ -78,8 +78,8 @@ async fn main() -> Result<()> {
     let request = AccountAuthorizationRequestExt::new(
         AccountAuthorizationRequest {
             signed_fields: AccountAuthorizationRequestSignedFields {
-                account_address: test::account::devnet::ADDRESS.into(),
-                authorized_account_address: test::account::devnet::ADDRESS.into(),
+                account_address: test::account::address(environment).into(),
+                authorized_account_address: test::account::address(environment).into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
                 signed_at_millis: time_now,
@@ -90,7 +90,7 @@ async fn main() -> Result<()> {
     );
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
         SignatureScheme::Ed25519,
     )?;
 

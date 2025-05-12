@@ -36,7 +36,7 @@ async fn listen_to_candlestick_updates(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
             symbol.into(),
-            vec![MarketDataStreamName::Candlestick1mOracle],
+            vec![MarketDataStreamName::Candlestick1mLast],
         )],
     );
 
@@ -104,13 +104,14 @@ async fn listen_to_candlestick_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     listen_to_candlestick_updates(
-        Environment::Testnet,
-        symbols::perps::ETH,
+        environment,
+        "ETH-PERP",
         sender,
-        Duration::from_secs(5),
+        Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
     )
     .await?;

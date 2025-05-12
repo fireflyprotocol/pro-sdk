@@ -7,8 +7,9 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let response = get_all_market_ticker(&Configuration {
-        base_path: exchange::testnet::URL.into(),
+        base_path: exchange::url(environment).into(),
         ..Configuration::default()
     })
     .await?;

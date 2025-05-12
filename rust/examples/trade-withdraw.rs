@@ -26,12 +26,16 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 // Will return an Ok(()) if the request has successfully been submitted to Bluefin
-async fn send_request(request: WithdrawRequest, auth_token: &str) -> Result<()> {
+async fn send_request(
+    request: WithdrawRequest,
+    auth_token: &str,
+    environment: Environment,
+) -> Result<()> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::devnet::URL.into();
+    config.base_path = trade::url(environment).into();
 
     post_withdraw(&config, request).await?;
 
@@ -127,22 +131,23 @@ async fn listen_to_account_info(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // Then, we construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: test::account::devnet::ADDRESS.into(),
-        audience: auth::devnet::AUDIENCE.into(),
+        account_address: test::account::address(environment).into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Devnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
@@ -151,7 +156,7 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_account_info(
         &auth_token,
-        Environment::Devnet,
+        environment,
         sender,
         Duration::from_secs(10),
         Arc::clone(&shutdown_flag),
@@ -173,7 +178,7 @@ async fn main() -> Result<()> {
     });
 
     let asset = get_exchange_info(&Configuration {
-        base_path: exchange::devnet::URL.into(),
+        base_path: exchange::url(environment).into(),
         ..Configuration::default()
     })
     .await?
@@ -183,13 +188,13 @@ async fn main() -> Result<()> {
     .to_owned();
 
     // We get the exchange info to fetch the EDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Then, we construct a request.
     let request = WithdrawRequest {
         signed_fields: WithdrawRequestSignedFields {
             asset_symbol: asset.symbol.clone(),
-            account_address: test::account::devnet::ADDRESS.into(),
+            account_address: test::account::address(environment).into(),
             amount_e9: (10.e9()).to_string(),
             salt: random::<u64>().to_string(),
             eds_id: contracts_info.eds_id,
@@ -199,11 +204,11 @@ async fn main() -> Result<()> {
     };
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
         SignatureScheme::Ed25519,
     )?;
 
-    send_request(request, &auth_token).await?;
+    send_request(request, &auth_token, environment).await?;
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);
     handle.await.unwrap();

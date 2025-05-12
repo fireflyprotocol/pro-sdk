@@ -7,11 +7,11 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 /// Sends a request for account details, and returns the deserialized response.
-async fn send_request(account_address: &str) -> Result<Account> {
+async fn send_request(account_address: &str, environment: Environment) -> Result<Account> {
     println!("Sending request...");
     Ok(get_account_details(
         &Configuration {
-            base_path: account::testnet::URL.into(),
+            base_path: account::url(environment).to_string(),
             ..Configuration::new()
         },
         Some(account_address),
@@ -21,7 +21,9 @@ async fn send_request(account_address: &str) -> Result<Account> {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let account = send_request(test::account::testnet::ADDRESS).await?;
+    let environment = Environment::Staging;
+    let test_account_address = test::account::address(environment);
+    let account = send_request(test_account_address, environment).await?;
 
     println!("{account:#?}");
 
