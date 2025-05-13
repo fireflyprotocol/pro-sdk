@@ -30,17 +30,15 @@ type Result<T> = std::result::Result<T, Error>;
 async fn authenticate(environment: Environment) -> Result<String> {
     let audience = auth::audience(environment);
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
+        account_address: test::account::address(environment).into(),
         audience: audience.into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
-    let response = request
-        .authenticate(&signature, Environment::Testnet)
-        .await?;
+    let response = request.authenticate(&signature, environment).await?;
     Ok(response.access_token)
 }
 
@@ -133,15 +131,16 @@ async fn listen_to_account_info(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // First, we log into the desired environment.
-    let auth_token = authenticate(Environment::Testnet).await?;
+    let auth_token = authenticate(environment).await?;
 
     // Stream websocket messages for 10 seconds
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_account_info(
         &auth_token,
-        Environment::Testnet,
+        environment,
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),

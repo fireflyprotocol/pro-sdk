@@ -7,16 +7,17 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let response = get_funding_rate_history(
         &Configuration {
-            base_path: exchange::testnet::URL.into(),
+            base_path: exchange::url(environment).into(),
             ..Configuration::default()
         },
-        symbols::perps::ETH, // symbol
-        None,                // limit
-        None,                // start_time_at_millis
-        None,                // end_time_at_millis
-        None,                // page
+        "ETH-PERP", // symbol
+        None,       // limit
+        None,       // start_time_at_millis
+        None,       // end_time_at_millis
+        None,       // page
     )
     .await?;
 

@@ -17,12 +17,13 @@ type Result<T> = std::result::Result<T, Error>;
 async fn send_request(
     request: AccountPositionLeverageUpdateRequest,
     auth_token: &str,
+    environment: Environment,
 ) -> Result<()> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
+    config.base_path = trade::url(environment).into();
 
     put_leverage_update(&config, request).await?;
 
@@ -31,34 +32,35 @@ async fn send_request(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // First, we construct an authentication request.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: test::account::address(environment).into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Then, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
 
     // Next, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Then, we construct the request.
     let signed_request = {
         let unsigned_request = AccountPositionLeverageUpdateRequest {
             signed_fields: AccountPositionLeverageUpdateRequestSignedFields {
-                symbol: symbols::perps::ETH.into(),
-                account_address: test::account::testnet::ADDRESS.into(),
+                symbol: "ETH-PERP".to_string(),
+                account_address: test::account::address(environment).into(),
                 leverage_e9: (10.e9()).to_string(),
                 salt: random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id,
@@ -68,13 +70,13 @@ async fn main() -> Result<()> {
         };
 
         unsigned_request.sign(
-            PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+            PrivateKey::from_hex(test::account::private_key(environment))?,
             SignatureScheme::Ed25519,
         )?
     };
 
     // Now, we send the request.
-    send_request(signed_request, &auth_token).await?;
+    send_request(signed_request, &auth_token, environment).await?;
     println!("Leverage Updated");
 
     Ok(())

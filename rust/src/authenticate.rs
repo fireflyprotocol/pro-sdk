@@ -216,7 +216,7 @@ pub mod tests {
 
         let auth_request = LoginRequest {
             account_address: sui_address,
-            audience: env::auth::testnet::AUDIENCE.into(),
+            audience: env::auth::staging::AUDIENCE.into(),
             signed_at_millis: Utc::now().timestamp_millis(),
         };
 
@@ -238,7 +238,7 @@ pub mod tests {
             const RECOVERY_CODE: u8 = 31;
             // Extract the signature and public key bytes
             if signature_bytes.len() != 99 {
-                // 1 signature type flag byte + 65 signature (1 recovery byte + 64 signature bytes) + 33 public key
+                // 1 signature type flag byte + 65 for the signature (1 recovery byte + 64 signature bytes) + 33 public key
                 return Err("Invalid signature length".into());
             }
             let recovery_bit = signature_bytes[1] - RECOVERY_CODE;
@@ -284,7 +284,7 @@ pub mod tests {
 
         let auth_request = LoginRequest {
             account_address: sui_address,
-            audience: env::auth::testnet::AUDIENCE.into(),
+            audience: env::auth::staging::AUDIENCE.into(),
             signed_at_millis: Utc::now().timestamp_millis(),
         };
 
@@ -293,7 +293,7 @@ pub mod tests {
             .map_err(|error| format!("{error:?}"))?;
 
         auth_request
-            .authenticate(&signature, Environment::Testnet)
+            .authenticate(&signature, Environment::Staging)
             .await
             .map_err(|error| format!("{error:?}"))?;
         Ok(())
@@ -308,7 +308,7 @@ pub mod tests {
 
         let auth_request = LoginRequest {
             account_address: sui_address,
-            audience: env::auth::testnet::AUDIENCE.into(),
+            audience: env::auth::staging::AUDIENCE.into(),
             signed_at_millis: Utc::now().timestamp_millis(),
         };
 
@@ -317,7 +317,7 @@ pub mod tests {
             .map_err(|error| format!("{error:?}"))?;
 
         auth_request
-            .authenticate(&signature, Environment::Testnet)
+            .authenticate(&signature, Environment::Staging)
             .await
             .map_err(|error| format!("{error:?}"))?;
         Ok(())

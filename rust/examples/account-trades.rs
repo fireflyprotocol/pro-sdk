@@ -29,23 +29,25 @@ async fn send_request(auth_token: &str, symbol: Option<&str>) -> Result<Vec<Trad
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
+    let test_account_address = test::account::address(environment);
     let login_request = LoginRequest::new(
-        test::account::testnet::ADDRESS.into(),
+        test_account_address.into(),
         Utc::now().timestamp_millis(),
-        auth::testnet::AUDIENCE.into(),
+        auth::audience(environment).into(),
     );
 
     let signature = login_request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
 
     let auth_token = login_request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
-    let trades = send_request(&auth_token, Some(symbols::perps::ETH)).await?;
+    let trades = send_request(&auth_token, Some("ETH-PERP")).await?;
 
     println!("{trades:#?}");
 

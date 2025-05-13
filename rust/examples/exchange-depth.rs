@@ -7,13 +7,14 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let response = get_orderbook_depth(
         &Configuration {
-            base_path: exchange::testnet::URL.into(),
+            base_path: exchange::url(environment).into(),
             ..Configuration::default()
         },
-        symbols::perps::ETH, // symbol
-        Some(5),             // limit
+        "ETH-PERP", // symbol
+        Some(5),    // limit
     )
     .await?;
 

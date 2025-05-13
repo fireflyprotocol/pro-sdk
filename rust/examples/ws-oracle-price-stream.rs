@@ -128,12 +128,13 @@ async fn listen_to_oracle_price_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // Stream websocket messages, with a timeout if no messages received after 5 seconds.
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     listen_to_oracle_price_updates(
-        Environment::Testnet,
-        symbols::perps::BTC,
+        environment,
+        "BTC-PERP",
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),

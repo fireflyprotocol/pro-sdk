@@ -7,12 +7,13 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     let response = get_market_ticker(
         &Configuration {
-            base_path: exchange::testnet::URL.into(),
+            base_path: exchange::url(environment).into(),
             ..Configuration::default()
         },
-        symbols::perps::ETH, // symbol
+        "ETH-PERP", // symbol
     )
     .await?;
 

@@ -103,12 +103,13 @@ async fn listen_to_recent_trade_updates(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // Then, we connect to the market stream WebSocket to listen for ticker.
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     listen_to_recent_trade_updates(
-        Environment::Testnet,
-        symbols::perps::ETH,
+        environment,
+        "ETH-PERP",
         sender,
         Duration::from_secs(5),
         Arc::clone(&shutdown_flag),

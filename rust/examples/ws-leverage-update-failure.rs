@@ -36,17 +36,15 @@ type Result<T> = std::result::Result<T, Error>;
 async fn authenticate(environment: Environment) -> Result<String> {
     let audience = auth::audience(environment);
     let request = LoginRequest {
-        account_address: test::account::devnet::ADDRESS.into(),
+        account_address: test::account::address(environment).into(),
         audience: audience.into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
-    let response = request
-        .authenticate(&signature, Environment::Devnet)
-        .await?;
+    let response = request.authenticate(&signature, environment).await?;
     Ok(response.access_token)
 }
 
@@ -138,16 +136,19 @@ async fn listen_to_command_failures(
 }
 
 // Will return an Ok(()) if the request has successfully been submitted to Bluefin
-async fn send_invalid_leverage_update_request(auth_token: &str) -> Result<()> {
+async fn send_invalid_leverage_update_request(
+    auth_token: &str,
+    environment: Environment,
+) -> Result<()> {
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Devnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Then, we construct the request.
     let signed_request = {
         let unsigned_request = AccountPositionLeverageUpdateRequest {
             signed_fields: AccountPositionLeverageUpdateRequestSignedFields {
                 symbol: "DOGE-PERP".into(),
-                account_address: test::account::devnet::ADDRESS.into(),
+                account_address: test::account::address(environment).into(),
                 leverage_e9: (10.e9()).to_string(),
                 salt: random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id,
@@ -157,7 +158,7 @@ async fn send_invalid_leverage_update_request(auth_token: &str) -> Result<()> {
         };
 
         unsigned_request.sign(
-            PrivateKey::from_hex(test::account::devnet::PRIVATE_KEY)?,
+            PrivateKey::from_hex(test::account::private_key(environment))?,
             SignatureScheme::Ed25519,
         )?
     };
@@ -166,7 +167,7 @@ async fn send_invalid_leverage_update_request(auth_token: &str) -> Result<()> {
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::devnet::URL.into();
+    config.base_path = trade::url(environment).into();
 
     put_leverage_update(&config, signed_request).await?;
 
@@ -175,22 +176,23 @@ async fn send_invalid_leverage_update_request(auth_token: &str) -> Result<()> {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // First, we log into the desired environment.
-    let auth_token = authenticate(Environment::Devnet).await?;
+    let auth_token = authenticate(environment).await?;
 
     // Stream websocket messages for 10 seconds
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<AccountStreamMessage>(100);
     listen_to_command_failures(
         &auth_token,
-        Environment::Devnet,
+        environment,
         sender,
         Duration::from_secs(20),
         Arc::clone(&shutdown_flag),
     )
     .await?;
 
-    send_invalid_leverage_update_request(&auth_token).await?;
+    send_invalid_leverage_update_request(&auth_token, environment).await?;
 
     // Listen to the mpsc channel for 5 seconds (for the sake of this example) to get the account
     // update. Normally, you would listen to this channel indefinitely to wait for messages.

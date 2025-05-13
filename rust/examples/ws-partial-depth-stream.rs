@@ -123,22 +123,23 @@ async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> R
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: test::account::address(environment).into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
@@ -146,8 +147,8 @@ async fn main() -> Result<()> {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     listen_to_partial_depth_updates(
-        Environment::Testnet,
-        symbols::perps::ETH,
+        environment,
+        "ETH-PERP",
         sender,
         Duration::from_secs(15),
         Arc::clone(&shutdown_flag),
@@ -166,13 +167,13 @@ async fn main() -> Result<()> {
     });
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Create an order to update the orderbook
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: symbols::perps::ETH.into(),
-            account_address: test::account::testnet::ADDRESS.into(),
+            symbol: "ETH-PERP".into(),
+            account_address: test::account::address(environment).into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -192,7 +193,7 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(test::account::private_key(environment))?,
         SignatureScheme::Ed25519,
     )?;
     let order_hash = create_order(request, &auth_token).await?;
