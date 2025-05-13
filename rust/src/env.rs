@@ -34,6 +34,7 @@ pub mod test {
 
         #[must_use]
         pub fn address<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::ADDRESS,
                 Environment::Staging | Environment::Testnet => staging::ADDRESS,
@@ -45,6 +46,7 @@ pub mod test {
 
         #[must_use]
         pub fn public_key<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::PUBLIC_KEY,
                 Environment::Staging | Environment::Testnet => staging::PUBLIC_KEY,
@@ -56,6 +58,7 @@ pub mod test {
 
         #[must_use]
         pub fn private_key<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::PRIVATE_KEY,
                 Environment::Staging | Environment::Testnet => staging::PRIVATE_KEY,
@@ -87,10 +90,12 @@ pub mod test {
 
         #[deprecated(note = "Use dev instead")]
         pub mod devnet {
+            #[allow(deprecated)]
             pub use super::dev::*;
         }
         #[deprecated(note = "Use staging instead")]
         pub mod testnet {
+            #[allow(deprecated)]
             pub use super::staging::*;
         }
     }
@@ -129,6 +134,7 @@ pub mod auth {
 
     #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
+        #[allow(deprecated)]
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
             Environment::Staging | Environment::Testnet => staging::URL,
@@ -138,6 +144,7 @@ pub mod auth {
 
     #[must_use]
     pub fn audience<'a>(environment: Environment) -> &'a str {
+        #[allow(deprecated)]
         match environment {
             Environment::Dev | Environment::Devnet => dev::AUDIENCE,
             Environment::Staging | Environment::Testnet => staging::AUDIENCE,
@@ -181,6 +188,7 @@ pub mod trade {
 
     #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
+        #[allow(deprecated)]
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
             Environment::Staging | Environment::Testnet => staging::URL,
@@ -273,6 +281,7 @@ pub mod exchange {
 
     #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
+        #[allow(deprecated)]
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
             Environment::Staging | Environment::Testnet => staging::URL,
@@ -313,6 +322,7 @@ pub mod account {
 
     #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
+        #[allow(deprecated)]
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
             Environment::Staging | Environment::Testnet => staging::URL,
@@ -359,6 +369,7 @@ pub mod websocket {
 
         #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::URL,
                 Environment::Staging | Environment::Testnet => staging::URL,
@@ -401,6 +412,7 @@ pub mod websocket {
 
         #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::URL,
                 Environment::Staging | Environment::Testnet => staging::URL,
