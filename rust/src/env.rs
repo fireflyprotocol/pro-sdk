@@ -1,9 +1,17 @@
 /// Useful details for testing in Bluefin's Dev and Staging environments.
+#[derive(Clone)]
 pub struct TestKeySet {
     pub address: &'static str,
     pub public_key: &'static str,
     pub private_key: &'static str,
 }
+
+/// The address and keys are currently identical for dev and staging.
+const TEST_KEYS: TestKeySet = TestKeySet {
+    address: "0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+    public_key: "989e35904229360dfbf53a9277db36d401f597c4c0a693acc286bf439269a5cb",
+    private_key: "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1",
+};
 
 #[derive(Clone, Copy)]
 pub enum Environment {
@@ -26,16 +34,10 @@ impl Environment {
     pub fn test_keys(self) -> Option<TestKeySet> {
         #[allow(deprecated)]
         match self {
-            Environment::Dev | Environment::Devnet => Some(TestKeySet {
-                address: test::account::dev::ADDRESS,
-                public_key: test::account::dev::PUBLIC_KEY,
-                private_key: test::account::dev::PRIVATE_KEY,
-            }),
-            Environment::Staging | Environment::Testnet => Some(TestKeySet {
-                address: test::account::staging::ADDRESS,
-                public_key: test::account::staging::PUBLIC_KEY,
-                private_key: test::account::staging::PRIVATE_KEY,
-            }),
+            Environment::Dev
+            | Environment::Devnet
+            | Environment::Staging
+            | Environment::Testnet => Some(TEST_KEYS.clone()),
             Environment::Production | Environment::Mainnet => None,
         }
     }
@@ -58,63 +60,18 @@ pub mod symbols {
 
 pub mod test {
     pub mod account {
-        use crate::env::Environment;
-
-        /// # Panics
-        ///
-        /// Will panic if the environment is [`Environment::Production`].
-        #[must_use]
-        pub fn address(environment: Environment) -> &'static str {
-            environment
-                .test_keys()
-                .unwrap_or_else(|| unimplemented!("test address are not available in production"))
-                .address
-        }
-
-        /// # Panics
-        ///
-        /// Will panic if the environment is [`Environment::Production`].
-        #[must_use]
-        pub fn public_key(environment: Environment) -> &'static str {
-            environment
-                .test_keys()
-                .unwrap_or_else(|| {
-                    unimplemented!("test public keys are not available in production")
-                })
-                .public_key
-        }
-
-        /// # Panics
-        ///
-        /// Will panic if the environment is [`Environment::Production`].
-        #[must_use]
-        pub fn private_key(environment: Environment) -> &'static str {
-            environment
-                .test_keys()
-                .unwrap_or_else(|| {
-                    unimplemented!("test private keys are not available in production")
-                })
-                .private_key
-        }
-
-        #[deprecated(note = "use address(), public_key(), private_key() instead")]
+        #[deprecated(note = "Please use Environment::test_keys() instead")]
         pub mod dev {
-            pub const ADDRESS: &str =
-                "0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786";
-            pub const PUBLIC_KEY: &str =
-                "989e35904229360dfbf53a9277db36d401f597c4c0a693acc286bf439269a5cb";
-            pub const PRIVATE_KEY: &str =
-                "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1";
+            pub const ADDRESS: &str = crate::env::TEST_KEYS.address;
+            pub const PUBLIC_KEY: &str = crate::env::TEST_KEYS.public_key;
+            pub const PRIVATE_KEY: &str = crate::env::TEST_KEYS.private_key;
         }
 
-        #[deprecated(note = "use address(), public_key(), private_key() instead")]
+        #[deprecated(note = "Please use Environment::test_keys() instead")]
         pub mod staging {
-            pub const ADDRESS: &str =
-                "0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786";
-            pub const PUBLIC_KEY: &str =
-                "989e35904229360dfbf53a9277db36d401f597c4c0a693acc286bf439269a5cb";
-            pub const PRIVATE_KEY: &str =
-                "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1";
+            pub const ADDRESS: &str = crate::env::TEST_KEYS.address;
+            pub const PUBLIC_KEY: &str = crate::env::TEST_KEYS.public_key;
+            pub const PRIVATE_KEY: &str = crate::env::TEST_KEYS.private_key;
         }
 
         #[deprecated(note = "Use dev instead")]

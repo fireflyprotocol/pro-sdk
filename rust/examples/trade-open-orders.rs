@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
     let environment = Environment::Staging;
     // First, we construct an authentication request.
     let request = LoginRequest {
-        account_address: test::account::address(environment).into(),
+        account_address: environment.test_keys().unwrap().address.into(),
         audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
@@ -39,7 +39,7 @@ async fn main() -> Result<()> {
     // Then, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
     // Next, we submit our authentication request to the API for the desired environment.
