@@ -75,17 +75,17 @@ pub fn signature<T: Serialize>(
     scheme: SignatureScheme,
 ) -> Result<String> {
     match scheme {
-        SignatureScheme::Ed25519 => sign_ed25519(request, Ed25519PrivateKey::new(private_key)),
+        SignatureScheme::Ed25519 => sign_ed25519(request, &Ed25519PrivateKey::new(private_key)),
         SignatureScheme::Secp256k1 => sign_secp256k1(
             request,
-            Secp256k1PrivateKey::new(private_key)
+            &Secp256k1PrivateKey::new(private_key)
                 .map_err(|err| Error::PrivateKey(err.to_string()))?,
         ),
         _ => Err(Error::UnsupportedSignatureScheme(scheme)),
     }
 }
 
-fn sign_ed25519<T: Serialize>(request: T, private_key: Ed25519PrivateKey) -> Result<String> {
+fn sign_ed25519<T: Serialize>(request: T, private_key: &Ed25519PrivateKey) -> Result<String> {
     let serialized = serialize(request)?;
     let personal_message = PersonalMessage(Cow::Borrowed(serialized.as_bytes()));
     let signature = private_key
@@ -95,7 +95,7 @@ fn sign_ed25519<T: Serialize>(request: T, private_key: Ed25519PrivateKey) -> Res
     Ok(signature.to_base64())
 }
 
-fn sign_secp256k1<T: Serialize>(request: T, private_key: Secp256k1PrivateKey) -> Result<String> {
+fn sign_secp256k1<T: Serialize>(request: T, private_key: &Secp256k1PrivateKey) -> Result<String> {
     let serialized = serialize(request)?;
     let personal_message = PersonalMessage(Cow::Borrowed(serialized.as_bytes()));
     let signature = private_key

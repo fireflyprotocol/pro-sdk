@@ -230,12 +230,12 @@ pub mod tests {
             encoded_signature: &str,
             login_payload: &LoginRequest,
         ) -> Result<(), Box<dyn std::error::Error>> {
+            const RECOVERY_CODE: u8 = 31;
             let signature_bytes = BASE64_STANDARD
                 .decode(encoded_signature)
                 .map_err(|_| "Could not base64 decode signature".to_string())?;
             // 27 is an old magic number inherited from Bitcoin and is used as a "magic constant"
             // 4 is a number used to indicate that the public key is compressed
-            const RECOVERY_CODE: u8 = 31;
             // Extract the signature and public key bytes
             if signature_bytes.len() != 99 {
                 // 1 signature type flag byte + 65 for the signature (1 recovery byte + 64 signature bytes) + 33 public key

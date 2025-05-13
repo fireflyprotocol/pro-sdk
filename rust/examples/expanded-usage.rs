@@ -80,9 +80,7 @@ async fn listen_to_account_stream_websocket(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     // Check if it's the account update.
                     if let Ok(websocket_message) =
@@ -92,10 +90,9 @@ async fn listen_to_account_stream_websocket(
                             eprintln!("Error sending message to channel: {error}");
                             return;
                         }
-                        continue;
-
-                        // Check if it's a subscription message.
-                    } else if let Ok(subscription_message) =
+                    }
+                    // Check if it's a subscription message.
+                    else if let Ok(subscription_message) =
                         serde_json::from_str::<SubscriptionResponseMessage>(&text)
                     {
                         println!(
@@ -160,9 +157,7 @@ async fn listen_to_market_stream_websocket(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     // Check if it's the account update.
                     if let Ok(websocket_message) =
@@ -172,10 +167,9 @@ async fn listen_to_market_stream_websocket(
                             eprintln!("Error sending message to channel: {error}");
                             return;
                         }
-                        continue;
-
-                        // Check if it's a subscription message.
-                    } else if let Ok(subscription_message) =
+                    }
+                    // Check if it's a subscription message.
+                    else if let Ok(subscription_message) =
                         serde_json::from_str::<SubscriptionResponseMessage>(&text)
                     {
                         println!(
@@ -206,6 +200,7 @@ async fn listen_to_market_stream_websocket(
 /// It will listen to account updates and market updates using websockets.
 /// This example will listen to a preset account on testnet.
 #[tokio::main]
+#[allow(clippy::too_many_lines)]
 async fn main() -> Result<()> {
     const ACCOUNT: &str = "0x5eed54482b8671c0d9749dad475f8ba284afb63426ea44d0c18ae6d94641ff2d";
     const PRIVATE_KEY: &str = "3c2306384ae8d2b90060848d13720c433e90a6f3f616d43374bd586c548719d0";

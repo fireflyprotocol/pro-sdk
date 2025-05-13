@@ -75,7 +75,7 @@ mod tests {
 
     use super::*;
 
-    fn verify_request_signature(request: AccountAuthorizationRequestExt, signer_address: &str) {
+    fn verify_request_signature(request: &AccountAuthorizationRequestExt, signer_address: &str) {
         assert!(!request.request.signature.is_empty());
 
         let result = if request.is_authorize {
@@ -113,7 +113,7 @@ mod tests {
         let request = account_authorization_request(true)
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -131,7 +131,7 @@ mod tests {
         let request = account_authorization_request(true)
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -147,7 +147,7 @@ mod tests {
         let request = account_authorization_request(false)
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -165,7 +165,7 @@ mod tests {
         let request = account_authorization_request(false)
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -193,7 +193,7 @@ mod tests {
                     ids_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615"
                         .into(),
                     salt: "1725930601205".into(),
-                    signed_at_millis: 1725931543867,
+                    signed_at_millis: 1_725_931_543_867,
                 },
                 ..AccountAuthorizationRequest::default()
             },
