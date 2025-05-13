@@ -40,7 +40,7 @@ mod tests {
             request.clone(),
             signature::conversion::signable::AdjustIsolatedMarginRequest::from,
         ) {
-            Ok(_) => {}
+            Ok(()) => {}
             Err(e) => panic!("{e}"),
         }
     }

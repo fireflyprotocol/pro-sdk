@@ -47,7 +47,7 @@ mod tests {
             request.clone(),
             signature::conversion::signable::UpdateAccountPositionLeverageRequest::from,
         ) {
-            Ok(_) => {}
+            Ok(()) => {}
             Err(e) => panic!("{e}"),
         }
     }

@@ -230,7 +230,7 @@ async fn main() -> Result<()> {
     });
 
     println!("Waiting for account order updates...");
-    println!("auth token: {}", auth_token);
+    println!("auth token: {auth_token}");
     let received_order_hash = send_request(request.clone(), &auth_token, environment).await?;
 
     // Finally, we check that we've received the expected order hash.

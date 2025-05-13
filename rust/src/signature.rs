@@ -122,7 +122,7 @@ pub mod conversion {
     use std::fmt::{Display, Formatter};
 
     pub mod signable {
-        use super::*;
+        use super::{Display, Formatter, Serialize};
 
         pub enum ClientPayloadType {
             WithdrawRequest,
@@ -357,7 +357,7 @@ pub mod conversion {
     pub mod hashable {
         use crate::signature::{self, parse_u64};
 
-        use super::*;
+        use super::{hashable, Display, Formatter, Serialize};
         use serde::Deserialize;
         use sui_sdk_types::Address;
 

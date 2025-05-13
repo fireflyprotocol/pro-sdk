@@ -67,7 +67,7 @@ async fn refresh_token(
     refresh_token_request
         .refresh(environment)
         .await
-        .map_err(|error| error.into())
+        .map_err(std::convert::Into::into)
 }
 
 #[tokio::main]
