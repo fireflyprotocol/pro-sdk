@@ -32,6 +32,7 @@ pub mod test {
     pub mod account {
         use crate::env::Environment;
 
+        #[must_use]
         pub fn address<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Dev | Environment::Devnet => dev::ADDRESS,
@@ -42,6 +43,7 @@ pub mod test {
             }
         }
 
+        #[must_use]
         pub fn public_key<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Dev | Environment::Devnet => dev::PUBLIC_KEY,
@@ -52,6 +54,7 @@ pub mod test {
             }
         }
 
+        #[must_use]
         pub fn private_key<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Dev | Environment::Devnet => dev::PRIVATE_KEY,
@@ -124,6 +127,7 @@ pub mod auth {
         pub use super::production::*;
     }
 
+    #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
@@ -132,6 +136,7 @@ pub mod auth {
         }
     }
 
+    #[must_use]
     pub fn audience<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Dev | Environment::Devnet => dev::AUDIENCE,
@@ -174,6 +179,7 @@ pub mod trade {
         pub use super::production::*;
     }
 
+    #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
@@ -212,7 +218,7 @@ pub mod exchange {
     }
 
     pub mod info {
-        use super::*;
+        use super::Environment;
         use bluefin_api::apis::configuration::Configuration;
         use bluefin_api::models::{AssetConfig, ContractsConfig, Market};
 
@@ -265,6 +271,7 @@ pub mod exchange {
         }
     }
 
+    #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
@@ -304,6 +311,7 @@ pub mod account {
         pub use super::production::*;
     }
 
+    #[must_use]
     pub fn url<'a>(environment: Environment) -> &'a str {
         match environment {
             Environment::Dev | Environment::Devnet => dev::URL,
@@ -349,6 +357,7 @@ pub mod websocket {
             pub use super::production::*;
         }
 
+        #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Dev | Environment::Devnet => dev::URL,
@@ -390,6 +399,7 @@ pub mod websocket {
             pub use super::production::*;
         }
 
+        #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
             match environment {
                 Environment::Dev | Environment::Devnet => dev::URL,

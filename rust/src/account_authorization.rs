@@ -12,6 +12,7 @@ pub struct AccountAuthorizationRequestExt {
 }
 
 impl AccountAuthorizationRequestExt {
+    #[must_use]
     pub fn new(request: AccountAuthorizationRequest, is_authorize: bool) -> Self {
         Self {
             request,
@@ -94,7 +95,7 @@ mod tests {
         };
 
         match result {
-            Ok(_) => {}
+            Ok(()) => {}
             Err(e) => panic!("{e}"),
         }
     }

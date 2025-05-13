@@ -40,7 +40,7 @@ mod tests {
             request.clone(),
             signature::conversion::signable::CreateOrderRequest::from,
         ) {
-            Ok(_) => {}
+            Ok(()) => {}
             Err(e) => panic!("{e}"),
         }
     }

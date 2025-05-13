@@ -376,8 +376,7 @@ async fn main() -> Result<()> {
 
     let leverage_e9 = open_orders
         .first()
-        .map(|order| order.leverage_e9.clone())
-        .unwrap_or(1.e9().to_string());
+        .map_or(1.e9().to_string(), |order| order.leverage_e9.clone());
 
     // Next, we construct an unsigned request.
     let request = CreateOrderRequest {

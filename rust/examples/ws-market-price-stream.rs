@@ -228,7 +228,7 @@ async fn main() -> Result<()> {
     )?;
 
     let order_hash = create_order(request, &auth_token).await?;
-    println!("Order submitted: {}", order_hash);
+    println!("Order submitted: {order_hash}");
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);
     handle.await.unwrap();

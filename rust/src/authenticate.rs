@@ -200,7 +200,7 @@ pub mod tests {
                 assert_eq!(sui_address, login_payload.account_address);
             }
             _ => Err("Unsupported signature scheme".to_string())?,
-        };
+        }
 
         Ok(())
     }

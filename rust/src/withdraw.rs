@@ -39,7 +39,7 @@ mod tests {
             request.clone(),
             signature::conversion::signable::WithdrawRequest::from,
         ) {
-            Ok(_) => {}
+            Ok(()) => {}
             Err(e) => panic!("{e}"),
         }
     }
