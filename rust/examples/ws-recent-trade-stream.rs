@@ -63,9 +63,7 @@ async fn listen_to_recent_trade_updates(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     // Check whether it's a subscription message, or a stream message.
                     if let Ok(websocket_message) =

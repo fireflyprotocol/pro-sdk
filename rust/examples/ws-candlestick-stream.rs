@@ -64,9 +64,7 @@ async fn listen_to_candlestick_updates(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     if let Ok(websocket_message) =
                         serde_json::from_str::<MarketStreamMessage>(&text)

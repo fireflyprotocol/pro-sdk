@@ -87,9 +87,7 @@ async fn listen_to_oracle_price_updates(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     // Check if it's the oracle price update.
                     if let Ok(websocket_message) =
