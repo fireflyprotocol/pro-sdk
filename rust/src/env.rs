@@ -229,8 +229,7 @@ pub mod exchange {
                 base_path: super::url(environment).to_string(),
                 ..Configuration::default()
             })
-            .await
-            .map_err(|error| -> Error { error.to_string().into() })?
+            .await?
             .contracts_config
             .ok_or("No Contracts Config found".into())
         }
@@ -247,7 +246,7 @@ pub mod exchange {
             })
             .await
             .map(|response| response.markets)
-            .map_err(|error| -> Error { error.to_string().into() })
+            .map_err(Error::from)
         }
 
         /// Returns a list of all assets.
@@ -262,7 +261,7 @@ pub mod exchange {
             })
             .await
             .map(|response| response.assets)
-            .map_err(|error| -> Error { error.to_string().into() })
+            .map_err(Error::from)
         }
     }
 
