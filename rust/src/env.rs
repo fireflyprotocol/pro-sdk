@@ -1,3 +1,10 @@
+/// Useful details for testing in Bluefin's Dev and Staging environments.
+pub struct TestKeySet {
+    pub address: &'static str,
+    pub public_key: &'static str,
+    pub private_key: &'static str,
+}
+
 #[derive(Clone, Copy)]
 pub enum Environment {
     Dev,
@@ -11,6 +18,27 @@ pub enum Environment {
     Testnet,
     #[deprecated(note = "Use Production instead")]
     Mainnet,
+}
+
+impl Environment {
+    /// Returns details of this environment, or None if `self` is Production.
+    #[must_use]
+    pub fn test_keys(self) -> Option<TestKeySet> {
+        #[allow(deprecated)]
+        match self {
+            Environment::Dev | Environment::Devnet => Some(TestKeySet {
+                address: test::account::dev::ADDRESS,
+                public_key: test::account::dev::PUBLIC_KEY,
+                private_key: test::account::dev::PRIVATE_KEY,
+            }),
+            Environment::Staging | Environment::Testnet => Some(TestKeySet {
+                address: test::account::staging::ADDRESS,
+                public_key: test::account::staging::PUBLIC_KEY,
+                private_key: test::account::staging::PRIVATE_KEY,
+            }),
+            Environment::Production | Environment::Mainnet => None,
+        }
+    }
 }
 
 #[deprecated(note = "Will not be updated anymore.")]
@@ -32,40 +60,41 @@ pub mod test {
     pub mod account {
         use crate::env::Environment;
 
+        /// # Panics
+        ///
+        /// Will panic if the environment is [`Environment::Production`].
         #[must_use]
-        pub fn address<'a>(environment: Environment) -> &'a str {
-            #[allow(deprecated)]
-            match environment {
-                Environment::Dev | Environment::Devnet => dev::ADDRESS,
-                Environment::Staging | Environment::Testnet => staging::ADDRESS,
-                Environment::Production | Environment::Mainnet => {
-                    unimplemented!("test address are not available in production")
-                }
-            }
+        pub fn address(environment: Environment) -> &'static str {
+            environment
+                .test_keys()
+                .unwrap_or_else(|| unimplemented!("test address are not available in production"))
+                .address
         }
 
+        /// # Panics
+        ///
+        /// Will panic if the environment is [`Environment::Production`].
         #[must_use]
-        pub fn public_key<'a>(environment: Environment) -> &'a str {
-            #[allow(deprecated)]
-            match environment {
-                Environment::Dev | Environment::Devnet => dev::PUBLIC_KEY,
-                Environment::Staging | Environment::Testnet => staging::PUBLIC_KEY,
-                Environment::Production | Environment::Mainnet => {
-                    unimplemented!("test public key are not available in production")
-                }
-            }
+        pub fn public_key(environment: Environment) -> &'static str {
+            environment
+                .test_keys()
+                .unwrap_or_else(|| {
+                    unimplemented!("test public keys are not available in production")
+                })
+                .public_key
         }
 
+        /// # Panics
+        ///
+        /// Will panic if the environment is [`Environment::Production`].
         #[must_use]
-        pub fn private_key<'a>(environment: Environment) -> &'a str {
-            #[allow(deprecated)]
-            match environment {
-                Environment::Dev | Environment::Devnet => dev::PRIVATE_KEY,
-                Environment::Staging | Environment::Testnet => staging::PRIVATE_KEY,
-                Environment::Production | Environment::Mainnet => {
-                    unimplemented!("test private key are not available in production")
-                }
-            }
+        pub fn private_key(environment: Environment) -> &'static str {
+            environment
+                .test_keys()
+                .unwrap_or_else(|| {
+                    unimplemented!("test private keys are not available in production")
+                })
+                .private_key
         }
 
         #[deprecated(note = "use address(), public_key(), private_key() instead")]
