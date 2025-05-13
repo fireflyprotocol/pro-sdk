@@ -55,8 +55,8 @@ async fn main() -> Result<()> {
     let request = AccountAuthorizationRequestExt::new(
         AccountAuthorizationRequest {
             signed_fields: AccountAuthorizationRequestSignedFields {
-                account_address: test::account::address(environment).into(),
-                authorized_account_address: test::account::address(environment).into(),
+                account_address: environment.test_keys().unwrap().address.into(),
+                authorized_account_address: environment.test_keys().unwrap().address.into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
                 signed_at_millis: time_now,
@@ -67,7 +67,7 @@ async fn main() -> Result<()> {
     );
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
         SignatureScheme::Ed25519,
     )?;
 
@@ -78,8 +78,8 @@ async fn main() -> Result<()> {
     let request = AccountAuthorizationRequestExt::new(
         AccountAuthorizationRequest {
             signed_fields: AccountAuthorizationRequestSignedFields {
-                account_address: test::account::address(environment).into(),
-                authorized_account_address: test::account::address(environment).into(),
+                account_address: environment.test_keys().unwrap().address.into(),
+                authorized_account_address: environment.test_keys().unwrap().address.into(),
                 salt: rand::random::<u64>().to_string(),
                 ids_id: contracts_info.ids_id.clone(),
                 signed_at_millis: time_now,
@@ -90,7 +90,7 @@ async fn main() -> Result<()> {
     );
 
     let request = request.sign(
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
         SignatureScheme::Ed25519,
     )?;
 

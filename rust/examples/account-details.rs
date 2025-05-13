@@ -22,7 +22,7 @@ async fn send_request(account_address: &str, environment: Environment) -> Result
 #[tokio::main]
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
-    let test_account_address = test::account::address(environment);
+    let test_account_address = environment.test_keys().unwrap().address;
     let account = send_request(test_account_address, environment).await?;
 
     println!("{account:#?}");

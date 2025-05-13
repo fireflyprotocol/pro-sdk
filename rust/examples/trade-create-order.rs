@@ -89,9 +89,7 @@ async fn listen_to_account_order_updates(
                     }
                     println!("Pong sent");
                 }
-                Message::Pong(_) => {
-                    println!("Pong received");
-                }
+                Message::Pong(_) => println!("Pong received"),
                 Message::Text(text) => {
                     // Check if it's the account update.
                     if let Ok(websocket_message) =
@@ -101,10 +99,9 @@ async fn listen_to_account_order_updates(
                             eprintln!("Error sending message to channel: {error}");
                             return;
                         }
-                        continue;
-
-                        // Check if it's a subscription message.
-                    } else if let Ok(subscription_message) =
+                    }
+                    // Check if it's a subscription message.
+                    else if let Ok(subscription_message) =
                         serde_json::from_str::<SubscriptionResponseMessage>(&text)
                     {
                         println!(
@@ -134,7 +131,7 @@ async fn main() -> Result<()> {
     let environment = Environment::Staging;
     // We construct an authentication request to obtain a token.
     let request = LoginRequest {
-        account_address: test::account::address(environment).into(),
+        account_address: environment.test_keys().unwrap().address.into(),
         audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
@@ -142,7 +139,7 @@ async fn main() -> Result<()> {
     // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
@@ -158,7 +155,7 @@ async fn main() -> Result<()> {
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
             symbol: "ETH-PERP".to_string(),
-            account_address: test::account::address(environment).into(),
+            account_address: environment.test_keys().unwrap().address.into(),
             price_e9: (10_000.e9()).to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -181,7 +178,7 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
         SignatureScheme::Ed25519,
     )?;
 

@@ -31,7 +31,7 @@ async fn send_request(auth_token: &str, environment: Environment) -> Result<Vec<
 #[tokio::main]
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
-    let test_account_address = test::account::address(environment);
+    let test_account_address = environment.test_keys().unwrap().address;
     let login_request = LoginRequest::new(
         test_account_address.into(),
         Utc::now().timestamp_millis(),
@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
 
     let signature = login_request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::private_key(environment))?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
     let auth_token = login_request
