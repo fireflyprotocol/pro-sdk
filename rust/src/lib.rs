@@ -10,9 +10,9 @@ mod withdraw;
 
 mod core {
     pub use crate::arithmetic::HasE9;
-    pub use crate::env::{
-        account, auth, exchange, symbols, test, trade, websocket as ws, Environment,
-    };
+    #[allow(deprecated)]
+    pub use crate::env::symbols;
+    pub use crate::env::{account, auth, exchange, test, trade, websocket as ws, Environment};
     pub use crate::signature::PrivateKey;
 }
 
