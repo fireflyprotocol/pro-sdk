@@ -201,6 +201,10 @@ async def main():
                 # ========= Get Open Orders =========
                 open_orders = await client.get_open_orders(market.symbol)
                 log.info(f"{open_orders=}")
+                
+                # ========= Get Standby Orders =========
+                standby_orders = await client.get_standby_orders(market.symbol)
+                log.info(f"{standby_orders=}")
 
                 # ========== Deposit & Withdraw ==========
                 # Withdraw $10.  Note that the withdraw method does its own logging.

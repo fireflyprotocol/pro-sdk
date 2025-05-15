@@ -1204,6 +1204,19 @@ export interface CancelOrdersRequest {
     'orderHashes'?: Array<string>;
 }
 /**
+ * Response to a request to cancel orders.
+ * @export
+ * @interface CancelOrdersResponse
+ */
+export interface CancelOrdersResponse {
+    /**
+     * The order hashes of the cancelled orders.
+     * @type {Array<string>}
+     * @memberof CancelOrdersResponse
+     */
+    'orderHashes': Array<string>;
+}
+/**
  * 
  * @export
  * @enum {string}
@@ -1482,6 +1495,19 @@ export interface CreateOrderRequestSignedFields {
 }
 
 
+/**
+ * 
+ * @export
+ * @interface CreateOrderResponse
+ */
+export interface CreateOrderResponse {
+    /**
+     * The unique identifier of this order, to be used as a lookup key
+     * @type {string}
+     * @memberof CreateOrderResponse
+     */
+    'orderHash': string;
+}
 /**
  * 
  * @export
@@ -2357,6 +2383,12 @@ export interface OpenOrderResponse {
      */
     'accountAddress': string;
     /**
+     * The signer address of the order. May be an account user is authorized for.
+     * @type {string}
+     * @memberof OpenOrderResponse
+     */
+    'signerAddress': string;
+    /**
      * The price in base e9 of the asset to be traded. Should always be a number
      * @type {string}
      * @memberof OpenOrderResponse
@@ -2720,6 +2752,10 @@ export const OrderType = {
     StopLimit: 'STOP_LIMIT',
     StopMarket: 'STOP_MARKET',
     Liquidation: 'LIQUIDATION',
+    StopLossMarket: 'STOP_LOSS_MARKET',
+    TakeProfitMarket: 'TAKE_PROFIT_MARKET',
+    StopLossLimit: 'STOP_LOSS_LIMIT',
+    TakeProfitLimit: 'TAKE_PROFIT_LIMIT',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
     Unspecified: 'UNSPECIFIED'
 } as const;
@@ -3015,19 +3051,6 @@ export const PositionSide = {
 export type PositionSide = typeof PositionSide[keyof typeof PositionSide];
 
 
-/**
- * 
- * @export
- * @interface PostCreateOrder202Response
- */
-export interface PostCreateOrder202Response {
-    /**
-     * The unique identifier of this order, to be used as a lookup key
-     * @type {string}
-     * @memberof PostCreateOrder202Response
-     */
-    'orderHash': string;
-}
 /**
  * 
  * @export
@@ -6313,6 +6336,46 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
+         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary Cancel orders in standby for a market using order hashes
+         * @param {CancelOrdersRequest} cancelOrdersRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelStandbyOrders: async (cancelOrdersRequest: CancelOrdersRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cancelOrdersRequest' is not null or undefined
+            assertParamExists('cancelStandbyOrders', 'cancelOrdersRequest', cancelOrdersRequest)
+            const localVarPath = `/api/v1/trade/orders/cancel/standby`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cancelOrdersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve details of open orders for a specific account.
          * @summary Get Open Orders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
@@ -6321,6 +6384,45 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
          */
         getOpenOrders: async (symbol?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/trade/openOrders`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (symbol !== undefined) {
+                localVarQueryParameter['symbol'] = symbol;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve details of orders in standby for a specific account.
+         * @summary Get Orders in Standby
+         * @param {string} [symbol] Filter by specific perpetual symbol (optional)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStandbyOrders: async (symbol?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/trade/standbyOrders`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6607,6 +6709,19 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary Cancel orders in standby for a market using order hashes
+         * @param {CancelOrdersRequest} cancelOrdersRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cancelStandbyOrders(cancelOrdersRequest: CancelOrdersRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelOrdersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelStandbyOrders(cancelOrdersRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TradeApi.cancelStandbyOrders']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieve details of open orders for a specific account.
          * @summary Get Open Orders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
@@ -6620,13 +6735,26 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Retrieve details of orders in standby for a specific account.
+         * @summary Get Orders in Standby
+         * @param {string} [symbol] Filter by specific perpetual symbol (optional)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getStandbyOrders(symbol?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OpenOrderResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStandbyOrders(symbol, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TradeApi.getStandbyOrders']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Submit a new order for execution.
          * @summary Create a new order
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postCreateOrder(createOrderRequest: CreateOrderRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostCreateOrder202Response>> {
+        async postCreateOrder(createOrderRequest: CreateOrderRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateOrderResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postCreateOrder(createOrderRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TradeApi.postCreateOrder']?.[localVarOperationServerIndex]?.url;
@@ -6718,6 +6846,16 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.cancelOrders(cancelOrdersRequest, options).then((request) => request(axios, basePath));
         },
         /**
+         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary Cancel orders in standby for a market using order hashes
+         * @param {CancelOrdersRequest} cancelOrdersRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelStandbyOrders(cancelOrdersRequest: CancelOrdersRequest, options?: RawAxiosRequestConfig): AxiosPromise<CancelOrdersResponse> {
+            return localVarFp.cancelStandbyOrders(cancelOrdersRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve details of open orders for a specific account.
          * @summary Get Open Orders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
@@ -6728,13 +6866,23 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.getOpenOrders(symbol, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieve details of orders in standby for a specific account.
+         * @summary Get Orders in Standby
+         * @param {string} [symbol] Filter by specific perpetual symbol (optional)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStandbyOrders(symbol?: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<OpenOrderResponse>> {
+            return localVarFp.getStandbyOrders(symbol, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Submit a new order for execution.
          * @summary Create a new order
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCreateOrder(createOrderRequest: CreateOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostCreateOrder202Response> {
+        postCreateOrder(createOrderRequest: CreateOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateOrderResponse> {
             return localVarFp.postCreateOrder(createOrderRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6810,6 +6958,18 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
+     * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+     * @summary Cancel orders in standby for a market using order hashes
+     * @param {CancelOrdersRequest} cancelOrdersRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradeApi
+     */
+    public cancelStandbyOrders(cancelOrdersRequest: CancelOrdersRequest, options?: RawAxiosRequestConfig) {
+        return TradeApiFp(this.configuration).cancelStandbyOrders(cancelOrdersRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Retrieve details of open orders for a specific account.
      * @summary Get Open Orders
      * @param {string} [symbol] Filter by specific perpetual symbol (optional)
@@ -6819,6 +6979,18 @@ export class TradeApi extends BaseAPI {
      */
     public getOpenOrders(symbol?: string, options?: RawAxiosRequestConfig) {
         return TradeApiFp(this.configuration).getOpenOrders(symbol, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieve details of orders in standby for a specific account.
+     * @summary Get Orders in Standby
+     * @param {string} [symbol] Filter by specific perpetual symbol (optional)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradeApi
+     */
+    public getStandbyOrders(symbol?: string, options?: RawAxiosRequestConfig) {
+        return TradeApiFp(this.configuration).getStandbyOrders(symbol, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

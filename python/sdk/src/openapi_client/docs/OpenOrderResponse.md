@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **client_order_id** | **str** | The Client Order ID, which is used a unique identifier for an order, provided by the client, in case of proprietary order management systems | [optional] 
 **symbol** | **str** | The market symbol | 
 **account_address** | **str** | The account address of the order. May be an account user is authorized for. | 
+**signer_address** | **str** | The signer address of the order. May be an account user is authorized for. | 
 **price_e9** | **str** | The price in base e9 of the asset to be traded. Should always be a number | 
 **quantity_e9** | **str** | The quantity in base e9 of the asset to be traded. Should always be a number | 
 **side** | [**OrderSide**](OrderSide.md) |  | 

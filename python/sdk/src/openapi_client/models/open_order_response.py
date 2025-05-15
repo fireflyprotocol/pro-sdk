@@ -35,6 +35,7 @@ class OpenOrderResponse(BaseModel):
     client_order_id: Optional[StrictStr] = Field(default=None, description="The Client Order ID, which is used a unique identifier for an order, provided by the client, in case of proprietary order management systems", alias="clientOrderId")
     symbol: StrictStr = Field(description="The market symbol")
     account_address: StrictStr = Field(description="The account address of the order. May be an account user is authorized for.", alias="accountAddress")
+    signer_address: StrictStr = Field(description="The signer address of the order. May be an account user is authorized for.", alias="signerAddress")
     price_e9: StrictStr = Field(description="The price in base e9 of the asset to be traded. Should always be a number", alias="priceE9")
     quantity_e9: StrictStr = Field(description="The quantity in base e9 of the asset to be traded. Should always be a number", alias="quantityE9")
     side: OrderSide
@@ -53,7 +54,7 @@ class OpenOrderResponse(BaseModel):
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
     order_time_at_millis: StrictInt = Field(description="The timestamp in millis when the order was opened", alias="orderTimeAtMillis")
     updated_at_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "updatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "signerAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,6 +111,7 @@ class OpenOrderResponse(BaseModel):
             "clientOrderId": obj.get("clientOrderId"),
             "symbol": obj.get("symbol"),
             "accountAddress": obj.get("accountAddress"),
+            "signerAddress": obj.get("signerAddress"),
             "priceE9": obj.get("priceE9"),
             "quantityE9": obj.get("quantityE9"),
             "side": obj.get("side"),

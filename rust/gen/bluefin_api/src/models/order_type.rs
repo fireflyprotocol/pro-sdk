@@ -25,6 +25,14 @@ pub enum OrderType {
     StopMarket,
     #[serde(rename = "LIQUIDATION")]
     Liquidation,
+    #[serde(rename = "STOP_LOSS_MARKET")]
+    StopLossMarket,
+    #[serde(rename = "TAKE_PROFIT_MARKET")]
+    TakeProfitMarket,
+    #[serde(rename = "STOP_LOSS_LIMIT")]
+    StopLossLimit,
+    #[serde(rename = "TAKE_PROFIT_LIMIT")]
+    TakeProfitLimit,
     #[serde(rename = "BANKRUPTCY_LIQUIDATION")]
     BankruptcyLiquidation,
     #[serde(rename = "UNSPECIFIED")]
@@ -40,6 +48,10 @@ impl std::fmt::Display for OrderType {
             Self::StopLimit => write!(f, "STOP_LIMIT"),
             Self::StopMarket => write!(f, "STOP_MARKET"),
             Self::Liquidation => write!(f, "LIQUIDATION"),
+            Self::StopLossMarket => write!(f, "STOP_LOSS_MARKET"),
+            Self::TakeProfitMarket => write!(f, "TAKE_PROFIT_MARKET"),
+            Self::StopLossLimit => write!(f, "STOP_LOSS_LIMIT"),
+            Self::TakeProfitLimit => write!(f, "TAKE_PROFIT_LIMIT"),
             Self::BankruptcyLiquidation => write!(f, "BANKRUPTCY_LIQUIDATION"),
             Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
