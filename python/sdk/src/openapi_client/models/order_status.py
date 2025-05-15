@@ -26,6 +26,7 @@ class OrderStatus(str, Enum):
     """
     allowed enum values
     """
+    STANDBY = 'STANDBY'
     OPEN = 'OPEN'
     PARTIALLY_FILLED_OPEN = 'PARTIALLY_FILLED_OPEN'
     PARTIALLY_FILLED_CANCELED = 'PARTIALLY_FILLED_CANCELED'

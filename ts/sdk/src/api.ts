@@ -2711,6 +2711,7 @@ export type OrderSide = typeof OrderSide[keyof typeof OrderSide];
  */
 
 export const OrderStatus = {
+    Standby: 'STANDBY',
     Open: 'OPEN',
     PartiallyFilledOpen: 'PARTIALLY_FILLED_OPEN',
     PartiallyFilledCanceled: 'PARTIALLY_FILLED_CANCELED',

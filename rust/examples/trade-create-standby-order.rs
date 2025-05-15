@@ -1,8 +1,8 @@
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::apis::trade_api::{cancel_standby_orders, post_create_order};
+use bluefin_api::apis::trade_api::post_create_order;
 use bluefin_api::models::{
-    CancelOrdersRequest, CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest,
-    OrderSide, OrderType, SelfTradePreventionType,
+    CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest, OrderSide, OrderType,
+    SelfTradePreventionType,
 };
 use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
@@ -31,33 +31,34 @@ async fn send_create_order_request(
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // Then, we construct an authentication request.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: environment.test_keys().unwrap().address.into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Next, we generate a signature for our request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
     // Then, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
     // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(Environment::Testnet).await?;
+    let contracts_info = exchange::info::contracts_config(environment).await?;
 
     // Let's open an order on the book
     let request = CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: symbols::perps::ETH.into(),
-            account_address: test::account::testnet::ADDRESS.into(),
+            symbol: "ETH-PERP".to_string(),
+            account_address: environment.test_keys().unwrap().address.into(),
             price_e9: ("0").to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -80,7 +81,7 @@ async fn main() -> Result<()> {
 
     // Then, we sign our order.
     let request = request.sign(
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
         SignatureScheme::Ed25519,
     )?;
 
