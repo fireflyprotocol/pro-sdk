@@ -333,6 +333,9 @@ components:
         accountAddress:
           type: string
           description: The account address of the order. May be an account user is authorized for.
+        signerAddress:
+          type: string
+          description: The signer address of the order. May be an account user is authorized for.
         priceE9:
           type: string
           description: The price in base e9 of the asset to be traded. Should always be a number
@@ -401,6 +404,7 @@ components:
         - orderHash
         - symbol
         - accountAddress
+        - signerAddress
         - priceE9
         - quantityE9
         - side
@@ -611,6 +615,10 @@ paths:
                 $ref: '#/components/schemas/CancelOrdersResponse'
         '400':
           description: Bad Request. Invalid body parameters.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '401':
           description: Unauthorized. Authentication is required or invalid.
           content:

@@ -29,7 +29,7 @@ pub enum CancelOrdersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelStandbyOrdersError {
-    Status400(),
+    Status400(models::Error),
     Status401(models::Error),
     Status500(models::Error),
     UnknownValue(serde_json::Value),

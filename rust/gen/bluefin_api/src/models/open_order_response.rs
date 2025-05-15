@@ -25,6 +25,9 @@ pub struct OpenOrderResponse {
     /// The account address of the order. May be an account user is authorized for.
     #[serde(rename = "accountAddress")]
     pub account_address: String,
+    /// The signer address of the order. May be an account user is authorized for.
+    #[serde(rename = "signerAddress")]
+    pub signer_address: String,
     /// The price in base e9 of the asset to be traded. Should always be a number
     #[serde(rename = "priceE9")]
     pub price_e9: String,
@@ -77,12 +80,13 @@ pub struct OpenOrderResponse {
 }
 
 impl OpenOrderResponse {
-    pub fn new(order_hash: String, symbol: String, account_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_millis: i64, updated_at_millis: i64) -> OpenOrderResponse {
+    pub fn new(order_hash: String, symbol: String, account_address: String, signer_address: String, price_e9: String, quantity_e9: String, side: models::OrderSide, leverage_e9: String, is_isolated: bool, salt: String, expires_at_millis: i64, signed_at_millis: i64, r#type: models::OrderType, reduce_only: bool, post_only: bool, time_in_force: models::OrderTimeInForce, filled_quantity_e9: String, status: models::OrderStatus, self_trade_prevention_type: models::SelfTradePreventionType, order_time_at_millis: i64, updated_at_millis: i64) -> OpenOrderResponse {
         OpenOrderResponse {
             order_hash,
             client_order_id: None,
             symbol,
             account_address,
+            signer_address,
             price_e9,
             quantity_e9,
             side,

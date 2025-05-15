@@ -385,7 +385,7 @@ class TradeApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
-            '400': None,
+            '400': "Error",
             '401': "Error",
             '500': "Error",
         }
@@ -455,7 +455,7 @@ class TradeApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
-            '400': None,
+            '400': "Error",
             '401': "Error",
             '500': "Error",
         }
@@ -525,7 +525,7 @@ class TradeApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
-            '400': None,
+            '400': "Error",
             '401': "Error",
             '500': "Error",
         }

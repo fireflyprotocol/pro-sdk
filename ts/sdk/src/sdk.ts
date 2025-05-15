@@ -348,8 +348,8 @@ export class BluefinProSdk {
     return await this.tradeApi.getOpenOrders(symbol);
   }
 
-  public async getStandbyOrders() {
-    return await this.tradeApi.getStandbyOrders();
+  public async getStandbyOrders(symbol?: string) {
+    return await this.tradeApi.getStandbyOrders(symbol);
   }
 
   public async updateLeverage(symbol: string, leverageE9: string) {

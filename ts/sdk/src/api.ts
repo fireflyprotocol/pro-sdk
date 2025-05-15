@@ -2383,6 +2383,12 @@ export interface OpenOrderResponse {
      */
     'accountAddress': string;
     /**
+     * The signer address of the order. May be an account user is authorized for.
+     * @type {string}
+     * @memberof OpenOrderResponse
+     */
+    'signerAddress': string;
+    /**
      * The price in base e9 of the asset to be traded. Should always be a number
      * @type {string}
      * @memberof OpenOrderResponse
@@ -2745,10 +2751,6 @@ export const OrderType = {
     Market: 'MARKET',
     StopLimit: 'STOP_LIMIT',
     StopMarket: 'STOP_MARKET',
-    TakeProfitLimit: 'TAKE_PROFIT_LIMIT',
-    TakeProfitMarket: 'TAKE_PROFIT_MARKET',
-    StopLossLimit: 'STOP_LOSS_LIMIT',
-    StopLossMarket: 'STOP_LOSS_MARKET',
     Liquidation: 'LIQUIDATION',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
     Unspecified: 'UNSPECIFIED'
