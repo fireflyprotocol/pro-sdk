@@ -21,6 +21,7 @@ components:
       type: string
       description: "The current status of the order."
       enum:
+      - STANDBY
       - OPEN
       - PARTIALLY_FILLED_OPEN
       - PARTIALLY_FILLED_CANCELED

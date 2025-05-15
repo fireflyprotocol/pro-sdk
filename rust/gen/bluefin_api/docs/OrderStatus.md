@@ -4,6 +4,7 @@
 
 | Name | Value |
 |---- | -----|
+| Standby | STANDBY |
 | Open | OPEN |
 | PartiallyFilledOpen | PARTIALLY_FILLED_OPEN |
 | PartiallyFilledCanceled | PARTIALLY_FILLED_CANCELED |

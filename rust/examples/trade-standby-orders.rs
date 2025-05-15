@@ -24,27 +24,28 @@ async fn send_request(symbol: &str, auth_token: &str) -> Result<Vec<OpenOrderRes
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let environment = Environment::Staging;
     // First, we construct an authentication request.
     let request = LoginRequest {
-        account_address: test::account::testnet::ADDRESS.into(),
-        audience: auth::testnet::AUDIENCE.into(),
+        account_address: environment.test_keys().unwrap().address.into(),
+        audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
     // Then, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
-        PrivateKey::from_hex(test::account::testnet::PRIVATE_KEY)?,
+        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
     // Next, we submit our authentication request to the API for the desired environment.
     let auth_token = request
-        .authenticate(&signature, Environment::Testnet)
+        .authenticate(&signature, environment)
         .await?
         .access_token;
 
     // Now, we send the request.
-    let open_orders = send_request(symbols::perps::ETH, &auth_token).await?;
+    let open_orders = send_request("ETH-PERP", &auth_token).await?;
     println!("{open_orders:#?}");
 
     Ok(())

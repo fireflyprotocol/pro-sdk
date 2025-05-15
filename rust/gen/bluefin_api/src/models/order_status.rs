@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 /// The current status of the order.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OrderStatus {
+    #[serde(rename = "STANDBY")]
+    Standby,
     #[serde(rename = "OPEN")]
     Open,
     #[serde(rename = "PARTIALLY_FILLED_OPEN")]
@@ -37,6 +39,7 @@ pub enum OrderStatus {
 impl std::fmt::Display for OrderStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
+            Self::Standby => write!(f, "STANDBY"),
             Self::Open => write!(f, "OPEN"),
             Self::PartiallyFilledOpen => write!(f, "PARTIALLY_FILLED_OPEN"),
             Self::PartiallyFilledCanceled => write!(f, "PARTIALLY_FILLED_CANCELED"),
@@ -51,7 +54,7 @@ impl std::fmt::Display for OrderStatus {
 
 impl Default for OrderStatus {
     fn default() -> OrderStatus {
-        Self::Open
+        Self::Standby
     }
 }
 
