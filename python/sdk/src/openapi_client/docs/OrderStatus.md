@@ -4,6 +4,8 @@ The current status of the order.
 
 ## Enum
 
+* `STANDBY` (value: `'STANDBY'`)
+
 * `OPEN` (value: `'OPEN'`)
 
 * `PARTIALLY_FILLED_OPEN` (value: `'PARTIALLY_FILLED_OPEN'`)
