@@ -1,7 +1,7 @@
 [package]
 name = "bluefin-pro"
 version = "1.0.0"
-edition = "2021"
+edition = "2024"
 
 license = "Unlicense"
 description = "Software Development Kit for Bluefin Pro"
