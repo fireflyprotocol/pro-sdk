@@ -383,6 +383,9 @@ components:
           type: integer
           format: int64
           description: "The signing timestamp of the order in milliseconds."
+        signerAddress:
+          type: string
+          description: "The address of the signer of the order request."
         type:
           $ref: './common.yaml#/components/schemas/OrderType'
         reduceOnly:
@@ -421,6 +424,7 @@ components:
         - salt
         - expiresAtMillis
         - signedAtMillis
+        - signerAddress
         - type
         - reduceOnly
         - postOnly
