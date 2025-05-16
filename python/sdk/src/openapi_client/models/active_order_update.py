@@ -44,6 +44,7 @@ class ActiveOrderUpdate(BaseModel):
     salt: StrictStr = Field(description="A unique salt for the order.")
     expires_at_millis: StrictInt = Field(description="The expiration timestamp of the order in milliseconds.", alias="expiresAtMillis")
     signed_at_millis: StrictInt = Field(description="The signing timestamp of the order in milliseconds.", alias="signedAtMillis")
+    signer_address: StrictStr = Field(description="The address of the signer of the order request.", alias="signerAddress")
     type: OrderType
     reduce_only: StrictBool = Field(description="Indicates if the order is reduce-only.", alias="reduceOnly")
     post_only: StrictBool = Field(description="Indicates if the order is post-only.", alias="postOnly")
@@ -53,7 +54,7 @@ class ActiveOrderUpdate(BaseModel):
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
     created_at_millis: StrictInt = Field(description="The timestamp when the order was placed, in milliseconds.", alias="createdAtMillis")
     updated_at_millis: StrictInt = Field(description="The timestamp of the last update of the order in milliseconds.", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtMillis", "updatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "signerAddress", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtMillis", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -119,6 +120,7 @@ class ActiveOrderUpdate(BaseModel):
             "salt": obj.get("salt"),
             "expiresAtMillis": obj.get("expiresAtMillis"),
             "signedAtMillis": obj.get("signedAtMillis"),
+            "signerAddress": obj.get("signerAddress"),
             "type": obj.get("type"),
             "reduceOnly": obj.get("reduceOnly"),
             "postOnly": obj.get("postOnly"),
