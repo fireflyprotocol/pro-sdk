@@ -912,6 +912,12 @@ export interface ActiveOrderUpdate {
      */
     'signedAtMillis': number;
     /**
+     * The address of the signer of the order request.
+     * @type {string}
+     * @memberof ActiveOrderUpdate
+     */
+    'signerAddress': string;
+    /**
      * 
      * @type {OrderType}
      * @memberof ActiveOrderUpdate

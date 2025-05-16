@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **salt** | **str** | A unique salt for the order. | 
 **expires_at_millis** | **int** | The expiration timestamp of the order in milliseconds. | 
 **signed_at_millis** | **int** | The signing timestamp of the order in milliseconds. | 
+**signer_address** | **str** | The address of the signer of the order request. | 
 **type** | [**OrderType**](OrderType.md) |  | 
 **reduce_only** | **bool** | Indicates if the order is reduce-only. | 
 **post_only** | **bool** | Indicates if the order is post-only. | 
