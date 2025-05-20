@@ -54,6 +54,8 @@ The reason for an order cancellation.
 
 * `ACCOUNT_NOT_LIQUIDATABLE` (value: `'ACCOUNT_NOT_LIQUIDATABLE'`)
 
+* `ORDER_NOT_REDUCING_POSITION` (value: `'ORDER_NOT_REDUCING_POSITION'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
