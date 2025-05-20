@@ -2614,7 +2614,8 @@ export const OrderCancelReason = {
     InsufficientLiquidity: 'INSUFFICIENT_LIQUIDITY',
     PositionNotFound: 'POSITION_NOT_FOUND',
     LiquidationOutOfOrder: 'LIQUIDATION_OUT_OF_ORDER',
-    AccountNotLiquidatable: 'ACCOUNT_NOT_LIQUIDATABLE'
+    AccountNotLiquidatable: 'ACCOUNT_NOT_LIQUIDATABLE',
+    OrderNotReducingPosition: 'ORDER_NOT_REDUCING_POSITION'
 } as const;
 
 export type OrderCancelReason = typeof OrderCancelReason[keyof typeof OrderCancelReason];
