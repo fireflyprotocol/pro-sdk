@@ -265,6 +265,7 @@ components:
         - POSITION_NOT_FOUND
         - LIQUIDATION_OUT_OF_ORDER
         - ACCOUNT_NOT_LIQUIDATABLE
+        - ORDER_NOT_REDUCING_POSITION
 
     OrderCancellationFailureReason:
       type: string
