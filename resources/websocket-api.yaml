@@ -266,6 +266,7 @@ components:
         - LIQUIDATION_OUT_OF_ORDER
         - ACCOUNT_NOT_LIQUIDATABLE
         - ORDER_NOT_REDUCING_POSITION
+        - USER_CANCELLED_ALL_STANDBY_ON_MARKET
 
     OrderCancellationFailureReason:
       type: string

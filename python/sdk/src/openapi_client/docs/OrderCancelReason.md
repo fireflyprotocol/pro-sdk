@@ -56,6 +56,8 @@ The reason for an order cancellation.
 
 * `ORDER_NOT_REDUCING_POSITION` (value: `'ORDER_NOT_REDUCING_POSITION'`)
 
+* `USER_CANCELLED_ALL_STANDBY_ON_MARKET` (value: `'USER_CANCELLED_ALL_STANDBY_ON_MARKET'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
