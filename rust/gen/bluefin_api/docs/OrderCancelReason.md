@@ -30,6 +30,7 @@
 | LiquidationOutOfOrder | LIQUIDATION_OUT_OF_ORDER |
 | AccountNotLiquidatable | ACCOUNT_NOT_LIQUIDATABLE |
 | OrderNotReducingPosition | ORDER_NOT_REDUCING_POSITION |
+| UserCancelledAllStandbyOnMarket | USER_CANCELLED_ALL_STANDBY_ON_MARKET |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

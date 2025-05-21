@@ -67,6 +67,8 @@ pub enum OrderCancelReason {
     AccountNotLiquidatable,
     #[serde(rename = "ORDER_NOT_REDUCING_POSITION")]
     OrderNotReducingPosition,
+    #[serde(rename = "USER_CANCELLED_ALL_STANDBY_ON_MARKET")]
+    UserCancelledAllStandbyOnMarket,
 
 }
 
@@ -99,6 +101,7 @@ impl std::fmt::Display for OrderCancelReason {
             Self::LiquidationOutOfOrder => write!(f, "LIQUIDATION_OUT_OF_ORDER"),
             Self::AccountNotLiquidatable => write!(f, "ACCOUNT_NOT_LIQUIDATABLE"),
             Self::OrderNotReducingPosition => write!(f, "ORDER_NOT_REDUCING_POSITION"),
+            Self::UserCancelledAllStandbyOnMarket => write!(f, "USER_CANCELLED_ALL_STANDBY_ON_MARKET"),
         }
     }
 }
