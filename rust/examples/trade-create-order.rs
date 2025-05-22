@@ -30,12 +30,17 @@ async fn send_request(
     signed_request: CreateOrderRequest,
     auth_token: &str,
     environment: Environment,
+    is_colocated: bool
 ) -> Result<String> {
     println!("Sending request...");
     // Send request and get back order hash
     let mut config = Configuration::new();
     config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::url(environment).into();
+    config.base_path = if is_colocated {
+        trade::colocated_url(environment).into()
+    } else {
+        trade::url(environment).into()
+    };
 
     let response = post_create_order(&config, signed_request).await?;
 
@@ -228,13 +233,27 @@ async fn main() -> Result<()> {
 
     println!("Waiting for account order updates...");
     println!("auth token: {auth_token}");
-    let received_order_hash = send_request(request.clone(), &auth_token, environment).await?;
+    let received_order_hash = send_request(
+        request.clone(),
+        &auth_token,
+        environment,
+        false).await?;
 
     // Finally, we check that we've received the expected order hash.
     println!("Order Submitted: {received_order_hash}");
-    let computed_hash = request.compute_hash().unwrap();
+    let computed_hash = request.clone().compute_hash().unwrap();
     assert_eq!(computed_hash, received_order_hash);
     println!("Order hash matches");
+
+    println!("Submitting order through colocated url...");
+    let received_order_hash = send_request(
+        request.clone(),
+        &auth_token,
+        environment,
+        true
+    ).await?;
+
+    println!("Order Submitted through colocated URL: {received_order_hash}");
     handle.await.expect("Could not join handle");
     Ok(())
 }
