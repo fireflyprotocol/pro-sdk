@@ -15,6 +15,56 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration};
 
 
+/// struct for typed errors of method [`get_affiliate_interval_overview`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAffiliateIntervalOverviewError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_affiliate_leader_dashboard`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAffiliateLeaderDashboardError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_affiliate_metadata`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAffiliateMetadataError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_affiliate_overview`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAffiliateOverviewError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_affiliate_summary`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAffiliateSummaryError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_campaign_rewards`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -64,9 +114,227 @@ pub enum GetRewardsSummaryError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`onboard_affiliate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnboardAffiliateError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`onboard_referee`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OnboardRefereeError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_affiliate_fee_config`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAffiliateFeeConfigError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+
+/// Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_user_address = user_address;
+    let p_page = page;
+    let p_limit = limit;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/intervalOverview", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
+    if let Some(ref param_value) = p_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAffiliateIntervalOverviewError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Returns rankings and earnings for affiliates, sorted by the specified category
+pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, page: Option<u32>, limit: Option<u32>, name: Option<&str>, user_address: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_sort_by = sort_by;
+    let p_page = page;
+    let p_limit = limit;
+    let p_name = name;
+    let p_user_address = user_address;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/leaderDashboard", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("sortBy", &p_sort_by.to_string())]);
+    if let Some(ref param_value) = p_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_user_address {
+        req_builder = req_builder.query(&[("userAddress", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAffiliateLeaderDashboardError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Returns the affiliate metadata
+pub async fn get_affiliate_metadata(configuration: &configuration::Configuration, ) -> Result<models::AffiliateMetadata, Error<GetAffiliateMetadataError>> {
+
+    let uri_str = format!("{}/v1/rewards/affiliate", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAffiliateMetadataError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+pub async fn get_affiliate_overview(configuration: &configuration::Configuration, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, name: Option<&str>, user_address: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_page = page;
+    let p_limit = limit;
+    let p_sort_by = sort_by;
+    let p_name = name;
+    let p_user_address = user_address;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/overview", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_sort_by {
+        req_builder = req_builder.query(&[("sortBy", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_user_address {
+        req_builder = req_builder.query(&[("userAddress", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAffiliateOverviewError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Returns performance summary for an affiliate including total referrals, earnings, and rankings
+pub async fn get_affiliate_summary(configuration: &configuration::Configuration, ) -> Result<models::AffiliateSummary, Error<GetAffiliateSummaryError>> {
+
+    let uri_str = format!("{}/v1/rewards/affiliate/summary", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAffiliateSummaryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 /// Returns the rewards earned by users for a specific campaign
-pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::CampaignRewards>, Error<GetCampaignRewardsError>> {
+pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::UserCampaignRewards>, Error<GetCampaignRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
     let p_epoch_number = epoch_number;
@@ -280,6 +548,99 @@ pub async fn get_rewards_summary(configuration: &configuration::Configuration, )
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRewardsSummaryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Submit an application to become an affiliate
+pub async fn onboard_affiliate(configuration: &configuration::Configuration, onboard_affiliate_request: models::OnboardAffiliateRequest) -> Result<models::AffiliateOnboardResponse, Error<OnboardAffiliateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_onboard_affiliate_request = onboard_affiliate_request;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/onboard", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_onboard_affiliate_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnboardAffiliateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Onboard a referee with a referral code
+pub async fn onboard_referee(configuration: &configuration::Configuration, onboard_referee_request: models::OnboardRefereeRequest) -> Result<models::RefereeOnboardResponse, Error<OnboardRefereeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_onboard_referee_request = onboard_referee_request;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/onboard/referee", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_onboard_referee_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OnboardRefereeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Update the fee config for an affiliate
+pub async fn update_affiliate_fee_config(configuration: &configuration::Configuration, update_affiliate_fee_config_request: models::UpdateAffiliateFeeConfigRequest) -> Result<models::AffiliateMetadata, Error<UpdateAffiliateFeeConfigError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_update_affiliate_fee_config_request = update_affiliate_fee_config_request;
+
+    let uri_str = format!("{}/v1/rewards/affiliate/feeConfig", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_update_affiliate_fee_config_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAffiliateFeeConfigError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

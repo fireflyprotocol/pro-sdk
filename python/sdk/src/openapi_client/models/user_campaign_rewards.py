@@ -34,10 +34,10 @@ class UserCampaignRewards(BaseModel):
     status: StrictStr = Field(alias="Status")
     blue_rewards: StrictStr = Field(description="Total Blue token rewards earned in the epoch (e9 format).", alias="BlueRewards")
     sui_rewards: StrictStr = Field(description="Total Sui token rewards earned in the epoch (e9 format).", alias="SuiRewards")
-    cash_rewards: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="CashRewards")
+    wal_rewards: StrictStr = Field(description="Total wal rewards earned in the epoch (e9 format).", alias="WalRewards")
     interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="IntervalStartDate")
     interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="IntervalEndDate")
-    __properties: ClassVar[List[str]] = ["UserAddress", "CampaignName", "EpochNumber", "IntervalNumber", "Symbol", "Status", "BlueRewards", "SuiRewards", "CashRewards", "IntervalStartDate", "IntervalEndDate"]
+    __properties: ClassVar[List[str]] = ["UserAddress", "CampaignName", "EpochNumber", "IntervalNumber", "Symbol", "Status", "BlueRewards", "SuiRewards", "WalRewards", "IntervalStartDate", "IntervalEndDate"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -105,7 +105,7 @@ class UserCampaignRewards(BaseModel):
             "Status": obj.get("Status"),
             "BlueRewards": obj.get("BlueRewards"),
             "SuiRewards": obj.get("SuiRewards"),
-            "CashRewards": obj.get("CashRewards"),
+            "WalRewards": obj.get("WalRewards"),
             "IntervalStartDate": obj.get("IntervalStartDate"),
             "IntervalEndDate": obj.get("IntervalEndDate")
         })

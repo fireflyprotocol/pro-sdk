@@ -82,6 +82,11 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
 *ExchangeApi* | [**get_recent_trades**](openapi_client/docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
+*RewardsApi* | [**get_affiliate_interval_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
+*RewardsApi* | [**get_affiliate_leader_dashboard**](openapi_client/docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
+*RewardsApi* | [**get_affiliate_metadata**](openapi_client/docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
+*RewardsApi* | [**get_affiliate_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview
+*RewardsApi* | [**get_affiliate_summary**](openapi_client/docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary
 *RewardsApi* | [**get_campaign_rewards**](openapi_client/docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
 *RewardsApi* | [**get_rewards**](openapi_client/docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
 *RewardsApi* | [**get_rewards_campaign_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
@@ -89,6 +94,9 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_epoch_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
 *RewardsApi* | [**get_rewards_interval_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
 *RewardsApi* | [**get_rewards_summary**](openapi_client/docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+*RewardsApi* | [**onboard_affiliate**](openapi_client/docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
+*RewardsApi* | [**onboard_referee**](openapi_client/docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
+*RewardsApi* | [**update_affiliate_fee_config**](openapi_client/docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
 *StreamsApi* | [**web_socket_account_data**](openapi_client/docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](openapi_client/docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](openapi_client/docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
@@ -131,6 +139,13 @@ Class | Method | HTTP request | Description
  - [AdjustIsolatedMarginRequest](openapi_client/docs/AdjustIsolatedMarginRequest.md)
  - [AdjustIsolatedMarginRequestSignedFields](openapi_client/docs/AdjustIsolatedMarginRequestSignedFields.md)
  - [AdjustMarginOperation](openapi_client/docs/AdjustMarginOperation.md)
+ - [AffiliateIntervalOverview](openapi_client/docs/AffiliateIntervalOverview.md)
+ - [AffiliateLeaderDashboard](openapi_client/docs/AffiliateLeaderDashboard.md)
+ - [AffiliateMetadata](openapi_client/docs/AffiliateMetadata.md)
+ - [AffiliateMetadataFees](openapi_client/docs/AffiliateMetadataFees.md)
+ - [AffiliateOnboardResponse](openapi_client/docs/AffiliateOnboardResponse.md)
+ - [AffiliateOverview](openapi_client/docs/AffiliateOverview.md)
+ - [AffiliateSummary](openapi_client/docs/AffiliateSummary.md)
  - [Asset](openapi_client/docs/Asset.md)
  - [AssetConfig](openapi_client/docs/AssetConfig.md)
  - [CampaignMetadata](openapi_client/docs/CampaignMetadata.md)
@@ -148,6 +163,9 @@ Class | Method | HTTP request | Description
  - [Error](openapi_client/docs/Error.md)
  - [ExchangeInfoResponse](openapi_client/docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](openapi_client/docs/FundingRateEntry.md)
+ - [GetAffiliateIntervalOverview200Response](openapi_client/docs/GetAffiliateIntervalOverview200Response.md)
+ - [GetAffiliateLeaderDashboard200Response](openapi_client/docs/GetAffiliateLeaderDashboard200Response.md)
+ - [GetAffiliateOverview200Response](openapi_client/docs/GetAffiliateOverview200Response.md)
  - [IntervalMetadata](openapi_client/docs/IntervalMetadata.md)
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
@@ -164,6 +182,9 @@ Class | Method | HTTP request | Description
  - [MarketStreamMessagePayload](openapi_client/docs/MarketStreamMessagePayload.md)
  - [MarketSubscriptionMessage](openapi_client/docs/MarketSubscriptionMessage.md)
  - [MarketSubscriptionStreams](openapi_client/docs/MarketSubscriptionStreams.md)
+ - [OnboardAffiliateRequest](openapi_client/docs/OnboardAffiliateRequest.md)
+ - [OnboardAffiliateRequestSocialUserNames](openapi_client/docs/OnboardAffiliateRequestSocialUserNames.md)
+ - [OnboardRefereeRequest](openapi_client/docs/OnboardRefereeRequest.md)
  - [OpenOrderResponse](openapi_client/docs/OpenOrderResponse.md)
  - [Operators](openapi_client/docs/Operators.md)
  - [OraclePriceUpdate](openapi_client/docs/OraclePriceUpdate.md)
@@ -180,6 +201,7 @@ Class | Method | HTTP request | Description
  - [Position](openapi_client/docs/Position.md)
  - [PositionSide](openapi_client/docs/PositionSide.md)
  - [RecentTradesUpdates](openapi_client/docs/RecentTradesUpdates.md)
+ - [RefereeOnboardResponse](openapi_client/docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](openapi_client/docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](openapi_client/docs/RefreshTokenResponse.md)
  - [RewardsSummary](openapi_client/docs/RewardsSummary.md)
@@ -195,6 +217,7 @@ Class | Method | HTTP request | Description
  - [TradingFees](openapi_client/docs/TradingFees.md)
  - [Transaction](openapi_client/docs/Transaction.md)
  - [TransactionType](openapi_client/docs/TransactionType.md)
+ - [UpdateAffiliateFeeConfigRequest](openapi_client/docs/UpdateAffiliateFeeConfigRequest.md)
  - [UserCampaignRewards](openapi_client/docs/UserCampaignRewards.md)
  - [WithdrawRequest](openapi_client/docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](openapi_client/docs/WithdrawRequestSignedFields.md)

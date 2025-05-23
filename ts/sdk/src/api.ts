@@ -1059,6 +1059,471 @@ export type AdjustMarginOperation = typeof AdjustMarginOperation[keyof typeof Ad
 
 
 /**
+ * 
+ * @export
+ * @interface AffiliateIntervalOverview
+ */
+export interface AffiliateIntervalOverview {
+    /**
+     * The user\'s wallet address
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'userAddress': string;
+    /**
+     * Name of the affiliate
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'name'?: string;
+    /**
+     * The interval number for the affiliate\'s earnings data
+     * @type {number}
+     * @memberof AffiliateIntervalOverview
+     */
+    'intervalNumber': number;
+    /**
+     * Start date of the interval in milliseconds
+     * @type {number}
+     * @memberof AffiliateIntervalOverview
+     */
+    'intervalStartDate': number;
+    /**
+     * End date of the interval in milliseconds
+     * @type {number}
+     * @memberof AffiliateIntervalOverview
+     */
+    'intervalEndDate': number;
+    /**
+     * Date when the user was referred
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'referredSince': string;
+    /**
+     * Referee earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'perpsRefereeEarnings': string;
+    /**
+     * Referee earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'spotLPRefereeEarnings': string;
+    /**
+     * Referee earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'lendingRefereeEarnings': string;
+    /**
+     * Referral earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'perpsReferralEarnings': string;
+    /**
+     * Referral earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'spotLPReferralEarnings': string;
+    /**
+     * Referral earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'lendingReferralEarnings': string;
+    /**
+     * Total earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'perpsTotalEarnings': string;
+    /**
+     * Total earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'spotLPTotalEarnings': string;
+    /**
+     * Total earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'lendingTotalEarnings': string;
+    /**
+     * Total earnings from referrals (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'totalReferralEarnings': string;
+    /**
+     * Total earnings from referee activities (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'totalRefereeEarnings': string;
+    /**
+     * Total earnings combining referrals and referee activities (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'totalEarnings': string;
+}
+/**
+ * 
+ * @export
+ * @interface AffiliateLeaderDashboard
+ */
+export interface AffiliateLeaderDashboard {
+    /**
+     * The user\'s wallet address
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'userAddress': string;
+    /**
+     * Name of the affiliate
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'name'?: string;
+    /**
+     * The parent affiliate\'s wallet address
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'parentAddress': string;
+    /**
+     * Name of the parent affiliate
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'parentName'?: string;
+    /**
+     * Ranking in perps trading category
+     * @type {number}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'perpsRank': number;
+    /**
+     * Ranking in spot trading category
+     * @type {number}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'spotRank': number;
+    /**
+     * Ranking in lending category
+     * @type {number}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'lendingRank': number;
+    /**
+     * Total earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'perpsTotalEarnings': string;
+    /**
+     * Total earnings from spot trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'spotTotalEarnings': string;
+    /**
+     * Total earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'lendingTotalEarnings': string;
+}
+/**
+ * 
+ * @export
+ * @interface AffiliateMetadata
+ */
+export interface AffiliateMetadata {
+    /**
+     * The user\'s wallet address
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'userAddress': string;
+    /**
+     * The referral code of the parent affiliate
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'parentReferralCode'?: string | null;
+    /**
+     * The user\'s referral code if approved as an affiliate
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'referralCode'?: string | null;
+    /**
+     * The name of the affiliate
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'name'?: string;
+    /**
+     * The name of the parent affiliate
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'parentName'?: string | null;
+    /**
+     * 
+     * @type {AffiliateMetadataFees}
+     * @memberof AffiliateMetadata
+     */
+    'fees'?: AffiliateMetadataFees;
+    /**
+     * Status of the affiliate application
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'status'?: AffiliateMetadataStatusEnum | null;
+    /**
+     * Indicates whether the user has traded or not
+     * @type {boolean}
+     * @memberof AffiliateMetadata
+     */
+    'hasTraded': boolean;
+    /**
+     * Tier of the affiliate
+     * @type {string}
+     * @memberof AffiliateMetadata
+     */
+    'tier'?: AffiliateMetadataTierEnum;
+}
+
+export const AffiliateMetadataStatusEnum = {
+    Pending: 'PENDING',
+    Approved: 'APPROVED',
+    Rejected: 'REJECTED'
+} as const;
+
+export type AffiliateMetadataStatusEnum = typeof AffiliateMetadataStatusEnum[keyof typeof AffiliateMetadataStatusEnum];
+export const AffiliateMetadataTierEnum = {
+    S: 'S',
+    A: 'A',
+    N: 'N',
+    U: 'U'
+} as const;
+
+export type AffiliateMetadataTierEnum = typeof AffiliateMetadataTierEnum[keyof typeof AffiliateMetadataTierEnum];
+
+/**
+ * Map of various fee-related configurations
+ * @export
+ * @interface AffiliateMetadataFees
+ */
+export interface AffiliateMetadataFees {
+    /**
+     * Earnings from referral perps fees (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'referralPerpsFee'?: string;
+    /**
+     * Earnings from subaffiliate perps (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'subaffiliatePerpsEarnings'?: string;
+    /**
+     * Earnings from spot LP fees (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'spotLPFee'?: string;
+    /**
+     * Earnings from referral spot LP fees (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'referralSpotLPFee'?: string;
+    /**
+     * Earnings from referral lending rewards (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'referralLendingRewards'?: string;
+    /**
+     * Cashback from perps fees (e9 format)
+     * @type {string}
+     * @memberof AffiliateMetadataFees
+     */
+    'perpsFeeCashback'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AffiliateOnboardResponse
+ */
+export interface AffiliateOnboardResponse {
+    /**
+     * Status of the application
+     * @type {string}
+     * @memberof AffiliateOnboardResponse
+     */
+    'status': AffiliateOnboardResponseStatusEnum;
+    /**
+     * Response message including rejection reason if application was rejected
+     * @type {string}
+     * @memberof AffiliateOnboardResponse
+     */
+    'message': string;
+}
+
+export const AffiliateOnboardResponseStatusEnum = {
+    Approved: 'APPROVED',
+    Rejected: 'REJECTED',
+    Pending: 'PENDING'
+} as const;
+
+export type AffiliateOnboardResponseStatusEnum = typeof AffiliateOnboardResponseStatusEnum[keyof typeof AffiliateOnboardResponseStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface AffiliateOverview
+ */
+export interface AffiliateOverview {
+    /**
+     * The user\'s wallet address
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'userAddress': string;
+    /**
+     * Name of the affiliate
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'name'?: string;
+    /**
+     * Referee earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'perpsRefereeEarnings': string;
+    /**
+     * Referee earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'spotLPRefereeEarnings': string;
+    /**
+     * Referee earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'lendingRefereeEarnings': string;
+    /**
+     * Referral earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'perpsReferralEarnings': string;
+    /**
+     * Referral earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'spotLPReferralEarnings': string;
+    /**
+     * Referral earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'lendingReferralEarnings': string;
+    /**
+     * Total earnings from perps trading (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'perpsTotalEarnings': string;
+    /**
+     * Total earnings from spot LP (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'spotLPTotalEarnings': string;
+    /**
+     * Total earnings from lending (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'lendingTotalEarnings': string;
+    /**
+     * Total earnings from referrals (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'totalReferralEarnings': string;
+    /**
+     * Total earnings from referee activities (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'totalRefereeEarnings': string;
+    /**
+     * Total earnings combining referrals and referee activities (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'totalEarnings': string;
+}
+/**
+ * 
+ * @export
+ * @interface AffiliateSummary
+ */
+export interface AffiliateSummary {
+    /**
+     * The user\'s wallet address
+     * @type {string}
+     * @memberof AffiliateSummary
+     */
+    'userAddress': string;
+    /**
+     * Total number of referees
+     * @type {number}
+     * @memberof AffiliateSummary
+     */
+    'totalReferredUsers': number;
+    /**
+     * Total earnings in e9 format
+     * @type {string}
+     * @memberof AffiliateSummary
+     */
+    'totalEarnings': string;
+    /**
+     * Ranking in perps trading category
+     * @type {number}
+     * @memberof AffiliateSummary
+     */
+    'perpsRanking': number;
+    /**
+     * Ranking in spot trading category
+     * @type {number}
+     * @memberof AffiliateSummary
+     */
+    'spotRanking': number;
+    /**
+     * Ranking in lending category
+     * @type {number}
+     * @memberof AffiliateSummary
+     */
+    'lendRanking': number;
+}
+/**
  * Details about an asset in the account.
  * @export
  * @interface Asset
@@ -1183,12 +1648,8 @@ export type CampaignMetadataStatusEnum = typeof CampaignMetadataStatusEnum[keyof
  * @interface CampaignRewards
  */
 export interface CampaignRewards {
-    /**
-     * 
-     * @type {UserCampaignRewards}
-     * @memberof CampaignRewards
-     */
-    'rewards'?: UserCampaignRewards;
+    [key: string]: NULL_SCHEMA_ERR;
+
 }
 /**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -1545,11 +2006,11 @@ export interface EpochConfigs {
      */
     'blueRewardsAllocation': string;
     /**
-     * Allocation of cash token rewards in the epoch (e9 format)
+     * Allocation of wal token rewards in the epoch (e9 format)
      * @type {string}
      * @memberof EpochConfigs
      */
-    'cashRewardsAllocation': string;
+    'walRewardsAllocation': string;
     /**
      * Object to add custom configurations for campaigns.
      * @type {{ [key: string]: any | undefined; }}
@@ -1681,6 +2142,99 @@ export interface FundingRateEntry {
 /**
  * 
  * @export
+ * @interface GetAffiliateIntervalOverview200Response
+ */
+export interface GetAffiliateIntervalOverview200Response {
+    /**
+     * 
+     * @type {Array<AffiliateIntervalOverview>}
+     * @memberof GetAffiliateIntervalOverview200Response
+     */
+    'data'?: Array<AffiliateIntervalOverview>;
+    /**
+     * Total number of records
+     * @type {number}
+     * @memberof GetAffiliateIntervalOverview200Response
+     */
+    'total'?: number;
+    /**
+     * The page size for pagination
+     * @type {number}
+     * @memberof GetAffiliateIntervalOverview200Response
+     */
+    'limit'?: number;
+    /**
+     * The page number for pagination
+     * @type {number}
+     * @memberof GetAffiliateIntervalOverview200Response
+     */
+    'page'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetAffiliateLeaderDashboard200Response
+ */
+export interface GetAffiliateLeaderDashboard200Response {
+    /**
+     * 
+     * @type {Array<AffiliateLeaderDashboard>}
+     * @memberof GetAffiliateLeaderDashboard200Response
+     */
+    'data'?: Array<AffiliateLeaderDashboard>;
+    /**
+     * Total number of records
+     * @type {number}
+     * @memberof GetAffiliateLeaderDashboard200Response
+     */
+    'total'?: number;
+    /**
+     * The page size for pagination
+     * @type {number}
+     * @memberof GetAffiliateLeaderDashboard200Response
+     */
+    'limit'?: number;
+    /**
+     * The page number for pagination
+     * @type {number}
+     * @memberof GetAffiliateLeaderDashboard200Response
+     */
+    'page'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetAffiliateOverview200Response
+ */
+export interface GetAffiliateOverview200Response {
+    /**
+     * 
+     * @type {Array<AffiliateOverview>}
+     * @memberof GetAffiliateOverview200Response
+     */
+    'data'?: Array<AffiliateOverview>;
+    /**
+     * Total number of records
+     * @type {number}
+     * @memberof GetAffiliateOverview200Response
+     */
+    'total'?: number;
+    /**
+     * The page size for pagination
+     * @type {number}
+     * @memberof GetAffiliateOverview200Response
+     */
+    'limit'?: number;
+    /**
+     * The page number for pagination
+     * @type {number}
+     * @memberof GetAffiliateOverview200Response
+     */
+    'page'?: number;
+}
+/**
+ * 
+ * @export
  * @interface IntervalMetadata
  */
 export interface IntervalMetadata {
@@ -1756,11 +2310,11 @@ export interface IntervalRewards {
      */
     'SuiRewards': string;
     /**
-     * Total cash rewards earned in the interval (e9 format).
+     * Total wal rewards earned in the interval (e9 format).
      * @type {string}
      * @memberof IntervalRewards
      */
-    'CashRewards': string;
+    'WalRewards': string;
     /**
      * Interval Id of the interval for the rewards earned data.
      * @type {number}
@@ -2357,6 +2911,81 @@ export interface ModelError {
      * @memberof ModelError
      */
     'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface OnboardAffiliateRequest
+ */
+export interface OnboardAffiliateRequest {
+    /**
+     * Referral code of the parent affiliate
+     * @type {string}
+     * @memberof OnboardAffiliateRequest
+     */
+    'parentReferralCode'?: string | null;
+    /**
+     * Name of the applicant
+     * @type {string}
+     * @memberof OnboardAffiliateRequest
+     */
+    'name': string;
+    /**
+     * Email address of the applicant
+     * @type {string}
+     * @memberof OnboardAffiliateRequest
+     */
+    'email': string;
+    /**
+     * 
+     * @type {OnboardAffiliateRequestSocialUserNames}
+     * @memberof OnboardAffiliateRequest
+     */
+    'socialUserNames'?: OnboardAffiliateRequestSocialUserNames;
+}
+/**
+ * Map of social media usernames
+ * @export
+ * @interface OnboardAffiliateRequestSocialUserNames
+ */
+export interface OnboardAffiliateRequestSocialUserNames {
+    /**
+     * Twitter username
+     * @type {string}
+     * @memberof OnboardAffiliateRequestSocialUserNames
+     */
+    'twitter'?: string;
+    /**
+     * Instagram username
+     * @type {string}
+     * @memberof OnboardAffiliateRequestSocialUserNames
+     */
+    'instagram'?: string;
+    /**
+     * YouTube channel name
+     * @type {string}
+     * @memberof OnboardAffiliateRequestSocialUserNames
+     */
+    'youtube'?: string;
+    /**
+     * TikTok username
+     * @type {string}
+     * @memberof OnboardAffiliateRequestSocialUserNames
+     */
+    'tiktok'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface OnboardRefereeRequest
+ */
+export interface OnboardRefereeRequest {
+    /**
+     * Referral code of the parent affiliate
+     * @type {string}
+     * @memberof OnboardRefereeRequest
+     */
+    'code': string;
 }
 /**
  * 
@@ -3076,6 +3705,19 @@ export interface RecentTradesUpdates {
 /**
  * 
  * @export
+ * @interface RefereeOnboardResponse
+ */
+export interface RefereeOnboardResponse {
+    /**
+     * Response message indicating if the referral code exists
+     * @type {string}
+     * @memberof RefereeOnboardResponse
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
  * @interface RefreshTokenRequest
  */
 export interface RefreshTokenRequest {
@@ -3142,11 +3784,11 @@ export interface RewardsSummary {
      */
     'SuiRewards': string;
     /**
-     * Total cash rewards earned by the user (e9 format).
+     * Total wal rewards earned by the user (e9 format).
      * @type {string}
      * @memberof RewardsSummary
      */
-    'CashRewards': string;
+    'WalRewards': string;
 }
 /**
  * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
@@ -3856,6 +4498,19 @@ export type TransactionType = typeof TransactionType[keyof typeof TransactionTyp
 /**
  * 
  * @export
+ * @interface UpdateAffiliateFeeConfigRequest
+ */
+export interface UpdateAffiliateFeeConfigRequest {
+    /**
+     * Cashback amount in e9 format
+     * @type {string}
+     * @memberof UpdateAffiliateFeeConfigRequest
+     */
+    'cashback': string;
+}
+/**
+ * 
+ * @export
  * @interface UserCampaignRewards
  */
 export interface UserCampaignRewards {
@@ -3908,11 +4563,11 @@ export interface UserCampaignRewards {
      */
     'SuiRewards': string;
     /**
-     * Total cash rewards earned in the epoch (e9 format).
+     * Total wal rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'CashRewards': string;
+    'WalRewards': string;
     /**
      * Time in milliseconds for interval start date.
      * @type {number}
@@ -5480,6 +6135,241 @@ export type GetRecentTradesTradeTypeEnum = typeof GetRecentTradesTradeTypeEnum[k
 export const RewardsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+         * @summary Get affiliate earnings overview by interval
+         * @param {string} userAddress The address of the user to get interval overview for
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateIntervalOverview: async (userAddress: string, page?: number, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userAddress' is not null or undefined
+            assertParamExists('getAffiliateIntervalOverview', 'userAddress', userAddress)
+            const localVarPath = `/v1/rewards/affiliate/intervalOverview`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns rankings and earnings for affiliates, sorted by the specified category
+         * @summary Get affiliate rankings and earnings
+         * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateLeaderDashboard: async (sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sortBy' is not null or undefined
+            assertParamExists('getAffiliateLeaderDashboard', 'sortBy', sortBy)
+            const localVarPath = `/v1/rewards/affiliate/leaderDashboard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the affiliate metadata
+         * @summary Get affiliate metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateMetadata: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/rewards/affiliate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+         * @summary Get detailed affiliate earnings overview
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateOverview: async (page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/rewards/affiliate/overview`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
+         * @summary Get affiliate performance summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateSummary: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/rewards/affiliate/summary`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns the rewards earned by users for a specific campaign
          * @summary Get rewards information for a specific campaign
          * @param {string} campaignName Specify the campaign name
@@ -5743,6 +6633,126 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Submit an application to become an affiliate
+         * @summary Submit affiliate onboarding application
+         * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onboardAffiliate: async (onboardAffiliateRequest: OnboardAffiliateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'onboardAffiliateRequest' is not null or undefined
+            assertParamExists('onboardAffiliate', 'onboardAffiliateRequest', onboardAffiliateRequest)
+            const localVarPath = `/v1/rewards/affiliate/onboard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(onboardAffiliateRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Onboard a referee with a referral code
+         * @summary Onboard referee with a referral code
+         * @param {OnboardRefereeRequest} onboardRefereeRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onboardReferee: async (onboardRefereeRequest: OnboardRefereeRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'onboardRefereeRequest' is not null or undefined
+            assertParamExists('onboardReferee', 'onboardRefereeRequest', onboardRefereeRequest)
+            const localVarPath = `/v1/rewards/affiliate/onboard/referee`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(onboardRefereeRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update the fee config for an affiliate
+         * @summary Update affiliate fee config
+         * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAffiliateFeeConfig: async (updateAffiliateFeeConfigRequest: UpdateAffiliateFeeConfigRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateAffiliateFeeConfigRequest' is not null or undefined
+            assertParamExists('updateAffiliateFeeConfig', 'updateAffiliateFeeConfigRequest', updateAffiliateFeeConfigRequest)
+            const localVarPath = `/v1/rewards/affiliate/feeConfig`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAffiliateFeeConfigRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -5754,6 +6764,79 @@ export const RewardsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = RewardsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+         * @summary Get affiliate earnings overview by interval
+         * @param {string} userAddress The address of the user to get interval overview for
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAffiliateIntervalOverview(userAddress: string, page?: number, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateIntervalOverview200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateIntervalOverview(userAddress, page, limit, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateIntervalOverview']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns rankings and earnings for affiliates, sorted by the specified category
+         * @summary Get affiliate rankings and earnings
+         * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateLeaderDashboard200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateLeaderDashboard']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the affiliate metadata
+         * @summary Get affiliate metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAffiliateMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AffiliateMetadata>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateMetadata(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+         * @summary Get detailed affiliate earnings overview
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateOverview200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateOverview(page, limit, sortBy, name, userAddress, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateOverview']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
+         * @summary Get affiliate performance summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAffiliateSummary(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AffiliateSummary>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateSummary(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateSummary']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Returns the rewards earned by users for a specific campaign
          * @summary Get rewards information for a specific campaign
          * @param {string} campaignName Specify the campaign name
@@ -5761,7 +6844,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignRewards>>> {
+        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserCampaignRewards>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignRewards(campaignName, epochNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getCampaignRewards']?.[localVarOperationServerIndex]?.url;
@@ -5845,6 +6928,45 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsSummary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Submit an application to become an affiliate
+         * @summary Submit affiliate onboarding application
+         * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async onboardAffiliate(onboardAffiliateRequest: OnboardAffiliateRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AffiliateOnboardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.onboardAffiliate(onboardAffiliateRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.onboardAffiliate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Onboard a referee with a referral code
+         * @summary Onboard referee with a referral code
+         * @param {OnboardRefereeRequest} onboardRefereeRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async onboardReferee(onboardRefereeRequest: OnboardRefereeRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RefereeOnboardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.onboardReferee(onboardRefereeRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.onboardReferee']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update the fee config for an affiliate
+         * @summary Update affiliate fee config
+         * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest: UpdateAffiliateFeeConfigRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AffiliateMetadata>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.updateAffiliateFeeConfig']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -5856,6 +6978,64 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = RewardsApiFp(configuration)
     return {
         /**
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+         * @summary Get affiliate earnings overview by interval
+         * @param {string} userAddress The address of the user to get interval overview for
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateIntervalOverview(userAddress: string, page?: number, limit?: number, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateIntervalOverview200Response> {
+            return localVarFp.getAffiliateIntervalOverview(userAddress, page, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns rankings and earnings for affiliates, sorted by the specified category
+         * @summary Get affiliate rankings and earnings
+         * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateLeaderDashboard200Response> {
+            return localVarFp.getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the affiliate metadata
+         * @summary Get affiliate metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateMetadata(options?: RawAxiosRequestConfig): AxiosPromise<AffiliateMetadata> {
+            return localVarFp.getAffiliateMetadata(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+         * @summary Get detailed affiliate earnings overview
+         * @param {number} [page] The page number to retrieve in a paginated response
+         * @param {number} [limit] The page size for pagination
+         * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {string} [name] The name of the user to filter by
+         * @param {string} [userAddress] The user address to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateOverview200Response> {
+            return localVarFp.getAffiliateOverview(page, limit, sortBy, name, userAddress, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
+         * @summary Get affiliate performance summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAffiliateSummary(options?: RawAxiosRequestConfig): AxiosPromise<AffiliateSummary> {
+            return localVarFp.getAffiliateSummary(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns the rewards earned by users for a specific campaign
          * @summary Get rewards information for a specific campaign
          * @param {string} campaignName Specify the campaign name
@@ -5863,7 +7043,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignRewards>> {
+        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserCampaignRewards>> {
             return localVarFp.getCampaignRewards(campaignName, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5926,6 +7106,36 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         getRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
             return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Submit an application to become an affiliate
+         * @summary Submit affiliate onboarding application
+         * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onboardAffiliate(onboardAffiliateRequest: OnboardAffiliateRequest, options?: RawAxiosRequestConfig): AxiosPromise<AffiliateOnboardResponse> {
+            return localVarFp.onboardAffiliate(onboardAffiliateRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Onboard a referee with a referral code
+         * @summary Onboard referee with a referral code
+         * @param {OnboardRefereeRequest} onboardRefereeRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onboardReferee(onboardRefereeRequest: OnboardRefereeRequest, options?: RawAxiosRequestConfig): AxiosPromise<RefereeOnboardResponse> {
+            return localVarFp.onboardReferee(onboardRefereeRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update the fee config for an affiliate
+         * @summary Update affiliate fee config
+         * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest: UpdateAffiliateFeeConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<AffiliateMetadata> {
+            return localVarFp.updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -5936,6 +7146,74 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class RewardsApi extends BaseAPI {
+    /**
+     * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+     * @summary Get affiliate earnings overview by interval
+     * @param {string} userAddress The address of the user to get interval overview for
+     * @param {number} [page] The page number to retrieve in a paginated response
+     * @param {number} [limit] The page size for pagination
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getAffiliateIntervalOverview(userAddress: string, page?: number, limit?: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateIntervalOverview(userAddress, page, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns rankings and earnings for affiliates, sorted by the specified category
+     * @summary Get affiliate rankings and earnings
+     * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+     * @param {number} [page] The page number to retrieve in a paginated response
+     * @param {number} [limit] The page size for pagination
+     * @param {string} [name] The name of the user to filter by
+     * @param {string} [userAddress] The user address to filter by
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the affiliate metadata
+     * @summary Get affiliate metadata
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getAffiliateMetadata(options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateMetadata(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+     * @summary Get detailed affiliate earnings overview
+     * @param {number} [page] The page number to retrieve in a paginated response
+     * @param {number} [limit] The page size for pagination
+     * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+     * @param {string} [name] The name of the user to filter by
+     * @param {string} [userAddress] The user address to filter by
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateOverview(page, limit, sortBy, name, userAddress, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns performance summary for an affiliate including total referrals, earnings, and rankings
+     * @summary Get affiliate performance summary
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getAffiliateSummary(options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateSummary(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Returns the rewards earned by users for a specific campaign
      * @summary Get rewards information for a specific campaign
@@ -6020,8 +7298,62 @@ export class RewardsApi extends BaseAPI {
     public getRewardsSummary(options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getRewardsSummary(options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     * Submit an application to become an affiliate
+     * @summary Submit affiliate onboarding application
+     * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public onboardAffiliate(onboardAffiliateRequest: OnboardAffiliateRequest, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).onboardAffiliate(onboardAffiliateRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Onboard a referee with a referral code
+     * @summary Onboard referee with a referral code
+     * @param {OnboardRefereeRequest} onboardRefereeRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public onboardReferee(onboardRefereeRequest: OnboardRefereeRequest, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).onboardReferee(onboardRefereeRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update the fee config for an affiliate
+     * @summary Update affiliate fee config
+     * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest: UpdateAffiliateFeeConfigRequest, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
+/**
+ * @export
+ */
+export const GetAffiliateLeaderDashboardSortByEnum = {
+    PerpsRank: 'perpsRank',
+    LendingRank: 'lendingRank',
+    SpotRank: 'spotRank'
+} as const;
+export type GetAffiliateLeaderDashboardSortByEnum = typeof GetAffiliateLeaderDashboardSortByEnum[keyof typeof GetAffiliateLeaderDashboardSortByEnum];
+/**
+ * @export
+ */
+export const GetAffiliateOverviewSortByEnum = {
+    RefreeEarnings: 'refreeEarnings',
+    ReferralEarnings: 'referralEarnings',
+    TotalEarnings: 'totalEarnings'
+} as const;
+export type GetAffiliateOverviewSortByEnum = typeof GetAffiliateOverviewSortByEnum[keyof typeof GetAffiliateOverviewSortByEnum];
 /**
  * @export
  */
