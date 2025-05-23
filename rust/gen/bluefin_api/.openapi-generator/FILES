@@ -29,6 +29,13 @@ docs/ActiveOrderUpdate.md
 docs/AdjustIsolatedMarginRequest.md
 docs/AdjustIsolatedMarginRequestSignedFields.md
 docs/AdjustMarginOperation.md
+docs/AffiliateIntervalOverview.md
+docs/AffiliateLeaderDashboard.md
+docs/AffiliateMetadata.md
+docs/AffiliateMetadataFees.md
+docs/AffiliateOnboardResponse.md
+docs/AffiliateOverview.md
+docs/AffiliateSummary.md
 docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
@@ -48,6 +55,9 @@ docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
 docs/FundingRateEntry.md
+docs/GetAffiliateIntervalOverview200Response.md
+docs/GetAffiliateLeaderDashboard200Response.md
+docs/GetAffiliateOverview200Response.md
 docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/KlineInterval.md
@@ -64,6 +74,9 @@ docs/MarketStreamMessage.md
 docs/MarketStreamMessagePayload.md
 docs/MarketSubscriptionMessage.md
 docs/MarketSubscriptionStreams.md
+docs/OnboardAffiliateRequest.md
+docs/OnboardAffiliateRequestSocialUserNames.md
+docs/OnboardRefereeRequest.md
 docs/OpenOrderResponse.md
 docs/Operators.md
 docs/OraclePriceUpdate.md
@@ -80,6 +93,7 @@ docs/OrderbookPartialDepthUpdate.md
 docs/Position.md
 docs/PositionSide.md
 docs/RecentTradesUpdates.md
+docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/RewardsApi.md
@@ -98,6 +112,7 @@ docs/TradeType.md
 docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
+docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md
 docs/WithdrawRequestSignedFields.md
@@ -137,6 +152,13 @@ src/models/active_order_update.rs
 src/models/adjust_isolated_margin_request.rs
 src/models/adjust_isolated_margin_request_signed_fields.rs
 src/models/adjust_margin_operation.rs
+src/models/affiliate_interval_overview.rs
+src/models/affiliate_leader_dashboard.rs
+src/models/affiliate_metadata.rs
+src/models/affiliate_metadata_fees.rs
+src/models/affiliate_onboard_response.rs
+src/models/affiliate_overview.rs
+src/models/affiliate_summary.rs
 src/models/asset.rs
 src/models/asset_config.rs
 src/models/campaign_metadata.rs
@@ -154,6 +176,9 @@ src/models/epoch_metadata.rs
 src/models/error.rs
 src/models/exchange_info_response.rs
 src/models/funding_rate_entry.rs
+src/models/get_affiliate_interval_overview_200_response.rs
+src/models/get_affiliate_leader_dashboard_200_response.rs
+src/models/get_affiliate_overview_200_response.rs
 src/models/interval_metadata.rs
 src/models/interval_rewards.rs
 src/models/kline_interval.rs
@@ -171,6 +196,9 @@ src/models/market_stream_message_payload.rs
 src/models/market_subscription_message.rs
 src/models/market_subscription_streams.rs
 src/models/mod.rs
+src/models/onboard_affiliate_request.rs
+src/models/onboard_affiliate_request_social_user_names.rs
+src/models/onboard_referee_request.rs
 src/models/open_order_response.rs
 src/models/operators.rs
 src/models/oracle_price_update.rs
@@ -187,6 +215,7 @@ src/models/orderbook_partial_depth_update.rs
 src/models/position.rs
 src/models/position_side.rs
 src/models/recent_trades_updates.rs
+src/models/referee_onboard_response.rs
 src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
 src/models/rewards_summary.rs
@@ -202,6 +231,7 @@ src/models/trade_type.rs
 src/models/trading_fees.rs
 src/models/transaction.rs
 src/models/transaction_type.rs
+src/models/update_affiliate_fee_config_request.rs
 src/models/user_campaign_rewards.rs
 src/models/withdraw_request.rs
 src/models/withdraw_request_signed_fields.rs

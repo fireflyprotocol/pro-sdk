@@ -13,14 +13,11 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CampaignRewards {
-    #[serde(rename = "rewards", skip_serializing_if = "Option::is_none")]
-    pub rewards: Option<models::UserCampaignRewards>,
 }
 
 impl CampaignRewards {
     pub fn new() -> CampaignRewards {
         CampaignRewards {
-            rewards: None,
         }
     }
 }

@@ -30,9 +30,9 @@ class EpochConfigs(BaseModel):
     epoch_duration: StrictInt = Field(description="Duration of the epoch in milliseconds.", alias="epochDuration")
     sui_rewards_allocation: StrictStr = Field(description="Allocation of Sui token rewards in the epoch (e9 format).", alias="suiRewardsAllocation")
     blue_rewards_allocation: StrictStr = Field(description="Allocation of Blue token rewards in the epoch (e9 format).", alias="blueRewardsAllocation")
-    cash_rewards_allocation: StrictStr = Field(description="Allocation of cash token rewards in the epoch (e9 format)", alias="cashRewardsAllocation")
+    wal_rewards_allocation: StrictStr = Field(description="Allocation of wal token rewards in the epoch (e9 format)", alias="walRewardsAllocation")
     config: Dict[str, Any] = Field(description="Object to add custom configurations for campaigns.")
-    __properties: ClassVar[List[str]] = ["campaignName", "epochDuration", "suiRewardsAllocation", "blueRewardsAllocation", "cashRewardsAllocation", "config"]
+    __properties: ClassVar[List[str]] = ["campaignName", "epochDuration", "suiRewardsAllocation", "blueRewardsAllocation", "walRewardsAllocation", "config"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +89,7 @@ class EpochConfigs(BaseModel):
             "epochDuration": obj.get("epochDuration"),
             "suiRewardsAllocation": obj.get("suiRewardsAllocation"),
             "blueRewardsAllocation": obj.get("blueRewardsAllocation"),
-            "cashRewardsAllocation": obj.get("cashRewardsAllocation"),
+            "walRewardsAllocation": obj.get("walRewardsAllocation"),
             "config": obj.get("config")
         })
         return _obj

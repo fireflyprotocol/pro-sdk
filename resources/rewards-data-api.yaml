@@ -14,11 +14,21 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    CampaignRewards:
+    Error:
       type: object
       properties:
-        rewards:
-          $ref: "#/components/schemas/UserCampaignRewards"
+        errorCode:
+          type: string
+          description: A code representing the type of error.
+        message:
+          type: string
+          description: A human-readable message describing the error.
+      required:
+        - message
+
+    CampaignRewards:
+        type: object
+        $ref: "#/components/schemas/UserCampaignRewards"
         # Add other campaign data types as needed
 
     # Campaign rewards schema can be extended to have custom fields for the campaign once start adding more campaign specific data
@@ -33,7 +43,7 @@ components:
         - Status
         - BlueRewards
         - SuiRewards
-        - CashRewards
+        - WalRewards
         - IntervalStartDate
         - IntervalEndDate
       properties:
@@ -72,9 +82,9 @@ components:
           type: string
           description: Total Sui token rewards earned in the epoch (e9 format).
           example: 10000000
-        CashRewards:
+        WalRewards:
           type: string
-          description: Total cash rewards earned in the epoch (e9 format).
+          description: Total wal rewards earned in the epoch (e9 format).
           example: 10000000
         IntervalStartDate:
           type: integer
@@ -86,7 +96,6 @@ components:
           example: 1724121094751
 
     IntervalRewards:
-
       type: object
       required:
         - UserAddress
@@ -94,7 +103,7 @@ components:
         - Status
         - BlueRewards
         - SuiRewards
-        - CashRewards
+        - WalRewards
       properties:
         UserAddress:
           type: string
@@ -115,22 +124,22 @@ components:
           type: string
           description: Total Sui token rewards earned in the interval (e9 format).
           example: 10000000
-        CashRewards:
+        WalRewards:
           type: string
-          description: Total cash rewards earned in the interval (e9 format).
+          description: Total wal rewards earned in the interval (e9 format).
           example: 10000000
         IntervalNumber:
           type: integer
           description: Interval Id of the interval for the rewards earned data.
           example: 6
-    
+
     RewardsSummary:
       type: object
       required:
         - UserAddress
         - BlueRewards
         - SuiRewards
-        - CashRewards
+        - WalRewards
       properties:
         UserAddress:
           type: string
@@ -144,9 +153,9 @@ components:
           type: string
           description: Total Sui token rewards earned by the user (e9 format).
           example: 10000000
-        CashRewards:
+        WalRewards:
           type: string
-          description: Total cash rewards earned by the user (e9 format).
+          description: Total wal rewards earned by the user (e9 format).
           example: 10000000
 
     CampaignMetadata:
@@ -258,7 +267,7 @@ components:
         - epochDuration
         - suiRewardsAllocation
         - blueRewardsAllocation
-        - cashRewardsAllocation
+        - walRewardsAllocation
         - config
       properties:
         campaignName:
@@ -277,16 +286,381 @@ components:
           type: string
           description: Allocation of Blue token rewards in the epoch (e9 format).
           example: 5000000000
-        cashRewardsAllocation:
+        walRewardsAllocation:
           type: string
-          description:  Allocation of cash token rewards in the epoch (e9 format)
+          description: Allocation of wal token rewards in the epoch (e9 format)
           example: 200000000000
         config:
           type: object
           description: Object to add custom configurations for campaigns.
           additionalProperties: true
-  # Not adding userAddress as it is not required for the API if we are extracting it from auth token
-  # Post endpoints are for admin-only access, need to add auth for these endpoints
+    # Not adding userAddress as it is not required for the API if we are extracting it from auth token
+    # Post endpoints are for admin-only access, need to add auth for these endpoints
+
+    AffiliateMetadata:
+      type: object
+      required:
+        - userAddress
+        - hasTraded
+      properties:
+        userAddress:
+          type: string
+          description: The user's wallet address
+          example: "0x1234567890abcdef"
+        parentReferralCode:
+          type: string
+          nullable: true
+          description: The referral code of the parent affiliate
+          example: "ABC123"
+        referralCode:
+          type: string
+          nullable: true
+          description: The user's referral code if approved as an affiliate
+          example: "AFF123"
+        name:
+          type: string
+          description: The name of the affiliate
+          example: "John"
+        parentName:
+          type: string
+          nullable: true
+          description: The name of the parent affiliate
+          example: "Jane"
+        fees:
+          type: object
+          description: Map of various fee-related configurations
+          properties:
+            referralPerpsFee:
+              type: string
+              description: Earnings from referral perps fees (e9 format)
+              example: "1000000000"
+            subaffiliatePerpsEarnings:
+              type: string
+              description: Earnings from subaffiliate perps (e9 format)
+              example: "500000000"
+            spotLPFee:
+              type: string
+              description: Earnings from spot LP fees (e9 format)
+              example: "200000000"
+            referralSpotLPFee:
+              type: string
+              description: Earnings from referral spot LP fees (e9 format)
+              example: "150000000"
+            referralLendingRewards:
+              type: string
+              description: Earnings from referral lending rewards (e9 format)
+              example: "300000000"
+            perpsFeeCashback:
+              type: string
+              description: Cashback from perps fees (e9 format)
+              example: "250000000"
+        status:
+          type: string
+          nullable: true
+          description: Status of the affiliate application
+          enum:
+            - PENDING
+            - APPROVED
+            - REJECTED
+          example: "APPROVED"
+        hasTraded:
+          type: boolean
+          description: Indicates whether the user has traded or not
+          example: true
+        tier:
+          type: string
+          description: Tier of the affiliate
+          enum:
+            - "S"
+            - "A"
+            - "N"
+            - "U"
+          example: "S"
+
+    AffiliateOnboardResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          enum:
+            - APPROVED
+            - REJECTED
+            - PENDING
+          description: Status of the application
+          example: "PENDING"
+        message:
+          type: string
+          description: Response message including rejection reason if application was rejected
+          example: "Application Submitted Successfully"
+
+    RefereeOnboardResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Response message indicating if the referral code exists
+          example: "onboarded successfully"
+
+    AffiliateSummary:
+      type: object
+      required:
+        - userAddress
+        - totalReferredUsers
+        - totalEarnings
+        - perpsRanking
+        - spotRanking
+        - lendRanking
+      properties:
+        userAddress:
+          type: string
+          description: The user's wallet address
+          example: "0x1234567890abcdef"
+        totalReferredUsers:
+          type: integer
+          description: Total number of referees
+          example: 50
+        totalEarnings:
+          type: string
+          description: Total earnings in e9 format
+          example: "1000000000"
+        perpsRanking:
+          type: integer
+          description: Ranking in perps trading category
+          example: 5
+        spotRanking:
+          type: integer
+          description: Ranking in spot trading category
+          example: 3
+        lendRanking:
+          type: integer
+          description: Ranking in lending category
+          example: 7
+
+    AffiliateOverview:
+      type: object
+      required:
+        - userAddress
+        - perpsRefereeEarnings
+        - spotLPRefereeEarnings
+        - lendingRefereeEarnings
+        - perpsReferralEarnings
+        - spotLPReferralEarnings
+        - lendingReferralEarnings
+        - perpsTotalEarnings
+        - spotLPTotalEarnings
+        - lendingTotalEarnings
+        - totalReferralEarnings
+        - totalRefereeEarnings
+        - totalEarnings
+      properties:
+        userAddress:
+          type: string
+          description: The user's wallet address
+          example: "0x1234567890abcdef"
+        name:
+          type: string
+          description: Name of the affiliate
+          example: "John"
+        perpsRefereeEarnings:
+          type: string
+          description: Referee earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPRefereeEarnings:
+          type: string
+          description: Referee earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingRefereeEarnings:
+          type: string
+          description: Referee earnings from lending (e9 format)
+          example: "300000000"
+        perpsReferralEarnings:
+          type: string
+          description: Referral earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPReferralEarnings:
+          type: string
+          description: Referral earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingReferralEarnings:
+          type: string
+          description: Referral earnings from lending (e9 format)
+          example: "300000000"
+        perpsTotalEarnings:
+          type: string
+          description: Total earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPTotalEarnings:
+          type: string
+          description: Total earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingTotalEarnings:
+          type: string
+          description: Total earnings from lending (e9 format)
+          example: "300000000"
+        totalReferralEarnings:
+          type: string
+          description: Total earnings from referrals (e9 format)
+          example: "800000000"
+        totalRefereeEarnings:
+          type: string
+          description: Total earnings from referee activities (e9 format)
+          example: "1200000000"
+        totalEarnings:
+          type: string
+          description: Total earnings combining referrals and referee activities (e9 format)
+          example: "2000000000"
+
+    AffiliateIntervalOverview:
+      type: object
+      required:
+        - userAddress
+        - intervalNumber
+        - intervalStartDate
+        - intervalEndDate
+        - referredSince
+        - perpsRefereeEarnings
+        - spotLPRefereeEarnings
+        - lendingRefereeEarnings
+        - perpsReferralEarnings
+        - spotLPReferralEarnings
+        - lendingReferralEarnings
+        - perpsTotalEarnings
+        - spotLPTotalEarnings
+        - lendingTotalEarnings
+        - totalReferralEarnings
+        - totalRefereeEarnings
+        - totalEarnings
+      properties:
+        userAddress:
+          type: string
+          description: The user's wallet address
+          example: "0x1234567890abcdef"
+        name:
+          type: string
+          description: Name of the affiliate
+          example: "John"
+        intervalNumber:
+          type: integer
+          description: The interval number for the affiliate's earnings data
+          example: 5
+        intervalStartDate:
+          type: integer
+          description: Start date of the interval in milliseconds
+          example: 1724121094751
+        intervalEndDate:
+          type: integer
+          description: End date of the interval in milliseconds
+          example: 1724725894751
+        referredSince:
+          type: string
+          description: Date when the user was referred
+          example: "2024-08-15"
+        perpsRefereeEarnings:
+          type: string
+          description: Referee earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPRefereeEarnings:
+          type: string
+          description: Referee earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingRefereeEarnings:
+          type: string
+          description: Referee earnings from lending (e9 format)
+          example: "300000000"
+        perpsReferralEarnings:
+          type: string
+          description: Referral earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPReferralEarnings:
+          type: string
+          description: Referral earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingReferralEarnings:
+          type: string
+          description: Referral earnings from lending (e9 format)
+          example: "300000000"
+        perpsTotalEarnings:
+          type: string
+          description: Total earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotLPTotalEarnings:
+          type: string
+          description: Total earnings from spot LP (e9 format)
+          example: "500000000"
+        lendingTotalEarnings:
+          type: string
+          description: Total earnings from lending (e9 format)
+          example: "300000000"
+        totalReferralEarnings:
+          type: string
+          description: Total earnings from referrals (e9 format)
+          example: "800000000"
+        totalRefereeEarnings:
+          type: string
+          description: Total earnings from referee activities (e9 format)
+          example: "1200000000"
+        totalEarnings:
+          type: string
+          description: Total earnings combining referrals and referee activities (e9 format)
+          example: "2000000000"
+
+    AffiliateLeaderDashboard:
+      type: object
+      required:
+        - userAddress
+        - parentAddress
+        - perpsRank
+        - spotRank
+        - lendingRank
+        - perpsTotalEarnings
+        - spotTotalEarnings
+        - lendingTotalEarnings
+      properties:
+        userAddress:
+          type: string
+          description: The user's wallet address
+          example: "0x1234567890abcdef"
+        name:
+          type: string
+          description: Name of the affiliate
+          example: "John"
+        parentAddress:
+          type: string
+          description: The parent affiliate's wallet address
+          example: "0xabcdef1234567890"
+        parentName:
+          type: string
+          description: Name of the parent affiliate
+          example: "Jane"
+        perpsRank:
+          type: integer
+          description: Ranking in perps trading category
+          example: 5
+        spotRank:
+          type: integer
+          description: Ranking in spot trading category
+          example: 3
+        lendingRank:
+          type: integer
+          description: Ranking in lending category
+          example: 7
+        perpsTotalEarnings:
+          type: string
+          description: Total earnings from perps trading (e9 format)
+          example: "1000000000"
+        spotTotalEarnings:
+          type: string
+          description: Total earnings from spot trading (e9 format)
+          example: "500000000"
+        lendingTotalEarnings:
+          type: string
+          description: Total earnings from lending (e9 format)
+          example: "300000000"
 
 paths:
   # Rewards endpoints
@@ -372,8 +746,8 @@ paths:
               schema:
                 type: array
                 items:
-                 $ref: "#/components/schemas/RewardsSummary"
-  
+                  $ref: "#/components/schemas/RewardsSummary"
+
   # Rewards metadata endpoints
   /v1/rewards/metadata/campaign:
     get:
@@ -410,7 +784,7 @@ paths:
                 description: List of campaign metadata objects.
                 items:
                   $ref: "#/components/schemas/CampaignMetadata"
-    
+
   /v1/rewards/metadata/epoch:
     get:
       tags:
@@ -461,7 +835,7 @@ paths:
                 description: List of campaign metadata objects.
                 items:
                   $ref: "#/components/schemas/EpochConfigs"
-    
+
   /v1/rewards/metadata/interval:
     get:
       tags:
@@ -496,5 +870,520 @@ paths:
                 items:
                   $ref: "#/components/schemas/IntervalMetadata"
 
+  /v1/rewards/affiliate:
+    get:
+      tags:
+        - Rewards
+      operationId: getAffiliateMetadata
+      summary: Get affiliate metadata
+      description: Returns the affiliate metadata
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AffiliateMetadata"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
-  
+  /v1/rewards/affiliate/onboard:
+    post:
+      tags:
+        - Rewards
+      operationId: onboardAffiliate
+      summary: Submit affiliate onboarding application
+      description: Submit an application to become an affiliate
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+              properties:
+                parentReferralCode:
+                  type: string
+                  nullable: true
+                  description: Referral code of the parent affiliate
+                  example: "ABC123"
+                name:
+                  type: string
+                  description: Name of the applicant
+                  example: "John"
+                email:
+                  type: string
+                  format: email
+                  description: Email address of the applicant
+                  example: "john.doe@example.com"
+                socialUserNames:
+                  type: object
+                  description: Map of social media usernames
+                  properties:
+                    twitter:
+                      type: string
+                      description: Twitter username
+                      example: "@johndoe"
+                    instagram:
+                      type: string
+                      description: Instagram username
+                      example: "@johndoe"
+                    youtube:
+                      type: string
+                      description: YouTube channel name
+                      example: "JohnDoeChannel"
+                    tiktok:
+                      type: string
+                      description: TikTok username
+                      example: "@johndoe"
+      responses:
+        "200":
+          description: Application submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AffiliateOnboardResponse"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/feeConfig:
+    post:
+      tags:
+        - Rewards
+      operationId: updateAffiliateFeeConfig
+      summary: Update affiliate fee config
+      description: Update the fee config for an affiliate
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - cashback
+              properties:
+                cashback:
+                  type: string
+                  description: Cashback amount in e9 format
+                  example: "1000000000"
+      responses:
+        "200":
+          description: Cashback request processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AffiliateMetadata"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+            description: "request missing required parameters"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/onboard/referee:
+    post:
+      tags:
+        - Rewards
+      operationId: onboardReferee
+      summary: Onboard referee with a referral code
+      description: Onboard a referee with a referral code
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+                  description: Referral code of the parent affiliate
+                  example: "ABC123"
+      responses:
+        "200":
+          description: Referee onboarding response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefereeOnboardResponse"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/summary:
+    get:
+      tags:
+        - Rewards
+      operationId: getAffiliateSummary
+      summary: Get affiliate performance summary
+      description: Returns performance summary for an affiliate including total referrals, earnings, and rankings
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response of affiliate summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AffiliateSummary"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/overview:
+    get:
+      tags:
+        - Rewards
+      operationId: getAffiliateOverview
+      summary: Get detailed affiliate earnings overview
+      description: Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+            example: 1
+        - name: limit
+          in: query
+          required: false
+          description: The page size for pagination
+          schema:
+            type: integer
+            default: 500
+            maximum: 1000
+            minimum: 1
+            example: 500
+        - name: sortBy
+          in: query
+          required: false
+          description: The category to sort earnings by
+          schema:
+            type: string
+            enum:
+              - refreeEarnings
+              - referralEarnings
+              - totalEarnings
+            example: "referralEarnings"
+            default: "totalEarnings"
+        - name: name
+          in: query
+          required: false
+          description: The name of the user to filter by
+          schema:
+            type: string
+            example: "John"
+        - name: userAddress
+          in: query
+          required: false
+          description: The user address to filter by
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response array of affiliate overview objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AffiliateOverview"
+                  total:
+                    type: integer
+                    description: Total number of records
+                    example: 100
+                  limit:
+                    type: integer
+                    description: The page size for pagination
+                    example: 500
+                  page:
+                    type: integer
+                    description: The page number for pagination
+                    example: 1
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/intervalOverview:
+    get:
+      tags:
+        - Rewards
+      operationId: getAffiliateIntervalOverview
+      summary: Get affiliate earnings overview by interval
+      description: Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: The address of the user to get interval overview for
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+            example: 1
+        - name: limit
+          in: query
+          required: false
+          description: The page size for pagination
+          schema:
+            type: integer
+            default: 500
+            maximum: 1000
+            minimum: 1
+            example: 500
+      responses:
+        "200":
+          description: Successful response array of affiliate interval overview objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AffiliateIntervalOverview"
+                  total:
+                    type: integer
+                    description: Total number of records
+                    example: 100
+                  limit:
+                    type: integer
+                    description: The page size for pagination
+                    example: 500
+                  page:
+                    type: integer
+                    description: The page number for pagination
+                    example: 1
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/affiliate/leaderDashboard:
+    get:
+      tags:
+        - Rewards
+      operationId: getAffiliateLeaderDashboard
+      summary: Get affiliate rankings and earnings
+      description: Returns rankings and earnings for affiliates, sorted by the specified category
+      parameters:
+        - name: sortBy
+          in: query
+          required: true
+          description: The category to sort rankings by
+          schema:
+            type: string
+            enum:
+              - perpsRank
+              - lendingRank
+              - spotRank
+            example: "perpsRank"
+            default: "perpsRank"
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+            example: 1
+        - name: limit
+          in: query
+          required: false
+          description: The page size for pagination
+          schema:
+            type: integer
+            default: 500
+            maximum: 1000
+            minimum: 0
+            example: 500
+        - name: name
+          in: query
+          required: false
+          description: The name of the user to filter by
+          schema:
+            type: string
+            example: "John"
+        - name: userAddress
+          in: query
+          required: false
+          description: The user address to filter by
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response array of affiliate ranking and earnings objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AffiliateLeaderDashboard"
+                  total:
+                    type: integer
+                    description: Total number of records
+                    example: 100
+                  limit:
+                    type: integer
+                    description: The page size for pagination
+                    example: 500
+                  page:
+                    type: integer
+                    description: The page number for pagination
+                    example: 1
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

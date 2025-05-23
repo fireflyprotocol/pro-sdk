@@ -29,8 +29,8 @@ class RewardsSummary(BaseModel):
     user_address: StrictStr = Field(description="User address for the rewards earned data.", alias="UserAddress")
     blue_rewards: StrictStr = Field(description="Total Blue token rewards earned by the user (e9 format).", alias="BlueRewards")
     sui_rewards: StrictStr = Field(description="Total Sui token rewards earned by the user (e9 format).", alias="SuiRewards")
-    cash_rewards: StrictStr = Field(description="Total cash rewards earned by the user (e9 format).", alias="CashRewards")
-    __properties: ClassVar[List[str]] = ["UserAddress", "BlueRewards", "SuiRewards", "CashRewards"]
+    wal_rewards: StrictStr = Field(description="Total wal rewards earned by the user (e9 format).", alias="WalRewards")
+    __properties: ClassVar[List[str]] = ["UserAddress", "BlueRewards", "SuiRewards", "WalRewards"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +86,7 @@ class RewardsSummary(BaseModel):
             "UserAddress": obj.get("UserAddress"),
             "BlueRewards": obj.get("BlueRewards"),
             "SuiRewards": obj.get("SuiRewards"),
-            "CashRewards": obj.get("CashRewards")
+            "WalRewards": obj.get("WalRewards")
         })
         return _obj
 

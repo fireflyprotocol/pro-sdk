@@ -30,9 +30,9 @@ class IntervalRewards(BaseModel):
     status: StrictStr = Field(alias="Status")
     blue_rewards: StrictStr = Field(description="Total Blue token rewards earned in the interval (e9 format).", alias="BlueRewards")
     sui_rewards: StrictStr = Field(description="Total Sui token rewards earned in the interval (e9 format).", alias="SuiRewards")
-    cash_rewards: StrictStr = Field(description="Total cash rewards earned in the interval (e9 format).", alias="CashRewards")
+    wal_rewards: StrictStr = Field(description="Total wal rewards earned in the interval (e9 format).", alias="WalRewards")
     interval_number: StrictInt = Field(description="Interval Id of the interval for the rewards earned data.", alias="IntervalNumber")
-    __properties: ClassVar[List[str]] = ["UserAddress", "Status", "BlueRewards", "SuiRewards", "CashRewards", "IntervalNumber"]
+    __properties: ClassVar[List[str]] = ["UserAddress", "Status", "BlueRewards", "SuiRewards", "WalRewards", "IntervalNumber"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -96,7 +96,7 @@ class IntervalRewards(BaseModel):
             "Status": obj.get("Status"),
             "BlueRewards": obj.get("BlueRewards"),
             "SuiRewards": obj.get("SuiRewards"),
-            "CashRewards": obj.get("CashRewards"),
+            "WalRewards": obj.get("WalRewards"),
             "IntervalNumber": obj.get("IntervalNumber")
         })
         return _obj

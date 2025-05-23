@@ -25,22 +25,22 @@ pub struct EpochConfigs {
     /// Allocation of Blue token rewards in the epoch (e9 format).
     #[serde(rename = "blueRewardsAllocation")]
     pub blue_rewards_allocation: String,
-    /// Allocation of cash token rewards in the epoch (e9 format)
-    #[serde(rename = "cashRewardsAllocation")]
-    pub cash_rewards_allocation: String,
+    /// Allocation of wal token rewards in the epoch (e9 format)
+    #[serde(rename = "walRewardsAllocation")]
+    pub wal_rewards_allocation: String,
     /// Object to add custom configurations for campaigns.
     #[serde(rename = "config")]
     pub config: std::collections::HashMap<String, serde_json::Value>,
 }
 
 impl EpochConfigs {
-    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation: String, blue_rewards_allocation: String, cash_rewards_allocation: String, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
+    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation: String, blue_rewards_allocation: String, wal_rewards_allocation: String, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
         EpochConfigs {
             campaign_name,
             epoch_duration,
             sui_rewards_allocation,
             blue_rewards_allocation,
-            cash_rewards_allocation,
+            wal_rewards_allocation,
             config,
         }
     }

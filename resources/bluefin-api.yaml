@@ -211,6 +211,25 @@ paths:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1epoch~1configs"
   /v1/rewards/metadata/interval:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1metadata~1interval"
+  /v1/rewards/affiliate:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate"
+  /v1/rewards/affiliate/onboard:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1onboard"
+  /v1/rewards/affiliate/feeConfig:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1feeConfig"
+  /v1/rewards/affiliate/onboard/referee:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1onboard~1referee"
+  /v1/rewards/affiliate/summary:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1summary"
+  /v1/rewards/affiliate/overview:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1overview"
+  /v1/rewards/affiliate/intervalOverview:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1intervalOverview"
+  /v1/rewards/affiliate/leaderDashboard:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1leaderDashboard"
+  
+  
+  
               
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"

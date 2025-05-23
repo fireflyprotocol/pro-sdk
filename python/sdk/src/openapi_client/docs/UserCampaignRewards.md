@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **status** | **str** |  | 
 **blue_rewards** | **str** | Total Blue token rewards earned in the epoch (e9 format). | 
 **sui_rewards** | **str** | Total Sui token rewards earned in the epoch (e9 format). | 
-**cash_rewards** | **str** | Total cash rewards earned in the epoch (e9 format). | 
+**wal_rewards** | **str** | Total wal rewards earned in the epoch (e9 format). | 
 **interval_start_date** | **int** | Time in milliseconds for interval start date. | 
 **interval_end_date** | **int** | Time in milliseconds for interval end date. | 
 
