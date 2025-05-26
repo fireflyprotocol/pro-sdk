@@ -7,6 +7,14 @@ info:
 tags:
   - name: Rewards
     description: Rewards Info Endpoints
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
 components:
   securitySchemes:
     bearerAuth:
@@ -15,16 +23,7 @@ components:
       bearerFormat: JWT
   schemas:
     Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: A code representing the type of error.
-        message:
-          type: string
-          description: A human-readable message describing the error.
-      required:
-        - message
+      $ref: './common.yaml#/components/schemas/Error'
 
     CampaignRewards:
         type: object
@@ -370,11 +369,11 @@ components:
         tier:
           type: string
           description: Tier of the affiliate
-          enum:
-            - "S"
-            - "A"
-            - "N"
-            - "U"
+          enum: # these are the possible tiers for affiliates which can be used to determine the affiliate's fee rewards criteria
+            - "S" # Super Affiliate
+            - "A" # Advance Affiliate
+            - "N" # Normal Affiliate
+            - "U" # User
           example: "S"
 
     AffiliateOnboardResponse:
