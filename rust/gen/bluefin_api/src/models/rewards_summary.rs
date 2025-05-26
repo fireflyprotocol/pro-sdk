@@ -22,18 +22,18 @@ pub struct RewardsSummary {
     /// Total Sui token rewards earned by the user (e9 format).
     #[serde(rename = "SuiRewards")]
     pub sui_rewards: String,
-    /// Total cash rewards earned by the user (e9 format).
-    #[serde(rename = "CashRewards")]
-    pub cash_rewards: String,
+    /// Total wal rewards earned by the user (e9 format).
+    #[serde(rename = "WalRewards")]
+    pub wal_rewards: String,
 }
 
 impl RewardsSummary {
-    pub fn new(user_address: String, blue_rewards: String, sui_rewards: String, cash_rewards: String) -> RewardsSummary {
+    pub fn new(user_address: String, blue_rewards: String, sui_rewards: String, wal_rewards: String) -> RewardsSummary {
         RewardsSummary {
             user_address,
             blue_rewards,
             sui_rewards,
-            cash_rewards,
+            wal_rewards,
         }
     }
 }

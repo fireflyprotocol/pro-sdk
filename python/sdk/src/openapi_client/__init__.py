@@ -62,6 +62,13 @@ from openapi_client.models.active_order_update import ActiveOrderUpdate
 from openapi_client.models.adjust_isolated_margin_request import AdjustIsolatedMarginRequest
 from openapi_client.models.adjust_isolated_margin_request_signed_fields import AdjustIsolatedMarginRequestSignedFields
 from openapi_client.models.adjust_margin_operation import AdjustMarginOperation
+from openapi_client.models.affiliate_interval_overview import AffiliateIntervalOverview
+from openapi_client.models.affiliate_leader_dashboard import AffiliateLeaderDashboard
+from openapi_client.models.affiliate_metadata import AffiliateMetadata
+from openapi_client.models.affiliate_metadata_fees import AffiliateMetadataFees
+from openapi_client.models.affiliate_onboard_response import AffiliateOnboardResponse
+from openapi_client.models.affiliate_overview import AffiliateOverview
+from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.campaign_metadata import CampaignMetadata
@@ -79,6 +86,9 @@ from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
+from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
+from openapi_client.models.get_affiliate_leader_dashboard200_response import GetAffiliateLeaderDashboard200Response
+from openapi_client.models.get_affiliate_overview200_response import GetAffiliateOverview200Response
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.kline_interval import KlineInterval
@@ -95,6 +105,9 @@ from openapi_client.models.market_stream_message import MarketStreamMessage
 from openapi_client.models.market_stream_message_payload import MarketStreamMessagePayload
 from openapi_client.models.market_subscription_message import MarketSubscriptionMessage
 from openapi_client.models.market_subscription_streams import MarketSubscriptionStreams
+from openapi_client.models.onboard_affiliate_request import OnboardAffiliateRequest
+from openapi_client.models.onboard_affiliate_request_social_user_names import OnboardAffiliateRequestSocialUserNames
+from openapi_client.models.onboard_referee_request import OnboardRefereeRequest
 from openapi_client.models.open_order_response import OpenOrderResponse
 from openapi_client.models.operators import Operators
 from openapi_client.models.oracle_price_update import OraclePriceUpdate
@@ -111,6 +124,7 @@ from openapi_client.models.orderbook_partial_depth_update import OrderbookPartia
 from openapi_client.models.position import Position
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.recent_trades_updates import RecentTradesUpdates
+from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.rewards_summary import RewardsSummary
@@ -126,6 +140,7 @@ from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trading_fees import TradingFees
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
+from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.models.withdraw_request_signed_fields import WithdrawRequestSignedFields

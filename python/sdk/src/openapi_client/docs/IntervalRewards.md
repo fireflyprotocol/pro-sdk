@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **status** | **str** |  | 
 **blue_rewards** | **str** | Total Blue token rewards earned in the interval (e9 format). | 
 **sui_rewards** | **str** | Total Sui token rewards earned in the interval (e9 format). | 
-**cash_rewards** | **str** | Total cash rewards earned in the interval (e9 format). | 
+**wal_rewards** | **str** | Total wal rewards earned in the interval (e9 format). | 
 **interval_number** | **int** | Interval Id of the interval for the rewards earned data. | 
 
 ## Example

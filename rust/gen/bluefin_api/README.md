@@ -42,6 +42,11 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
 *ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
+*RewardsApi* | [**get_affiliate_interval_overview**](docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
+*RewardsApi* | [**get_affiliate_leader_dashboard**](docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
+*RewardsApi* | [**get_affiliate_metadata**](docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
+*RewardsApi* | [**get_affiliate_overview**](docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview
+*RewardsApi* | [**get_affiliate_summary**](docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary
 *RewardsApi* | [**get_campaign_rewards**](docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
 *RewardsApi* | [**get_rewards**](docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
 *RewardsApi* | [**get_rewards_campaign_metadata**](docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
@@ -49,6 +54,9 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
 *RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
 *RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
+*RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
+*RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
+*RewardsApi* | [**update_affiliate_fee_config**](docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
 *StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
 *StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
 *TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
@@ -91,6 +99,13 @@ Class | Method | HTTP request | Description
  - [AdjustIsolatedMarginRequest](docs/AdjustIsolatedMarginRequest.md)
  - [AdjustIsolatedMarginRequestSignedFields](docs/AdjustIsolatedMarginRequestSignedFields.md)
  - [AdjustMarginOperation](docs/AdjustMarginOperation.md)
+ - [AffiliateIntervalOverview](docs/AffiliateIntervalOverview.md)
+ - [AffiliateLeaderDashboard](docs/AffiliateLeaderDashboard.md)
+ - [AffiliateMetadata](docs/AffiliateMetadata.md)
+ - [AffiliateMetadataFees](docs/AffiliateMetadataFees.md)
+ - [AffiliateOnboardResponse](docs/AffiliateOnboardResponse.md)
+ - [AffiliateOverview](docs/AffiliateOverview.md)
+ - [AffiliateSummary](docs/AffiliateSummary.md)
  - [Asset](docs/Asset.md)
  - [AssetConfig](docs/AssetConfig.md)
  - [CampaignMetadata](docs/CampaignMetadata.md)
@@ -108,6 +123,9 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [ExchangeInfoResponse](docs/ExchangeInfoResponse.md)
  - [FundingRateEntry](docs/FundingRateEntry.md)
+ - [GetAffiliateIntervalOverview200Response](docs/GetAffiliateIntervalOverview200Response.md)
+ - [GetAffiliateLeaderDashboard200Response](docs/GetAffiliateLeaderDashboard200Response.md)
+ - [GetAffiliateOverview200Response](docs/GetAffiliateOverview200Response.md)
  - [IntervalMetadata](docs/IntervalMetadata.md)
  - [IntervalRewards](docs/IntervalRewards.md)
  - [KlineInterval](docs/KlineInterval.md)
@@ -124,6 +142,9 @@ Class | Method | HTTP request | Description
  - [MarketStreamMessagePayload](docs/MarketStreamMessagePayload.md)
  - [MarketSubscriptionMessage](docs/MarketSubscriptionMessage.md)
  - [MarketSubscriptionStreams](docs/MarketSubscriptionStreams.md)
+ - [OnboardAffiliateRequest](docs/OnboardAffiliateRequest.md)
+ - [OnboardAffiliateRequestSocialUserNames](docs/OnboardAffiliateRequestSocialUserNames.md)
+ - [OnboardRefereeRequest](docs/OnboardRefereeRequest.md)
  - [OpenOrderResponse](docs/OpenOrderResponse.md)
  - [Operators](docs/Operators.md)
  - [OraclePriceUpdate](docs/OraclePriceUpdate.md)
@@ -140,6 +161,7 @@ Class | Method | HTTP request | Description
  - [Position](docs/Position.md)
  - [PositionSide](docs/PositionSide.md)
  - [RecentTradesUpdates](docs/RecentTradesUpdates.md)
+ - [RefereeOnboardResponse](docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](docs/RefreshTokenResponse.md)
  - [RewardsSummary](docs/RewardsSummary.md)
@@ -155,6 +177,7 @@ Class | Method | HTTP request | Description
  - [TradingFees](docs/TradingFees.md)
  - [Transaction](docs/Transaction.md)
  - [TransactionType](docs/TransactionType.md)
+ - [UpdateAffiliateFeeConfigRequest](docs/UpdateAffiliateFeeConfigRequest.md)
  - [UserCampaignRewards](docs/UserCampaignRewards.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](docs/WithdrawRequestSignedFields.md)
