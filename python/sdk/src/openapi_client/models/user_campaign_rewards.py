@@ -32,9 +32,9 @@ class UserCampaignRewards(BaseModel):
     interval_number: StrictInt = Field(description="Interval number for the rewards earned data.", alias="IntervalNumber")
     symbol: StrictStr = Field(description="Market Symbol.", alias="Symbol")
     status: StrictStr = Field(alias="Status")
-    blue_rewards: StrictStr = Field(description="Total Blue token rewards earned in the epoch (e9 format).", alias="BlueRewards")
-    sui_rewards: StrictStr = Field(description="Total Sui token rewards earned in the epoch (e9 format).", alias="SuiRewards")
-    wal_rewards: StrictStr = Field(description="Total wal rewards earned in the epoch (e9 format).", alias="WalRewards")
+    blue_rewards: StrictStr = Field(description="Total blue-perp token rewards earned in the epoch (e9 format).", alias="BlueRewards")
+    sui_rewards: StrictStr = Field(description="Total sui-perp token rewards earned in the epoch (e9 format).", alias="SuiRewards")
+    wal_rewards: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="WalRewards")
     interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="IntervalStartDate")
     interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="IntervalEndDate")
     __properties: ClassVar[List[str]] = ["UserAddress", "CampaignName", "EpochNumber", "IntervalNumber", "Symbol", "Status", "BlueRewards", "SuiRewards", "WalRewards", "IntervalStartDate", "IntervalEndDate"]

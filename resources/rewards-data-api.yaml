@@ -75,15 +75,15 @@ components:
             - COOLDOWN
         BlueRewards:
           type: string
-          description: Total Blue token rewards earned in the epoch (e9 format).
+          description: Total blue-perp token rewards earned in the epoch (e9 format).
           example: 10000000
         SuiRewards:
           type: string
-          description: Total Sui token rewards earned in the epoch (e9 format).
+          description: Total sui-perp token rewards earned in the epoch (e9 format).
           example: 10000000
         WalRewards:
           type: string
-          description: Total wal rewards earned in the epoch (e9 format).
+          description: Total wal-perp rewards earned in the epoch (e9 format).
           example: 10000000
         IntervalStartDate:
           type: integer

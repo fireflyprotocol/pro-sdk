@@ -30,13 +30,13 @@ pub struct UserCampaignRewards {
     pub symbol: String,
     #[serde(rename = "Status")]
     pub status: Status,
-    /// Total Blue token rewards earned in the epoch (e9 format).
+    /// Total blue-perp token rewards earned in the epoch (e9 format).
     #[serde(rename = "BlueRewards")]
     pub blue_rewards: String,
-    /// Total Sui token rewards earned in the epoch (e9 format).
+    /// Total sui-perp token rewards earned in the epoch (e9 format).
     #[serde(rename = "SuiRewards")]
     pub sui_rewards: String,
-    /// Total wal rewards earned in the epoch (e9 format).
+    /// Total wal-perp rewards earned in the epoch (e9 format).
     #[serde(rename = "WalRewards")]
     pub wal_rewards: String,
     /// Time in milliseconds for interval start date.

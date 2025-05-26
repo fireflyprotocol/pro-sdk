@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **interval_number** | **int** | Interval number for the rewards earned data. | 
 **symbol** | **str** | Market Symbol. | 
 **status** | **str** |  | 
-**blue_rewards** | **str** | Total Blue token rewards earned in the epoch (e9 format). | 
-**sui_rewards** | **str** | Total Sui token rewards earned in the epoch (e9 format). | 
-**wal_rewards** | **str** | Total wal rewards earned in the epoch (e9 format). | 
+**blue_rewards** | **str** | Total blue-perp token rewards earned in the epoch (e9 format). | 
+**sui_rewards** | **str** | Total sui-perp token rewards earned in the epoch (e9 format). | 
+**wal_rewards** | **str** | Total wal-perp rewards earned in the epoch (e9 format). | 
 **interval_start_date** | **int** | Time in milliseconds for interval start date. | 
 **interval_end_date** | **int** | Time in milliseconds for interval end date. | 
 

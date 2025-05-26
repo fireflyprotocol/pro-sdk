@@ -4551,19 +4551,19 @@ export interface UserCampaignRewards {
      */
     'Status': UserCampaignRewardsStatusEnum;
     /**
-     * Total Blue token rewards earned in the epoch (e9 format).
+     * Total blue-perp token rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
     'BlueRewards': string;
     /**
-     * Total Sui token rewards earned in the epoch (e9 format).
+     * Total sui-perp token rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
     'SuiRewards': string;
     /**
-     * Total wal rewards earned in the epoch (e9 format).
+     * Total wal-perp rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
