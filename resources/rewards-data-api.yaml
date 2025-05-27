@@ -26,8 +26,7 @@ components:
       $ref: './common.yaml#/components/schemas/Error'
 
     CampaignRewards:
-        type: object
-        $ref: "#/components/schemas/UserCampaignRewards"
+      $ref: "#/components/schemas/UserCampaignRewards"
         # Add other campaign data types as needed
 
     # Campaign rewards schema can be extended to have custom fields for the campaign once start adding more campaign specific data

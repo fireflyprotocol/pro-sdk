@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr, field_validator
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import Annotated
 from openapi_client.models.affiliate_metadata import AffiliateMetadata
 from openapi_client.models.affiliate_onboard_response import AffiliateOnboardResponse
@@ -35,6 +35,7 @@ from openapi_client.models.onboard_referee_request import OnboardRefereeRequest
 from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
+from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse

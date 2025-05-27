@@ -109,7 +109,6 @@ Class | Method | HTTP request | Description
  - [Asset](docs/Asset.md)
  - [AssetConfig](docs/AssetConfig.md)
  - [CampaignMetadata](docs/CampaignMetadata.md)
- - [CampaignRewards](docs/CampaignRewards.md)
  - [CancelOrdersRequest](docs/CancelOrdersRequest.md)
  - [CancelOrdersResponse](docs/CancelOrdersResponse.md)
  - [CandlePriceType](docs/CandlePriceType.md)

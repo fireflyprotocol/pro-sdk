@@ -1643,15 +1643,6 @@ export const CampaignMetadataStatusEnum = {
 export type CampaignMetadataStatusEnum = typeof CampaignMetadataStatusEnum[keyof typeof CampaignMetadataStatusEnum];
 
 /**
- * 
- * @export
- * @interface CampaignRewards
- */
-export interface CampaignRewards {
-    [key: string]: NULL_SCHEMA_ERR;
-
-}
-/**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
  * @export
  * @interface CancelOrdersRequest
