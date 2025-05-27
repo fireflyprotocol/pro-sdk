@@ -169,6 +169,8 @@ components:
         orderHash:
           type: string
           description: Order hash.
+        orderType:
+          $ref: "#/components/schemas/OrderType"
         tradeType:
           $ref: "#/components/schemas/TradeType"
         side:
