@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **client_order_id** | Option<**String**> | Client order ID. | [optional]
 **symbol** | Option<**String**> | Market address. | [optional]
 **order_hash** | Option<**String**> | Order hash. | [optional]
+**order_type** | Option<[**models::OrderType**](OrderType.md)> |  | [optional]
 **trade_type** | Option<[**models::TradeType**](TradeType.md)> |  | [optional]
 **side** | [**models::TradeSide**](TradeSide.md) |  | 
 **is_maker** | Option<**bool**> | Indicates if the user was a maker to the trade. | [optional]

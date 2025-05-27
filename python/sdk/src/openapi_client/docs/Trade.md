@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **client_order_id** | **str** | Client order ID. | [optional] 
 **symbol** | **str** | Market address. | [optional] 
 **order_hash** | **str** | Order hash. | [optional] 
+**order_type** | [**OrderType**](OrderType.md) |  | [optional] 
 **trade_type** | [**TradeType**](TradeType.md) |  | [optional] 
 **side** | [**TradeSide**](TradeSide.md) |  | 
 **is_maker** | **bool** | Indicates if the user was a maker to the trade. | [optional] 

@@ -25,6 +25,8 @@ pub struct Trade {
     /// Order hash.
     #[serde(rename = "orderHash", skip_serializing_if = "Option::is_none")]
     pub order_hash: Option<String>,
+    #[serde(rename = "orderType", skip_serializing_if = "Option::is_none")]
+    pub order_type: Option<models::OrderType>,
     #[serde(rename = "tradeType", skip_serializing_if = "Option::is_none")]
     pub trade_type: Option<models::TradeType>,
     #[serde(rename = "side")]
@@ -70,6 +72,7 @@ impl Trade {
             client_order_id: None,
             symbol: None,
             order_hash: None,
+            order_type: None,
             trade_type: None,
             side,
             is_maker: None,

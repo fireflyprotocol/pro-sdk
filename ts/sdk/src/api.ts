@@ -4273,6 +4273,12 @@ export interface Trade {
     'orderHash'?: string;
     /**
      * 
+     * @type {OrderType}
+     * @memberof Trade
+     */
+    'orderType'?: OrderType;
+    /**
+     * 
      * @type {TradeType}
      * @memberof Trade
      */

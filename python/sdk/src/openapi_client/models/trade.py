@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from openapi_client.models.order_type import OrderType
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.trade_side import TradeSide
 from openapi_client.models.trade_type import TradeType
@@ -33,6 +34,7 @@ class Trade(BaseModel):
     client_order_id: Optional[StrictStr] = Field(default=None, description="Client order ID.", alias="clientOrderId")
     symbol: Optional[StrictStr] = Field(default=None, description="Market address.")
     order_hash: Optional[StrictStr] = Field(default=None, description="Order hash.", alias="orderHash")
+    order_type: Optional[OrderType] = Field(default=None, alias="orderType")
     trade_type: Optional[TradeType] = Field(default=None, alias="tradeType")
     side: TradeSide
     is_maker: Optional[StrictBool] = Field(default=None, description="Indicates if the user was a maker to the trade.", alias="isMaker")
@@ -46,7 +48,7 @@ class Trade(BaseModel):
     gas_fee_e9: Optional[StrictStr] = Field(default=None, description="Gas fee.", alias="gasFeeE9")
     gas_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for gas fee.", alias="gasFeeAsset")
     executed_at_millis: StrictInt = Field(description="Trade timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
+    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "orderType", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +105,7 @@ class Trade(BaseModel):
             "clientOrderId": obj.get("clientOrderId"),
             "symbol": obj.get("symbol"),
             "orderHash": obj.get("orderHash"),
+            "orderType": obj.get("orderType"),
             "tradeType": obj.get("tradeType"),
             "side": obj.get("side"),
             "isMaker": obj.get("isMaker"),
