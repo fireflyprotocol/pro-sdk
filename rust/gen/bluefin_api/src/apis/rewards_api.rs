@@ -334,7 +334,7 @@ pub async fn get_affiliate_summary(configuration: &configuration::Configuration,
 }
 
 /// Returns the rewards earned by users for a specific campaign
-pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::UserCampaignRewards>, Error<GetCampaignRewardsError>> {
+pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::CampaignRewards>, Error<GetCampaignRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
     let p_epoch_number = epoch_number;

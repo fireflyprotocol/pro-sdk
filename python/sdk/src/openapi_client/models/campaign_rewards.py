@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +27,8 @@ class CampaignRewards(BaseModel):
     """
     CampaignRewards
     """ # noqa: E501
-    __properties: ClassVar[List[str]] = []
+    rewards: Optional[UserCampaignRewards] = None
+    __properties: ClassVar[List[str]] = ["rewards"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,6 +69,9 @@ class CampaignRewards(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of rewards
+        if self.rewards:
+            _dict['rewards'] = self.rewards.to_dict()
         return _dict
 
     @classmethod
@@ -79,6 +84,7 @@ class CampaignRewards(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "rewards": UserCampaignRewards.from_dict(obj["rewards"]) if obj.get("rewards") is not None else None
         })
         return _obj
 

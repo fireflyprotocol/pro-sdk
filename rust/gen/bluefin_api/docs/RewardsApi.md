@@ -178,7 +178,7 @@ This endpoint does not need any parameter.
 
 ## get_campaign_rewards
 
-> Vec<models::UserCampaignRewards> get_campaign_rewards(campaign_name, epoch_number)
+> Vec<models::CampaignRewards> get_campaign_rewards(campaign_name, epoch_number)
 Get rewards information for a specific campaign
 
 Returns the rewards earned by users for a specific campaign
@@ -193,7 +193,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::UserCampaignRewards>**](UserCampaignRewards.md)
+[**Vec<models::CampaignRewards>**](CampaignRewards.md)
 
 ### Authorization
 

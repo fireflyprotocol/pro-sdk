@@ -1648,8 +1648,12 @@ export type CampaignMetadataStatusEnum = typeof CampaignMetadataStatusEnum[keyof
  * @interface CampaignRewards
  */
 export interface CampaignRewards {
-    [key: string]: NULL_SCHEMA_ERR;
-
+    /**
+     * 
+     * @type {UserCampaignRewards}
+     * @memberof CampaignRewards
+     */
+    'rewards'?: UserCampaignRewards;
 }
 /**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
@@ -6844,7 +6848,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserCampaignRewards>>> {
+        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignRewards>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignRewards(campaignName, epochNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getCampaignRewards']?.[localVarOperationServerIndex]?.url;
@@ -7043,7 +7047,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserCampaignRewards>> {
+        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignRewards>> {
             return localVarFp.getCampaignRewards(campaignName, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
