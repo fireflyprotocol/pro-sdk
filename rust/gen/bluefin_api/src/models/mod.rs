@@ -70,8 +70,6 @@ pub mod asset_config;
 pub use self::asset_config::AssetConfig;
 pub mod campaign_metadata;
 pub use self::campaign_metadata::CampaignMetadata;
-pub mod campaign_rewards;
-pub use self::campaign_rewards::CampaignRewards;
 pub mod cancel_orders_request;
 pub use self::cancel_orders_request::CancelOrdersRequest;
 pub mod cancel_orders_response;

@@ -149,7 +149,6 @@ Class | Method | HTTP request | Description
  - [Asset](openapi_client/docs/Asset.md)
  - [AssetConfig](openapi_client/docs/AssetConfig.md)
  - [CampaignMetadata](openapi_client/docs/CampaignMetadata.md)
- - [CampaignRewards](openapi_client/docs/CampaignRewards.md)
  - [CancelOrdersRequest](openapi_client/docs/CancelOrdersRequest.md)
  - [CancelOrdersResponse](openapi_client/docs/CancelOrdersResponse.md)
  - [CandlePriceType](openapi_client/docs/CandlePriceType.md)

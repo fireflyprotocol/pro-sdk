@@ -1643,19 +1643,6 @@ export const CampaignMetadataStatusEnum = {
 export type CampaignMetadataStatusEnum = typeof CampaignMetadataStatusEnum[keyof typeof CampaignMetadataStatusEnum];
 
 /**
- * 
- * @export
- * @interface CampaignRewards
- */
-export interface CampaignRewards {
-    /**
-     * 
-     * @type {UserCampaignRewards}
-     * @memberof CampaignRewards
-     */
-    'rewards'?: UserCampaignRewards;
-}
-/**
  * Cancelling Orders for a specific symbol. If order hashes are not specified, all orders are canceled for this symbol
  * @export
  * @interface CancelOrdersRequest
@@ -6848,7 +6835,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignRewards>>> {
+        async getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserCampaignRewards>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignRewards(campaignName, epochNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getCampaignRewards']?.[localVarOperationServerIndex]?.url;
@@ -7047,7 +7034,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CampaignRewards>> {
+        getCampaignRewards(campaignName: string, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserCampaignRewards>> {
             return localVarFp.getCampaignRewards(campaignName, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**

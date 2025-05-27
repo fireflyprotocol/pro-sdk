@@ -23,7 +23,6 @@ from openapi_client.models.affiliate_metadata import AffiliateMetadata
 from openapi_client.models.affiliate_onboard_response import AffiliateOnboardResponse
 from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.campaign_metadata import CampaignMetadata
-from openapi_client.models.campaign_rewards import CampaignRewards
 from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
@@ -36,6 +35,7 @@ from openapi_client.models.onboard_referee_request import OnboardRefereeRequest
 from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
+from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse
@@ -1567,7 +1567,7 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[CampaignRewards]:
+    ) -> List[UserCampaignRewards]:
         """Get rewards information for a specific campaign
 
         Returns the rewards earned by users for a specific campaign
@@ -1608,7 +1608,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CampaignRewards]",
+            '200': "List[UserCampaignRewards]",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1638,7 +1638,7 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[CampaignRewards]]:
+    ) -> ApiResponse[List[UserCampaignRewards]]:
         """Get rewards information for a specific campaign
 
         Returns the rewards earned by users for a specific campaign
@@ -1679,7 +1679,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CampaignRewards]",
+            '200': "List[UserCampaignRewards]",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1750,7 +1750,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CampaignRewards]",
+            '200': "List[UserCampaignRewards]",
         }
         response_data = await self.api_client.call_api(
             *_param,

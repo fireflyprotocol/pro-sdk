@@ -429,7 +429,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_campaign_rewards**
-> List[CampaignRewards] get_campaign_rewards(campaign_name, epoch_number=epoch_number)
+> List[UserCampaignRewards] get_campaign_rewards(campaign_name, epoch_number=epoch_number)
 
 Get rewards information for a specific campaign
 
@@ -441,7 +441,7 @@ Returns the rewards earned by users for a specific campaign
 
 ```python
 import openapi_client
-from openapi_client.models.campaign_rewards import CampaignRewards
+from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CampaignRewards]**](CampaignRewards.md)
+[**List[UserCampaignRewards]**](UserCampaignRewards.md)
 
 ### Authorization
 
