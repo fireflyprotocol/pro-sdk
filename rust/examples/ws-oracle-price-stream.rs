@@ -4,6 +4,7 @@ use bluefin_api::models::{
     SubscriptionType,
 };
 use bluefin_pro::prelude::*;
+use bluefin_pro::shutdown;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use std::sync::atomic::AtomicBool;
@@ -138,6 +139,8 @@ async fn main() -> Result<()> {
         Arc::clone(&shutdown_flag),
     )
     .await?;
+
+    shutdown::execute(&shutdown_flag, shutdown::DEFAULT_TIMEOUT_SEC);
 
     while let Some(websocket_message) = receiver.recv().await {
         if let MarketStreamMessage::OraclePriceUpdate {

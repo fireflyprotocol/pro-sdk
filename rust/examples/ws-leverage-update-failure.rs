@@ -9,6 +9,7 @@ use bluefin_api::models::{
     LoginRequest,
 };
 use bluefin_pro::prelude::*;
+use bluefin_pro::shutdown;
 use chrono::Utc;
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
@@ -190,6 +191,8 @@ async fn main() -> Result<()> {
     .await?;
 
     send_invalid_leverage_update_request(&auth_token, environment).await?;
+
+    shutdown::execute(&shutdown_flag, shutdown::DEFAULT_TIMEOUT_SEC);
 
     // Listen to the mpsc channel for 5 seconds (for the sake of this example) to get the account
     // update. Normally, you would listen to this channel indefinitely to wait for messages.
