@@ -66,11 +66,6 @@ async def main():
     # Here, we create a wallet using a mnemonic.  Alternatively, we could create a
     # wallet from private key bytes:
     #
-    #   sui_wallet = SuiWallet(
-    #       private_key_bytes=bytes.fromhex(
-    #           "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
-    #       )
-    #   )
     sui_wallet = SuiWallet(
         private_key_bytes=bytes.fromhex(
             "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
@@ -80,6 +75,11 @@ async def main():
         #     aunt vague remind cage mother concert inch dizzy present proud
         #     program time urge
         # """
+    )
+    other_sui_wallet = SuiWallet(
+        private_key_bytes=bytes.fromhex(
+            "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
+        )
     )
 
     # The term "sui" in the following log line is a bit redundant:  In both `sui_wallet`
@@ -211,10 +211,10 @@ async def main():
                 await client.withdraw("USDC", str(int(10e9)))
 
                 # ========= Authorize Account =========
-                await client.authorize_account(sui_wallet.sui_address)
+                await client.authorize_account(other_sui_wallet.sui_address)
 
                 # ========= Deauthorize Account =========
-                await client.deauthorize_account(sui_wallet.sui_address)
+                await client.deauthorize_account(other_sui_wallet.sui_address)
                 
                 # ========= Adjust Isolated Margin =========
                 await client.adjust_isolated_margin(market.symbol, "10000000000", True)
