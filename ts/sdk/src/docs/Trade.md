@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **clientOrderId** | **string** | Client order ID. | [optional] [default to undefined]
 **symbol** | **string** | Market address. | [optional] [default to undefined]
 **orderHash** | **string** | Order hash. | [optional] [default to undefined]
+**orderType** | [**OrderType**](OrderType.md) |  | [optional] [default to undefined]
 **tradeType** | [**TradeType**](TradeType.md) |  | [optional] [default to undefined]
 **side** | [**TradeSide**](TradeSide.md) |  | [default to undefined]
 **isMaker** | **boolean** | Indicates if the user was a maker to the trade. | [optional] [default to undefined]
@@ -33,6 +34,7 @@ const instance: Trade = {
     clientOrderId,
     symbol,
     orderHash,
+    orderType,
     tradeType,
     side,
     isMaker,
