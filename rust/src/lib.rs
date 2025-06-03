@@ -22,5 +22,3 @@ pub mod prelude {
     pub use crate::core::*;
     pub use crate::signature::RequestExt as _;
 }
-
-pub mod shutdown;

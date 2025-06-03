@@ -1,10 +1,10 @@
+mod shutdown;
 use bluefin_api::models::{
     MarketDataStreamName, MarketStreamMessage, MarketStreamMessagePayload,
     MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
     SubscriptionType,
 };
 use bluefin_pro::prelude::*;
-use bluefin_pro::shutdown;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use std::sync::atomic::AtomicBool;

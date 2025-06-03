@@ -1,3 +1,4 @@
+mod shutdown;
 use bluefin_api::apis::configuration::Configuration;
 use bluefin_api::apis::trade_api::put_leverage_update;
 use bluefin_api::models::{
@@ -9,7 +10,6 @@ use bluefin_api::models::{
     LoginRequest,
 };
 use bluefin_pro::prelude::*;
-use bluefin_pro::shutdown;
 use chrono::Utc;
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
