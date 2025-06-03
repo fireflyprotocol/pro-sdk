@@ -1,3 +1,4 @@
+mod shutdown;
 use bluefin_api::apis::configuration::Configuration;
 use bluefin_api::apis::trade_api::put_leverage_update;
 use bluefin_api::models::{
@@ -190,6 +191,8 @@ async fn main() -> Result<()> {
     .await?;
 
     send_invalid_leverage_update_request(&auth_token, environment).await?;
+
+    shutdown::execute(&shutdown_flag, shutdown::DEFAULT_TIMEOUT_SEC);
 
     // Listen to the mpsc channel for 5 seconds (for the sake of this example) to get the account
     // update. Normally, you would listen to this channel indefinitely to wait for messages.

@@ -1,3 +1,4 @@
+mod shutdown;
 use bluefin_api::models::{
     MarketDataStreamName, MarketStreamMessage, MarketStreamMessagePayload,
     MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
@@ -111,6 +112,8 @@ async fn main() -> Result<()> {
         Arc::clone(&shutdown_flag),
     )
     .await?;
+
+    shutdown::execute(&shutdown_flag, shutdown::DEFAULT_TIMEOUT_SEC);
 
     while let Some(websocket_message) = receiver.recv().await {
         if let MarketStreamMessage::TickerAllUpdate {
