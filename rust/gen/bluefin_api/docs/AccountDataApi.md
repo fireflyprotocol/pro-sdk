@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user's account preferences.
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user's trade history.
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user's transaction history (any change in balance).
+[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
 
 
@@ -156,6 +157,34 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## put_account_preferences
+
+> put_account_preferences(update_account_preference_request)
+Update user's account preferences. This will overwrite the preferences, so always send the full object.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_account_preference_request** | [**UpdateAccountPreferenceRequest**](UpdateAccountPreferenceRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
