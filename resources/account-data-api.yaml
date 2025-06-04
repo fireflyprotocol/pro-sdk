@@ -310,8 +310,27 @@ components:
           format: int64
           description: Transaction timestamp in milliseconds since Unix epoch.
           example: 1569514978020
+    
+    UpdateAccountPreferenceRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        language:
+          type: string
+          description: User preferred language.
+          example: en
+        theme:
+          type: string
+          description: User preferred theme.
+          example: dark
+        market:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountMarketPreference"
+
     AccountPreference:
       type: object
+      additionalProperties: true
       properties:
         language:
           type: string
@@ -419,6 +438,46 @@ paths:
                 $ref: "#/components/schemas/AccountPreference"
         "400":
           description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+    put:
+      tags:
+        - Account Data
+      summary: Update user's account preferences. This will overwrite the preferences, so always send the full object.
+      operationId: putAccountPreferences
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAccountPreferenceRequest"
+      responses:
+        "204":
+          description: Success.
+        "400":
+          description: "request missing request body"
           content:
             application/json:
               schema:
