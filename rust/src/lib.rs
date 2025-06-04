@@ -12,7 +12,7 @@ mod core {
     pub use crate::arithmetic::HasE9;
     #[allow(deprecated)]
     pub use crate::env::symbols;
-    pub use crate::env::{account, auth, exchange, test, trade, websocket as ws, Environment};
+    pub use crate::env::{Environment, account, auth, exchange, test, trade, websocket as ws};
     pub use crate::signature::PrivateKey;
 }
 

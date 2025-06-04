@@ -5,16 +5,16 @@ use bluefin_api::models::{
     SubscriptionType,
 };
 use bluefin_pro::prelude::*;
-use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
-use std::sync::atomic::AtomicBool;
+use futures_util::stream::StreamExt;
 use std::sync::Arc;
+use std::sync::atomic::AtomicBool;
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
-use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 use tokio_tungstenite::tungstenite::Message;
+use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;

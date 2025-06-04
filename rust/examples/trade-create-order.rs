@@ -12,16 +12,16 @@ use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
 use rand::random;
 use std::ops::Add;
-use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
+use std::sync::atomic::AtomicBool;
 use std::time::Duration;
 use sui_sdk_types::SignatureScheme;
 use tokio::sync::broadcast;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
+use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 use tokio_tungstenite::tungstenite::http::HeaderValue;
-use tokio_tungstenite::tungstenite::Message;
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
@@ -30,7 +30,7 @@ async fn send_request(
     signed_request: CreateOrderRequest,
     auth_token: &str,
     environment: Environment,
-    is_colocated: bool
+    is_colocated: bool,
 ) -> Result<String> {
     println!("Sending request...");
     // Send request and get back order hash
@@ -233,11 +233,8 @@ async fn main() -> Result<()> {
 
     println!("Waiting for account order updates...");
     println!("auth token: {auth_token}");
-    let received_order_hash = send_request(
-        request.clone(),
-        &auth_token,
-        environment,
-        false).await?;
+    let received_order_hash =
+        send_request(request.clone(), &auth_token, environment, false).await?;
 
     // Finally, we check that we've received the expected order hash.
     println!("Order Submitted: {received_order_hash}");
@@ -246,12 +243,7 @@ async fn main() -> Result<()> {
     println!("Order hash matches");
 
     println!("Submitting order through colocated url...");
-    let received_order_hash = send_request(
-        request.clone(),
-        &auth_token,
-        environment,
-        true
-    ).await?;
+    let received_order_hash = send_request(request.clone(), &auth_token, environment, true).await?;
 
     println!("Order Submitted through colocated URL: {received_order_hash}");
     handle.await.expect("Could not join handle");

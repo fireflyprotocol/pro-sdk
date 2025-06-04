@@ -181,7 +181,7 @@ pub mod trade {
             Environment::Production | Environment::Mainnet => production::URL,
         }
     }
-    
+
     #[must_use]
     pub fn colocated_url<'a>(environment: Environment) -> &'a str {
         #[allow(deprecated)]
@@ -191,8 +191,6 @@ pub mod trade {
             Environment::Production | Environment::Mainnet => production::COLOCATED_URL,
         }
     }
-    
-    
 }
 
 pub mod exchange {
