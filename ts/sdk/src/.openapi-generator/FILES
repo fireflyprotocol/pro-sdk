@@ -113,6 +113,7 @@ docs/TradeType.md
 docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
+docs/UpdateAccountPreferenceRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md

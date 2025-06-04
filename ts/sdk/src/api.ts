@@ -562,6 +562,8 @@ export interface AccountPositionUpdate {
  * @interface AccountPreference
  */
 export interface AccountPreference {
+    [key: string]: any;
+
     /**
      * User preferred language.
      * @type {string}
@@ -4495,6 +4497,33 @@ export type TransactionType = typeof TransactionType[keyof typeof TransactionTyp
 /**
  * 
  * @export
+ * @interface UpdateAccountPreferenceRequest
+ */
+export interface UpdateAccountPreferenceRequest {
+    [key: string]: any;
+
+    /**
+     * User preferred language.
+     * @type {string}
+     * @memberof UpdateAccountPreferenceRequest
+     */
+    'language'?: string;
+    /**
+     * User preferred theme.
+     * @type {string}
+     * @memberof UpdateAccountPreferenceRequest
+     */
+    'theme'?: string;
+    /**
+     * 
+     * @type {Array<AccountMarketPreference>}
+     * @memberof UpdateAccountPreferenceRequest
+     */
+    'market'?: Array<AccountMarketPreference>;
+}
+/**
+ * 
+ * @export
  * @interface UpdateAffiliateFeeConfigRequest
  */
 export interface UpdateAffiliateFeeConfigRequest {
@@ -4903,6 +4932,46 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAccountPreferences: async (updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateAccountPreferenceRequest' is not null or undefined
+            assertParamExists('putAccountPreferences', 'updateAccountPreferenceRequest', updateAccountPreferenceRequest)
+            const localVarPath = `/api/v1/account/preferences`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAccountPreferenceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4989,6 +5058,19 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountTransactionHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putAccountPreferences(updateAccountPreferenceRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AccountDataApi.putAccountPreferences']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -5059,6 +5141,16 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          */
         getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.putAccountPreferences(updateAccountPreferenceRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5139,6 +5231,18 @@ export class AccountDataApi extends BaseAPI {
      */
     public getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+     * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountDataApi
+     */
+    public putAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).putAccountPreferences(updateAccountPreferenceRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
