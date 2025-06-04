@@ -117,6 +117,7 @@ from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trading_fees import TradingFees
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
+from openapi_client.models.update_account_preference_request import UpdateAccountPreferenceRequest
 from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.models.withdraw_request import WithdrawRequest

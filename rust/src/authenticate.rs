@@ -2,17 +2,17 @@ use std::borrow::Cow;
 use std::fmt;
 
 use crate::core::PrivateKey;
-use crate::env::auth::url;
 use crate::env::Environment;
+use crate::env::auth::url;
 use crate::signature;
-use base64::prelude::BASE64_STANDARD;
 use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
 use bluefin_api::apis::auth_api::{auth_token_refresh_put, auth_v2_token_post};
 use bluefin_api::apis::configuration::Configuration;
 use bluefin_api::models::{LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse};
 use secp256k1::Message;
-use sui_crypto::ed25519::Ed25519PrivateKey;
 use sui_crypto::SuiSigner;
+use sui_crypto::ed25519::Ed25519PrivateKey;
 use sui_sdk_types::{PersonalMessage, SignatureScheme};
 
 #[derive(Debug)]
@@ -168,13 +168,13 @@ pub mod tests {
     use crate::env;
 
     use super::*;
-    use base64::prelude::BASE64_STANDARD;
     use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
     use chrono::Utc;
     use rand::rngs::OsRng;
-    use secp256k1::ecdsa::RecoveryId;
     use secp256k1::Message;
-    use sui_crypto::{ed25519::Ed25519Verifier, SuiVerifier};
+    use secp256k1::ecdsa::RecoveryId;
+    use sui_crypto::{SuiVerifier, ed25519::Ed25519Verifier};
     use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SimpleSignature, UserSignature};
 
     fn verify_signature(

@@ -1,7 +1,7 @@
-use bluefin_api::apis::account_data_api::get_account_preferences;
+use bluefin_api::apis::account_data_api::{get_account_preferences, put_account_preferences};
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::models::AccountPreference;
 use bluefin_api::models::LoginRequest;
+use bluefin_api::models::{AccountPreference, UpdateAccountPreferenceRequest};
 use bluefin_pro::prelude::*;
 use chrono::Utc;
 use hex::FromHex;
@@ -18,6 +18,22 @@ async fn send_request(auth_token: &str) -> Result<AccountPreference> {
         bearer_access_token: Some(auth_token.into()),
         ..Configuration::new()
     })
+    .await?)
+}
+
+async fn send_update_request(
+    auth_token: &str,
+    preference: UpdateAccountPreferenceRequest,
+) -> Result<()> {
+    println!("Sending request...");
+    Ok(put_account_preferences(
+        &Configuration {
+            base_path: account::testnet::URL.into(),
+            bearer_access_token: Some(auth_token.into()),
+            ..Configuration::new()
+        },
+        preference,
+    )
     .await?)
 }
 
@@ -44,6 +60,18 @@ async fn main() -> Result<()> {
     let account = send_request(&auth_token).await?;
 
     println!("{account:#?}");
+
+    println!("Updating preferences...");
+    let preference = UpdateAccountPreferenceRequest {
+        language: Some("en".into()),
+        theme: Some("dark".into()),
+        market: None,
+    };
+    send_update_request(&auth_token, preference).await?;
+
+    println!("Getting updated preferences...");
+    let preference = send_request(&auth_token).await?;
+    println!("{preference:#?}");
 
     Ok(())
 }

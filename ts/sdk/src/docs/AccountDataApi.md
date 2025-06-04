@@ -9,6 +9,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAccountPreferences**](#getaccountpreferences) | **GET** /api/v1/account/preferences | Get user\&#39;s account preferences.|
 |[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | Get user\&#39;s trade history.|
 |[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | Get user\&#39;s transaction history (any change in balance).|
+|[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | Update user\&#39;s account preferences. This will overwrite the preferences, so always send the full object.|
 
 # **getAccountDetails**
 > Account getAccountDetails()
@@ -303,6 +304,61 @@ const { status, data } = await apiInstance.getAccountTransactionHistory(
 |-------------|-------------|------------------|
 |**200** | Successful response with transaction history details. |  -  |
 |**400** | request missing required parameters |  -  |
+|**401** | unauthorized access |  -  |
+|**404** | account not found |  -  |
+|**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **putAccountPreferences**
+> putAccountPreferences(updateAccountPreferenceRequest)
+
+
+### Example
+
+```typescript
+import {
+    AccountDataApi,
+    Configuration,
+    UpdateAccountPreferenceRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AccountDataApi(configuration);
+
+let updateAccountPreferenceRequest: UpdateAccountPreferenceRequest; //
+
+const { status, data } = await apiInstance.putAccountPreferences(
+    updateAccountPreferenceRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **updateAccountPreferenceRequest** | **UpdateAccountPreferenceRequest**|  | |
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Success. |  -  |
+|**400** | request missing request body |  -  |
 |**401** | unauthorized access |  -  |
 |**404** | account not found |  -  |
 |**500** | internal server error |  -  |

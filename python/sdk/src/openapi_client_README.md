@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_preferences**](openapi_client/docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user&#39;s account preferences.
 *AccountDataApi* | [**get_account_trades**](openapi_client/docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user&#39;s trade history.
 *AccountDataApi* | [**get_account_transaction_history**](openapi_client/docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user&#39;s transaction history (any change in balance).
+*AccountDataApi* | [**put_account_preferences**](openapi_client/docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user&#39;s account preferences. This will overwrite the preferences, so always send the full object.
 *AuthApi* | [**auth_jwks_get**](openapi_client/docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
 *AuthApi* | [**auth_token_post**](openapi_client/docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](openapi_client/docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
@@ -216,6 +217,7 @@ Class | Method | HTTP request | Description
  - [TradingFees](openapi_client/docs/TradingFees.md)
  - [Transaction](openapi_client/docs/Transaction.md)
  - [TransactionType](openapi_client/docs/TransactionType.md)
+ - [UpdateAccountPreferenceRequest](openapi_client/docs/UpdateAccountPreferenceRequest.md)
  - [UpdateAffiliateFeeConfigRequest](openapi_client/docs/UpdateAffiliateFeeConfigRequest.md)
  - [UserCampaignRewards](openapi_client/docs/UserCampaignRewards.md)
  - [WithdrawRequest](openapi_client/docs/WithdrawRequest.md)
