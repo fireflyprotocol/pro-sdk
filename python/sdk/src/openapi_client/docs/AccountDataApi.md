@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user&#39;s account preferences.
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user&#39;s trade history.
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user&#39;s transaction history (any change in balance).
+[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user&#39;s account preferences. This will overwrite the preferences, so always send the full object.
 
 
 # **get_account_details**
@@ -417,6 +418,84 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response with transaction history details. |  -  |
 **400** | request missing required parameters |  -  |
+**401** | unauthorized access |  -  |
+**404** | account not found |  -  |
+**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_account_preferences**
+> put_account_preferences(update_account_preference_request)
+
+Update user's account preferences. This will overwrite the preferences, so always send the full object.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.update_account_preference_request import UpdateAccountPreferenceRequest
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.AccountDataApi(api_client)
+    update_account_preference_request = openapi_client.UpdateAccountPreferenceRequest() # UpdateAccountPreferenceRequest | 
+
+    try:
+        # Update user's account preferences. This will overwrite the preferences, so always send the full object.
+        await api_instance.put_account_preferences(update_account_preference_request)
+    except Exception as e:
+        print("Exception when calling AccountDataApi->put_account_preferences: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **update_account_preference_request** | [**UpdateAccountPreferenceRequest**](UpdateAccountPreferenceRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Success. |  -  |
+**400** | request missing request body |  -  |
 **401** | unauthorized access |  -  |
 **404** | account not found |  -  |
 **500** | internal server error |  -  |
