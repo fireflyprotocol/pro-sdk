@@ -3,9 +3,8 @@ import logging
 import time
 from dataclasses import dataclass
 from enum import Enum
-from os import environ
 from random import randint
-from typing import Callable, Awaitable, Any, Hashable
+from typing import Callable, Awaitable, Any
 
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
@@ -104,6 +103,7 @@ class BluefinProSdk:
         self.auth_host = f"https://auth.api.{env_name}.bluefin.io"
         self.api_host = f"https://api.{env_name}.bluefin.io"
         self.sign = Signature(sui_wallet)
+        self.__contracts_config = None
 
         if colocation_enabled:
             # Through AWS private link traffic is already secured and we don't need encryption.
@@ -145,6 +145,7 @@ class BluefinProSdk:
         self.__is_connected = True
         # set contracts and rpc calls
         exchange_info = await self.exchange_data_api.get_exchange_info()
+        self.__contracts_config = exchange_info.contracts_config
         # todo: dynamic supoorted assets once we support multi collat
         contracts_config = {
             "ExternalDataStore": exchange_info.contracts_config.eds_id,
