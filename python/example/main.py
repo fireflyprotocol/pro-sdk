@@ -91,6 +91,11 @@ async def main():
     async with BluefinProSdk(
         sui_wallet, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True
     ) as client:
+        # example of how to deposit into any account ( wallet address trading account )
+        # await client.deposit_to_asset_bank("USDC", 10000000000, "0x0000AnyWallet")
+        # example of how to deposit into own account for own wallet
+        await client.deposit_to_asset_bank("USDC", 10000000000, sui_wallet.sui_address)
+
         # Get Market Data from the Exchange Data API.
         exchange_data_api = client.exchange_data_api
         exchange_info = await client.exchange_data_api.get_exchange_info()
