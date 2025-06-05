@@ -29,16 +29,25 @@ from crypto_helpers.hash import Hashable as BluefinHashable
 from websocket.listener import MarketDataStreamListener, AccountDataStreamListener
 
 
-# enum Environment with sui-prod sui-staging sui-dev
+# enum Environment with environment name and RPC URL
 class Environment(str, Enum):
-    PRODUCTION = 'sui-prod'
-    STAGING = 'sui-staging'
-    DEV = 'sui-dev'
+    PRODUCTION = ('sui-prod', 'https://fullnode.mainnet.sui.io:443')
+    STAGING = ('sui-staging', 'https://fullnode.testnet.sui.io:443')
+    DEV = ('sui-dev', 'https://fullnode.testnet.sui.io:443')
 
-class RpcUrl(str, Enum):
-    DEV = 'https://fullnode.devnet.sui.io:443'
-    STAGING = 'https://fullnode.testnet.sui.io:443'
-    PROD = 'https://fullnode.mainnet.sui.io:443'
+    def __new__(cls, env_name: str, rpc_url: str):
+        obj = str.__new__(cls, env_name)
+        obj._value_ = env_name
+        obj._rpc_url = rpc_url
+        return obj
+
+    @property
+    def env_name(self) -> str:
+        return self.value
+
+    @property
+    def rpc_url(self) -> str:
+        return self._rpc_url
 
 class AccountAuthorizationAction(Enum):
     AUTHORIZE = True
@@ -76,13 +85,9 @@ class BluefinProSdk:
     _token_set_at_seconds = None
     __is_connected = False
     __update_token_task = None
-    # todo set to dynamic value
-    __contracts_config = None
-
+    __rpc_calls = None
     def __init__(self,
                  sui_wallet: SuiWallet,
-                 contracts: ProContracts | None,
-                 rpc_url: str,
                  env: Environment = Environment.PRODUCTION,
                  target_account_address: str = None,
                  debug: bool = False,
@@ -93,10 +98,12 @@ class BluefinProSdk:
         :param env: Environment enum, default is Environment.PRODUCTION
         :param target_account_address: default is None if target account belongs to the same sui wallet, if you need to act on behalf of another sui wallet on its own accountAddress (if that wallet authorized you to do so)
         """
-        env_name = env.value
+        self.env = env
+        env_name = env.env_name
         self._sui_wallet = sui_wallet
         self.auth_host = f"https://auth.api.{env_name}.bluefin.io"
         self.api_host = f"https://api.{env_name}.bluefin.io"
+        self.sign = Signature(sui_wallet)
 
         if colocation_enabled:
             # Through AWS private link traffic is already secured and we don't need encryption.
@@ -131,16 +138,44 @@ class BluefinProSdk:
         self._trade_api = TradeApi(ApiClient(trade_api_config))
 
         # on-chain stuff
-        self.contracts = contracts
-        self._sui_wallet = sui_wallet
-        self.sign = Signature(sui_wallet)
-        self.rpc_calls = ProRpcCalls(sui_wallet, contracts, url=rpc_url)
 
     async def init(self):
         await self.__login_and_update_token()
         self.__update_token_task = asyncio.create_task(self.__refresh_token())
         self.__is_connected = True
-        self.__contracts_config = (await self.exchange_data_api.get_exchange_info()).contracts_config
+        # set contracts and rpc calls
+        exchange_info = await self.exchange_data_api.get_exchange_info()
+        # todo: dynamic supoorted assets once we support multi collat
+        contracts_config = {
+            "ExternalDataStore": exchange_info.contracts_config.eds_id,
+            "InternalDataStore": exchange_info.contracts_config.ids_id,
+            "Package": exchange_info.contracts_config.current_contract_address,
+            "Operators": exchange_info.contracts_config.operators,
+            "SupportedAssets": {
+                "USDC": {
+                    "coinType": exchange_info.assets[0].asset_type,
+                    "decimals": exchange_info.assets[0].decimals,
+                    "symbol": exchange_info.assets[0].symbol
+                }
+            }
+        }
+        # set RpcUrl enum from
+        self.__rpc_calls = ProRpcCalls(self._sui_wallet, ProContracts(contracts_config), url=self.env.rpc_url)
+
+    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: str, destination_address: str = None):
+        """
+        Deposits the provided asset of provided amount into the external asset bank.
+        :param asset_symbol: The symbol of the asset being deposited (e.g. "USDC")
+        :param amount_e9: The amount to be deposited in 9 decimal places (e.g. 1 USDC == 1000000)
+        :param destination_address: Optional destination account address to which funds are being deposited.
+                                    By default, funds are always deposited to the depositor's account
+        """
+        if not self.__is_connected:
+            raise RuntimeError("Not connected. Please call init() first.")
+        if destination_address is None:
+            destination_address = self.current_account_address or self._sui_wallet.sui_address
+
+        await self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
         await self._login()
@@ -155,15 +190,15 @@ class BluefinProSdk:
     def compute_hash(self, request: CreateOrderRequest | AdjustIsolatedMarginRequest | AccountAuthorizationRequest | AccountPositionLeverageUpdateRequest | WithdrawRequest):
         """
         Computes the hash for various request types.
-        
+
         Args:
-            request: The request object to hash (CreateOrderRequest, AdjustIsolatedMarginRequest, 
+            request: The request object to hash (CreateOrderRequest, AdjustIsolatedMarginRequest,
                     AccountAuthorizationRequest, AccountPositionLeverageUpdateRequest, or WithdrawRequest)
-                    
+
         Returns:
             str: The computed hash as a hexadecimal string
         """
-        
+
         if isinstance(request, CreateOrderRequest):
             hashable = BluefinHashable.CreateOrderRequest(request)
         elif isinstance(request, AdjustIsolatedMarginRequest):
@@ -174,13 +209,13 @@ class BluefinProSdk:
             hashable = BluefinHashable.AdjustLeverageRequest(request)
         elif isinstance(request, WithdrawRequest):
             hashable = BluefinHashable.WithdrawRequest(request)
-            
+
         return hashable.hash()
 
     async def get_open_orders(self, symbol: str):
         await self._set_access_token(self._trade_api.api_client)
         return await self._trade_api.get_open_orders(symbol)
-    
+
     async def get_standby_orders(self, symbol: str):
         await self._set_access_token(self._trade_api.api_client)
         return await self._trade_api.get_standby_orders(symbol)
@@ -245,14 +280,14 @@ class BluefinProSdk:
             trigger_price_e9=order.trigger_price_e9,
             self_trade_prevention_type=order.self_trade_prevention_type,
         )
-        
+
         logger.debug(
             f"Send order creation payload {create_order_request.to_json()}")
         return await self._trade_api.post_create_order(create_order_request)
 
     async def cancel_order(self, cancel_orders_request: CancelOrdersRequest):
         return await self._trade_api.cancel_orders(cancel_orders_request)
-    
+
     async def cancel_standby_order(self, cancel_orders_request: CancelOrdersRequest):
         return await self._trade_api.cancel_standby_orders(cancel_orders_request)
 
