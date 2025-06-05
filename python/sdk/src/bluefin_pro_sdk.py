@@ -170,6 +170,8 @@ class BluefinProSdk:
         :param destination_address: Optional destination account address to which funds are being deposited.
                                     By default, funds are always deposited to the depositor's account
         """
+        if not self.__is_connected:
+            raise RuntimeError("Not connected. Please call init() first.")
         if destination_address is None:
             destination_address = self.current_account_address or self._sui_wallet.sui_address
 
