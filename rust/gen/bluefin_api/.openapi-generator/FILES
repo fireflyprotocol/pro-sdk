@@ -32,7 +32,6 @@ docs/AdjustMarginOperation.md
 docs/AffiliateIntervalOverview.md
 docs/AffiliateLeaderDashboard.md
 docs/AffiliateMetadata.md
-docs/AffiliateMetadataFees.md
 docs/AffiliateOnboardResponse.md
 docs/AffiliateOverview.md
 docs/AffiliateSummary.md
@@ -53,6 +52,7 @@ docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
+docs/FeeConfigs.md
 docs/FundingRateEntry.md
 docs/GetAffiliateIntervalOverview200Response.md
 docs/GetAffiliateLeaderDashboard200Response.md
@@ -155,7 +155,6 @@ src/models/adjust_margin_operation.rs
 src/models/affiliate_interval_overview.rs
 src/models/affiliate_leader_dashboard.rs
 src/models/affiliate_metadata.rs
-src/models/affiliate_metadata_fees.rs
 src/models/affiliate_onboard_response.rs
 src/models/affiliate_overview.rs
 src/models/affiliate_summary.rs
@@ -174,6 +173,7 @@ src/models/epoch_configs.rs
 src/models/epoch_metadata.rs
 src/models/error.rs
 src/models/exchange_info_response.rs
+src/models/fee_configs.rs
 src/models/funding_rate_entry.rs
 src/models/get_affiliate_interval_overview_200_response.rs
 src/models/get_affiliate_leader_dashboard_200_response.rs

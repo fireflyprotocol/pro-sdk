@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **referral_code** | Option<**String**> | The user's referral code if approved as an affiliate | [optional]
 **name** | Option<**String**> | The name of the affiliate | [optional]
 **parent_name** | Option<**String**> | The name of the parent affiliate | [optional]
-**fees** | Option<[**models::AffiliateMetadataFees**](AffiliateMetadata_fees.md)> |  | [optional]
+**fees** | Option<[**models::FeeConfigs**](.md)> |  | [optional]
 **status** | Option<**String**> | Status of the affiliate application | [optional]
 **has_traded** | **bool** | Indicates whether the user has traded or not | 
 **tier** | Option<**String**> | Tier of the affiliate | [optional]

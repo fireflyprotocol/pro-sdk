@@ -20,60 +20,60 @@ pub struct AffiliateOverview {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Referee earnings from perps trading (e9 format)
-    #[serde(rename = "perpsRefereeEarnings")]
-    pub perps_referee_earnings: String,
+    #[serde(rename = "perpsRefereeEarningsE9")]
+    pub perps_referee_earnings_e9: String,
     /// Referee earnings from spot LP (e9 format)
-    #[serde(rename = "spotLPRefereeEarnings")]
-    pub spot_lp_referee_earnings: String,
+    #[serde(rename = "spotLPRefereeEarningsE9")]
+    pub spot_lp_referee_earnings_e9: String,
     /// Referee earnings from lending (e9 format)
-    #[serde(rename = "lendingRefereeEarnings")]
-    pub lending_referee_earnings: String,
+    #[serde(rename = "lendingRefereeEarningsE9")]
+    pub lending_referee_earnings_e9: String,
     /// Referral earnings from perps trading (e9 format)
-    #[serde(rename = "perpsReferralEarnings")]
-    pub perps_referral_earnings: String,
+    #[serde(rename = "perpsReferralEarningsE9")]
+    pub perps_referral_earnings_e9: String,
     /// Referral earnings from spot LP (e9 format)
-    #[serde(rename = "spotLPReferralEarnings")]
-    pub spot_lp_referral_earnings: String,
+    #[serde(rename = "spotLPReferralEarningsE9")]
+    pub spot_lp_referral_earnings_e9: String,
     /// Referral earnings from lending (e9 format)
-    #[serde(rename = "lendingReferralEarnings")]
-    pub lending_referral_earnings: String,
+    #[serde(rename = "lendingReferralEarningsE9")]
+    pub lending_referral_earnings_e9: String,
     /// Total earnings from perps trading (e9 format)
-    #[serde(rename = "perpsTotalEarnings")]
-    pub perps_total_earnings: String,
+    #[serde(rename = "perpsTotalEarningsE9")]
+    pub perps_total_earnings_e9: String,
     /// Total earnings from spot LP (e9 format)
-    #[serde(rename = "spotLPTotalEarnings")]
-    pub spot_lp_total_earnings: String,
+    #[serde(rename = "spotLPTotalEarningsE9")]
+    pub spot_lp_total_earnings_e9: String,
     /// Total earnings from lending (e9 format)
-    #[serde(rename = "lendingTotalEarnings")]
-    pub lending_total_earnings: String,
+    #[serde(rename = "lendingTotalEarningsE9")]
+    pub lending_total_earnings_e9: String,
     /// Total earnings from referrals (e9 format)
-    #[serde(rename = "totalReferralEarnings")]
-    pub total_referral_earnings: String,
+    #[serde(rename = "totalReferralEarningsE9")]
+    pub total_referral_earnings_e9: String,
     /// Total earnings from referee activities (e9 format)
-    #[serde(rename = "totalRefereeEarnings")]
-    pub total_referee_earnings: String,
+    #[serde(rename = "totalRefereeEarningsE9")]
+    pub total_referee_earnings_e9: String,
     /// Total earnings combining referrals and referee activities (e9 format)
-    #[serde(rename = "totalEarnings")]
-    pub total_earnings: String,
+    #[serde(rename = "totalEarningsE9")]
+    pub total_earnings_e9: String,
 }
 
 impl AffiliateOverview {
-    pub fn new(user_address: String, perps_referee_earnings: String, spot_lp_referee_earnings: String, lending_referee_earnings: String, perps_referral_earnings: String, spot_lp_referral_earnings: String, lending_referral_earnings: String, perps_total_earnings: String, spot_lp_total_earnings: String, lending_total_earnings: String, total_referral_earnings: String, total_referee_earnings: String, total_earnings: String) -> AffiliateOverview {
+    pub fn new(user_address: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateOverview {
         AffiliateOverview {
             user_address,
             name: None,
-            perps_referee_earnings,
-            spot_lp_referee_earnings,
-            lending_referee_earnings,
-            perps_referral_earnings,
-            spot_lp_referral_earnings,
-            lending_referral_earnings,
-            perps_total_earnings,
-            spot_lp_total_earnings,
-            lending_total_earnings,
-            total_referral_earnings,
-            total_referee_earnings,
-            total_earnings,
+            perps_referee_earnings_e9,
+            spot_lp_referee_earnings_e9,
+            lending_referee_earnings_e9,
+            perps_referral_earnings_e9,
+            spot_lp_referral_earnings_e9,
+            lending_referral_earnings_e9,
+            perps_total_earnings_e9,
+            spot_lp_total_earnings_e9,
+            lending_total_earnings_e9,
+            total_referral_earnings_e9,
+            total_referee_earnings_e9,
+            total_earnings_e9,
         }
     }
 }

@@ -31,14 +31,14 @@ pub struct UserCampaignRewards {
     #[serde(rename = "Status")]
     pub status: Status,
     /// Total blue-perp token rewards earned in the epoch (e9 format).
-    #[serde(rename = "BlueRewards")]
-    pub blue_rewards: String,
+    #[serde(rename = "BlueRewardsE9")]
+    pub blue_rewards_e9: String,
     /// Total sui-perp token rewards earned in the epoch (e9 format).
-    #[serde(rename = "SuiRewards")]
-    pub sui_rewards: String,
+    #[serde(rename = "SuiRewardsE9")]
+    pub sui_rewards_e9: String,
     /// Total wal-perp rewards earned in the epoch (e9 format).
-    #[serde(rename = "WalRewards")]
-    pub wal_rewards: String,
+    #[serde(rename = "WalRewardsE9")]
+    pub wal_rewards_e9: String,
     /// Time in milliseconds for interval start date.
     #[serde(rename = "IntervalStartDate")]
     pub interval_start_date: i32,
@@ -48,7 +48,7 @@ pub struct UserCampaignRewards {
 }
 
 impl UserCampaignRewards {
-    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards: String, sui_rewards: String, wal_rewards: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
+    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
         UserCampaignRewards {
             user_address,
             campaign_name,
@@ -56,9 +56,9 @@ impl UserCampaignRewards {
             interval_number,
             symbol,
             status,
-            blue_rewards,
-            sui_rewards,
-            wal_rewards,
+            blue_rewards_e9,
+            sui_rewards_e9,
+            wal_rewards_e9,
             interval_start_date,
             interval_end_date,
         }

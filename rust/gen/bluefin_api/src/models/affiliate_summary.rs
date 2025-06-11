@@ -20,8 +20,8 @@ pub struct AffiliateSummary {
     #[serde(rename = "totalReferredUsers")]
     pub total_referred_users: i32,
     /// Total earnings in e9 format
-    #[serde(rename = "totalEarnings")]
-    pub total_earnings: String,
+    #[serde(rename = "totalEarningsE9")]
+    pub total_earnings_e9: String,
     /// Ranking in perps trading category
     #[serde(rename = "perpsRanking")]
     pub perps_ranking: i32,
@@ -34,11 +34,11 @@ pub struct AffiliateSummary {
 }
 
 impl AffiliateSummary {
-    pub fn new(user_address: String, total_referred_users: i32, total_earnings: String, perps_ranking: i32, spot_ranking: i32, lend_ranking: i32) -> AffiliateSummary {
+    pub fn new(user_address: String, total_referred_users: i32, total_earnings_e9: String, perps_ranking: i32, spot_ranking: i32, lend_ranking: i32) -> AffiliateSummary {
         AffiliateSummary {
             user_address,
             total_referred_users,
-            total_earnings,
+            total_earnings_e9,
             perps_ranking,
             spot_ranking,
             lend_ranking,
