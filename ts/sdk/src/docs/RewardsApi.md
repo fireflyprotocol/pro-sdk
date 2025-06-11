@@ -97,6 +97,7 @@ const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
 let sortBy: 'perpsRank' | 'lendingRank' | 'spotRank'; //The category to sort rankings by (default to 'perpsRank')
+let sortOrder: 'asc' | 'desc'; //The order to sort rankings by (optional) (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
 let name: string; //The name of the user to filter by (optional) (default to undefined)
@@ -104,6 +105,7 @@ let userAddress: string; //The user address to filter by (optional) (default to 
 
 const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
     sortBy,
+    sortOrder,
     page,
     limit,
     name,
@@ -116,6 +118,7 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **sortBy** | [**&#39;perpsRank&#39; | &#39;lendingRank&#39; | &#39;spotRank&#39;**]**Array<&#39;perpsRank&#39; &#124; &#39;lendingRank&#39; &#124; &#39;spotRank&#39;>** | The category to sort rankings by | defaults to 'perpsRank'|
+| **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort rankings by | (optional) defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
 | **name** | [**string**] | The name of the user to filter by | (optional) defaults to undefined|
@@ -128,7 +131,7 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -212,6 +215,7 @@ const apiInstance = new RewardsApi(configuration);
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
 let sortBy: 'refreeEarnings' | 'referralEarnings' | 'totalEarnings'; //The category to sort earnings by (optional) (default to 'totalEarnings')
+let sortOrder: 'asc' | 'desc'; //The order to sort earnings by (optional) (default to undefined)
 let name: string; //The name of the user to filter by (optional) (default to undefined)
 let userAddress: string; //The user address to filter by (optional) (default to undefined)
 
@@ -219,6 +223,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
     page,
     limit,
     sortBy,
+    sortOrder,
     name,
     userAddress
 );
@@ -231,6 +236,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
 | **sortBy** | [**&#39;refreeEarnings&#39; | &#39;referralEarnings&#39; | &#39;totalEarnings&#39;**]**Array<&#39;refreeEarnings&#39; &#124; &#39;referralEarnings&#39; &#124; &#39;totalEarnings&#39;>** | The category to sort earnings by | (optional) defaults to 'totalEarnings'|
+| **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort earnings by | (optional) defaults to undefined|
 | **name** | [**string**] | The name of the user to filter by | (optional) defaults to undefined|
 | **userAddress** | [**string**] | The user address to filter by | (optional) defaults to undefined|
 
@@ -820,6 +826,7 @@ const { status, data } = await apiInstance.updateAffiliateFeeConfig(
 |**401** | unauthorized access |  -  |
 |**404** | address not found |  -  |
 |**400** | request missing required parameters |  -  |
+|**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

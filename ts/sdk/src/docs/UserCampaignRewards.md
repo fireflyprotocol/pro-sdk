@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **intervalNumber** | **number** | Interval number for the rewards earned data. | [default to undefined]
 **symbol** | **string** | Market Symbol. | [default to undefined]
 **status** | **string** |  | [default to undefined]
-**blueRewards** | **string** | Total blue-perp token rewards earned in the epoch (e9 format). | [default to undefined]
-**suiRewards** | **string** | Total sui-perp token rewards earned in the epoch (e9 format). | [default to undefined]
-**walRewards** | **string** | Total wal-perp rewards earned in the epoch (e9 format). | [default to undefined]
+**blueRewardsE9** | **string** | Total blue-perp token rewards earned in the epoch (e9 format). | [default to undefined]
+**suiRewardsE9** | **string** | Total sui-perp token rewards earned in the epoch (e9 format). | [default to undefined]
+**walRewardsE9** | **string** | Total wal-perp rewards earned in the epoch (e9 format). | [default to undefined]
 **intervalStartDate** | **number** | Time in milliseconds for interval start date. | [default to undefined]
 **intervalEndDate** | **number** | Time in milliseconds for interval end date. | [default to undefined]
 
@@ -29,9 +29,9 @@ const instance: UserCampaignRewards = {
     intervalNumber,
     symbol,
     status,
-    blueRewards,
-    suiRewards,
-    walRewards,
+    blueRewardsE9,
+    suiRewardsE9,
+    walRewardsE9,
     intervalStartDate,
     intervalEndDate,
 };

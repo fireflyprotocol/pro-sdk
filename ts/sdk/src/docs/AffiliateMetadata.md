@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **referralCode** | **string** | The user\&#39;s referral code if approved as an affiliate | [optional] [default to undefined]
 **name** | **string** | The name of the affiliate | [optional] [default to undefined]
 **parentName** | **string** | The name of the parent affiliate | [optional] [default to undefined]
-**fees** | [**AffiliateMetadataFees**](AffiliateMetadataFees.md) |  | [optional] [default to undefined]
+**fees** | [**FeeConfigs**](.md) |  | [optional] [default to undefined]
 **status** | **string** | Status of the affiliate application | [optional] [default to undefined]
 **hasTraded** | **boolean** | Indicates whether the user has traded or not | [default to undefined]
 **tier** | **string** | Tier of the affiliate | [optional] [default to undefined]

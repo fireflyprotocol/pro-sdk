@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cashback** | **string** | Cashback amount in e9 format | [default to undefined]
+**cashback** | **number** | Cashback amount to give to the referees | [default to undefined]
 
 ## Example
 
