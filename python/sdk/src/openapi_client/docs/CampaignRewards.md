@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**rewards** | [**UserCampaignRewards**](UserCampaignRewards.md) |  | [optional] 
 
 ## Example
 

@@ -98,10 +98,16 @@ async function main() {
       "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
     )
   );
-
+  const otherSuiWallet = Ed25519Keypair.fromSecretKey(
+    hexToBytes(
+      "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
+    )
+  );
   logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
+  logger.info(`Other Sui Address: ${otherSuiWallet.getPublicKey().toSuiAddress()}`);
 
   const bfSigner = new BluefinRequestSigner(makeSigner(suiWallet, false));
+  const otherBfSigner = new BluefinRequestSigner(makeSigner(otherSuiWallet, false));
   const client = new BluefinProSdk(
     bfSigner,
     "testnet",
@@ -271,10 +277,10 @@ async function main() {
     await client.withdraw("USDC", "10000000000");
     logger.info("Withdraw request success");
 
-    await client.authorizeAccount(bfSigner.getAddress());
+    await client.authorizeAccount(otherBfSigner.getAddress());
     logger.info("Authorize account request success");
 
-    await client.deauthorizeAccount(bfSigner.getAddress());
+    await client.deauthorizeAccount(otherBfSigner.getAddress());
     logger.info("Deauthorize account request success");
 
     await client.adjustIsolatedMargin(symbol, "10000000000", true);

@@ -42,7 +42,6 @@ docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
 docs/CampaignMetadata.md
-docs/CampaignRewards.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
@@ -114,6 +113,7 @@ docs/TradeType.md
 docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
+docs/UpdateAccountPreferenceRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md

@@ -1,3 +1,4 @@
+mod shutdown;
 use bluefin_api::apis::configuration::Configuration;
 use bluefin_api::apis::trade_api::put_leverage_update;
 use bluefin_api::models::{
@@ -13,16 +14,16 @@ use chrono::Utc;
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
 use rand::random;
-use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
+use std::sync::atomic::AtomicBool;
 use std::time::Duration;
 use sui_sdk_types::SignatureScheme;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
+use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 use tokio_tungstenite::tungstenite::http::HeaderValue;
-use tokio_tungstenite::tungstenite::Message;
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
@@ -190,6 +191,8 @@ async fn main() -> Result<()> {
     .await?;
 
     send_invalid_leverage_update_request(&auth_token, environment).await?;
+
+    shutdown::execute(&shutdown_flag, shutdown::DEFAULT_TIMEOUT_SEC);
 
     // Listen to the mpsc channel for 5 seconds (for the sake of this example) to get the account
     // update. Normally, you would listen to this channel indefinitely to wait for messages.

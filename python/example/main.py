@@ -66,11 +66,6 @@ async def main():
     # Here, we create a wallet using a mnemonic.  Alternatively, we could create a
     # wallet from private key bytes:
     #
-    #   sui_wallet = SuiWallet(
-    #       private_key_bytes=bytes.fromhex(
-    #           "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
-    #       )
-    #   )
     sui_wallet = SuiWallet(
         private_key_bytes=bytes.fromhex(
             "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
@@ -80,6 +75,11 @@ async def main():
         #     aunt vague remind cage mother concert inch dizzy present proud
         #     program time urge
         # """
+    )
+    other_sui_wallet = SuiWallet(
+        private_key_bytes=bytes.fromhex(
+            "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
+        )
     )
 
     # The term "sui" in the following log line is a bit redundant:  In both `sui_wallet`
@@ -91,6 +91,11 @@ async def main():
     async with BluefinProSdk(
         sui_wallet, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True
     ) as client:
+        # example of how to deposit into any account ( wallet address trading account )
+        # await client.deposit_to_asset_bank("USDC", 10000000000, "0x0000AnyWallet")
+        # example of how to deposit into own account for own wallet
+        await client.deposit_to_asset_bank("USDC", 10000000000, sui_wallet.sui_address)
+
         # Get Market Data from the Exchange Data API.
         exchange_data_api = client.exchange_data_api
         exchange_info = await client.exchange_data_api.get_exchange_info()
@@ -211,10 +216,10 @@ async def main():
                 await client.withdraw("USDC", str(int(10e9)))
 
                 # ========= Authorize Account =========
-                await client.authorize_account(sui_wallet.sui_address)
+                await client.authorize_account(other_sui_wallet.sui_address)
 
                 # ========= Deauthorize Account =========
-                await client.deauthorize_account(sui_wallet.sui_address)
+                await client.deauthorize_account(other_sui_wallet.sui_address)
                 
                 # ========= Adjust Isolated Margin =========
                 await client.adjust_isolated_margin(market.symbol, "10000000000", True)

@@ -148,9 +148,9 @@ fn generate(lang: Lang) -> Result<()> {
         .then_some(())
         .ok_or(Error::status(command))?;
 
-    // Set openapi-generator-cli version to 7.11.0 and run code generation.
+    // Set openapi-generator-cli version to 7.13.0 and run code generation.
     Command::new(command)
-        .args(["version-manager", "set", "7.11.0"])
+        .args(["version-manager", "set", "7.13.0"])
         .status()?
         .success()
         .then_some(())

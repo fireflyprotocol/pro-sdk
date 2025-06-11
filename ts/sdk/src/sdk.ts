@@ -167,62 +167,43 @@ export class BluefinProSdk {
       accountWsHost: opts?.accountWsHost ?? defaultConfig.accountWsHost,
     };
 
-    let baseOptions: any = {};
-
-    if (typeof globalThis.navigator !== "undefined") {
-      const userAgent = globalThis.navigator.userAgent;
-      baseOptions = {
-        headers: {
-          "User-Agent": userAgent,
-        },
-      };
-    }
-
     const authApiConfig = new Configuration({
       basePath: basePaths.authHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.Auth] = authApiConfig;
     this.authApi = new AuthApi(authApiConfig);
 
     const exchangeApiConfig = new Configuration({
       basePath: basePaths.apiHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.Exchange] = exchangeApiConfig;
     this.exchangeDataApi = new ExchangeApi(exchangeApiConfig);
 
     const rewardsApiConfig = new Configuration({
       basePath: basePaths.apiHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.Rewards] = rewardsApiConfig;
     this.rewardsDataApi = new RewardsApi(rewardsApiConfig);
-    
 
     const accountDataApiConfig = new Configuration({
       basePath: basePaths.apiHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.Account] = accountDataApiConfig;
     this.accountDataApi = new AccountDataApi(accountDataApiConfig);
 
     const tradeApiConfig = new Configuration({
       basePath: basePaths.tradeHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.Trade] = tradeApiConfig;
     this.tradeApi = new TradeApi(tradeApiConfig);
 
     const marketWsConfig = new Configuration({
       basePath: basePaths.marketWsHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.MarketWebsocket] = marketWsConfig;
 
     const accountWsConfig = new Configuration({
       basePath: basePaths.accountWsHost,
-      baseOptions: baseOptions,
     });
     this.configs[Services.AccountWebsocket] = accountWsConfig;
   }

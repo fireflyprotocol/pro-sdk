@@ -40,7 +40,6 @@ docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
 docs/CampaignMetadata.md
-docs/CampaignRewards.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
@@ -112,6 +111,7 @@ docs/TradeType.md
 docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
+docs/UpdateAccountPreferenceRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md
@@ -162,7 +162,6 @@ src/models/affiliate_summary.rs
 src/models/asset.rs
 src/models/asset_config.rs
 src/models/campaign_metadata.rs
-src/models/campaign_rewards.rs
 src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
@@ -231,6 +230,7 @@ src/models/trade_type.rs
 src/models/trading_fees.rs
 src/models/transaction.rs
 src/models/transaction_type.rs
+src/models/update_account_preference_request.rs
 src/models/update_affiliate_fee_config_request.rs
 src/models/user_campaign_rewards.rs
 src/models/withdraw_request.rs

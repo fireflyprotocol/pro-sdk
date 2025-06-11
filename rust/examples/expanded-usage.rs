@@ -1,6 +1,6 @@
 use std::{
     ops::Add,
-    sync::{atomic::AtomicBool, Arc},
+    sync::{Arc, atomic::AtomicBool},
     time::Duration,
 };
 
@@ -29,7 +29,7 @@ use sui_sdk_types::SignatureScheme;
 use tokio::{sync::mpsc::Sender, time::timeout};
 use tokio_tungstenite::{
     connect_async,
-    tungstenite::{client::IntoClientRequest, http::HeaderValue, Message},
+    tungstenite::{Message, client::IntoClientRequest, http::HeaderValue},
 };
 
 type Error = Box<dyn std::error::Error>;

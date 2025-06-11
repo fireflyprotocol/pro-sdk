@@ -72,7 +72,6 @@ from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.campaign_metadata import CampaignMetadata
-from openapi_client.models.campaign_rewards import CampaignRewards
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.cancel_orders_response import CancelOrdersResponse
 from openapi_client.models.candle_price_type import CandlePriceType
@@ -140,6 +139,7 @@ from openapi_client.models.trade_type import TradeType
 from openapi_client.models.trading_fees import TradingFees
 from openapi_client.models.transaction import Transaction
 from openapi_client.models.transaction_type import TransactionType
+from openapi_client.models.update_account_preference_request import UpdateAccountPreferenceRequest
 from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.models.withdraw_request import WithdrawRequest

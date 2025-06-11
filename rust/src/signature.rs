@@ -3,7 +3,7 @@ use std::{borrow::Cow, fmt};
 use blake2::digest::consts::U32;
 use blake2::{Blake2b, Digest};
 use serde::Serialize;
-use sui_crypto::{ed25519::Ed25519PrivateKey, secp256k1::Secp256k1PrivateKey, SuiSigner};
+use sui_crypto::{SuiSigner, ed25519::Ed25519PrivateKey, secp256k1::Secp256k1PrivateKey};
 use sui_sdk_types::{PersonalMessage, SignatureScheme};
 
 pub type PrivateKey = [u8; 32];
@@ -357,7 +357,7 @@ pub mod conversion {
     pub mod hashable {
         use crate::signature::{self, parse_u64};
 
-        use super::{hashable, Display, Formatter, Serialize};
+        use super::{Display, Formatter, Serialize, hashable};
         use serde::Deserialize;
         use sui_sdk_types::Address;
 
@@ -650,7 +650,7 @@ pub mod testing {
     use std::borrow::Cow;
 
     use serde::Serialize;
-    use sui_crypto::{ed25519::Ed25519Verifier, secp256k1::Secp256k1Verifier, SuiVerifier};
+    use sui_crypto::{SuiVerifier, ed25519::Ed25519Verifier, secp256k1::Secp256k1Verifier};
     use sui_sdk_types::{PersonalMessage, SimpleSignature, UserSignature};
 
     pub fn verify_signature<T: Serialize, F: Serialize>(

@@ -441,6 +441,7 @@ Returns the rewards earned by users for a specific campaign
 
 ```python
 import openapi_client
+from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.rest import ApiException
 from pprint import pprint
 
