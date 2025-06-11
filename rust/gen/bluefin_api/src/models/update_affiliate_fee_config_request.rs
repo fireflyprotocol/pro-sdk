@@ -13,13 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAffiliateFeeConfigRequest {
-    /// Cashback amount in e9 format
+    /// Cashback amount to give to the referees
     #[serde(rename = "cashback")]
-    pub cashback: String,
+    pub cashback: i32,
 }
 
 impl UpdateAffiliateFeeConfigRequest {
-    pub fn new(cashback: String) -> UpdateAffiliateFeeConfigRequest {
+    pub fn new(cashback: i32) -> UpdateAffiliateFeeConfigRequest {
         UpdateAffiliateFeeConfigRequest {
             cashback,
         }

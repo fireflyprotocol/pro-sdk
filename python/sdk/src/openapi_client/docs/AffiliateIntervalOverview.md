@@ -11,18 +11,18 @@ Name | Type | Description | Notes
 **interval_start_date** | **int** | Start date of the interval in milliseconds | 
 **interval_end_date** | **int** | End date of the interval in milliseconds | 
 **referred_since** | **str** | Date when the user was referred | 
-**perps_referee_earnings** | **str** | Referee earnings from perps trading (e9 format) | 
-**spot_lp_referee_earnings** | **str** | Referee earnings from spot LP (e9 format) | 
-**lending_referee_earnings** | **str** | Referee earnings from lending (e9 format) | 
-**perps_referral_earnings** | **str** | Referral earnings from perps trading (e9 format) | 
-**spot_lp_referral_earnings** | **str** | Referral earnings from spot LP (e9 format) | 
-**lending_referral_earnings** | **str** | Referral earnings from lending (e9 format) | 
-**perps_total_earnings** | **str** | Total earnings from perps trading (e9 format) | 
-**spot_lp_total_earnings** | **str** | Total earnings from spot LP (e9 format) | 
-**lending_total_earnings** | **str** | Total earnings from lending (e9 format) | 
-**total_referral_earnings** | **str** | Total earnings from referrals (e9 format) | 
-**total_referee_earnings** | **str** | Total earnings from referee activities (e9 format) | 
-**total_earnings** | **str** | Total earnings combining referrals and referee activities (e9 format) | 
+**perps_referee_earnings_e9** | **str** | Referee earnings from perps trading (e9 format) | 
+**spot_lp_referee_earnings_e9** | **str** | Referee earnings from spot LP (e9 format) | 
+**lending_referee_earnings_e9** | **str** | Referee earnings from lending (e9 format) | 
+**perps_referral_earnings_e9** | **str** | Referral earnings from perps trading (e9 format) | 
+**spot_lp_referral_earnings_e9** | **str** | Referral earnings from spot LP (e9 format) | 
+**lending_referral_earnings_e9** | **str** | Referral earnings from lending (e9 format) | 
+**perps_total_earnings_e9** | **str** | Total earnings from perps trading (e9 format) | 
+**spot_lp_total_earnings_e9** | **str** | Total earnings from spot LP (e9 format) | 
+**lending_total_earnings_e9** | **str** | Total earnings from lending (e9 format) | 
+**total_referral_earnings_e9** | **str** | Total earnings from referrals (e9 format) | 
+**total_referee_earnings_e9** | **str** | Total earnings from referee activities (e9 format) | 
+**total_earnings_e9** | **str** | Total earnings combining referrals and referee activities (e9 format) | 
 
 ## Example
 

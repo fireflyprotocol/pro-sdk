@@ -19,27 +19,27 @@ pub struct IntervalRewards {
     #[serde(rename = "Status")]
     pub status: Status,
     /// Total Blue token rewards earned in the interval (e9 format).
-    #[serde(rename = "BlueRewards")]
-    pub blue_rewards: String,
+    #[serde(rename = "BlueRewardsE9")]
+    pub blue_rewards_e9: String,
     /// Total Sui token rewards earned in the interval (e9 format).
-    #[serde(rename = "SuiRewards")]
-    pub sui_rewards: String,
+    #[serde(rename = "SuiRewardsE9")]
+    pub sui_rewards_e9: String,
     /// Total wal rewards earned in the interval (e9 format).
-    #[serde(rename = "WalRewards")]
-    pub wal_rewards: String,
+    #[serde(rename = "WalRewardsE9")]
+    pub wal_rewards_e9: String,
     /// Interval Id of the interval for the rewards earned data.
     #[serde(rename = "IntervalNumber")]
     pub interval_number: i32,
 }
 
 impl IntervalRewards {
-    pub fn new(user_address: String, status: Status, blue_rewards: String, sui_rewards: String, wal_rewards: String, interval_number: i32) -> IntervalRewards {
+    pub fn new(user_address: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, interval_number: i32) -> IntervalRewards {
         IntervalRewards {
             user_address,
             status,
-            blue_rewards,
-            sui_rewards,
-            wal_rewards,
+            blue_rewards_e9,
+            sui_rewards_e9,
+            wal_rewards_e9,
             interval_number,
         }
     }

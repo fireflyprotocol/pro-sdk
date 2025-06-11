@@ -29,7 +29,7 @@ pub struct AffiliateMetadata {
     #[serde(rename = "parentName", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub parent_name: Option<Option<String>>,
     #[serde(rename = "fees", skip_serializing_if = "Option::is_none")]
-    pub fees: Option<models::AffiliateMetadataFees>,
+    pub fees: Option<models::FeeConfigs>,
     /// Status of the affiliate application
     #[serde(rename = "status", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub status: Option<Option<Status>>,

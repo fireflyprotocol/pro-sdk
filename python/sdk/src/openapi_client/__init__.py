@@ -65,7 +65,6 @@ from openapi_client.models.adjust_margin_operation import AdjustMarginOperation
 from openapi_client.models.affiliate_interval_overview import AffiliateIntervalOverview
 from openapi_client.models.affiliate_leader_dashboard import AffiliateLeaderDashboard
 from openapi_client.models.affiliate_metadata import AffiliateMetadata
-from openapi_client.models.affiliate_metadata_fees import AffiliateMetadataFees
 from openapi_client.models.affiliate_onboard_response import AffiliateOnboardResponse
 from openapi_client.models.affiliate_overview import AffiliateOverview
 from openapi_client.models.affiliate_summary import AffiliateSummary
@@ -84,6 +83,7 @@ from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
+from openapi_client.models.fee_configs import FeeConfigs
 from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
 from openapi_client.models.get_affiliate_leader_dashboard200_response import GetAffiliateLeaderDashboard200Response

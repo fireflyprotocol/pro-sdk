@@ -28,11 +28,11 @@ class IntervalRewards(BaseModel):
     """ # noqa: E501
     user_address: StrictStr = Field(description="User address for the rewards earned data.", alias="UserAddress")
     status: StrictStr = Field(alias="Status")
-    blue_rewards: StrictStr = Field(description="Total Blue token rewards earned in the interval (e9 format).", alias="BlueRewards")
-    sui_rewards: StrictStr = Field(description="Total Sui token rewards earned in the interval (e9 format).", alias="SuiRewards")
-    wal_rewards: StrictStr = Field(description="Total wal rewards earned in the interval (e9 format).", alias="WalRewards")
+    blue_rewards_e9: StrictStr = Field(description="Total Blue token rewards earned in the interval (e9 format).", alias="BlueRewardsE9")
+    sui_rewards_e9: StrictStr = Field(description="Total Sui token rewards earned in the interval (e9 format).", alias="SuiRewardsE9")
+    wal_rewards_e9: StrictStr = Field(description="Total wal rewards earned in the interval (e9 format).", alias="WalRewardsE9")
     interval_number: StrictInt = Field(description="Interval Id of the interval for the rewards earned data.", alias="IntervalNumber")
-    __properties: ClassVar[List[str]] = ["UserAddress", "Status", "BlueRewards", "SuiRewards", "WalRewards", "IntervalNumber"]
+    __properties: ClassVar[List[str]] = ["UserAddress", "Status", "BlueRewardsE9", "SuiRewardsE9", "WalRewardsE9", "IntervalNumber"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -94,9 +94,9 @@ class IntervalRewards(BaseModel):
         _obj = cls.model_validate({
             "UserAddress": obj.get("UserAddress"),
             "Status": obj.get("Status"),
-            "BlueRewards": obj.get("BlueRewards"),
-            "SuiRewards": obj.get("SuiRewards"),
-            "WalRewards": obj.get("WalRewards"),
+            "BlueRewardsE9": obj.get("BlueRewardsE9"),
+            "SuiRewardsE9": obj.get("SuiRewardsE9"),
+            "WalRewardsE9": obj.get("WalRewardsE9"),
             "IntervalNumber": obj.get("IntervalNumber")
         })
         return _obj

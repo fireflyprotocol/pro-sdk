@@ -20,27 +20,27 @@ pub struct EpochConfigs {
     #[serde(rename = "epochDuration")]
     pub epoch_duration: i32,
     /// Allocation of Sui token rewards in the epoch (e9 format).
-    #[serde(rename = "suiRewardsAllocation")]
-    pub sui_rewards_allocation: String,
+    #[serde(rename = "suiRewardsAllocationE9")]
+    pub sui_rewards_allocation_e9: String,
     /// Allocation of Blue token rewards in the epoch (e9 format).
-    #[serde(rename = "blueRewardsAllocation")]
-    pub blue_rewards_allocation: String,
+    #[serde(rename = "blueRewardsAllocationE9")]
+    pub blue_rewards_allocation_e9: String,
     /// Allocation of wal token rewards in the epoch (e9 format)
-    #[serde(rename = "walRewardsAllocation")]
-    pub wal_rewards_allocation: String,
+    #[serde(rename = "walRewardsAllocationE9")]
+    pub wal_rewards_allocation_e9: String,
     /// Object to add custom configurations for campaigns.
     #[serde(rename = "config")]
     pub config: std::collections::HashMap<String, serde_json::Value>,
 }
 
 impl EpochConfigs {
-    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation: String, blue_rewards_allocation: String, wal_rewards_allocation: String, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
+    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation_e9: String, blue_rewards_allocation_e9: String, wal_rewards_allocation_e9: String, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
         EpochConfigs {
             campaign_name,
             epoch_duration,
-            sui_rewards_allocation,
-            blue_rewards_allocation,
-            wal_rewards_allocation,
+            sui_rewards_allocation_e9,
+            blue_rewards_allocation_e9,
+            wal_rewards_allocation_e9,
             config,
         }
     }
