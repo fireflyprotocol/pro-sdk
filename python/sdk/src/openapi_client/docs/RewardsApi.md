@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_leader_dashboard**
-> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, page=page, limit=limit, name=name, user_address=user_address)
+> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, sort_order=sort_order, page=page, limit=limit, name=name, user_address=user_address)
 
 Get affiliate rankings and earnings
 
@@ -115,6 +115,7 @@ Returns rankings and earnings for affiliates, sorted by the specified category
 
 ### Example
 
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -128,12 +129,22 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
     sort_by = perpsRank # str | The category to sort rankings by (default to perpsRank)
+    sort_order = 'desc' # str | The order to sort rankings by (optional)
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
     name = 'John' # str | The name of the user to filter by (optional)
@@ -141,7 +152,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get affiliate rankings and earnings
-        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by, page=page, limit=limit, name=name, user_address=user_address)
+        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by, sort_order=sort_order, page=page, limit=limit, name=name, user_address=user_address)
         print("The response of RewardsApi->get_affiliate_leader_dashboard:\n")
         pprint(api_response)
     except Exception as e:
@@ -156,6 +167,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sort_by** | **str**| The category to sort rankings by | [default to perpsRank]
+ **sort_order** | **str**| The order to sort rankings by | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
  **name** | **str**| The name of the user to filter by | [optional] 
@@ -167,7 +179,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -263,7 +275,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_overview**
-> GetAffiliateOverview200Response get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, name=name, user_address=user_address)
+> GetAffiliateOverview200Response get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, name=name, user_address=user_address)
 
 Get detailed affiliate earnings overview
 
@@ -302,12 +314,13 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
     sort_by = totalEarnings # str | The category to sort earnings by (optional) (default to totalEarnings)
+    sort_order = 'desc' # str | The order to sort earnings by (optional)
     name = 'John' # str | The name of the user to filter by (optional)
     user_address = '0x1234567890abcdef' # str | The user address to filter by (optional)
 
     try:
         # Get detailed affiliate earnings overview
-        api_response = await api_instance.get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, name=name, user_address=user_address)
+        api_response = await api_instance.get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, name=name, user_address=user_address)
         print("The response of RewardsApi->get_affiliate_overview:\n")
         pprint(api_response)
     except Exception as e:
@@ -324,6 +337,7 @@ Name | Type | Description  | Notes
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
  **sort_by** | **str**| The category to sort earnings by | [optional] [default to totalEarnings]
+ **sort_order** | **str**| The order to sort earnings by | [optional] 
  **name** | **str**| The name of the user to filter by | [optional] 
  **user_address** | **str**| The user address to filter by | [optional] 
 
@@ -1175,6 +1189,7 @@ Name | Type | Description  | Notes
 **401** | unauthorized access |  -  |
 **404** | address not found |  -  |
 **400** | request missing required parameters |  -  |
+**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

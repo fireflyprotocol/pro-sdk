@@ -28,11 +28,11 @@ class EpochConfigs(BaseModel):
     """ # noqa: E501
     campaign_name: StrictStr = Field(description="The name of the campaign.", alias="campaignName")
     epoch_duration: StrictInt = Field(description="Duration of the epoch in milliseconds.", alias="epochDuration")
-    sui_rewards_allocation: StrictStr = Field(description="Allocation of Sui token rewards in the epoch (e9 format).", alias="suiRewardsAllocation")
-    blue_rewards_allocation: StrictStr = Field(description="Allocation of Blue token rewards in the epoch (e9 format).", alias="blueRewardsAllocation")
-    wal_rewards_allocation: StrictStr = Field(description="Allocation of wal token rewards in the epoch (e9 format)", alias="walRewardsAllocation")
+    sui_rewards_allocation_e9: StrictStr = Field(description="Allocation of Sui token rewards in the epoch (e9 format).", alias="suiRewardsAllocationE9")
+    blue_rewards_allocation_e9: StrictStr = Field(description="Allocation of Blue token rewards in the epoch (e9 format).", alias="blueRewardsAllocationE9")
+    wal_rewards_allocation_e9: StrictStr = Field(description="Allocation of wal token rewards in the epoch (e9 format)", alias="walRewardsAllocationE9")
     config: Dict[str, Any] = Field(description="Object to add custom configurations for campaigns.")
-    __properties: ClassVar[List[str]] = ["campaignName", "epochDuration", "suiRewardsAllocation", "blueRewardsAllocation", "walRewardsAllocation", "config"]
+    __properties: ClassVar[List[str]] = ["campaignName", "epochDuration", "suiRewardsAllocationE9", "blueRewardsAllocationE9", "walRewardsAllocationE9", "config"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,9 +87,9 @@ class EpochConfigs(BaseModel):
         _obj = cls.model_validate({
             "campaignName": obj.get("campaignName"),
             "epochDuration": obj.get("epochDuration"),
-            "suiRewardsAllocation": obj.get("suiRewardsAllocation"),
-            "blueRewardsAllocation": obj.get("blueRewardsAllocation"),
-            "walRewardsAllocation": obj.get("walRewardsAllocation"),
+            "suiRewardsAllocationE9": obj.get("suiRewardsAllocationE9"),
+            "blueRewardsAllocationE9": obj.get("blueRewardsAllocationE9"),
+            "walRewardsAllocationE9": obj.get("walRewardsAllocationE9"),
             "config": obj.get("config")
         })
         return _obj

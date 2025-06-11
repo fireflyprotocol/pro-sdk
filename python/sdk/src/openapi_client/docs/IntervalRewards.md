@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user_address** | **str** | User address for the rewards earned data. | 
 **status** | **str** |  | 
-**blue_rewards** | **str** | Total Blue token rewards earned in the interval (e9 format). | 
-**sui_rewards** | **str** | Total Sui token rewards earned in the interval (e9 format). | 
-**wal_rewards** | **str** | Total wal rewards earned in the interval (e9 format). | 
+**blue_rewards_e9** | **str** | Total Blue token rewards earned in the interval (e9 format). | 
+**sui_rewards_e9** | **str** | Total Sui token rewards earned in the interval (e9 format). | 
+**wal_rewards_e9** | **str** | Total wal rewards earned in the interval (e9 format). | 
 **interval_number** | **int** | Interval Id of the interval for the rewards earned data. | 
 
 ## Example

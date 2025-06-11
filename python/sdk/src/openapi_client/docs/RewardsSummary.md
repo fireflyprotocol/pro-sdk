@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user_address** | **str** | User address for the rewards earned data. | 
-**blue_rewards** | **str** | Total Blue token rewards earned by the user (e9 format). | 
-**sui_rewards** | **str** | Total Sui token rewards earned by the user (e9 format). | 
-**wal_rewards** | **str** | Total wal rewards earned by the user (e9 format). | 
+**blue_rewards_e9** | **str** | Total Blue token rewards earned by the user (e9 format). | 
+**sui_rewards_e9** | **str** | Total Sui token rewards earned by the user (e9 format). | 
+**wal_rewards_e9** | **str** | Total wal rewards earned by the user (e9 format). | 
 
 ## Example
 

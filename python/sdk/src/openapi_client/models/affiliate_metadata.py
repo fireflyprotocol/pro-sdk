@@ -19,7 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.affiliate_metadata_fees import AffiliateMetadataFees
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,7 +31,7 @@ class AffiliateMetadata(BaseModel):
     referral_code: Optional[StrictStr] = Field(default=None, description="The user's referral code if approved as an affiliate", alias="referralCode")
     name: Optional[StrictStr] = Field(default=None, description="The name of the affiliate")
     parent_name: Optional[StrictStr] = Field(default=None, description="The name of the parent affiliate", alias="parentName")
-    fees: Optional[AffiliateMetadataFees] = None
+    fees: Optional[Dict[str, Any]] = None
     status: Optional[StrictStr] = Field(default=None, description="Status of the affiliate application")
     has_traded: StrictBool = Field(description="Indicates whether the user has traded or not", alias="hasTraded")
     tier: Optional[StrictStr] = Field(default=None, description="Tier of the affiliate")
@@ -137,7 +136,7 @@ class AffiliateMetadata(BaseModel):
             "referralCode": obj.get("referralCode"),
             "name": obj.get("name"),
             "parentName": obj.get("parentName"),
-            "fees": AffiliateMetadataFees.from_dict(obj["fees"]) if obj.get("fees") is not None else None,
+            "fees": FeeConfigs.from_dict(obj["fees"]) if obj.get("fees") is not None else None,
             "status": obj.get("status"),
             "hasTraded": obj.get("hasTraded"),
             "tier": obj.get("tier")

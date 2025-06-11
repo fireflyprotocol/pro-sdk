@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **campaign_name** | **str** | The name of the campaign. | 
 **epoch_duration** | **int** | Duration of the epoch in milliseconds. | 
-**sui_rewards_allocation** | **str** | Allocation of Sui token rewards in the epoch (e9 format). | 
-**blue_rewards_allocation** | **str** | Allocation of Blue token rewards in the epoch (e9 format). | 
-**wal_rewards_allocation** | **str** | Allocation of wal token rewards in the epoch (e9 format) | 
+**sui_rewards_allocation_e9** | **str** | Allocation of Sui token rewards in the epoch (e9 format). | 
+**blue_rewards_allocation_e9** | **str** | Allocation of Blue token rewards in the epoch (e9 format). | 
+**wal_rewards_allocation_e9** | **str** | Allocation of wal token rewards in the epoch (e9 format) | 
 **config** | **Dict[str, object]** | Object to add custom configurations for campaigns. | 
 
 ## Example

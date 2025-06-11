@@ -32,19 +32,19 @@ class AffiliateIntervalOverview(BaseModel):
     interval_start_date: StrictInt = Field(description="Start date of the interval in milliseconds", alias="intervalStartDate")
     interval_end_date: StrictInt = Field(description="End date of the interval in milliseconds", alias="intervalEndDate")
     referred_since: StrictStr = Field(description="Date when the user was referred", alias="referredSince")
-    perps_referee_earnings: StrictStr = Field(description="Referee earnings from perps trading (e9 format)", alias="perpsRefereeEarnings")
-    spot_lp_referee_earnings: StrictStr = Field(description="Referee earnings from spot LP (e9 format)", alias="spotLPRefereeEarnings")
-    lending_referee_earnings: StrictStr = Field(description="Referee earnings from lending (e9 format)", alias="lendingRefereeEarnings")
-    perps_referral_earnings: StrictStr = Field(description="Referral earnings from perps trading (e9 format)", alias="perpsReferralEarnings")
-    spot_lp_referral_earnings: StrictStr = Field(description="Referral earnings from spot LP (e9 format)", alias="spotLPReferralEarnings")
-    lending_referral_earnings: StrictStr = Field(description="Referral earnings from lending (e9 format)", alias="lendingReferralEarnings")
-    perps_total_earnings: StrictStr = Field(description="Total earnings from perps trading (e9 format)", alias="perpsTotalEarnings")
-    spot_lp_total_earnings: StrictStr = Field(description="Total earnings from spot LP (e9 format)", alias="spotLPTotalEarnings")
-    lending_total_earnings: StrictStr = Field(description="Total earnings from lending (e9 format)", alias="lendingTotalEarnings")
-    total_referral_earnings: StrictStr = Field(description="Total earnings from referrals (e9 format)", alias="totalReferralEarnings")
-    total_referee_earnings: StrictStr = Field(description="Total earnings from referee activities (e9 format)", alias="totalRefereeEarnings")
-    total_earnings: StrictStr = Field(description="Total earnings combining referrals and referee activities (e9 format)", alias="totalEarnings")
-    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "referredSince", "perpsRefereeEarnings", "spotLPRefereeEarnings", "lendingRefereeEarnings", "perpsReferralEarnings", "spotLPReferralEarnings", "lendingReferralEarnings", "perpsTotalEarnings", "spotLPTotalEarnings", "lendingTotalEarnings", "totalReferralEarnings", "totalRefereeEarnings", "totalEarnings"]
+    perps_referee_earnings_e9: StrictStr = Field(description="Referee earnings from perps trading (e9 format)", alias="perpsRefereeEarningsE9")
+    spot_lp_referee_earnings_e9: StrictStr = Field(description="Referee earnings from spot LP (e9 format)", alias="spotLPRefereeEarningsE9")
+    lending_referee_earnings_e9: StrictStr = Field(description="Referee earnings from lending (e9 format)", alias="lendingRefereeEarningsE9")
+    perps_referral_earnings_e9: StrictStr = Field(description="Referral earnings from perps trading (e9 format)", alias="perpsReferralEarningsE9")
+    spot_lp_referral_earnings_e9: StrictStr = Field(description="Referral earnings from spot LP (e9 format)", alias="spotLPReferralEarningsE9")
+    lending_referral_earnings_e9: StrictStr = Field(description="Referral earnings from lending (e9 format)", alias="lendingReferralEarningsE9")
+    perps_total_earnings_e9: StrictStr = Field(description="Total earnings from perps trading (e9 format)", alias="perpsTotalEarningsE9")
+    spot_lp_total_earnings_e9: StrictStr = Field(description="Total earnings from spot LP (e9 format)", alias="spotLPTotalEarningsE9")
+    lending_total_earnings_e9: StrictStr = Field(description="Total earnings from lending (e9 format)", alias="lendingTotalEarningsE9")
+    total_referral_earnings_e9: StrictStr = Field(description="Total earnings from referrals (e9 format)", alias="totalReferralEarningsE9")
+    total_referee_earnings_e9: StrictStr = Field(description="Total earnings from referee activities (e9 format)", alias="totalRefereeEarningsE9")
+    total_earnings_e9: StrictStr = Field(description="Total earnings combining referrals and referee activities (e9 format)", alias="totalEarningsE9")
+    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "referredSince", "perpsRefereeEarningsE9", "spotLPRefereeEarningsE9", "lendingRefereeEarningsE9", "perpsReferralEarningsE9", "spotLPReferralEarningsE9", "lendingReferralEarningsE9", "perpsTotalEarningsE9", "spotLPTotalEarningsE9", "lendingTotalEarningsE9", "totalReferralEarningsE9", "totalRefereeEarningsE9", "totalEarningsE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,18 +103,18 @@ class AffiliateIntervalOverview(BaseModel):
             "intervalStartDate": obj.get("intervalStartDate"),
             "intervalEndDate": obj.get("intervalEndDate"),
             "referredSince": obj.get("referredSince"),
-            "perpsRefereeEarnings": obj.get("perpsRefereeEarnings"),
-            "spotLPRefereeEarnings": obj.get("spotLPRefereeEarnings"),
-            "lendingRefereeEarnings": obj.get("lendingRefereeEarnings"),
-            "perpsReferralEarnings": obj.get("perpsReferralEarnings"),
-            "spotLPReferralEarnings": obj.get("spotLPReferralEarnings"),
-            "lendingReferralEarnings": obj.get("lendingReferralEarnings"),
-            "perpsTotalEarnings": obj.get("perpsTotalEarnings"),
-            "spotLPTotalEarnings": obj.get("spotLPTotalEarnings"),
-            "lendingTotalEarnings": obj.get("lendingTotalEarnings"),
-            "totalReferralEarnings": obj.get("totalReferralEarnings"),
-            "totalRefereeEarnings": obj.get("totalRefereeEarnings"),
-            "totalEarnings": obj.get("totalEarnings")
+            "perpsRefereeEarningsE9": obj.get("perpsRefereeEarningsE9"),
+            "spotLPRefereeEarningsE9": obj.get("spotLPRefereeEarningsE9"),
+            "lendingRefereeEarningsE9": obj.get("lendingRefereeEarningsE9"),
+            "perpsReferralEarningsE9": obj.get("perpsReferralEarningsE9"),
+            "spotLPReferralEarningsE9": obj.get("spotLPReferralEarningsE9"),
+            "lendingReferralEarningsE9": obj.get("lendingReferralEarningsE9"),
+            "perpsTotalEarningsE9": obj.get("perpsTotalEarningsE9"),
+            "spotLPTotalEarningsE9": obj.get("spotLPTotalEarningsE9"),
+            "lendingTotalEarningsE9": obj.get("lendingTotalEarningsE9"),
+            "totalReferralEarningsE9": obj.get("totalReferralEarningsE9"),
+            "totalRefereeEarningsE9": obj.get("totalRefereeEarningsE9"),
+            "totalEarningsE9": obj.get("totalEarningsE9")
         })
         return _obj
 

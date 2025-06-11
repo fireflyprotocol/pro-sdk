@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **referral_code** | **str** | The user&#39;s referral code if approved as an affiliate | [optional] 
 **name** | **str** | The name of the affiliate | [optional] 
 **parent_name** | **str** | The name of the parent affiliate | [optional] 
-**fees** | [**AffiliateMetadataFees**](AffiliateMetadataFees.md) |  | [optional] 
+**fees** | [**FeeConfigs**](.md) |  | [optional] 
 **status** | **str** | Status of the affiliate application | [optional] 
 **has_traded** | **bool** | Indicates whether the user has traded or not | 
 **tier** | **str** | Tier of the affiliate | [optional] 

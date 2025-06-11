@@ -28,11 +28,11 @@ class AffiliateSummary(BaseModel):
     """ # noqa: E501
     user_address: StrictStr = Field(description="The user's wallet address", alias="userAddress")
     total_referred_users: StrictInt = Field(description="Total number of referees", alias="totalReferredUsers")
-    total_earnings: StrictStr = Field(description="Total earnings in e9 format", alias="totalEarnings")
+    total_earnings_e9: StrictStr = Field(description="Total earnings in e9 format", alias="totalEarningsE9")
     perps_ranking: StrictInt = Field(description="Ranking in perps trading category", alias="perpsRanking")
     spot_ranking: StrictInt = Field(description="Ranking in spot trading category", alias="spotRanking")
     lend_ranking: StrictInt = Field(description="Ranking in lending category", alias="lendRanking")
-    __properties: ClassVar[List[str]] = ["userAddress", "totalReferredUsers", "totalEarnings", "perpsRanking", "spotRanking", "lendRanking"]
+    __properties: ClassVar[List[str]] = ["userAddress", "totalReferredUsers", "totalEarningsE9", "perpsRanking", "spotRanking", "lendRanking"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +87,7 @@ class AffiliateSummary(BaseModel):
         _obj = cls.model_validate({
             "userAddress": obj.get("userAddress"),
             "totalReferredUsers": obj.get("totalReferredUsers"),
-            "totalEarnings": obj.get("totalEarnings"),
+            "totalEarningsE9": obj.get("totalEarningsE9"),
             "perpsRanking": obj.get("perpsRanking"),
             "spotRanking": obj.get("spotRanking"),
             "lendRanking": obj.get("lendRanking")

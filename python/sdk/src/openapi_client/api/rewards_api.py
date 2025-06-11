@@ -365,6 +365,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
@@ -388,6 +389,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param sort_order: The order to sort rankings by
+        :type sort_order: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -420,6 +423,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            sort_order=sort_order,
             page=page,
             limit=limit,
             name=name,
@@ -451,6 +455,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard_with_http_info(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
@@ -474,6 +479,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param sort_order: The order to sort rankings by
+        :type sort_order: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -506,6 +513,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            sort_order=sort_order,
             page=page,
             limit=limit,
             name=name,
@@ -537,6 +545,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard_without_preload_content(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
@@ -560,6 +569,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param sort_order: The order to sort rankings by
+        :type sort_order: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -592,6 +603,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            sort_order=sort_order,
             page=page,
             limit=limit,
             name=name,
@@ -618,6 +630,7 @@ class RewardsApi:
     def _get_affiliate_leader_dashboard_serialize(
         self,
         sort_by,
+        sort_order,
         page,
         limit,
         name,
@@ -647,6 +660,10 @@ class RewardsApi:
         if sort_by is not None:
             
             _query_params.append(('sortBy', sort_by))
+            
+        if sort_order is not None:
+            
+            _query_params.append(('sortOrder', sort_order))
             
         if page is not None:
             
@@ -680,6 +697,7 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -961,6 +979,7 @@ class RewardsApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
         user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
         _request_timeout: Union[
@@ -986,6 +1005,8 @@ class RewardsApi:
         :type limit: int
         :param sort_by: The category to sort earnings by
         :type sort_by: str
+        :param sort_order: The order to sort earnings by
+        :type sort_order: str
         :param name: The name of the user to filter by
         :type name: str
         :param user_address: The user address to filter by
@@ -1016,6 +1037,7 @@ class RewardsApi:
             page=page,
             limit=limit,
             sort_by=sort_by,
+            sort_order=sort_order,
             name=name,
             user_address=user_address,
             _request_auth=_request_auth,
@@ -1047,6 +1069,7 @@ class RewardsApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
         user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
         _request_timeout: Union[
@@ -1072,6 +1095,8 @@ class RewardsApi:
         :type limit: int
         :param sort_by: The category to sort earnings by
         :type sort_by: str
+        :param sort_order: The order to sort earnings by
+        :type sort_order: str
         :param name: The name of the user to filter by
         :type name: str
         :param user_address: The user address to filter by
@@ -1102,6 +1127,7 @@ class RewardsApi:
             page=page,
             limit=limit,
             sort_by=sort_by,
+            sort_order=sort_order,
             name=name,
             user_address=user_address,
             _request_auth=_request_auth,
@@ -1133,6 +1159,7 @@ class RewardsApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
+        sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
         user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
         _request_timeout: Union[
@@ -1158,6 +1185,8 @@ class RewardsApi:
         :type limit: int
         :param sort_by: The category to sort earnings by
         :type sort_by: str
+        :param sort_order: The order to sort earnings by
+        :type sort_order: str
         :param name: The name of the user to filter by
         :type name: str
         :param user_address: The user address to filter by
@@ -1188,6 +1217,7 @@ class RewardsApi:
             page=page,
             limit=limit,
             sort_by=sort_by,
+            sort_order=sort_order,
             name=name,
             user_address=user_address,
             _request_auth=_request_auth,
@@ -1214,6 +1244,7 @@ class RewardsApi:
         page,
         limit,
         sort_by,
+        sort_order,
         name,
         user_address,
         _request_auth,
@@ -1249,6 +1280,10 @@ class RewardsApi:
         if sort_by is not None:
             
             _query_params.append(('sortBy', sort_by))
+            
+        if sort_order is not None:
+            
+            _query_params.append(('sortOrder', sort_order))
             
         if name is not None:
             
@@ -4028,6 +4063,7 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
+            '500': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -4098,6 +4134,7 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
+            '500': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -4168,6 +4205,7 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
+            '500': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,

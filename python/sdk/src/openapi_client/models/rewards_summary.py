@@ -27,10 +27,10 @@ class RewardsSummary(BaseModel):
     RewardsSummary
     """ # noqa: E501
     user_address: StrictStr = Field(description="User address for the rewards earned data.", alias="UserAddress")
-    blue_rewards: StrictStr = Field(description="Total Blue token rewards earned by the user (e9 format).", alias="BlueRewards")
-    sui_rewards: StrictStr = Field(description="Total Sui token rewards earned by the user (e9 format).", alias="SuiRewards")
-    wal_rewards: StrictStr = Field(description="Total wal rewards earned by the user (e9 format).", alias="WalRewards")
-    __properties: ClassVar[List[str]] = ["UserAddress", "BlueRewards", "SuiRewards", "WalRewards"]
+    blue_rewards_e9: StrictStr = Field(description="Total Blue token rewards earned by the user (e9 format).", alias="BlueRewardsE9")
+    sui_rewards_e9: StrictStr = Field(description="Total Sui token rewards earned by the user (e9 format).", alias="SuiRewardsE9")
+    wal_rewards_e9: StrictStr = Field(description="Total wal rewards earned by the user (e9 format).", alias="WalRewardsE9")
+    __properties: ClassVar[List[str]] = ["UserAddress", "BlueRewardsE9", "SuiRewardsE9", "WalRewardsE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,9 +84,9 @@ class RewardsSummary(BaseModel):
 
         _obj = cls.model_validate({
             "UserAddress": obj.get("UserAddress"),
-            "BlueRewards": obj.get("BlueRewards"),
-            "SuiRewards": obj.get("SuiRewards"),
-            "WalRewards": obj.get("WalRewards")
+            "BlueRewardsE9": obj.get("BlueRewardsE9"),
+            "SuiRewardsE9": obj.get("SuiRewardsE9"),
+            "WalRewardsE9": obj.get("WalRewardsE9")
         })
         return _obj
 

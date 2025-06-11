@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user_address** | **str** | The user&#39;s wallet address | 
 **total_referred_users** | **int** | Total number of referees | 
-**total_earnings** | **str** | Total earnings in e9 format | 
+**total_earnings_e9** | **str** | Total earnings in e9 format | 
 **perps_ranking** | **int** | Ranking in perps trading category | 
 **spot_ranking** | **int** | Ranking in spot trading category | 
 **lend_ranking** | **int** | Ranking in lending category | 

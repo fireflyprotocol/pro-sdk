@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,7 +26,7 @@ class UpdateAffiliateFeeConfigRequest(BaseModel):
     """
     UpdateAffiliateFeeConfigRequest
     """ # noqa: E501
-    cashback: StrictStr = Field(description="Cashback amount in e9 format")
+    cashback: StrictInt = Field(description="Cashback amount to give to the referees")
     __properties: ClassVar[List[str]] = ["cashback"]
 
     model_config = ConfigDict(
