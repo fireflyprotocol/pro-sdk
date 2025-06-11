@@ -409,20 +409,6 @@ components:
           description: Response message indicating if the referral code exists
           example: "onboarded successfully"
 
-    WhitelistAffiliateResponse:
-      type: object
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: Response message indicating if the affiliate was whitelisted
-          example: "affiliate whitelisted successfully"
-        referralCode:
-          type: string
-          description: Referral code of the affiliate if the affiliate is whitelisted
-          example: "AFF123"
-
     AffiliateSummary:
       type: object
       required:
@@ -1433,86 +1419,4 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /v1/rewards/internal/affiliate/whitelist:
-    post:
-      tags:
-        - Rewards
-      operationId: whitelistAffiliate
-      summary: Whitelist an affiliate (Internal endpoint)
-      description: Internal endpoint to whitelist an affiliate with specified parameters
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - address
-                - status
-              properties:
-                address:
-                  type: string
-                  description: The affiliate's wallet address
-                  example: "0x1234567890abcdef"
-                cashback:
-                  type: integer
-                  description: Cashback percentage
-                  default: 10
-                  example: 10
-                criteriaName:
-                  type: string
-                  description: Name of the whitelist criteria
-                  example: "Super Affiliate"
-                revSharePercentage:
-                  type: integer
-                  description: Revenue share percentage
-                  default: 30
-                  example: 30
-                spotFeeSharePercentage:
-                  type: integer
-                  description: Spot fee share percentage
-                  default: 30
-                  example: 30
-                tier:
-                  type: string
-                  description: Affiliate tier
-                  enum:
-                    - "S"
-                    - "A"
-                    - "N"
-                    - "U"
-                  example: "S"
-                lendingRewardShare:
-                  type: integer
-                  description: Lending reward share percentage
-                  example: 20
-                status:
-                  type: string
-                  description: Status of the whitelist request
-                  enum:
-                    - APPROVED
-                    - REJECTED
-                  example: "APPROVED"
-                name:
-                  type: string
-                  description: Name of the affiliate
-                  example: "John Doe"
-      responses:
-        "200":
-          description: Successful whitelist response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WhitelistAffiliateResponse"
-        "400":
-          description: "request missing required parameters"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: "address not found"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+  
