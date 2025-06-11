@@ -39,9 +39,9 @@ components:
         - IntervalNumber
         - Symbol
         - Status
-        - BlueRewards
-        - SuiRewards
-        - WalRewards
+        - BlueRewardsE9
+        - SuiRewardsE9
+        - WalRewardsE9
         - IntervalStartDate
         - IntervalEndDate
       properties:
@@ -72,15 +72,15 @@ components:
             - NOT_STARTED
             - FINALIZED
             - COOLDOWN
-        BlueRewards:
+        BlueRewardsE9:
           type: string
           description: Total blue-perp token rewards earned in the epoch (e9 format).
           example: 10000000
-        SuiRewards:
+        SuiRewardsE9:
           type: string
           description: Total sui-perp token rewards earned in the epoch (e9 format).
           example: 10000000
-        WalRewards:
+        WalRewardsE9:
           type: string
           description: Total wal-perp rewards earned in the epoch (e9 format).
           example: 10000000
@@ -99,9 +99,9 @@ components:
         - UserAddress
         - IntervalNumber
         - Status
-        - BlueRewards
-        - SuiRewards
-        - WalRewards
+        - BlueRewardsE9
+        - SuiRewardsE9
+        - WalRewardsE9
       properties:
         UserAddress:
           type: string
@@ -114,15 +114,15 @@ components:
             - NOT_STARTED
             - FINALIZED
             - COOLDOWN
-        BlueRewards:
+        BlueRewardsE9:
           type: string
           description: Total Blue token rewards earned in the interval (e9 format).
           example: 10000000
-        SuiRewards:
+        SuiRewardsE9:
           type: string
           description: Total Sui token rewards earned in the interval (e9 format).
           example: 10000000
-        WalRewards:
+        WalRewardsE9:
           type: string
           description: Total wal rewards earned in the interval (e9 format).
           example: 10000000
@@ -135,23 +135,23 @@ components:
       type: object
       required:
         - UserAddress
-        - BlueRewards
-        - SuiRewards
-        - WalRewards
+        - BlueRewardsE9
+        - SuiRewardsE9
+        - WalRewardsE9
       properties:
         UserAddress:
           type: string
           description: User address for the rewards earned data.
           example: "0x1234567890abcdef"
-        BlueRewards:
+        BlueRewardsE9:
           type: string
           description: Total Blue token rewards earned by the user (e9 format).
           example: 10000000
-        SuiRewards:
+        SuiRewardsE9:
           type: string
           description: Total Sui token rewards earned by the user (e9 format).
           example: 10000000
-        WalRewards:
+        WalRewardsE9:
           type: string
           description: Total wal rewards earned by the user (e9 format).
           example: 10000000
@@ -263,9 +263,9 @@ components:
       required:
         - campaignName
         - epochDuration
-        - suiRewardsAllocation
-        - blueRewardsAllocation
-        - walRewardsAllocation
+        - suiRewardsAllocationE9
+        - blueRewardsAllocationE9
+        - walRewardsAllocationE9
         - config
       properties:
         campaignName:
@@ -276,15 +276,15 @@ components:
           type: integer
           description: Duration of the epoch in milliseconds.
           example: 604800000
-        suiRewardsAllocation:
+        suiRewardsAllocationE9:
           type: string
           description: Allocation of Sui token rewards in the epoch (e9 format).
           example: 200000000000
-        blueRewardsAllocation:
+        blueRewardsAllocationE9:
           type: string
           description: Allocation of Blue token rewards in the epoch (e9 format).
           example: 5000000000
-        walRewardsAllocation:
+        walRewardsAllocationE9:
           type: string
           description: Allocation of wal token rewards in the epoch (e9 format)
           example: 200000000000
@@ -297,27 +297,27 @@ components:
       type: object
       description: Map of various fee-related configurations
       properties:
-        referralPerpsFee:
+        referralPerpsFeeE9:
           type: string
           description: Earnings from referral perps fees (e9 format)
           example: "1000000000"
-        subaffiliatePerpsEarnings:
+        subaffiliatePerpsEarningsE9:
           type: string
           description: Earnings from subaffiliate perps (e9 format)
           example: "500000000"
-        spotLPFee:
+        spotLPFeeE9:
           type: string
           description: Earnings from spot LP fees (e9 format)
           example: "200000000"
-        referralSpotLPFee:
+        referralSpotLPFeeE9:
           type: string
           description: Earnings from referral spot LP fees (e9 format)
           example: "150000000"
-        referralLendingRewards:
+        referralLendingRewardsE9:
           type: string
           description: Earnings from referral lending rewards (e9 format)
           example: "300000000"
-        perpsFeeCashback:
+        perpsFeeCashbackE9:
           type: string
           description: Cashback from perps fees (e9 format)
           example: "250000000"
@@ -428,7 +428,7 @@ components:
       required:
         - userAddress
         - totalReferredUsers
-        - totalEarnings
+        - totalEarningsE9
         - perpsRanking
         - spotRanking
         - lendRanking
@@ -441,7 +441,7 @@ components:
           type: integer
           description: Total number of referees
           example: 50
-        totalEarnings:
+        totalEarningsE9:
           type: string
           description: Total earnings in e9 format
           example: "1000000000"
@@ -462,18 +462,18 @@ components:
       type: object
       required:
         - userAddress
-        - perpsRefereeEarnings
-        - spotLPRefereeEarnings
-        - lendingRefereeEarnings
-        - perpsReferralEarnings
-        - spotLPReferralEarnings
-        - lendingReferralEarnings
-        - perpsTotalEarnings
-        - spotLPTotalEarnings
-        - lendingTotalEarnings
-        - totalReferralEarnings
-        - totalRefereeEarnings
-        - totalEarnings
+        - perpsRefereeEarningsE9
+        - spotLPRefereeEarningsE9
+        - lendingRefereeEarningsE9
+        - perpsReferralEarningsE9
+        - spotLPReferralEarningsE9
+        - lendingReferralEarningsE9
+        - perpsTotalEarningsE9
+        - spotLPTotalEarningsE9
+        - lendingTotalEarningsE9
+        - totalReferralEarningsE9
+        - totalRefereeEarningsE9
+        - totalEarningsE9
       properties:
         userAddress:
           type: string
@@ -483,51 +483,51 @@ components:
           type: string
           description: Name of the affiliate
           example: "John"
-        perpsRefereeEarnings:
+        perpsRefereeEarningsE9:
           type: string
           description: Referee earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPRefereeEarnings:
+        spotLPRefereeEarningsE9:
           type: string
           description: Referee earnings from spot LP (e9 format)
           example: "500000000"
-        lendingRefereeEarnings:
+        lendingRefereeEarningsE9:
           type: string
           description: Referee earnings from lending (e9 format)
           example: "300000000"
-        perpsReferralEarnings:
+        perpsReferralEarningsE9:
           type: string
           description: Referral earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPReferralEarnings:
+        spotLPReferralEarningsE9:
           type: string
           description: Referral earnings from spot LP (e9 format)
           example: "500000000"
-        lendingReferralEarnings:
+        lendingReferralEarningsE9:
           type: string
           description: Referral earnings from lending (e9 format)
           example: "300000000"
-        perpsTotalEarnings:
+        perpsTotalEarningsE9:
           type: string
           description: Total earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPTotalEarnings:
+        spotLPTotalEarningsE9:
           type: string
           description: Total earnings from spot LP (e9 format)
           example: "500000000"
-        lendingTotalEarnings:
+        lendingTotalEarningsE9:
           type: string
           description: Total earnings from lending (e9 format)
           example: "300000000"
-        totalReferralEarnings:
+        totalReferralEarningsE9:
           type: string
           description: Total earnings from referrals (e9 format)
           example: "800000000"
-        totalRefereeEarnings:
+        totalRefereeEarningsE9:
           type: string
           description: Total earnings from referee activities (e9 format)
           example: "1200000000"
-        totalEarnings:
+        totalEarningsE9:
           type: string
           description: Total earnings combining referrals and referee activities (e9 format)
           example: "2000000000"
@@ -540,18 +540,18 @@ components:
         - intervalStartDate
         - intervalEndDate
         - referredSince
-        - perpsRefereeEarnings
-        - spotLPRefereeEarnings
-        - lendingRefereeEarnings
-        - perpsReferralEarnings
-        - spotLPReferralEarnings
-        - lendingReferralEarnings
-        - perpsTotalEarnings
-        - spotLPTotalEarnings
-        - lendingTotalEarnings
-        - totalReferralEarnings
-        - totalRefereeEarnings
-        - totalEarnings
+        - perpsRefereeEarningsE9
+        - spotLPRefereeEarningsE9
+        - lendingRefereeEarningsE9
+        - perpsReferralEarningsE9
+        - spotLPReferralEarningsE9
+        - lendingReferralEarningsE9
+        - perpsTotalEarningsE9
+        - spotLPTotalEarningsE9
+        - lendingTotalEarningsE9
+        - totalReferralEarningsE9
+        - totalRefereeEarningsE9
+        - totalEarningsE9
       properties:
         userAddress:
           type: string
@@ -577,51 +577,51 @@ components:
           type: string
           description: Date when the user was referred
           example: "2024-08-15"
-        perpsRefereeEarnings:
+        perpsRefereeEarningsE9:
           type: string
           description: Referee earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPRefereeEarnings:
+        spotLPRefereeEarningsE9:
           type: string
           description: Referee earnings from spot LP (e9 format)
           example: "500000000"
-        lendingRefereeEarnings:
+        lendingRefereeEarningsE9:
           type: string
           description: Referee earnings from lending (e9 format)
           example: "300000000"
-        perpsReferralEarnings:
+        perpsReferralEarningsE9:
           type: string
           description: Referral earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPReferralEarnings:
+        spotLPReferralEarningsE9:
           type: string
           description: Referral earnings from spot LP (e9 format)
           example: "500000000"
-        lendingReferralEarnings:
+        lendingReferralEarningsE9:
           type: string
           description: Referral earnings from lending (e9 format)
           example: "300000000"
-        perpsTotalEarnings:
+        perpsTotalEarningsE9:
           type: string
           description: Total earnings from perps trading (e9 format)
           example: "1000000000"
-        spotLPTotalEarnings:
+        spotLPTotalEarningsE9:
           type: string
           description: Total earnings from spot LP (e9 format)
           example: "500000000"
-        lendingTotalEarnings:
+        lendingTotalEarningsE9:
           type: string
           description: Total earnings from lending (e9 format)
           example: "300000000"
-        totalReferralEarnings:
+        totalReferralEarningsE9:
           type: string
           description: Total earnings from referrals (e9 format)
           example: "800000000"
-        totalRefereeEarnings:
+        totalRefereeEarningsE9:
           type: string
           description: Total earnings from referee activities (e9 format)
           example: "1200000000"
-        totalEarnings:
+        totalEarningsE9:
           type: string
           description: Total earnings combining referrals and referee activities (e9 format)
           example: "2000000000"
@@ -634,9 +634,9 @@ components:
         - perpsRank
         - spotRank
         - lendingRank
-        - perpsTotalEarnings
-        - spotTotalEarnings
-        - lendingTotalEarnings
+        - perpsTotalEarningsE9
+        - spotTotalEarningsE9
+        - lendingTotalEarningsE9
       properties:
         userAddress:
           type: string
@@ -666,15 +666,15 @@ components:
           type: integer
           description: Ranking in lending category
           example: 7
-        perpsTotalEarnings:
+        perpsTotalEarningsE9:
           type: string
           description: Total earnings from perps trading (e9 format)
           example: "1000000000"
-        spotTotalEarnings:
+        spotTotalEarningsE9:
           type: string
           description: Total earnings from spot trading (e9 format)
           example: "500000000"
-        lendingTotalEarnings:
+        lendingTotalEarningsE9:
           type: string
           description: Total earnings from lending (e9 format)
           example: "300000000"
