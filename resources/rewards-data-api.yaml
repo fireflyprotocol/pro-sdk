@@ -293,6 +293,35 @@ components:
           type: object
           description: Object to add custom configurations for campaigns.
           additionalProperties: true
+
+    FeeConfigs:
+      type: object
+      description: Map of various fee-related configurations
+      properties:
+        referralPerpsFee:
+          type: string
+          description: Earnings from referral perps fees (e9 format)
+          example: "1000000000"
+        subaffiliatePerpsEarnings:
+          type: string
+          description: Earnings from subaffiliate perps (e9 format)
+          example: "500000000"
+        spotLPFee:
+          type: string
+          description: Earnings from spot LP fees (e9 format)
+          example: "200000000"
+        referralSpotLPFee:
+          type: string
+          description: Earnings from referral spot LP fees (e9 format)
+          example: "150000000"
+        referralLendingRewards:
+          type: string
+          description: Earnings from referral lending rewards (e9 format)
+          example: "300000000"
+        perpsFeeCashback:
+          type: string
+          description: Cashback from perps fees (e9 format)
+          example: "250000000"
     # Not adding userAddress as it is not required for the API if we are extracting it from auth token
     # Post endpoints are for admin-only access, need to add auth for these endpoints
 
@@ -328,31 +357,7 @@ components:
         fees:
           type: object
           description: Map of various fee-related configurations
-          properties:
-            referralPerpsFee:
-              type: string
-              description: Earnings from referral perps fees (e9 format)
-              example: "1000000000"
-            subaffiliatePerpsEarnings:
-              type: string
-              description: Earnings from subaffiliate perps (e9 format)
-              example: "500000000"
-            spotLPFee:
-              type: string
-              description: Earnings from spot LP fees (e9 format)
-              example: "200000000"
-            referralSpotLPFee:
-              type: string
-              description: Earnings from referral spot LP fees (e9 format)
-              example: "150000000"
-            referralLendingRewards:
-              type: string
-              description: Earnings from referral lending rewards (e9 format)
-              example: "300000000"
-            perpsFeeCashback:
-              type: string
-              description: Cashback from perps fees (e9 format)
-              example: "250000000"
+          $ref: "#/components/schemas/FeeConfigs"
         status:
           type: string
           nullable: true
@@ -404,6 +409,20 @@ components:
           type: string
           description: Response message indicating if the referral code exists
           example: "onboarded successfully"
+
+    WhitelistAffiliateResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Response message indicating if the affiliate was whitelisted
+          example: "affiliate whitelisted successfully"
+        referralCode:
+          type: string
+          description: Referral code of the affiliate if the affiliate is whitelisted
+          example: "AFF123"
 
     AffiliateSummary:
       type: object
@@ -1002,9 +1021,9 @@ paths:
                 - cashback
               properties:
                 cashback:
-                  type: string
-                  description: Cashback amount in e9 format
-                  example: "1000000000"
+                  type: integer
+                  description: Cashback amount to give to the referees
+                  example: 10
       responses:
         "200":
           description: Cashback request processed successfully
@@ -1026,6 +1045,12 @@ paths:
                 $ref: "#/components/schemas/Error"
         "400":
             description: "request missing required parameters"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+        "500":
+            description: "internal server error"
             content:
               application/json:
                 schema:
@@ -1155,6 +1180,16 @@ paths:
               - totalEarnings
             example: "referralEarnings"
             default: "totalEarnings"
+        - name: sortOrder
+          in: query
+          required: false
+          description: The order to sort earnings by
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          example: "desc"
         - name: name
           in: query
           required: false
@@ -1298,6 +1333,8 @@ paths:
       operationId: getAffiliateLeaderDashboard
       summary: Get affiliate rankings and earnings
       description: Returns rankings and earnings for affiliates, sorted by the specified category
+      security:
+        - bearerAuth: []
       parameters:
         - name: sortBy
           in: query
@@ -1311,6 +1348,16 @@ paths:
               - spotRank
             example: "perpsRank"
             default: "perpsRank"
+        - name: sortOrder
+          in: query
+          required: false
+          description: The order to sort rankings by
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          example: "desc"
         - name: page
           in: query
           required: false
@@ -1382,6 +1429,90 @@ paths:
                 $ref: "#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/internal/affiliate/whitelist:
+    post:
+      tags:
+        - Rewards
+      operationId: whitelistAffiliate
+      summary: Whitelist an affiliate (Internal endpoint)
+      description: Internal endpoint to whitelist an affiliate with specified parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - address
+                - status
+              properties:
+                address:
+                  type: string
+                  description: The affiliate's wallet address
+                  example: "0x1234567890abcdef"
+                cashback:
+                  type: integer
+                  description: Cashback percentage
+                  default: 10
+                  example: 10
+                criteriaName:
+                  type: string
+                  description: Name of the whitelist criteria
+                  example: "Super Affiliate"
+                revSharePercentage:
+                  type: integer
+                  description: Revenue share percentage
+                  default: 30
+                  example: 30
+                spotFeeSharePercentage:
+                  type: integer
+                  description: Spot fee share percentage
+                  default: 30
+                  example: 30
+                tier:
+                  type: string
+                  description: Affiliate tier
+                  enum:
+                    - "S"
+                    - "A"
+                    - "N"
+                    - "U"
+                  example: "S"
+                lendingRewardShare:
+                  type: integer
+                  description: Lending reward share percentage
+                  example: 20
+                status:
+                  type: string
+                  description: Status of the whitelist request
+                  enum:
+                    - APPROVED
+                    - REJECTED
+                  example: "APPROVED"
+                name:
+                  type: string
+                  description: Name of the affiliate
+                  example: "John Doe"
+      responses:
+        "200":
+          description: Successful whitelist response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WhitelistAffiliateResponse"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "address not found"
           content:
             application/json:
               schema:
