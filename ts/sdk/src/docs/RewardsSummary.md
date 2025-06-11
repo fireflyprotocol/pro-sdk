@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **userAddress** | **string** | User address for the rewards earned data. | [default to undefined]
-**blueRewards** | **string** | Total Blue token rewards earned by the user (e9 format). | [default to undefined]
-**suiRewards** | **string** | Total Sui token rewards earned by the user (e9 format). | [default to undefined]
-**walRewards** | **string** | Total wal rewards earned by the user (e9 format). | [default to undefined]
+**blueRewardsE9** | **string** | Total Blue token rewards earned by the user (e9 format). | [default to undefined]
+**suiRewardsE9** | **string** | Total Sui token rewards earned by the user (e9 format). | [default to undefined]
+**walRewardsE9** | **string** | Total wal rewards earned by the user (e9 format). | [default to undefined]
 
 ## Example
 
@@ -17,9 +17,9 @@ import { RewardsSummary } from '@bluefin/api-client';
 
 const instance: RewardsSummary = {
     userAddress,
-    blueRewards,
-    suiRewards,
-    walRewards,
+    blueRewardsE9,
+    suiRewardsE9,
+    walRewardsE9,
 };
 ```
 
