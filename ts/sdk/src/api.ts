@@ -1107,73 +1107,73 @@ export interface AffiliateIntervalOverview {
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'perpsRefereeEarnings': string;
+    'perpsRefereeEarningsE9': string;
     /**
      * Referee earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'spotLPRefereeEarnings': string;
+    'spotLPRefereeEarningsE9': string;
     /**
      * Referee earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'lendingRefereeEarnings': string;
+    'lendingRefereeEarningsE9': string;
     /**
      * Referral earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'perpsReferralEarnings': string;
+    'perpsReferralEarningsE9': string;
     /**
      * Referral earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'spotLPReferralEarnings': string;
+    'spotLPReferralEarningsE9': string;
     /**
      * Referral earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'lendingReferralEarnings': string;
+    'lendingReferralEarningsE9': string;
     /**
      * Total earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'perpsTotalEarnings': string;
+    'perpsTotalEarningsE9': string;
     /**
      * Total earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'spotLPTotalEarnings': string;
+    'spotLPTotalEarningsE9': string;
     /**
      * Total earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'lendingTotalEarnings': string;
+    'lendingTotalEarningsE9': string;
     /**
      * Total earnings from referrals (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'totalReferralEarnings': string;
+    'totalReferralEarningsE9': string;
     /**
      * Total earnings from referee activities (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'totalRefereeEarnings': string;
+    'totalRefereeEarningsE9': string;
     /**
      * Total earnings combining referrals and referee activities (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
      */
-    'totalEarnings': string;
+    'totalEarningsE9': string;
 }
 /**
  * 
@@ -1228,19 +1228,19 @@ export interface AffiliateLeaderDashboard {
      * @type {string}
      * @memberof AffiliateLeaderDashboard
      */
-    'perpsTotalEarnings': string;
+    'perpsTotalEarningsE9': string;
     /**
      * Total earnings from spot trading (e9 format)
      * @type {string}
      * @memberof AffiliateLeaderDashboard
      */
-    'spotTotalEarnings': string;
+    'spotTotalEarningsE9': string;
     /**
      * Total earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateLeaderDashboard
      */
-    'lendingTotalEarnings': string;
+    'lendingTotalEarningsE9': string;
 }
 /**
  * 
@@ -1280,10 +1280,10 @@ export interface AffiliateMetadata {
     'parentName'?: string | null;
     /**
      * 
-     * @type {AffiliateMetadataFees}
+     * @type {FeeConfigs}
      * @memberof AffiliateMetadata
      */
-    'fees'?: AffiliateMetadataFees;
+    'fees'?: FeeConfigs;
     /**
      * Status of the affiliate application
      * @type {string}
@@ -1320,49 +1320,6 @@ export const AffiliateMetadataTierEnum = {
 
 export type AffiliateMetadataTierEnum = typeof AffiliateMetadataTierEnum[keyof typeof AffiliateMetadataTierEnum];
 
-/**
- * Map of various fee-related configurations
- * @export
- * @interface AffiliateMetadataFees
- */
-export interface AffiliateMetadataFees {
-    /**
-     * Earnings from referral perps fees (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'referralPerpsFee'?: string;
-    /**
-     * Earnings from subaffiliate perps (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'subaffiliatePerpsEarnings'?: string;
-    /**
-     * Earnings from spot LP fees (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'spotLPFee'?: string;
-    /**
-     * Earnings from referral spot LP fees (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'referralSpotLPFee'?: string;
-    /**
-     * Earnings from referral lending rewards (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'referralLendingRewards'?: string;
-    /**
-     * Cashback from perps fees (e9 format)
-     * @type {string}
-     * @memberof AffiliateMetadataFees
-     */
-    'perpsFeeCashback'?: string;
-}
 /**
  * 
  * @export
@@ -1414,73 +1371,73 @@ export interface AffiliateOverview {
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'perpsRefereeEarnings': string;
+    'perpsRefereeEarningsE9': string;
     /**
      * Referee earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'spotLPRefereeEarnings': string;
+    'spotLPRefereeEarningsE9': string;
     /**
      * Referee earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'lendingRefereeEarnings': string;
+    'lendingRefereeEarningsE9': string;
     /**
      * Referral earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'perpsReferralEarnings': string;
+    'perpsReferralEarningsE9': string;
     /**
      * Referral earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'spotLPReferralEarnings': string;
+    'spotLPReferralEarningsE9': string;
     /**
      * Referral earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'lendingReferralEarnings': string;
+    'lendingReferralEarningsE9': string;
     /**
      * Total earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'perpsTotalEarnings': string;
+    'perpsTotalEarningsE9': string;
     /**
      * Total earnings from spot LP (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'spotLPTotalEarnings': string;
+    'spotLPTotalEarningsE9': string;
     /**
      * Total earnings from lending (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'lendingTotalEarnings': string;
+    'lendingTotalEarningsE9': string;
     /**
      * Total earnings from referrals (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'totalReferralEarnings': string;
+    'totalReferralEarningsE9': string;
     /**
      * Total earnings from referee activities (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'totalRefereeEarnings': string;
+    'totalRefereeEarningsE9': string;
     /**
      * Total earnings combining referrals and referee activities (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
      */
-    'totalEarnings': string;
+    'totalEarningsE9': string;
 }
 /**
  * 
@@ -1505,7 +1462,7 @@ export interface AffiliateSummary {
      * @type {string}
      * @memberof AffiliateSummary
      */
-    'totalEarnings': string;
+    'totalEarningsE9': string;
     /**
      * Ranking in perps trading category
      * @type {number}
@@ -1991,19 +1948,19 @@ export interface EpochConfigs {
      * @type {string}
      * @memberof EpochConfigs
      */
-    'suiRewardsAllocation': string;
+    'suiRewardsAllocationE9': string;
     /**
      * Allocation of Blue token rewards in the epoch (e9 format).
      * @type {string}
      * @memberof EpochConfigs
      */
-    'blueRewardsAllocation': string;
+    'blueRewardsAllocationE9': string;
     /**
      * Allocation of wal token rewards in the epoch (e9 format)
      * @type {string}
      * @memberof EpochConfigs
      */
-    'walRewardsAllocation': string;
+    'walRewardsAllocationE9': string;
     /**
      * Object to add custom configurations for campaigns.
      * @type {{ [key: string]: any | undefined; }}
@@ -2106,6 +2063,49 @@ export interface ExchangeInfoResponse {
      * @memberof ExchangeInfoResponse
      */
     'timezone': string;
+}
+/**
+ * Map of various fee-related configurations
+ * @export
+ * @interface FeeConfigs
+ */
+export interface FeeConfigs {
+    /**
+     * Earnings from referral perps fees (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'referralPerpsFeeE9'?: string;
+    /**
+     * Earnings from subaffiliate perps (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'subaffiliatePerpsEarningsE9'?: string;
+    /**
+     * Earnings from spot LP fees (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'spotLPFeeE9'?: string;
+    /**
+     * Earnings from referral spot LP fees (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'referralSpotLPFeeE9'?: string;
+    /**
+     * Earnings from referral lending rewards (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'referralLendingRewardsE9'?: string;
+    /**
+     * Cashback from perps fees (e9 format)
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'perpsFeeCashbackE9'?: string;
 }
 /**
  * 
@@ -2295,19 +2295,19 @@ export interface IntervalRewards {
      * @type {string}
      * @memberof IntervalRewards
      */
-    'BlueRewards': string;
+    'BlueRewardsE9': string;
     /**
      * Total Sui token rewards earned in the interval (e9 format).
      * @type {string}
      * @memberof IntervalRewards
      */
-    'SuiRewards': string;
+    'SuiRewardsE9': string;
     /**
      * Total wal rewards earned in the interval (e9 format).
      * @type {string}
      * @memberof IntervalRewards
      */
-    'WalRewards': string;
+    'WalRewardsE9': string;
     /**
      * Interval Id of the interval for the rewards earned data.
      * @type {number}
@@ -3769,19 +3769,19 @@ export interface RewardsSummary {
      * @type {string}
      * @memberof RewardsSummary
      */
-    'BlueRewards': string;
+    'BlueRewardsE9': string;
     /**
      * Total Sui token rewards earned by the user (e9 format).
      * @type {string}
      * @memberof RewardsSummary
      */
-    'SuiRewards': string;
+    'SuiRewardsE9': string;
     /**
      * Total wal rewards earned by the user (e9 format).
      * @type {string}
      * @memberof RewardsSummary
      */
-    'WalRewards': string;
+    'WalRewardsE9': string;
 }
 /**
  * The strategy used to resolve self trades.   TAKER: On a self trade, the taker order will be cancelled  MAKER: On a self trade, the maker order will be cancelled  BOTH: On a self trade, both the taker and the maker order will be cancelled  UNSPECIFIED: set to default value 
@@ -4528,11 +4528,11 @@ export interface UpdateAccountPreferenceRequest {
  */
 export interface UpdateAffiliateFeeConfigRequest {
     /**
-     * Cashback amount in e9 format
-     * @type {string}
+     * Cashback amount to give to the referees
+     * @type {number}
      * @memberof UpdateAffiliateFeeConfigRequest
      */
-    'cashback': string;
+    'cashback': number;
 }
 /**
  * 
@@ -4581,19 +4581,19 @@ export interface UserCampaignRewards {
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'BlueRewards': string;
+    'BlueRewardsE9': string;
     /**
      * Total sui-perp token rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'SuiRewards': string;
+    'SuiRewardsE9': string;
     /**
      * Total wal-perp rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'WalRewards': string;
+    'WalRewardsE9': string;
     /**
      * Time in milliseconds for interval start date.
      * @type {number}
@@ -6290,6 +6290,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
          * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {string} [name] The name of the user to filter by
@@ -6297,7 +6298,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateLeaderDashboard: async (sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAffiliateLeaderDashboard: async (sortBy: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'sortBy' is not null or undefined
             assertParamExists('getAffiliateLeaderDashboard', 'sortBy', sortBy)
             const localVarPath = `/v1/rewards/affiliate/leaderDashboard`;
@@ -6312,8 +6313,16 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
             if (sortBy !== undefined) {
                 localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
             }
 
             if (page !== undefined) {
@@ -6383,12 +6392,13 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [name] The name of the user to filter by
          * @param {string} [userAddress] The user address to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateOverview: async (page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAffiliateOverview: async (page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, name?: string, userAddress?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/affiliate/overview`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6415,6 +6425,10 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (sortBy !== undefined) {
                 localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
             }
 
             if (name !== undefined) {
@@ -6883,6 +6897,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
          * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {string} [name] The name of the user to filter by
@@ -6890,8 +6905,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateLeaderDashboard200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options);
+        async getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateLeaderDashboard200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, name, userAddress, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateLeaderDashboard']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6914,13 +6929,14 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [name] The name of the user to filter by
          * @param {string} [userAddress] The user address to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateOverview200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateOverview(page, limit, sortBy, name, userAddress, options);
+        async getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateOverview200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateOverview(page, limit, sortBy, sortOrder, name, userAddress, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateOverview']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7094,6 +7110,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
          * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+         * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {string} [name] The name of the user to filter by
@@ -7101,8 +7118,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateLeaderDashboard200Response> {
-            return localVarFp.getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options).then((request) => request(axios, basePath));
+        getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateLeaderDashboard200Response> {
+            return localVarFp.getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, name, userAddress, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the affiliate metadata
@@ -7119,13 +7136,14 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+         * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [name] The name of the user to filter by
          * @param {string} [userAddress] The user address to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateOverview200Response> {
-            return localVarFp.getAffiliateOverview(page, limit, sortBy, name, userAddress, options).then((request) => request(axios, basePath));
+        getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateOverview200Response> {
+            return localVarFp.getAffiliateOverview(page, limit, sortBy, sortOrder, name, userAddress, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns performance summary for an affiliate including total referrals, earnings, and rankings
@@ -7265,6 +7283,7 @@ export class RewardsApi extends BaseAPI {
      * Returns rankings and earnings for affiliates, sorted by the specified category
      * @summary Get affiliate rankings and earnings
      * @param {GetAffiliateLeaderDashboardSortByEnum} sortBy The category to sort rankings by
+     * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
      * @param {number} [page] The page number to retrieve in a paginated response
      * @param {number} [limit] The page size for pagination
      * @param {string} [name] The name of the user to filter by
@@ -7273,8 +7292,8 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).getAffiliateLeaderDashboard(sortBy, page, limit, name, userAddress, options).then((request) => request(this.axios, this.basePath));
+    public getAffiliateLeaderDashboard(sortBy: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, name, userAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7294,14 +7313,15 @@ export class RewardsApi extends BaseAPI {
      * @param {number} [page] The page number to retrieve in a paginated response
      * @param {number} [limit] The page size for pagination
      * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
+     * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
      * @param {string} [name] The name of the user to filter by
      * @param {string} [userAddress] The user address to filter by
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).getAffiliateOverview(page, limit, sortBy, name, userAddress, options).then((request) => request(this.axios, this.basePath));
+    public getAffiliateOverview(page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, name?: string, userAddress?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateOverview(page, limit, sortBy, sortOrder, name, userAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7449,12 +7469,28 @@ export type GetAffiliateLeaderDashboardSortByEnum = typeof GetAffiliateLeaderDas
 /**
  * @export
  */
+export const GetAffiliateLeaderDashboardSortOrderEnum = {
+    Asc: 'asc',
+    Desc: 'desc'
+} as const;
+export type GetAffiliateLeaderDashboardSortOrderEnum = typeof GetAffiliateLeaderDashboardSortOrderEnum[keyof typeof GetAffiliateLeaderDashboardSortOrderEnum];
+/**
+ * @export
+ */
 export const GetAffiliateOverviewSortByEnum = {
     RefreeEarnings: 'refreeEarnings',
     ReferralEarnings: 'referralEarnings',
     TotalEarnings: 'totalEarnings'
 } as const;
 export type GetAffiliateOverviewSortByEnum = typeof GetAffiliateOverviewSortByEnum[keyof typeof GetAffiliateOverviewSortByEnum];
+/**
+ * @export
+ */
+export const GetAffiliateOverviewSortOrderEnum = {
+    Asc: 'asc',
+    Desc: 'desc'
+} as const;
+export type GetAffiliateOverviewSortOrderEnum = typeof GetAffiliateOverviewSortOrderEnum[keyof typeof GetAffiliateOverviewSortOrderEnum];
 /**
  * @export
  */

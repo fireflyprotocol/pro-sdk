@@ -34,7 +34,6 @@ docs/AdjustMarginOperation.md
 docs/AffiliateIntervalOverview.md
 docs/AffiliateLeaderDashboard.md
 docs/AffiliateMetadata.md
-docs/AffiliateMetadataFees.md
 docs/AffiliateOnboardResponse.md
 docs/AffiliateOverview.md
 docs/AffiliateSummary.md
@@ -55,6 +54,7 @@ docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
+docs/FeeConfigs.md
 docs/FundingRateEntry.md
 docs/GetAffiliateIntervalOverview200Response.md
 docs/GetAffiliateLeaderDashboard200Response.md
