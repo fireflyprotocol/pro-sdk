@@ -26,13 +26,13 @@ class FeeConfigs(BaseModel):
     """
     Map of various fee-related configurations
     """ # noqa: E501
-    referral_perps_fee_e9: Optional[StrictStr] = Field(default=None, description="Earnings from referral perps fees (e9 format)", alias="referralPerpsFeeE9")
-    subaffiliate_perps_earnings_e9: Optional[StrictStr] = Field(default=None, description="Earnings from subaffiliate perps (e9 format)", alias="subaffiliatePerpsEarningsE9")
-    spot_lp_fee_e9: Optional[StrictStr] = Field(default=None, description="Earnings from spot LP fees (e9 format)", alias="spotLPFeeE9")
-    referral_spot_lp_fee_e9: Optional[StrictStr] = Field(default=None, description="Earnings from referral spot LP fees (e9 format)", alias="referralSpotLPFeeE9")
-    referral_lending_rewards_e9: Optional[StrictStr] = Field(default=None, description="Earnings from referral lending rewards (e9 format)", alias="referralLendingRewardsE9")
-    perps_fee_cashback_e9: Optional[StrictStr] = Field(default=None, description="Cashback from perps fees (e9 format)", alias="perpsFeeCashbackE9")
-    __properties: ClassVar[List[str]] = ["referralPerpsFeeE9", "subaffiliatePerpsEarningsE9", "spotLPFeeE9", "referralSpotLPFeeE9", "referralLendingRewardsE9", "perpsFeeCashbackE9"]
+    referral_perps_fee: Optional[StrictStr] = Field(default=None, description="Earnings from referral perps fees", alias="referralPerpsFee")
+    subaffiliate_perps_earnings: Optional[StrictStr] = Field(default=None, description="Earnings from subaffiliate perps", alias="subaffiliatePerpsEarnings")
+    spot_lp_fee: Optional[StrictStr] = Field(default=None, description="Earnings from spot LP fees", alias="spotLPFee")
+    referral_spot_lp_fee: Optional[StrictStr] = Field(default=None, description="Earnings from referral spot LP fees", alias="referralSpotLPFee")
+    referral_lending_rewards: Optional[StrictStr] = Field(default=None, description="Earnings from referral lending rewards", alias="referralLendingRewards")
+    perps_fee_cashback: Optional[StrictStr] = Field(default=None, description="Cashback from perps fees", alias="perpsFeeCashback")
+    __properties: ClassVar[List[str]] = ["referralPerpsFee", "subaffiliatePerpsEarnings", "spotLPFee", "referralSpotLPFee", "referralLendingRewards", "perpsFeeCashback"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,12 +85,12 @@ class FeeConfigs(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "referralPerpsFeeE9": obj.get("referralPerpsFeeE9"),
-            "subaffiliatePerpsEarningsE9": obj.get("subaffiliatePerpsEarningsE9"),
-            "spotLPFeeE9": obj.get("spotLPFeeE9"),
-            "referralSpotLPFeeE9": obj.get("referralSpotLPFeeE9"),
-            "referralLendingRewardsE9": obj.get("referralLendingRewardsE9"),
-            "perpsFeeCashbackE9": obj.get("perpsFeeCashbackE9")
+            "referralPerpsFee": obj.get("referralPerpsFee"),
+            "subaffiliatePerpsEarnings": obj.get("subaffiliatePerpsEarnings"),
+            "spotLPFee": obj.get("spotLPFee"),
+            "referralSpotLPFee": obj.get("referralSpotLPFee"),
+            "referralLendingRewards": obj.get("referralLendingRewards"),
+            "perpsFeeCashback": obj.get("perpsFeeCashback")
         })
         return _obj
 

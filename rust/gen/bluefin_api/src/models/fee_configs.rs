@@ -14,36 +14,36 @@ use serde::{Deserialize, Serialize};
 /// FeeConfigs : Map of various fee-related configurations
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FeeConfigs {
-    /// Earnings from referral perps fees (e9 format)
-    #[serde(rename = "referralPerpsFeeE9", skip_serializing_if = "Option::is_none")]
-    pub referral_perps_fee_e9: Option<String>,
-    /// Earnings from subaffiliate perps (e9 format)
-    #[serde(rename = "subaffiliatePerpsEarningsE9", skip_serializing_if = "Option::is_none")]
-    pub subaffiliate_perps_earnings_e9: Option<String>,
-    /// Earnings from spot LP fees (e9 format)
-    #[serde(rename = "spotLPFeeE9", skip_serializing_if = "Option::is_none")]
-    pub spot_lp_fee_e9: Option<String>,
-    /// Earnings from referral spot LP fees (e9 format)
-    #[serde(rename = "referralSpotLPFeeE9", skip_serializing_if = "Option::is_none")]
-    pub referral_spot_lp_fee_e9: Option<String>,
-    /// Earnings from referral lending rewards (e9 format)
-    #[serde(rename = "referralLendingRewardsE9", skip_serializing_if = "Option::is_none")]
-    pub referral_lending_rewards_e9: Option<String>,
-    /// Cashback from perps fees (e9 format)
-    #[serde(rename = "perpsFeeCashbackE9", skip_serializing_if = "Option::is_none")]
-    pub perps_fee_cashback_e9: Option<String>,
+    /// Earnings from referral perps fees
+    #[serde(rename = "referralPerpsFee", skip_serializing_if = "Option::is_none")]
+    pub referral_perps_fee: Option<String>,
+    /// Earnings from subaffiliate perps
+    #[serde(rename = "subaffiliatePerpsEarnings", skip_serializing_if = "Option::is_none")]
+    pub subaffiliate_perps_earnings: Option<String>,
+    /// Earnings from spot LP fees
+    #[serde(rename = "spotLPFee", skip_serializing_if = "Option::is_none")]
+    pub spot_lp_fee: Option<String>,
+    /// Earnings from referral spot LP fees
+    #[serde(rename = "referralSpotLPFee", skip_serializing_if = "Option::is_none")]
+    pub referral_spot_lp_fee: Option<String>,
+    /// Earnings from referral lending rewards
+    #[serde(rename = "referralLendingRewards", skip_serializing_if = "Option::is_none")]
+    pub referral_lending_rewards: Option<String>,
+    /// Cashback from perps fees
+    #[serde(rename = "perpsFeeCashback", skip_serializing_if = "Option::is_none")]
+    pub perps_fee_cashback: Option<String>,
 }
 
 impl FeeConfigs {
     /// Map of various fee-related configurations
     pub fn new() -> FeeConfigs {
         FeeConfigs {
-            referral_perps_fee_e9: None,
-            subaffiliate_perps_earnings_e9: None,
-            spot_lp_fee_e9: None,
-            referral_spot_lp_fee_e9: None,
-            referral_lending_rewards_e9: None,
-            perps_fee_cashback_e9: None,
+            referral_perps_fee: None,
+            subaffiliate_perps_earnings: None,
+            spot_lp_fee: None,
+            referral_spot_lp_fee: None,
+            referral_lending_rewards: None,
+            perps_fee_cashback: None,
         }
     }
 }

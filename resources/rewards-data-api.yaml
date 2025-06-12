@@ -297,30 +297,30 @@ components:
       type: object
       description: Map of various fee-related configurations
       properties:
-        referralPerpsFeeE9:
+        referralPerpsFee:
           type: string
-          description: Earnings from referral perps fees (e9 format)
-          example: "1000000000"
-        subaffiliatePerpsEarningsE9:
+          description: Earnings from referral perps fees
+          example: "10"
+        subaffiliatePerpsEarnings:
           type: string
-          description: Earnings from subaffiliate perps (e9 format)
-          example: "500000000"
-        spotLPFeeE9:
+          description: Earnings from subaffiliate perps
+          example: "50"
+        spotLPFee:
           type: string
-          description: Earnings from spot LP fees (e9 format)
-          example: "200000000"
-        referralSpotLPFeeE9:
+          description: Earnings from spot LP fees
+          example: "20"
+        referralSpotLPFee:
           type: string
-          description: Earnings from referral spot LP fees (e9 format)
-          example: "150000000"
-        referralLendingRewardsE9:
+          description: Earnings from referral spot LP fees 
+          example: "15"
+        referralLendingRewards:
           type: string
-          description: Earnings from referral lending rewards (e9 format)
-          example: "300000000"
-        perpsFeeCashbackE9:
+          description: Earnings from referral lending rewards
+          example: "30"
+        perpsFeeCashback:
           type: string
-          description: Cashback from perps fees (e9 format)
-          example: "250000000"
+          description: Cashback from perps fees
+          example: "25"
     # Not adding userAddress as it is not required for the API if we are extracting it from auth token
     # Post endpoints are for admin-only access, need to add auth for these endpoints
 
