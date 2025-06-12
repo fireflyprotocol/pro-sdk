@@ -2071,41 +2071,41 @@ export interface ExchangeInfoResponse {
  */
 export interface FeeConfigs {
     /**
-     * Earnings from referral perps fees (e9 format)
+     * Earnings from referral perps fees
      * @type {string}
      * @memberof FeeConfigs
      */
-    'referralPerpsFeeE9'?: string;
+    'referralPerpsFee'?: string;
     /**
-     * Earnings from subaffiliate perps (e9 format)
+     * Earnings from subaffiliate perps
      * @type {string}
      * @memberof FeeConfigs
      */
-    'subaffiliatePerpsEarningsE9'?: string;
+    'subaffiliatePerpsEarnings'?: string;
     /**
-     * Earnings from spot LP fees (e9 format)
+     * Earnings from spot LP fees
      * @type {string}
      * @memberof FeeConfigs
      */
-    'spotLPFeeE9'?: string;
+    'spotLPFee'?: string;
     /**
-     * Earnings from referral spot LP fees (e9 format)
+     * Earnings from referral spot LP fees
      * @type {string}
      * @memberof FeeConfigs
      */
-    'referralSpotLPFeeE9'?: string;
+    'referralSpotLPFee'?: string;
     /**
-     * Earnings from referral lending rewards (e9 format)
+     * Earnings from referral lending rewards
      * @type {string}
      * @memberof FeeConfigs
      */
-    'referralLendingRewardsE9'?: string;
+    'referralLendingRewards'?: string;
     /**
-     * Cashback from perps fees (e9 format)
+     * Cashback from perps fees
      * @type {string}
      * @memberof FeeConfigs
      */
-    'perpsFeeCashbackE9'?: string;
+    'perpsFeeCashback'?: string;
 }
 /**
  * 

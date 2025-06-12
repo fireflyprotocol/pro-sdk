@@ -6,12 +6,12 @@ Map of various fee-related configurations
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**referralPerpsFeeE9** | **string** | Earnings from referral perps fees (e9 format) | [optional] [default to undefined]
-**subaffiliatePerpsEarningsE9** | **string** | Earnings from subaffiliate perps (e9 format) | [optional] [default to undefined]
-**spotLPFeeE9** | **string** | Earnings from spot LP fees (e9 format) | [optional] [default to undefined]
-**referralSpotLPFeeE9** | **string** | Earnings from referral spot LP fees (e9 format) | [optional] [default to undefined]
-**referralLendingRewardsE9** | **string** | Earnings from referral lending rewards (e9 format) | [optional] [default to undefined]
-**perpsFeeCashbackE9** | **string** | Cashback from perps fees (e9 format) | [optional] [default to undefined]
+**referralPerpsFee** | **string** | Earnings from referral perps fees | [optional] [default to undefined]
+**subaffiliatePerpsEarnings** | **string** | Earnings from subaffiliate perps | [optional] [default to undefined]
+**spotLPFee** | **string** | Earnings from spot LP fees | [optional] [default to undefined]
+**referralSpotLPFee** | **string** | Earnings from referral spot LP fees | [optional] [default to undefined]
+**referralLendingRewards** | **string** | Earnings from referral lending rewards | [optional] [default to undefined]
+**perpsFeeCashback** | **string** | Cashback from perps fees | [optional] [default to undefined]
 
 ## Example
 
@@ -19,12 +19,12 @@ Name | Type | Description | Notes
 import { FeeConfigs } from '@bluefin/api-client';
 
 const instance: FeeConfigs = {
-    referralPerpsFeeE9,
-    subaffiliatePerpsEarningsE9,
-    spotLPFeeE9,
-    referralSpotLPFeeE9,
-    referralLendingRewardsE9,
-    perpsFeeCashbackE9,
+    referralPerpsFee,
+    subaffiliatePerpsEarnings,
+    spotLPFee,
+    referralSpotLPFee,
+    referralLendingRewards,
+    perpsFeeCashback,
 };
 ```
 
