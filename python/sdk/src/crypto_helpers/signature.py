@@ -232,7 +232,42 @@ class Signature:
 
         return base64_signature_with_public_key
 
+    def create_personal_sign_message_bytes(self, byte_array: list[int]) -> bytes:
+        """
+        Creates a personal sign message with the given bytes.
+        1. BCS serialize the bytes
+        2. Append personal message intent bytes
+        3. Take blake2b hash of the above message with intent bytes
+
+        Args:
+            bytes (list[int]): bytes to be signed
+
+        Returns:
+            A personal sign message ready to be signed
+        """        
+
+        serializer = BCSSerializer()
+
+        # bcs serialize
+        serializer.serialize_uint8_array(byte_array)
+
+        # serialized bytes
+        serialized_bytes = serializer.get_bytes()
+
+        # append intent bytes
+        message_with_intent = bytes([3, 0, 0]) + serialized_bytes
+
+        # 32 bytes hash
+        message = blake2b(message_with_intent, digest_size=32).digest()
+
+        return message
+        
+
     def create_personal_sign_message(self, data:json) -> bytes:
+        """
+        Creates a personal sign message with the given json
+        """
+        
         """
         Python implementation of `signPersonalMessage()` method from mysten/sui package.
         Blue pro verifies signatures against personal sign message. The method converts the input
@@ -248,25 +283,12 @@ class Signature:
         Returns:
             A personal sign message ready to be signed
         """
-
-        serializer = BCSSerializer()
-
+        
         # Json stringify with indent and encode to ut8 bytes
-        uint8_array = list(json.dumps(data, indent=2).encode("utf-8"))
-
-        # bcs serialize
-        serializer.serialize_uint8_array(uint8_array)
-
-        # serialized bytes
-        serialized_bytes = serializer.get_bytes()
-
-        # append intent bytes
-        message_with_intent = bytes([3, 0, 0]) + serialized_bytes
-
-        # 32 bytes hash
-        message = blake2b(message_with_intent, digest_size=32).digest()
-
-        return message
+        bytes = list(json.dumps(data, indent=2).encode("utf-8"))
+        return self.create_personal_sign_message_bytes(bytes)
+        
+        
 
     def sign(self, message: bytes) -> bytes:
         """
