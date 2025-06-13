@@ -411,7 +411,6 @@ class BluefinProSdk:
             read_only=read_only
         )
         self._token_response = response
-        print(f"Token response V1: {self._token_response}")
         
     async def _login_v2(self, **kwargs):
         """
@@ -447,8 +446,6 @@ class BluefinProSdk:
             read_only=read_only
         )
         self._token_response = response
-        print(f"Token response V2: {self._token_response}")
-        
 
     async def __aenter__(self):
         await self.init()  # Ensure connection is established before entering the context
