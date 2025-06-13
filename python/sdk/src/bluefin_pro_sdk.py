@@ -7,6 +7,7 @@ from random import randint
 from typing import Callable, Awaitable, Any
 from typing_extensions import deprecated
 
+from asgiref.sync import sync_to_async
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
     AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest, AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields, AdjustIsolatedMarginRequest, AdjustIsolatedMarginRequestSignedFields, AdjustMarginOperation
@@ -172,7 +173,7 @@ class BluefinProSdk:
         # set RpcUrl enum from
         self.__rpc_calls = ProRpcCalls(self._sui_wallet, ProContracts(contracts_config), url=self.env.rpc_url)
 
-    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: str, destination_address: str = None):
+    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: int, destination_address: str = None):
         """
         Deposits the provided asset of provided amount into the external asset bank.
         :param asset_symbol: The symbol of the asset being deposited (e.g. "USDC")
@@ -185,7 +186,7 @@ class BluefinProSdk:
         if destination_address is None:
             destination_address = self.current_account_address or self._sui_wallet.sui_address
 
-        await self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
+        sync_to_async(self.__rpc_calls.deposit_to_asset_bank)(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
         await self._login()
@@ -379,30 +380,30 @@ class BluefinProSdk:
             signed_at_millis=int(time.time() * 1000),
             audience="api"
         )
-        
+
         if v1:
             await self._login_v1(login_request)
         else:
             await self._login_v2(login_request)
-    
+
     async def _login_v1(self, login_request: LoginRequest):
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
         response = await self._auth_api.auth_token_post(
-            signature, 
+            signature,
             login_request=login_request,
             refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds,
             read_only=self._read_only
         )
         self._token_response = response
-        
+
     async def _login_v2(self, login_request: LoginRequest):
-        
+
         signature = self.sign.login_v2(login_request)
         response = await self._auth_api.auth_v2_token_post(
-            signature, 
-            login_request=login_request, 
-            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds, 
+            signature,
+            login_request=login_request,
+            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds,
             read_only=self._read_only
         )
         self._token_response = response
