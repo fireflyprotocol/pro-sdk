@@ -5287,10 +5287,12 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * login with token
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenPost: async (payloadSignature: string, loginRequest: LoginRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authTokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payloadSignature' is not null or undefined
             assertParamExists('authTokenPost', 'payloadSignature', payloadSignature)
             // verify required parameter 'loginRequest' is not null or undefined
@@ -5306,6 +5308,14 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (refreshTokenValidForSeconds !== undefined) {
+                localVarQueryParameter['refreshTokenValidForSeconds'] = refreshTokenValidForSeconds;
+            }
+
+            if (readOnly !== undefined) {
+                localVarQueryParameter['readOnly'] = readOnly;
+            }
 
 
     
@@ -5363,10 +5373,12 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * login compatible with BCS payload with intent bytes
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authV2TokenPost: async (payloadSignature: string, loginRequest: LoginRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authV2TokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payloadSignature' is not null or undefined
             assertParamExists('authV2TokenPost', 'payloadSignature', payloadSignature)
             // verify required parameter 'loginRequest' is not null or undefined
@@ -5382,6 +5394,14 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (refreshTokenValidForSeconds !== undefined) {
+                localVarQueryParameter['refreshTokenValidForSeconds'] = refreshTokenValidForSeconds;
+            }
+
+            if (readOnly !== undefined) {
+                localVarQueryParameter['readOnly'] = readOnly;
+            }
 
 
     
@@ -5425,11 +5445,13 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * login with token
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authTokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenPost(payloadSignature, loginRequest, options);
+        async authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authTokenPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5450,11 +5472,13 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * login compatible with BCS payload with intent bytes
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authV2TokenPost(payloadSignature, loginRequest, options);
+        async authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authV2TokenPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5481,11 +5505,13 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * login with token
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
-            return localVarFp.authTokenPost(payloadSignature, loginRequest, options).then((request) => request(axios, basePath));
+        authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
+            return localVarFp.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5500,11 +5526,13 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * login compatible with BCS payload with intent bytes
          * @param {string} payloadSignature 
          * @param {LoginRequest} loginRequest 
+         * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+         * @param {boolean} [readOnly] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
-            return localVarFp.authV2TokenPost(payloadSignature, loginRequest, options).then((request) => request(axios, basePath));
+        authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
+            return localVarFp.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5530,12 +5558,14 @@ export class AuthApi extends BaseAPI {
      * login with token
      * @param {string} payloadSignature 
      * @param {LoginRequest} loginRequest 
+     * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+     * @param {boolean} [readOnly] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authTokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authTokenPost(payloadSignature, loginRequest, options).then((request) => request(this.axios, this.basePath));
+    public authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5553,12 +5583,14 @@ export class AuthApi extends BaseAPI {
      * login compatible with BCS payload with intent bytes
      * @param {string} payloadSignature 
      * @param {LoginRequest} loginRequest 
+     * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+     * @param {boolean} [readOnly] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authV2TokenPost(payloadSignature, loginRequest, options).then((request) => request(this.axios, this.basePath));
+    public authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
