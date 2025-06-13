@@ -180,7 +180,7 @@ class BluefinProSdk:
         self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
-        await self._login_v2()
+        await self._login()
         self.account_data_api.api_client.set_default_header("Authorization",
                                                             "Bearer " + self._token_response.access_token)
         self._trade_api.api_client.set_default_header("Authorization",
@@ -354,12 +354,26 @@ class BluefinProSdk:
         :param api_client:
         :return:
         """
-        await self._login_v2()
+        await self._login()
         api_client.set_default_header("Authorization",
                                       "Bearer " + self._token_response.access_token)
 
-    @deprecated("Use login_v2 instead")
-    async def _login(self):
+    async def _login(self, v1: bool = True, **kwargs):
+        if v1:
+            await self._login_v1(**kwargs)
+        else:
+            await self._login_v2(**kwargs)
+    
+    async def _login_v1(self, **kwargs):
+        """
+        login v1 method with optional parameters.
+        
+        Args:
+            **kwargs: Optional parameters that can be extended in the future
+                - refresh_token_valid_for_seconds: Optional int for refresh token validity
+                - read_only: Optional bool for read-only token
+        """
+        
         logging.info("Logging in to get the access token")
         self._token_set_at_seconds = time.time()
         if self.current_account_address is None:
@@ -374,7 +388,16 @@ class BluefinProSdk:
         )
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
-        response = await self._auth_api.auth_token_post(signature, login_request=login_request)
+        
+        refresh_token_valid_for_seconds = kwargs.get('refresh_token_valid_for_seconds')
+        read_only = kwargs.get('read_only')
+        
+        response = await self._auth_api.auth_token_post(
+            signature, 
+            login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only
+        )
         self._token_response = response
         
     async def _login_v2(self, **kwargs):
