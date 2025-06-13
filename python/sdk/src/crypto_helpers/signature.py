@@ -45,7 +45,17 @@ class Signature:
         # Encode serialized signature to Base64 (URL-safe)
         return base64.urlsafe_b64encode(serialized_signature).decode('utf-8')
 
+    def login_v2(self, payload: LoginRequest) -> str:
+        """
+        Creates a login request message and signs it using v2 signature
+        """
 
+        message_bytes = list(payload.to_json().encode("utf-8"))
+        message = self.create_personal_sign_message_from_bytes(message_bytes)
+        signature = self.sign(message)
+        base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
+
+        return base64_signature_with_public_key
 
     def withdraw(self, payload: WithdrawRequestSignedFields) -> str:
         """
@@ -232,7 +242,42 @@ class Signature:
 
         return base64_signature_with_public_key
 
+    def create_personal_sign_message_from_bytes(self, byte_array: list[int]) -> bytes:
+        """
+        Creates a personal sign message with the given bytes.
+        1. BCS serialize the bytes
+        2. Append personal message intent bytes
+        3. Take blake2b hash of the above message with intent bytes
+
+        Args:
+            bytes (list[int]): bytes to be signed
+
+        Returns:
+            A personal sign message ready to be signed
+        """        
+
+        serializer = BCSSerializer()
+
+        # bcs serialize
+        serializer.serialize_uint8_array(byte_array)
+
+        # serialized bytes
+        serialized_bytes = serializer.get_bytes()
+
+        # append intent bytes
+        message_with_intent = bytes([3, 0, 0]) + serialized_bytes
+
+        # 32 bytes hash
+        message = blake2b(message_with_intent, digest_size=32).digest()
+
+        return message
+        
+
     def create_personal_sign_message(self, data:json) -> bytes:
+        """
+        Creates a personal sign message with the given json
+        """
+        
         """
         Python implementation of `signPersonalMessage()` method from mysten/sui package.
         Blue pro verifies signatures against personal sign message. The method converts the input
@@ -248,25 +293,12 @@ class Signature:
         Returns:
             A personal sign message ready to be signed
         """
-
-        serializer = BCSSerializer()
-
+        
         # Json stringify with indent and encode to ut8 bytes
-        uint8_array = list(json.dumps(data, indent=2).encode("utf-8"))
-
-        # bcs serialize
-        serializer.serialize_uint8_array(uint8_array)
-
-        # serialized bytes
-        serialized_bytes = serializer.get_bytes()
-
-        # append intent bytes
-        message_with_intent = bytes([3, 0, 0]) + serialized_bytes
-
-        # 32 bytes hash
-        message = blake2b(message_with_intent, digest_size=32).digest()
-
-        return message
+        bytes = list(json.dumps(data, indent=2).encode("utf-8"))
+        return self.create_personal_sign_message_from_bytes(bytes)
+        
+        
 
     def sign(self, message: bytes) -> bytes:
         """
@@ -303,7 +335,7 @@ class Signature:
         byte_array = bytes([0]) + signature + self.sui_wallet.public_key_bytes
 
 
-        return base64.b64encode(byte_array).decode()
+        return base64.standard_b64encode(byte_array).decode()
 
 
 

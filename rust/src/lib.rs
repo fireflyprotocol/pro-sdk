@@ -18,7 +18,9 @@ mod core {
 
 pub mod prelude {
     pub use crate::account_authorization::AccountAuthorizationRequestExt;
-    pub use crate::authenticate::{Authenticate as _, Refresh as _, RequestExt as _};
+    pub use crate::authenticate::{
+        Authenticate as _, AuthenticationOptions, Refresh as _, RequestExt as _,
+    };
     pub use crate::core::*;
     pub use crate::signature::RequestExt as _;
 }

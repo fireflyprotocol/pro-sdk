@@ -14,7 +14,7 @@ import asyncio
 import os
 import time
 
-from bluefin_pro_sdk import BluefinProSdk, Order, Environment, RpcUrl
+from bluefin_pro_sdk import BluefinProSdk, Order, Environment
 from crypto_helpers.signature import SuiWallet
 from openapi_client.models.account_data_stream import AccountDataStream
 from openapi_client.models.transaction_type import TransactionType
@@ -25,13 +25,7 @@ log = logging.getLogger("main")
 ENVIRONMENT = (
     getattr(Environment, env.upper())
     if (env := os.environ.get("BFP_ENVIRONMENT"))
-    else Environment.DEV
-)
-
-RPC_URL = (
-    getattr(RpcUrl, env.upper())
-    if (env := os.environ.get("BFP_RPC_URL"))
-    else RpcUrl.DEV
+    else Environment.STAGING
 )
 
 LOG_LEVEL = (
@@ -89,7 +83,7 @@ async def main():
 
     log.info(f"Connecting to {ENVIRONMENT}")
     async with BluefinProSdk(
-        sui_wallet, contracts=None, rpc_url=RPC_URL, env=ENVIRONMENT, debug=True
+        sui_wallet, env=ENVIRONMENT, debug=True
     ) as client:
         # example of how to deposit into any account ( wallet address trading account )
         # await client.deposit_to_asset_bank("USDC", 10000000000, "0x0000AnyWallet")

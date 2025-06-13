@@ -70,7 +70,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_token_post**
-> LoginResponse auth_token_post(payload_signature, login_request)
+> LoginResponse auth_token_post(payload_signature, login_request, refresh_token_valid_for_seconds=refresh_token_valid_for_seconds, read_only=read_only)
 
 login with token
 
@@ -97,9 +97,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AuthApi(api_client)
     payload_signature = 'payload_signature_example' # str | 
     login_request = openapi_client.LoginRequest() # LoginRequest | 
+    refresh_token_valid_for_seconds = 56 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional)
+    read_only = False # bool |  (optional) (default to False)
 
     try:
-        api_response = await api_instance.auth_token_post(payload_signature, login_request)
+        api_response = await api_instance.auth_token_post(payload_signature, login_request, refresh_token_valid_for_seconds=refresh_token_valid_for_seconds, read_only=read_only)
         print("The response of AuthApi->auth_token_post:\n")
         pprint(api_response)
     except Exception as e:
@@ -115,6 +117,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **payload_signature** | **str**|  | 
  **login_request** | [**LoginRequest**](LoginRequest.md)|  | 
+ **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] 
+ **read_only** | **bool**|  | [optional] [default to False]
 
 ### Return type
 
@@ -211,7 +215,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_v2_token_post**
-> LoginResponse auth_v2_token_post(payload_signature, login_request)
+> LoginResponse auth_v2_token_post(payload_signature, login_request, refresh_token_valid_for_seconds=refresh_token_valid_for_seconds, read_only=read_only)
 
 login compatible with BCS payload with intent bytes
 
@@ -238,9 +242,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AuthApi(api_client)
     payload_signature = 'payload_signature_example' # str | 
     login_request = openapi_client.LoginRequest() # LoginRequest | 
+    refresh_token_valid_for_seconds = 56 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional)
+    read_only = False # bool |  (optional) (default to False)
 
     try:
-        api_response = await api_instance.auth_v2_token_post(payload_signature, login_request)
+        api_response = await api_instance.auth_v2_token_post(payload_signature, login_request, refresh_token_valid_for_seconds=refresh_token_valid_for_seconds, read_only=read_only)
         print("The response of AuthApi->auth_v2_token_post:\n")
         pprint(api_response)
     except Exception as e:
@@ -256,6 +262,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **payload_signature** | **str**|  | 
  **login_request** | [**LoginRequest**](LoginRequest.md)|  | 
+ **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] 
+ **read_only** | **bool**|  | [optional] [default to False]
 
 ### Return type
 

@@ -94,14 +94,22 @@ pub async fn auth_jwks_get(configuration: &configuration::Configuration, ) -> Re
 }
 
 /// login with token
-pub async fn auth_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest) -> Result<models::LoginResponse, Error<AuthTokenPostError>> {
+pub async fn auth_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>) -> Result<models::LoginResponse, Error<AuthTokenPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_payload_signature = payload_signature;
     let p_login_request = login_request;
+    let p_refresh_token_valid_for_seconds = refresh_token_valid_for_seconds;
+    let p_read_only = read_only;
 
     let uri_str = format!("{}/auth/token", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+    if let Some(ref param_value) = p_refresh_token_valid_for_seconds {
+        req_builder = req_builder.query(&[("refreshTokenValidForSeconds", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_read_only {
+        req_builder = req_builder.query(&[("readOnly", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -171,14 +179,22 @@ pub async fn auth_token_refresh_put(configuration: &configuration::Configuration
 }
 
 /// login compatible with BCS payload with intent bytes
-pub async fn auth_v2_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest) -> Result<models::LoginResponse, Error<AuthV2TokenPostError>> {
+pub async fn auth_v2_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>) -> Result<models::LoginResponse, Error<AuthV2TokenPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_payload_signature = payload_signature;
     let p_login_request = login_request;
+    let p_refresh_token_valid_for_seconds = refresh_token_valid_for_seconds;
+    let p_read_only = read_only;
 
     let uri_str = format!("{}/auth/v2/token", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+    if let Some(ref param_value) = p_refresh_token_valid_for_seconds {
+        req_builder = req_builder.query(&[("refreshTokenValidForSeconds", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_read_only {
+        req_builder = req_builder.query(&[("readOnly", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

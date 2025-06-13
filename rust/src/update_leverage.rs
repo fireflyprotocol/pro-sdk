@@ -36,7 +36,7 @@ mod tests {
     use crate::signature::{self, testing::verify_signature};
 
     fn verify_request_signature(
-        request: AccountPositionLeverageUpdateRequest,
+        request: &AccountPositionLeverageUpdateRequest,
         signer_address: &str,
     ) {
         assert!(!request.signature.is_empty());
@@ -65,7 +65,7 @@ mod tests {
         let request = update_leverage_request()
             .sign(private_key.to_bytes(), SignatureScheme::Ed25519)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -83,7 +83,7 @@ mod tests {
         let request = update_leverage_request()
             .sign(private_key.secret_bytes(), SignatureScheme::Secp256k1)
             .unwrap();
-        verify_request_signature(request, &signer_address);
+        verify_request_signature(&request, &signer_address);
     }
 
     #[test]
@@ -102,7 +102,7 @@ mod tests {
                 leverage_e9: "0".into(),
                 salt: "1725930601205".into(),
                 ids_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
-                signed_at_millis: 1725931543867,
+                signed_at_millis: 1_725_931_543_867,
             },
             ..AccountPositionLeverageUpdateRequest::default()
         }

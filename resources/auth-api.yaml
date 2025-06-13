@@ -119,6 +119,21 @@ paths:
           required: true
           schema:
             type: string
+        - name: refreshTokenValidForSeconds
+          description: "The number of seconds the refresh token is valid for. If not provided, the default is 30 days."
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+            x-go-type: int64
+        - name: readOnly
+          in: query
+          required: false
+          schema:
+            type: boolean
+            description: "If true, the refresh token will not be returned in the response."
+            default: false
       requestBody:
         required: true
         content:
@@ -169,6 +184,21 @@ paths:
           required: true
           schema:
             type: string
+        - name: refreshTokenValidForSeconds
+          description: "The number of seconds the refresh token is valid for. If not provided, the default is 30 days."
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+            x-go-type: int64
+        - name: readOnly
+          in: query
+          required: false
+          schema:
+            type: boolean
+            description: "If true, the refresh token will not be returned in the response."
+            default: false
       requestBody:
         required: true
         content:

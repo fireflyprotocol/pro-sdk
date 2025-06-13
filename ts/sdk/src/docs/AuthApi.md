@@ -72,10 +72,14 @@ const apiInstance = new AuthApi(configuration);
 
 let payloadSignature: string; // (default to undefined)
 let loginRequest: LoginRequest; //
+let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to undefined)
+let readOnly: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.authTokenPost(
     payloadSignature,
-    loginRequest
+    loginRequest,
+    refreshTokenValidForSeconds,
+    readOnly
 );
 ```
 
@@ -85,6 +89,8 @@ const { status, data } = await apiInstance.authTokenPost(
 |------------- | ------------- | ------------- | -------------|
 | **loginRequest** | **LoginRequest**|  | |
 | **payloadSignature** | [**string**] |  | defaults to undefined|
+| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to undefined|
+| **readOnly** | [**boolean**] |  | (optional) defaults to false|
 
 
 ### Return type
@@ -187,10 +193,14 @@ const apiInstance = new AuthApi(configuration);
 
 let payloadSignature: string; // (default to undefined)
 let loginRequest: LoginRequest; //
+let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to undefined)
+let readOnly: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.authV2TokenPost(
     payloadSignature,
-    loginRequest
+    loginRequest,
+    refreshTokenValidForSeconds,
+    readOnly
 );
 ```
 
@@ -200,6 +210,8 @@ const { status, data } = await apiInstance.authV2TokenPost(
 |------------- | ------------- | ------------- | -------------|
 | **loginRequest** | **LoginRequest**|  | |
 | **payloadSignature** | [**string**] |  | defaults to undefined|
+| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to undefined|
+| **readOnly** | [**boolean**] |  | (optional) defaults to false|
 
 
 ### Return type

@@ -6,6 +6,7 @@ from enum import Enum
 from random import randint
 from typing import Callable, Awaitable, Any
 
+from asgiref.sync import sync_to_async
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
 from openapi_client import WithdrawRequestSignedFields, CancelOrdersRequest, \
     AccountPositionLeverageUpdateRequestSignedFields, CreateOrderRequestSignedFields, CreateOrderRequest, AccountAuthorizationRequest, AccountAuthorizationRequestSignedFields, AdjustIsolatedMarginRequest, AdjustIsolatedMarginRequestSignedFields, AdjustMarginOperation
@@ -85,17 +86,23 @@ class BluefinProSdk:
     __is_connected = False
     __update_token_task = None
     __rpc_calls = None
+    _read_only = None
+    _refresh_token_valid_for_seconds = None
     def __init__(self,
                  sui_wallet: SuiWallet,
                  env: Environment = Environment.PRODUCTION,
                  target_account_address: str = None,
                  debug: bool = False,
                  colocation_enabled: bool = False,
+                 read_only: bool | None = None,
+                 refresh_token_valid_for_seconds: int | None = None,
                  ):
         """
         :param sui_wallet: SuiWallet instance
         :param env: Environment enum, default is Environment.PRODUCTION
         :param target_account_address: default is None if target account belongs to the same sui wallet, if you need to act on behalf of another sui wallet on its own accountAddress (if that wallet authorized you to do so)
+        :param read_only: default is False, if True, the sdk will be in read-only mode, allowing only read access to the API
+        :param refresh_token_valid_for_seconds: default is 30 days if not provided. If provided, the refresh token will be valid for the given number of seconds
         """
         self.env = env
         env_name = env.env_name
@@ -104,6 +111,8 @@ class BluefinProSdk:
         self.api_host = f"https://api.{env_name}.bluefin.io"
         self.sign = Signature(sui_wallet)
         self.__contracts_config = None
+        self._read_only = read_only
+        self._refresh_token_valid_for_seconds = refresh_token_valid_for_seconds
 
         if colocation_enabled:
             # Through AWS private link traffic is already secured and we don't need encryption.
@@ -163,7 +172,7 @@ class BluefinProSdk:
         # set RpcUrl enum from
         self.__rpc_calls = ProRpcCalls(self._sui_wallet, ProContracts(contracts_config), url=self.env.rpc_url)
 
-    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: str, destination_address: str = None):
+    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: int, destination_address: str = None):
         """
         Deposits the provided asset of provided amount into the external asset bank.
         :param asset_symbol: The symbol of the asset being deposited (e.g. "USDC")
@@ -176,7 +185,7 @@ class BluefinProSdk:
         if destination_address is None:
             destination_address = self.current_account_address or self._sui_wallet.sui_address
 
-        await self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
+        sync_to_async(self.__rpc_calls.deposit_to_asset_bank)(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
         await self._login()
@@ -357,7 +366,7 @@ class BluefinProSdk:
         api_client.set_default_header("Authorization",
                                       "Bearer " + self._token_response.access_token)
 
-    async def _login(self):
+    async def _login(self, v1: bool = True):
         logging.info("Logging in to get the access token")
         self._token_set_at_seconds = time.time()
         if self.current_account_address is None:
@@ -370,9 +379,32 @@ class BluefinProSdk:
             signed_at_millis=int(time.time() * 1000),
             audience="api"
         )
+
+        if v1:
+            await self._login_v1(login_request)
+        else:
+            await self._login_v2(login_request)
+
+    async def _login_v1(self, login_request: LoginRequest):
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
-        response = await self._auth_api.auth_token_post(signature, login_request=login_request)
+        response = await self._auth_api.auth_token_post(
+            signature,
+            login_request=login_request,
+            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds,
+            read_only=self._read_only
+        )
+        self._token_response = response
+
+    async def _login_v2(self, login_request: LoginRequest):
+
+        signature = self.sign.login_v2(login_request)
+        response = await self._auth_api.auth_v2_token_post(
+            signature,
+            login_request=login_request,
+            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds,
+            read_only=self._read_only
+        )
         self._token_response = response
 
     async def __aenter__(self):
