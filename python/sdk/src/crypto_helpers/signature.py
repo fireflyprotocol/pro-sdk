@@ -52,7 +52,7 @@ class Signature:
         
         # Use the LoginRequest's built-in serialization to match Rust implementation
         message_bytes = list(payload.to_json().encode("utf-8"))
-        message = self.create_personal_sign_message_bytes(message_bytes)
+        message = self.create_personal_sign_message_from_bytes(message_bytes)
         signature = self.sign(message)
         base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
         
@@ -243,7 +243,7 @@ class Signature:
 
         return base64_signature_with_public_key
 
-    def create_personal_sign_message_bytes(self, byte_array: list[int]) -> bytes:
+    def create_personal_sign_message_from_bytes(self, byte_array: list[int]) -> bytes:
         """
         Creates a personal sign message with the given bytes.
         1. BCS serialize the bytes
@@ -297,7 +297,7 @@ class Signature:
         
         # Json stringify with indent and encode to ut8 bytes
         bytes = list(json.dumps(data, indent=2).encode("utf-8"))
-        return self.create_personal_sign_message_bytes(bytes)
+        return self.create_personal_sign_message_from_bytes(bytes)
         
         
 

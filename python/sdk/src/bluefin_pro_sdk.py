@@ -86,7 +86,7 @@ class BluefinProSdk:
     __is_connected = False
     __update_token_task = None
     __rpc_calls = None
-    _read_only = False
+    _read_only = None
     _refresh_token_valid_for_seconds = None
     def __init__(self,
                  sui_wallet: SuiWallet,
@@ -94,8 +94,8 @@ class BluefinProSdk:
                  target_account_address: str = None,
                  debug: bool = False,
                  colocation_enabled: bool = False,
-                 read_only: bool = False,
-                 refresh_token_valid_for_seconds: int = None,
+                 read_only: bool | None = None,
+                 refresh_token_valid_for_seconds: int | None = None,
                  ):
         """
         :param sui_wallet: SuiWallet instance
@@ -172,7 +172,7 @@ class BluefinProSdk:
         # set RpcUrl enum from
         self.__rpc_calls = ProRpcCalls(self._sui_wallet, ProContracts(contracts_config), url=self.env.rpc_url)
 
-    def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: str, destination_address: str = None):
+    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: str, destination_address: str = None):
         """
         Deposits the provided asset of provided amount into the external asset bank.
         :param asset_symbol: The symbol of the asset being deposited (e.g. "USDC")
@@ -185,7 +185,7 @@ class BluefinProSdk:
         if destination_address is None:
             destination_address = self.current_account_address or self._sui_wallet.sui_address
 
-        self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
+        await self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
         await self._login()

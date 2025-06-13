@@ -37,7 +37,7 @@ class ProRpcCalls:
         res = base64.b64encode(temp)
         return res.decode()
     
-    def deposit_to_asset_bank(self, coin_symbol: str, amount: int, destination: str = None):
+    async def deposit_to_asset_bank(self, coin_symbol: str, amount: int, destination: str = None):
         """
         Deposits the provided coin of provided amount
         into the external asset bank
