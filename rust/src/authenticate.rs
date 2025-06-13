@@ -38,6 +38,17 @@ impl std::error::Error for Error {}
 
 type AuthenticationResult<T> = Result<T, Error>;
 
+// Additional options for authenticating and getting a auth token.
+#[derive(Default)]
+pub struct AuthenticationOptions {
+    // The number of seconds the refresh token is valid for. Default is 30 days.
+    pub refresh_token_valid_for_seconds: Option<i64>,
+    // If the auth token should be read-only. Default is false.
+    // A Read-Only token is a token that can only be used to read data from the API.
+    // It cannot be used to write or update data.
+    pub read_only: Option<bool>,
+}
+
 pub trait Authenticate {
     /// Authenticates using the provided authentication request and the signature.
     /// Returns the Authentication JWT.
@@ -49,6 +60,22 @@ pub trait Authenticate {
         self,
         signature: &str,
         environment: Environment,
+    ) -> impl std::future::Future<Output = AuthenticationResult<LoginResponse>> + Send;
+
+    /// Authenticates using the provided authentication request and the signature.
+    /// Returns the Authentication JWT.
+    ///
+    /// The `AuthenticationOptions` struct is used to specify additional options for the auth token
+    /// such as the refresh token validity period or if the auth token should be read-only.
+    ///
+    /// # Errors
+    ///
+    /// Will return `Err` if the request fails.
+    fn authenticate_with_options(
+        self,
+        signature: &str,
+        environment: Environment,
+        options: AuthenticationOptions,
     ) -> impl std::future::Future<Output = AuthenticationResult<LoginResponse>> + Send;
 }
 
@@ -135,14 +162,30 @@ impl Authenticate for LoginRequest {
         signature: &str,
         environment: Environment,
     ) -> AuthenticationResult<LoginResponse> {
+        self.authenticate_with_options(signature, environment, AuthenticationOptions::default())
+            .await
+    }
+
+    async fn authenticate_with_options(
+        self,
+        signature: &str,
+        environment: Environment,
+        options: AuthenticationOptions,
+    ) -> AuthenticationResult<LoginResponse> {
         let base_url = url(environment);
 
         let mut configuration = Configuration::new();
         configuration.base_path = String::from(base_url);
 
-        let response = auth_v2_token_post(&configuration, signature, self)
-            .await
-            .map_err(|error| Error::AuthenticationRequestFailed(error.to_string()))?;
+        let response = auth_v2_token_post(
+            &configuration,
+            signature,
+            self,
+            options.refresh_token_valid_for_seconds,
+            options.read_only,
+        )
+        .await
+        .map_err(|error| Error::AuthenticationRequestFailed(error.to_string()))?;
 
         Ok(response)
     }
@@ -296,6 +339,40 @@ pub mod tests {
             .authenticate(&signature, Environment::Staging)
             .await
             .map_err(|error| format!("{error:?}"))?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn authenticate_staging_ed25519_with_options() -> Result<(), Box<dyn std::error::Error>> {
+        let private_key = ed25519_dalek::SigningKey::generate(&mut OsRng);
+        let public_key = private_key.verifying_key().to_bytes();
+        let public_key = Ed25519PublicKey::new(public_key);
+
+        let sui_address = public_key.derive_address().to_hex();
+
+        let auth_request = LoginRequest {
+            account_address: sui_address,
+            audience: env::auth::staging::AUDIENCE.into(),
+            signed_at_millis: Utc::now().timestamp_millis(),
+        };
+
+        let signature = auth_request
+            .signature(SignatureScheme::Ed25519, private_key.to_bytes())
+            .map_err(|error| format!("{error:?}"))?;
+
+        let response = auth_request
+            .authenticate_with_options(
+                &signature,
+                Environment::Staging,
+                AuthenticationOptions {
+                    read_only: Some(true),
+                    refresh_token_valid_for_seconds: Some(10),
+                },
+            )
+            .await
+            .map_err(|error| format!("{error:?}"))?;
+
+        assert_eq!(response.refresh_token_valid_for_seconds, 10);
         Ok(())
     }
 
