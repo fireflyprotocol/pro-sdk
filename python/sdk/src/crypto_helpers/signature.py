@@ -45,7 +45,23 @@ class Signature:
         # Encode serialized signature to Base64 (URL-safe)
         return base64.urlsafe_b64encode(serialized_signature).decode('utf-8')
 
-
+    def login_v2(self, payload: LoginRequest) -> str:
+        """
+        Creates a login request message and signs it using v2 signature
+        """
+        
+        data = {
+            "accountAddress": payload.account_address,
+            "audience": payload.audience,
+            "signedAtMillis": payload.signed_at_millis,
+        }
+        
+        message_bytes = list(json.dumps(data, separators=(',', ':')).encode("utf-8"))
+        message = self.create_personal_sign_message_bytes(message_bytes)
+        signature = self.sign(message)
+        base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
+        
+        return base64_signature_with_public_key
 
     def withdraw(self, payload: WithdrawRequestSignedFields) -> str:
         """
@@ -325,7 +341,7 @@ class Signature:
         byte_array = bytes([0]) + signature + self.sui_wallet.public_key_bytes
 
 
-        return base64.b64encode(byte_array).decode()
+        return base64.standard_b64encode(byte_array).decode()
 
 
 

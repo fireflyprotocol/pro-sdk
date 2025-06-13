@@ -180,7 +180,7 @@ class BluefinProSdk:
         self.__rpc_calls.deposit_to_asset_bank(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
-        await self._login()
+        await self._login_v2()
         self.account_data_api.api_client.set_default_header("Authorization",
                                                             "Bearer " + self._token_response.access_token)
         self._trade_api.api_client.set_default_header("Authorization",
@@ -354,7 +354,7 @@ class BluefinProSdk:
         :param api_client:
         :return:
         """
-        await self._login()
+        await self._login_v2()
         api_client.set_default_header("Authorization",
                                       "Bearer " + self._token_response.access_token)
 

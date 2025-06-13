@@ -25,7 +25,7 @@ log = logging.getLogger("main")
 ENVIRONMENT = (
     getattr(Environment, env.upper())
     if (env := os.environ.get("BFP_ENVIRONMENT"))
-    else Environment.DEV
+    else Environment.STAGING
 )
 
 LOG_LEVEL = (
