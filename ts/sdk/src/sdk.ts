@@ -114,6 +114,12 @@ export interface BluefinProSdkOptions {
   accountWsHost?: string;
 }
 
+export interface InitializeOptions {
+  refreshTokenValidForSeconds?: number;
+  readOnly?: boolean;
+
+}
+
 export class BluefinProSdk {
   private readonly configs: Partial<Record<Services, Configuration>> = {};
   public readonly exchangeDataApi: ExchangeApi;
@@ -121,6 +127,7 @@ export class BluefinProSdk {
   public readonly accountDataApi: AccountDataApi;
   private readonly tradeApi: TradeApi;
   private readonly authApi: AuthApi;
+  private initializeOptions: InitializeOptions | undefined;
   private tokenResponse: LoginResponse | null;
   private tokenSetAtSeconds: number | null;
   private isConnected: boolean;
@@ -253,7 +260,8 @@ export class BluefinProSdk {
     });
   }
 
-  public async initialize(): Promise<void> {
+  public async initialize(options?: InitializeOptions): Promise<void> {
+    this.initializeOptions = options;
     await this.setContractsConfig();
     await this.initializeTxBuilder();
     await this.loginAndUpdateToken();
@@ -313,7 +321,9 @@ export class BluefinProSdk {
     const signature = await this.bfSigner.signLoginRequest(loginRequest);
     const response = await this.authApi.authV2TokenPost(
       signature,
-      loginRequest
+      loginRequest,
+      this.initializeOptions?.refreshTokenValidForSeconds,
+      this.initializeOptions?.readOnly
     );
     this.tokenResponse = response.data;
   }
