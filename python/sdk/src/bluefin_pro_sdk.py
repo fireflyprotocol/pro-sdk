@@ -366,26 +366,7 @@ class BluefinProSdk:
         api_client.set_default_header("Authorization",
                                       "Bearer " + self._token_response.access_token)
 
-    async def _login(self, v1: bool = True, **kwargs):
-        
-        kwargs['refresh_token_valid_for_seconds'] = self._refresh_token_valid_for_seconds
-        kwargs['read_only'] = self._read_only
-        
-        if v1:
-            await self._login_v1(**kwargs)
-        else:
-            await self._login_v2(**kwargs)
-    
-    async def _login_v1(self, **kwargs):
-        """
-        login v1 method with optional parameters.
-        
-        Args:
-            **kwargs: Optional parameters that can be extended in the future
-                - refresh_token_valid_for_seconds: Optional int for refresh token validity
-                - read_only: Optional bool for read-only token
-        """
-        
+    async def _login(self, v1: bool = True):
         logging.info("Logging in to get the access token")
         self._token_set_at_seconds = time.time()
         if self.current_account_address is None:
@@ -398,52 +379,31 @@ class BluefinProSdk:
             signed_at_millis=int(time.time() * 1000),
             audience="api"
         )
+        
+        if v1:
+            await self._login_v1(login_request)
+        else:
+            await self._login_v2(login_request)
+    
+    async def _login_v1(self, login_request: LoginRequest):
         # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login(login_request)
-        
-        refresh_token_valid_for_seconds = kwargs.get('refresh_token_valid_for_seconds')
-        read_only = kwargs.get('read_only')
-        
         response = await self._auth_api.auth_token_post(
             signature, 
             login_request=login_request,
-            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
-            read_only=read_only
+            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds,
+            read_only=self._read_only
         )
         self._token_response = response
         
-    async def _login_v2(self, **kwargs):
-        """
-        Enhanced login v2 method with optional parameters.
+    async def _login_v2(self, login_request: LoginRequest):
         
-        Args:
-            **kwargs: Optional parameters that can be extended in the future
-                - refresh_token_valid_for_seconds: Optional int for refresh token validity
-                - read_only: Optional bool for read-only token
-        """
-        
-        logging.info("Logging in to get the access token")
-        self._token_set_at_seconds = time.time()
-        if self.current_account_address is None:
-            # in case of cross account authorisation
-            self.current_account_address = self._sui_wallet.sui_address
-
-        logger.info(f"Logging in as {self.current_account_address}")
-        login_request = LoginRequest(
-            account_address=self.current_account_address,
-            signed_at_millis=int(time.time() * 1000),
-            audience="api"
-        )
-        # Generate a signature for the login request with our private key and public key bytes.
         signature = self.sign.login_v2(login_request)
-        refresh_token_valid_for_seconds = kwargs.get('refresh_token_valid_for_seconds')
-        read_only = kwargs.get('read_only')
-        
         response = await self._auth_api.auth_v2_token_post(
             signature, 
             login_request=login_request, 
-            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds, 
-            read_only=read_only
+            refresh_token_valid_for_seconds=self._refresh_token_valid_for_seconds, 
+            read_only=self._read_only
         )
         self._token_response = response
 
