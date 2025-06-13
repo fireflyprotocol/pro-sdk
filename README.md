@@ -18,6 +18,11 @@ docker run --rm -v $PWD/out:/spec -p 4000:4000 redocly/cli preview
 
 ## Dev Tools
 
+Please install the following tools locally:
+
+- the rust toolchain: https://rustup.rs
+- the OpenAPI Generator CLI using npm: https://openapi-generator.tech/docs/installation#npm 
+
 ### ApiGen
 
 Tool to programmatically generate OpenAPI code. Runs the appropriate `openapi-generator-cli` command for each target language.
