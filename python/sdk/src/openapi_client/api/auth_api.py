@@ -16,8 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
-from typing import Any, Dict
+from pydantic import Field, StrictBool, StrictInt, StrictStr
+from typing import Any, Dict, Optional
+from typing_extensions import Annotated
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
@@ -288,6 +289,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -309,6 +312,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -334,6 +341,8 @@ class AuthApi:
         _param = self._auth_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -363,6 +372,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -384,6 +395,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -409,6 +424,8 @@ class AuthApi:
         _param = self._auth_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -438,6 +455,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -459,6 +478,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -484,6 +507,8 @@ class AuthApi:
         _param = self._auth_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -508,6 +533,8 @@ class AuthApi:
         self,
         payload_signature,
         login_request,
+        refresh_token_valid_for_seconds,
+        read_only,
         _request_auth,
         _content_type,
         _headers,
@@ -530,6 +557,14 @@ class AuthApi:
 
         # process the path parameters
         # process the query parameters
+        if refresh_token_valid_for_seconds is not None:
+            
+            _query_params.append(('refreshTokenValidForSeconds', refresh_token_valid_for_seconds))
+            
+        if read_only is not None:
+            
+            _query_params.append(('readOnly', read_only))
+            
         # process the header parameters
         if payload_signature is not None:
             _header_params['payloadSignature'] = payload_signature
@@ -854,6 +889,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -875,6 +912,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -900,6 +941,8 @@ class AuthApi:
         _param = self._auth_v2_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -929,6 +972,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -950,6 +995,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -975,6 +1024,8 @@ class AuthApi:
         _param = self._auth_v2_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1004,6 +1055,8 @@ class AuthApi:
         self,
         payload_signature: StrictStr,
         login_request: LoginRequest,
+        refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
+        read_only: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1025,6 +1078,10 @@ class AuthApi:
         :type payload_signature: str
         :param login_request: (required)
         :type login_request: LoginRequest
+        :param refresh_token_valid_for_seconds: The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
+        :type refresh_token_valid_for_seconds: int
+        :param read_only:
+        :type read_only: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1050,6 +1107,8 @@ class AuthApi:
         _param = self._auth_v2_token_post_serialize(
             payload_signature=payload_signature,
             login_request=login_request,
+            refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
+            read_only=read_only,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1074,6 +1133,8 @@ class AuthApi:
         self,
         payload_signature,
         login_request,
+        refresh_token_valid_for_seconds,
+        read_only,
         _request_auth,
         _content_type,
         _headers,
@@ -1096,6 +1157,14 @@ class AuthApi:
 
         # process the path parameters
         # process the query parameters
+        if refresh_token_valid_for_seconds is not None:
+            
+            _query_params.append(('refreshTokenValidForSeconds', refresh_token_valid_for_seconds))
+            
+        if read_only is not None:
+            
+            _query_params.append(('readOnly', read_only))
+            
         # process the header parameters
         if payload_signature is not None:
             _header_params['payloadSignature'] = payload_signature
