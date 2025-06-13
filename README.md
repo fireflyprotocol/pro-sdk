@@ -20,7 +20,7 @@ docker run --rm -v $PWD/out:/spec -p 4000:4000 redocly/cli preview
 
 ### ApiGen
 
-Tool to programmatically generate OpenAPI code without explicitely running the openapi-generator-cli command.
+Tool to programmatically generate OpenAPI code. Runs the appropriate `openapi-generator-cli` command for each target language.
 
 Navigate to the root of the repository.
 ```bash
