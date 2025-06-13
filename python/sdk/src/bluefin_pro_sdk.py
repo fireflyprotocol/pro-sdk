@@ -86,17 +86,23 @@ class BluefinProSdk:
     __is_connected = False
     __update_token_task = None
     __rpc_calls = None
+    _read_only = False
+    _refresh_token_valid_for_seconds = None
     def __init__(self,
                  sui_wallet: SuiWallet,
                  env: Environment = Environment.PRODUCTION,
                  target_account_address: str = None,
                  debug: bool = False,
                  colocation_enabled: bool = False,
+                 read_only: bool = False,
+                 refresh_token_valid_for_seconds: int = None,
                  ):
         """
         :param sui_wallet: SuiWallet instance
         :param env: Environment enum, default is Environment.PRODUCTION
         :param target_account_address: default is None if target account belongs to the same sui wallet, if you need to act on behalf of another sui wallet on its own accountAddress (if that wallet authorized you to do so)
+        :param read_only: default is False, if True, the sdk will be in read-only mode, allowing only read access to the API
+        :param refresh_token_valid_for_seconds: default is 30 days if not provided. If provided, the refresh token will be valid for the given number of seconds
         """
         self.env = env
         env_name = env.env_name
@@ -105,6 +111,8 @@ class BluefinProSdk:
         self.api_host = f"https://api.{env_name}.bluefin.io"
         self.sign = Signature(sui_wallet)
         self.__contracts_config = None
+        self._read_only = read_only
+        self._refresh_token_valid_for_seconds = refresh_token_valid_for_seconds
 
         if colocation_enabled:
             # Through AWS private link traffic is already secured and we don't need encryption.
@@ -359,6 +367,10 @@ class BluefinProSdk:
                                       "Bearer " + self._token_response.access_token)
 
     async def _login(self, v1: bool = True, **kwargs):
+        
+        kwargs['refresh_token_valid_for_seconds'] = self._refresh_token_valid_for_seconds
+        kwargs['read_only'] = self._read_only
+        
         if v1:
             await self._login_v1(**kwargs)
         else:
@@ -399,6 +411,7 @@ class BluefinProSdk:
             read_only=read_only
         )
         self._token_response = response
+        print(f"Token response V1: {self._token_response}")
         
     async def _login_v2(self, **kwargs):
         """
@@ -434,6 +447,7 @@ class BluefinProSdk:
             read_only=read_only
         )
         self._token_response = response
+        print(f"Token response V2: {self._token_response}")
         
 
     async def __aenter__(self):
