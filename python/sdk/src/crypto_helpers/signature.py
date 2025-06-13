@@ -50,13 +50,8 @@ class Signature:
         Creates a login request message and signs it using v2 signature
         """
         
-        data = {
-            "accountAddress": payload.account_address,
-            "audience": payload.audience,
-            "signedAtMillis": payload.signed_at_millis,
-        }
-        
-        message_bytes = list(json.dumps(data, separators=(',', ':')).encode("utf-8"))
+        # Use the LoginRequest's built-in serialization to match Rust implementation
+        message_bytes = list(payload.to_json().encode("utf-8"))
         message = self.create_personal_sign_message_bytes(message_bytes)
         signature = self.sign(message)
         base64_signature_with_public_key = self.build_base_64_signature_with_scheme_and_public_key(signature)
