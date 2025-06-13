@@ -7,3 +7,4 @@
 /ts/sdk/dist
 **/openapitools.json
 out
+tools/**/target
