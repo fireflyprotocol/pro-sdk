@@ -220,7 +220,7 @@ pub mod tests {
     use sui_crypto::{SuiVerifier, ed25519::Ed25519Verifier};
     use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SimpleSignature, UserSignature};
 
-    fn verify_signature(
+    fn verify_ed25519_signature(
         encoded_signature: &str,
         login_payload: &LoginRequest,
     ) -> Result<(), Box<dyn std::error::Error>> {
@@ -248,6 +248,47 @@ pub mod tests {
         Ok(())
     }
 
+    // secp256k1
+    fn verify_secp256k1_signature(
+        encoded_signature: &str,
+        login_payload: &LoginRequest,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        const RECOVERY_CODE: u8 = 31;
+        let signature_bytes = BASE64_STANDARD
+            .decode(encoded_signature)
+            .map_err(|_| "Could not base64 decode signature".to_string())?;
+        // 27 is an old magic number inherited from Bitcoin and is used as a "magic constant"
+        // 4 is a number used to indicate that the public key is compressed
+        // Extract the signature and public key bytes
+        if signature_bytes.len() != 99 {
+            // 1 signature type flag byte + 65 for the signature (1 recovery byte + 64 signature bytes) + 33 public key
+            return Err("Invalid signature length".into());
+        }
+        let recovery_bit = signature_bytes[1] - RECOVERY_CODE;
+
+        let signature = secp256k1::ecdsa::RecoverableSignature::from_compact(
+            &signature_bytes[2..signature_bytes.len() - 33],
+            RecoveryId::try_from(i32::from(recovery_bit))
+                .map_err(|_| "Invalid secp256k1 recovery ID".to_string())?,
+        )?;
+        let public_key = secp256k1::PublicKey::from_slice(&signature_bytes[(1 + 65)..])?;
+
+        // get message bytes
+        let bytes = serde_json::to_vec(login_payload)
+            .map_err(|_| "Could not serialize auth request".to_string())?;
+        let personal_message = PersonalMessage(Cow::Borrowed(bytes.as_slice()));
+
+        // Verify the signature
+        let message = Message::from_digest(personal_message.signing_digest());
+
+        let recovered_public_key = signature
+            .recover(&message)
+            .map_err(|_| "Invalid secp256k1 signature".to_string())?;
+
+        assert_eq!(public_key, recovered_public_key);
+        Ok(())
+    }
+
     #[test]
     fn sign_auth_request() -> Result<(), Box<dyn std::error::Error>> {
         // ed25519
@@ -266,48 +307,7 @@ pub mod tests {
         let signature = auth_request
             .signature(SignatureScheme::Ed25519, private_key.to_bytes())
             .map_err(|error| format!("{error:?}"))?;
-        verify_signature(&signature, &auth_request)?;
-
-        // secp256k1
-        fn verify_secp256k1_signature(
-            encoded_signature: &str,
-            login_payload: &LoginRequest,
-        ) -> Result<(), Box<dyn std::error::Error>> {
-            const RECOVERY_CODE: u8 = 31;
-            let signature_bytes = BASE64_STANDARD
-                .decode(encoded_signature)
-                .map_err(|_| "Could not base64 decode signature".to_string())?;
-            // 27 is an old magic number inherited from Bitcoin and is used as a "magic constant"
-            // 4 is a number used to indicate that the public key is compressed
-            // Extract the signature and public key bytes
-            if signature_bytes.len() != 99 {
-                // 1 signature type flag byte + 65 for the signature (1 recovery byte + 64 signature bytes) + 33 public key
-                return Err("Invalid signature length".into());
-            }
-            let recovery_bit = signature_bytes[1] - RECOVERY_CODE;
-
-            let signature = secp256k1::ecdsa::RecoverableSignature::from_compact(
-                &signature_bytes[2..signature_bytes.len() - 33],
-                RecoveryId::try_from(i32::from(recovery_bit))
-                    .map_err(|_| "Invalid secp256k1 recovery ID".to_string())?,
-            )?;
-            let public_key = secp256k1::PublicKey::from_slice(&signature_bytes[(1 + 65)..])?;
-
-            // get message bytes
-            let bytes = serde_json::to_vec(login_payload)
-                .map_err(|_| "Could not serialize auth request".to_string())?;
-            let personal_message = PersonalMessage(Cow::Borrowed(bytes.as_slice()));
-
-            // Verify the signature
-            let message = Message::from_digest(personal_message.signing_digest());
-
-            let recovered_public_key = signature
-                .recover(&message)
-                .map_err(|_| "Invalid secp256k1 signature".to_string())?;
-
-            assert_eq!(public_key, recovered_public_key);
-            Ok(())
-        }
+        verify_ed25519_signature(&signature, &auth_request)?;
 
         let signature = auth_request
             .signature(SignatureScheme::Secp256k1, private_key.to_bytes())
