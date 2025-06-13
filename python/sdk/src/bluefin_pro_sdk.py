@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from enum import Enum
 from random import randint
 from typing import Callable, Awaitable, Any
-from typing_extensions import deprecated
 
 from asgiref.sync import sync_to_async
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
