@@ -38,7 +38,7 @@ No authorization required
 
 ## auth_token_post
 
-> models::LoginResponse auth_token_post(payload_signature, login_request)
+> models::LoginResponse auth_token_post(payload_signature, login_request, refresh_token_valid_for_seconds, read_only)
 
 
 login with token
@@ -50,6 +50,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **payload_signature** | **String** |  | [required] |
 **login_request** | [**LoginRequest**](LoginRequest.md) |  | [required] |
+**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |
+**read_only** | Option<**bool**> |  |  |[default to false]
 
 ### Return type
 
@@ -97,7 +99,7 @@ No authorization required
 
 ## auth_v2_token_post
 
-> models::LoginResponse auth_v2_token_post(payload_signature, login_request)
+> models::LoginResponse auth_v2_token_post(payload_signature, login_request, refresh_token_valid_for_seconds, read_only)
 
 
 login compatible with BCS payload with intent bytes
@@ -109,6 +111,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **payload_signature** | **String** |  | [required] |
 **login_request** | [**LoginRequest**](LoginRequest.md) |  | [required] |
+**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |
+**read_only** | Option<**bool**> |  |  |[default to false]
 
 ### Return type
 
