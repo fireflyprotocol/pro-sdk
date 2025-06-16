@@ -97,7 +97,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AuthApi(api_client)
     payload_signature = 'payload_signature_example' # str | 
     login_request = openapi_client.LoginRequest() # LoginRequest | 
-    refresh_token_valid_for_seconds = 56 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional)
+    refresh_token_valid_for_seconds = 2592000 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to 2592000)
     read_only = False # bool |  (optional) (default to False)
 
     try:
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **payload_signature** | **str**|  | 
  **login_request** | [**LoginRequest**](LoginRequest.md)|  | 
- **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] 
+ **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] [default to 2592000]
  **read_only** | **bool**|  | [optional] [default to False]
 
 ### Return type
@@ -242,7 +242,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AuthApi(api_client)
     payload_signature = 'payload_signature_example' # str | 
     login_request = openapi_client.LoginRequest() # LoginRequest | 
-    refresh_token_valid_for_seconds = 56 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional)
+    refresh_token_valid_for_seconds = 2592000 # int | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to 2592000)
     read_only = False # bool |  (optional) (default to False)
 
     try:
@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **payload_signature** | **str**|  | 
  **login_request** | [**LoginRequest**](LoginRequest.md)|  | 
- **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] 
+ **refresh_token_valid_for_seconds** | **int**| The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | [optional] [default to 2592000]
  **read_only** | **bool**|  | [optional] [default to False]
 
 ### Return type

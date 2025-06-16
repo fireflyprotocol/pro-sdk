@@ -126,13 +126,14 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2592000
             x-go-type: int64
         - name: readOnly
           in: query
           required: false
           schema:
             type: boolean
-            description: "If true, the refresh token will not be returned in the response."
+            description: "If not supplied defaults to false"
             default: false
       requestBody:
         required: true
@@ -192,12 +193,13 @@ paths:
             type: integer
             format: int64
             x-go-type: int64
+            default: 2592000
         - name: readOnly
           in: query
           required: false
           schema:
             type: boolean
-            description: "If true, the refresh token will not be returned in the response."
+            description: "If not supplied defaults to false"
             default: false
       requestBody:
         required: true
@@ -206,7 +208,7 @@ paths:
             schema:
               $ref: '#/components/schemas/LoginRequest'
       responses:
-        '200': 
+        '200':
           description: OK
           content:
             application/json:

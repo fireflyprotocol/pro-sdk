@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **payload_signature** | **String** |  | [required] |
 **login_request** | [**LoginRequest**](LoginRequest.md) |  | [required] |
-**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |
+**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |[default to 2592000]
 **read_only** | Option<**bool**> |  |  |[default to false]
 
 ### Return type
@@ -111,7 +111,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **payload_signature** | **String** |  | [required] |
 **login_request** | [**LoginRequest**](LoginRequest.md) |  | [required] |
-**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |
+**refresh_token_valid_for_seconds** | Option<**i64**> | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. |  |[default to 2592000]
 **read_only** | Option<**bool**> |  |  |[default to false]
 
 ### Return type

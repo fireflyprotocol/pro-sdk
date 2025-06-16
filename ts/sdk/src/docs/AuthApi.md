@@ -72,7 +72,7 @@ const apiInstance = new AuthApi(configuration);
 
 let payloadSignature: string; // (default to undefined)
 let loginRequest: LoginRequest; //
-let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to undefined)
+let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to 2592000)
 let readOnly: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.authTokenPost(
@@ -89,7 +89,7 @@ const { status, data } = await apiInstance.authTokenPost(
 |------------- | ------------- | ------------- | -------------|
 | **loginRequest** | **LoginRequest**|  | |
 | **payloadSignature** | [**string**] |  | defaults to undefined|
-| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to undefined|
+| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to 2592000|
 | **readOnly** | [**boolean**] |  | (optional) defaults to false|
 
 
@@ -193,7 +193,7 @@ const apiInstance = new AuthApi(configuration);
 
 let payloadSignature: string; // (default to undefined)
 let loginRequest: LoginRequest; //
-let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to undefined)
+let refreshTokenValidForSeconds: number; //The number of seconds the refresh token is valid for. If not provided, the default is 30 days. (optional) (default to 2592000)
 let readOnly: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.authV2TokenPost(
@@ -210,7 +210,7 @@ const { status, data } = await apiInstance.authV2TokenPost(
 |------------- | ------------- | ------------- | -------------|
 | **loginRequest** | **LoginRequest**|  | |
 | **payloadSignature** | [**string**] |  | defaults to undefined|
-| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to undefined|
+| **refreshTokenValidForSeconds** | [**number**] | The number of seconds the refresh token is valid for. If not provided, the default is 30 days. | (optional) defaults to 2592000|
 | **readOnly** | [**boolean**] |  | (optional) defaults to false|
 
 
