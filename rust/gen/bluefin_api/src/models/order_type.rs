@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// OrderType : The type of order.
-/// The type of order.
+/// OrderType : The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
+/// The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OrderType {
     #[serde(rename = "LIMIT")]
