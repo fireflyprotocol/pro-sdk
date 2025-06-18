@@ -975,25 +975,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "404":
-          description: "parent referral code not found"
+          description: "address not found"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "400":
-          description: "referral code is required"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "412":
-          description: "parent affiliate is not active"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "409":
-          description: "referee already exists"
+          description: "request missing required parameters"
           content:
             application/json:
               schema:
@@ -1089,19 +1077,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "404":
-          description: "address not found"
+          description: "parent referral code not found"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "400":
-          description: "request missing required parameters"
+          description: "referral code is required"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "403":
-          description: "referal code not found"
+        "412":
+          description: "parent affiliate is not active"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: "referee already exists"
           content:
             application/json:
               schema:
