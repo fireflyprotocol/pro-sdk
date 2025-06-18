@@ -18,6 +18,9 @@ pub struct AccountAuthorizationRequest {
     /// The signature of the request, encoded from the signedFields
     #[serde(rename = "signature")]
     pub signature: String,
+    /// The (optional) alias of the account that is being authorized or deauthorized
+    #[serde(rename = "alias", skip_serializing_if = "Option::is_none")]
+    pub alias: Option<String>,
 }
 
 impl AccountAuthorizationRequest {
@@ -25,6 +28,7 @@ impl AccountAuthorizationRequest {
         AccountAuthorizationRequest {
             signed_fields,
             signature,
+            alias: None,
         }
     }
 }

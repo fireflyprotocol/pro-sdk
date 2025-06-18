@@ -21,7 +21,10 @@ use super::{Error, configuration, ContentType};
 pub enum CancelOrdersError {
     Status400(),
     Status401(models::Error),
+    Status403(models::Error),
+    Status429(),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -30,8 +33,11 @@ pub enum CancelOrdersError {
 #[serde(untagged)]
 pub enum CancelStandbyOrdersError {
     Status400(models::Error),
+    Status403(models::Error),
     Status401(models::Error),
+    Status429(),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -62,8 +68,11 @@ pub enum GetStandbyOrdersError {
 pub enum PostCreateOrderError {
     Status400(models::Error),
     Status401(models::Error),
+    Status403(models::Error),
     Status404(models::Error),
+    Status429(),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -73,8 +82,10 @@ pub enum PostCreateOrderError {
 pub enum PostWithdrawError {
     Status400(models::Error),
     Status401(models::Error),
+    Status403(models::Error),
     Status404(models::Error),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -84,8 +95,10 @@ pub enum PostWithdrawError {
 pub enum PutAdjustIsolatedMarginError {
     Status400(models::Error),
     Status401(models::Error),
+    Status403(models::Error),
     Status404(models::Error),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,6 +109,7 @@ pub enum PutAuthorizeAccountError {
     Status400(models::Error),
     Status401(models::Error),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -106,6 +120,7 @@ pub enum PutDeauthorizeAccountError {
     Status400(models::Error),
     Status401(models::Error),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -115,8 +130,10 @@ pub enum PutDeauthorizeAccountError {
 pub enum PutLeverageUpdateError {
     Status400(models::Error),
     Status401(models::Error),
+    Status403(models::Error),
     Status404(models::Error),
     Status500(models::Error),
+    Status503(models::Error),
     UnknownValue(serde_json::Value),
 }
 

@@ -70,16 +70,19 @@ pub struct Account {
     pub assets: Vec<models::Asset>,
     #[serde(rename = "positions")]
     pub positions: Vec<models::Position>,
-    /// The accounts that are authorized to trade on behalf of the current account.
+    /// Deprecated: Replaced with authorizedWallets.
     #[serde(rename = "authorizedAccounts")]
     pub authorized_accounts: Vec<String>,
     /// The address of the account.
     #[serde(rename = "accountAddress")]
     pub account_address: String,
+    /// The wallets that are authorized to trade on behalf of the current account.
+    #[serde(rename = "authorizedWallets")]
+    pub authorized_wallets: Vec<models::AuthorizedWallet>,
 }
 
 impl Account {
-    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>, account_address: String) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>, account_address: String, authorized_wallets: Vec<models::AuthorizedWallet>) -> Account {
         Account {
             trading_fees,
             can_trade,
@@ -103,6 +106,7 @@ impl Account {
             positions,
             authorized_accounts,
             account_address,
+            authorized_wallets,
         }
     }
 }

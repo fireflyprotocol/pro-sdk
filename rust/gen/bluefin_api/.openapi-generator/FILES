@@ -38,6 +38,7 @@ docs/AffiliateSummary.md
 docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
+docs/AuthorizedWallet.md
 docs/CampaignMetadata.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
@@ -160,6 +161,7 @@ src/models/affiliate_overview.rs
 src/models/affiliate_summary.rs
 src/models/asset.rs
 src/models/asset_config.rs
+src/models/authorized_wallet.rs
 src/models/campaign_metadata.rs
 src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
