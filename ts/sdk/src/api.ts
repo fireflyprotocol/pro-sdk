@@ -3410,7 +3410,7 @@ export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInF
 
 
 /**
- * The type of order.
+ * The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
  * @export
  * @enum {string}
  */
