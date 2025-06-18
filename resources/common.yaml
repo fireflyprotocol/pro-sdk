@@ -44,7 +44,7 @@ components:
         FOK: Fill Or Kill    
     OrderType:
       type: string
-      description: "The type of order."
+      description: "The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)"
       enum:
       - LIMIT
       - MARKET
