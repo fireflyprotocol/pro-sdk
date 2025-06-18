@@ -1107,6 +1107,7 @@ Name | Type | Description  | Notes
 **401** | unauthorized access |  -  |
 **404** | address not found |  -  |
 **400** | request missing required parameters |  -  |
+**403** | referal code not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

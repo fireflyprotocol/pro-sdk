@@ -131,6 +131,7 @@ pub enum OnboardRefereeError {
     Status401(models::Error),
     Status404(models::Error),
     Status400(models::Error),
+    Status403(models::Error),
     UnknownValue(serde_json::Value),
 }
 
