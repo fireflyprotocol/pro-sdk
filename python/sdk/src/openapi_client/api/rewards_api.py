@@ -3780,7 +3780,8 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
-            '403': "Error",
+            '412': "Error",
+            '409': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -3851,7 +3852,8 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
-            '403': "Error",
+            '412': "Error",
+            '409': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -3922,7 +3924,8 @@ class RewardsApi:
             '401': "Error",
             '404': "Error",
             '400': "Error",
-            '403': "Error",
+            '412': "Error",
+            '409': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,

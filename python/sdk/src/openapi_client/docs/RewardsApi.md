@@ -1105,9 +1105,10 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Referee onboarding response |  -  |
 **401** | unauthorized access |  -  |
-**404** | address not found |  -  |
-**400** | request missing required parameters |  -  |
-**403** | referal code not found |  -  |
+**404** | parent referral code not found |  -  |
+**400** | referral code is required |  -  |
+**412** | parent affiliate is not active |  -  |
+**409** | referee already exists |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
