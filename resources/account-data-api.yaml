@@ -46,10 +46,11 @@ components:
         - assets
         - positions
         - authorizedAccounts
+        - authorizedWallets
         - accountAddress
       properties:
         tradingFees:
-          $ref: './common.yaml#/components/schemas/TradingFees'
+          $ref: "./common.yaml#/components/schemas/TradingFees"
         canTrade:
           type: boolean
           description: If the user can trade.
@@ -108,14 +109,14 @@ components:
           example: "1000000000" # 1,000 USD
         crossAccountValueE9:
           type: string
-          description: | 
+          description: |
             The total value of the cross account, combining the cross effective
             balance and unrealized PnL across all cross positions, and subtracting any pending
             funding payments on any cross position.
           example: "1000000000" # 1,000 USD
         totalAccountValueE9:
           type: string
-          description: | 
+          description: |
             The total value of the account, combining the total effective
             balance and unrealized PnL across all positions, and subtracting any pending
             funding payments on any position.
@@ -137,11 +138,35 @@ components:
           type: array
           items:
             type: string
-          description: The accounts that are authorized to trade on behalf of the current account.
+          deprecated: true
+          description: "Deprecated: Replaced with authorizedWallets."
         accountAddress:
           type: string
           description: The address of the account.
           example: "0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde"
+        authorizedWallets:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuthorizedWallet"
+          description: The wallets that are authorized to trade on behalf of the current account.
+
+    AuthorizedWallet:
+      type: object
+      required:
+        - address
+        - authorizedAtMillis
+      properties:
+        address:
+          type: string
+          description: The address of the authorized wallet.
+        alias:
+          type: string
+          description: The alias of the authorized wallet.
+        authorizedAtMillis:
+          type: integer
+          format: int64
+          description: The timestamp in milliseconds when the wallet was authorized.
+
     AccountFundingRateHistory:
       type: object
       required:
@@ -310,7 +335,7 @@ components:
           format: int64
           description: Transaction timestamp in milliseconds since Unix epoch.
           example: 1569514978020
-    
+
     UpdateAccountPreferenceRequest:
       type: object
       additionalProperties: true
@@ -373,7 +398,7 @@ paths:
         - name: accountAddress
           in: query
           schema:
-              type: string
+            type: string
           description: Account address to filter funding rate history by.
         - name: limit
           in: query
@@ -490,6 +515,12 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "413":
+          description: "request entity too large"
           content:
             application/json:
               schema:
