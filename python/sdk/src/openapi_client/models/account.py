@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
 from openapi_client.models.asset import Asset
+from openapi_client.models.authorized_wallet import AuthorizedWallet
 from openapi_client.models.position import Position
 from openapi_client.models.trading_fees import TradingFees
 from typing import Optional, Set
@@ -49,9 +50,10 @@ class Account(BaseModel):
     updated_at_millis: StrictInt = Field(description="Last update time in milliseconds since Unix epoch.", alias="updatedAtMillis")
     assets: List[Asset]
     positions: List[Position]
-    authorized_accounts: List[StrictStr] = Field(description="The accounts that are authorized to trade on behalf of the current account.", alias="authorizedAccounts")
+    authorized_accounts: List[StrictStr] = Field(description="Deprecated: Replaced with authorizedWallets.", alias="authorizedAccounts")
     account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts", "accountAddress"]
+    authorized_wallets: List[AuthorizedWallet] = Field(description="The wallets that are authorized to trade on behalf of the current account.", alias="authorizedWallets")
+    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts", "accountAddress", "authorizedWallets"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,6 +111,13 @@ class Account(BaseModel):
                 if _item_positions:
                     _items.append(_item_positions.to_dict())
             _dict['positions'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in authorized_wallets (list)
+        _items = []
+        if self.authorized_wallets:
+            for _item_authorized_wallets in self.authorized_wallets:
+                if _item_authorized_wallets:
+                    _items.append(_item_authorized_wallets.to_dict())
+            _dict['authorizedWallets'] = _items
         return _dict
 
     @classmethod
@@ -142,7 +151,8 @@ class Account(BaseModel):
             "assets": [Asset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "positions": [Position.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,
             "authorizedAccounts": obj.get("authorizedAccounts"),
-            "accountAddress": obj.get("accountAddress")
+            "accountAddress": obj.get("accountAddress"),
+            "authorizedWallets": [AuthorizedWallet.from_dict(_item) for _item in obj["authorizedWallets"]] if obj.get("authorizedWallets") is not None else None
         })
         return _obj
 

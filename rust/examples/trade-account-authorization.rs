@@ -61,6 +61,7 @@ async fn main() -> Result<()> {
                 ids_id: contracts_info.ids_id.clone(),
                 signed_at_millis: time_now,
             },
+            alias: Some("test-alias".to_string()),
             ..Default::default()
         },
         true,

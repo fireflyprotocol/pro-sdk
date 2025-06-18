@@ -40,6 +40,7 @@ docs/AffiliateSummary.md
 docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
+docs/AuthorizedWallet.md
 docs/CampaignMetadata.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md

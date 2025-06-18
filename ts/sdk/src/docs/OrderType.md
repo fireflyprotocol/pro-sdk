@@ -1,6 +1,6 @@
 # OrderType
 
-The type of order.
+The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
 
 ## Enum
 

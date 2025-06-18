@@ -25,8 +25,9 @@ Name | Type | Description | Notes
 **updated_at_millis** | **int** | Last update time in milliseconds since Unix epoch. | 
 **assets** | [**List[Asset]**](Asset.md) |  | 
 **positions** | [**List[Position]**](Position.md) |  | 
-**authorized_accounts** | **List[str]** | The accounts that are authorized to trade on behalf of the current account. | 
+**authorized_accounts** | **List[str]** | Deprecated: Replaced with authorizedWallets. | 
 **account_address** | **str** | The address of the account. | 
+**authorized_wallets** | [**List[AuthorizedWallet]**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | 
 
 ## Example
 

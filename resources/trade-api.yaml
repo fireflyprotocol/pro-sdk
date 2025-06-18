@@ -58,6 +58,10 @@ components:
         signature:
           type: string
           description: The signature of the request, encoded from the signedFields
+        alias:
+          type: string
+          description: The (optional) alias of the account that is being authorized or deauthorized
+          example: "John Doe"
       required:
         - signedFields
         - signature
@@ -536,18 +540,33 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The request was rate limited.
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/orders/cancel:
     put:
@@ -580,12 +599,27 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The request was rate limited.
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/orders/cancel/standby:
     put:
@@ -619,18 +653,33 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '401':
           description: Unauthorized. Authentication is required or invalid.
           content:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The request was rate limited.
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
 
   /api/v1/trade/accounts/authorize:
@@ -673,6 +722,13 @@ paths:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
 
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
+
   /api/v1/trade/accounts/deauthorize:
     put:
       tags:
@@ -713,6 +769,13 @@ paths:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
 
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
+
   /api/v1/trade/leverage:
     put:
       security:
@@ -748,6 +811,12 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
@@ -760,6 +829,13 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
   /api/v1/trade/openOrders:
     get:
@@ -900,6 +976,12 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested resource was not found.
           content:
@@ -912,6 +994,13 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
 
   /api/v1/trade/adjustIsolatedMargin:
@@ -949,6 +1038,12 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '404':
           description: Not Found. The requested account was not found.
           content:
@@ -961,5 +1056,12 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+
+        '503':
+           description: Service Unavailable. The service is currently unavailable.
+           content:
+             application/json:
+               schema:
+                 $ref: './common.yaml#/components/schemas/Error'
 
   

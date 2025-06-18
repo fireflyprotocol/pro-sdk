@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.account_authorization_request_signed_fields import AccountAuthorizationRequestSignedFields
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,8 @@ class AccountAuthorizationRequest(BaseModel):
     """ # noqa: E501
     signed_fields: AccountAuthorizationRequestSignedFields = Field(alias="signedFields")
     signature: StrictStr = Field(description="The signature of the request, encoded from the signedFields")
-    __properties: ClassVar[List[str]] = ["signedFields", "signature"]
+    alias: Optional[StrictStr] = Field(default=None, description="The (optional) alias of the account that is being authorized or deauthorized")
+    __properties: ClassVar[List[str]] = ["signedFields", "signature", "alias"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +87,8 @@ class AccountAuthorizationRequest(BaseModel):
 
         _obj = cls.model_validate({
             "signedFields": AccountAuthorizationRequestSignedFields.from_dict(obj["signedFields"]) if obj.get("signedFields") is not None else None,
-            "signature": obj.get("signature")
+            "signature": obj.get("signature"),
+            "alias": obj.get("alias")
         })
         return _obj
 

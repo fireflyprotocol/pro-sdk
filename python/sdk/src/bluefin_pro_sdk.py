@@ -320,7 +320,7 @@ class BluefinProSdk:
         await self._trade_api.post_withdraw(request)
         logger.info(f"Withdraw request sent successfully {request}")
 
-    async def authorize_account(self, authorized_account_address: str):
+    async def authorize_account(self, authorized_account_address: str, alias: str | None = None):
         signed_fields = AccountAuthorizationRequestSignedFields(
             account_address=self.current_account_address,
             authorized_account_address=authorized_account_address,
@@ -333,7 +333,7 @@ class BluefinProSdk:
 
         await self._trade_api.put_authorize_account(
             AccountAuthorizationRequest(
-                signed_fields=signed_fields, signature=signature, request_hash="")
+                signed_fields=signed_fields, signature=signature, request_hash="", alias=alias)
         )
 
         logger.info(f"Authorize account request sent successfully {signed_fields}")

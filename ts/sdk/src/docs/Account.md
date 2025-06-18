@@ -25,8 +25,9 @@ Name | Type | Description | Notes
 **updatedAtMillis** | **number** | Last update time in milliseconds since Unix epoch. | [default to undefined]
 **assets** | [**Array&lt;Asset&gt;**](Asset.md) |  | [default to undefined]
 **positions** | [**Array&lt;Position&gt;**](Position.md) |  | [default to undefined]
-**authorizedAccounts** | **Array&lt;string&gt;** | The accounts that are authorized to trade on behalf of the current account. | [default to undefined]
+**authorizedAccounts** | **Array&lt;string&gt;** | Deprecated: Replaced with authorizedWallets. | [default to undefined]
 **accountAddress** | **string** | The address of the account. | [default to undefined]
+**authorizedWallets** | [**Array&lt;AuthorizedWallet&gt;**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | [default to undefined]
 
 ## Example
 
@@ -56,6 +57,7 @@ const instance: Account = {
     positions,
     authorizedAccounts,
     accountAddress,
+    authorizedWallets,
 };
 ```
 

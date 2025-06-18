@@ -77,6 +77,7 @@ pub enum PutAccountPreferencesError {
     Status400(models::Error),
     Status401(models::Error),
     Status404(models::Error),
+    Status413(models::Error),
     Status500(models::Error),
     UnknownValue(serde_json::Value),
 }

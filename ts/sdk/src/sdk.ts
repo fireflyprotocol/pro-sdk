@@ -441,7 +441,7 @@ export class BluefinProSdk {
     console.log("Withdraw request sent:", signedFields);
   }
 
-  public async authorizeAccount(accountAddress: string) {
+  public async authorizeAccount(accountAddress: string, alias?: string) {
     if (!this.contractsConfig) {
       throw new Error("Missing contractsConfig");
     }
@@ -462,6 +462,7 @@ export class BluefinProSdk {
     await this.tradeApi.putAuthorizeAccount({
       signedFields,
       signature,
+      alias,
     });
     console.log("Authorize account request sent:", signedFields);
   }

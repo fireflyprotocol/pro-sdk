@@ -45,6 +45,7 @@ openapi_client/docs/AffiliateSummary.md
 openapi_client/docs/Asset.md
 openapi_client/docs/AssetConfig.md
 openapi_client/docs/AuthApi.md
+openapi_client/docs/AuthorizedWallet.md
 openapi_client/docs/CampaignMetadata.md
 openapi_client/docs/CancelOrdersRequest.md
 openapi_client/docs/CancelOrdersResponse.md
@@ -159,6 +160,7 @@ openapi_client/models/affiliate_overview.py
 openapi_client/models/affiliate_summary.py
 openapi_client/models/asset.py
 openapi_client/models/asset_config.py
+openapi_client/models/authorized_wallet.py
 openapi_client/models/campaign_metadata.py
 openapi_client/models/cancel_orders_request.py
 openapi_client/models/cancel_orders_response.py

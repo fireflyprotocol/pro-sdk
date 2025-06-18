@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **signed_fields** | [**AccountAuthorizationRequestSignedFields**](AccountAuthorizationRequestSignedFields.md) |  | 
 **signature** | **str** | The signature of the request, encoded from the signedFields | 
+**alias** | **str** | The (optional) alias of the account that is being authorized or deauthorized | [optional] 
 
 ## Example
 

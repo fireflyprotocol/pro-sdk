@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
  - [AffiliateSummary](docs/AffiliateSummary.md)
  - [Asset](docs/Asset.md)
  - [AssetConfig](docs/AssetConfig.md)
+ - [AuthorizedWallet](docs/AuthorizedWallet.md)
  - [CampaignMetadata](docs/CampaignMetadata.md)
  - [CancelOrdersRequest](docs/CancelOrdersRequest.md)
  - [CancelOrdersResponse](docs/CancelOrdersResponse.md)

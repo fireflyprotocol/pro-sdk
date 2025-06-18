@@ -150,9 +150,10 @@ export interface Account {
      */
     'positions': Array<Position>;
     /**
-     * The accounts that are authorized to trade on behalf of the current account.
+     * Deprecated: Replaced with authorizedWallets.
      * @type {Array<string>}
      * @memberof Account
+     * @deprecated
      */
     'authorizedAccounts': Array<string>;
     /**
@@ -161,6 +162,12 @@ export interface Account {
      * @memberof Account
      */
     'accountAddress': string;
+    /**
+     * The wallets that are authorized to trade on behalf of the current account.
+     * @type {Array<AuthorizedWallet>}
+     * @memberof Account
+     */
+    'authorizedWallets': Array<AuthorizedWallet>;
 }
 /**
  * Aggregated details about a trade in the account.
@@ -193,6 +200,12 @@ export interface AccountAuthorizationRequest {
      * @memberof AccountAuthorizationRequest
      */
     'signature': string;
+    /**
+     * The (optional) alias of the account that is being authorized or deauthorized
+     * @type {string}
+     * @memberof AccountAuthorizationRequest
+     */
+    'alias'?: string;
 }
 /**
  * 
@@ -1555,6 +1568,31 @@ export interface AssetConfig {
      * @memberof AssetConfig
      */
     'marginAvailable': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface AuthorizedWallet
+ */
+export interface AuthorizedWallet {
+    /**
+     * The address of the authorized wallet.
+     * @type {string}
+     * @memberof AuthorizedWallet
+     */
+    'address': string;
+    /**
+     * The alias of the authorized wallet.
+     * @type {string}
+     * @memberof AuthorizedWallet
+     */
+    'alias'?: string;
+    /**
+     * The timestamp in milliseconds when the wallet was authorized.
+     * @type {number}
+     * @memberof AuthorizedWallet
+     */
+    'authorizedAtMillis': number;
 }
 /**
  * 
@@ -3372,7 +3410,7 @@ export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInF
 
 
 /**
- * The type of order.
+ * The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
  * @export
  * @enum {string}
  */

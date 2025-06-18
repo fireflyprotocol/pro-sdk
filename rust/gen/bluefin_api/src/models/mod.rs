@@ -66,6 +66,8 @@ pub mod asset;
 pub use self::asset::Asset;
 pub mod asset_config;
 pub use self::asset_config::AssetConfig;
+pub mod authorized_wallet;
+pub use self::authorized_wallet::AuthorizedWallet;
 pub mod campaign_metadata;
 pub use self::campaign_metadata::CampaignMetadata;
 pub mod cancel_orders_request;

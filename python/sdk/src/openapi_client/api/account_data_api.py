@@ -1650,6 +1650,7 @@ class AccountDataApi:
             '400': "Error",
             '401': "Error",
             '404': "Error",
+            '413': "Error",
             '500': "Error",
         }
         response_data = await self.api_client.call_api(
@@ -1720,6 +1721,7 @@ class AccountDataApi:
             '400': "Error",
             '401': "Error",
             '404': "Error",
+            '413': "Error",
             '500': "Error",
         }
         response_data = await self.api_client.call_api(
@@ -1790,6 +1792,7 @@ class AccountDataApi:
             '400': "Error",
             '401': "Error",
             '404': "Error",
+            '413': "Error",
             '500': "Error",
         }
         response_data = await self.api_client.call_api(
