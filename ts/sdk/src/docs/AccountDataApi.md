@@ -361,6 +361,7 @@ void (empty response body)
 |**400** | request missing request body |  -  |
 |**401** | unauthorized access |  -  |
 |**404** | account not found |  -  |
+|**413** | request entity too large |  -  |
 |**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
