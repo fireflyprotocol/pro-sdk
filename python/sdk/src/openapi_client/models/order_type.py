@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class OrderType(str, Enum):
     """
-    The type of order.
+    The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
     """
 
     """
