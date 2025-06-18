@@ -104,7 +104,10 @@ class TradeApi:
             '202': None,
             '400': None,
             '401': "Error",
+            '403': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -174,7 +177,10 @@ class TradeApi:
             '202': None,
             '400': None,
             '401': "Error",
+            '403': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -244,7 +250,10 @@ class TradeApi:
             '202': None,
             '400': None,
             '401': "Error",
+            '403': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -386,8 +395,11 @@ class TradeApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
             '400': "Error",
+            '403': "Error",
             '401': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -456,8 +468,11 @@ class TradeApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
             '400': "Error",
+            '403': "Error",
             '401': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -526,8 +541,11 @@ class TradeApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CancelOrdersResponse",
             '400': "Error",
+            '403': "Error",
             '401': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1218,8 +1236,11 @@ class TradeApi:
             '202': "CreateOrderResponse",
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1290,8 +1311,11 @@ class TradeApi:
             '202': "CreateOrderResponse",
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1362,8 +1386,11 @@ class TradeApi:
             '202': "CreateOrderResponse",
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
+            '429': None,
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1506,8 +1533,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1577,8 +1606,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1648,8 +1679,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1792,8 +1825,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1863,8 +1898,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1934,8 +1971,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2079,6 +2118,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2149,6 +2189,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2219,6 +2260,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2361,6 +2403,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2431,6 +2474,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2501,6 +2545,7 @@ class TradeApi:
             '400': "Error",
             '401': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2642,8 +2687,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2713,8 +2760,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2784,8 +2833,10 @@ class TradeApi:
             '202': None,
             '400': "Error",
             '401': "Error",
+            '403': "Error",
             '404': "Error",
             '500': "Error",
+            '503': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,

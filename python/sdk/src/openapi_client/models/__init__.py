@@ -48,6 +48,7 @@ from openapi_client.models.affiliate_overview import AffiliateOverview
 from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
+from openapi_client.models.authorized_wallet import AuthorizedWallet
 from openapi_client.models.campaign_metadata import CampaignMetadata
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.cancel_orders_response import CancelOrdersResponse

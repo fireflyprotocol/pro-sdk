@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
  - [AffiliateSummary](openapi_client/docs/AffiliateSummary.md)
  - [Asset](openapi_client/docs/Asset.md)
  - [AssetConfig](openapi_client/docs/AssetConfig.md)
+ - [AuthorizedWallet](openapi_client/docs/AuthorizedWallet.md)
  - [CampaignMetadata](openapi_client/docs/CampaignMetadata.md)
  - [CancelOrdersRequest](openapi_client/docs/CancelOrdersRequest.md)
  - [CancelOrdersResponse](openapi_client/docs/CancelOrdersResponse.md)

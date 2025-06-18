@@ -96,7 +96,10 @@ void (empty response body)
 **202** | Order cancellation submitted successfully. |  -  |
 **400** | Bad Request. Invalid body parameters. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. |  -  |
+**403** | Forbidden. |  -  |
+**429** | Too Many Requests. The request was rate limited. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -181,8 +184,11 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Orders cancelled successfully. |  -  |
 **400** | Bad Request. Invalid body parameters. |  -  |
+**403** | Forbidden. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. |  -  |
+**429** | Too Many Requests. The request was rate limited. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -428,8 +434,11 @@ Name | Type | Description  | Notes
 **202** | Order creation submitted successfully. |  -  |
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
+**403** | Forbidden. |  -  |
 **404** | Not Found. The requested account was not found. |  -  |
+**429** | Too Many Requests. The request was rate limited. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -508,8 +517,10 @@ void (empty response body)
 **202** | Withdraw request submitted successfully. |  -  |
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
+**403** | Forbidden. |  -  |
 **404** | Not Found. The requested resource was not found. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -588,8 +599,10 @@ void (empty response body)
 **202** | Adjust margin request sent successfully. |  -  |
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
+**403** | Forbidden. |  -  |
 **404** | Not Found. The requested account was not found. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -659,6 +672,7 @@ No authorization required
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -728,6 +742,7 @@ No authorization required
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -806,8 +821,10 @@ void (empty response body)
 **202** | Leverage update request sent successfully. |  -  |
 **400** | Bad Request. The request was invalid or malformed. |  -  |
 **401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
+**403** | Forbidden. |  -  |
 **404** | Not Found. The requested account was not found. |  -  |
 **500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
+**503** | Service Unavailable. The service is currently unavailable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
