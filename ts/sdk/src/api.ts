@@ -4633,6 +4633,12 @@ export interface UserCampaignRewards {
      */
     'WalRewardsE9': string;
     /**
+     * Total cash rewards earned in the epoch (e9 format).
+     * @type {string}
+     * @memberof UserCampaignRewards
+     */
+    'CashRewardsE9': string;
+    /**
      * Time in milliseconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
