@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **blueRewardsE9** | **string** | Total blue-perp token rewards earned in the epoch (e9 format). | [default to undefined]
 **suiRewardsE9** | **string** | Total sui-perp token rewards earned in the epoch (e9 format). | [default to undefined]
 **walRewardsE9** | **string** | Total wal-perp rewards earned in the epoch (e9 format). | [default to undefined]
+**cashRewardsE9** | **string** | Total cash rewards earned in the epoch (e9 format). | [default to undefined]
 **intervalStartDate** | **number** | Time in milliseconds for interval start date. | [default to undefined]
 **intervalEndDate** | **number** | Time in milliseconds for interval end date. | [default to undefined]
 
@@ -32,6 +33,7 @@ const instance: UserCampaignRewards = {
     blueRewardsE9,
     suiRewardsE9,
     walRewardsE9,
+    cashRewardsE9,
     intervalStartDate,
     intervalEndDate,
 };

@@ -39,6 +39,9 @@ pub struct UserCampaignRewards {
     /// Total wal-perp rewards earned in the epoch (e9 format).
     #[serde(rename = "WalRewardsE9")]
     pub wal_rewards_e9: String,
+    /// Total cash rewards earned in the epoch (e9 format).
+    #[serde(rename = "CashRewardsE9")]
+    pub cash_rewards_e9: String,
     /// Time in milliseconds for interval start date.
     #[serde(rename = "IntervalStartDate")]
     pub interval_start_date: i32,
@@ -48,7 +51,7 @@ pub struct UserCampaignRewards {
 }
 
 impl UserCampaignRewards {
-    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
+    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, cash_rewards_e9: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
         UserCampaignRewards {
             user_address,
             campaign_name,
@@ -59,6 +62,7 @@ impl UserCampaignRewards {
             blue_rewards_e9,
             sui_rewards_e9,
             wal_rewards_e9,
+            cash_rewards_e9,
             interval_start_date,
             interval_end_date,
         }
