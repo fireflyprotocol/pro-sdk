@@ -100,16 +100,14 @@ let sortBy: 'perpsRank' | 'lendingRank' | 'spotRank'; //The category to sort ran
 let sortOrder: 'asc' | 'desc'; //The order to sort rankings by (optional) (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
-let name: string; //The name of the user to filter by (optional) (default to undefined)
-let userAddress: string; //The user address to filter by (optional) (default to undefined)
+let search: string; //The name/address of the user to filter by (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
     sortBy,
     sortOrder,
     page,
     limit,
-    name,
-    userAddress
+    search
 );
 ```
 
@@ -121,8 +119,7 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort rankings by | (optional) defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
-| **name** | [**string**] | The name of the user to filter by | (optional) defaults to undefined|
-| **userAddress** | [**string**] | The user address to filter by | (optional) defaults to undefined|
+| **search** | [**string**] | The name/address of the user to filter by | (optional) defaults to undefined|
 
 
 ### Return type
@@ -216,16 +213,14 @@ let page: number; //The page number to retrieve in a paginated response (optiona
 let limit: number; //The page size for pagination (optional) (default to 500)
 let sortBy: 'refreeEarnings' | 'referralEarnings' | 'totalEarnings'; //The category to sort earnings by (optional) (default to 'totalEarnings')
 let sortOrder: 'asc' | 'desc'; //The order to sort earnings by (optional) (default to undefined)
-let name: string; //The name of the user to filter by (optional) (default to undefined)
-let userAddress: string; //The user address to filter by (optional) (default to undefined)
+let search: string; //The name/address of the user to filter by (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAffiliateOverview(
     page,
     limit,
     sortBy,
     sortOrder,
-    name,
-    userAddress
+    search
 );
 ```
 
@@ -237,8 +232,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
 | **sortBy** | [**&#39;refreeEarnings&#39; | &#39;referralEarnings&#39; | &#39;totalEarnings&#39;**]**Array<&#39;refreeEarnings&#39; &#124; &#39;referralEarnings&#39; &#124; &#39;totalEarnings&#39;>** | The category to sort earnings by | (optional) defaults to 'totalEarnings'|
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort earnings by | (optional) defaults to undefined|
-| **name** | [**string**] | The name of the user to filter by | (optional) defaults to undefined|
-| **userAddress** | [**string**] | The user address to filter by | (optional) defaults to undefined|
+| **search** | [**string**] | The name/address of the user to filter by | (optional) defaults to undefined|
 
 
 ### Return type

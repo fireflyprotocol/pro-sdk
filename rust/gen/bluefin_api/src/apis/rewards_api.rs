@@ -198,14 +198,13 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
 }
 
 /// Returns rankings and earnings for affiliates, sorted by the specified category
-pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, name: Option<&str>, user_address: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
+pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_sort_by = sort_by;
     let p_sort_order = sort_order;
     let p_page = page;
     let p_limit = limit;
-    let p_name = name;
-    let p_user_address = user_address;
+    let p_search = search;
 
     let uri_str = format!("{}/v1/rewards/affiliate/leaderDashboard", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -220,11 +219,8 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_name {
-        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_user_address {
-        req_builder = req_builder.query(&[("userAddress", &param_value.to_string())]);
+    if let Some(ref param_value) = p_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -297,14 +293,13 @@ pub async fn get_affiliate_metadata(configuration: &configuration::Configuration
 }
 
 /// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-pub async fn get_affiliate_overview(configuration: &configuration::Configuration, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, name: Option<&str>, user_address: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
+pub async fn get_affiliate_overview(configuration: &configuration::Configuration, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_page = page;
     let p_limit = limit;
     let p_sort_by = sort_by;
     let p_sort_order = sort_order;
-    let p_name = name;
-    let p_user_address = user_address;
+    let p_search = search;
 
     let uri_str = format!("{}/v1/rewards/affiliate/overview", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -321,11 +316,8 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
     if let Some(ref param_value) = p_sort_order {
         req_builder = req_builder.query(&[("sortOrder", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_name {
-        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_user_address {
-        req_builder = req_builder.query(&[("userAddress", &param_value.to_string())]);
+    if let Some(ref param_value) = p_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
