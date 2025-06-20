@@ -368,8 +368,7 @@ class RewardsApi:
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -395,10 +394,8 @@ class RewardsApi:
         :type page: int
         :param limit: The page size for pagination
         :type limit: int
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -426,8 +423,7 @@ class RewardsApi:
             sort_order=sort_order,
             page=page,
             limit=limit,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -458,8 +454,7 @@ class RewardsApi:
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -485,10 +480,8 @@ class RewardsApi:
         :type page: int
         :param limit: The page size for pagination
         :type limit: int
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -516,8 +509,7 @@ class RewardsApi:
             sort_order=sort_order,
             page=page,
             limit=limit,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -548,8 +540,7 @@ class RewardsApi:
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -575,10 +566,8 @@ class RewardsApi:
         :type page: int
         :param limit: The page size for pagination
         :type limit: int
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -606,8 +595,7 @@ class RewardsApi:
             sort_order=sort_order,
             page=page,
             limit=limit,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -633,8 +621,7 @@ class RewardsApi:
         sort_order,
         page,
         limit,
-        name,
-        user_address,
+        search,
         _request_auth,
         _content_type,
         _headers,
@@ -673,13 +660,9 @@ class RewardsApi:
             
             _query_params.append(('limit', limit))
             
-        if name is not None:
+        if search is not None:
             
-            _query_params.append(('name', name))
-            
-        if user_address is not None:
-            
-            _query_params.append(('userAddress', user_address))
+            _query_params.append(('search', search))
             
         # process the header parameters
         # process the form parameters
@@ -980,8 +963,7 @@ class RewardsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1007,10 +989,8 @@ class RewardsApi:
         :type sort_by: str
         :param sort_order: The order to sort earnings by
         :type sort_order: str
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1038,8 +1018,7 @@ class RewardsApi:
             limit=limit,
             sort_by=sort_by,
             sort_order=sort_order,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1070,8 +1049,7 @@ class RewardsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1097,10 +1075,8 @@ class RewardsApi:
         :type sort_by: str
         :param sort_order: The order to sort earnings by
         :type sort_order: str
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1128,8 +1104,7 @@ class RewardsApi:
             limit=limit,
             sort_by=sort_by,
             sort_order=sort_order,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1160,8 +1135,7 @@ class RewardsApi:
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
-        name: Annotated[Optional[StrictStr], Field(description="The name of the user to filter by")] = None,
-        user_address: Annotated[Optional[StrictStr], Field(description="The user address to filter by")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1187,10 +1161,8 @@ class RewardsApi:
         :type sort_by: str
         :param sort_order: The order to sort earnings by
         :type sort_order: str
-        :param name: The name of the user to filter by
-        :type name: str
-        :param user_address: The user address to filter by
-        :type user_address: str
+        :param search: The name/address of the user to filter by
+        :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1218,8 +1190,7 @@ class RewardsApi:
             limit=limit,
             sort_by=sort_by,
             sort_order=sort_order,
-            name=name,
-            user_address=user_address,
+            search=search,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1245,8 +1216,7 @@ class RewardsApi:
         limit,
         sort_by,
         sort_order,
-        name,
-        user_address,
+        search,
         _request_auth,
         _content_type,
         _headers,
@@ -1285,13 +1255,9 @@ class RewardsApi:
             
             _query_params.append(('sortOrder', sort_order))
             
-        if name is not None:
+        if search is not None:
             
-            _query_params.append(('name', name))
-            
-        if user_address is not None:
-            
-            _query_params.append(('userAddress', user_address))
+            _query_params.append(('search', search))
             
         # process the header parameters
         # process the form parameters
