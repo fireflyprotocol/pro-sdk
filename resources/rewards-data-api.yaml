@@ -1192,20 +1192,13 @@ paths:
               - asc
               - desc
           example: "desc"
-        - name: name
+        - name: search
           in: query
           required: false
-          description: The name of the user to filter by
+          description: The name/address of the user to filter by
           schema:
             type: string
             example: "John"
-        - name: userAddress
-          in: query
-          required: false
-          description: The user address to filter by
-          schema:
-            type: string
-            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate overview objects
@@ -1379,20 +1372,13 @@ paths:
             maximum: 1000
             minimum: 0
             example: 500
-        - name: name
+        - name: search
           in: query
           required: false
-          description: The name of the user to filter by
+          description: The name/address of the user to filter by
           schema:
             type: string
             example: "John"
-        - name: userAddress
-          in: query
-          required: false
-          description: The user address to filter by
-          schema:
-            type: string
-            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate ranking and earnings objects
