@@ -22,6 +22,7 @@ import {
   AdjustIsolatedMarginRequestSignedFields,
   AdjustMarginOperation,
   RewardsApi,
+  UpdateAccountPreferenceRequest,
 } from "./api";
 
 import { Configuration } from "./configuration";
@@ -522,6 +523,14 @@ export class BluefinProSdk {
       signature,
     });
     console.log("Adjust isolated margin request sent:", signedFields);
+  }
+
+  public async getAccountPreferences() {
+    return await this.accountDataApi.getAccountPreferences();
+  }
+
+  public async updateAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest) {
+    return await this.accountDataApi.putAccountPreferences(updateAccountPreferenceRequest);
   }
 
   public async deposit(amountE9: string, accountAddress?: string) {
