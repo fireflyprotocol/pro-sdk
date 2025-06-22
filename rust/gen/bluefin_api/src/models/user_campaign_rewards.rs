@@ -14,39 +14,39 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserCampaignRewards {
     /// User address for the rewards earned data.
-    #[serde(rename = "UserAddress")]
+    #[serde(rename = "userAddress")]
     pub user_address: String,
     /// Name of the campaign.
-    #[serde(rename = "CampaignName")]
+    #[serde(rename = "campaignName")]
     pub campaign_name: String,
     /// Epoch number for the rewards earned data.
-    #[serde(rename = "EpochNumber")]
+    #[serde(rename = "epochNumber")]
     pub epoch_number: i32,
     /// Interval number for the rewards earned data.
-    #[serde(rename = "IntervalNumber")]
+    #[serde(rename = "intervalNumber")]
     pub interval_number: i32,
     /// Market Symbol.
-    #[serde(rename = "Symbol")]
+    #[serde(rename = "symbol")]
     pub symbol: String,
-    #[serde(rename = "Status")]
+    #[serde(rename = "status")]
     pub status: Status,
     /// Total blue-perp token rewards earned in the epoch (e9 format).
-    #[serde(rename = "BlueRewardsE9")]
+    #[serde(rename = "blueRewardsE9")]
     pub blue_rewards_e9: String,
     /// Total sui-perp token rewards earned in the epoch (e9 format).
-    #[serde(rename = "SuiRewardsE9")]
+    #[serde(rename = "suiRewardsE9")]
     pub sui_rewards_e9: String,
     /// Total wal-perp rewards earned in the epoch (e9 format).
-    #[serde(rename = "WalRewardsE9")]
+    #[serde(rename = "walRewardsE9")]
     pub wal_rewards_e9: String,
     /// Total cash rewards earned in the epoch (e9 format).
-    #[serde(rename = "CashRewardsE9")]
+    #[serde(rename = "cashRewardsE9")]
     pub cash_rewards_e9: String,
     /// Time in milliseconds for interval start date.
-    #[serde(rename = "IntervalStartDate")]
+    #[serde(rename = "intervalStartDate")]
     pub interval_start_date: i32,
     /// Time in milliseconds for interval end date.
-    #[serde(rename = "IntervalEndDate")]
+    #[serde(rename = "intervalEndDate")]
     pub interval_end_date: i32,
 }
 

@@ -33,67 +33,67 @@ components:
     UserCampaignRewards:
       type: object
       required:
-        - UserAddress
-        - CampaignName
-        - EpochNumber
-        - IntervalNumber
-        - Symbol
-        - Status
-        - BlueRewardsE9
-        - SuiRewardsE9
-        - WalRewardsE9
-        - CashRewardsE9
-        - IntervalStartDate
-        - IntervalEndDate
+        - userAddress
+        - campaignName
+        - epochNumber
+        - intervalNumber
+        - symbol
+        - status
+        - blueRewardsE9
+        - suiRewardsE9
+        - walRewardsE9
+        - cashRewardsE9
+        - intervalStartDate
+        - intervalEndDate
       properties:
-        UserAddress:
+        userAddress:
           type: string
           description: User address for the rewards earned data.
           example: "0x1234567890abcdef"
-        CampaignName:
+        campaignName:
           type: string
           description: Name of the campaign.
           example: "TRADE_AND_EARN"
-        EpochNumber:
+        epochNumber:
           type: integer
           description: Epoch number for the rewards earned data.
           example: 6
-        IntervalNumber:
+        intervalNumber:
           type: integer
           description: Interval number for the rewards earned data.
           example: 6
-        Symbol:
+        symbol:
           type: string
           description: Market Symbol.
           example: "BTC-PERP"
-        Status:
+        status:
           type: string
           enum:
             - ACTIVE
             - NOT_STARTED
             - FINALIZED
             - COOLDOWN
-        BlueRewardsE9:
+        blueRewardsE9:
           type: string
           description: Total blue-perp token rewards earned in the epoch (e9 format).
           example: 10000000
-        SuiRewardsE9:
+        suiRewardsE9:
           type: string
           description: Total sui-perp token rewards earned in the epoch (e9 format).
           example: 10000000
-        WalRewardsE9:
+        walRewardsE9:
           type: string
           description: Total wal-perp rewards earned in the epoch (e9 format).
           example: 10000000
-        CashRewardsE9:
+        cashRewardsE9:
           type: string
           description: Total cash rewards earned in the epoch (e9 format).
           example: 10000000
-        IntervalStartDate:
+        intervalStartDate:
           type: integer
           description: Time in milliseconds for interval start date.
           example: 1724121094751
-        IntervalEndDate:
+        intervalEndDate:
           type: integer
           description: Time in milliseconds for interval end date.
           example: 1724121094751
