@@ -144,8 +144,12 @@ async function main() {
     ).data;
     logger.info(`Candle stick: ${JSON.stringify(candleStick)}`);
 
-
-    const rewards = ( await client.rewardsDataApi.getCampaignRewards("TRADE_AND_EARN")).data;
+    const rewards = (
+      await client.rewardsDataApi.getCampaignRewards(
+        "TRADE_AND_EARN",
+        suiWallet.toSuiAddress(),
+      )
+    ).data;
     logger.info(`Rewards: ${JSON.stringify(rewards)}`);
 
     const depth = (await client.exchangeDataApi.getOrderbookDepth(symbol)).data;
