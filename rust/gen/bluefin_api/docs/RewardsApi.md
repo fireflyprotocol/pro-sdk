@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## get_affiliate_interval_overview
 
-> models::GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, user_address2, page, limit)
+> models::GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page, limit)
 Get affiliate earnings overview by interval
 
 Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
@@ -35,7 +35,6 @@ Returns detailed earnings breakdown for an affiliate by interval, ordered by int
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_address** | **String** | The address of the user to get interval overview for | [required] |
-**user_address2** | **String** | Specify wallet address. | [required] |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]
 **limit** | Option<**u32**> | The page size for pagination |  |[default to 500]
 
@@ -57,7 +56,7 @@ No authorization required
 
 ## get_affiliate_leader_dashboard
 
-> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, user_address, sort_order, page, limit, search)
+> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(user_address, sort_by, sort_order, page, limit, search)
 Get affiliate rankings and earnings
 
 Returns rankings and earnings for affiliates, sorted by the specified category
@@ -67,8 +66,8 @@ Returns rankings and earnings for affiliates, sorted by the specified category
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**sort_by** | **String** | The category to sort rankings by | [required] |[default to perpsRank]
 **user_address** | **String** | Specify wallet address. | [required] |
+**sort_by** | Option<**String**> | The category to sort rankings by |  |[default to perpsRank]
 **sort_order** | Option<**String**> | The order to sort rankings by |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]
 **limit** | Option<**u32**> | The page size for pagination |  |[default to 500]

@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **get_affiliate_interval_overview**
-> GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, user_address2, page=page, limit=limit)
+> GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page=page, limit=limit)
 
 Get affiliate earnings overview by interval
 
@@ -49,13 +49,12 @@ async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
     user_address = '0x1234567890abcdef' # str | The address of the user to get interval overview for
-    user_address2 = '0x1234567890abcdef' # str | Specify wallet address.
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
 
     try:
         # Get affiliate earnings overview by interval
-        api_response = await api_instance.get_affiliate_interval_overview(user_address, user_address2, page=page, limit=limit)
+        api_response = await api_instance.get_affiliate_interval_overview(user_address, page=page, limit=limit)
         print("The response of RewardsApi->get_affiliate_interval_overview:\n")
         pprint(api_response)
     except Exception as e:
@@ -70,7 +69,6 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_address** | **str**| The address of the user to get interval overview for | 
- **user_address2** | **str**| Specify wallet address. | 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
 
@@ -99,7 +97,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_leader_dashboard**
-> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, user_address, sort_order=sort_order, page=page, limit=limit, search=search)
+> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(user_address, sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
 
 Get affiliate rankings and earnings
 
@@ -125,8 +123,8 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    sort_by = perpsRank # str | The category to sort rankings by (default to perpsRank)
     user_address = '0x1234567890abcdef' # str | Specify wallet address.
+    sort_by = perpsRank # str | The category to sort rankings by (optional) (default to perpsRank)
     sort_order = 'desc' # str | The order to sort rankings by (optional)
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
@@ -134,7 +132,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get affiliate rankings and earnings
-        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by, user_address, sort_order=sort_order, page=page, limit=limit, search=search)
+        api_response = await api_instance.get_affiliate_leader_dashboard(user_address, sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
         print("The response of RewardsApi->get_affiliate_leader_dashboard:\n")
         pprint(api_response)
     except Exception as e:
@@ -148,8 +146,8 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sort_by** | **str**| The category to sort rankings by | [default to perpsRank]
  **user_address** | **str**| Specify wallet address. | 
+ **sort_by** | **str**| The category to sort rankings by | [optional] [default to perpsRank]
  **sort_order** | **str**| The order to sort rankings by | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]

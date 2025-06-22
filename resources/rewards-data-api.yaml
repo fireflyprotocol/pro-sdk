@@ -1298,13 +1298,6 @@ paths:
             maximum: 1000
             minimum: 1
             example: 500
-        - name: userAddress
-          in: query
-          required: true
-          description: Specify wallet address.
-          schema:
-            type: string
-            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate interval overview objects
@@ -1358,7 +1351,7 @@ paths:
       parameters:
         - name: sortBy
           in: query
-          required: true
+          required: false
           description: The category to sort rankings by
           schema:
             type: string
