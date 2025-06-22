@@ -4583,73 +4583,73 @@ export interface UserCampaignRewards {
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'UserAddress': string;
+    'userAddress': string;
     /**
      * Name of the campaign.
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'CampaignName': string;
+    'campaignName': string;
     /**
      * Epoch number for the rewards earned data.
      * @type {number}
      * @memberof UserCampaignRewards
      */
-    'EpochNumber': number;
+    'epochNumber': number;
     /**
      * Interval number for the rewards earned data.
      * @type {number}
      * @memberof UserCampaignRewards
      */
-    'IntervalNumber': number;
+    'intervalNumber': number;
     /**
      * Market Symbol.
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'Symbol': string;
+    'symbol': string;
     /**
      * 
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'Status': UserCampaignRewardsStatusEnum;
+    'status': UserCampaignRewardsStatusEnum;
     /**
      * Total blue-perp token rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'BlueRewardsE9': string;
+    'blueRewardsE9': string;
     /**
      * Total sui-perp token rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'SuiRewardsE9': string;
+    'suiRewardsE9': string;
     /**
      * Total wal-perp rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'WalRewardsE9': string;
+    'walRewardsE9': string;
     /**
      * Total cash rewards earned in the epoch (e9 format).
      * @type {string}
      * @memberof UserCampaignRewards
      */
-    'CashRewardsE9': string;
+    'cashRewardsE9': string;
     /**
      * Time in milliseconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
-    'IntervalStartDate': number;
+    'intervalStartDate': number;
     /**
      * Time in milliseconds for interval end date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
-    'IntervalEndDate': number;
+    'intervalEndDate': number;
 }
 
 export const UserCampaignRewardsStatusEnum = {

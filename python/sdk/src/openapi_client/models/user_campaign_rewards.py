@@ -26,19 +26,19 @@ class UserCampaignRewards(BaseModel):
     """
     UserCampaignRewards
     """ # noqa: E501
-    user_address: StrictStr = Field(description="User address for the rewards earned data.", alias="UserAddress")
-    campaign_name: StrictStr = Field(description="Name of the campaign.", alias="CampaignName")
-    epoch_number: StrictInt = Field(description="Epoch number for the rewards earned data.", alias="EpochNumber")
-    interval_number: StrictInt = Field(description="Interval number for the rewards earned data.", alias="IntervalNumber")
-    symbol: StrictStr = Field(description="Market Symbol.", alias="Symbol")
-    status: StrictStr = Field(alias="Status")
-    blue_rewards_e9: StrictStr = Field(description="Total blue-perp token rewards earned in the epoch (e9 format).", alias="BlueRewardsE9")
-    sui_rewards_e9: StrictStr = Field(description="Total sui-perp token rewards earned in the epoch (e9 format).", alias="SuiRewardsE9")
-    wal_rewards_e9: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="WalRewardsE9")
-    cash_rewards_e9: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="CashRewardsE9")
-    interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="IntervalStartDate")
-    interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="IntervalEndDate")
-    __properties: ClassVar[List[str]] = ["UserAddress", "CampaignName", "EpochNumber", "IntervalNumber", "Symbol", "Status", "BlueRewardsE9", "SuiRewardsE9", "WalRewardsE9", "CashRewardsE9", "IntervalStartDate", "IntervalEndDate"]
+    user_address: StrictStr = Field(description="User address for the rewards earned data.", alias="userAddress")
+    campaign_name: StrictStr = Field(description="Name of the campaign.", alias="campaignName")
+    epoch_number: StrictInt = Field(description="Epoch number for the rewards earned data.", alias="epochNumber")
+    interval_number: StrictInt = Field(description="Interval number for the rewards earned data.", alias="intervalNumber")
+    symbol: StrictStr = Field(description="Market Symbol.")
+    status: StrictStr
+    blue_rewards_e9: StrictStr = Field(description="Total blue-perp token rewards earned in the epoch (e9 format).", alias="blueRewardsE9")
+    sui_rewards_e9: StrictStr = Field(description="Total sui-perp token rewards earned in the epoch (e9 format).", alias="suiRewardsE9")
+    wal_rewards_e9: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="walRewardsE9")
+    cash_rewards_e9: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="cashRewardsE9")
+    interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="intervalStartDate")
+    interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="intervalEndDate")
+    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "intervalStartDate", "intervalEndDate"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -98,18 +98,18 @@ class UserCampaignRewards(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "UserAddress": obj.get("UserAddress"),
-            "CampaignName": obj.get("CampaignName"),
-            "EpochNumber": obj.get("EpochNumber"),
-            "IntervalNumber": obj.get("IntervalNumber"),
-            "Symbol": obj.get("Symbol"),
-            "Status": obj.get("Status"),
-            "BlueRewardsE9": obj.get("BlueRewardsE9"),
-            "SuiRewardsE9": obj.get("SuiRewardsE9"),
-            "WalRewardsE9": obj.get("WalRewardsE9"),
-            "CashRewardsE9": obj.get("CashRewardsE9"),
-            "IntervalStartDate": obj.get("IntervalStartDate"),
-            "IntervalEndDate": obj.get("IntervalEndDate")
+            "userAddress": obj.get("userAddress"),
+            "campaignName": obj.get("campaignName"),
+            "epochNumber": obj.get("epochNumber"),
+            "intervalNumber": obj.get("intervalNumber"),
+            "symbol": obj.get("symbol"),
+            "status": obj.get("status"),
+            "blueRewardsE9": obj.get("blueRewardsE9"),
+            "suiRewardsE9": obj.get("suiRewardsE9"),
+            "walRewardsE9": obj.get("walRewardsE9"),
+            "cashRewardsE9": obj.get("cashRewardsE9"),
+            "intervalStartDate": obj.get("intervalStartDate"),
+            "intervalEndDate": obj.get("intervalEndDate")
         })
         return _obj
 
