@@ -97,7 +97,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_leader_dashboard**
-> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(user_address, sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
+> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
 
 Get affiliate rankings and earnings
 
@@ -123,7 +123,6 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
-    user_address = '0x1234567890abcdef' # str | Specify wallet address.
     sort_by = perpsRank # str | The category to sort rankings by (optional) (default to perpsRank)
     sort_order = 'desc' # str | The order to sort rankings by (optional)
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
@@ -132,7 +131,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get affiliate rankings and earnings
-        api_response = await api_instance.get_affiliate_leader_dashboard(user_address, sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
+        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
         print("The response of RewardsApi->get_affiliate_leader_dashboard:\n")
         pprint(api_response)
     except Exception as e:
@@ -146,7 +145,6 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_address** | **str**| Specify wallet address. | 
  **sort_by** | **str**| The category to sort rankings by | [optional] [default to perpsRank]
  **sort_order** | **str**| The order to sort rankings by | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]

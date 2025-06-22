@@ -195,9 +195,8 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
 }
 
 /// Returns rankings and earnings for affiliates, sorted by the specified category
-pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, user_address: &str, sort_by: Option<&str>, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
+pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: Option<&str>, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_address = user_address;
     let p_sort_by = sort_by;
     let p_sort_order = sort_order;
     let p_page = page;
@@ -222,7 +221,6 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
     if let Some(ref param_value) = p_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
-    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

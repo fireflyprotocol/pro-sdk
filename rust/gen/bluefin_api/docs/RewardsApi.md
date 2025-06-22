@@ -56,7 +56,7 @@ No authorization required
 
 ## get_affiliate_leader_dashboard
 
-> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(user_address, sort_by, sort_order, page, limit, search)
+> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, sort_order, page, limit, search)
 Get affiliate rankings and earnings
 
 Returns rankings and earnings for affiliates, sorted by the specified category
@@ -66,7 +66,6 @@ Returns rankings and earnings for affiliates, sorted by the specified category
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**user_address** | **String** | Specify wallet address. | [required] |
 **sort_by** | Option<**String**> | The category to sort rankings by |  |[default to perpsRank]
 **sort_order** | Option<**String**> | The order to sort rankings by |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]

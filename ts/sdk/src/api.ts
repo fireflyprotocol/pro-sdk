@@ -6361,7 +6361,6 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
-         * @param {string} userAddress Specify wallet address.
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -6370,9 +6369,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateLeaderDashboard: async (userAddress: string, sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userAddress' is not null or undefined
-            assertParamExists('getAffiliateLeaderDashboard', 'userAddress', userAddress)
+        getAffiliateLeaderDashboard: async (sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/affiliate/leaderDashboard`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6403,10 +6400,6 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (search !== undefined) {
                 localVarQueryParameter['search'] = search;
-            }
-
-            if (userAddress !== undefined) {
-                localVarQueryParameter['userAddress'] = userAddress;
             }
 
 
@@ -6971,7 +6964,6 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         /**
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
-         * @param {string} userAddress Specify wallet address.
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -6980,8 +6972,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAffiliateLeaderDashboard(userAddress: string, sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateLeaderDashboard200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateLeaderDashboard(userAddress, sortBy, sortOrder, page, limit, search, options);
+        async getAffiliateLeaderDashboard(sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateLeaderDashboard200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, search, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateLeaderDashboard']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7187,7 +7179,6 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         /**
          * Returns rankings and earnings for affiliates, sorted by the specified category
          * @summary Get affiliate rankings and earnings
-         * @param {string} userAddress Specify wallet address.
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -7196,8 +7187,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateLeaderDashboard(userAddress: string, sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateLeaderDashboard200Response> {
-            return localVarFp.getAffiliateLeaderDashboard(userAddress, sortBy, sortOrder, page, limit, search, options).then((request) => request(axios, basePath));
+        getAffiliateLeaderDashboard(sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateLeaderDashboard200Response> {
+            return localVarFp.getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, search, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the affiliate metadata
@@ -7363,7 +7354,6 @@ export class RewardsApi extends BaseAPI {
     /**
      * Returns rankings and earnings for affiliates, sorted by the specified category
      * @summary Get affiliate rankings and earnings
-     * @param {string} userAddress Specify wallet address.
      * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
      * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
      * @param {number} [page] The page number to retrieve in a paginated response
@@ -7373,8 +7363,8 @@ export class RewardsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getAffiliateLeaderDashboard(userAddress: string, sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).getAffiliateLeaderDashboard(userAddress, sortBy, sortOrder, page, limit, search, options).then((request) => request(this.axios, this.basePath));
+    public getAffiliateLeaderDashboard(sortBy?: GetAffiliateLeaderDashboardSortByEnum, sortOrder?: GetAffiliateLeaderDashboardSortOrderEnum, page?: number, limit?: number, search?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
