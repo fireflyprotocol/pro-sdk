@@ -1397,13 +1397,6 @@ paths:
           schema:
             type: string
             example: "John"
-        - name: userAddress
-          in: query
-          required: true
-          description: Specify wallet address.
-          schema:
-            type: string
-            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate ranking and earnings objects
