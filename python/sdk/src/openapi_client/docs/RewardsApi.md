@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **get_affiliate_interval_overview**
-> GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page=page, limit=limit)
+> GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, user_address2, page=page, limit=limit)
 
 Get affiliate earnings overview by interval
 
@@ -30,7 +30,6 @@ Returns detailed earnings breakdown for an affiliate by interval, ordered by int
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -44,27 +43,19 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
     user_address = '0x1234567890abcdef' # str | The address of the user to get interval overview for
+    user_address2 = '0x1234567890abcdef' # str | Specify wallet address.
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
 
     try:
         # Get affiliate earnings overview by interval
-        api_response = await api_instance.get_affiliate_interval_overview(user_address, page=page, limit=limit)
+        api_response = await api_instance.get_affiliate_interval_overview(user_address, user_address2, page=page, limit=limit)
         print("The response of RewardsApi->get_affiliate_interval_overview:\n")
         pprint(api_response)
     except Exception as e:
@@ -79,6 +70,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_address** | **str**| The address of the user to get interval overview for | 
+ **user_address2** | **str**| Specify wallet address. | 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
 
@@ -88,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -107,7 +99,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_leader_dashboard**
-> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
+> GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, user_address, sort_order=sort_order, page=page, limit=limit, search=search)
 
 Get affiliate rankings and earnings
 
@@ -115,7 +107,6 @@ Returns rankings and earnings for affiliates, sorted by the specified category
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -129,21 +120,13 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
     sort_by = perpsRank # str | The category to sort rankings by (default to perpsRank)
+    user_address = '0x1234567890abcdef' # str | Specify wallet address.
     sort_order = 'desc' # str | The order to sort rankings by (optional)
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
@@ -151,7 +134,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get affiliate rankings and earnings
-        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
+        api_response = await api_instance.get_affiliate_leader_dashboard(sort_by, user_address, sort_order=sort_order, page=page, limit=limit, search=search)
         print("The response of RewardsApi->get_affiliate_leader_dashboard:\n")
         pprint(api_response)
     except Exception as e:
@@ -166,6 +149,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sort_by** | **str**| The category to sort rankings by | [default to perpsRank]
+ **user_address** | **str**| Specify wallet address. | 
  **sort_order** | **str**| The order to sort rankings by | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
@@ -177,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -196,7 +180,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_metadata**
-> AffiliateMetadata get_affiliate_metadata()
+> AffiliateMetadata get_affiliate_metadata(user_address)
 
 Get affiliate metadata
 
@@ -204,7 +188,6 @@ Returns the affiliate metadata
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -218,24 +201,16 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
+    user_address = '0x1234567890abcdef' # str | Specify wallet address.
 
     try:
         # Get affiliate metadata
-        api_response = await api_instance.get_affiliate_metadata()
+        api_response = await api_instance.get_affiliate_metadata(user_address)
         print("The response of RewardsApi->get_affiliate_metadata:\n")
         pprint(api_response)
     except Exception as e:
@@ -246,7 +221,10 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_address** | **str**| Specify wallet address. | 
 
 ### Return type
 
@@ -254,7 +232,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -273,7 +251,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_overview**
-> GetAffiliateOverview200Response get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
+> GetAffiliateOverview200Response get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
 
 Get detailed affiliate earnings overview
 
@@ -281,7 +259,6 @@ Returns detailed earnings breakdown for an affiliate users earnings (including p
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -295,20 +272,12 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
+    user_address = '0x1234567890abcdef' # str | Specify wallet address.
     page = 1 # int | The page number to retrieve in a paginated response (optional) (default to 1)
     limit = 500 # int | The page size for pagination (optional) (default to 500)
     sort_by = totalEarnings # str | The category to sort earnings by (optional) (default to totalEarnings)
@@ -317,7 +286,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
     try:
         # Get detailed affiliate earnings overview
-        api_response = await api_instance.get_affiliate_overview(page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
+        api_response = await api_instance.get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
         print("The response of RewardsApi->get_affiliate_overview:\n")
         pprint(api_response)
     except Exception as e:
@@ -331,6 +300,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **user_address** | **str**| Specify wallet address. | 
  **page** | **int**| The page number to retrieve in a paginated response | [optional] [default to 1]
  **limit** | **int**| The page size for pagination | [optional] [default to 500]
  **sort_by** | **str**| The category to sort earnings by | [optional] [default to totalEarnings]
@@ -343,7 +313,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -362,7 +332,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_summary**
-> AffiliateSummary get_affiliate_summary()
+> AffiliateSummary get_affiliate_summary(user_address)
 
 Get affiliate performance summary
 
@@ -370,7 +340,6 @@ Returns performance summary for an affiliate including total referrals, earnings
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -384,24 +353,16 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
+    user_address = '0x1234567890abcdef' # str | Specify wallet address.
 
     try:
         # Get affiliate performance summary
-        api_response = await api_instance.get_affiliate_summary()
+        api_response = await api_instance.get_affiliate_summary(user_address)
         print("The response of RewardsApi->get_affiliate_summary:\n")
         pprint(api_response)
     except Exception as e:
@@ -412,7 +373,10 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_address** | **str**| Specify wallet address. | 
 
 ### Return type
 
@@ -420,7 +384,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -439,7 +403,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_campaign_rewards**
-> List[UserCampaignRewards] get_campaign_rewards(campaign_name, epoch_number=epoch_number)
+> List[UserCampaignRewards] get_campaign_rewards(campaign_name, user_address, epoch_number=epoch_number)
 
 Get rewards information for a specific campaign
 
@@ -447,7 +411,6 @@ Returns the rewards earned by users for a specific campaign
 
 ### Example
 
-* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import openapi_client
@@ -461,26 +424,18 @@ configuration = openapi_client.Configuration(
     host = "https://api.sui-staging.bluefin.io"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = openapi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
     campaign_name = 'TRADE_AND_EARN' # str | Specify the campaign name
+    user_address = '0x1234567890abcdef' # str | Specify wallet address.
     epoch_number = 7 # int | Optionally specify epoch number. (optional)
 
     try:
         # Get rewards information for a specific campaign
-        api_response = await api_instance.get_campaign_rewards(campaign_name, epoch_number=epoch_number)
+        api_response = await api_instance.get_campaign_rewards(campaign_name, user_address, epoch_number=epoch_number)
         print("The response of RewardsApi->get_campaign_rewards:\n")
         pprint(api_response)
     except Exception as e:
@@ -495,6 +450,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_name** | **str**| Specify the campaign name | 
+ **user_address** | **str**| Specify wallet address. | 
  **epoch_number** | **int**| Optionally specify epoch number. | [optional] 
 
 ### Return type
@@ -503,7 +459,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

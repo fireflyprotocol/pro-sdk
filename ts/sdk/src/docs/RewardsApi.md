@@ -37,11 +37,13 @@ const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
 let userAddress: string; //The address of the user to get interval overview for (default to undefined)
+let userAddress2: string; //Specify wallet address. (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
 
 const { status, data } = await apiInstance.getAffiliateIntervalOverview(
     userAddress,
+    userAddress2,
     page,
     limit
 );
@@ -52,6 +54,7 @@ const { status, data } = await apiInstance.getAffiliateIntervalOverview(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **userAddress** | [**string**] | The address of the user to get interval overview for | defaults to undefined|
+| **userAddress2** | [**string**] | Specify wallet address. | defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
 
@@ -62,7 +65,7 @@ const { status, data } = await apiInstance.getAffiliateIntervalOverview(
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -97,6 +100,7 @@ const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
 let sortBy: 'perpsRank' | 'lendingRank' | 'spotRank'; //The category to sort rankings by (default to 'perpsRank')
+let userAddress: string; //Specify wallet address. (default to undefined)
 let sortOrder: 'asc' | 'desc'; //The order to sort rankings by (optional) (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
@@ -104,6 +108,7 @@ let search: string; //The name/address of the user to filter by (optional) (defa
 
 const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
     sortBy,
+    userAddress,
     sortOrder,
     page,
     limit,
@@ -116,6 +121,7 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **sortBy** | [**&#39;perpsRank&#39; | &#39;lendingRank&#39; | &#39;spotRank&#39;**]**Array<&#39;perpsRank&#39; &#124; &#39;lendingRank&#39; &#124; &#39;spotRank&#39;>** | The category to sort rankings by | defaults to 'perpsRank'|
+| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort rankings by | (optional) defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
@@ -128,7 +134,7 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -162,11 +168,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
-const { status, data } = await apiInstance.getAffiliateMetadata();
+let userAddress: string; //Specify wallet address. (default to undefined)
+
+const { status, data } = await apiInstance.getAffiliateMetadata(
+    userAddress
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 
 
 ### Return type
@@ -175,7 +188,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -209,6 +222,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
+let userAddress: string; //Specify wallet address. (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
 let limit: number; //The page size for pagination (optional) (default to 500)
 let sortBy: 'refreeEarnings' | 'referralEarnings' | 'totalEarnings'; //The category to sort earnings by (optional) (default to 'totalEarnings')
@@ -216,6 +230,7 @@ let sortOrder: 'asc' | 'desc'; //The order to sort earnings by (optional) (defau
 let search: string; //The name/address of the user to filter by (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAffiliateOverview(
+    userAddress,
     page,
     limit,
     sortBy,
@@ -228,6 +243,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|
 | **limit** | [**number**] | The page size for pagination | (optional) defaults to 500|
 | **sortBy** | [**&#39;refreeEarnings&#39; | &#39;referralEarnings&#39; | &#39;totalEarnings&#39;**]**Array<&#39;refreeEarnings&#39; &#124; &#39;referralEarnings&#39; &#124; &#39;totalEarnings&#39;>** | The category to sort earnings by | (optional) defaults to 'totalEarnings'|
@@ -241,7 +257,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -275,11 +291,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
-const { status, data } = await apiInstance.getAffiliateSummary();
+let userAddress: string; //Specify wallet address. (default to undefined)
+
+const { status, data } = await apiInstance.getAffiliateSummary(
+    userAddress
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 
 
 ### Return type
@@ -288,7 +311,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -323,10 +346,12 @@ const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
 let campaignName: string; //Specify the campaign name (default to undefined)
+let userAddress: string; //Specify wallet address. (default to undefined)
 let epochNumber: number; //Optionally specify epoch number. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getCampaignRewards(
     campaignName,
+    userAddress,
     epochNumber
 );
 ```
@@ -336,6 +361,7 @@ const { status, data } = await apiInstance.getCampaignRewards(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **campaignName** | [**string**] | Specify the campaign name | defaults to undefined|
+| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 | **epochNumber** | [**number**] | Optionally specify epoch number. | (optional) defaults to undefined|
 
 
@@ -345,7 +371,7 @@ const { status, data } = await apiInstance.getCampaignRewards(
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
