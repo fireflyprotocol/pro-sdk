@@ -96,7 +96,6 @@ import {
 const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
-let userAddress: string; //Specify wallet address. (default to undefined)
 let sortBy: 'perpsRank' | 'lendingRank' | 'spotRank'; //The category to sort rankings by (optional) (default to 'perpsRank')
 let sortOrder: 'asc' | 'desc'; //The order to sort rankings by (optional) (default to undefined)
 let page: number; //The page number to retrieve in a paginated response (optional) (default to 1)
@@ -104,7 +103,6 @@ let limit: number; //The page size for pagination (optional) (default to 500)
 let search: string; //The name/address of the user to filter by (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
-    userAddress,
     sortBy,
     sortOrder,
     page,
@@ -117,7 +115,6 @@ const { status, data } = await apiInstance.getAffiliateLeaderDashboard(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userAddress** | [**string**] | Specify wallet address. | defaults to undefined|
 | **sortBy** | [**&#39;perpsRank&#39; | &#39;lendingRank&#39; | &#39;spotRank&#39;**]**Array<&#39;perpsRank&#39; &#124; &#39;lendingRank&#39; &#124; &#39;spotRank&#39;>** | The category to sort rankings by | (optional) defaults to 'perpsRank'|
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort rankings by | (optional) defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response | (optional) defaults to 1|

@@ -363,7 +363,6 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_leader_dashboard(
         self,
-        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort rankings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
@@ -386,8 +385,6 @@ class RewardsApi:
 
         Returns rankings and earnings for affiliates, sorted by the specified category
 
-        :param user_address: Specify wallet address. (required)
-        :type user_address: str
         :param sort_by: The category to sort rankings by
         :type sort_by: str
         :param sort_order: The order to sort rankings by
@@ -421,7 +418,6 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_leader_dashboard_serialize(
-            user_address=user_address,
             sort_by=sort_by,
             sort_order=sort_order,
             page=page,
@@ -453,7 +449,6 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_leader_dashboard_with_http_info(
         self,
-        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort rankings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
@@ -476,8 +471,6 @@ class RewardsApi:
 
         Returns rankings and earnings for affiliates, sorted by the specified category
 
-        :param user_address: Specify wallet address. (required)
-        :type user_address: str
         :param sort_by: The category to sort rankings by
         :type sort_by: str
         :param sort_order: The order to sort rankings by
@@ -511,7 +504,6 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_leader_dashboard_serialize(
-            user_address=user_address,
             sort_by=sort_by,
             sort_order=sort_order,
             page=page,
@@ -543,7 +535,6 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_leader_dashboard_without_preload_content(
         self,
-        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort rankings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
@@ -566,8 +557,6 @@ class RewardsApi:
 
         Returns rankings and earnings for affiliates, sorted by the specified category
 
-        :param user_address: Specify wallet address. (required)
-        :type user_address: str
         :param sort_by: The category to sort rankings by
         :type sort_by: str
         :param sort_order: The order to sort rankings by
@@ -601,7 +590,6 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_leader_dashboard_serialize(
-            user_address=user_address,
             sort_by=sort_by,
             sort_order=sort_order,
             page=page,
@@ -628,7 +616,6 @@ class RewardsApi:
 
     def _get_affiliate_leader_dashboard_serialize(
         self,
-        user_address,
         sort_by,
         sort_order,
         page,
@@ -675,10 +662,6 @@ class RewardsApi:
         if search is not None:
             
             _query_params.append(('search', search))
-            
-        if user_address is not None:
-            
-            _query_params.append(('userAddress', user_address))
             
         # process the header parameters
         # process the form parameters
