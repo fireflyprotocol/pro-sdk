@@ -149,10 +149,9 @@ pub enum UpdateAffiliateFeeConfigError {
 
 
 /// Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, user_address2: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
+pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
-    let p_user_address = user_address2;
     let p_page = page;
     let p_limit = limit;
 
@@ -166,7 +165,6 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
-    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -197,10 +195,10 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
 }
 
 /// Returns rankings and earnings for affiliates, sorted by the specified category
-pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, user_address: &str, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
+pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, user_address: &str, sort_by: Option<&str>, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sort_by = sort_by;
     let p_user_address = user_address;
+    let p_sort_by = sort_by;
     let p_sort_order = sort_order;
     let p_page = page;
     let p_limit = limit;
@@ -209,7 +207,9 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
     let uri_str = format!("{}/v1/rewards/affiliate/leaderDashboard", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("sortBy", &p_sort_by.to_string())]);
+    if let Some(ref param_value) = p_sort_by {
+        req_builder = req_builder.query(&[("sortBy", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_sort_order {
         req_builder = req_builder.query(&[("sortOrder", &param_value.to_string())]);
     }
