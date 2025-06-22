@@ -149,9 +149,10 @@ pub enum UpdateAffiliateFeeConfigError {
 
 
 /// Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
+pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, user_address2: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
+    let p_user_address = user_address2;
     let p_page = page;
     let p_limit = limit;
 
@@ -165,12 +166,10 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
     if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -198,9 +197,10 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
 }
 
 /// Returns rankings and earnings for affiliates, sorted by the specified category
-pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
+pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: &str, user_address: &str, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_sort_by = sort_by;
+    let p_user_address = user_address;
     let p_sort_order = sort_order;
     let p_page = page;
     let p_limit = limit;
@@ -222,12 +222,10 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
     if let Some(ref param_value) = p_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -255,17 +253,17 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
 }
 
 /// Returns the affiliate metadata
-pub async fn get_affiliate_metadata(configuration: &configuration::Configuration, ) -> Result<models::AffiliateMetadata, Error<GetAffiliateMetadataError>> {
+pub async fn get_affiliate_metadata(configuration: &configuration::Configuration, user_address: &str) -> Result<models::AffiliateMetadata, Error<GetAffiliateMetadataError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_user_address = user_address;
 
     let uri_str = format!("{}/v1/rewards/affiliate", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -293,8 +291,9 @@ pub async fn get_affiliate_metadata(configuration: &configuration::Configuration
 }
 
 /// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-pub async fn get_affiliate_overview(configuration: &configuration::Configuration, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
+pub async fn get_affiliate_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_user_address = user_address;
     let p_page = page;
     let p_limit = limit;
     let p_sort_by = sort_by;
@@ -319,12 +318,10 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
     if let Some(ref param_value) = p_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -352,17 +349,17 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
 }
 
 /// Returns performance summary for an affiliate including total referrals, earnings, and rankings
-pub async fn get_affiliate_summary(configuration: &configuration::Configuration, ) -> Result<models::AffiliateSummary, Error<GetAffiliateSummaryError>> {
+pub async fn get_affiliate_summary(configuration: &configuration::Configuration, user_address: &str) -> Result<models::AffiliateSummary, Error<GetAffiliateSummaryError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_user_address = user_address;
 
     let uri_str = format!("{}/v1/rewards/affiliate/summary", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -390,9 +387,10 @@ pub async fn get_affiliate_summary(configuration: &configuration::Configuration,
 }
 
 /// Returns the rewards earned by users for a specific campaign
-pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, epoch_number: Option<i32>) -> Result<Vec<models::UserCampaignRewards>, Error<GetCampaignRewardsError>> {
+pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, user_address: &str, epoch_number: Option<i32>) -> Result<Vec<models::UserCampaignRewards>, Error<GetCampaignRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
+    let p_user_address = user_address;
     let p_epoch_number = epoch_number;
 
     let uri_str = format!("{}/v1/rewards/campaign", configuration.base_path);
@@ -402,12 +400,10 @@ pub async fn get_campaign_rewards(configuration: &configuration::Configuration, 
     if let Some(ref param_value) = p_epoch_number {
         req_builder = req_builder.query(&[("epochNumber", &param_value.to_string())]);
     }
+    req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

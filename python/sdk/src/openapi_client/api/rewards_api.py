@@ -59,6 +59,7 @@ class RewardsApi:
     async def get_affiliate_interval_overview(
         self,
         user_address: Annotated[StrictStr, Field(description="The address of the user to get interval overview for")],
+        user_address2: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         _request_timeout: Union[
@@ -80,6 +81,8 @@ class RewardsApi:
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
+        :param user_address2: Specify wallet address. (required)
+        :type user_address2: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -108,6 +111,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_interval_overview_serialize(
             user_address=user_address,
+            user_address2=user_address2,
             page=page,
             limit=limit,
             _request_auth=_request_auth,
@@ -137,6 +141,7 @@ class RewardsApi:
     async def get_affiliate_interval_overview_with_http_info(
         self,
         user_address: Annotated[StrictStr, Field(description="The address of the user to get interval overview for")],
+        user_address2: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         _request_timeout: Union[
@@ -158,6 +163,8 @@ class RewardsApi:
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
+        :param user_address2: Specify wallet address. (required)
+        :type user_address2: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -186,6 +193,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_interval_overview_serialize(
             user_address=user_address,
+            user_address2=user_address2,
             page=page,
             limit=limit,
             _request_auth=_request_auth,
@@ -215,6 +223,7 @@ class RewardsApi:
     async def get_affiliate_interval_overview_without_preload_content(
         self,
         user_address: Annotated[StrictStr, Field(description="The address of the user to get interval overview for")],
+        user_address2: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         _request_timeout: Union[
@@ -236,6 +245,8 @@ class RewardsApi:
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
+        :param user_address2: Specify wallet address. (required)
+        :type user_address2: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -264,6 +275,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_interval_overview_serialize(
             user_address=user_address,
+            user_address2=user_address2,
             page=page,
             limit=limit,
             _request_auth=_request_auth,
@@ -288,6 +300,7 @@ class RewardsApi:
     def _get_affiliate_interval_overview_serialize(
         self,
         user_address,
+        user_address2,
         page,
         limit,
         _request_auth,
@@ -324,6 +337,10 @@ class RewardsApi:
             
             _query_params.append(('limit', limit))
             
+        if user_address2 is not None:
+            
+            _query_params.append(('userAddress', user_address2))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -340,7 +357,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -365,6 +381,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
@@ -388,6 +405,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param sort_order: The order to sort rankings by
         :type sort_order: str
         :param page: The page number to retrieve in a paginated response
@@ -420,6 +439,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            user_address=user_address,
             sort_order=sort_order,
             page=page,
             limit=limit,
@@ -451,6 +471,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard_with_http_info(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
@@ -474,6 +495,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param sort_order: The order to sort rankings by
         :type sort_order: str
         :param page: The page number to retrieve in a paginated response
@@ -506,6 +529,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            user_address=user_address,
             sort_order=sort_order,
             page=page,
             limit=limit,
@@ -537,6 +561,7 @@ class RewardsApi:
     async def get_affiliate_leader_dashboard_without_preload_content(
         self,
         sort_by: Annotated[StrictStr, Field(description="The category to sort rankings by")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort rankings by")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="The page size for pagination")] = None,
@@ -560,6 +585,8 @@ class RewardsApi:
 
         :param sort_by: The category to sort rankings by (required)
         :type sort_by: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param sort_order: The order to sort rankings by
         :type sort_order: str
         :param page: The page number to retrieve in a paginated response
@@ -592,6 +619,7 @@ class RewardsApi:
 
         _param = self._get_affiliate_leader_dashboard_serialize(
             sort_by=sort_by,
+            user_address=user_address,
             sort_order=sort_order,
             page=page,
             limit=limit,
@@ -618,6 +646,7 @@ class RewardsApi:
     def _get_affiliate_leader_dashboard_serialize(
         self,
         sort_by,
+        user_address,
         sort_order,
         page,
         limit,
@@ -664,6 +693,10 @@ class RewardsApi:
             
             _query_params.append(('search', search))
             
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -680,7 +713,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -704,6 +736,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_metadata(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -721,6 +754,8 @@ class RewardsApi:
 
         Returns the affiliate metadata
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -744,6 +779,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_metadata_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -770,6 +806,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_metadata_with_http_info(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -787,6 +824,8 @@ class RewardsApi:
 
         Returns the affiliate metadata
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -810,6 +849,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_metadata_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -836,6 +876,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_metadata_without_preload_content(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -853,6 +894,8 @@ class RewardsApi:
 
         Returns the affiliate metadata
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -876,6 +919,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_metadata_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -897,6 +941,7 @@ class RewardsApi:
 
     def _get_affiliate_metadata_serialize(
         self,
+        user_address,
         _request_auth,
         _content_type,
         _headers,
@@ -919,6 +964,10 @@ class RewardsApi:
 
         # process the path parameters
         # process the query parameters
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -935,7 +984,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -959,6 +1007,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_overview(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
@@ -981,6 +1030,8 @@ class RewardsApi:
 
         Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -1014,6 +1065,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_overview_serialize(
+            user_address=user_address,
             page=page,
             limit=limit,
             sort_by=sort_by,
@@ -1045,6 +1097,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_overview_with_http_info(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
@@ -1067,6 +1120,8 @@ class RewardsApi:
 
         Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -1100,6 +1155,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_overview_serialize(
+            user_address=user_address,
             page=page,
             limit=limit,
             sort_by=sort_by,
@@ -1131,6 +1187,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_overview_without_preload_content(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The page size for pagination")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
@@ -1153,6 +1210,8 @@ class RewardsApi:
 
         Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param page: The page number to retrieve in a paginated response
         :type page: int
         :param limit: The page size for pagination
@@ -1186,6 +1245,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_overview_serialize(
+            user_address=user_address,
             page=page,
             limit=limit,
             sort_by=sort_by,
@@ -1212,6 +1272,7 @@ class RewardsApi:
 
     def _get_affiliate_overview_serialize(
         self,
+        user_address,
         page,
         limit,
         sort_by,
@@ -1259,6 +1320,10 @@ class RewardsApi:
             
             _query_params.append(('search', search))
             
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1275,7 +1340,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1299,6 +1363,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_summary(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1316,6 +1381,8 @@ class RewardsApi:
 
         Returns performance summary for an affiliate including total referrals, earnings, and rankings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1339,6 +1406,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_summary_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1365,6 +1433,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_summary_with_http_info(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1382,6 +1451,8 @@ class RewardsApi:
 
         Returns performance summary for an affiliate including total referrals, earnings, and rankings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1405,6 +1476,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_summary_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1431,6 +1503,7 @@ class RewardsApi:
     @validate_call
     async def get_affiliate_summary_without_preload_content(
         self,
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1448,6 +1521,8 @@ class RewardsApi:
 
         Returns performance summary for an affiliate including total referrals, earnings, and rankings
 
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1471,6 +1546,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_affiliate_summary_serialize(
+            user_address=user_address,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1492,6 +1568,7 @@ class RewardsApi:
 
     def _get_affiliate_summary_serialize(
         self,
+        user_address,
         _request_auth,
         _content_type,
         _headers,
@@ -1514,6 +1591,10 @@ class RewardsApi:
 
         # process the path parameters
         # process the query parameters
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1530,7 +1611,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1555,6 +1635,7 @@ class RewardsApi:
     async def get_campaign_rewards(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
         _request_timeout: Union[
             None,
@@ -1575,6 +1656,8 @@ class RewardsApi:
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param epoch_number: Optionally specify epoch number.
         :type epoch_number: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1601,6 +1684,7 @@ class RewardsApi:
 
         _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
+            user_address=user_address,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1626,6 +1710,7 @@ class RewardsApi:
     async def get_campaign_rewards_with_http_info(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
         _request_timeout: Union[
             None,
@@ -1646,6 +1731,8 @@ class RewardsApi:
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param epoch_number: Optionally specify epoch number.
         :type epoch_number: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1672,6 +1759,7 @@ class RewardsApi:
 
         _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
+            user_address=user_address,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1697,6 +1785,7 @@ class RewardsApi:
     async def get_campaign_rewards_without_preload_content(
         self,
         campaign_name: Annotated[StrictStr, Field(description="Specify the campaign name")],
+        user_address: Annotated[StrictStr, Field(description="Specify wallet address.")],
         epoch_number: Annotated[Optional[StrictInt], Field(description="Optionally specify epoch number.")] = None,
         _request_timeout: Union[
             None,
@@ -1717,6 +1806,8 @@ class RewardsApi:
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
+        :param user_address: Specify wallet address. (required)
+        :type user_address: str
         :param epoch_number: Optionally specify epoch number.
         :type epoch_number: int
         :param _request_timeout: timeout setting for this request. If one
@@ -1743,6 +1834,7 @@ class RewardsApi:
 
         _param = self._get_campaign_rewards_serialize(
             campaign_name=campaign_name,
+            user_address=user_address,
             epoch_number=epoch_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1763,6 +1855,7 @@ class RewardsApi:
     def _get_campaign_rewards_serialize(
         self,
         campaign_name,
+        user_address,
         epoch_number,
         _request_auth,
         _content_type,
@@ -1794,6 +1887,10 @@ class RewardsApi:
             
             _query_params.append(('epochNumber', epoch_number))
             
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1810,7 +1907,6 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(

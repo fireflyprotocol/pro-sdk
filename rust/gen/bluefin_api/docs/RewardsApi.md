@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## get_affiliate_interval_overview
 
-> models::GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page, limit)
+> models::GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, user_address2, page, limit)
 Get affiliate earnings overview by interval
 
 Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
@@ -35,6 +35,7 @@ Returns detailed earnings breakdown for an affiliate by interval, ordered by int
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_address** | **String** | The address of the user to get interval overview for | [required] |
+**user_address2** | **String** | Specify wallet address. | [required] |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]
 **limit** | Option<**u32**> | The page size for pagination |  |[default to 500]
 
@@ -44,7 +45,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -56,7 +57,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_affiliate_leader_dashboard
 
-> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, sort_order, page, limit, search)
+> models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, user_address, sort_order, page, limit, search)
 Get affiliate rankings and earnings
 
 Returns rankings and earnings for affiliates, sorted by the specified category
@@ -67,6 +68,7 @@ Returns rankings and earnings for affiliates, sorted by the specified category
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **sort_by** | **String** | The category to sort rankings by | [required] |[default to perpsRank]
+**user_address** | **String** | Specify wallet address. | [required] |
 **sort_order** | Option<**String**> | The order to sort rankings by |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]
 **limit** | Option<**u32**> | The page size for pagination |  |[default to 500]
@@ -78,7 +80,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -90,14 +92,17 @@ Name | Type | Description  | Required | Notes
 
 ## get_affiliate_metadata
 
-> models::AffiliateMetadata get_affiliate_metadata()
+> models::AffiliateMetadata get_affiliate_metadata(user_address)
 Get affiliate metadata
 
 Returns the affiliate metadata
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**user_address** | **String** | Specify wallet address. | [required] |
 
 ### Return type
 
@@ -105,7 +110,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -117,7 +122,7 @@ This endpoint does not need any parameter.
 
 ## get_affiliate_overview
 
-> models::GetAffiliateOverview200Response get_affiliate_overview(page, limit, sort_by, sort_order, search)
+> models::GetAffiliateOverview200Response get_affiliate_overview(user_address, page, limit, sort_by, sort_order, search)
 Get detailed affiliate earnings overview
 
 Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
@@ -127,6 +132,7 @@ Returns detailed earnings breakdown for an affiliate users earnings (including p
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
+**user_address** | **String** | Specify wallet address. | [required] |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response |  |[default to 1]
 **limit** | Option<**u32**> | The page size for pagination |  |[default to 500]
 **sort_by** | Option<**String**> | The category to sort earnings by |  |[default to totalEarnings]
@@ -139,7 +145,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -151,14 +157,17 @@ Name | Type | Description  | Required | Notes
 
 ## get_affiliate_summary
 
-> models::AffiliateSummary get_affiliate_summary()
+> models::AffiliateSummary get_affiliate_summary(user_address)
 Get affiliate performance summary
 
 Returns performance summary for an affiliate including total referrals, earnings, and rankings
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**user_address** | **String** | Specify wallet address. | [required] |
 
 ### Return type
 
@@ -166,7 +175,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -178,7 +187,7 @@ This endpoint does not need any parameter.
 
 ## get_campaign_rewards
 
-> Vec<models::UserCampaignRewards> get_campaign_rewards(campaign_name, epoch_number)
+> Vec<models::UserCampaignRewards> get_campaign_rewards(campaign_name, user_address, epoch_number)
 Get rewards information for a specific campaign
 
 Returns the rewards earned by users for a specific campaign
@@ -189,6 +198,7 @@ Returns the rewards earned by users for a specific campaign
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **campaign_name** | **String** | Specify the campaign name | [required] |
+**user_address** | **String** | Specify wallet address. | [required] |
 **epoch_number** | Option<**i32**> | Optionally specify epoch number. |  |
 
 ### Return type
@@ -197,7 +207,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

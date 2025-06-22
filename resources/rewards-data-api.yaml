@@ -710,8 +710,6 @@ paths:
       operationId: getCampaignRewards
       summary: Get rewards information for a specific campaign
       description: Returns the rewards earned by users for a specific campaign
-      security:
-        - bearerAuth: []
       parameters:
         - name: campaignName
           in: query
@@ -727,6 +725,13 @@ paths:
           schema:
             type: integer
             example: 7
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response
@@ -885,8 +890,14 @@ paths:
       operationId: getAffiliateMetadata
       summary: Get affiliate metadata
       description: Returns the affiliate metadata
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response
@@ -1113,8 +1124,14 @@ paths:
       operationId: getAffiliateSummary
       summary: Get affiliate performance summary
       description: Returns performance summary for an affiliate including total referrals, earnings, and rankings
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response of affiliate summary
@@ -1148,8 +1165,6 @@ paths:
       operationId: getAffiliateOverview
       summary: Get detailed affiliate earnings overview
       description: Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-      security:
-        - bearerAuth: []
       parameters:
         - name: page
           in: query
@@ -1199,6 +1214,13 @@ paths:
           schema:
             type: string
             example: "John"
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate overview objects
@@ -1249,8 +1271,6 @@ paths:
       operationId: getAffiliateIntervalOverview
       summary: Get affiliate earnings overview by interval
       description: Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-      security:
-        - bearerAuth: []
       parameters:
         - name: userAddress
           in: query
@@ -1278,6 +1298,13 @@ paths:
             maximum: 1000
             minimum: 1
             example: 500
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate interval overview objects
@@ -1328,8 +1355,6 @@ paths:
       operationId: getAffiliateLeaderDashboard
       summary: Get affiliate rankings and earnings
       description: Returns rankings and earnings for affiliates, sorted by the specified category
-      security:
-        - bearerAuth: []
       parameters:
         - name: sortBy
           in: query
@@ -1379,6 +1404,13 @@ paths:
           schema:
             type: string
             example: "John"
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response array of affiliate ranking and earnings objects
