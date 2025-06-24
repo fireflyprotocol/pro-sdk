@@ -167,7 +167,7 @@ export interface Account {
      * @type {Array<AuthorizedWallet>}
      * @memberof Account
      */
-    'authorizedWallets': Array<AuthorizedWallet>;
+    'authorizedWallets'?: Array<AuthorizedWallet>;
 }
 /**
  * Aggregated details about a trade in the account.

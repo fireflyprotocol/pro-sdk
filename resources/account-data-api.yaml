@@ -46,7 +46,6 @@ components:
         - assets
         - positions
         - authorizedAccounts
-        - authorizedWallets
         - accountAddress
       properties:
         tradingFees:

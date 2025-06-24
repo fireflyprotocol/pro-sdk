@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **positions** | [**Vec<models::Position>**](Position.md) |  | 
 **authorized_accounts** | **Vec<String>** | Deprecated: Replaced with authorizedWallets. | 
 **account_address** | **String** | The address of the account. | 
-**authorized_wallets** | [**Vec<models::AuthorizedWallet>**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | 
+**authorized_wallets** | Option<[**Vec<models::AuthorizedWallet>**](AuthorizedWallet.md)> | The wallets that are authorized to trade on behalf of the current account. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

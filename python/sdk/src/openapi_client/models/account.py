@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.asset import Asset
 from openapi_client.models.authorized_wallet import AuthorizedWallet
 from openapi_client.models.position import Position
@@ -52,7 +52,7 @@ class Account(BaseModel):
     positions: List[Position]
     authorized_accounts: List[StrictStr] = Field(description="Deprecated: Replaced with authorizedWallets.", alias="authorizedAccounts")
     account_address: StrictStr = Field(description="The address of the account.", alias="accountAddress")
-    authorized_wallets: List[AuthorizedWallet] = Field(description="The wallets that are authorized to trade on behalf of the current account.", alias="authorizedWallets")
+    authorized_wallets: Optional[List[AuthorizedWallet]] = Field(default=None, description="The wallets that are authorized to trade on behalf of the current account.", alias="authorizedWallets")
     __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "positions", "authorizedAccounts", "accountAddress", "authorizedWallets"]
 
     model_config = ConfigDict(
