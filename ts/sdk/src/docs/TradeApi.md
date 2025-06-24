@@ -353,6 +353,7 @@ void (empty response body)
 |**401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
 |**403** | Forbidden. |  -  |
 |**404** | Not Found. The requested resource was not found. |  -  |
+|**429** | Too Many Requests. The request was rate limited. |  -  |
 |**500** | Internal Server Error. An unexpected error occurred on the server. |  -  |
 |**503** | Service Unavailable. The service is currently unavailable. |  -  |
 

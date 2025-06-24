@@ -988,6 +988,12 @@ paths:
             application/json:
               schema:
                 $ref: './common.yaml#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The request was rate limited.
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/Error'
         '500':
           description: Internal Server Error. An unexpected error occurred on the server.
           content:

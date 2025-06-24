@@ -84,6 +84,7 @@ pub enum PostWithdrawError {
     Status401(models::Error),
     Status403(models::Error),
     Status404(models::Error),
+    Status429(models::Error),
     Status500(models::Error),
     Status503(models::Error),
     UnknownValue(serde_json::Value),
