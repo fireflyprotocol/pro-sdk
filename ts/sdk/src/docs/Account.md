@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **positions** | [**Array&lt;Position&gt;**](Position.md) |  | [default to undefined]
 **authorizedAccounts** | **Array&lt;string&gt;** | Deprecated: Replaced with authorizedWallets. | [default to undefined]
 **accountAddress** | **string** | The address of the account. | [default to undefined]
-**authorizedWallets** | [**Array&lt;AuthorizedWallet&gt;**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | [optional] [default to undefined]
+**authorizedWallets** | [**Array&lt;AuthorizedWallet&gt;**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | [default to undefined]
 
 ## Example
 
