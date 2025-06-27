@@ -69,6 +69,7 @@ pub enum GetAffiliateSummaryError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCampaignRewardsError {
+    Status400(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -289,7 +290,7 @@ pub async fn get_affiliate_metadata(configuration: &configuration::Configuration
 }
 
 /// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-pub async fn get_affiliate_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
+pub async fn get_affiliate_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>, min_earnings_e9: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
     let p_page = page;
@@ -297,6 +298,7 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
     let p_sort_by = sort_by;
     let p_sort_order = sort_order;
     let p_search = search;
+    let p_min_earnings_e9 = min_earnings_e9;
 
     let uri_str = format!("{}/v1/rewards/affiliate/overview", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -317,6 +319,9 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
+    if let Some(ref param_value) = p_min_earnings_e9 {
+        req_builder = req_builder.query(&[("minEarningsE9", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

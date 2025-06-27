@@ -6459,10 +6459,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
          * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [search] The name/address of the user to filter by
+         * @param {string} [minEarningsE9] The minimum earnings to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateOverview: async (userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAffiliateOverview: async (userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, minEarningsE9?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userAddress' is not null or undefined
             assertParamExists('getAffiliateOverview', 'userAddress', userAddress)
             const localVarPath = `/v1/rewards/affiliate/overview`;
@@ -6499,6 +6500,10 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (userAddress !== undefined) {
                 localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+            if (minEarningsE9 !== undefined) {
+                localVarQueryParameter['minEarningsE9'] = minEarningsE9;
             }
 
 
@@ -7000,11 +7005,12 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
          * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [search] The name/address of the user to filter by
+         * @param {string} [minEarningsE9] The minimum earnings to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateOverview200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, options);
+        async getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, minEarningsE9?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAffiliateOverview200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, minEarningsE9, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getAffiliateOverview']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7209,11 +7215,12 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
          * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
          * @param {string} [search] The name/address of the user to filter by
+         * @param {string} [minEarningsE9] The minimum earnings to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateOverview200Response> {
-            return localVarFp.getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, options).then((request) => request(axios, basePath));
+        getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, minEarningsE9?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetAffiliateOverview200Response> {
+            return localVarFp.getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, minEarningsE9, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns performance summary for an affiliate including total referrals, earnings, and rankings
@@ -7388,12 +7395,13 @@ export class RewardsApi extends BaseAPI {
      * @param {GetAffiliateOverviewSortByEnum} [sortBy] The category to sort earnings by
      * @param {GetAffiliateOverviewSortOrderEnum} [sortOrder] The order to sort earnings by
      * @param {string} [search] The name/address of the user to filter by
+     * @param {string} [minEarningsE9] The minimum earnings to filter by
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, options).then((request) => request(this.axios, this.basePath));
+    public getAffiliateOverview(userAddress: string, page?: number, limit?: number, sortBy?: GetAffiliateOverviewSortByEnum, sortOrder?: GetAffiliateOverviewSortOrderEnum, search?: string, minEarningsE9?: string, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, minEarningsE9, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
