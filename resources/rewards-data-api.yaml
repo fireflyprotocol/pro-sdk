@@ -26,7 +26,8 @@ components:
       $ref: './common.yaml#/components/schemas/Error'
 
     CampaignRewards:
-      $ref: "#/components/schemas/UserCampaignRewards"
+      $ref:
+        "#/components/schemas/UserCampaignRewards"
         # Add other campaign data types as needed
 
     # Campaign rewards schema can be extended to have custom fields for the campaign once start adding more campaign specific data
@@ -316,7 +317,7 @@ components:
           example: "20"
         referralSpotLPFee:
           type: string
-          description: Earnings from referral spot LP fees 
+          description: Earnings from referral spot LP fees
           example: "15"
         referralLendingRewards:
           type: string
@@ -741,6 +742,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CampaignRewards"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /v1/rewards/summary:
     # Get rewards information for all time
     get:
@@ -1045,17 +1052,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "400":
-            description: "request missing required parameters"
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/Error"
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "500":
-            description: "internal server error"
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/Error"
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
   /v1/rewards/affiliate/onboard/referee:
     post:
@@ -1221,6 +1228,14 @@ paths:
           schema:
             type: string
             example: "0x1234567890abcdef"
+        - name: minEarningsE9
+          in: query
+          required: false
+          description: The minimum earnings to filter by
+          schema:
+            type: string
+            example: "1000000"
+            default: "0"
       responses:
         "200":
           description: Successful response array of affiliate overview objects
@@ -1440,4 +1455,3 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  

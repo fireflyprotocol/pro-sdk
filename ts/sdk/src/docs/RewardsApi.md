@@ -222,6 +222,7 @@ let limit: number; //The page size for pagination (optional) (default to 500)
 let sortBy: 'refreeEarnings' | 'referralEarnings' | 'totalEarnings'; //The category to sort earnings by (optional) (default to 'totalEarnings')
 let sortOrder: 'asc' | 'desc'; //The order to sort earnings by (optional) (default to undefined)
 let search: string; //The name/address of the user to filter by (optional) (default to undefined)
+let minEarningsE9: string; //The minimum earnings to filter by (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAffiliateOverview(
     userAddress,
@@ -229,7 +230,8 @@ const { status, data } = await apiInstance.getAffiliateOverview(
     limit,
     sortBy,
     sortOrder,
-    search
+    search,
+    minEarningsE9
 );
 ```
 
@@ -243,6 +245,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 | **sortBy** | [**&#39;refreeEarnings&#39; | &#39;referralEarnings&#39; | &#39;totalEarnings&#39;**]**Array<&#39;refreeEarnings&#39; &#124; &#39;referralEarnings&#39; &#124; &#39;totalEarnings&#39;>** | The category to sort earnings by | (optional) defaults to 'totalEarnings'|
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort earnings by | (optional) defaults to undefined|
 | **search** | [**string**] | The name/address of the user to filter by | (optional) defaults to undefined|
+| **minEarningsE9** | [**string**] | The minimum earnings to filter by | (optional) defaults to undefined|
 
 
 ### Return type
@@ -377,6 +380,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+|**400** | request missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

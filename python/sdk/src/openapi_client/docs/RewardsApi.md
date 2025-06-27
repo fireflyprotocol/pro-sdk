@@ -247,7 +247,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_affiliate_overview**
-> GetAffiliateOverview200Response get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
+> GetAffiliateOverview200Response get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search, min_earnings_e9=min_earnings_e9)
 
 Get detailed affiliate earnings overview
 
@@ -279,10 +279,11 @@ async with openapi_client.ApiClient(configuration) as api_client:
     sort_by = totalEarnings # str | The category to sort earnings by (optional) (default to totalEarnings)
     sort_order = 'desc' # str | The order to sort earnings by (optional)
     search = 'John' # str | The name/address of the user to filter by (optional)
+    min_earnings_e9 = '1000000' # str | The minimum earnings to filter by (optional)
 
     try:
         # Get detailed affiliate earnings overview
-        api_response = await api_instance.get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search)
+        api_response = await api_instance.get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search, min_earnings_e9=min_earnings_e9)
         print("The response of RewardsApi->get_affiliate_overview:\n")
         pprint(api_response)
     except Exception as e:
@@ -302,6 +303,7 @@ Name | Type | Description  | Notes
  **sort_by** | **str**| The category to sort earnings by | [optional] [default to totalEarnings]
  **sort_order** | **str**| The order to sort earnings by | [optional] 
  **search** | **str**| The name/address of the user to filter by | [optional] 
+ **min_earnings_e9** | **str**| The minimum earnings to filter by | [optional] 
 
 ### Return type
 
@@ -467,6 +469,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+**400** | request missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

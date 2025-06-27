@@ -979,6 +979,7 @@ class RewardsApi:
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
+        min_earnings_e9: Annotated[Optional[StrictStr], Field(description="The minimum earnings to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1008,6 +1009,8 @@ class RewardsApi:
         :type sort_order: str
         :param search: The name/address of the user to filter by
         :type search: str
+        :param min_earnings_e9: The minimum earnings to filter by
+        :type min_earnings_e9: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1037,6 +1040,7 @@ class RewardsApi:
             sort_by=sort_by,
             sort_order=sort_order,
             search=search,
+            min_earnings_e9=min_earnings_e9,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1069,6 +1073,7 @@ class RewardsApi:
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
+        min_earnings_e9: Annotated[Optional[StrictStr], Field(description="The minimum earnings to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1098,6 +1103,8 @@ class RewardsApi:
         :type sort_order: str
         :param search: The name/address of the user to filter by
         :type search: str
+        :param min_earnings_e9: The minimum earnings to filter by
+        :type min_earnings_e9: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1127,6 +1134,7 @@ class RewardsApi:
             sort_by=sort_by,
             sort_order=sort_order,
             search=search,
+            min_earnings_e9=min_earnings_e9,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1159,6 +1167,7 @@ class RewardsApi:
         sort_by: Annotated[Optional[StrictStr], Field(description="The category to sort earnings by")] = None,
         sort_order: Annotated[Optional[StrictStr], Field(description="The order to sort earnings by")] = None,
         search: Annotated[Optional[StrictStr], Field(description="The name/address of the user to filter by")] = None,
+        min_earnings_e9: Annotated[Optional[StrictStr], Field(description="The minimum earnings to filter by")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1188,6 +1197,8 @@ class RewardsApi:
         :type sort_order: str
         :param search: The name/address of the user to filter by
         :type search: str
+        :param min_earnings_e9: The minimum earnings to filter by
+        :type min_earnings_e9: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1217,6 +1228,7 @@ class RewardsApi:
             sort_by=sort_by,
             sort_order=sort_order,
             search=search,
+            min_earnings_e9=min_earnings_e9,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1244,6 +1256,7 @@ class RewardsApi:
         sort_by,
         sort_order,
         search,
+        min_earnings_e9,
         _request_auth,
         _content_type,
         _headers,
@@ -1289,6 +1302,10 @@ class RewardsApi:
         if user_address is not None:
             
             _query_params.append(('userAddress', user_address))
+            
+        if min_earnings_e9 is not None:
+            
+            _query_params.append(('minEarningsE9', min_earnings_e9))
             
         # process the header parameters
         # process the form parameters
@@ -1660,6 +1677,7 @@ class RewardsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserCampaignRewards]",
+            '400': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1735,6 +1753,7 @@ class RewardsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserCampaignRewards]",
+            '400': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -1810,6 +1829,7 @@ class RewardsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserCampaignRewards]",
+            '400': "Error",
         }
         response_data = await self.api_client.call_api(
             *_param,
