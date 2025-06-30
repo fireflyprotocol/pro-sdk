@@ -22,9 +22,6 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Error:
-      $ref: './common.yaml#/components/schemas/Error'
-
     CampaignRewards:
       $ref:
         "#/components/schemas/UserCampaignRewards"
@@ -747,7 +744,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
   /v1/rewards/summary:
     # Get rewards information for all time
     get:
@@ -917,19 +914,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/onboard:
     post:
@@ -996,19 +993,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/feeConfig:
     post:
@@ -1044,25 +1041,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/onboard/referee:
     post:
@@ -1098,31 +1095,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "parent referral code not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "referral code is required"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "412":
           description: "parent affiliate is not active"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "409":
           description: "referee already exists"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/summary:
     get:
@@ -1151,19 +1148,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/overview:
     get:
@@ -1265,19 +1262,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/intervalOverview:
     get:
@@ -1342,19 +1339,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /v1/rewards/affiliate/leaderDashboard:
     get:
@@ -1441,17 +1438,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "404":
           description: "address not found"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
-
+                $ref: "./common.yaml#/components/schemas/Error"

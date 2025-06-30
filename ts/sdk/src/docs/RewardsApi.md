@@ -222,7 +222,7 @@ let limit: number; //The page size for pagination (optional) (default to 500)
 let sortBy: 'refreeEarnings' | 'referralEarnings' | 'totalEarnings'; //The category to sort earnings by (optional) (default to 'totalEarnings')
 let sortOrder: 'asc' | 'desc'; //The order to sort earnings by (optional) (default to undefined)
 let search: string; //The name/address of the user to filter by (optional) (default to undefined)
-let minEarningsE9: string; //The minimum earnings to filter by (optional) (default to undefined)
+let minEarningsE9: string; //The minimum earnings to filter by (optional) (default to '0')
 
 const { status, data } = await apiInstance.getAffiliateOverview(
     userAddress,
@@ -245,7 +245,7 @@ const { status, data } = await apiInstance.getAffiliateOverview(
 | **sortBy** | [**&#39;refreeEarnings&#39; | &#39;referralEarnings&#39; | &#39;totalEarnings&#39;**]**Array<&#39;refreeEarnings&#39; &#124; &#39;referralEarnings&#39; &#124; &#39;totalEarnings&#39;>** | The category to sort earnings by | (optional) defaults to 'totalEarnings'|
 | **sortOrder** | [**&#39;asc&#39; | &#39;desc&#39;**]**Array<&#39;asc&#39; &#124; &#39;desc&#39;>** | The order to sort earnings by | (optional) defaults to undefined|
 | **search** | [**string**] | The name/address of the user to filter by | (optional) defaults to undefined|
-| **minEarningsE9** | [**string**] | The minimum earnings to filter by | (optional) defaults to undefined|
+| **minEarningsE9** | [**string**] | The minimum earnings to filter by | (optional) defaults to '0'|
 
 
 ### Return type
