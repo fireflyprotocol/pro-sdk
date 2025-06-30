@@ -136,7 +136,7 @@ Name | Type | Description  | Required | Notes
 **sort_by** | Option<**String**> | The category to sort earnings by |  |[default to totalEarnings]
 **sort_order** | Option<**String**> | The order to sort earnings by |  |
 **search** | Option<**String**> | The name/address of the user to filter by |  |
-**min_earnings_e9** | Option<**String**> | The minimum earnings to filter by |  |
+**min_earnings_e9** | Option<**String**> | The minimum earnings to filter by |  |[default to 0]
 
 ### Return type
 

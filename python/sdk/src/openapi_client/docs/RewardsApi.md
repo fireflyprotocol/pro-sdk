@@ -279,7 +279,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     sort_by = totalEarnings # str | The category to sort earnings by (optional) (default to totalEarnings)
     sort_order = 'desc' # str | The order to sort earnings by (optional)
     search = 'John' # str | The name/address of the user to filter by (optional)
-    min_earnings_e9 = '1000000' # str | The minimum earnings to filter by (optional)
+    min_earnings_e9 = '0' # str | The minimum earnings to filter by (optional) (default to '0')
 
     try:
         # Get detailed affiliate earnings overview
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
  **sort_by** | **str**| The category to sort earnings by | [optional] [default to totalEarnings]
  **sort_order** | **str**| The order to sort earnings by | [optional] 
  **search** | **str**| The name/address of the user to filter by | [optional] 
- **min_earnings_e9** | **str**| The minimum earnings to filter by | [optional] 
+ **min_earnings_e9** | **str**| The minimum earnings to filter by | [optional] [default to &#39;0&#39;]
 
 ### Return type
 
