@@ -27,8 +27,8 @@ pub enum AccountEventType {
     AccountPositionUpdate,
     #[serde(rename = "AccountTransactionUpdate")]
     AccountTransactionUpdate,
-    #[serde(rename = "AccountLeverageFailureUpdate")]
-    AccountLeverageFailureUpdate,
+    #[serde(rename = "AccountCommandFailureUpdate")]
+    AccountCommandFailureUpdate,
 
 }
 
@@ -41,7 +41,7 @@ impl std::fmt::Display for AccountEventType {
             Self::AccountOrderUpdate => write!(f, "AccountOrderUpdate"),
             Self::AccountPositionUpdate => write!(f, "AccountPositionUpdate"),
             Self::AccountTransactionUpdate => write!(f, "AccountTransactionUpdate"),
-            Self::AccountLeverageFailureUpdate => write!(f, "AccountLeverageFailureUpdate"),
+            Self::AccountCommandFailureUpdate => write!(f, "AccountCommandFailureUpdate"),
         }
     }
 }

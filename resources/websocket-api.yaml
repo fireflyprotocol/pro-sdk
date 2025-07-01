@@ -220,7 +220,7 @@ components:
         - AccountOrderUpdate
         - AccountPositionUpdate
         - AccountTransactionUpdate
-        - AccountLeverageFailureUpdate
+        - AccountCommandFailureUpdate
 
     AccountEventReason:
       type: string

@@ -44,6 +44,7 @@ docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
+docs/CommandFailureReasonCode.md
 docs/ContractsConfig.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
@@ -53,6 +54,7 @@ docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
+docs/FailedCommandType.md
 docs/FeeConfigs.md
 docs/FundingRateEntry.md
 docs/GetAffiliateIntervalOverview200Response.md
@@ -167,6 +169,7 @@ src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
 src/models/candlestick_update.rs
+src/models/command_failure_reason_code.rs
 src/models/contracts_config.rs
 src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
@@ -175,6 +178,7 @@ src/models/epoch_configs.rs
 src/models/epoch_metadata.rs
 src/models/error.rs
 src/models/exchange_info_response.rs
+src/models/failed_command_type.rs
 src/models/fee_configs.rs
 src/models/funding_rate_entry.rs
 src/models/get_affiliate_interval_overview_200_response.rs

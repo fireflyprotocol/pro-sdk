@@ -17,9 +17,13 @@ pub struct AccountCommandFailureUpdate {
     /// The reason for the failure.
     #[serde(rename = "reason")]
     pub reason: String,
+    #[serde(rename = "reasonCode", skip_serializing_if = "Option::is_none")]
+    pub reason_code: Option<models::CommandFailureReasonCode>,
     /// The type of command that failed.
     #[serde(rename = "failedCommandType")]
     pub failed_command_type: String,
+    #[serde(rename = "failedCommandTypeCode", skip_serializing_if = "Option::is_none")]
+    pub failed_command_type_code: Option<models::FailedCommandType>,
     /// The timestamp when the command failed in milliseconds.
     #[serde(rename = "failedAtMillis")]
     pub failed_at_millis: u64,
@@ -30,7 +34,9 @@ impl AccountCommandFailureUpdate {
     pub fn new(reason: String, failed_command_type: String, failed_at_millis: u64) -> AccountCommandFailureUpdate {
         AccountCommandFailureUpdate {
             reason,
+            reason_code: None,
             failed_command_type,
+            failed_command_type_code: None,
             failed_at_millis,
         }
     }
