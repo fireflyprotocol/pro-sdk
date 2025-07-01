@@ -16,7 +16,7 @@ The type of account-related event.
 
 * `ACCOUNTTRANSACTIONUPDATE` (value: `'AccountTransactionUpdate'`)
 
-* `ACCOUNTLEVERAGEFAILUREUPDATE` (value: `'AccountLeverageFailureUpdate'`)
+* `ACCOUNTCOMMANDFAILUREUPDATE` (value: `'AccountCommandFailureUpdate'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -7,7 +7,9 @@ Details about a failure during an account command execution.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **reason** | **str** | The reason for the failure. | 
+**reason_code** | [**CommandFailureReasonCode**](CommandFailureReasonCode.md) |  | [optional] 
 **failed_command_type** | **str** | The type of command that failed. | 
+**failed_command_type_code** | [**FailedCommandType**](FailedCommandType.md) |  | [optional] 
 **failed_at_millis** | **int** | The timestamp when the command failed in milliseconds. | 
 
 ## Example

@@ -51,6 +51,7 @@ openapi_client/docs/CancelOrdersRequest.md
 openapi_client/docs/CancelOrdersResponse.md
 openapi_client/docs/CandlePriceType.md
 openapi_client/docs/CandlestickUpdate.md
+openapi_client/docs/CommandFailureReasonCode.md
 openapi_client/docs/ContractsConfig.md
 openapi_client/docs/CreateOrderRequest.md
 openapi_client/docs/CreateOrderRequestSignedFields.md
@@ -60,6 +61,7 @@ openapi_client/docs/EpochMetadata.md
 openapi_client/docs/Error.md
 openapi_client/docs/ExchangeApi.md
 openapi_client/docs/ExchangeInfoResponse.md
+openapi_client/docs/FailedCommandType.md
 openapi_client/docs/FeeConfigs.md
 openapi_client/docs/FundingRateEntry.md
 openapi_client/docs/GetAffiliateIntervalOverview200Response.md
@@ -166,6 +168,7 @@ openapi_client/models/cancel_orders_request.py
 openapi_client/models/cancel_orders_response.py
 openapi_client/models/candle_price_type.py
 openapi_client/models/candlestick_update.py
+openapi_client/models/command_failure_reason_code.py
 openapi_client/models/contracts_config.py
 openapi_client/models/create_order_request.py
 openapi_client/models/create_order_request_signed_fields.py
@@ -174,6 +177,7 @@ openapi_client/models/epoch_configs.py
 openapi_client/models/epoch_metadata.py
 openapi_client/models/error.py
 openapi_client/models/exchange_info_response.py
+openapi_client/models/failed_command_type.py
 openapi_client/models/fee_configs.py
 openapi_client/models/funding_rate_entry.py
 openapi_client/models/get_affiliate_interval_overview200_response.py
@@ -237,4 +241,6 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_command_failure_reason_code.py
+openapi_client/test/test_failed_command_type.py
 openapi_client_README.md

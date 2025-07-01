@@ -76,6 +76,7 @@ from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.cancel_orders_response import CancelOrdersResponse
 from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
+from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
@@ -84,6 +85,7 @@ from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
+from openapi_client.models.failed_command_type import FailedCommandType
 from openapi_client.models.fee_configs import FeeConfigs
 from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response

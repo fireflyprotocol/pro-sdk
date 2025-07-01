@@ -18,8 +18,10 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
+from openapi_client.models.failed_command_type import FailedCommandType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,9 +30,11 @@ class AccountCommandFailureUpdate(BaseModel):
     Details about a failure during an account command execution.
     """ # noqa: E501
     reason: StrictStr = Field(description="The reason for the failure.")
+    reason_code: Optional[CommandFailureReasonCode] = Field(default=None, alias="reasonCode")
     failed_command_type: StrictStr = Field(description="The type of command that failed.", alias="failedCommandType")
+    failed_command_type_code: Optional[FailedCommandType] = Field(default=None, alias="failedCommandTypeCode")
     failed_at_millis: Annotated[int, Field(strict=True, ge=0)] = Field(description="The timestamp when the command failed in milliseconds.", alias="failedAtMillis")
-    __properties: ClassVar[List[str]] = ["reason", "failedCommandType", "failedAtMillis"]
+    __properties: ClassVar[List[str]] = ["reason", "reasonCode", "failedCommandType", "failedCommandTypeCode", "failedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +88,9 @@ class AccountCommandFailureUpdate(BaseModel):
 
         _obj = cls.model_validate({
             "reason": obj.get("reason"),
+            "reasonCode": obj.get("reasonCode"),
             "failedCommandType": obj.get("failedCommandType"),
+            "failedCommandTypeCode": obj.get("failedCommandTypeCode"),
             "failedAtMillis": obj.get("failedAtMillis")
         })
         return _obj
