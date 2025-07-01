@@ -257,11 +257,23 @@ export interface AccountCommandFailureUpdate {
      */
     'reason': string;
     /**
+     * 
+     * @type {CommandFailureReasonCode}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'reasonCode'?: CommandFailureReasonCode;
+    /**
      * The type of command that failed.
      * @type {string}
      * @memberof AccountCommandFailureUpdate
      */
     'failedCommandType': string;
+    /**
+     * 
+     * @type {FailedCommandType}
+     * @memberof AccountCommandFailureUpdate
+     */
+    'failedCommandTypeCode'?: FailedCommandType;
     /**
      * The timestamp when the command failed in milliseconds.
      * @type {number}
@@ -269,6 +281,8 @@ export interface AccountCommandFailureUpdate {
      */
     'failedAtMillis': number;
 }
+
+
 /**
  * Represents the type of account data stream.
  * @export
@@ -322,7 +336,7 @@ export const AccountEventType = {
     AccountOrderUpdate: 'AccountOrderUpdate',
     AccountPositionUpdate: 'AccountPositionUpdate',
     AccountTransactionUpdate: 'AccountTransactionUpdate',
-    AccountLeverageFailureUpdate: 'AccountLeverageFailureUpdate'
+    AccountCommandFailureUpdate: 'AccountCommandFailureUpdate'
 } as const;
 
 export type AccountEventType = typeof AccountEventType[keyof typeof AccountEventType];
@@ -1761,6 +1775,27 @@ export interface CandlestickUpdate {
     'numTrades': number;
 }
 /**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const CommandFailureReasonCode = {
+    Unspecified: 'UNSPECIFIED',
+    UnknownAddress: 'UNKNOWN_ADDRESS',
+    UnknownSymbol: 'UNKNOWN_SYMBOL',
+    NoPosition: 'NO_POSITION',
+    InsufficientBalance: 'INSUFFICIENT_BALANCE',
+    DuplicateCommandHash: 'DUPLICATE_COMMAND_HASH',
+    InvalidLeverage: 'INVALID_LEVERAGE',
+    UnknownMarket: 'UNKNOWN_MARKET',
+    Unexpected: 'UNEXPECTED'
+} as const;
+
+export type CommandFailureReasonCode = typeof CommandFailureReasonCode[keyof typeof CommandFailureReasonCode];
+
+
+/**
  * Contract configuration for the exchange.
  * @export
  * @interface ContractsConfig
@@ -2102,6 +2137,21 @@ export interface ExchangeInfoResponse {
      */
     'timezone': string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const FailedCommandType = {
+    PositionIsolatedMarginUpdate: 'POSITION_ISOLATED_MARGIN_UPDATE',
+    PositionLeverageUpdate: 'POSITION_LEVERAGE_UPDATE',
+    Withdraw: 'WITHDRAW'
+} as const;
+
+export type FailedCommandType = typeof FailedCommandType[keyof typeof FailedCommandType];
+
+
 /**
  * Map of various fee-related configurations
  * @export

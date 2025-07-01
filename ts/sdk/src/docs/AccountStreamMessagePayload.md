@@ -68,7 +68,9 @@ Name | Type | Description | Notes
 **maintenanceMarginE9** | **string** | The maintenance margin required for the position. | [default to undefined]
 **isolatedMarginE9** | **string** | The isolated margin applied to the position. | [default to undefined]
 **reason** | **string** | The reason for the failure. | [default to undefined]
+**reasonCode** | [**CommandFailureReasonCode**](CommandFailureReasonCode.md) |  | [optional] [default to undefined]
 **failedCommandType** | **string** | The type of command that failed. | [default to undefined]
+**failedCommandTypeCode** | [**FailedCommandType**](FailedCommandType.md) |  | [optional] [default to undefined]
 **failedAtMillis** | **number** | The timestamp when the command failed in milliseconds. | [default to undefined]
 
 ## Example
@@ -139,7 +141,9 @@ const instance: AccountStreamMessagePayload = {
     maintenanceMarginE9,
     isolatedMarginE9,
     reason,
+    reasonCode,
     failedCommandType,
+    failedCommandTypeCode,
     failedAtMillis,
 };
 ```

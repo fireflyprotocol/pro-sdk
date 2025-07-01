@@ -46,6 +46,7 @@ docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
+docs/CommandFailureReasonCode.md
 docs/ContractsConfig.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
@@ -55,6 +56,7 @@ docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
+docs/FailedCommandType.md
 docs/FeeConfigs.md
 docs/FundingRateEntry.md
 docs/GetAffiliateIntervalOverview200Response.md
