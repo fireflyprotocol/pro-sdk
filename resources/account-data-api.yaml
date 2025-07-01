@@ -390,8 +390,9 @@ paths:
     get:
       tags:
         - Account Data
-      summary: Get user's funding rate history
       operationId: getAccountFundingRateHistory
+      summary: /account/fundingRateHistory
+      description: Retrieves the funding rate history for a specific account.
       security:
         - bearerAuth: []
       parameters:
@@ -450,8 +451,9 @@ paths:
     get:
       tags:
         - Account Data
-      summary: Get user's account preferences.
       operationId: getAccountPreferences
+      summary: /account/preferences
+      description: Retrieves the user's account preferences.
       security:
         - bearerAuth: []
       responses:
@@ -488,8 +490,9 @@ paths:
     put:
       tags:
         - Account Data
-      summary: Update user's account preferences. This will overwrite the preferences, so always send the full object.
       operationId: putAccountPreferences
+      summary: /account/preferences
+      description: Update user's account preferences. This will overwrite the preferences, so always send the full object.
       security:
         - bearerAuth: []
       requestBody:
@@ -536,8 +539,9 @@ paths:
     get:
       tags:
         - Account Data
-      summary: Get user's account details.
       operationId: getAccountDetails
+      summary: /account
+      description: Retrieves the user's account details.
       security: []
       parameters:
         - name: accountAddress
@@ -581,8 +585,9 @@ paths:
     get:
       tags:
         - Account Data
-      summary: Get user's trade history.
       operationId: getAccountTrades
+      summary: /account/trades
+      description: Retrieves the user's trade history.
       security:
         - bearerAuth: []
       parameters:
@@ -666,8 +671,9 @@ paths:
     get:
       tags:
         - Account Data
-      summary: Get user's transaction history (any change in balance).
       operationId: getAccountTransactionHistory
+      summary: /account/transactions
+      description: Retrieves the user's transaction history (any change in balance).
       security:
         - bearerAuth: []
       parameters:
