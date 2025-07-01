@@ -220,7 +220,7 @@ components:
         - AccountOrderUpdate
         - AccountPositionUpdate
         - AccountTransactionUpdate
-        - AccountLeverageFailureUpdate
+        - AccountCommandFailureUpdate
 
     AccountEventReason:
       type: string
@@ -279,6 +279,26 @@ components:
         - NO_FAILURE
         - UNSPECIFIED
 
+    CommandFailureReasonCode:
+      type: string
+      enum:
+        - UNSPECIFIED
+        - UNKNOWN_ADDRESS
+        - UNKNOWN_SYMBOL
+        - NO_POSITION
+        - INSUFFICIENT_BALANCE
+        - DUPLICATE_COMMAND_HASH
+        - INVALID_LEVERAGE
+        - UNKNOWN_MARKET
+        - UNEXPECTED
+
+    FailedCommandType:
+      type: string
+      enum:
+        - POSITION_ISOLATED_MARGIN_UPDATE
+        - POSITION_LEVERAGE_UPDATE
+        - WITHDRAW
+
     AccountCommandFailureUpdate:
       type: object
       description: "Details about a failure during an account command execution."
@@ -286,9 +306,15 @@ components:
         reason:
           type: string
           description: "The reason for the failure."
+        reasonCode:
+          description: "The code representing the reason for the failure."
+          $ref: '#/components/schemas/CommandFailureReasonCode'
         failedCommandType:
           type: string
           description: "The type of command that failed."
+        failedCommandTypeCode:
+          $ref: '#/components/schemas/FailedCommandType'
+          description: "The code of command that failed."
         failedAtMillis:
           type: integer
           format: int64

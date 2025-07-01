@@ -7,7 +7,9 @@ Details about a failure during an account command execution.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **reason** | **string** | The reason for the failure. | [default to undefined]
+**reasonCode** | [**CommandFailureReasonCode**](CommandFailureReasonCode.md) |  | [optional] [default to undefined]
 **failedCommandType** | **string** | The type of command that failed. | [default to undefined]
+**failedCommandTypeCode** | [**FailedCommandType**](FailedCommandType.md) |  | [optional] [default to undefined]
 **failedAtMillis** | **number** | The timestamp when the command failed in milliseconds. | [default to undefined]
 
 ## Example
@@ -17,7 +19,9 @@ import { AccountCommandFailureUpdate } from '@bluefin/api-client';
 
 const instance: AccountCommandFailureUpdate = {
     reason,
+    reasonCode,
     failedCommandType,
+    failedCommandTypeCode,
     failedAtMillis,
 };
 ```
