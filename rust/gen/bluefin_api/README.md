@@ -26,23 +26,23 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccountDataApi* | [**get_account_details**](docs/AccountDataApi.md#get_account_details) | **GET** /api/v1/account | Get user's account details.
-*AccountDataApi* | [**get_account_funding_rate_history**](docs/AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | Get user's funding rate history
-*AccountDataApi* | [**get_account_preferences**](docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user's account preferences.
-*AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user's trade history.
-*AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user's transaction history (any change in balance).
-*AccountDataApi* | [**put_account_preferences**](docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user's account preferences. This will overwrite the preferences, so always send the full object.
+*AccountDataApi* | [**get_account_details**](docs/AccountDataApi.md#get_account_details) | **GET** /api/v1/account | /account
+*AccountDataApi* | [**get_account_funding_rate_history**](docs/AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | /account/fundingRateHistory
+*AccountDataApi* | [**get_account_preferences**](docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
+*AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
+*AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+*AccountDataApi* | [**put_account_preferences**](docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 *AuthApi* | [**auth_jwks_get**](docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
 *AuthApi* | [**auth_token_post**](docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
-*ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | Get all market ticker information
-*ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.
-*ExchangeApi* | [**get_exchange_info**](docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | Get exchange information
-*ExchangeApi* | [**get_funding_rate_history**](docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history
-*ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
-*ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
-*ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
+*ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
+*ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+*ExchangeApi* | [**get_exchange_info**](docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+*ExchangeApi* | [**get_funding_rate_history**](docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+*ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
+*ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
+*ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
 *RewardsApi* | [**get_affiliate_interval_overview**](docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
 *RewardsApi* | [**get_affiliate_leader_dashboard**](docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
 *RewardsApi* | [**get_affiliate_metadata**](docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
@@ -58,18 +58,18 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
 *RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
 *RewardsApi* | [**update_affiliate_fee_config**](docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
-*StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
-*StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
-*TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
-*TradeApi* | [**cancel_standby_orders**](docs/TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
-*TradeApi* | [**get_open_orders**](docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
-*TradeApi* | [**get_standby_orders**](docs/TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
-*TradeApi* | [**post_create_order**](docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
-*TradeApi* | [**post_withdraw**](docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
-*TradeApi* | [**put_adjust_isolated_margin**](docs/TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
-*TradeApi* | [**put_authorize_account**](docs/TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
-*TradeApi* | [**put_deauthorize_account**](docs/TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
-*TradeApi* | [**put_leverage_update**](docs/TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
+*StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | 
+*StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | 
+*TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | /trade/orders/cancel
+*TradeApi* | [**cancel_standby_orders**](docs/TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | /trade/orders/cancel/standby
+*TradeApi* | [**get_open_orders**](docs/TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | /trade/openOrders
+*TradeApi* | [**get_standby_orders**](docs/TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | /trade/standbyOrders
+*TradeApi* | [**post_create_order**](docs/TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | /trade/orders
+*TradeApi* | [**post_withdraw**](docs/TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | /trade/withdraw
+*TradeApi* | [**put_adjust_isolated_margin**](docs/TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | /trade/adjustIsolatedMargin
+*TradeApi* | [**put_authorize_account**](docs/TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | /trade/accounts/authorize
+*TradeApi* | [**put_deauthorize_account**](docs/TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | /trade/accounts/deauthorize
+*TradeApi* | [**put_leverage_update**](docs/TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | /trade/leverage
 
 
 ## Documentation For Models

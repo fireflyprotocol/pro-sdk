@@ -64,9 +64,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Cancel orders for a market using order hashes
+        """/trade/orders/cancel
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -137,9 +137,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Cancel orders for a market using order hashes
+        """/trade/orders/cancel
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -210,9 +210,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Cancel orders for a market using order hashes
+        """/trade/orders/cancel
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -356,9 +356,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CancelOrdersResponse:
-        """Cancel orders in standby for a market using order hashes
+        """/trade/orders/cancel/standby
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -429,9 +429,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CancelOrdersResponse]:
-        """Cancel orders in standby for a market using order hashes
+        """/trade/orders/cancel/standby
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -502,9 +502,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Cancel orders in standby for a market using order hashes
+        """/trade/orders/cancel/standby
 
-        - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+        Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 
         :param cancel_orders_request: (required)
         :type cancel_orders_request: CancelOrdersRequest
@@ -648,7 +648,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[OpenOrderResponse]:
-        """Get Open Orders
+        """/trade/openOrders
 
         Retrieve details of open orders for a specific account.
 
@@ -719,7 +719,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[OpenOrderResponse]]:
-        """Get Open Orders
+        """/trade/openOrders
 
         Retrieve details of open orders for a specific account.
 
@@ -790,7 +790,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Open Orders
+        """/trade/openOrders
 
         Retrieve details of open orders for a specific account.
 
@@ -923,7 +923,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[OpenOrderResponse]:
-        """Get Orders in Standby
+        """/trade/standbyOrders
 
         Retrieve details of orders in standby for a specific account.
 
@@ -993,7 +993,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[OpenOrderResponse]]:
-        """Get Orders in Standby
+        """/trade/standbyOrders
 
         Retrieve details of orders in standby for a specific account.
 
@@ -1063,7 +1063,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Orders in Standby
+        """/trade/standbyOrders
 
         Retrieve details of orders in standby for a specific account.
 
@@ -1195,7 +1195,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CreateOrderResponse:
-        """Create a new order
+        """/trade/orders
 
         Submit a new order for execution.
 
@@ -1270,7 +1270,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CreateOrderResponse]:
-        """Create a new order
+        """/trade/orders
 
         Submit a new order for execution.
 
@@ -1345,7 +1345,7 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create a new order
+        """/trade/orders
 
         Submit a new order for execution.
 
@@ -1493,9 +1493,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Initiate a withdraw
+        """/trade/withdraw
 
-        Initiates a withdraw action to withdraw some amount of assets from a user's account
+        Initiates a withdraw action to remove some amount of funds from a user's account.
 
         :param withdraw_request: (required)
         :type withdraw_request: WithdrawRequest
@@ -1567,9 +1567,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Initiate a withdraw
+        """/trade/withdraw
 
-        Initiates a withdraw action to withdraw some amount of assets from a user's account
+        Initiates a withdraw action to remove some amount of funds from a user's account.
 
         :param withdraw_request: (required)
         :type withdraw_request: WithdrawRequest
@@ -1641,9 +1641,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Initiate a withdraw
+        """/trade/withdraw
 
-        Initiates a withdraw action to withdraw some amount of assets from a user's account
+        Initiates a withdraw action to remove some amount of funds from a user's account.
 
         :param withdraw_request: (required)
         :type withdraw_request: WithdrawRequest
@@ -1788,9 +1788,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Adjust margin for an isolated position for a symbol
+        """/trade/adjustIsolatedMargin
 
-        Adjust margin for an isolated position for a symbol
+        Adjust margin for an isolated position on a specific market.
 
         :param adjust_isolated_margin_request: (required)
         :type adjust_isolated_margin_request: AdjustIsolatedMarginRequest
@@ -1861,9 +1861,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Adjust margin for an isolated position for a symbol
+        """/trade/adjustIsolatedMargin
 
-        Adjust margin for an isolated position for a symbol
+        Adjust margin for an isolated position on a specific market.
 
         :param adjust_isolated_margin_request: (required)
         :type adjust_isolated_margin_request: AdjustIsolatedMarginRequest
@@ -1934,9 +1934,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adjust margin for an isolated position for a symbol
+        """/trade/adjustIsolatedMargin
 
-        Adjust margin for an isolated position for a symbol
+        Adjust margin for an isolated position on a specific market.
 
         :param adjust_isolated_margin_request: (required)
         :type adjust_isolated_margin_request: AdjustIsolatedMarginRequest
@@ -2080,9 +2080,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Authorizes an account
+        """/trade/accounts/authorize
 
-        Authorizes an account to trade, perform liquidations and more, on behalf of another account
+        Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2151,9 +2151,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Authorizes an account
+        """/trade/accounts/authorize
 
-        Authorizes an account to trade, perform liquidations and more, on behalf of another account
+        Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2222,9 +2222,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Authorizes an account
+        """/trade/accounts/authorize
 
-        Authorizes an account to trade, perform liquidations and more, on behalf of another account
+        Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2365,9 +2365,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Deauthorizes an account
+        """/trade/accounts/deauthorize
 
-        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2436,9 +2436,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Deauthorizes an account
+        """/trade/accounts/deauthorize
 
-        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2507,9 +2507,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Deauthorizes an account
+        """/trade/accounts/deauthorize
 
-        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+        Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
         :param account_authorization_request: (required)
         :type account_authorization_request: AccountAuthorizationRequest
@@ -2650,9 +2650,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Updates leverage for positions
+        """/trade/leverage
 
-        Updates leverage for positions of a given market, closes all open orders for that market
+        Updates leverage for positions of a given market and closes all open orders for that market.
 
         :param account_position_leverage_update_request: (required)
         :type account_position_leverage_update_request: AccountPositionLeverageUpdateRequest
@@ -2723,9 +2723,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Updates leverage for positions
+        """/trade/leverage
 
-        Updates leverage for positions of a given market, closes all open orders for that market
+        Updates leverage for positions of a given market and closes all open orders for that market.
 
         :param account_position_leverage_update_request: (required)
         :type account_position_leverage_update_request: AccountPositionLeverageUpdateRequest
@@ -2796,9 +2796,9 @@ class TradeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Updates leverage for positions
+        """/trade/leverage
 
-        Updates leverage for positions of a given market, closes all open orders for that market
+        Updates leverage for positions of a given market and closes all open orders for that market.
 
         :param account_position_leverage_update_request: (required)
         :type account_position_leverage_update_request: AccountPositionLeverageUpdateRequest

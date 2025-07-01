@@ -4,19 +4,21 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_account_details**](AccountDataApi.md#get_account_details) | **GET** /api/v1/account | Get user's account details.
-[**get_account_funding_rate_history**](AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | Get user's funding rate history
-[**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user's account preferences.
-[**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user's trade history.
-[**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user's transaction history (any change in balance).
-[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user's account preferences. This will overwrite the preferences, so always send the full object.
+[**get_account_details**](AccountDataApi.md#get_account_details) | **GET** /api/v1/account | /account
+[**get_account_funding_rate_history**](AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | /account/fundingRateHistory
+[**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
+[**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
+[**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 
 
 
 ## get_account_details
 
 > models::Account get_account_details(account_address)
-Get user's account details.
+/account
+
+Retrieves the user's account details.
 
 ### Parameters
 
@@ -44,7 +46,9 @@ No authorization required
 ## get_account_funding_rate_history
 
 > models::AccountFundingRateHistory get_account_funding_rate_history(account_address, limit, page)
-Get user's funding rate history
+/account/fundingRateHistory
+
+Retrieves the funding rate history for a specific account.
 
 ### Parameters
 
@@ -74,7 +78,9 @@ Name | Type | Description  | Required | Notes
 ## get_account_preferences
 
 > models::AccountPreference get_account_preferences()
-Get user's account preferences.
+/account/preferences
+
+Retrieves the user's account preferences.
 
 ### Parameters
 
@@ -99,7 +105,9 @@ This endpoint does not need any parameter.
 ## get_account_trades
 
 > Vec<models::Trade> get_account_trades(symbol, start_time_at_millis, end_time_at_millis, limit, trade_type, page)
-Get user's trade history.
+/account/trades
+
+Retrieves the user's trade history.
 
 ### Parameters
 
@@ -132,7 +140,9 @@ Name | Type | Description  | Required | Notes
 ## get_account_transaction_history
 
 > Vec<models::Transaction> get_account_transaction_history(types, asset_symbol, start_time_at_millis, end_time_at_millis, limit, page)
-Get user's transaction history (any change in balance).
+/account/transactions
+
+Retrieves the user's transaction history (any change in balance).
 
 ### Parameters
 
@@ -165,6 +175,8 @@ Name | Type | Description  | Required | Notes
 ## put_account_preferences
 
 > put_account_preferences(update_account_preference_request)
+/account/preferences
+
 Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
 ### Parameters

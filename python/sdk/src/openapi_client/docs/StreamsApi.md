@@ -4,14 +4,12 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**web_socket_account_data**](StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
-[**web_socket_market_data**](StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
+[**web_socket_account_data**](StreamsApi.md#web_socket_account_data) | **GET** /ws/account | 
+[**web_socket_market_data**](StreamsApi.md#web_socket_market_data) | **GET** /ws/market | 
 
 
 # **web_socket_account_data**
 > web_socket_account_data(authorization, upgrade, sec_web_socket_key, sec_web_socket_version)
-
-WebSocket Account Streams
 
 WebSocket Account Streams URL.
 
@@ -50,7 +48,6 @@ async with openapi_client.ApiClient(configuration) as api_client:
     sec_web_socket_version = 'sec_web_socket_version_example' # str | WebSocket protocol version.
 
     try:
-        # WebSocket Account Streams
         await api_instance.web_socket_account_data(authorization, upgrade, sec_web_socket_key, sec_web_socket_version)
     except Exception as e:
         print("Exception when calling StreamsApi->web_socket_account_data: %s\n" % e)
@@ -92,8 +89,6 @@ void (empty response body)
 # **web_socket_market_data**
 > web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
 
-WebSocket Market Streams
-
 WebSocket Market Streams URL.
 
 ### Example
@@ -120,7 +115,6 @@ async with openapi_client.ApiClient(configuration) as api_client:
     sec_web_socket_version = 'sec_web_socket_version_example' # str | WebSocket protocol version.
 
     try:
-        # WebSocket Market Streams
         await api_instance.web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
     except Exception as e:
         print("Exception when calling StreamsApi->web_socket_market_data: %s\n" % e)

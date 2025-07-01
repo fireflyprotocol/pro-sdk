@@ -149,6 +149,8 @@ No authorization required
 # **auth_token_refresh_put**
 > RefreshTokenResponse auth_token_refresh_put(refresh_token_request)
 
+Retrieves a new auth token for an account. Expiry is set to 5 min
+
 ### Example
 
 
