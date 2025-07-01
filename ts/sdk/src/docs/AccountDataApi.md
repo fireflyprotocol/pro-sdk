@@ -4,16 +4,17 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**getAccountDetails**](#getaccountdetails) | **GET** /api/v1/account | Get user\&#39;s account details.|
-|[**getAccountFundingRateHistory**](#getaccountfundingratehistory) | **GET** /api/v1/account/fundingRateHistory | Get user\&#39;s funding rate history|
-|[**getAccountPreferences**](#getaccountpreferences) | **GET** /api/v1/account/preferences | Get user\&#39;s account preferences.|
-|[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | Get user\&#39;s trade history.|
-|[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | Get user\&#39;s transaction history (any change in balance).|
-|[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | Update user\&#39;s account preferences. This will overwrite the preferences, so always send the full object.|
+|[**getAccountDetails**](#getaccountdetails) | **GET** /api/v1/account | /account|
+|[**getAccountFundingRateHistory**](#getaccountfundingratehistory) | **GET** /api/v1/account/fundingRateHistory | /account/fundingRateHistory|
+|[**getAccountPreferences**](#getaccountpreferences) | **GET** /api/v1/account/preferences | /account/preferences|
+|[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | /account/trades|
+|[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | /account/transactions|
+|[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | /account/preferences|
 
 # **getAccountDetails**
 > Account getAccountDetails()
 
+Retrieves the user\'s account details.
 
 ### Example
 
@@ -68,6 +69,7 @@ No authorization required
 # **getAccountFundingRateHistory**
 > AccountFundingRateHistory getAccountFundingRateHistory()
 
+Retrieves the funding rate history for a specific account.
 
 ### Example
 
@@ -128,6 +130,7 @@ const { status, data } = await apiInstance.getAccountFundingRateHistory(
 # **getAccountPreferences**
 > AccountPreference getAccountPreferences()
 
+Retrieves the user\'s account preferences.
 
 ### Example
 
@@ -175,6 +178,7 @@ This endpoint does not have any parameters.
 # **getAccountTrades**
 > Array<Trade> getAccountTrades()
 
+Retrieves the user\'s trade history.
 
 ### Example
 
@@ -244,6 +248,7 @@ const { status, data } = await apiInstance.getAccountTrades(
 # **getAccountTransactionHistory**
 > Array<Transaction> getAccountTransactionHistory()
 
+Retrieves the user\'s transaction history (any change in balance).
 
 ### Example
 
@@ -313,6 +318,7 @@ const { status, data } = await apiInstance.getAccountTransactionHistory(
 # **putAccountPreferences**
 > putAccountPreferences(updateAccountPreferenceRequest)
 
+Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
 
 ### Example
 

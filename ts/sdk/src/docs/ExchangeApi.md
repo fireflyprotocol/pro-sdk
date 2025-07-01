@@ -4,17 +4,18 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**getAllMarketTicker**](#getallmarketticker) | **GET** /v1/exchange/tickers | Get all market ticker information|
-|[**getCandlestickData**](#getcandlestickdata) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.|
-|[**getExchangeInfo**](#getexchangeinfo) | **GET** /v1/exchange/info | Get exchange information|
-|[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history|
-|[**getMarketTicker**](#getmarketticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information|
-|[**getOrderbookDepth**](#getorderbookdepth) | **GET** /v1/exchange/depth | Orderbook depth|
-|[**getRecentTrades**](#getrecenttrades) | **GET** /v1/exchange/trades | Recent trades list|
+|[**getAllMarketTicker**](#getallmarketticker) | **GET** /v1/exchange/tickers | /exchange/tickers|
+|[**getCandlestickData**](#getcandlestickdata) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks|
+|[**getExchangeInfo**](#getexchangeinfo) | **GET** /v1/exchange/info | /exchange/info|
+|[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory|
+|[**getMarketTicker**](#getmarketticker) | **GET** /v1/exchange/ticker | /exchange/ticker|
+|[**getOrderbookDepth**](#getorderbookdepth) | **GET** /v1/exchange/depth | /exchange/depth|
+|[**getRecentTrades**](#getrecenttrades) | **GET** /v1/exchange/trades | /exchange/trades|
 
 # **getAllMarketTicker**
 > Array<TickerResponse> getAllMarketTicker()
 
+Retrieves all market ticker information.
 
 ### Example
 
@@ -58,6 +59,7 @@ No authorization required
 # **getCandlestickData**
 > Array<Array<string>> getCandlestickData()
 
+Retrieves candle stick data for a market.
 
 ### Example
 
@@ -233,6 +235,7 @@ No authorization required
 # **getMarketTicker**
 > TickerResponse getMarketTicker()
 
+Retrieves aggregated ticker data for a market.
 
 ### Example
 
@@ -284,6 +287,7 @@ No authorization required
 # **getOrderbookDepth**
 > OrderbookDepthResponse getOrderbookDepth()
 
+Returns the current state of the orderbook.
 
 ### Example
 
@@ -337,6 +341,7 @@ No authorization required
 # **getRecentTrades**
 > Array<Trade> getRecentTrades()
 
+Retrieves recent trades executed on a market.
 
 ### Example
 

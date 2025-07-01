@@ -61,8 +61,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[TickerResponse]:
-        """Get all market ticker information
+        """/exchange/tickers
 
+        Retrieves all market ticker information.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -123,8 +124,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[TickerResponse]]:
-        """Get all market ticker information
+        """/exchange/tickers
 
+        Retrieves all market ticker information.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -185,8 +187,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get all market ticker information
+        """/exchange/tickers
 
+        Retrieves all market ticker information.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -310,8 +313,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[List[str]]:
-        """Kline/candlestick data.
+        """/exchange/candlesticks
 
+        Retrieves candle stick data for a market.
 
         :param symbol: The market symbol to get the klines for. (required)
         :type symbol: str
@@ -400,8 +404,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[List[str]]]:
-        """Kline/candlestick data.
+        """/exchange/candlesticks
 
+        Retrieves candle stick data for a market.
 
         :param symbol: The market symbol to get the klines for. (required)
         :type symbol: str
@@ -490,8 +495,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Kline/candlestick data.
+        """/exchange/candlesticks
 
+        Retrieves candle stick data for a market.
 
         :param symbol: The market symbol to get the klines for. (required)
         :type symbol: str
@@ -664,7 +670,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ExchangeInfoResponse:
-        """Get exchange information
+        """/exchange/info
 
         Returns the current exchange information including available margin assets, markets, and rules.
 
@@ -727,7 +733,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ExchangeInfoResponse]:
-        """Get exchange information
+        """/exchange/info
 
         Returns the current exchange information including available margin assets, markets, and rules.
 
@@ -790,7 +796,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get exchange information
+        """/exchange/info
 
         Returns the current exchange information including available margin assets, markets, and rules.
 
@@ -914,7 +920,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[FundingRateEntry]:
-        """Get funding rate history
+        """/exchange/fundingRateHistory
 
         Retrieve the funding rate history for a specific market address.
 
@@ -997,7 +1003,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[FundingRateEntry]]:
-        """Get funding rate history
+        """/exchange/fundingRateHistory
 
         Retrieve the funding rate history for a specific market address.
 
@@ -1080,7 +1086,7 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get funding rate history
+        """/exchange/fundingRateHistory
 
         Retrieve the funding rate history for a specific market address.
 
@@ -1240,8 +1246,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TickerResponse:
-        """Aggregated market ticker information
+        """/exchange/ticker
 
+        Retrieves aggregated ticker data for a market.
 
         :param symbol: Market symbol. (required)
         :type symbol: str
@@ -1307,8 +1314,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TickerResponse]:
-        """Aggregated market ticker information
+        """/exchange/ticker
 
+        Retrieves aggregated ticker data for a market.
 
         :param symbol: Market symbol. (required)
         :type symbol: str
@@ -1374,8 +1382,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Aggregated market ticker information
+        """/exchange/ticker
 
+        Retrieves aggregated ticker data for a market.
 
         :param symbol: Market symbol. (required)
         :type symbol: str
@@ -1503,8 +1512,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> OrderbookDepthResponse:
-        """Orderbook depth
+        """/exchange/depth
 
+        Returns the current state of the orderbook.
 
         :param symbol: Market symbol to get the orderbook depth for. (required)
         :type symbol: str
@@ -1573,8 +1583,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[OrderbookDepthResponse]:
-        """Orderbook depth
+        """/exchange/depth
 
+        Returns the current state of the orderbook.
 
         :param symbol: Market symbol to get the orderbook depth for. (required)
         :type symbol: str
@@ -1643,8 +1654,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Orderbook depth
+        """/exchange/depth
 
+        Returns the current state of the orderbook.
 
         :param symbol: Market symbol to get the orderbook depth for. (required)
         :type symbol: str
@@ -1783,8 +1795,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[Trade]:
-        """Recent trades list
+        """/exchange/trades
 
+        Retrieves recent trades executed on a market.
 
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str
@@ -1869,8 +1882,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[Trade]]:
-        """Recent trades list
+        """/exchange/trades
 
+        Retrieves recent trades executed on a market.
 
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str
@@ -1955,8 +1969,9 @@ class ExchangeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Recent trades list
+        """/exchange/trades
 
+        Retrieves recent trades executed on a market.
 
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str

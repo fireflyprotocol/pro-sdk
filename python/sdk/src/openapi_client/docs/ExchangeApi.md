@@ -4,19 +4,21 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | Get all market ticker information
-[**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.
-[**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | Get exchange information
-[**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history
-[**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
-[**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
-[**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
+[**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
+[**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+[**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+[**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+[**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
+[**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
+[**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
 
 
 # **get_all_market_ticker**
 > List[TickerResponse] get_all_market_ticker()
 
-Get all market ticker information
+/exchange/tickers
+
+Retrieves all market ticker information.
 
 ### Example
 
@@ -40,7 +42,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.ExchangeApi(api_client)
 
     try:
-        # Get all market ticker information
+        # /exchange/tickers
         api_response = await api_instance.get_all_market_ticker()
         print("The response of ExchangeApi->get_all_market_ticker:\n")
         pprint(api_response)
@@ -78,7 +80,9 @@ No authorization required
 # **get_candlestick_data**
 > List[List[str]] get_candlestick_data(symbol, interval, type, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
 
-Kline/candlestick data.
+/exchange/candlesticks
+
+Retrieves candle stick data for a market.
 
 ### Example
 
@@ -110,7 +114,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
-        # Kline/candlestick data.
+        # /exchange/candlesticks
         api_response = await api_instance.get_candlestick_data(symbol, interval, type, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
         print("The response of ExchangeApi->get_candlestick_data:\n")
         pprint(api_response)
@@ -157,7 +161,7 @@ No authorization required
 # **get_exchange_info**
 > ExchangeInfoResponse get_exchange_info()
 
-Get exchange information
+/exchange/info
 
 Returns the current exchange information including available margin assets, markets, and rules.
 
@@ -183,7 +187,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.ExchangeApi(api_client)
 
     try:
-        # Get exchange information
+        # /exchange/info
         api_response = await api_instance.get_exchange_info()
         print("The response of ExchangeApi->get_exchange_info:\n")
         pprint(api_response)
@@ -221,7 +225,7 @@ No authorization required
 # **get_funding_rate_history**
 > List[FundingRateEntry] get_funding_rate_history(symbol, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
 
-Get funding rate history
+/exchange/fundingRateHistory
 
 Retrieve the funding rate history for a specific market address.
 
@@ -252,7 +256,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
-        # Get funding rate history
+        # /exchange/fundingRateHistory
         api_response = await api_instance.get_funding_rate_history(symbol, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
         print("The response of ExchangeApi->get_funding_rate_history:\n")
         pprint(api_response)
@@ -297,7 +301,9 @@ No authorization required
 # **get_market_ticker**
 > TickerResponse get_market_ticker(symbol)
 
-Aggregated market ticker information
+/exchange/ticker
+
+Retrieves aggregated ticker data for a market.
 
 ### Example
 
@@ -322,7 +328,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     symbol = '1193046' # str | Market symbol.
 
     try:
-        # Aggregated market ticker information
+        # /exchange/ticker
         api_response = await api_instance.get_market_ticker(symbol)
         print("The response of ExchangeApi->get_market_ticker:\n")
         pprint(api_response)
@@ -364,7 +370,9 @@ No authorization required
 # **get_orderbook_depth**
 > OrderbookDepthResponse get_orderbook_depth(symbol, limit=limit)
 
-Orderbook depth
+/exchange/depth
+
+Returns the current state of the orderbook.
 
 ### Example
 
@@ -390,7 +398,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     limit = 500 # int | Maximum number of bids and asks to return. Default 500; max 1000. (optional) (default to 500)
 
     try:
-        # Orderbook depth
+        # /exchange/depth
         api_response = await api_instance.get_orderbook_depth(symbol, limit=limit)
         print("The response of ExchangeApi->get_orderbook_depth:\n")
         pprint(api_response)
@@ -432,7 +440,9 @@ No authorization required
 # **get_recent_trades**
 > List[Trade] get_recent_trades(symbol, trade_type=trade_type, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
 
-Recent trades list
+/exchange/trades
+
+Retrieves recent trades executed on a market.
 
 ### Example
 
@@ -462,7 +472,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
-        # Recent trades list
+        # /exchange/trades
         api_response = await api_instance.get_recent_trades(symbol, trade_type=trade_type, limit=limit, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, page=page)
         print("The response of ExchangeApi->get_recent_trades:\n")
         pprint(api_response)

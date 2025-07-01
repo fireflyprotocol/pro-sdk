@@ -4,25 +4,25 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
-[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
-[**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
-[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
-[**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
-[**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
-[**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
-[**put_authorize_account**](TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
-[**put_deauthorize_account**](TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
-[**put_leverage_update**](TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
+[**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | /trade/orders/cancel
+[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | /trade/orders/cancel/standby
+[**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | /trade/openOrders
+[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | /trade/standbyOrders
+[**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | /trade/orders
+[**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | /trade/withdraw
+[**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | /trade/adjustIsolatedMargin
+[**put_authorize_account**](TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | /trade/accounts/authorize
+[**put_deauthorize_account**](TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | /trade/accounts/deauthorize
+[**put_leverage_update**](TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | /trade/leverage
 
 
 
 ## cancel_orders
 
 > cancel_orders(cancel_orders_request)
-Cancel orders for a market using order hashes
+/trade/orders/cancel
 
-- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
 ### Parameters
 
@@ -50,9 +50,9 @@ Name | Type | Description  | Required | Notes
 ## cancel_standby_orders
 
 > models::CancelOrdersResponse cancel_standby_orders(cancel_orders_request)
-Cancel orders in standby for a market using order hashes
+/trade/orders/cancel/standby
 
-- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 
 ### Parameters
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Required | Notes
 ## get_open_orders
 
 > Vec<models::OpenOrderResponse> get_open_orders(symbol)
-Get Open Orders
+/trade/openOrders
 
 Retrieve details of open orders for a specific account.
 
@@ -110,7 +110,7 @@ Name | Type | Description  | Required | Notes
 ## get_standby_orders
 
 > Vec<models::OpenOrderResponse> get_standby_orders(symbol)
-Get Orders in Standby
+/trade/standbyOrders
 
 Retrieve details of orders in standby for a specific account.
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Required | Notes
 ## post_create_order
 
 > models::CreateOrderResponse post_create_order(create_order_request)
-Create a new order
+/trade/orders
 
 Submit a new order for execution.
 
@@ -170,9 +170,9 @@ Name | Type | Description  | Required | Notes
 ## post_withdraw
 
 > post_withdraw(withdraw_request)
-Initiate a withdraw
+/trade/withdraw
 
-Initiates a withdraw action to withdraw some amount of assets from a user's account
+Initiates a withdraw action to remove some amount of funds from a user's account.
 
 ### Parameters
 
@@ -200,9 +200,9 @@ Name | Type | Description  | Required | Notes
 ## put_adjust_isolated_margin
 
 > put_adjust_isolated_margin(adjust_isolated_margin_request)
-Adjust margin for an isolated position for a symbol
+/trade/adjustIsolatedMargin
 
-Adjust margin for an isolated position for a symbol
+Adjust margin for an isolated position on a specific market.
 
 ### Parameters
 
@@ -230,9 +230,9 @@ Name | Type | Description  | Required | Notes
 ## put_authorize_account
 
 > put_authorize_account(account_authorization_request)
-Authorizes an account
+/trade/accounts/authorize
 
-Authorizes an account to trade, perform liquidations and more, on behalf of another account
+Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Parameters
 
@@ -260,9 +260,9 @@ No authorization required
 ## put_deauthorize_account
 
 > put_deauthorize_account(account_authorization_request)
-Deauthorizes an account
+/trade/accounts/deauthorize
 
-Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Parameters
 
@@ -290,9 +290,9 @@ No authorization required
 ## put_leverage_update
 
 > put_leverage_update(account_position_leverage_update_request)
-Updates leverage for positions
+/trade/leverage
 
-Updates leverage for positions of a given market, closes all open orders for that market
+Updates leverage for positions of a given market and closes all open orders for that market.
 
 ### Parameters
 

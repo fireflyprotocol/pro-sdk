@@ -57,7 +57,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """WebSocket Account Streams
+        """web_socket_account_data
 
         WebSocket Account Streams URL.
 
@@ -136,7 +136,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """WebSocket Account Streams
+        """web_socket_account_data
 
         WebSocket Account Streams URL.
 
@@ -215,7 +215,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """WebSocket Account Streams
+        """web_socket_account_data
 
         WebSocket Account Streams URL.
 
@@ -355,7 +355,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """WebSocket Market Streams
+        """web_socket_market_data
 
         WebSocket Market Streams URL.
 
@@ -430,7 +430,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """WebSocket Market Streams
+        """web_socket_market_data
 
         WebSocket Market Streams URL.
 
@@ -505,7 +505,7 @@ class StreamsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """WebSocket Market Streams
+        """web_socket_market_data
 
         WebSocket Market Streams URL.
 

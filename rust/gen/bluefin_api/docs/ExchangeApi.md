@@ -4,20 +4,22 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | Get all market ticker information
-[**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | Kline/candlestick data.
-[**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | Get exchange information
-[**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | Get funding rate history
-[**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | Aggregated market ticker information
-[**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | Orderbook depth
-[**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | Recent trades list
+[**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
+[**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+[**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+[**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+[**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
+[**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
+[**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
 
 
 
 ## get_all_market_ticker
 
 > Vec<models::TickerResponse> get_all_market_ticker()
-Get all market ticker information
+/exchange/tickers
+
+Retrieves all market ticker information.
 
 ### Parameters
 
@@ -42,7 +44,9 @@ No authorization required
 ## get_candlestick_data
 
 > Vec<Vec<String>> get_candlestick_data(symbol, interval, r#type, start_time_at_millis, end_time_at_millis, limit, page)
-Kline/candlestick data.
+/exchange/candlesticks
+
+Retrieves candle stick data for a market.
 
 ### Parameters
 
@@ -76,7 +80,7 @@ No authorization required
 ## get_exchange_info
 
 > models::ExchangeInfoResponse get_exchange_info()
-Get exchange information
+/exchange/info
 
 Returns the current exchange information including available margin assets, markets, and rules.
 
@@ -103,7 +107,7 @@ No authorization required
 ## get_funding_rate_history
 
 > Vec<models::FundingRateEntry> get_funding_rate_history(symbol, limit, start_time_at_millis, end_time_at_millis, page)
-Get funding rate history
+/exchange/fundingRateHistory
 
 Retrieve the funding rate history for a specific market address.
 
@@ -137,7 +141,9 @@ No authorization required
 ## get_market_ticker
 
 > models::TickerResponse get_market_ticker(symbol)
-Aggregated market ticker information
+/exchange/ticker
+
+Retrieves aggregated ticker data for a market.
 
 ### Parameters
 
@@ -165,7 +171,9 @@ No authorization required
 ## get_orderbook_depth
 
 > models::OrderbookDepthResponse get_orderbook_depth(symbol, limit)
-Orderbook depth
+/exchange/depth
+
+Returns the current state of the orderbook.
 
 ### Parameters
 
@@ -194,7 +202,9 @@ No authorization required
 ## get_recent_trades
 
 > Vec<models::Trade> get_recent_trades(symbol, trade_type, limit, start_time_at_millis, end_time_at_millis, page)
-Recent trades list
+/exchange/trades
+
+Retrieves recent trades executed on a market.
 
 ### Parameters
 

@@ -139,7 +139,7 @@ pub enum PutLeverageUpdateError {
 }
 
 
-/// - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+/// Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 pub async fn cancel_orders(configuration: &configuration::Configuration, cancel_orders_request: models::CancelOrdersRequest) -> Result<(), Error<CancelOrdersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_cancel_orders_request = cancel_orders_request;
@@ -169,7 +169,7 @@ pub async fn cancel_orders(configuration: &configuration::Configuration, cancel_
     }
 }
 
-/// - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+/// Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 pub async fn cancel_standby_orders(configuration: &configuration::Configuration, cancel_orders_request: models::CancelOrdersRequest) -> Result<models::CancelOrdersResponse, Error<CancelStandbyOrdersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_cancel_orders_request = cancel_orders_request;
@@ -337,7 +337,7 @@ pub async fn post_create_order(configuration: &configuration::Configuration, cre
     }
 }
 
-/// Initiates a withdraw action to withdraw some amount of assets from a user's account
+/// Initiates a withdraw action to remove some amount of funds from a user's account.
 pub async fn post_withdraw(configuration: &configuration::Configuration, withdraw_request: models::WithdrawRequest) -> Result<(), Error<PostWithdrawError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_withdraw_request = withdraw_request;
@@ -367,7 +367,7 @@ pub async fn post_withdraw(configuration: &configuration::Configuration, withdra
     }
 }
 
-/// Adjust margin for an isolated position for a symbol
+/// Adjust margin for an isolated position on a specific market.
 pub async fn put_adjust_isolated_margin(configuration: &configuration::Configuration, adjust_isolated_margin_request: models::AdjustIsolatedMarginRequest) -> Result<(), Error<PutAdjustIsolatedMarginError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_adjust_isolated_margin_request = adjust_isolated_margin_request;
@@ -397,7 +397,7 @@ pub async fn put_adjust_isolated_margin(configuration: &configuration::Configura
     }
 }
 
-/// Authorizes an account to trade, perform liquidations and more, on behalf of another account
+/// Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 pub async fn put_authorize_account(configuration: &configuration::Configuration, account_authorization_request: models::AccountAuthorizationRequest) -> Result<(), Error<PutAuthorizeAccountError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_authorization_request = account_authorization_request;
@@ -424,7 +424,7 @@ pub async fn put_authorize_account(configuration: &configuration::Configuration,
     }
 }
 
-/// Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+/// Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 pub async fn put_deauthorize_account(configuration: &configuration::Configuration, account_authorization_request: models::AccountAuthorizationRequest) -> Result<(), Error<PutDeauthorizeAccountError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_authorization_request = account_authorization_request;
@@ -451,7 +451,7 @@ pub async fn put_deauthorize_account(configuration: &configuration::Configuratio
     }
 }
 
-/// Updates leverage for positions of a given market, closes all open orders for that market
+/// Updates leverage for positions of a given market and closes all open orders for that market.
 pub async fn put_leverage_update(configuration: &configuration::Configuration, account_position_leverage_update_request: models::AccountPositionLeverageUpdateRequest) -> Result<(), Error<PutLeverageUpdateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_position_leverage_update_request = account_position_leverage_update_request;

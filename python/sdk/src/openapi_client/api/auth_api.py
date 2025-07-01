@@ -624,6 +624,7 @@ class AuthApi:
     ) -> RefreshTokenResponse:
         """auth_token_refresh_put
 
+        Retrieves a new auth token for an account. Expiry is set to 5 min
 
         :param refresh_token_request: (required)
         :type refresh_token_request: RefreshTokenRequest
@@ -693,6 +694,7 @@ class AuthApi:
     ) -> ApiResponse[RefreshTokenResponse]:
         """auth_token_refresh_put
 
+        Retrieves a new auth token for an account. Expiry is set to 5 min
 
         :param refresh_token_request: (required)
         :type refresh_token_request: RefreshTokenRequest
@@ -762,6 +764,7 @@ class AuthApi:
     ) -> RESTResponseType:
         """auth_token_refresh_put
 
+        Retrieves a new auth token for an account. Expiry is set to 5 min
 
         :param refresh_token_request: (required)
         :type refresh_token_request: RefreshTokenRequest

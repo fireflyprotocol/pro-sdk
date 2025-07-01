@@ -4,15 +4,15 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**web_socket_account_data**](StreamsApi.md#web_socket_account_data) | **GET** /ws/account | WebSocket Account Streams
-[**web_socket_market_data**](StreamsApi.md#web_socket_market_data) | **GET** /ws/market | WebSocket Market Streams
+[**web_socket_account_data**](StreamsApi.md#web_socket_account_data) | **GET** /ws/account | 
+[**web_socket_market_data**](StreamsApi.md#web_socket_market_data) | **GET** /ws/market | 
 
 
 
 ## web_socket_account_data
 
 > web_socket_account_data(authorization, upgrade, sec_web_socket_key, sec_web_socket_version)
-WebSocket Account Streams
+
 
 WebSocket Account Streams URL.
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 ## web_socket_market_data
 
 > web_socket_market_data(upgrade, sec_web_socket_key, sec_web_socket_version)
-WebSocket Market Streams
+
 
 WebSocket Market Streams URL.
 

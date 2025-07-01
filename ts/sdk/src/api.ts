@@ -4781,8 +4781,8 @@ export interface WithdrawRequestSignedFields {
 export const AccountDataApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Get user\'s account details.
+         * Retrieves the user\'s account details.
+         * @summary /account
          * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4816,8 +4816,8 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
-         * @summary Get user\'s funding rate history
+         * Retrieves the funding rate history for a specific account.
+         * @summary /account/fundingRateHistory
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -4865,8 +4865,8 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
-         * @summary Get user\'s account preferences.
+         * Retrieves the user\'s account preferences.
+         * @summary /account/preferences
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4899,8 +4899,8 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
-         * @summary Get user\'s trade history.
+         * Retrieves the user\'s trade history.
+         * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -4963,8 +4963,8 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
-         * @summary Get user\'s transaction history (any change in balance).
+         * Retrieves the user\'s transaction history (any change in balance).
+         * @summary /account/transactions
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -5027,8 +5027,8 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
-         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @summary /account/preferences
          * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5077,8 +5077,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AccountDataApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @summary Get user\'s account details.
+         * Retrieves the user\'s account details.
+         * @summary /account
          * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5090,8 +5090,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Get user\'s funding rate history
+         * Retrieves the funding rate history for a specific account.
+         * @summary /account/fundingRateHistory
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5105,8 +5105,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Get user\'s account preferences.
+         * Retrieves the user\'s account preferences.
+         * @summary /account/preferences
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5117,8 +5117,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Get user\'s trade history.
+         * Retrieves the user\'s trade history.
+         * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -5135,8 +5135,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Get user\'s transaction history (any change in balance).
+         * Retrieves the user\'s transaction history (any change in balance).
+         * @summary /account/transactions
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -5153,8 +5153,8 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @summary /account/preferences
          * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5176,8 +5176,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
     const localVarFp = AccountDataApiFp(configuration)
     return {
         /**
-         * 
-         * @summary Get user\'s account details.
+         * Retrieves the user\'s account details.
+         * @summary /account
          * @param {string} [accountAddress] Account address to fetch account details by.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5186,8 +5186,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountDetails(accountAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Get user\'s funding rate history
+         * Retrieves the funding rate history for a specific account.
+         * @summary /account/fundingRateHistory
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5198,8 +5198,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountFundingRateHistory(accountAddress, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Get user\'s account preferences.
+         * Retrieves the user\'s account preferences.
+         * @summary /account/preferences
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5207,8 +5207,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountPreferences(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Get user\'s trade history.
+         * Retrieves the user\'s trade history.
+         * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
          * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -5222,8 +5222,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountTrades(symbol, startTimeAtMillis, endTimeAtMillis, limit, tradeType, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Get user\'s transaction history (any change in balance).
+         * Retrieves the user\'s transaction history (any change in balance).
+         * @summary /account/transactions
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -5237,8 +5237,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+         * @summary /account/preferences
          * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5257,8 +5257,8 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
  */
 export class AccountDataApi extends BaseAPI {
     /**
-     * 
-     * @summary Get user\'s account details.
+     * Retrieves the user\'s account details.
+     * @summary /account
      * @param {string} [accountAddress] Account address to fetch account details by.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5269,8 +5269,8 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Get user\'s funding rate history
+     * Retrieves the funding rate history for a specific account.
+     * @summary /account/fundingRateHistory
      * @param {string} [accountAddress] Account address to filter funding rate history by.
      * @param {number} [limit] Default 500; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5283,8 +5283,8 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Get user\'s account preferences.
+     * Retrieves the user\'s account preferences.
+     * @summary /account/preferences
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountDataApi
@@ -5294,8 +5294,8 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Get user\'s trade history.
+     * Retrieves the user\'s trade history.
+     * @summary /account/trades
      * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
      * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
@@ -5311,8 +5311,8 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Get user\'s transaction history (any change in balance).
+     * Retrieves the user\'s transaction history (any change in balance).
+     * @summary /account/transactions
      * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
      * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
@@ -5328,8 +5328,8 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+     * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
+     * @summary /account/preferences
      * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5429,7 +5429,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
+         * Retrieves a new auth token for an account. Expiry is set to 5 min
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5551,7 +5551,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Retrieves a new auth token for an account. Expiry is set to 5 min
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5608,7 +5608,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Retrieves a new auth token for an account. Expiry is set to 5 min
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5663,7 +5663,7 @@ export class AuthApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a new auth token for an account. Expiry is set to 5 min
      * @param {RefreshTokenRequest} refreshTokenRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5697,8 +5697,8 @@ export class AuthApi extends BaseAPI {
 export const ExchangeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Get all market ticker information
+         * Retrieves all market ticker information.
+         * @summary /exchange/tickers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5727,8 +5727,8 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
-         * @summary Kline/candlestick data.
+         * Retrieves candle stick data for a market.
+         * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
@@ -5799,7 +5799,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * Returns the current exchange information including available margin assets, markets, and rules.
-         * @summary Get exchange information
+         * @summary /exchange/info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5829,7 +5829,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * Retrieve the funding rate history for a specific market address.
-         * @summary Get funding rate history
+         * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -5885,8 +5885,8 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
-         * @summary Aggregated market ticker information
+         * Retrieves aggregated ticker data for a market.
+         * @summary /exchange/ticker
          * @param {string} symbol Market symbol.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5922,8 +5922,8 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
-         * @summary Orderbook depth
+         * Returns the current state of the orderbook.
+         * @summary /exchange/depth
          * @param {string} symbol Market symbol to get the orderbook depth for.
          * @param {number} [limit] Maximum number of bids and asks to return. Default 500; max 1000.
          * @param {*} [options] Override http request option.
@@ -5964,8 +5964,8 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
-         * @summary Recent trades list
+         * Retrieves recent trades executed on a market.
+         * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
@@ -6036,8 +6036,8 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExchangeApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @summary Get all market ticker information
+         * Retrieves all market ticker information.
+         * @summary /exchange/tickers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6048,8 +6048,8 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Kline/candlestick data.
+         * Retrieves candle stick data for a market.
+         * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
@@ -6068,7 +6068,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns the current exchange information including available margin assets, markets, and rules.
-         * @summary Get exchange information
+         * @summary /exchange/info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6080,7 +6080,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
         },
         /**
          * Retrieve the funding rate history for a specific market address.
-         * @summary Get funding rate history
+         * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -6096,8 +6096,8 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Aggregated market ticker information
+         * Retrieves aggregated ticker data for a market.
+         * @summary /exchange/ticker
          * @param {string} symbol Market symbol.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6109,8 +6109,8 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Orderbook depth
+         * Returns the current state of the orderbook.
+         * @summary /exchange/depth
          * @param {string} symbol Market symbol to get the orderbook depth for.
          * @param {number} [limit] Maximum number of bids and asks to return. Default 500; max 1000.
          * @param {*} [options] Override http request option.
@@ -6123,8 +6123,8 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Recent trades list
+         * Retrieves recent trades executed on a market.
+         * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
@@ -6151,8 +6151,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = ExchangeApiFp(configuration)
     return {
         /**
-         * 
-         * @summary Get all market ticker information
+         * Retrieves all market ticker information.
+         * @summary /exchange/tickers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6160,8 +6160,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getAllMarketTicker(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Kline/candlestick data.
+         * Retrieves candle stick data for a market.
+         * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
          * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
@@ -6177,7 +6177,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * Returns the current exchange information including available margin assets, markets, and rules.
-         * @summary Get exchange information
+         * @summary /exchange/info
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6186,7 +6186,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * Retrieve the funding rate history for a specific market address.
-         * @summary Get funding rate history
+         * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
          * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -6199,8 +6199,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Aggregated market ticker information
+         * Retrieves aggregated ticker data for a market.
+         * @summary /exchange/ticker
          * @param {string} symbol Market symbol.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6209,8 +6209,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getMarketTicker(symbol, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Orderbook depth
+         * Returns the current state of the orderbook.
+         * @summary /exchange/depth
          * @param {string} symbol Market symbol to get the orderbook depth for.
          * @param {number} [limit] Maximum number of bids and asks to return. Default 500; max 1000.
          * @param {*} [options] Override http request option.
@@ -6220,8 +6220,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getOrderbookDepth(symbol, limit, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Recent trades list
+         * Retrieves recent trades executed on a market.
+         * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
          * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
@@ -6245,8 +6245,8 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
  */
 export class ExchangeApi extends BaseAPI {
     /**
-     * 
-     * @summary Get all market ticker information
+     * Retrieves all market ticker information.
+     * @summary /exchange/tickers
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
@@ -6256,8 +6256,8 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Kline/candlestick data.
+     * Retrieves candle stick data for a market.
+     * @summary /exchange/candlesticks
      * @param {string} symbol The market symbol to get the klines for.
      * @param {KlineInterval} interval The interval to get the klines for.
      * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
@@ -6275,7 +6275,7 @@ export class ExchangeApi extends BaseAPI {
 
     /**
      * Returns the current exchange information including available margin assets, markets, and rules.
-     * @summary Get exchange information
+     * @summary /exchange/info
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExchangeApi
@@ -6286,7 +6286,7 @@ export class ExchangeApi extends BaseAPI {
 
     /**
      * Retrieve the funding rate history for a specific market address.
-     * @summary Get funding rate history
+     * @summary /exchange/fundingRateHistory
      * @param {string} symbol The market symbol to get funding rate history for
      * @param {number} [limit] Number of records to return. Default is 100; max is 1000.
      * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -6301,8 +6301,8 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Aggregated market ticker information
+     * Retrieves aggregated ticker data for a market.
+     * @summary /exchange/ticker
      * @param {string} symbol Market symbol.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6313,8 +6313,8 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Orderbook depth
+     * Returns the current state of the orderbook.
+     * @summary /exchange/depth
      * @param {string} symbol Market symbol to get the orderbook depth for.
      * @param {number} [limit] Maximum number of bids and asks to return. Default 500; max 1000.
      * @param {*} [options] Override http request option.
@@ -6326,8 +6326,8 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Recent trades list
+     * Retrieves recent trades executed on a market.
+     * @summary /exchange/trades
      * @param {string} symbol The market symbol to get the trades for.
      * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
      * @param {number} [limit] Default 500; max 1000.
@@ -7649,7 +7649,6 @@ export const StreamsApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * WebSocket Account Streams URL.
-         * @summary WebSocket Account Streams
          * @param {string} authorization 
          * @param {WebSocketAccountDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
@@ -7707,7 +7706,6 @@ export const StreamsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * WebSocket Market Streams URL.
-         * @summary WebSocket Market Streams
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
@@ -7765,7 +7763,6 @@ export const StreamsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * WebSocket Account Streams URL.
-         * @summary WebSocket Account Streams
          * @param {string} authorization 
          * @param {WebSocketAccountDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
@@ -7781,7 +7778,6 @@ export const StreamsApiFp = function(configuration?: Configuration) {
         },
         /**
          * WebSocket Market Streams URL.
-         * @summary WebSocket Market Streams
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
@@ -7806,7 +7802,6 @@ export const StreamsApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * WebSocket Account Streams URL.
-         * @summary WebSocket Account Streams
          * @param {string} authorization 
          * @param {WebSocketAccountDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
@@ -7819,7 +7814,6 @@ export const StreamsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * WebSocket Market Streams URL.
-         * @summary WebSocket Market Streams
          * @param {WebSocketMarketDataUpgradeEnum} upgrade 
          * @param {string} secWebSocketKey WebSocket key used during the handshake.
          * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
@@ -7841,7 +7835,6 @@ export const StreamsApiFactory = function (configuration?: Configuration, basePa
 export class StreamsApi extends BaseAPI {
     /**
      * WebSocket Account Streams URL.
-     * @summary WebSocket Account Streams
      * @param {string} authorization 
      * @param {WebSocketAccountDataUpgradeEnum} upgrade 
      * @param {string} secWebSocketKey WebSocket key used during the handshake.
@@ -7856,7 +7849,6 @@ export class StreamsApi extends BaseAPI {
 
     /**
      * WebSocket Market Streams URL.
-     * @summary WebSocket Market Streams
      * @param {WebSocketMarketDataUpgradeEnum} upgrade 
      * @param {string} secWebSocketKey WebSocket key used during the handshake.
      * @param {WebSocketMarketDataSecWebSocketVersionEnum} secWebSocketVersion WebSocket protocol version.
@@ -7906,8 +7898,8 @@ export type WebSocketMarketDataSecWebSocketVersionEnum = typeof WebSocketMarketD
 export const TradeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders for a market using order hashes
+         * Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7946,8 +7938,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders in standby for a market using order hashes
+         * Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel/standby
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7987,7 +7979,7 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Retrieve details of open orders for a specific account.
-         * @summary Get Open Orders
+         * @summary /trade/openOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8026,7 +8018,7 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Retrieve details of orders in standby for a specific account.
-         * @summary Get Orders in Standby
+         * @summary /trade/standbyOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8065,7 +8057,7 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Submit a new order for execution.
-         * @summary Create a new order
+         * @summary /trade/orders
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8104,8 +8096,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Initiates a withdraw action to withdraw some amount of assets from a user\'s account
-         * @summary Initiate a withdraw
+         * Initiates a withdraw action to remove some amount of funds from a user\'s account.
+         * @summary /trade/withdraw
          * @param {WithdrawRequest} withdrawRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8144,8 +8136,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Adjust margin for an isolated position for a symbol
-         * @summary Adjust margin for an isolated position for a symbol
+         * Adjust margin for an isolated position on a specific market.
+         * @summary /trade/adjustIsolatedMargin
          * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8184,8 +8176,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Authorizes an account
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/authorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8220,8 +8212,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Deauthorizes an account
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/deauthorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8256,8 +8248,8 @@ export const TradeApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Updates leverage for positions of a given market, closes all open orders for that market
-         * @summary Updates leverage for positions
+         * Updates leverage for positions of a given market and closes all open orders for that market.
+         * @summary /trade/leverage
          * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8306,8 +8298,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TradeApiAxiosParamCreator(configuration)
     return {
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders for a market using order hashes
+         * Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8319,8 +8311,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders in standby for a market using order hashes
+         * Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel/standby
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8333,7 +8325,7 @@ export const TradeApiFp = function(configuration?: Configuration) {
         },
         /**
          * Retrieve details of open orders for a specific account.
-         * @summary Get Open Orders
+         * @summary /trade/openOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8346,7 +8338,7 @@ export const TradeApiFp = function(configuration?: Configuration) {
         },
         /**
          * Retrieve details of orders in standby for a specific account.
-         * @summary Get Orders in Standby
+         * @summary /trade/standbyOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8359,7 +8351,7 @@ export const TradeApiFp = function(configuration?: Configuration) {
         },
         /**
          * Submit a new order for execution.
-         * @summary Create a new order
+         * @summary /trade/orders
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8371,8 +8363,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Initiates a withdraw action to withdraw some amount of assets from a user\'s account
-         * @summary Initiate a withdraw
+         * Initiates a withdraw action to remove some amount of funds from a user\'s account.
+         * @summary /trade/withdraw
          * @param {WithdrawRequest} withdrawRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8384,8 +8376,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Adjust margin for an isolated position for a symbol
-         * @summary Adjust margin for an isolated position for a symbol
+         * Adjust margin for an isolated position on a specific market.
+         * @summary /trade/adjustIsolatedMargin
          * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8397,8 +8389,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Authorizes an account
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/authorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8410,8 +8402,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Deauthorizes an account
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/deauthorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8423,8 +8415,8 @@ export const TradeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Updates leverage for positions of a given market, closes all open orders for that market
-         * @summary Updates leverage for positions
+         * Updates leverage for positions of a given market and closes all open orders for that market.
+         * @summary /trade/leverage
          * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8446,8 +8438,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = TradeApiFp(configuration)
     return {
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders for a market using order hashes
+         * Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8456,8 +8448,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.cancelOrders(cancelOrdersRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
-         * @summary Cancel orders in standby for a market using order hashes
+         * Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+         * @summary /trade/orders/cancel/standby
          * @param {CancelOrdersRequest} cancelOrdersRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8467,7 +8459,7 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * Retrieve details of open orders for a specific account.
-         * @summary Get Open Orders
+         * @summary /trade/openOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8477,7 +8469,7 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * Retrieve details of orders in standby for a specific account.
-         * @summary Get Orders in Standby
+         * @summary /trade/standbyOrders
          * @param {string} [symbol] Filter by specific perpetual symbol (optional)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8487,7 +8479,7 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * Submit a new order for execution.
-         * @summary Create a new order
+         * @summary /trade/orders
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8496,8 +8488,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.postCreateOrder(createOrderRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Initiates a withdraw action to withdraw some amount of assets from a user\'s account
-         * @summary Initiate a withdraw
+         * Initiates a withdraw action to remove some amount of funds from a user\'s account.
+         * @summary /trade/withdraw
          * @param {WithdrawRequest} withdrawRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8506,8 +8498,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.postWithdraw(withdrawRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Adjust margin for an isolated position for a symbol
-         * @summary Adjust margin for an isolated position for a symbol
+         * Adjust margin for an isolated position on a specific market.
+         * @summary /trade/adjustIsolatedMargin
          * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8516,8 +8508,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.putAdjustIsolatedMargin(adjustIsolatedMarginRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Authorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Authorizes an account
+         * Authorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/authorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8526,8 +8518,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.putAuthorizeAccount(accountAuthorizationRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
-         * @summary Deauthorizes an account
+         * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
+         * @summary /trade/accounts/deauthorize
          * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8536,8 +8528,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.putDeauthorizeAccount(accountAuthorizationRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates leverage for positions of a given market, closes all open orders for that market
-         * @summary Updates leverage for positions
+         * Updates leverage for positions of a given market and closes all open orders for that market.
+         * @summary /trade/leverage
          * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8556,8 +8548,8 @@ export const TradeApiFactory = function (configuration?: Configuration, basePath
  */
 export class TradeApi extends BaseAPI {
     /**
-     * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
-     * @summary Cancel orders for a market using order hashes
+     * Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+     * @summary /trade/orders/cancel
      * @param {CancelOrdersRequest} cancelOrdersRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8568,8 +8560,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
-     * @summary Cancel orders in standby for a market using order hashes
+     * Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+     * @summary /trade/orders/cancel/standby
      * @param {CancelOrdersRequest} cancelOrdersRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8581,7 +8573,7 @@ export class TradeApi extends BaseAPI {
 
     /**
      * Retrieve details of open orders for a specific account.
-     * @summary Get Open Orders
+     * @summary /trade/openOrders
      * @param {string} [symbol] Filter by specific perpetual symbol (optional)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8593,7 +8585,7 @@ export class TradeApi extends BaseAPI {
 
     /**
      * Retrieve details of orders in standby for a specific account.
-     * @summary Get Orders in Standby
+     * @summary /trade/standbyOrders
      * @param {string} [symbol] Filter by specific perpetual symbol (optional)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8605,7 +8597,7 @@ export class TradeApi extends BaseAPI {
 
     /**
      * Submit a new order for execution.
-     * @summary Create a new order
+     * @summary /trade/orders
      * @param {CreateOrderRequest} createOrderRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8616,8 +8608,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * Initiates a withdraw action to withdraw some amount of assets from a user\'s account
-     * @summary Initiate a withdraw
+     * Initiates a withdraw action to remove some amount of funds from a user\'s account.
+     * @summary /trade/withdraw
      * @param {WithdrawRequest} withdrawRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8628,8 +8620,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * Adjust margin for an isolated position for a symbol
-     * @summary Adjust margin for an isolated position for a symbol
+     * Adjust margin for an isolated position on a specific market.
+     * @summary /trade/adjustIsolatedMargin
      * @param {AdjustIsolatedMarginRequest} adjustIsolatedMarginRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8640,8 +8632,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * Authorizes an account to trade, perform liquidations and more, on behalf of another account
-     * @summary Authorizes an account
+     * Authorizes an account to trade, perform liquidations and more, on behalf of another account.
+     * @summary /trade/accounts/authorize
      * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8652,8 +8644,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
-     * @summary Deauthorizes an account
+     * Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
+     * @summary /trade/accounts/deauthorize
      * @param {AccountAuthorizationRequest} accountAuthorizationRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8664,8 +8656,8 @@ export class TradeApi extends BaseAPI {
     }
 
     /**
-     * Updates leverage for positions of a given market, closes all open orders for that market
-     * @summary Updates leverage for positions
+     * Updates leverage for positions of a given market and closes all open orders for that market.
+     * @summary /trade/leverage
      * @param {AccountPositionLeverageUpdateRequest} accountPositionLeverageUpdateRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

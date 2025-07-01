@@ -122,6 +122,7 @@ No authorization required
 # **authTokenRefreshPut**
 > RefreshTokenResponse authTokenRefreshPut(refreshTokenRequest)
 
+Retrieves a new auth token for an account. Expiry is set to 5 min
 
 ### Example
 

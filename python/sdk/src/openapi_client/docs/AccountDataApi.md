@@ -4,18 +4,20 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_account_details**](AccountDataApi.md#get_account_details) | **GET** /api/v1/account | Get user&#39;s account details.
-[**get_account_funding_rate_history**](AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | Get user&#39;s funding rate history
-[**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | Get user&#39;s account preferences.
-[**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | Get user&#39;s trade history.
-[**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | Get user&#39;s transaction history (any change in balance).
-[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | Update user&#39;s account preferences. This will overwrite the preferences, so always send the full object.
+[**get_account_details**](AccountDataApi.md#get_account_details) | **GET** /api/v1/account | /account
+[**get_account_funding_rate_history**](AccountDataApi.md#get_account_funding_rate_history) | **GET** /api/v1/account/fundingRateHistory | /account/fundingRateHistory
+[**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
+[**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
+[**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+[**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 
 
 # **get_account_details**
 > Account get_account_details(account_address=account_address)
 
-Get user's account details.
+/account
+
+Retrieves the user's account details.
 
 ### Example
 
@@ -40,7 +42,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     account_address = 'account_address_example' # str | Account address to fetch account details by. (optional)
 
     try:
-        # Get user's account details.
+        # /account
         api_response = await api_instance.get_account_details(account_address=account_address)
         print("The response of AccountDataApi->get_account_details:\n")
         pprint(api_response)
@@ -85,7 +87,9 @@ No authorization required
 # **get_account_funding_rate_history**
 > AccountFundingRateHistory get_account_funding_rate_history(account_address=account_address, limit=limit, page=page)
 
-Get user's funding rate history
+/account/fundingRateHistory
+
+Retrieves the funding rate history for a specific account.
 
 ### Example
 
@@ -122,7 +126,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 1 # int | The page number to retrieve in a paginated response. (optional) (default to 1)
 
     try:
-        # Get user's funding rate history
+        # /account/fundingRateHistory
         api_response = await api_instance.get_account_funding_rate_history(account_address=account_address, limit=limit, page=page)
         print("The response of AccountDataApi->get_account_funding_rate_history:\n")
         pprint(api_response)
@@ -169,7 +173,9 @@ Name | Type | Description  | Notes
 # **get_account_preferences**
 > AccountPreference get_account_preferences()
 
-Get user's account preferences.
+/account/preferences
+
+Retrieves the user's account preferences.
 
 ### Example
 
@@ -203,7 +209,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AccountDataApi(api_client)
 
     try:
-        # Get user's account preferences.
+        # /account/preferences
         api_response = await api_instance.get_account_preferences()
         print("The response of AccountDataApi->get_account_preferences:\n")
         pprint(api_response)
@@ -245,7 +251,9 @@ This endpoint does not need any parameter.
 # **get_account_trades**
 > List[Trade] get_account_trades(symbol=symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
 
-Get user's trade history.
+/account/trades
+
+Retrieves the user's trade history.
 
 ### Example
 
@@ -286,7 +294,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
-        # Get user's trade history.
+        # /account/trades
         api_response = await api_instance.get_account_trades(symbol=symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, trade_type=trade_type, page=page)
         print("The response of AccountDataApi->get_account_trades:\n")
         pprint(api_response)
@@ -336,7 +344,9 @@ Name | Type | Description  | Notes
 # **get_account_transaction_history**
 > List[Transaction] get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
 
-Get user's transaction history (any change in balance).
+/account/transactions
+
+Retrieves the user's transaction history (any change in balance).
 
 ### Example
 
@@ -377,7 +387,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
     try:
-        # Get user's transaction history (any change in balance).
+        # /account/transactions
         api_response = await api_instance.get_account_transaction_history(types=types, asset_symbol=asset_symbol, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
         print("The response of AccountDataApi->get_account_transaction_history:\n")
         pprint(api_response)
@@ -427,6 +437,8 @@ Name | Type | Description  | Notes
 # **put_account_preferences**
 > put_account_preferences(update_account_preference_request)
 
+/account/preferences
+
 Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
 ### Example
@@ -462,7 +474,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     update_account_preference_request = openapi_client.UpdateAccountPreferenceRequest() # UpdateAccountPreferenceRequest | 
 
     try:
-        # Update user's account preferences. This will overwrite the preferences, so always send the full object.
+        # /account/preferences
         await api_instance.put_account_preferences(update_account_preference_request)
     except Exception as e:
         print("Exception when calling AccountDataApi->put_account_preferences: %s\n" % e)

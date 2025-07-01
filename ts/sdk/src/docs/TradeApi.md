@@ -4,21 +4,21 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**cancelOrders**](#cancelorders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes|
-|[**cancelStandbyOrders**](#cancelstandbyorders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes|
-|[**getOpenOrders**](#getopenorders) | **GET** /api/v1/trade/openOrders | Get Open Orders|
-|[**getStandbyOrders**](#getstandbyorders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby|
-|[**postCreateOrder**](#postcreateorder) | **POST** /api/v1/trade/orders | Create a new order|
-|[**postWithdraw**](#postwithdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw|
-|[**putAdjustIsolatedMargin**](#putadjustisolatedmargin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol|
-|[**putAuthorizeAccount**](#putauthorizeaccount) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account|
-|[**putDeauthorizeAccount**](#putdeauthorizeaccount) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account|
-|[**putLeverageUpdate**](#putleverageupdate) | **PUT** /api/v1/trade/leverage | Updates leverage for positions|
+|[**cancelOrders**](#cancelorders) | **PUT** /api/v1/trade/orders/cancel | /trade/orders/cancel|
+|[**cancelStandbyOrders**](#cancelstandbyorders) | **PUT** /api/v1/trade/orders/cancel/standby | /trade/orders/cancel/standby|
+|[**getOpenOrders**](#getopenorders) | **GET** /api/v1/trade/openOrders | /trade/openOrders|
+|[**getStandbyOrders**](#getstandbyorders) | **GET** /api/v1/trade/standbyOrders | /trade/standbyOrders|
+|[**postCreateOrder**](#postcreateorder) | **POST** /api/v1/trade/orders | /trade/orders|
+|[**postWithdraw**](#postwithdraw) | **POST** /api/v1/trade/withdraw | /trade/withdraw|
+|[**putAdjustIsolatedMargin**](#putadjustisolatedmargin) | **PUT** /api/v1/trade/adjustIsolatedMargin | /trade/adjustIsolatedMargin|
+|[**putAuthorizeAccount**](#putauthorizeaccount) | **PUT** /api/v1/trade/accounts/authorize | /trade/accounts/authorize|
+|[**putDeauthorizeAccount**](#putdeauthorizeaccount) | **PUT** /api/v1/trade/accounts/deauthorize | /trade/accounts/deauthorize|
+|[**putLeverageUpdate**](#putleverageupdate) | **PUT** /api/v1/trade/leverage | /trade/leverage|
 
 # **cancelOrders**
 > cancelOrders(cancelOrdersRequest)
 
-- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
+Cancel orders for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market  - All orders being cancelled by request will receive the same time priority. 
 
 ### Example
 
@@ -76,7 +76,7 @@ void (empty response body)
 # **cancelStandbyOrders**
 > CancelOrdersResponse cancelStandbyOrders(cancelOrdersRequest)
 
-- May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
+Cancel orders in standby for a market using order hashes. - May be a single order hash or a list of order hashes. - All orders must belong to the same account. - If no order hashes are specified, then will cancel all orders for the given market - All orders being cancelled by request will receive the same time priority. 
 
 ### Example
 
@@ -303,7 +303,7 @@ const { status, data } = await apiInstance.postCreateOrder(
 # **postWithdraw**
 > postWithdraw(withdrawRequest)
 
-Initiates a withdraw action to withdraw some amount of assets from a user\'s account
+Initiates a withdraw action to remove some amount of funds from a user\'s account.
 
 ### Example
 
@@ -362,7 +362,7 @@ void (empty response body)
 # **putAdjustIsolatedMargin**
 > putAdjustIsolatedMargin(adjustIsolatedMarginRequest)
 
-Adjust margin for an isolated position for a symbol
+Adjust margin for an isolated position on a specific market.
 
 ### Example
 
@@ -420,7 +420,7 @@ void (empty response body)
 # **putAuthorizeAccount**
 > putAuthorizeAccount(accountAuthorizationRequest)
 
-Authorizes an account to trade, perform liquidations and more, on behalf of another account
+Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Example
 
@@ -476,7 +476,7 @@ No authorization required
 # **putDeauthorizeAccount**
 > putDeauthorizeAccount(accountAuthorizationRequest)
 
-Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Example
 
@@ -532,7 +532,7 @@ No authorization required
 # **putLeverageUpdate**
 > putLeverageUpdate(accountPositionLeverageUpdateRequest)
 
-Updates leverage for positions of a given market, closes all open orders for that market
+Updates leverage for positions of a given market and closes all open orders for that market.
 
 ### Example
 

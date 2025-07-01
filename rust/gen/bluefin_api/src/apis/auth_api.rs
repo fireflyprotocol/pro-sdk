@@ -141,6 +141,7 @@ pub async fn auth_token_post(configuration: &configuration::Configuration, paylo
     }
 }
 
+/// Retrieves a new auth token for an account. Expiry is set to 5 min
 pub async fn auth_token_refresh_put(configuration: &configuration::Configuration, refresh_token_request: models::RefreshTokenRequest) -> Result<models::RefreshTokenResponse, Error<AuthTokenRefreshPutError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_refresh_token_request = refresh_token_request;

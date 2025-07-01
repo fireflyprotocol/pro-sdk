@@ -1134,7 +1134,6 @@ paths:
       tags:
         - Streams
       operationId: webSocketMarketData
-      summary: WebSocket Market Streams
       description: WebSocket Market Streams URL.
       parameters:
         - name: Upgrade
@@ -1172,7 +1171,6 @@ paths:
       tags:
         - Streams
       operationId: webSocketAccountData
-      summary: WebSocket Account Streams
       description: WebSocket Account Streams URL.
       security:
         - bearerAuth: [ ]

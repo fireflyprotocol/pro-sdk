@@ -502,7 +502,7 @@ paths:
       tags:
         - Trade
       operationId: postCreateOrder
-      summary: Create a new order
+      summary: /trade/orders
       description: Submit a new order for execution.
       requestBody:
         required: true
@@ -575,8 +575,9 @@ paths:
       tags:
         - Trade
       operationId: cancelOrders
-      summary: Cancel orders for a market using order hashes
+      summary: /trade/orders/cancel
       description: |
+        Cancel orders for a market using order hashes.
         - May be a single order hash or a list of order hashes.
         - All orders must belong to the same account.
         - If no order hashes are specified, then will cancel all orders for the given market
@@ -628,8 +629,9 @@ paths:
       tags:
         - Trade
       operationId: cancelStandbyOrders
-      summary: Cancel orders in standby for a market using order hashes
+      summary: /trade/orders/cancel/standby
       description: |
+        Cancel orders in standby for a market using order hashes.
         - May be a single order hash or a list of order hashes.
         - All orders must belong to the same account.
         - If no order hashes are specified, then will cancel all orders for the given market
@@ -687,8 +689,8 @@ paths:
       tags:
         - Trade
       operationId: putAuthorizeAccount
-      summary: Authorizes an account
-      description: Authorizes an account to trade, perform liquidations and more, on behalf of another account
+      summary: /trade/accounts/authorize
+      description: Authorizes an account to trade, perform liquidations and more, on behalf of another account.
       requestBody:
         required: true
         content:
@@ -734,8 +736,8 @@ paths:
       tags:
         - Trade
       operationId: putDeauthorizeAccount
-      summary: Deauthorizes an account
-      description: Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+      summary: /trade/accounts/deauthorize
+      description: Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
       requestBody:
         required: true
         content:
@@ -783,8 +785,8 @@ paths:
       tags:
         - Trade
       operationId: putLeverageUpdate
-      summary: Updates leverage for positions
-      description: Updates leverage for positions of a given market, closes all open orders for that market
+      summary: /trade/leverage
+      description: Updates leverage for positions of a given market and closes all open orders for that market.
       requestBody:
         required: true
         content:
@@ -844,7 +846,7 @@ paths:
       tags:
         - Trade
       operationId: getOpenOrders
-      summary: Get Open Orders
+      summary: /trade/openOrders
       description: Retrieve details of open orders for a specific account.
       parameters:
         - in: query
@@ -899,7 +901,7 @@ paths:
       tags:
         - Trade
       operationId: getStandbyOrders
-      summary: Get Orders in Standby
+      summary: /trade/standbyOrders
       description: Retrieve details of orders in standby for a specific account.
       parameters:
         - in: query
@@ -948,8 +950,8 @@ paths:
       tags:
         - Trade
       operationId: postWithdraw
-      summary: Initiate a withdraw
-      description: Initiates a withdraw action to withdraw some amount of assets from a user's account
+      summary: /trade/withdraw
+      description: Initiates a withdraw action to remove some amount of funds from a user's account.
       requestBody:
         required: true
         content:
@@ -1016,8 +1018,8 @@ paths:
       tags:
         - Trade
       operationId: putAdjustIsolatedMargin
-      summary: Adjust margin for an isolated position for a symbol
-      description: Adjust margin for an isolated position for a symbol
+      summary: /trade/adjustIsolatedMargin
+      description: Adjust margin for an isolated position on a specific market.
       requestBody:
         required: true
         content:
@@ -1069,5 +1071,3 @@ paths:
              application/json:
                schema:
                  $ref: './common.yaml#/components/schemas/Error'
-
-  

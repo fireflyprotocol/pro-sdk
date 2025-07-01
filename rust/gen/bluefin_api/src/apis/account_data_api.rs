@@ -83,6 +83,7 @@ pub enum PutAccountPreferencesError {
 }
 
 
+/// Retrieves the user's account details.
 pub async fn get_account_details(configuration: &configuration::Configuration, account_address: Option<&str>) -> Result<models::Account, Error<GetAccountDetailsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_address = account_address;
@@ -122,6 +123,7 @@ pub async fn get_account_details(configuration: &configuration::Configuration, a
     }
 }
 
+/// Retrieves the funding rate history for a specific account.
 pub async fn get_account_funding_rate_history(configuration: &configuration::Configuration, account_address: Option<&str>, limit: Option<u32>, page: Option<u32>) -> Result<models::AccountFundingRateHistory, Error<GetAccountFundingRateHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_address = account_address;
@@ -172,6 +174,7 @@ pub async fn get_account_funding_rate_history(configuration: &configuration::Con
     }
 }
 
+/// Retrieves the user's account preferences.
 pub async fn get_account_preferences(configuration: &configuration::Configuration, ) -> Result<models::AccountPreference, Error<GetAccountPreferencesError>> {
 
     let uri_str = format!("{}/api/v1/account/preferences", configuration.base_path);
@@ -209,6 +212,7 @@ pub async fn get_account_preferences(configuration: &configuration::Configuratio
     }
 }
 
+/// Retrieves the user's trade history.
 pub async fn get_account_trades(configuration: &configuration::Configuration, symbol: Option<&str>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, trade_type: Option<models::TradeType>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetAccountTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
@@ -271,6 +275,7 @@ pub async fn get_account_trades(configuration: &configuration::Configuration, sy
     }
 }
 
+/// Retrieves the user's transaction history (any change in balance).
 pub async fn get_account_transaction_history(configuration: &configuration::Configuration, types: Option<Vec<models::TransactionType>>, asset_symbol: Option<&str>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<models::Transaction>, Error<GetAccountTransactionHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_types = types;
@@ -336,6 +341,7 @@ pub async fn get_account_transaction_history(configuration: &configuration::Conf
     }
 }
 
+/// Update user's account preferences. This will overwrite the preferences, so always send the full object.
 pub async fn put_account_preferences(configuration: &configuration::Configuration, update_account_preference_request: models::UpdateAccountPreferenceRequest) -> Result<(), Error<PutAccountPreferencesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_update_account_preference_request = update_account_preference_request;
