@@ -149,7 +149,7 @@ pub enum UpdateAffiliateFeeConfigError {
 }
 
 
-/// Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+/// Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 pub async fn get_affiliate_interval_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>) -> Result<models::GetAffiliateIntervalOverview200Response, Error<GetAffiliateIntervalOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
@@ -195,7 +195,7 @@ pub async fn get_affiliate_interval_overview(configuration: &configuration::Conf
     }
 }
 
-/// Returns rankings and earnings for affiliates, sorted by the specified category
+/// Returns rankings and earnings for affiliates, sorted by the specified category.
 pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Configuration, sort_by: Option<&str>, sort_order: Option<&str>, page: Option<u32>, limit: Option<u32>, search: Option<&str>) -> Result<models::GetAffiliateLeaderDashboard200Response, Error<GetAffiliateLeaderDashboardError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_sort_by = sort_by;
@@ -251,7 +251,7 @@ pub async fn get_affiliate_leader_dashboard(configuration: &configuration::Confi
     }
 }
 
-/// Returns the affiliate metadata
+/// Returns the affiliate metadata.
 pub async fn get_affiliate_metadata(configuration: &configuration::Configuration, user_address: &str) -> Result<models::AffiliateMetadata, Error<GetAffiliateMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
@@ -289,7 +289,7 @@ pub async fn get_affiliate_metadata(configuration: &configuration::Configuration
     }
 }
 
-/// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+/// Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 pub async fn get_affiliate_overview(configuration: &configuration::Configuration, user_address: &str, page: Option<u32>, limit: Option<u32>, sort_by: Option<&str>, sort_order: Option<&str>, search: Option<&str>, min_earnings_e9: Option<&str>) -> Result<models::GetAffiliateOverview200Response, Error<GetAffiliateOverviewError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
@@ -351,7 +351,7 @@ pub async fn get_affiliate_overview(configuration: &configuration::Configuration
     }
 }
 
-/// Returns performance summary for an affiliate including total referrals, earnings, and rankings
+/// Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 pub async fn get_affiliate_summary(configuration: &configuration::Configuration, user_address: &str) -> Result<models::AffiliateSummary, Error<GetAffiliateSummaryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_user_address = user_address;
@@ -389,7 +389,7 @@ pub async fn get_affiliate_summary(configuration: &configuration::Configuration,
     }
 }
 
-/// Returns the rewards earned by users for a specific campaign
+/// Returns the rewards earned by users for a specific campaign.
 pub async fn get_campaign_rewards(configuration: &configuration::Configuration, campaign_name: &str, user_address: &str, epoch_number: Option<i32>) -> Result<Vec<models::UserCampaignRewards>, Error<GetCampaignRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
@@ -433,7 +433,7 @@ pub async fn get_campaign_rewards(configuration: &configuration::Configuration, 
     }
 }
 
-/// Returns the rewards earned by users for the intervals .
+/// Returns the rewards earned by users for the intervals.
 pub async fn get_rewards(configuration: &configuration::Configuration, interval_number: Option<i32>) -> Result<Vec<models::IntervalRewards>, Error<GetRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval_number = interval_number;
@@ -520,7 +520,7 @@ pub async fn get_rewards_campaign_metadata(configuration: &configuration::Config
     }
 }
 
-/// Returns the latest epoch configs for the campaigns
+/// Returns the latest epoch configs for the campaigns.
 pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, ) -> Result<Vec<models::EpochConfigs>, Error<GetRewardsEpochConfigMetadataError>> {
 
     let uri_str = format!("{}/v1/rewards/metadata/epoch/configs", configuration.base_path);
@@ -555,7 +555,7 @@ pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Co
     }
 }
 
-/// Returns the latest or next epocht epoch for campaign.
+/// Returns the latest or next epoch epoch for campaign.
 pub async fn get_rewards_epoch_metadata(configuration: &configuration::Configuration, campaign_name: Option<&str>, epoch: Option<&str>) -> Result<Vec<models::EpochMetadata>, Error<GetRewardsEpochMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_campaign_name = campaign_name;
@@ -599,7 +599,7 @@ pub async fn get_rewards_epoch_metadata(configuration: &configuration::Configura
     }
 }
 
-/// Returns the interval metadata for provided parameters
+/// Returns the interval metadata for provided parameters.
 pub async fn get_rewards_interval_metadata(configuration: &configuration::Configuration, interval: Option<i32>) -> Result<Vec<models::IntervalMetadata>, Error<GetRewardsIntervalMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval = interval;
@@ -677,7 +677,7 @@ pub async fn get_rewards_summary(configuration: &configuration::Configuration, )
     }
 }
 
-/// Submit an application to become an affiliate
+/// Submit an application to become an affiliate.
 pub async fn onboard_affiliate(configuration: &configuration::Configuration, onboard_affiliate_request: models::OnboardAffiliateRequest) -> Result<models::AffiliateOnboardResponse, Error<OnboardAffiliateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_onboard_affiliate_request = onboard_affiliate_request;
@@ -718,7 +718,7 @@ pub async fn onboard_affiliate(configuration: &configuration::Configuration, onb
     }
 }
 
-/// Onboard a referee with a referral code
+/// Onboard a referee with a referral code.
 pub async fn onboard_referee(configuration: &configuration::Configuration, onboard_referee_request: models::OnboardRefereeRequest) -> Result<models::RefereeOnboardResponse, Error<OnboardRefereeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_onboard_referee_request = onboard_referee_request;
@@ -759,7 +759,7 @@ pub async fn onboard_referee(configuration: &configuration::Configuration, onboa
     }
 }
 
-/// Update the fee config for an affiliate
+/// Update the fee config for an affiliate.
 pub async fn update_affiliate_fee_config(configuration: &configuration::Configuration, update_affiliate_fee_config_request: models::UpdateAffiliateFeeConfigRequest) -> Result<models::AffiliateMetadata, Error<UpdateAffiliateFeeConfigError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_update_affiliate_fee_config_request = update_affiliate_fee_config_request;

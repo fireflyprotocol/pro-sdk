@@ -4,30 +4,30 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_affiliate_interval_overview**](RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
-[**get_affiliate_leader_dashboard**](RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
-[**get_affiliate_metadata**](RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
-[**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview
-[**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary
-[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
-[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
-[**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
-[**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
-[**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
+[**get_affiliate_interval_overview**](RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
+[**get_affiliate_leader_dashboard**](RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
+[**get_affiliate_metadata**](RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate
+[**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
+[**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
+[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
+[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
+[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
+[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
+[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
+[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
+[**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+[**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 
 
 
 ## get_affiliate_interval_overview
 
 > models::GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page, limit)
-Get affiliate earnings overview by interval
+/rewards/affiliate/intervalOverview
 
-Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
 ### Parameters
 
@@ -57,9 +57,9 @@ No authorization required
 ## get_affiliate_leader_dashboard
 
 > models::GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by, sort_order, page, limit, search)
-Get affiliate rankings and earnings
+/rewards/affiliate/leaderDashboard
 
-Returns rankings and earnings for affiliates, sorted by the specified category
+Returns rankings and earnings for affiliates, sorted by the specified category.
 
 ### Parameters
 
@@ -91,9 +91,9 @@ No authorization required
 ## get_affiliate_metadata
 
 > models::AffiliateMetadata get_affiliate_metadata(user_address)
-Get affiliate metadata
+/rewards/affiliate
 
-Returns the affiliate metadata
+Returns the affiliate metadata.
 
 ### Parameters
 
@@ -121,9 +121,9 @@ No authorization required
 ## get_affiliate_overview
 
 > models::GetAffiliateOverview200Response get_affiliate_overview(user_address, page, limit, sort_by, sort_order, search, min_earnings_e9)
-Get detailed affiliate earnings overview
+/rewards/affiliate/overview
 
-Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
 ### Parameters
 
@@ -157,9 +157,9 @@ No authorization required
 ## get_affiliate_summary
 
 > models::AffiliateSummary get_affiliate_summary(user_address)
-Get affiliate performance summary
+/rewards/affiliate/summary
 
-Returns performance summary for an affiliate including total referrals, earnings, and rankings
+Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
 ### Parameters
 
@@ -187,9 +187,9 @@ No authorization required
 ## get_campaign_rewards
 
 > Vec<models::UserCampaignRewards> get_campaign_rewards(campaign_name, user_address, epoch_number)
-Get rewards information for a specific campaign
+/rewards/campaign
 
-Returns the rewards earned by users for a specific campaign
+Returns the rewards earned by users for a specific campaign.
 
 ### Parameters
 
@@ -219,9 +219,9 @@ No authorization required
 ## get_rewards
 
 > Vec<models::IntervalRewards> get_rewards(interval_number)
-Get rewards information for the intervals
+/rewards
 
-Returns the rewards earned by users for the intervals .
+Returns the rewards earned by users for the intervals.
 
 ### Parameters
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Required | Notes
 ## get_rewards_campaign_metadata
 
 > Vec<models::CampaignMetadata> get_rewards_campaign_metadata(campaign_name, status)
-Get rewards metadata for the campaigns
+/rewards/metadata/campaign
 
 Returns the metadata for the rewards campaigns.
 
@@ -280,9 +280,9 @@ No authorization required
 ## get_rewards_epoch_config_metadata
 
 > Vec<models::EpochConfigs> get_rewards_epoch_config_metadata()
-Gets the latest epoch configs for the campaigns
+/rewards/metadata/epoch/configs
 
-Returns the latest epoch configs for the campaigns
+Returns the latest epoch configs for the campaigns.
 
 ### Parameters
 
@@ -307,9 +307,9 @@ No authorization required
 ## get_rewards_epoch_metadata
 
 > Vec<models::EpochMetadata> get_rewards_epoch_metadata(campaign_name, epoch)
-Gets the latest or next epoch for campaign.
+/rewards/metadata/epoch
 
-Returns the latest or next epocht epoch for campaign.
+Returns the latest or next epoch epoch for campaign.
 
 ### Parameters
 
@@ -338,9 +338,9 @@ No authorization required
 ## get_rewards_interval_metadata
 
 > Vec<models::IntervalMetadata> get_rewards_interval_metadata(interval)
-Gets the interval metadata for provided parameters
+/rewards/metadata/interval
 
-Returns the interval metadata for provided parameters
+Returns the interval metadata for provided parameters.
 
 ### Parameters
 
@@ -368,7 +368,7 @@ No authorization required
 ## get_rewards_summary
 
 > Vec<models::RewardsSummary> get_rewards_summary()
-Get rewards information for all time rewards earned
+/rewards/summary
 
 Returns the all time rewards earned by users.
 
@@ -395,9 +395,9 @@ This endpoint does not need any parameter.
 ## onboard_affiliate
 
 > models::AffiliateOnboardResponse onboard_affiliate(onboard_affiliate_request)
-Submit affiliate onboarding application
+/rewards/affiliate/onboard
 
-Submit an application to become an affiliate
+Submit an application to become an affiliate.
 
 ### Parameters
 
@@ -425,9 +425,9 @@ Name | Type | Description  | Required | Notes
 ## onboard_referee
 
 > models::RefereeOnboardResponse onboard_referee(onboard_referee_request)
-Onboard referee with a referral code
+/rewards/affiliate/onboard/referee
 
-Onboard a referee with a referral code
+Onboard a referee with a referral code.
 
 ### Parameters
 
@@ -455,9 +455,9 @@ Name | Type | Description  | Required | Notes
 ## update_affiliate_fee_config
 
 > models::AffiliateMetadata update_affiliate_fee_config(update_affiliate_fee_config_request)
-Update affiliate fee config
+/rewards/affiliate/feeConfig
 
-Update the fee config for an affiliate
+Update the fee config for an affiliate.
 
 ### Parameters
 
