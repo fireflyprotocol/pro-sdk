@@ -25,6 +25,7 @@
     "@types/ws": "^8.5.13",
     "axios": "^1.6.1",
     "isomorphic-ws": "^5.0.0",
+    "ts-node": "^10.9.2",
     "ws": "^8.18.0"
   },
   "devDependencies": {
