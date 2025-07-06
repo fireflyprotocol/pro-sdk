@@ -23,7 +23,7 @@ echo "Installing tools..."
 cargo install --path /workspace/tools
 
 echo "Installing Node.js dependencies..."
-npm install ts-node
+cd /workspace/ts/sdk && npm install
 
 echo "Installing Python dependencies..."
 pipx install poetry
