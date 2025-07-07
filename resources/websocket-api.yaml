@@ -204,7 +204,6 @@ components:
             - $ref: '#/components/schemas/AccountTransactionUpdate'
             - $ref: '#/components/schemas/AccountPositionUpdate'
             - $ref: '#/components/schemas/AccountCommandFailureUpdate'
-
       required:
         - event
         - reason
@@ -267,6 +266,8 @@ components:
         - ACCOUNT_NOT_LIQUIDATABLE
         - ORDER_NOT_REDUCING_POSITION
         - USER_CANCELLED_ALL_STANDBY_ON_MARKET
+        - POSITION_EXCEEDS_MAX_OPEN_INTEREST
+        - ACCOUNT_DEAUTHORIZED
 
     OrderCancellationFailureReason:
       type: string
@@ -640,7 +641,13 @@ components:
           type: array
           items:
             type: string
-          description: The accounts that are authorized to trade on behalf of the current account.
+          description: "Deprecated: Replaced with authorizedWallets."
+          deprecated: true
+        authorizedWallets:
+          description: The wallets that are authorized to trade on behalf of the current account.
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizedWallet'
       required:
         - canTrade
         - canDeposit
@@ -661,6 +668,24 @@ components:
         - updatedAtMillis
         - assets
         - authorizedAccounts
+        - authorizedWallets
+
+    AuthorizedWallet:
+      type: object
+      required:
+        - address
+        - authorizedAtMillis
+      properties:
+        address:
+          type: string
+          description: The address of the authorized wallet.
+        alias:
+          type: string
+          description: The alias of the authorized wallet.
+        authorizedAtMillis:
+          type: integer
+          format: int64
+          description: The timestamp in milliseconds when the wallet was authorized.
         
     AccountTradeUpdate:
       type: object

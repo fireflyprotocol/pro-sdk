@@ -58,6 +58,10 @@ The reason for an order cancellation.
 
 * `USER_CANCELLED_ALL_STANDBY_ON_MARKET` (value: `'USER_CANCELLED_ALL_STANDBY_ON_MARKET'`)
 
+* `POSITION_EXCEEDS_MAX_OPEN_INTEREST` (value: `'POSITION_EXCEEDS_MAX_OPEN_INTEREST'`)
+
+* `ACCOUNT_DEAUTHORIZED` (value: `'ACCOUNT_DEAUTHORIZED'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

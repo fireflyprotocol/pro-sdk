@@ -850,11 +850,18 @@ export interface AccountUpdate {
      */
     'assets': Array<Asset>;
     /**
-     * The accounts that are authorized to trade on behalf of the current account.
+     * Deprecated: Replaced with authorizedWallets.
      * @type {Array<string>}
      * @memberof AccountUpdate
+     * @deprecated
      */
     'authorizedAccounts': Array<string>;
+    /**
+     * The wallets that are authorized to trade on behalf of the current account.
+     * @type {Array<AuthorizedWallet>}
+     * @memberof AccountUpdate
+     */
+    'authorizedWallets': Array<AuthorizedWallet>;
 }
 /**
  * Information about an order update.
@@ -3326,7 +3333,9 @@ export const OrderCancelReason = {
     LiquidationOutOfOrder: 'LIQUIDATION_OUT_OF_ORDER',
     AccountNotLiquidatable: 'ACCOUNT_NOT_LIQUIDATABLE',
     OrderNotReducingPosition: 'ORDER_NOT_REDUCING_POSITION',
-    UserCancelledAllStandbyOnMarket: 'USER_CANCELLED_ALL_STANDBY_ON_MARKET'
+    UserCancelledAllStandbyOnMarket: 'USER_CANCELLED_ALL_STANDBY_ON_MARKET',
+    PositionExceedsMaxOpenInterest: 'POSITION_EXCEEDS_MAX_OPEN_INTEREST',
+    AccountDeauthorized: 'ACCOUNT_DEAUTHORIZED'
 } as const;
 
 export type OrderCancelReason = typeof OrderCancelReason[keyof typeof OrderCancelReason];

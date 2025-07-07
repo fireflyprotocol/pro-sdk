@@ -25,7 +25,8 @@ Name | Type | Description | Notes
 **total_account_value_e9** | **str** | The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position.  | 
 **updated_at_millis** | **int** | The last update time for the position in milliseconds. | 
 **assets** | [**List[Asset]**](Asset.md) |  | 
-**authorized_accounts** | **List[str]** | The accounts that are authorized to trade on behalf of the current account. | 
+**authorized_accounts** | **List[str]** | Deprecated: Replaced with authorizedWallets. | 
+**authorized_wallets** | [**List[AuthorizedWallet]**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | 
 **trade** | [**Trade**](Trade.md) |  | 
 **order_hash** | **str** | The unique hash of the order. | 
 **client_order_id** | **str** | The client-provided order ID. | [optional] 

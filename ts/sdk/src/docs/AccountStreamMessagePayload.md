@@ -25,7 +25,8 @@ Name | Type | Description | Notes
 **totalAccountValueE9** | **string** | The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position.  | [default to undefined]
 **updatedAtMillis** | **number** | The last update time for the position in milliseconds. | [default to undefined]
 **assets** | [**Array&lt;Asset&gt;**](Asset.md) |  | [default to undefined]
-**authorizedAccounts** | **Array&lt;string&gt;** | The accounts that are authorized to trade on behalf of the current account. | [default to undefined]
+**authorizedAccounts** | **Array&lt;string&gt;** | Deprecated: Replaced with authorizedWallets. | [default to undefined]
+**authorizedWallets** | [**Array&lt;AuthorizedWallet&gt;**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | [default to undefined]
 **trade** | [**Trade**](Trade.md) |  | [default to undefined]
 **orderHash** | **string** | The unique hash of the order. | [default to undefined]
 **clientOrderId** | **string** | The client-provided order ID. | [optional] [default to undefined]
@@ -99,6 +100,7 @@ const instance: AccountStreamMessagePayload = {
     updatedAtMillis,
     assets,
     authorizedAccounts,
+    authorizedWallets,
     trade,
     orderHash,
     clientOrderId,
