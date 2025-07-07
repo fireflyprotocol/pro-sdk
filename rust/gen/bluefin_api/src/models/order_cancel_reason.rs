@@ -69,6 +69,10 @@ pub enum OrderCancelReason {
     OrderNotReducingPosition,
     #[serde(rename = "USER_CANCELLED_ALL_STANDBY_ON_MARKET")]
     UserCancelledAllStandbyOnMarket,
+    #[serde(rename = "POSITION_EXCEEDS_MAX_OPEN_INTEREST")]
+    PositionExceedsMaxOpenInterest,
+    #[serde(rename = "ACCOUNT_DEAUTHORIZED")]
+    AccountDeauthorized,
 
 }
 
@@ -102,6 +106,8 @@ impl std::fmt::Display for OrderCancelReason {
             Self::AccountNotLiquidatable => write!(f, "ACCOUNT_NOT_LIQUIDATABLE"),
             Self::OrderNotReducingPosition => write!(f, "ORDER_NOT_REDUCING_POSITION"),
             Self::UserCancelledAllStandbyOnMarket => write!(f, "USER_CANCELLED_ALL_STANDBY_ON_MARKET"),
+            Self::PositionExceedsMaxOpenInterest => write!(f, "POSITION_EXCEEDS_MAX_OPEN_INTEREST"),
+            Self::AccountDeauthorized => write!(f, "ACCOUNT_DEAUTHORIZED"),
         }
     }
 }

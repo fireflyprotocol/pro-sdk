@@ -23,7 +23,8 @@ Name | Type | Description | Notes
 **total_account_value_e9** | **String** | The total value of the account, combining the total effective balance and unrealized PnL across all positions, and subtracting any pending funding payments on any position.  | 
 **updated_at_millis** | **i64** | Last update time in milliseconds since Unix epoch. | 
 **assets** | [**Vec<models::Asset>**](Asset.md) |  | 
-**authorized_accounts** | **Vec<String>** | The accounts that are authorized to trade on behalf of the current account. | 
+**authorized_accounts** | **Vec<String>** | Deprecated: Replaced with authorizedWallets. | 
+**authorized_wallets** | [**Vec<models::AuthorizedWallet>**](AuthorizedWallet.md) | The wallets that are authorized to trade on behalf of the current account. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

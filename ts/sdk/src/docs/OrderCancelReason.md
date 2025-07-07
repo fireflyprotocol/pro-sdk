@@ -58,4 +58,8 @@ The reason for an order cancellation.
 
 * `UserCancelledAllStandbyOnMarket` (value: `'USER_CANCELLED_ALL_STANDBY_ON_MARKET'`)
 
+* `PositionExceedsMaxOpenInterest` (value: `'POSITION_EXCEEDS_MAX_OPEN_INTEREST'`)
+
+* `AccountDeauthorized` (value: `'ACCOUNT_DEAUTHORIZED'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -69,14 +69,17 @@ pub struct AccountUpdate {
     pub updated_at_millis: i64,
     #[serde(rename = "assets")]
     pub assets: Vec<models::Asset>,
-    /// The accounts that are authorized to trade on behalf of the current account.
+    /// Deprecated: Replaced with authorizedWallets.
     #[serde(rename = "authorizedAccounts")]
     pub authorized_accounts: Vec<String>,
+    /// The wallets that are authorized to trade on behalf of the current account.
+    #[serde(rename = "authorizedWallets")]
+    pub authorized_wallets: Vec<models::AuthorizedWallet>,
 }
 
 impl AccountUpdate {
     /// Account information for the data stream.
-    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, authorized_accounts: Vec<String>) -> AccountUpdate {
+    pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, authorized_accounts: Vec<String>, authorized_wallets: Vec<models::AuthorizedWallet>) -> AccountUpdate {
         AccountUpdate {
             trading_fees: None,
             can_trade,
@@ -98,6 +101,7 @@ impl AccountUpdate {
             updated_at_millis,
             assets,
             authorized_accounts,
+            authorized_wallets,
         }
     }
 }
