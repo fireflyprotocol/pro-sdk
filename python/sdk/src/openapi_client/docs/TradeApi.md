@@ -313,7 +313,7 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.TradeApi(api_client)
-    symbol = 'ETHc  -PERP' # str | Filter by specific perpetual symbol (optional) (optional)
+    symbol = 'ETH-PERP' # str | Filter by specific perpetual symbol (optional) (optional)
 
     try:
         # /trade/standbyOrders
