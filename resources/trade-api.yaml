@@ -909,7 +909,7 @@ paths:
           schema:
             type: string
           description: Filter by specific perpetual symbol (optional)
-          example: "ETHc  -PERP"
+          example: "ETH-PERP"
       responses:
         '200':
           description: Orders in standby retrieved successfully.
