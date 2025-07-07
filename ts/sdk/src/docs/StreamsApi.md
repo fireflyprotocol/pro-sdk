@@ -4,8 +4,8 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**webSocketAccountData**](#websocketaccountdata) | **GET** /ws/account | WebSocket Account Streams|
-|[**webSocketMarketData**](#websocketmarketdata) | **GET** /ws/market | WebSocket Market Streams|
+|[**webSocketAccountData**](#websocketaccountdata) | **GET** /ws/account | |
+|[**webSocketMarketData**](#websocketmarketdata) | **GET** /ws/market | |
 
 # **webSocketAccountData**
 > webSocketAccountData()

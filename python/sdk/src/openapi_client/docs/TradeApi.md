@@ -4,23 +4,24 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | Cancel orders for a market using order hashes
-[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | Cancel orders in standby for a market using order hashes
-[**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | Get Open Orders
-[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | Get Orders in Standby
-[**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | Create a new order
-[**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | Initiate a withdraw
-[**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | Adjust margin for an isolated position for a symbol
-[**put_authorize_account**](TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | Authorizes an account
-[**put_deauthorize_account**](TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | Deauthorizes an account
-[**put_leverage_update**](TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | Updates leverage for positions
+[**cancel_orders**](TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | /trade/orders/cancel
+[**cancel_standby_orders**](TradeApi.md#cancel_standby_orders) | **PUT** /api/v1/trade/orders/cancel/standby | /trade/orders/cancel/standby
+[**get_open_orders**](TradeApi.md#get_open_orders) | **GET** /api/v1/trade/openOrders | /trade/openOrders
+[**get_standby_orders**](TradeApi.md#get_standby_orders) | **GET** /api/v1/trade/standbyOrders | /trade/standbyOrders
+[**post_create_order**](TradeApi.md#post_create_order) | **POST** /api/v1/trade/orders | /trade/orders
+[**post_withdraw**](TradeApi.md#post_withdraw) | **POST** /api/v1/trade/withdraw | /trade/withdraw
+[**put_adjust_isolated_margin**](TradeApi.md#put_adjust_isolated_margin) | **PUT** /api/v1/trade/adjustIsolatedMargin | /trade/adjustIsolatedMargin
+[**put_authorize_account**](TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | /trade/accounts/authorize
+[**put_deauthorize_account**](TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | /trade/accounts/deauthorize
+[**put_leverage_update**](TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | /trade/leverage
 
 
 # **cancel_orders**
 > cancel_orders(cancel_orders_request)
 
-Cancel orders for a market using order hashes
+/trade/orders/cancel
 
+Cancel orders for a market using order hashes.
 - May be a single order hash or a list of order hashes.
 - All orders must belong to the same account.
 - If no order hashes are specified, then will cancel all orders for the given market
@@ -61,7 +62,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     cancel_orders_request = openapi_client.CancelOrdersRequest() # CancelOrdersRequest | 
 
     try:
-        # Cancel orders for a market using order hashes
+        # /trade/orders/cancel
         await api_instance.cancel_orders(cancel_orders_request)
     except Exception as e:
         print("Exception when calling TradeApi->cancel_orders: %s\n" % e)
@@ -106,8 +107,9 @@ void (empty response body)
 # **cancel_standby_orders**
 > CancelOrdersResponse cancel_standby_orders(cancel_orders_request)
 
-Cancel orders in standby for a market using order hashes
+/trade/orders/cancel/standby
 
+Cancel orders in standby for a market using order hashes.
 - May be a single order hash or a list of order hashes.
 - All orders must belong to the same account.
 - If no order hashes are specified, then will cancel all orders for the given market
@@ -148,7 +150,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     cancel_orders_request = openapi_client.CancelOrdersRequest() # CancelOrdersRequest | 
 
     try:
-        # Cancel orders in standby for a market using order hashes
+        # /trade/orders/cancel/standby
         api_response = await api_instance.cancel_standby_orders(cancel_orders_request)
         print("The response of TradeApi->cancel_standby_orders:\n")
         pprint(api_response)
@@ -195,7 +197,7 @@ Name | Type | Description  | Notes
 # **get_open_orders**
 > List[OpenOrderResponse] get_open_orders(symbol=symbol)
 
-Get Open Orders
+/trade/openOrders
 
 Retrieve details of open orders for a specific account.
 
@@ -232,7 +234,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     symbol = 'ETH-PERP' # str | Filter by specific perpetual symbol (optional) (optional)
 
     try:
-        # Get Open Orders
+        # /trade/openOrders
         api_response = await api_instance.get_open_orders(symbol=symbol)
         print("The response of TradeApi->get_open_orders:\n")
         pprint(api_response)
@@ -277,7 +279,7 @@ Name | Type | Description  | Notes
 # **get_standby_orders**
 > List[OpenOrderResponse] get_standby_orders(symbol=symbol)
 
-Get Orders in Standby
+/trade/standbyOrders
 
 Retrieve details of orders in standby for a specific account.
 
@@ -314,7 +316,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     symbol = 'ETHc  -PERP' # str | Filter by specific perpetual symbol (optional) (optional)
 
     try:
-        # Get Orders in Standby
+        # /trade/standbyOrders
         api_response = await api_instance.get_standby_orders(symbol=symbol)
         print("The response of TradeApi->get_standby_orders:\n")
         pprint(api_response)
@@ -358,7 +360,7 @@ Name | Type | Description  | Notes
 # **post_create_order**
 > CreateOrderResponse post_create_order(create_order_request)
 
-Create a new order
+/trade/orders
 
 Submit a new order for execution.
 
@@ -396,7 +398,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     create_order_request = openapi_client.CreateOrderRequest() # CreateOrderRequest | 
 
     try:
-        # Create a new order
+        # /trade/orders
         api_response = await api_instance.post_create_order(create_order_request)
         print("The response of TradeApi->post_create_order:\n")
         pprint(api_response)
@@ -445,9 +447,9 @@ Name | Type | Description  | Notes
 # **post_withdraw**
 > post_withdraw(withdraw_request)
 
-Initiate a withdraw
+/trade/withdraw
 
-Initiates a withdraw action to withdraw some amount of assets from a user's account
+Initiates a withdraw action to remove some amount of funds from a user's account.
 
 ### Example
 
@@ -482,7 +484,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     withdraw_request = openapi_client.WithdrawRequest() # WithdrawRequest | 
 
     try:
-        # Initiate a withdraw
+        # /trade/withdraw
         await api_instance.post_withdraw(withdraw_request)
     except Exception as e:
         print("Exception when calling TradeApi->post_withdraw: %s\n" % e)
@@ -528,9 +530,9 @@ void (empty response body)
 # **put_adjust_isolated_margin**
 > put_adjust_isolated_margin(adjust_isolated_margin_request)
 
-Adjust margin for an isolated position for a symbol
+/trade/adjustIsolatedMargin
 
-Adjust margin for an isolated position for a symbol
+Adjust margin for an isolated position on a specific market.
 
 ### Example
 
@@ -565,7 +567,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     adjust_isolated_margin_request = openapi_client.AdjustIsolatedMarginRequest() # AdjustIsolatedMarginRequest | 
 
     try:
-        # Adjust margin for an isolated position for a symbol
+        # /trade/adjustIsolatedMargin
         await api_instance.put_adjust_isolated_margin(adjust_isolated_margin_request)
     except Exception as e:
         print("Exception when calling TradeApi->put_adjust_isolated_margin: %s\n" % e)
@@ -610,9 +612,9 @@ void (empty response body)
 # **put_authorize_account**
 > put_authorize_account(account_authorization_request)
 
-Authorizes an account
+/trade/accounts/authorize
 
-Authorizes an account to trade, perform liquidations and more, on behalf of another account
+Authorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Example
 
@@ -637,7 +639,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     account_authorization_request = openapi_client.AccountAuthorizationRequest() # AccountAuthorizationRequest | 
 
     try:
-        # Authorizes an account
+        # /trade/accounts/authorize
         await api_instance.put_authorize_account(account_authorization_request)
     except Exception as e:
         print("Exception when calling TradeApi->put_authorize_account: %s\n" % e)
@@ -680,9 +682,9 @@ No authorization required
 # **put_deauthorize_account**
 > put_deauthorize_account(account_authorization_request)
 
-Deauthorizes an account
+/trade/accounts/deauthorize
 
-Deauthorizes an account to trade, perform liquidations and more, on behalf of another account
+Deauthorizes an account to trade, perform liquidations and more, on behalf of another account.
 
 ### Example
 
@@ -707,7 +709,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     account_authorization_request = openapi_client.AccountAuthorizationRequest() # AccountAuthorizationRequest | 
 
     try:
-        # Deauthorizes an account
+        # /trade/accounts/deauthorize
         await api_instance.put_deauthorize_account(account_authorization_request)
     except Exception as e:
         print("Exception when calling TradeApi->put_deauthorize_account: %s\n" % e)
@@ -750,9 +752,9 @@ No authorization required
 # **put_leverage_update**
 > put_leverage_update(account_position_leverage_update_request)
 
-Updates leverage for positions
+/trade/leverage
 
-Updates leverage for positions of a given market, closes all open orders for that market
+Updates leverage for positions of a given market and closes all open orders for that market.
 
 ### Example
 
@@ -787,7 +789,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     account_position_leverage_update_request = openapi_client.AccountPositionLeverageUpdateRequest() # AccountPositionLeverageUpdateRequest | 
 
     try:
-        # Updates leverage for positions
+        # /trade/leverage
         await api_instance.put_leverage_update(account_position_leverage_update_request)
     except Exception as e:
         print("Exception when calling TradeApi->put_leverage_update: %s\n" % e)

@@ -688,7 +688,7 @@ paths:
       tags:
         - Exchange
       operationId: getExchangeInfo
-      summary: Get exchange information
+      summary: /exchange/info
       description: Returns the current exchange information including available margin assets, markets, and rules.
       responses:
         "200":
@@ -703,7 +703,8 @@ paths:
       tags:
         - Exchange
       operationId: getOrderbookDepth
-      summary: Orderbook depth
+      summary: /exchange/depth
+      description: Returns the current state of the orderbook.
       parameters:
         - name: symbol
           in: query
@@ -735,7 +736,8 @@ paths:
       tags:
         - Exchange
       operationId: getRecentTrades
-      summary: Recent trades list
+      summary: /exchange/trades
+      description: Retrieves recent trades executed on a market.
       parameters:
         - name: symbol
           in: query
@@ -802,7 +804,8 @@ paths:
       tags:
         - Exchange
       operationId: getCandlestickData
-      summary: Kline/candlestick data.
+      summary: /exchange/candlesticks
+      description: Retrieves candle stick data for a market.
       parameters:
         - name: symbol
           in: query
@@ -872,7 +875,8 @@ paths:
       tags:
         - Exchange
       operationId: getMarketTicker
-      summary: Aggregated market ticker information
+      summary: /exchange/ticker
+      description: Retrieves aggregated ticker data for a market.
       parameters:
         - name: symbol
           in: query
@@ -899,7 +903,8 @@ paths:
       tags:
         - Exchange
       operationId: getAllMarketTicker
-      summary: Get all market ticker information
+      summary: /exchange/tickers
+      description: Retrieves all market ticker information.
       responses:
         "200":
           description: OK
@@ -914,9 +919,9 @@ paths:
     get:
       tags:
         - Exchange
-      summary: Get funding rate history
-      description: Retrieve the funding rate history for a specific market address.
       operationId: getFundingRateHistory
+      summary: /exchange/fundingRateHistory
+      description: Retrieve the funding rate history for a specific market address.
       parameters:
         - name: symbol
           in: query

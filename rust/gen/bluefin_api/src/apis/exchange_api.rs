@@ -66,6 +66,7 @@ pub enum GetRecentTradesError {
 }
 
 
+/// Retrieves all market ticker information.
 pub async fn get_all_market_ticker(configuration: &configuration::Configuration, ) -> Result<Vec<models::TickerResponse>, Error<GetAllMarketTickerError>> {
 
     let uri_str = format!("{}/v1/exchange/tickers", configuration.base_path);
@@ -100,6 +101,7 @@ pub async fn get_all_market_ticker(configuration: &configuration::Configuration,
     }
 }
 
+/// Retrieves candle stick data for a market.
 pub async fn get_candlestick_data(configuration: &configuration::Configuration, symbol: &str, interval: models::KlineInterval, r#type: models::CandlePriceType, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, limit: Option<u32>, page: Option<u32>) -> Result<Vec<Vec<String>>, Error<GetCandlestickDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
@@ -246,6 +248,7 @@ pub async fn get_funding_rate_history(configuration: &configuration::Configurati
     }
 }
 
+/// Retrieves aggregated ticker data for a market.
 pub async fn get_market_ticker(configuration: &configuration::Configuration, symbol: &str) -> Result<models::TickerResponse, Error<GetMarketTickerError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
@@ -283,6 +286,7 @@ pub async fn get_market_ticker(configuration: &configuration::Configuration, sym
     }
 }
 
+/// Returns the current state of the orderbook.
 pub async fn get_orderbook_depth(configuration: &configuration::Configuration, symbol: &str, limit: Option<u32>) -> Result<models::OrderbookDepthResponse, Error<GetOrderbookDepthError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
@@ -324,6 +328,7 @@ pub async fn get_orderbook_depth(configuration: &configuration::Configuration, s
     }
 }
 
+/// Retrieves recent trades executed on a market.
 pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetRecentTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;

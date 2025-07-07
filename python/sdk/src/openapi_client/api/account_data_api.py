@@ -63,8 +63,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Account:
-        """Get user's account details.
+        """/account
 
+        Retrieves the user's account details.
 
         :param account_address: Account address to fetch account details by.
         :type account_address: str
@@ -133,8 +134,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Account]:
-        """Get user's account details.
+        """/account
 
+        Retrieves the user's account details.
 
         :param account_address: Account address to fetch account details by.
         :type account_address: str
@@ -203,8 +205,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get user's account details.
+        """/account
 
+        Retrieves the user's account details.
 
         :param account_address: Account address to fetch account details by.
         :type account_address: str
@@ -336,8 +339,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AccountFundingRateHistory:
-        """Get user's funding rate history
+        """/account/fundingRateHistory
 
+        Retrieves the funding rate history for a specific account.
 
         :param account_address: Account address to filter funding rate history by.
         :type account_address: str
@@ -414,8 +418,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AccountFundingRateHistory]:
-        """Get user's funding rate history
+        """/account/fundingRateHistory
 
+        Retrieves the funding rate history for a specific account.
 
         :param account_address: Account address to filter funding rate history by.
         :type account_address: str
@@ -492,8 +497,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get user's funding rate history
+        """/account/fundingRateHistory
 
+        Retrieves the funding rate history for a specific account.
 
         :param account_address: Account address to filter funding rate history by.
         :type account_address: str
@@ -639,8 +645,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AccountPreference:
-        """Get user's account preferences.
+        """/account/preferences
 
+        Retrieves the user's account preferences.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -705,8 +712,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AccountPreference]:
-        """Get user's account preferences.
+        """/account/preferences
 
+        Retrieves the user's account preferences.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -771,8 +779,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get user's account preferences.
+        """/account/preferences
 
+        Retrieves the user's account preferences.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -900,8 +909,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[Trade]:
-        """Get user's trade history.
+        """/account/trades
 
+        Retrieves the user's trade history.
 
         :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
@@ -990,8 +1000,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[Trade]]:
-        """Get user's trade history.
+        """/account/trades
 
+        Retrieves the user's trade history.
 
         :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
@@ -1080,8 +1091,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get user's trade history.
+        """/account/trades
 
+        Retrieves the user's trade history.
 
         :param symbol: Market address to filter trades by. If not specified, returns trades for all markets.
         :type symbol: str
@@ -1257,8 +1269,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[Transaction]:
-        """Get user's transaction history (any change in balance).
+        """/account/transactions
 
+        Retrieves the user's transaction history (any change in balance).
 
         :param types: Optional query parameter to filter transactions by type.
         :type types: List[TransactionType]
@@ -1347,8 +1360,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[Transaction]]:
-        """Get user's transaction history (any change in balance).
+        """/account/transactions
 
+        Retrieves the user's transaction history (any change in balance).
 
         :param types: Optional query parameter to filter transactions by type.
         :type types: List[TransactionType]
@@ -1437,8 +1451,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get user's transaction history (any change in balance).
+        """/account/transactions
 
+        Retrieves the user's transaction history (any change in balance).
 
         :param types: Optional query parameter to filter transactions by type.
         :type types: List[TransactionType]
@@ -1610,8 +1625,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Update user's account preferences. This will overwrite the preferences, so always send the full object.
+        """/account/preferences
 
+        Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
         :param update_account_preference_request: (required)
         :type update_account_preference_request: UpdateAccountPreferenceRequest
@@ -1681,8 +1697,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Update user's account preferences. This will overwrite the preferences, so always send the full object.
+        """/account/preferences
 
+        Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
         :param update_account_preference_request: (required)
         :type update_account_preference_request: UpdateAccountPreferenceRequest
@@ -1752,8 +1769,9 @@ class AccountDataApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update user's account preferences. This will overwrite the preferences, so always send the full object.
+        """/account/preferences
 
+        Update user's account preferences. This will overwrite the preferences, so always send the full object.
 
         :param update_account_preference_request: (required)
         :type update_account_preference_request: UpdateAccountPreferenceRequest
