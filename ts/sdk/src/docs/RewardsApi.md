@@ -4,26 +4,26 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**getAffiliateIntervalOverview**](#getaffiliateintervaloverview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval|
-|[**getAffiliateLeaderDashboard**](#getaffiliateleaderdashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings|
-|[**getAffiliateMetadata**](#getaffiliatemetadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata|
-|[**getAffiliateOverview**](#getaffiliateoverview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview|
-|[**getAffiliateSummary**](#getaffiliatesummary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary|
-|[**getCampaignRewards**](#getcampaignrewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign|
-|[**getRewards**](#getrewards) | **GET** /v1/rewards | Get rewards information for the intervals|
-|[**getRewardsCampaignMetadata**](#getrewardscampaignmetadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns|
-|[**getRewardsEpochConfigMetadata**](#getrewardsepochconfigmetadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns|
-|[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.|
-|[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters|
-|[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned|
-|[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application|
-|[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code|
-|[**updateAffiliateFeeConfig**](#updateaffiliatefeeconfig) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config|
+|[**getAffiliateIntervalOverview**](#getaffiliateintervaloverview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview|
+|[**getAffiliateLeaderDashboard**](#getaffiliateleaderdashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard|
+|[**getAffiliateMetadata**](#getaffiliatemetadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate|
+|[**getAffiliateOverview**](#getaffiliateoverview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview|
+|[**getAffiliateSummary**](#getaffiliatesummary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary|
+|[**getCampaignRewards**](#getcampaignrewards) | **GET** /v1/rewards/campaign | /rewards/campaign|
+|[**getRewards**](#getrewards) | **GET** /v1/rewards | /rewards|
+|[**getRewardsCampaignMetadata**](#getrewardscampaignmetadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign|
+|[**getRewardsEpochConfigMetadata**](#getrewardsepochconfigmetadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs|
+|[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
+|[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
+|[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
+|[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
+|[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
+|[**updateAffiliateFeeConfig**](#updateaffiliatefeeconfig) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig|
 
 # **getAffiliateIntervalOverview**
 > GetAffiliateIntervalOverview200Response getAffiliateIntervalOverview()
 
-Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
 ### Example
 
@@ -83,7 +83,7 @@ No authorization required
 # **getAffiliateLeaderDashboard**
 > GetAffiliateLeaderDashboard200Response getAffiliateLeaderDashboard()
 
-Returns rankings and earnings for affiliates, sorted by the specified category
+Returns rankings and earnings for affiliates, sorted by the specified category.
 
 ### Example
 
@@ -149,7 +149,7 @@ No authorization required
 # **getAffiliateMetadata**
 > AffiliateMetadata getAffiliateMetadata()
 
-Returns the affiliate metadata
+Returns the affiliate metadata.
 
 ### Example
 
@@ -203,7 +203,7 @@ No authorization required
 # **getAffiliateOverview**
 > GetAffiliateOverview200Response getAffiliateOverview()
 
-Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
 ### Example
 
@@ -275,7 +275,7 @@ No authorization required
 # **getAffiliateSummary**
 > AffiliateSummary getAffiliateSummary()
 
-Returns performance summary for an affiliate including total referrals, earnings, and rankings
+Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
 ### Example
 
@@ -329,7 +329,7 @@ No authorization required
 # **getCampaignRewards**
 > Array<UserCampaignRewards> getCampaignRewards()
 
-Returns the rewards earned by users for a specific campaign
+Returns the rewards earned by users for a specific campaign.
 
 ### Example
 
@@ -387,7 +387,7 @@ No authorization required
 # **getRewards**
 > Array<IntervalRewards> getRewards()
 
-Returns the rewards earned by users for the intervals .
+Returns the rewards earned by users for the intervals.
 
 ### Example
 
@@ -492,7 +492,7 @@ No authorization required
 # **getRewardsEpochConfigMetadata**
 > Array<EpochConfigs> getRewardsEpochConfigMetadata()
 
-Returns the latest epoch configs for the campaigns
+Returns the latest epoch configs for the campaigns.
 
 ### Example
 
@@ -536,7 +536,7 @@ No authorization required
 # **getRewardsEpochMetadata**
 > Array<EpochMetadata> getRewardsEpochMetadata()
 
-Returns the latest or next epocht epoch for campaign.
+Returns the latest or next epoch epoch for campaign.
 
 ### Example
 
@@ -590,7 +590,7 @@ No authorization required
 # **getRewardsIntervalMetadata**
 > Array<IntervalMetadata> getRewardsIntervalMetadata()
 
-Returns the interval metadata for provided parameters
+Returns the interval metadata for provided parameters.
 
 ### Example
 
@@ -685,7 +685,7 @@ This endpoint does not have any parameters.
 # **onboardAffiliate**
 > AffiliateOnboardResponse onboardAffiliate(onboardAffiliateRequest)
 
-Submit an application to become an affiliate
+Submit an application to become an affiliate.
 
 ### Example
 
@@ -740,7 +740,7 @@ const { status, data } = await apiInstance.onboardAffiliate(
 # **onboardReferee**
 > RefereeOnboardResponse onboardReferee(onboardRefereeRequest)
 
-Onboard a referee with a referral code
+Onboard a referee with a referral code.
 
 ### Example
 
@@ -797,7 +797,7 @@ const { status, data } = await apiInstance.onboardReferee(
 # **updateAffiliateFeeConfig**
 > AffiliateMetadata updateAffiliateFeeConfig(updateAffiliateFeeConfigRequest)
 
-Update the fee config for an affiliate
+Update the fee config for an affiliate.
 
 ### Example
 

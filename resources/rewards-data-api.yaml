@@ -677,8 +677,8 @@ paths:
       tags:
         - Rewards
       operationId: getRewards
-      summary: Get rewards information for the intervals
-      description: Returns the rewards earned by users for the intervals .
+      summary: /rewards
+      description: Returns the rewards earned by users for the intervals.
       security:
         - bearerAuth: []
       parameters:
@@ -706,8 +706,8 @@ paths:
       tags:
         - Rewards
       operationId: getCampaignRewards
-      summary: Get rewards information for a specific campaign
-      description: Returns the rewards earned by users for a specific campaign
+      summary: /rewards/campaign
+      description: Returns the rewards earned by users for a specific campaign.
       parameters:
         - name: campaignName
           in: query
@@ -751,7 +751,7 @@ paths:
       tags:
         - Rewards
       operationId: getRewardsSummary
-      summary: Get rewards information for all time rewards earned
+      summary: /rewards/summary
       description: Returns the all time rewards earned by users.
       security:
         - bearerAuth: []
@@ -771,7 +771,7 @@ paths:
       tags:
         - Rewards
       operationId: getRewardsCampaignMetadata
-      summary: Get rewards metadata for the campaigns
+      summary: /rewards/metadata/campaign
       description: Returns the metadata for the rewards campaigns.
       parameters:
         - name: campaignName
@@ -807,8 +807,8 @@ paths:
       tags:
         - Rewards
       operationId: getRewardsEpochMetadata
-      summary: Gets the latest or next epoch for campaign.
-      description: Returns the latest or next epocht epoch for campaign.
+      summary: /rewards/metadata/epoch
+      description: Returns the latest or next epoch epoch for campaign.
       parameters:
         - name: campaignName
           in: query
@@ -840,8 +840,8 @@ paths:
       tags:
         - Rewards
       operationId: getRewardsEpochConfigMetadata
-      summary: Gets the latest epoch configs for the campaigns
-      description: Returns the latest epoch configs for the campaigns
+      summary: /rewards/metadata/epoch/configs
+      description: Returns the latest epoch configs for the campaigns.
       responses:
         "200":
           description: Successful response
@@ -858,8 +858,8 @@ paths:
       tags:
         - Rewards
       operationId: getRewardsIntervalMetadata
-      summary: Gets the interval metadata for provided parameters
-      description: Returns the interval metadata for provided parameters
+      summary: /rewards/metadata/interval
+      description: Returns the interval metadata for provided parameters.
       parameters:
         - name: interval
           in: query
@@ -892,8 +892,8 @@ paths:
       tags:
         - Rewards
       operationId: getAffiliateMetadata
-      summary: Get affiliate metadata
-      description: Returns the affiliate metadata
+      summary: /rewards/affiliate
+      description: Returns the affiliate metadata.
       parameters:
         - name: userAddress
           in: query
@@ -933,8 +933,8 @@ paths:
       tags:
         - Rewards
       operationId: onboardAffiliate
-      summary: Submit affiliate onboarding application
-      description: Submit an application to become an affiliate
+      summary: /rewards/affiliate/onboard
+      description: Submit an application to become an affiliate.
       security:
         - bearerAuth: []
       requestBody:
@@ -1012,8 +1012,8 @@ paths:
       tags:
         - Rewards
       operationId: updateAffiliateFeeConfig
-      summary: Update affiliate fee config
-      description: Update the fee config for an affiliate
+      summary: /rewards/affiliate/feeConfig
+      description: Update the fee config for an affiliate.
       security:
         - bearerAuth: []
       requestBody:
@@ -1066,8 +1066,8 @@ paths:
       tags:
         - Rewards
       operationId: onboardReferee
-      summary: Onboard referee with a referral code
-      description: Onboard a referee with a referral code
+      summary: /rewards/affiliate/onboard/referee
+      description: Onboard a referee with a referral code.
       security:
         - bearerAuth: []
       requestBody:
@@ -1126,8 +1126,8 @@ paths:
       tags:
         - Rewards
       operationId: getAffiliateSummary
-      summary: Get affiliate performance summary
-      description: Returns performance summary for an affiliate including total referrals, earnings, and rankings
+      summary: /rewards/affiliate/summary
+      description: Returns performance summary for an affiliate including total referrals, earnings, and rankings.
       parameters:
         - name: userAddress
           in: query
@@ -1167,8 +1167,8 @@ paths:
       tags:
         - Rewards
       operationId: getAffiliateOverview
-      summary: Get detailed affiliate earnings overview
-      description: Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+      summary: /rewards/affiliate/overview
+      description: Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
       parameters:
         - name: page
           in: query
@@ -1281,8 +1281,8 @@ paths:
       tags:
         - Rewards
       operationId: getAffiliateIntervalOverview
-      summary: Get affiliate earnings overview by interval
-      description: Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+      summary: /rewards/affiliate/intervalOverview
+      description: Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
       parameters:
         - name: userAddress
           in: query
@@ -1358,8 +1358,8 @@ paths:
       tags:
         - Rewards
       operationId: getAffiliateLeaderDashboard
-      summary: Get affiliate rankings and earnings
-      description: Returns rankings and earnings for affiliates, sorted by the specified category
+      summary: /rewards/affiliate/leaderDashboard
+      description: Returns rankings and earnings for affiliates, sorted by the specified category.
       parameters:
         - name: sortBy
           in: query

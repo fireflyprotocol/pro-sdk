@@ -43,21 +43,21 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 *ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
-*RewardsApi* | [**get_affiliate_interval_overview**](docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
-*RewardsApi* | [**get_affiliate_leader_dashboard**](docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
-*RewardsApi* | [**get_affiliate_metadata**](docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
-*RewardsApi* | [**get_affiliate_overview**](docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview
-*RewardsApi* | [**get_affiliate_summary**](docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary
-*RewardsApi* | [**get_campaign_rewards**](docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-*RewardsApi* | [**get_rewards**](docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
-*RewardsApi* | [**get_rewards_campaign_metadata**](docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-*RewardsApi* | [**get_rewards_epoch_config_metadata**](docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-*RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-*RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-*RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
-*RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
-*RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
-*RewardsApi* | [**update_affiliate_fee_config**](docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
+*RewardsApi* | [**get_affiliate_interval_overview**](docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
+*RewardsApi* | [**get_affiliate_leader_dashboard**](docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
+*RewardsApi* | [**get_affiliate_metadata**](docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate
+*RewardsApi* | [**get_affiliate_overview**](docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
+*RewardsApi* | [**get_affiliate_summary**](docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
+*RewardsApi* | [**get_campaign_rewards**](docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+*RewardsApi* | [**get_rewards**](docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
+*RewardsApi* | [**get_rewards_campaign_metadata**](docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
+*RewardsApi* | [**get_rewards_epoch_config_metadata**](docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
+*RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
+*RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
+*RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+*RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
+*RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+*RewardsApi* | [**update_affiliate_fee_config**](docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 *StreamsApi* | [**web_socket_account_data**](docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | 
 *StreamsApi* | [**web_socket_market_data**](docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | 
 *TradeApi* | [**cancel_orders**](docs/TradeApi.md#cancel_orders) | **PUT** /api/v1/trade/orders/cancel | /trade/orders/cancel

@@ -74,9 +74,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetAffiliateIntervalOverview200Response:
-        """Get affiliate earnings overview by interval
+        """/rewards/affiliate/intervalOverview
 
-        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
@@ -152,9 +152,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetAffiliateIntervalOverview200Response]:
-        """Get affiliate earnings overview by interval
+        """/rewards/affiliate/intervalOverview
 
-        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
@@ -230,9 +230,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get affiliate earnings overview by interval
+        """/rewards/affiliate/intervalOverview
 
-        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+        Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
         :param user_address: The address of the user to get interval overview for (required)
         :type user_address: str
@@ -381,9 +381,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetAffiliateLeaderDashboard200Response:
-        """Get affiliate rankings and earnings
+        """/rewards/affiliate/leaderDashboard
 
-        Returns rankings and earnings for affiliates, sorted by the specified category
+        Returns rankings and earnings for affiliates, sorted by the specified category.
 
         :param sort_by: The category to sort rankings by
         :type sort_by: str
@@ -467,9 +467,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetAffiliateLeaderDashboard200Response]:
-        """Get affiliate rankings and earnings
+        """/rewards/affiliate/leaderDashboard
 
-        Returns rankings and earnings for affiliates, sorted by the specified category
+        Returns rankings and earnings for affiliates, sorted by the specified category.
 
         :param sort_by: The category to sort rankings by
         :type sort_by: str
@@ -553,9 +553,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get affiliate rankings and earnings
+        """/rewards/affiliate/leaderDashboard
 
-        Returns rankings and earnings for affiliates, sorted by the specified category
+        Returns rankings and earnings for affiliates, sorted by the specified category.
 
         :param sort_by: The category to sort rankings by
         :type sort_by: str
@@ -716,9 +716,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AffiliateMetadata:
-        """Get affiliate metadata
+        """/rewards/affiliate
 
-        Returns the affiliate metadata
+        Returns the affiliate metadata.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -786,9 +786,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AffiliateMetadata]:
-        """Get affiliate metadata
+        """/rewards/affiliate
 
-        Returns the affiliate metadata
+        Returns the affiliate metadata.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -856,9 +856,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get affiliate metadata
+        """/rewards/affiliate
 
-        Returns the affiliate metadata
+        Returns the affiliate metadata.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -993,9 +993,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetAffiliateOverview200Response:
-        """Get detailed affiliate earnings overview
+        """/rewards/affiliate/overview
 
-        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1087,9 +1087,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetAffiliateOverview200Response]:
-        """Get detailed affiliate earnings overview
+        """/rewards/affiliate/overview
 
-        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1181,9 +1181,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get detailed affiliate earnings overview
+        """/rewards/affiliate/overview
 
-        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+        Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1360,9 +1360,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AffiliateSummary:
-        """Get affiliate performance summary
+        """/rewards/affiliate/summary
 
-        Returns performance summary for an affiliate including total referrals, earnings, and rankings
+        Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1430,9 +1430,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AffiliateSummary]:
-        """Get affiliate performance summary
+        """/rewards/affiliate/summary
 
-        Returns performance summary for an affiliate including total referrals, earnings, and rankings
+        Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1500,9 +1500,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get affiliate performance summary
+        """/rewards/affiliate/summary
 
-        Returns performance summary for an affiliate including total referrals, earnings, and rankings
+        Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
         :param user_address: Specify wallet address. (required)
         :type user_address: str
@@ -1633,9 +1633,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[UserCampaignRewards]:
-        """Get rewards information for a specific campaign
+        """/rewards/campaign
 
-        Returns the rewards earned by users for a specific campaign
+        Returns the rewards earned by users for a specific campaign.
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
@@ -1709,9 +1709,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[UserCampaignRewards]]:
-        """Get rewards information for a specific campaign
+        """/rewards/campaign
 
-        Returns the rewards earned by users for a specific campaign
+        Returns the rewards earned by users for a specific campaign.
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
@@ -1785,9 +1785,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get rewards information for a specific campaign
+        """/rewards/campaign
 
-        Returns the rewards earned by users for a specific campaign
+        Returns the rewards earned by users for a specific campaign.
 
         :param campaign_name: Specify the campaign name (required)
         :type campaign_name: str
@@ -1930,9 +1930,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[IntervalRewards]:
-        """Get rewards information for the intervals
+        """/rewards
 
-        Returns the rewards earned by users for the intervals .
+        Returns the rewards earned by users for the intervals.
 
         :param interval_number: Optionally specify interval number.
         :type interval_number: int
@@ -1997,9 +1997,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[IntervalRewards]]:
-        """Get rewards information for the intervals
+        """/rewards
 
-        Returns the rewards earned by users for the intervals .
+        Returns the rewards earned by users for the intervals.
 
         :param interval_number: Optionally specify interval number.
         :type interval_number: int
@@ -2064,9 +2064,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get rewards information for the intervals
+        """/rewards
 
-        Returns the rewards earned by users for the intervals .
+        Returns the rewards earned by users for the intervals.
 
         :param interval_number: Optionally specify interval number.
         :type interval_number: int
@@ -2194,7 +2194,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[CampaignMetadata]:
-        """Get rewards metadata for the campaigns
+        """/rewards/metadata/campaign
 
         Returns the metadata for the rewards campaigns.
 
@@ -2265,7 +2265,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[CampaignMetadata]]:
-        """Get rewards metadata for the campaigns
+        """/rewards/metadata/campaign
 
         Returns the metadata for the rewards campaigns.
 
@@ -2336,7 +2336,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get rewards metadata for the campaigns
+        """/rewards/metadata/campaign
 
         Returns the metadata for the rewards campaigns.
 
@@ -2471,9 +2471,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[EpochConfigs]:
-        """Gets the latest epoch configs for the campaigns
+        """/rewards/metadata/epoch/configs
 
-        Returns the latest epoch configs for the campaigns
+        Returns the latest epoch configs for the campaigns.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2534,9 +2534,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[EpochConfigs]]:
-        """Gets the latest epoch configs for the campaigns
+        """/rewards/metadata/epoch/configs
 
-        Returns the latest epoch configs for the campaigns
+        Returns the latest epoch configs for the campaigns.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2597,9 +2597,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Gets the latest epoch configs for the campaigns
+        """/rewards/metadata/epoch/configs
 
-        Returns the latest epoch configs for the campaigns
+        Returns the latest epoch configs for the campaigns.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2718,9 +2718,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[EpochMetadata]:
-        """Gets the latest or next epoch for campaign.
+        """/rewards/metadata/epoch
 
-        Returns the latest or next epocht epoch for campaign.
+        Returns the latest or next epoch epoch for campaign.
 
         :param campaign_name: Specify the campaign name
         :type campaign_name: str
@@ -2789,9 +2789,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[EpochMetadata]]:
-        """Gets the latest or next epoch for campaign.
+        """/rewards/metadata/epoch
 
-        Returns the latest or next epocht epoch for campaign.
+        Returns the latest or next epoch epoch for campaign.
 
         :param campaign_name: Specify the campaign name
         :type campaign_name: str
@@ -2860,9 +2860,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Gets the latest or next epoch for campaign.
+        """/rewards/metadata/epoch
 
-        Returns the latest or next epocht epoch for campaign.
+        Returns the latest or next epoch epoch for campaign.
 
         :param campaign_name: Specify the campaign name
         :type campaign_name: str
@@ -2996,9 +2996,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[IntervalMetadata]:
-        """Gets the interval metadata for provided parameters
+        """/rewards/metadata/interval
 
-        Returns the interval metadata for provided parameters
+        Returns the interval metadata for provided parameters.
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
         :type interval: int
@@ -3063,9 +3063,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[IntervalMetadata]]:
-        """Gets the interval metadata for provided parameters
+        """/rewards/metadata/interval
 
-        Returns the interval metadata for provided parameters
+        Returns the interval metadata for provided parameters.
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
         :type interval: int
@@ -3130,9 +3130,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Gets the interval metadata for provided parameters
+        """/rewards/metadata/interval
 
-        Returns the interval metadata for provided parameters
+        Returns the interval metadata for provided parameters.
 
         :param interval: Either specify an interval number or the string \"next\" or \"latest\".
         :type interval: int
@@ -3257,7 +3257,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[RewardsSummary]:
-        """Get rewards information for all time rewards earned
+        """/rewards/summary
 
         Returns the all time rewards earned by users.
 
@@ -3320,7 +3320,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[RewardsSummary]]:
-        """Get rewards information for all time rewards earned
+        """/rewards/summary
 
         Returns the all time rewards earned by users.
 
@@ -3383,7 +3383,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get rewards information for all time rewards earned
+        """/rewards/summary
 
         Returns the all time rewards earned by users.
 
@@ -3504,9 +3504,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AffiliateOnboardResponse:
-        """Submit affiliate onboarding application
+        """/rewards/affiliate/onboard
 
-        Submit an application to become an affiliate
+        Submit an application to become an affiliate.
 
         :param onboard_affiliate_request: (required)
         :type onboard_affiliate_request: OnboardAffiliateRequest
@@ -3574,9 +3574,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AffiliateOnboardResponse]:
-        """Submit affiliate onboarding application
+        """/rewards/affiliate/onboard
 
-        Submit an application to become an affiliate
+        Submit an application to become an affiliate.
 
         :param onboard_affiliate_request: (required)
         :type onboard_affiliate_request: OnboardAffiliateRequest
@@ -3644,9 +3644,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Submit affiliate onboarding application
+        """/rewards/affiliate/onboard
 
-        Submit an application to become an affiliate
+        Submit an application to become an affiliate.
 
         :param onboard_affiliate_request: (required)
         :type onboard_affiliate_request: OnboardAffiliateRequest
@@ -3787,9 +3787,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RefereeOnboardResponse:
-        """Onboard referee with a referral code
+        """/rewards/affiliate/onboard/referee
 
-        Onboard a referee with a referral code
+        Onboard a referee with a referral code.
 
         :param onboard_referee_request: (required)
         :type onboard_referee_request: OnboardRefereeRequest
@@ -3859,9 +3859,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[RefereeOnboardResponse]:
-        """Onboard referee with a referral code
+        """/rewards/affiliate/onboard/referee
 
-        Onboard a referee with a referral code
+        Onboard a referee with a referral code.
 
         :param onboard_referee_request: (required)
         :type onboard_referee_request: OnboardRefereeRequest
@@ -3931,9 +3931,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Onboard referee with a referral code
+        """/rewards/affiliate/onboard/referee
 
-        Onboard a referee with a referral code
+        Onboard a referee with a referral code.
 
         :param onboard_referee_request: (required)
         :type onboard_referee_request: OnboardRefereeRequest
@@ -4076,9 +4076,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AffiliateMetadata:
-        """Update affiliate fee config
+        """/rewards/affiliate/feeConfig
 
-        Update the fee config for an affiliate
+        Update the fee config for an affiliate.
 
         :param update_affiliate_fee_config_request: (required)
         :type update_affiliate_fee_config_request: UpdateAffiliateFeeConfigRequest
@@ -4147,9 +4147,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AffiliateMetadata]:
-        """Update affiliate fee config
+        """/rewards/affiliate/feeConfig
 
-        Update the fee config for an affiliate
+        Update the fee config for an affiliate.
 
         :param update_affiliate_fee_config_request: (required)
         :type update_affiliate_fee_config_request: UpdateAffiliateFeeConfigRequest
@@ -4218,9 +4218,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update affiliate fee config
+        """/rewards/affiliate/feeConfig
 
-        Update the fee config for an affiliate
+        Update the fee config for an affiliate.
 
         :param update_affiliate_fee_config_request: (required)
         :type update_affiliate_fee_config_request: UpdateAffiliateFeeConfigRequest

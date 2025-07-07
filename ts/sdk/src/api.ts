@@ -6362,8 +6362,8 @@ export type GetRecentTradesTradeTypeEnum = typeof GetRecentTradesTradeTypeEnum[k
 export const RewardsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-         * @summary Get affiliate earnings overview by interval
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
+         * @summary /rewards/affiliate/intervalOverview
          * @param {string} userAddress The address of the user to get interval overview for
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -6409,8 +6409,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns rankings and earnings for affiliates, sorted by the specified category
-         * @summary Get affiliate rankings and earnings
+         * Returns rankings and earnings for affiliates, sorted by the specified category.
+         * @summary /rewards/affiliate/leaderDashboard
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -6464,8 +6464,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the affiliate metadata
-         * @summary Get affiliate metadata
+         * Returns the affiliate metadata.
+         * @summary /rewards/affiliate
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6501,8 +6501,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-         * @summary Get detailed affiliate earnings overview
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
+         * @summary /rewards/affiliate/overview
          * @param {string} userAddress Specify wallet address.
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -6568,8 +6568,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
-         * @summary Get affiliate performance summary
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings.
+         * @summary /rewards/affiliate/summary
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6605,8 +6605,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the rewards earned by users for a specific campaign
-         * @summary Get rewards information for a specific campaign
+         * Returns the rewards earned by users for a specific campaign.
+         * @summary /rewards/campaign
          * @param {string} campaignName Specify the campaign name
          * @param {string} userAddress Specify wallet address.
          * @param {number} [epochNumber] Optionally specify epoch number.
@@ -6654,8 +6654,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the rewards earned by users for the intervals .
-         * @summary Get rewards information for the intervals
+         * Returns the rewards earned by users for the intervals.
+         * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6694,7 +6694,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Returns the metadata for the rewards campaigns.
-         * @summary Get rewards metadata for the campaigns
+         * @summary /rewards/metadata/campaign
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
@@ -6733,8 +6733,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the latest epoch configs for the campaigns
-         * @summary Gets the latest epoch configs for the campaigns
+         * Returns the latest epoch configs for the campaigns.
+         * @summary /rewards/metadata/epoch/configs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6763,8 +6763,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the latest or next epocht epoch for campaign.
-         * @summary Gets the latest or next epoch for campaign.
+         * Returns the latest or next epoch epoch for campaign.
+         * @summary /rewards/metadata/epoch
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
@@ -6803,8 +6803,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns the interval metadata for provided parameters
-         * @summary Gets the interval metadata for provided parameters
+         * Returns the interval metadata for provided parameters.
+         * @summary /rewards/metadata/interval
          * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6839,7 +6839,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Returns the all time rewards earned by users.
-         * @summary Get rewards information for all time rewards earned
+         * @summary /rewards/summary
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6872,8 +6872,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Submit an application to become an affiliate
-         * @summary Submit affiliate onboarding application
+         * Submit an application to become an affiliate.
+         * @summary /rewards/affiliate/onboard
          * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6912,8 +6912,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Onboard a referee with a referral code
-         * @summary Onboard referee with a referral code
+         * Onboard a referee with a referral code.
+         * @summary /rewards/affiliate/onboard/referee
          * @param {OnboardRefereeRequest} onboardRefereeRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6952,8 +6952,8 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Update the fee config for an affiliate
-         * @summary Update affiliate fee config
+         * Update the fee config for an affiliate.
+         * @summary /rewards/affiliate/feeConfig
          * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7002,8 +7002,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = RewardsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-         * @summary Get affiliate earnings overview by interval
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
+         * @summary /rewards/affiliate/intervalOverview
          * @param {string} userAddress The address of the user to get interval overview for
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -7017,8 +7017,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns rankings and earnings for affiliates, sorted by the specified category
-         * @summary Get affiliate rankings and earnings
+         * Returns rankings and earnings for affiliates, sorted by the specified category.
+         * @summary /rewards/affiliate/leaderDashboard
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -7034,8 +7034,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the affiliate metadata
-         * @summary Get affiliate metadata
+         * Returns the affiliate metadata.
+         * @summary /rewards/affiliate
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7047,8 +7047,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-         * @summary Get detailed affiliate earnings overview
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
+         * @summary /rewards/affiliate/overview
          * @param {string} userAddress Specify wallet address.
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -7066,8 +7066,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
-         * @summary Get affiliate performance summary
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings.
+         * @summary /rewards/affiliate/summary
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7079,8 +7079,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the rewards earned by users for a specific campaign
-         * @summary Get rewards information for a specific campaign
+         * Returns the rewards earned by users for a specific campaign.
+         * @summary /rewards/campaign
          * @param {string} campaignName Specify the campaign name
          * @param {string} userAddress Specify wallet address.
          * @param {number} [epochNumber] Optionally specify epoch number.
@@ -7094,8 +7094,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the rewards earned by users for the intervals .
-         * @summary Get rewards information for the intervals
+         * Returns the rewards earned by users for the intervals.
+         * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7108,7 +7108,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns the metadata for the rewards campaigns.
-         * @summary Get rewards metadata for the campaigns
+         * @summary /rewards/metadata/campaign
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
@@ -7121,8 +7121,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the latest epoch configs for the campaigns
-         * @summary Gets the latest epoch configs for the campaigns
+         * Returns the latest epoch configs for the campaigns.
+         * @summary /rewards/metadata/epoch/configs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7133,8 +7133,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the latest or next epocht epoch for campaign.
-         * @summary Gets the latest or next epoch for campaign.
+         * Returns the latest or next epoch epoch for campaign.
+         * @summary /rewards/metadata/epoch
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
@@ -7147,8 +7147,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the interval metadata for provided parameters
-         * @summary Gets the interval metadata for provided parameters
+         * Returns the interval metadata for provided parameters.
+         * @summary /rewards/metadata/interval
          * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7161,7 +7161,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns the all time rewards earned by users.
-         * @summary Get rewards information for all time rewards earned
+         * @summary /rewards/summary
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7172,8 +7172,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Submit an application to become an affiliate
-         * @summary Submit affiliate onboarding application
+         * Submit an application to become an affiliate.
+         * @summary /rewards/affiliate/onboard
          * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7185,8 +7185,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Onboard a referee with a referral code
-         * @summary Onboard referee with a referral code
+         * Onboard a referee with a referral code.
+         * @summary /rewards/affiliate/onboard/referee
          * @param {OnboardRefereeRequest} onboardRefereeRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7198,8 +7198,8 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Update the fee config for an affiliate
-         * @summary Update affiliate fee config
+         * Update the fee config for an affiliate.
+         * @summary /rewards/affiliate/feeConfig
          * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7221,8 +7221,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = RewardsApiFp(configuration)
     return {
         /**
-         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-         * @summary Get affiliate earnings overview by interval
+         * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
+         * @summary /rewards/affiliate/intervalOverview
          * @param {string} userAddress The address of the user to get interval overview for
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -7233,8 +7233,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAffiliateIntervalOverview(userAddress, page, limit, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns rankings and earnings for affiliates, sorted by the specified category
-         * @summary Get affiliate rankings and earnings
+         * Returns rankings and earnings for affiliates, sorted by the specified category.
+         * @summary /rewards/affiliate/leaderDashboard
          * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
          * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
          * @param {number} [page] The page number to retrieve in a paginated response
@@ -7247,8 +7247,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAffiliateLeaderDashboard(sortBy, sortOrder, page, limit, search, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the affiliate metadata
-         * @summary Get affiliate metadata
+         * Returns the affiliate metadata.
+         * @summary /rewards/affiliate
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7257,8 +7257,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAffiliateMetadata(userAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-         * @summary Get detailed affiliate earnings overview
+         * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
+         * @summary /rewards/affiliate/overview
          * @param {string} userAddress Specify wallet address.
          * @param {number} [page] The page number to retrieve in a paginated response
          * @param {number} [limit] The page size for pagination
@@ -7273,8 +7273,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAffiliateOverview(userAddress, page, limit, sortBy, sortOrder, search, minEarningsE9, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns performance summary for an affiliate including total referrals, earnings, and rankings
-         * @summary Get affiliate performance summary
+         * Returns performance summary for an affiliate including total referrals, earnings, and rankings.
+         * @summary /rewards/affiliate/summary
          * @param {string} userAddress Specify wallet address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7283,8 +7283,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAffiliateSummary(userAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the rewards earned by users for a specific campaign
-         * @summary Get rewards information for a specific campaign
+         * Returns the rewards earned by users for a specific campaign.
+         * @summary /rewards/campaign
          * @param {string} campaignName Specify the campaign name
          * @param {string} userAddress Specify wallet address.
          * @param {number} [epochNumber] Optionally specify epoch number.
@@ -7295,8 +7295,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getCampaignRewards(campaignName, userAddress, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the rewards earned by users for the intervals .
-         * @summary Get rewards information for the intervals
+         * Returns the rewards earned by users for the intervals.
+         * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7306,7 +7306,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Returns the metadata for the rewards campaigns.
-         * @summary Get rewards metadata for the campaigns
+         * @summary /rewards/metadata/campaign
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
          * @param {*} [options] Override http request option.
@@ -7316,8 +7316,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getRewardsCampaignMetadata(campaignName, status, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the latest epoch configs for the campaigns
-         * @summary Gets the latest epoch configs for the campaigns
+         * Returns the latest epoch configs for the campaigns.
+         * @summary /rewards/metadata/epoch/configs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7325,8 +7325,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getRewardsEpochConfigMetadata(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the latest or next epocht epoch for campaign.
-         * @summary Gets the latest or next epoch for campaign.
+         * Returns the latest or next epoch epoch for campaign.
+         * @summary /rewards/metadata/epoch
          * @param {string} [campaignName] Specify the campaign name
          * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
@@ -7336,8 +7336,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getRewardsEpochMetadata(campaignName, epoch, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the interval metadata for provided parameters
-         * @summary Gets the interval metadata for provided parameters
+         * Returns the interval metadata for provided parameters.
+         * @summary /rewards/metadata/interval
          * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7347,7 +7347,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Returns the all time rewards earned by users.
-         * @summary Get rewards information for all time rewards earned
+         * @summary /rewards/summary
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7355,8 +7355,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
         },
         /**
-         * Submit an application to become an affiliate
-         * @summary Submit affiliate onboarding application
+         * Submit an application to become an affiliate.
+         * @summary /rewards/affiliate/onboard
          * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7365,8 +7365,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.onboardAffiliate(onboardAffiliateRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Onboard a referee with a referral code
-         * @summary Onboard referee with a referral code
+         * Onboard a referee with a referral code.
+         * @summary /rewards/affiliate/onboard/referee
          * @param {OnboardRefereeRequest} onboardRefereeRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7375,8 +7375,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.onboardReferee(onboardRefereeRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update the fee config for an affiliate
-         * @summary Update affiliate fee config
+         * Update the fee config for an affiliate.
+         * @summary /rewards/affiliate/feeConfig
          * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7395,8 +7395,8 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
  */
 export class RewardsApi extends BaseAPI {
     /**
-     * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
-     * @summary Get affiliate earnings overview by interval
+     * Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
+     * @summary /rewards/affiliate/intervalOverview
      * @param {string} userAddress The address of the user to get interval overview for
      * @param {number} [page] The page number to retrieve in a paginated response
      * @param {number} [limit] The page size for pagination
@@ -7409,8 +7409,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns rankings and earnings for affiliates, sorted by the specified category
-     * @summary Get affiliate rankings and earnings
+     * Returns rankings and earnings for affiliates, sorted by the specified category.
+     * @summary /rewards/affiliate/leaderDashboard
      * @param {GetAffiliateLeaderDashboardSortByEnum} [sortBy] The category to sort rankings by
      * @param {GetAffiliateLeaderDashboardSortOrderEnum} [sortOrder] The order to sort rankings by
      * @param {number} [page] The page number to retrieve in a paginated response
@@ -7425,8 +7425,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the affiliate metadata
-     * @summary Get affiliate metadata
+     * Returns the affiliate metadata.
+     * @summary /rewards/affiliate
      * @param {string} userAddress Specify wallet address.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7437,8 +7437,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
-     * @summary Get detailed affiliate earnings overview
+     * Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
+     * @summary /rewards/affiliate/overview
      * @param {string} userAddress Specify wallet address.
      * @param {number} [page] The page number to retrieve in a paginated response
      * @param {number} [limit] The page size for pagination
@@ -7455,8 +7455,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns performance summary for an affiliate including total referrals, earnings, and rankings
-     * @summary Get affiliate performance summary
+     * Returns performance summary for an affiliate including total referrals, earnings, and rankings.
+     * @summary /rewards/affiliate/summary
      * @param {string} userAddress Specify wallet address.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7467,8 +7467,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the rewards earned by users for a specific campaign
-     * @summary Get rewards information for a specific campaign
+     * Returns the rewards earned by users for a specific campaign.
+     * @summary /rewards/campaign
      * @param {string} campaignName Specify the campaign name
      * @param {string} userAddress Specify wallet address.
      * @param {number} [epochNumber] Optionally specify epoch number.
@@ -7481,8 +7481,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the rewards earned by users for the intervals .
-     * @summary Get rewards information for the intervals
+     * Returns the rewards earned by users for the intervals.
+     * @summary /rewards
      * @param {number} [intervalNumber] Optionally specify interval number.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7494,7 +7494,7 @@ export class RewardsApi extends BaseAPI {
 
     /**
      * Returns the metadata for the rewards campaigns.
-     * @summary Get rewards metadata for the campaigns
+     * @summary /rewards/metadata/campaign
      * @param {string} [campaignName] Specify the campaign name
      * @param {GetRewardsCampaignMetadataStatusEnum} [status] Optionally specify the status of the campaigns.
      * @param {*} [options] Override http request option.
@@ -7506,8 +7506,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the latest epoch configs for the campaigns
-     * @summary Gets the latest epoch configs for the campaigns
+     * Returns the latest epoch configs for the campaigns.
+     * @summary /rewards/metadata/epoch/configs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
@@ -7517,8 +7517,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the latest or next epocht epoch for campaign.
-     * @summary Gets the latest or next epoch for campaign.
+     * Returns the latest or next epoch epoch for campaign.
+     * @summary /rewards/metadata/epoch
      * @param {string} [campaignName] Specify the campaign name
      * @param {GetRewardsEpochMetadataEpochEnum} [epoch] Specify the string \&quot;next\&quot; or \&quot;latest\&quot;.
      * @param {*} [options] Override http request option.
@@ -7530,8 +7530,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Returns the interval metadata for provided parameters
-     * @summary Gets the interval metadata for provided parameters
+     * Returns the interval metadata for provided parameters.
+     * @summary /rewards/metadata/interval
      * @param {number} [interval] Either specify an interval number or the string \&quot;next\&quot; or \&quot;latest\&quot;.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7543,7 +7543,7 @@ export class RewardsApi extends BaseAPI {
 
     /**
      * Returns the all time rewards earned by users.
-     * @summary Get rewards information for all time rewards earned
+     * @summary /rewards/summary
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
@@ -7553,8 +7553,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Submit an application to become an affiliate
-     * @summary Submit affiliate onboarding application
+     * Submit an application to become an affiliate.
+     * @summary /rewards/affiliate/onboard
      * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7565,8 +7565,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Onboard a referee with a referral code
-     * @summary Onboard referee with a referral code
+     * Onboard a referee with a referral code.
+     * @summary /rewards/affiliate/onboard/referee
      * @param {OnboardRefereeRequest} onboardRefereeRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7577,8 +7577,8 @@ export class RewardsApi extends BaseAPI {
     }
 
     /**
-     * Update the fee config for an affiliate
-     * @summary Update affiliate fee config
+     * Update the fee config for an affiliate.
+     * @summary /rewards/affiliate/feeConfig
      * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

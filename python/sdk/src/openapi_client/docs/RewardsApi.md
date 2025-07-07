@@ -4,29 +4,29 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_affiliate_interval_overview**](RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | Get affiliate earnings overview by interval
-[**get_affiliate_leader_dashboard**](RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | Get affiliate rankings and earnings
-[**get_affiliate_metadata**](RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | Get affiliate metadata
-[**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | Get detailed affiliate earnings overview
-[**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | Get affiliate performance summary
-[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | Get rewards information for a specific campaign
-[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | Get rewards information for the intervals
-[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | Get rewards metadata for the campaigns
-[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | Gets the latest epoch configs for the campaigns
-[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | Gets the latest or next epoch for campaign.
-[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | Gets the interval metadata for provided parameters
-[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | Get rewards information for all time rewards earned
-[**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | Submit affiliate onboarding application
-[**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | Onboard referee with a referral code
-[**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | Update affiliate fee config
+[**get_affiliate_interval_overview**](RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
+[**get_affiliate_leader_dashboard**](RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
+[**get_affiliate_metadata**](RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate
+[**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
+[**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
+[**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+[**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
+[**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
+[**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
+[**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
+[**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
+[**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
+[**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+[**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 
 
 # **get_affiliate_interval_overview**
 > GetAffiliateIntervalOverview200Response get_affiliate_interval_overview(user_address, page=page, limit=limit)
 
-Get affiliate earnings overview by interval
+/rewards/affiliate/intervalOverview
 
-Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order
+Returns detailed earnings breakdown for an affiliate by interval, ordered by interval number in descending order.
 
 ### Example
 
@@ -53,7 +53,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     limit = 500 # int | The page size for pagination (optional) (default to 500)
 
     try:
-        # Get affiliate earnings overview by interval
+        # /rewards/affiliate/intervalOverview
         api_response = await api_instance.get_affiliate_interval_overview(user_address, page=page, limit=limit)
         print("The response of RewardsApi->get_affiliate_interval_overview:\n")
         pprint(api_response)
@@ -99,9 +99,9 @@ No authorization required
 # **get_affiliate_leader_dashboard**
 > GetAffiliateLeaderDashboard200Response get_affiliate_leader_dashboard(sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
 
-Get affiliate rankings and earnings
+/rewards/affiliate/leaderDashboard
 
-Returns rankings and earnings for affiliates, sorted by the specified category
+Returns rankings and earnings for affiliates, sorted by the specified category.
 
 ### Example
 
@@ -130,7 +130,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     search = 'John' # str | The name/address of the user to filter by (optional)
 
     try:
-        # Get affiliate rankings and earnings
+        # /rewards/affiliate/leaderDashboard
         api_response = await api_instance.get_affiliate_leader_dashboard(sort_by=sort_by, sort_order=sort_order, page=page, limit=limit, search=search)
         print("The response of RewardsApi->get_affiliate_leader_dashboard:\n")
         pprint(api_response)
@@ -178,9 +178,9 @@ No authorization required
 # **get_affiliate_metadata**
 > AffiliateMetadata get_affiliate_metadata(user_address)
 
-Get affiliate metadata
+/rewards/affiliate
 
-Returns the affiliate metadata
+Returns the affiliate metadata.
 
 ### Example
 
@@ -205,7 +205,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     user_address = '0x1234567890abcdef' # str | Specify wallet address.
 
     try:
-        # Get affiliate metadata
+        # /rewards/affiliate
         api_response = await api_instance.get_affiliate_metadata(user_address)
         print("The response of RewardsApi->get_affiliate_metadata:\n")
         pprint(api_response)
@@ -249,9 +249,9 @@ No authorization required
 # **get_affiliate_overview**
 > GetAffiliateOverview200Response get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search, min_earnings_e9=min_earnings_e9)
 
-Get detailed affiliate earnings overview
+/rewards/affiliate/overview
 
-Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings
+Returns detailed earnings breakdown for an affiliate users earnings (including perps, spot LP, lending), referral earnings, and total earnings.
 
 ### Example
 
@@ -282,7 +282,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     min_earnings_e9 = '0' # str | The minimum earnings to filter by (optional) (default to '0')
 
     try:
-        # Get detailed affiliate earnings overview
+        # /rewards/affiliate/overview
         api_response = await api_instance.get_affiliate_overview(user_address, page=page, limit=limit, sort_by=sort_by, sort_order=sort_order, search=search, min_earnings_e9=min_earnings_e9)
         print("The response of RewardsApi->get_affiliate_overview:\n")
         pprint(api_response)
@@ -332,9 +332,9 @@ No authorization required
 # **get_affiliate_summary**
 > AffiliateSummary get_affiliate_summary(user_address)
 
-Get affiliate performance summary
+/rewards/affiliate/summary
 
-Returns performance summary for an affiliate including total referrals, earnings, and rankings
+Returns performance summary for an affiliate including total referrals, earnings, and rankings.
 
 ### Example
 
@@ -359,7 +359,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     user_address = '0x1234567890abcdef' # str | Specify wallet address.
 
     try:
-        # Get affiliate performance summary
+        # /rewards/affiliate/summary
         api_response = await api_instance.get_affiliate_summary(user_address)
         print("The response of RewardsApi->get_affiliate_summary:\n")
         pprint(api_response)
@@ -403,9 +403,9 @@ No authorization required
 # **get_campaign_rewards**
 > List[UserCampaignRewards] get_campaign_rewards(campaign_name, user_address, epoch_number=epoch_number)
 
-Get rewards information for a specific campaign
+/rewards/campaign
 
-Returns the rewards earned by users for a specific campaign
+Returns the rewards earned by users for a specific campaign.
 
 ### Example
 
@@ -432,7 +432,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     epoch_number = 7 # int | Optionally specify epoch number. (optional)
 
     try:
-        # Get rewards information for a specific campaign
+        # /rewards/campaign
         api_response = await api_instance.get_campaign_rewards(campaign_name, user_address, epoch_number=epoch_number)
         print("The response of RewardsApi->get_campaign_rewards:\n")
         pprint(api_response)
@@ -476,9 +476,9 @@ No authorization required
 # **get_rewards**
 > List[IntervalRewards] get_rewards(interval_number=interval_number)
 
-Get rewards information for the intervals
+/rewards
 
-Returns the rewards earned by users for the intervals .
+Returns the rewards earned by users for the intervals.
 
 ### Example
 
@@ -513,7 +513,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     interval_number = 3 # int | Optionally specify interval number. (optional)
 
     try:
-        # Get rewards information for the intervals
+        # /rewards
         api_response = await api_instance.get_rewards(interval_number=interval_number)
         print("The response of RewardsApi->get_rewards:\n")
         pprint(api_response)
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 # **get_rewards_campaign_metadata**
 > List[CampaignMetadata] get_rewards_campaign_metadata(campaign_name=campaign_name, status=status)
 
-Get rewards metadata for the campaigns
+/rewards/metadata/campaign
 
 Returns the metadata for the rewards campaigns.
 
@@ -582,7 +582,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     status = ACTIVE # str | Optionally specify the status of the campaigns. (optional) (default to ACTIVE)
 
     try:
-        # Get rewards metadata for the campaigns
+        # /rewards/metadata/campaign
         api_response = await api_instance.get_rewards_campaign_metadata(campaign_name=campaign_name, status=status)
         print("The response of RewardsApi->get_rewards_campaign_metadata:\n")
         pprint(api_response)
@@ -624,9 +624,9 @@ No authorization required
 # **get_rewards_epoch_config_metadata**
 > List[EpochConfigs] get_rewards_epoch_config_metadata()
 
-Gets the latest epoch configs for the campaigns
+/rewards/metadata/epoch/configs
 
-Returns the latest epoch configs for the campaigns
+Returns the latest epoch configs for the campaigns.
 
 ### Example
 
@@ -650,7 +650,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.RewardsApi(api_client)
 
     try:
-        # Gets the latest epoch configs for the campaigns
+        # /rewards/metadata/epoch/configs
         api_response = await api_instance.get_rewards_epoch_config_metadata()
         print("The response of RewardsApi->get_rewards_epoch_config_metadata:\n")
         pprint(api_response)
@@ -688,9 +688,9 @@ No authorization required
 # **get_rewards_epoch_metadata**
 > List[EpochMetadata] get_rewards_epoch_metadata(campaign_name=campaign_name, epoch=epoch)
 
-Gets the latest or next epoch for campaign.
+/rewards/metadata/epoch
 
-Returns the latest or next epocht epoch for campaign.
+Returns the latest or next epoch epoch for campaign.
 
 ### Example
 
@@ -716,7 +716,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     epoch = 'epoch_example' # str | Specify the string \"next\" or \"latest\". (optional)
 
     try:
-        # Gets the latest or next epoch for campaign.
+        # /rewards/metadata/epoch
         api_response = await api_instance.get_rewards_epoch_metadata(campaign_name=campaign_name, epoch=epoch)
         print("The response of RewardsApi->get_rewards_epoch_metadata:\n")
         pprint(api_response)
@@ -758,9 +758,9 @@ No authorization required
 # **get_rewards_interval_metadata**
 > List[IntervalMetadata] get_rewards_interval_metadata(interval=interval)
 
-Gets the interval metadata for provided parameters
+/rewards/metadata/interval
 
-Returns the interval metadata for provided parameters
+Returns the interval metadata for provided parameters.
 
 ### Example
 
@@ -785,7 +785,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     interval = 2 # int | Either specify an interval number or the string \"next\" or \"latest\". (optional)
 
     try:
-        # Gets the interval metadata for provided parameters
+        # /rewards/metadata/interval
         api_response = await api_instance.get_rewards_interval_metadata(interval=interval)
         print("The response of RewardsApi->get_rewards_interval_metadata:\n")
         pprint(api_response)
@@ -826,7 +826,7 @@ No authorization required
 # **get_rewards_summary**
 > List[RewardsSummary] get_rewards_summary()
 
-Get rewards information for all time rewards earned
+/rewards/summary
 
 Returns the all time rewards earned by users.
 
@@ -862,7 +862,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.RewardsApi(api_client)
 
     try:
-        # Get rewards information for all time rewards earned
+        # /rewards/summary
         api_response = await api_instance.get_rewards_summary()
         print("The response of RewardsApi->get_rewards_summary:\n")
         pprint(api_response)
@@ -900,9 +900,9 @@ This endpoint does not need any parameter.
 # **onboard_affiliate**
 > AffiliateOnboardResponse onboard_affiliate(onboard_affiliate_request)
 
-Submit affiliate onboarding application
+/rewards/affiliate/onboard
 
-Submit an application to become an affiliate
+Submit an application to become an affiliate.
 
 ### Example
 
@@ -938,7 +938,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     onboard_affiliate_request = openapi_client.OnboardAffiliateRequest() # OnboardAffiliateRequest | 
 
     try:
-        # Submit affiliate onboarding application
+        # /rewards/affiliate/onboard
         api_response = await api_instance.onboard_affiliate(onboard_affiliate_request)
         print("The response of RewardsApi->onboard_affiliate:\n")
         pprint(api_response)
@@ -982,9 +982,9 @@ Name | Type | Description  | Notes
 # **onboard_referee**
 > RefereeOnboardResponse onboard_referee(onboard_referee_request)
 
-Onboard referee with a referral code
+/rewards/affiliate/onboard/referee
 
-Onboard a referee with a referral code
+Onboard a referee with a referral code.
 
 ### Example
 
@@ -1020,7 +1020,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     onboard_referee_request = openapi_client.OnboardRefereeRequest() # OnboardRefereeRequest | 
 
     try:
-        # Onboard referee with a referral code
+        # /rewards/affiliate/onboard/referee
         api_response = await api_instance.onboard_referee(onboard_referee_request)
         print("The response of RewardsApi->onboard_referee:\n")
         pprint(api_response)
@@ -1066,9 +1066,9 @@ Name | Type | Description  | Notes
 # **update_affiliate_fee_config**
 > AffiliateMetadata update_affiliate_fee_config(update_affiliate_fee_config_request)
 
-Update affiliate fee config
+/rewards/affiliate/feeConfig
 
-Update the fee config for an affiliate
+Update the fee config for an affiliate.
 
 ### Example
 
@@ -1104,7 +1104,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     update_affiliate_fee_config_request = openapi_client.UpdateAffiliateFeeConfigRequest() # UpdateAffiliateFeeConfigRequest | 
 
     try:
-        # Update affiliate fee config
+        # /rewards/affiliate/feeConfig
         api_response = await api_instance.update_affiliate_fee_config(update_affiliate_fee_config_request)
         print("The response of RewardsApi->update_affiliate_fee_config:\n")
         pprint(api_response)
