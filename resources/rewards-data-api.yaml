@@ -324,6 +324,10 @@ components:
           type: string
           description: Cashback from perps fees
           example: "25"
+        perpsRevShare:
+          type: string
+          description: Revenue share percentage for perps
+          example: "10"
     # Not adding userAddress as it is not required for the API if we are extracting it from auth token
     # Post endpoints are for admin-only access, need to add auth for these endpoints
 

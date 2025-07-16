@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **referralSpotLPFee** | **string** | Earnings from referral spot LP fees | [optional] [default to undefined]
 **referralLendingRewards** | **string** | Earnings from referral lending rewards | [optional] [default to undefined]
 **perpsFeeCashback** | **string** | Cashback from perps fees | [optional] [default to undefined]
+**perpsRevShare** | **string** | Revenue share percentage for perps | [optional] [default to undefined]
 
 ## Example
 
@@ -25,6 +26,7 @@ const instance: FeeConfigs = {
     referralSpotLPFee,
     referralLendingRewards,
     perpsFeeCashback,
+    perpsRevShare,
 };
 ```
 

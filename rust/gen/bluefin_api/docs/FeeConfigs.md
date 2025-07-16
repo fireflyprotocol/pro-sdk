@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **referral_spot_lp_fee** | Option<**String**> | Earnings from referral spot LP fees | [optional]
 **referral_lending_rewards** | Option<**String**> | Earnings from referral lending rewards | [optional]
 **perps_fee_cashback** | Option<**String**> | Cashback from perps fees | [optional]
+**perps_rev_share** | Option<**String**> | Revenue share percentage for perps | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
