@@ -32,6 +32,9 @@ pub struct FeeConfigs {
     /// Cashback from perps fees
     #[serde(rename = "perpsFeeCashback", skip_serializing_if = "Option::is_none")]
     pub perps_fee_cashback: Option<String>,
+    /// Revenue share percentage for perps
+    #[serde(rename = "perpsRevShare", skip_serializing_if = "Option::is_none")]
+    pub perps_rev_share: Option<String>,
 }
 
 impl FeeConfigs {
@@ -44,6 +47,7 @@ impl FeeConfigs {
             referral_spot_lp_fee: None,
             referral_lending_rewards: None,
             perps_fee_cashback: None,
+            perps_rev_share: None,
         }
     }
 }

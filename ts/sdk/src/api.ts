@@ -2201,6 +2201,12 @@ export interface FeeConfigs {
      * @memberof FeeConfigs
      */
     'perpsFeeCashback'?: string;
+    /**
+     * Revenue share percentage for perps
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'perpsRevShare'?: string;
 }
 /**
  * 
