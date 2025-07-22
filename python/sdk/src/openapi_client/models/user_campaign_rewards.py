@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,9 +36,12 @@ class UserCampaignRewards(BaseModel):
     sui_rewards_e9: StrictStr = Field(description="Total sui-perp token rewards earned in the epoch (e9 format).", alias="suiRewardsE9")
     wal_rewards_e9: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="walRewardsE9")
     cash_rewards_e9: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="cashRewardsE9")
+    user_fee_paid_e9: StrictStr = Field(description="Total user fee paid in the epoch (e9 format).", alias="userFeePaidE9")
     interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="intervalStartDate")
     interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="intervalEndDate")
-    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "intervalStartDate", "intervalEndDate"]
+    is_disbursed: StrictBool = Field(description="Indicates if the rewards have been disbursed.", alias="isDisbursed")
+    txn_digest: StrictStr = Field(description="Transaction digest of the disbursement.", alias="txnDigest")
+    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -108,8 +111,11 @@ class UserCampaignRewards(BaseModel):
             "suiRewardsE9": obj.get("suiRewardsE9"),
             "walRewardsE9": obj.get("walRewardsE9"),
             "cashRewardsE9": obj.get("cashRewardsE9"),
+            "userFeePaidE9": obj.get("userFeePaidE9"),
             "intervalStartDate": obj.get("intervalStartDate"),
-            "intervalEndDate": obj.get("intervalEndDate")
+            "intervalEndDate": obj.get("intervalEndDate"),
+            "isDisbursed": obj.get("isDisbursed"),
+            "txnDigest": obj.get("txnDigest")
         })
         return _obj
 

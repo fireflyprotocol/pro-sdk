@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **referral_spot_lp_fee** | **str** | Earnings from referral spot LP fees | [optional] 
 **referral_lending_rewards** | **str** | Earnings from referral lending rewards | [optional] 
 **perps_fee_cashback** | **str** | Cashback from perps fees | [optional] 
+**perps_rev_share** | **str** | Revenue share percentage for perps | [optional] 
 
 ## Example
 

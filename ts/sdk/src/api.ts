@@ -4704,6 +4704,12 @@ export interface UserCampaignRewards {
      */
     'cashRewardsE9': string;
     /**
+     * Total user fee paid in the epoch (e9 format).
+     * @type {string}
+     * @memberof UserCampaignRewards
+     */
+    'userFeePaidE9': string;
+    /**
      * Time in milliseconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
@@ -4715,6 +4721,18 @@ export interface UserCampaignRewards {
      * @memberof UserCampaignRewards
      */
     'intervalEndDate': number;
+    /**
+     * Indicates if the rewards have been disbursed.
+     * @type {boolean}
+     * @memberof UserCampaignRewards
+     */
+    'isDisbursed': boolean;
+    /**
+     * Transaction digest of the disbursement.
+     * @type {string}
+     * @memberof UserCampaignRewards
+     */
+    'txnDigest': string;
 }
 
 export const UserCampaignRewardsStatusEnum = {

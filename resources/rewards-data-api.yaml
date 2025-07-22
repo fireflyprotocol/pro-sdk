@@ -41,8 +41,11 @@ components:
         - suiRewardsE9
         - walRewardsE9
         - cashRewardsE9
+        - userFeePaidE9
         - intervalStartDate
         - intervalEndDate
+        - isDisbursed
+        - txnDigest
       properties:
         userAddress:
           type: string
@@ -87,6 +90,10 @@ components:
           type: string
           description: Total cash rewards earned in the epoch (e9 format).
           example: 10000000
+        userFeePaidE9:
+          type: string
+          description: Total user fee paid in the epoch (e9 format).
+          example: 10000000
         intervalStartDate:
           type: integer
           description: Time in milliseconds for interval start date.
@@ -95,7 +102,14 @@ components:
           type: integer
           description: Time in milliseconds for interval end date.
           example: 1724121094751
-
+        isDisbursed:
+          type: boolean
+          description: Indicates if the rewards have been disbursed.
+          example: false
+        txnDigest:
+          type: string
+          description: Transaction digest of the disbursement.
+          example: "6Ts8P3kjA9bb9MgbpRUYQfSwd8JwYdQpiEXXXd3iWfWK"
     IntervalRewards:
       type: object
       required:
