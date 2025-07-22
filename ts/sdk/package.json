@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "@firefly-exchange/library-sui": "^2.6.10",
-    "@mysten/bcs": "1.2.1",
-    "@mysten/sui": "1.28.2",
-    "@noble/hashes": "1.7.0",
+    "@mysten/bcs": "1.6.1",
+    "@mysten/sui": "1.30.1",
+    "@noble/hashes": "1.8.0",
     "@types/ws": "8.5.13",
-    "axios": "1.6.1",
+    "axios": "1.7.9",
     "isomorphic-ws": "5.0.0",
     "ws": "8.18.0"
   },

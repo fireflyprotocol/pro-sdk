@@ -1143,24 +1143,10 @@
   dependencies:
     bs58 "^6.0.0"
 
-"@mysten/bcs@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@mysten/bcs/-/bcs-1.2.1.tgz#b84cfedce86586c401eca1cbdf26ffe7f59609c8"
-  integrity sha512-RMSaUsNb8oR0rTRVIOOcyoEVJqQi6DLvMXN+7mvDcki12FJFQ0lF89zQa7AV7cIurWlDQfJ8VIbCuRDyK+955A==
-  dependencies:
-    bs58 "^6.0.0"
-
 "@mysten/bcs@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@mysten/bcs/-/bcs-1.5.0.tgz#ed8f96c5577a391dcfe8a0945db828e3531cc0a1"
   integrity sha512-v39dm5oNfKYMAf2CVI+L0OaJiG9RVXsjqPM4BwTKcHNCZOvr35IIewGtXtWXsI67SQU2TRq8lhQzeibdiC/CNg==
-  dependencies:
-    "@scure/base" "^1.2.4"
-
-"@mysten/bcs@1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@mysten/bcs/-/bcs-1.6.0.tgz#ccd7153cef7a83a402724c8fb3b2603323a4aedc"
-  integrity sha512-ydDRYdIkIFCpHCcPvAkMC91fVwumjzbTgjqds0KsphDQI3jUlH3jFG5lfYNTmV6V3pkhOiRk1fupLBcsQsiszg==
   dependencies:
     "@scure/base" "^1.2.4"
 
@@ -1224,25 +1210,7 @@
     poseidon-lite "^0.2.0"
     valibot "^0.36.0"
 
-"@mysten/sui@1.28.2":
-  version "1.28.2"
-  resolved "https://registry.yarnpkg.com/@mysten/sui/-/sui-1.28.2.tgz#ded2ae122c53ac3bb6f05d731b5847e447512eb2"
-  integrity sha512-d+lSp3rAtuOX0taIiIv0KNILDsbmAB9koNGHBinfREraGnE9tUFW315UByuyvuZ9K53ji4i2risdtwxCQ1a8Zw==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.2.0"
-    "@mysten/bcs" "1.6.0"
-    "@mysten/utils" "0.0.0"
-    "@noble/curves" "^1.8.1"
-    "@noble/hashes" "^1.7.1"
-    "@scure/base" "^1.2.4"
-    "@scure/bip32" "^1.6.2"
-    "@scure/bip39" "^1.5.4"
-    gql.tada "^1.8.2"
-    graphql "^16.9.0"
-    poseidon-lite "^0.2.0"
-    valibot "^0.36.0"
-
-"@mysten/sui@^1.21.1":
+"@mysten/sui@1.30.1", "@mysten/sui@^1.21.1":
   version "1.30.1"
   resolved "https://registry.npmjs.org/@mysten/sui/-/sui-1.30.1.tgz"
   integrity sha512-WnyDpc5Fw6cvkJwXXmPWV80LA5YhvUgrKf86Pix0KLBSIc7aqwZi0GTPRWqiCedvayR6C3TkZqEhoDrVMusL7A==
@@ -1303,11 +1271,6 @@
   integrity sha512-k11yZxZg+t+gWvBbIswW0yoJlu8cHOC7dhunwOzoWH/mXGBiYyR4YY6hAEK/3EUs4UpB8la1RfdRpeGsFHkWsA==
   dependencies:
     "@noble/hashes" "1.8.0"
-
-"@noble/hashes@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.7.0.tgz#5d9e33af2c7d04fee35de1519b80c958b2e35e39"
-  integrity sha512-HXydb0DgzTpDPwbVeDGCG1gIu7X6+AuU6Zl6av/E/KG8LMsvPntvq+w17CHRpKBmN6Ybdrt1eP3k4cj8DJa78w==
 
 "@noble/hashes@1.8.0", "@noble/hashes@^1.2.0", "@noble/hashes@^1.4.0", "@noble/hashes@^1.7.1", "@noble/hashes@~1.8.0":
   version "1.8.0"
@@ -2148,16 +2111,7 @@ avsc@^5.7.6:
   resolved "https://registry.npmjs.org/avsc/-/avsc-5.7.7.tgz"
   integrity sha512-9cYNccliXZDByFsFliVwk5GvTq058Fj513CiR4E60ndDwmuXzTJEp/Bp8FyuRmGyYupLjHLs+JA9/CBoVS4/NQ==
 
-axios@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.1.tgz#76550d644bf0a2d469a01f9244db6753208397d7"
-  integrity sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
-axios@^1.7.2:
+axios@1.7.9, axios@^1.7.2:
   version "1.7.9"
   resolved "https://registry.npmjs.org/axios/-/axios-1.7.9.tgz"
   integrity sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==
@@ -2642,7 +2596,7 @@ file-uri-to-path@1.0.0:
   resolved "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
-follow-redirects@^1.15.0, follow-redirects@^1.15.6:
+follow-redirects@^1.15.6:
   version "1.15.9"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
