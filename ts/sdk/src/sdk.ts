@@ -106,6 +106,7 @@ export interface BluefinProSdkOptions {
   refreshTokenValidForSeconds?: number;
   disableLoginPromptOnLogout?: boolean;
   onLogout?: () => void;
+  onAccessTokenUpdate?: (accessToken: string) => void;
 
   // if needed to point to different services
   authHost?: string;
@@ -139,6 +140,7 @@ export class BluefinProSdk {
   private currentAccountAddress: string | undefined;
   private disableLoginPromptOnLogout: boolean;
   private onLogout?: (() => void);
+  private onAccessTokenUpdate?: ((accessToken: string) => void);
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
@@ -155,6 +157,7 @@ export class BluefinProSdk {
     this.disableLoginPromptOnLogout =
       opts?.disableLoginPromptOnLogout ?? false;
     this.onLogout = opts?.onLogout;
+    this.onAccessTokenUpdate = opts?.onAccessTokenUpdate;
 
     if (opts?.refreshToken && opts?.refreshTokenValidForSeconds) {
       this.tokenResponse = {
@@ -282,6 +285,9 @@ export class BluefinProSdk {
       this.tokenResponse!.accessToken;
     this.configs[Services.Trade]!.accessToken = this.tokenResponse!.accessToken;
     this.configs[Services.Rewards]!.accessToken = this.tokenResponse!.accessToken;
+    
+    // Notify about token refresh
+    this.onAccessTokenUpdate?.(this.tokenResponse!.accessToken);
   }
 
   private async login(): Promise<void> {
