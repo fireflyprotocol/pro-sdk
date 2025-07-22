@@ -42,16 +42,25 @@ pub struct UserCampaignRewards {
     /// Total cash rewards earned in the epoch (e9 format).
     #[serde(rename = "cashRewardsE9")]
     pub cash_rewards_e9: String,
+    /// Total user fee paid in the epoch (e9 format).
+    #[serde(rename = "userFeePaidE9")]
+    pub user_fee_paid_e9: String,
     /// Time in milliseconds for interval start date.
     #[serde(rename = "intervalStartDate")]
     pub interval_start_date: i32,
     /// Time in milliseconds for interval end date.
     #[serde(rename = "intervalEndDate")]
     pub interval_end_date: i32,
+    /// Indicates if the rewards have been disbursed.
+    #[serde(rename = "isDisbursed")]
+    pub is_disbursed: bool,
+    /// Transaction digest of the disbursement.
+    #[serde(rename = "txnDigest")]
+    pub txn_digest: String,
 }
 
 impl UserCampaignRewards {
-    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, cash_rewards_e9: String, interval_start_date: i32, interval_end_date: i32) -> UserCampaignRewards {
+    pub fn new(user_address: String, campaign_name: String, epoch_number: i32, interval_number: i32, symbol: String, status: Status, blue_rewards_e9: String, sui_rewards_e9: String, wal_rewards_e9: String, cash_rewards_e9: String, user_fee_paid_e9: String, interval_start_date: i32, interval_end_date: i32, is_disbursed: bool, txn_digest: String) -> UserCampaignRewards {
         UserCampaignRewards {
             user_address,
             campaign_name,
@@ -63,8 +72,11 @@ impl UserCampaignRewards {
             sui_rewards_e9,
             wal_rewards_e9,
             cash_rewards_e9,
+            user_fee_paid_e9,
             interval_start_date,
             interval_end_date,
+            is_disbursed,
+            txn_digest,
         }
     }
 }

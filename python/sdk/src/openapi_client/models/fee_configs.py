@@ -32,7 +32,8 @@ class FeeConfigs(BaseModel):
     referral_spot_lp_fee: Optional[StrictStr] = Field(default=None, description="Earnings from referral spot LP fees", alias="referralSpotLPFee")
     referral_lending_rewards: Optional[StrictStr] = Field(default=None, description="Earnings from referral lending rewards", alias="referralLendingRewards")
     perps_fee_cashback: Optional[StrictStr] = Field(default=None, description="Cashback from perps fees", alias="perpsFeeCashback")
-    __properties: ClassVar[List[str]] = ["referralPerpsFee", "subaffiliatePerpsEarnings", "spotLPFee", "referralSpotLPFee", "referralLendingRewards", "perpsFeeCashback"]
+    perps_rev_share: Optional[StrictStr] = Field(default=None, description="Revenue share percentage for perps", alias="perpsRevShare")
+    __properties: ClassVar[List[str]] = ["referralPerpsFee", "subaffiliatePerpsEarnings", "spotLPFee", "referralSpotLPFee", "referralLendingRewards", "perpsFeeCashback", "perpsRevShare"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +91,8 @@ class FeeConfigs(BaseModel):
             "spotLPFee": obj.get("spotLPFee"),
             "referralSpotLPFee": obj.get("referralSpotLPFee"),
             "referralLendingRewards": obj.get("referralLendingRewards"),
-            "perpsFeeCashback": obj.get("perpsFeeCashback")
+            "perpsFeeCashback": obj.get("perpsFeeCashback"),
+            "perpsRevShare": obj.get("perpsRevShare")
         })
         return _obj
 
