@@ -1119,17 +1119,23 @@ export interface AffiliateIntervalOverview {
      */
     'intervalNumber': number;
     /**
-     * Start date of the interval in milliseconds
+     * Start date of the interval in seconds
      * @type {number}
      * @memberof AffiliateIntervalOverview
      */
     'intervalStartDate': number;
     /**
-     * End date of the interval in milliseconds
+     * End date of the interval in seconds
      * @type {number}
      * @memberof AffiliateIntervalOverview
      */
     'intervalEndDate': number;
+    /**
+     * Status of the interval
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'status': AffiliateIntervalOverviewStatusEnum;
     /**
      * Date when the user was referred
      * @type {string}
@@ -1209,6 +1215,16 @@ export interface AffiliateIntervalOverview {
      */
     'totalEarningsE9': string;
 }
+
+export const AffiliateIntervalOverviewStatusEnum = {
+    Active: 'ACTIVE',
+    NotStarted: 'NOT_STARTED',
+    Finalized: 'FINALIZED',
+    Cooldown: 'COOLDOWN'
+} as const;
+
+export type AffiliateIntervalOverviewStatusEnum = typeof AffiliateIntervalOverviewStatusEnum[keyof typeof AffiliateIntervalOverviewStatusEnum];
+
 /**
  * 
  * @export

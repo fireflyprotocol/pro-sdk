@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **userAddress** | **string** | The user\&#39;s wallet address | [default to undefined]
 **name** | **string** | Name of the affiliate | [optional] [default to undefined]
 **intervalNumber** | **number** | The interval number for the affiliate\&#39;s earnings data | [default to undefined]
-**intervalStartDate** | **number** | Start date of the interval in milliseconds | [default to undefined]
-**intervalEndDate** | **number** | End date of the interval in milliseconds | [default to undefined]
+**intervalStartDate** | **number** | Start date of the interval in seconds | [default to undefined]
+**intervalEndDate** | **number** | End date of the interval in seconds | [default to undefined]
+**status** | **string** | Status of the interval | [default to undefined]
 **referredSince** | **string** | Date when the user was referred | [default to undefined]
 **perpsRefereeEarningsE9** | **string** | Referee earnings from perps trading (e9 format) | [default to undefined]
 **spotLPRefereeEarningsE9** | **string** | Referee earnings from spot LP (e9 format) | [default to undefined]
@@ -35,6 +36,7 @@ const instance: AffiliateIntervalOverview = {
     intervalNumber,
     intervalStartDate,
     intervalEndDate,
+    status,
     referredSince,
     perpsRefereeEarningsE9,
     spotLPRefereeEarningsE9,
