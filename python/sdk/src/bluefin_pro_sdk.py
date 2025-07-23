@@ -223,11 +223,9 @@ class BluefinProSdk:
         return hashable.hash()
 
     async def get_open_orders(self, symbol: str):
-        await self._set_access_token(self._trade_api.api_client)
         return await self._trade_api.get_open_orders(symbol)
 
     async def get_standby_orders(self, symbol: str):
-        await self._set_access_token(self._trade_api.api_client)
         return await self._trade_api.get_standby_orders(symbol)
 
     async def update_leverage(self, symbol: str, leverage_e9: str):
@@ -356,16 +354,6 @@ class BluefinProSdk:
 
         logger.info(f"Deauthorize account request sent successfully {signed_fields}")
 
-    async def _set_access_token(self, api_client: ApiClient):
-        """
-        This method is used to set the access token in the api client while using the cached access token.
-        :param api_client:
-        :return:
-        """
-        await self._login()
-        api_client.set_default_header("Authorization",
-                                      "Bearer " + self._token_response.access_token)
-
     async def _login(self, v1: bool = True):
         logging.info("Logging in to get the access token")
         self._token_set_at_seconds = time.time()
@@ -449,7 +437,8 @@ class BluefinProSdk:
         while True:
             logger.debug("check token for refresh")
             # Check validity of tokens every make sure it's actually using refresh tokens or just remove refresh token response
-            if time.time() - self._token_set_at_seconds > self._token_response.access_token_valid_for_seconds:
+            # add 20 seconds for safety margin
+            if time.time() - self._token_set_at_seconds > self._token_response.access_token_valid_for_seconds - 20:
                 logger.debug("Refreshing token")
                 # todo refresh token instead
                 self._token_set_at_seconds = time.time()
