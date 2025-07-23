@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,8 +29,9 @@ class AffiliateIntervalOverview(BaseModel):
     user_address: StrictStr = Field(description="The user's wallet address", alias="userAddress")
     name: Optional[StrictStr] = Field(default=None, description="Name of the affiliate")
     interval_number: StrictInt = Field(description="The interval number for the affiliate's earnings data", alias="intervalNumber")
-    interval_start_date: StrictInt = Field(description="Start date of the interval in milliseconds", alias="intervalStartDate")
-    interval_end_date: StrictInt = Field(description="End date of the interval in milliseconds", alias="intervalEndDate")
+    interval_start_date: StrictInt = Field(description="Start date of the interval in seconds", alias="intervalStartDate")
+    interval_end_date: StrictInt = Field(description="End date of the interval in seconds", alias="intervalEndDate")
+    status: StrictStr = Field(description="Status of the interval")
     referred_since: StrictStr = Field(description="Date when the user was referred", alias="referredSince")
     perps_referee_earnings_e9: StrictStr = Field(description="Referee earnings from perps trading (e9 format)", alias="perpsRefereeEarningsE9")
     spot_lp_referee_earnings_e9: StrictStr = Field(description="Referee earnings from spot LP (e9 format)", alias="spotLPRefereeEarningsE9")
@@ -44,7 +45,14 @@ class AffiliateIntervalOverview(BaseModel):
     total_referral_earnings_e9: StrictStr = Field(description="Total earnings from referrals (e9 format)", alias="totalReferralEarningsE9")
     total_referee_earnings_e9: StrictStr = Field(description="Total earnings from referee activities (e9 format)", alias="totalRefereeEarningsE9")
     total_earnings_e9: StrictStr = Field(description="Total earnings combining referrals and referee activities (e9 format)", alias="totalEarningsE9")
-    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "referredSince", "perpsRefereeEarningsE9", "spotLPRefereeEarningsE9", "lendingRefereeEarningsE9", "perpsReferralEarningsE9", "spotLPReferralEarningsE9", "lendingReferralEarningsE9", "perpsTotalEarningsE9", "spotLPTotalEarningsE9", "lendingTotalEarningsE9", "totalReferralEarningsE9", "totalRefereeEarningsE9", "totalEarningsE9"]
+    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "status", "referredSince", "perpsRefereeEarningsE9", "spotLPRefereeEarningsE9", "lendingRefereeEarningsE9", "perpsReferralEarningsE9", "spotLPReferralEarningsE9", "lendingReferralEarningsE9", "perpsTotalEarningsE9", "spotLPTotalEarningsE9", "lendingTotalEarningsE9", "totalReferralEarningsE9", "totalRefereeEarningsE9", "totalEarningsE9"]
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN']):
+            raise ValueError("must be one of enum values ('ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,6 +110,7 @@ class AffiliateIntervalOverview(BaseModel):
             "intervalNumber": obj.get("intervalNumber"),
             "intervalStartDate": obj.get("intervalStartDate"),
             "intervalEndDate": obj.get("intervalEndDate"),
+            "status": obj.get("status"),
             "referredSince": obj.get("referredSince"),
             "perpsRefereeEarningsE9": obj.get("perpsRefereeEarningsE9"),
             "spotLPRefereeEarningsE9": obj.get("spotLPRefereeEarningsE9"),

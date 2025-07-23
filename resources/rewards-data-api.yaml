@@ -546,6 +546,7 @@ components:
         - intervalNumber
         - intervalStartDate
         - intervalEndDate
+        - status
         - referredSince
         - perpsRefereeEarningsE9
         - spotLPRefereeEarningsE9
@@ -574,12 +575,21 @@ components:
           example: 5
         intervalStartDate:
           type: integer
-          description: Start date of the interval in milliseconds
-          example: 1724121094751
+          description: Start date of the interval in seconds
+          example: 1724121094
         intervalEndDate:
           type: integer
-          description: End date of the interval in milliseconds
-          example: 1724725894751
+          description: End date of the interval in seconds
+          example: 1724725894
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+          description: Status of the interval
+          example: "ACTIVE"
         referredSince:
           type: string
           description: Date when the user was referred

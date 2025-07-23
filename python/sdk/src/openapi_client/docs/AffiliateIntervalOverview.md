@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **user_address** | **str** | The user&#39;s wallet address | 
 **name** | **str** | Name of the affiliate | [optional] 
 **interval_number** | **int** | The interval number for the affiliate&#39;s earnings data | 
-**interval_start_date** | **int** | Start date of the interval in milliseconds | 
-**interval_end_date** | **int** | End date of the interval in milliseconds | 
+**interval_start_date** | **int** | Start date of the interval in seconds | 
+**interval_end_date** | **int** | End date of the interval in seconds | 
+**status** | **str** | Status of the interval | 
 **referred_since** | **str** | Date when the user was referred | 
 **perps_referee_earnings_e9** | **str** | Referee earnings from perps trading (e9 format) | 
 **spot_lp_referee_earnings_e9** | **str** | Referee earnings from spot LP (e9 format) | 

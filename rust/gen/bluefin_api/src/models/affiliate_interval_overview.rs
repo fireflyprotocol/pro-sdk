@@ -22,12 +22,15 @@ pub struct AffiliateIntervalOverview {
     /// The interval number for the affiliate's earnings data
     #[serde(rename = "intervalNumber")]
     pub interval_number: i32,
-    /// Start date of the interval in milliseconds
+    /// Start date of the interval in seconds
     #[serde(rename = "intervalStartDate")]
     pub interval_start_date: i32,
-    /// End date of the interval in milliseconds
+    /// End date of the interval in seconds
     #[serde(rename = "intervalEndDate")]
     pub interval_end_date: i32,
+    /// Status of the interval
+    #[serde(rename = "status")]
+    pub status: Status,
     /// Date when the user was referred
     #[serde(rename = "referredSince")]
     pub referred_since: String,
@@ -70,13 +73,14 @@ pub struct AffiliateIntervalOverview {
 }
 
 impl AffiliateIntervalOverview {
-    pub fn new(user_address: String, interval_number: i32, interval_start_date: i32, interval_end_date: i32, referred_since: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateIntervalOverview {
+    pub fn new(user_address: String, interval_number: i32, interval_start_date: i32, interval_end_date: i32, status: Status, referred_since: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateIntervalOverview {
         AffiliateIntervalOverview {
             user_address,
             name: None,
             interval_number,
             interval_start_date,
             interval_end_date,
+            status,
             referred_since,
             perps_referee_earnings_e9,
             spot_lp_referee_earnings_e9,
@@ -91,6 +95,24 @@ impl AffiliateIntervalOverview {
             total_referee_earnings_e9,
             total_earnings_e9,
         }
+    }
+}
+/// Status of the interval
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "NOT_STARTED")]
+    NotStarted,
+    #[serde(rename = "FINALIZED")]
+    Finalized,
+    #[serde(rename = "COOLDOWN")]
+    Cooldown,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Active
     }
 }
 

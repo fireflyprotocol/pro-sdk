@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **user_address** | **String** | The user's wallet address | 
 **name** | Option<**String**> | Name of the affiliate | [optional]
 **interval_number** | **i32** | The interval number for the affiliate's earnings data | 
-**interval_start_date** | **i32** | Start date of the interval in milliseconds | 
-**interval_end_date** | **i32** | End date of the interval in milliseconds | 
+**interval_start_date** | **i32** | Start date of the interval in seconds | 
+**interval_end_date** | **i32** | End date of the interval in seconds | 
+**status** | **String** | Status of the interval | 
 **referred_since** | **String** | Date when the user was referred | 
 **perps_referee_earnings_e9** | **String** | Referee earnings from perps trading (e9 format) | 
 **spot_lp_referee_earnings_e9** | **String** | Referee earnings from spot LP (e9 format) | 
