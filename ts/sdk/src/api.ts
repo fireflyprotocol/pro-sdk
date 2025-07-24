@@ -2058,6 +2058,18 @@ export interface EpochConfigs {
      */
     'walRewardsAllocationE9': string;
     /**
+     * Interval number for the epoch.
+     * @type {number}
+     * @memberof EpochConfigs
+     */
+    'intervalNumber': number;
+    /**
+     * Epoch number for the epoch.
+     * @type {number}
+     * @memberof EpochConfigs
+     */
+    'epochNumber': number;
+    /**
      * Object to add custom configurations for campaigns.
      * @type {{ [key: string]: any | undefined; }}
      * @memberof EpochConfigs

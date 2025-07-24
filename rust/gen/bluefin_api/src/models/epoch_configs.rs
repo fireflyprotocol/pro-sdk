@@ -28,19 +28,27 @@ pub struct EpochConfigs {
     /// Allocation of wal token rewards in the epoch (e9 format)
     #[serde(rename = "walRewardsAllocationE9")]
     pub wal_rewards_allocation_e9: String,
+    /// Interval number for the epoch.
+    #[serde(rename = "intervalNumber")]
+    pub interval_number: i32,
+    /// Epoch number for the epoch.
+    #[serde(rename = "epochNumber")]
+    pub epoch_number: i32,
     /// Object to add custom configurations for campaigns.
     #[serde(rename = "config")]
     pub config: std::collections::HashMap<String, serde_json::Value>,
 }
 
 impl EpochConfigs {
-    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation_e9: String, blue_rewards_allocation_e9: String, wal_rewards_allocation_e9: String, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
+    pub fn new(campaign_name: String, epoch_duration: i32, sui_rewards_allocation_e9: String, blue_rewards_allocation_e9: String, wal_rewards_allocation_e9: String, interval_number: i32, epoch_number: i32, config: std::collections::HashMap<String, serde_json::Value>) -> EpochConfigs {
         EpochConfigs {
             campaign_name,
             epoch_duration,
             sui_rewards_allocation_e9,
             blue_rewards_allocation_e9,
             wal_rewards_allocation_e9,
+            interval_number,
+            epoch_number,
             config,
         }
     }
