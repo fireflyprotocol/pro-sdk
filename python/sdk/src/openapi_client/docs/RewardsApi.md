@@ -622,7 +622,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_rewards_epoch_config_metadata**
-> List[EpochConfigs] get_rewards_epoch_config_metadata()
+> List[EpochConfigs] get_rewards_epoch_config_metadata(interval_number=interval_number)
 
 /rewards/metadata/epoch/configs
 
@@ -648,10 +648,11 @@ configuration = openapi_client.Configuration(
 async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.RewardsApi(api_client)
+    interval_number = 6 # int | Specify the interval number (optional)
 
     try:
         # /rewards/metadata/epoch/configs
-        api_response = await api_instance.get_rewards_epoch_config_metadata()
+        api_response = await api_instance.get_rewards_epoch_config_metadata(interval_number=interval_number)
         print("The response of RewardsApi->get_rewards_epoch_config_metadata:\n")
         pprint(api_response)
     except Exception as e:
@@ -662,7 +663,10 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **interval_number** | **int**| Specify the interval number | [optional] 
 
 ### Return type
 

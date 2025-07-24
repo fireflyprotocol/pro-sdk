@@ -880,6 +880,14 @@ paths:
       operationId: getRewardsEpochConfigMetadata
       summary: /rewards/metadata/epoch/configs
       description: Returns the latest epoch configs for the campaigns.
+      parameters:
+        - name: intervalNumber
+          in: query
+          required: false
+          description: Specify the interval number
+          schema:
+            type: integer
+            example: 6
       responses:
         "200":
           description: Successful response
