@@ -105,6 +105,7 @@ export interface BluefinProSdkOptions {
   refreshToken?: string;
   refreshTokenValidForSeconds?: number;
   disableLoginPromptOnLogout?: boolean;
+  currentTimeMs?: number;
   onLogout?: () => void;
   onAccessTokenUpdate?: (accessToken: string) => void;
 
@@ -146,6 +147,7 @@ export class BluefinProSdk {
   private visibilityChangeHandler?: () => void;
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
+  private timeOffsetMs: number;
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
@@ -167,6 +169,13 @@ export class BluefinProSdk {
     this.visibilityChangeHandler = undefined;
     this.onlineHandler = undefined;
     this.offlineHandler = undefined;
+    
+    // Initialize time offset based on provided currentTimeMs
+    if (opts?.currentTimeMs !== undefined) {
+      this.timeOffsetMs = opts.currentTimeMs - Date.now();
+    } else {
+      this.timeOffsetMs = 0;
+    }
 
     if (opts?.refreshToken && opts?.refreshTokenValidForSeconds) {
       this.tokenResponse = {
@@ -249,6 +258,14 @@ export class BluefinProSdk {
 
   private generateSalt(): string {
     return (Date.now() + Math.floor(Math.random() * 1000000)).toString();
+  }
+
+  private getCurrentTimeMs(): number {
+    return Date.now() + this.timeOffsetMs;
+  }
+
+  public updateCurrentTimeMs(currentTimeMs: number): void {
+    this.timeOffsetMs = currentTimeMs - Date.now();
   }
 
   private isRefreshTokenValid(): boolean {
@@ -469,7 +486,7 @@ export class BluefinProSdk {
     try {
       const loginRequest: LoginRequest = {
         accountAddress: this.currentAccountAddress,
-        signedAtMillis: Date.now(),
+        signedAtMillis: this.getCurrentTimeMs(),
         audience: 'api',
       };
 
@@ -524,7 +541,7 @@ export class BluefinProSdk {
       symbol: symbol,
       leverageE9: leverageE9,
       salt: this.generateSalt(),
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const request = await this.bfSigner.signLeverageUpdateRequest(signedFields);
@@ -551,7 +568,7 @@ export class BluefinProSdk {
       isIsolated: params.isIsolated,
       salt: this.generateSalt(),
       expiresAtMillis: params.expiresAtMillis,
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const signature = await this.bfSigner.signOrderRequest(signedFields);
@@ -599,7 +616,7 @@ export class BluefinProSdk {
       accountAddress: this.currentAccountAddress!,
       amountE9,
       salt: this.generateSalt(),
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const signature = await this.bfSigner.signWithdrawRequest(signedFields);
@@ -621,7 +638,7 @@ export class BluefinProSdk {
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
       salt: this.generateSalt(),
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
@@ -647,7 +664,7 @@ export class BluefinProSdk {
       idsId: this.contractsConfig.idsId,
       authorizedAccountAddress: accountAddress,
       salt: this.generateSalt(),
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
@@ -680,7 +697,7 @@ export class BluefinProSdk {
         : AdjustMarginOperation.Subtract,
       quantityE9: amountE9,
       salt: this.generateSalt(),
-      signedAtMillis: Date.now(),
+      signedAtMillis: this.getCurrentTimeMs(),
     };
 
     const signature = await this.bfSigner.signAdjustIsolatedMarginRequest(
