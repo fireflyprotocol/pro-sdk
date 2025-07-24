@@ -115,6 +115,20 @@ async function main() {
   );
   await client.initialize();
 
+  // Example: Creating SDK with custom time offset
+  // const customTime = Date.now() + 5000; // 5 seconds in the future
+  // const clientWithTimeOffset = new BluefinProSdk(
+  //   bfSigner,
+  //   "testnet",
+  //   new SuiClient({ url: "https://fullnode.testnet.sui.io:443" }),
+  //   { currentTimeMs: customTime }
+  // );
+  // await clientWithTimeOffset.initialize();
+  // 
+  // Later, you can update the time offset:
+  // const newCustomTime = Date.now() + 10000; // 10 seconds in the future
+  // clientWithTimeOffset.updateCurrentTimeMs(newCustomTime);
+
   try {
     // Disable for now as the account does not have enough coins
     // await client.deposit((0.03*1e9).toString());
