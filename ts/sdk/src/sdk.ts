@@ -23,20 +23,20 @@ import {
   AdjustMarginOperation,
   RewardsApi,
   UpdateAccountPreferenceRequest,
-} from "./api";
+} from './api';
 
-import { Configuration } from "./configuration";
-import { IBluefinSigner } from "./request-signer";
-import { WebSocket } from "ws";
-import { IAsset, TxBuilder } from "@firefly-exchange/library-sui/dist/src/v3";
+import { Configuration } from './configuration';
+import { IBluefinSigner } from './request-signer';
+import { WebSocket } from 'ws';
+import { IAsset, TxBuilder } from '@firefly-exchange/library-sui/dist/src/v3';
 import {
   CoinUtils,
   SuiClient,
   TransactionBlock,
   Ed25519Keypair,
   decodeSuiPrivateKey,
-} from "@firefly-exchange/library-sui";
-import { toHex } from "@mysten/bcs";
+} from '@firefly-exchange/library-sui';
+import { toHex } from '@mysten/bcs';
 
 interface EnvironmentConfig {
   [key: string]: {
@@ -50,25 +50,25 @@ interface EnvironmentConfig {
 
 const environmentConfig: EnvironmentConfig = {
   mainnet: {
-    authHost: "https://auth.api.sui-prod.bluefin.io",
-    apiHost: "https://api.sui-prod.bluefin.io",
-    tradeHost: "https://trade.api.sui-prod.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-prod.bluefin.io/ws/account",
+    authHost: 'https://auth.api.sui-prod.bluefin.io',
+    apiHost: 'https://api.sui-prod.bluefin.io',
+    tradeHost: 'https://trade.api.sui-prod.bluefin.io',
+    marketWsHost: 'wss://stream.api.sui-prod.bluefin.io/ws/market',
+    accountWsHost: 'wss://stream.api.sui-prod.bluefin.io/ws/account',
   },
   testnet: {
-    authHost: "https://auth.api.sui-staging.bluefin.io",
-    apiHost: "https://api.sui-staging.bluefin.io",
-    tradeHost: "https://trade.api.sui-staging.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-staging.bluefin.io/ws/account",
+    authHost: 'https://auth.api.sui-staging.bluefin.io',
+    apiHost: 'https://api.sui-staging.bluefin.io',
+    tradeHost: 'https://trade.api.sui-staging.bluefin.io',
+    marketWsHost: 'wss://stream.api.sui-staging.bluefin.io/ws/market',
+    accountWsHost: 'wss://stream.api.sui-staging.bluefin.io/ws/account',
   },
   devnet: {
-    authHost: "https://auth.api.sui-dev.bluefin.io",
-    apiHost: "https://api.sui-dev.bluefin.io",
-    tradeHost: "https://trade.api.sui-dev.bluefin.io",
-    marketWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/market",
-    accountWsHost: "wss://stream.api.sui-dev.bluefin.io/ws/account",
+    authHost: 'https://auth.api.sui-dev.bluefin.io',
+    apiHost: 'https://api.sui-dev.bluefin.io',
+    tradeHost: 'https://trade.api.sui-dev.bluefin.io',
+    marketWsHost: 'wss://stream.api.sui-dev.bluefin.io/ws/market',
+    accountWsHost: 'wss://stream.api.sui-dev.bluefin.io/ws/account',
   },
 };
 
@@ -119,10 +119,10 @@ export interface BluefinProSdkOptions {
 export interface InitializeOptions {
   refreshTokenValidForSeconds?: number;
   readOnly?: boolean;
-
 }
 
 export class BluefinProSdk {
+  private static readonly TOKEN_REFRESH_THRESHOLD_PERCENTAGE = 0.8;
   private readonly configs: Partial<Record<Services, Configuration>> = {};
   public readonly exchangeDataApi: ExchangeApi;
   public readonly rewardsDataApi: RewardsApi;
@@ -133,39 +133,50 @@ export class BluefinProSdk {
   private tokenResponse: LoginResponse | null;
   private tokenSetAtSeconds: number | null;
   private isConnected: boolean;
-  private updateTokenInterval: NodeJS.Timeout | null;
+  private updateTokenTimeout: ReturnType<typeof setTimeout> | null;
   private contractsConfig: ContractsConfig | undefined;
   private assets: Array<AssetConfig> | undefined;
   private txBuilder: TxBuilder | undefined;
   private currentAccountAddress: string | undefined;
   private disableLoginPromptOnLogout: boolean;
-  private onLogout?: (() => void);
-  private onAccessTokenUpdate?: ((accessToken: string) => void);
+  private onLogout?: () => void;
+  private onAccessTokenUpdate?: (accessToken: string) => void;
+  private isRefreshing: boolean;
+  private refreshPromise: Promise<void> | null;
+  private visibilityChangeHandler?: () => void;
+  private onlineHandler?: () => void;
+  private offlineHandler?: () => void;
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
-    private environment: "mainnet" | "testnet" | "devnet" = "mainnet",
+    private environment: 'mainnet' | 'testnet' | 'devnet' = 'mainnet',
     private suiClient: SuiClient,
     opts?: BluefinProSdkOptions
   ) {
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
-    this.updateTokenInterval = null;
+    this.updateTokenTimeout = null;
     this.contractsConfig = undefined;
     this.tokenResponse = null;
     this.tokenSetAtSeconds = null;
-    this.disableLoginPromptOnLogout =
-      opts?.disableLoginPromptOnLogout ?? false;
+    this.disableLoginPromptOnLogout = opts?.disableLoginPromptOnLogout ?? false;
     this.onLogout = opts?.onLogout;
     this.onAccessTokenUpdate = opts?.onAccessTokenUpdate;
+    this.isRefreshing = false;
+    this.refreshPromise = null;
+    this.visibilityChangeHandler = undefined;
+    this.onlineHandler = undefined;
+    this.offlineHandler = undefined;
 
     if (opts?.refreshToken && opts?.refreshTokenValidForSeconds) {
       this.tokenResponse = {
-        accessToken: "",
+        accessToken: '',
         accessTokenValidForSeconds: 0,
         refreshToken: opts.refreshToken,
         refreshTokenValidForSeconds: opts.refreshTokenValidForSeconds,
       };
+      // Set timestamp when refresh token was provided
+      this.tokenSetAtSeconds = Date.now() / 1000;
     }
 
     const defaultConfig = environmentConfig[this.environment];
@@ -240,27 +251,57 @@ export class BluefinProSdk {
     return (Date.now() + Math.floor(Math.random() * 1000000)).toString();
   }
 
+  private isRefreshTokenValid(): boolean {
+    if (!this.tokenResponse?.refreshToken || !this.tokenSetAtSeconds) {
+      return false;
+    }
+
+    const currentTimeSeconds = Date.now() / 1000;
+    const refreshTokenExpiryTime =
+      this.tokenSetAtSeconds + this.tokenResponse.refreshTokenValidForSeconds;
+
+    // Add 60 second buffer to prevent using token right at expiry
+    return currentTimeSeconds < refreshTokenExpiryTime - 60;
+  }
+
+  private isAccessTokenExpired(): boolean {
+    if (!this.tokenResponse?.accessToken || !this.tokenSetAtSeconds) {
+      return true;
+    }
+
+    const currentTimeSeconds = Date.now() / 1000;
+    const tokenLifetimeSeconds = this.tokenResponse.accessTokenValidForSeconds;
+    const refreshAtLifetimePercentage =
+      BluefinProSdk.TOKEN_REFRESH_THRESHOLD_PERCENTAGE;
+    const refreshAtSeconds =
+      this.tokenSetAtSeconds +
+      tokenLifetimeSeconds * refreshAtLifetimePercentage;
+
+    // Token is considered "expired" if we've passed the 80% lifetime mark
+    return currentTimeSeconds >= refreshAtSeconds;
+  }
+
   private async initializeTxBuilder() {
     this.txBuilder = new TxBuilder({
-      AdminCap: "",
-      ExternalDataStore: this.contractsConfig?.edsId || "",
-      InternalDataStore: this.contractsConfig?.idsId || "",
+      AdminCap: '',
+      ExternalDataStore: this.contractsConfig?.edsId || '',
+      InternalDataStore: this.contractsConfig?.idsId || '',
       Operators: {
-        admin: this.contractsConfig?.operators.admin || "",
-        fee: this.contractsConfig?.operators.fee || "",
-        funding: this.contractsConfig?.operators.funding || "",
-        pruning: "",
-        sequencer: this.contractsConfig?.operators.sequencer || "",
+        admin: this.contractsConfig?.operators.admin || '',
+        fee: this.contractsConfig?.operators.fee || '',
+        funding: this.contractsConfig?.operators.funding || '',
+        pruning: '',
+        sequencer: this.contractsConfig?.operators.sequencer || '',
       },
-      Package: this.contractsConfig?.currentContractAddress || "",
+      Package: this.contractsConfig?.currentContractAddress || '',
       Perpetuals: {},
       SupportedAssets:
         this.assets?.reduce((agg: Record<string, IAsset>, x: AssetConfig) => {
           agg[x.symbol] = { ...x, coinType: x.assetType };
           return agg;
         }, {}) || {},
-      TreasuryCap: "",
-      UpgradeCap: "",
+      TreasuryCap: '',
+      UpgradeCap: '',
     });
   }
 
@@ -269,8 +310,8 @@ export class BluefinProSdk {
     await this.setContractsConfig();
     await this.initializeTxBuilder();
     await this.loginAndUpdateToken();
-    this.updateTokenInterval = setInterval(() => this.refreshToken(), 120000);
-    this.isConnected = true;
+    this.setupVisibilityChangeListener();
+    this.setupNetworkChangeListener();
   }
 
   private async setContractsConfig() {
@@ -281,58 +322,180 @@ export class BluefinProSdk {
 
   private async loginAndUpdateToken(): Promise<void> {
     await this.login();
+
+    // Safety check - if login failed or logout was called, tokenResponse might be null
+    if (!this.tokenResponse) {
+      throw new Error('Login failed - no token response available');
+    }
+
+    this.isConnected = true;
+
     this.configs[Services.Account]!.accessToken =
-      this.tokenResponse!.accessToken;
-    this.configs[Services.Trade]!.accessToken = this.tokenResponse!.accessToken;
-    this.configs[Services.Rewards]!.accessToken = this.tokenResponse!.accessToken;
-    
+      this.tokenResponse.accessToken;
+    this.configs[Services.Trade]!.accessToken = this.tokenResponse.accessToken;
+    this.configs[Services.Rewards]!.accessToken =
+      this.tokenResponse.accessToken;
+
     // Notify about token refresh
-    this.onAccessTokenUpdate?.(this.tokenResponse!.accessToken);
+    this.onAccessTokenUpdate?.(this.tokenResponse.accessToken);
+
+    // Schedule the next token refresh
+    this.scheduleTokenRefresh();
+  }
+
+  private scheduleTokenRefresh(): void {
+    // Clear any existing timeout
+    if (this.updateTokenTimeout) {
+      clearTimeout(this.updateTokenTimeout);
+      this.updateTokenTimeout = null;
+    }
+
+    if (
+      !this.isConnected ||
+      !this.tokenResponse ||
+      !this.tokenSetAtSeconds
+    ) {
+      return;
+    }
+
+    // Calculate when to refresh: at 80% of token lifetime (or 20% before expiry)
+    const currentTimeSeconds = Date.now() / 1000;
+    const tokenLifetimeSeconds = this.tokenResponse.accessTokenValidForSeconds;
+    const refreshAtLifetimePercentage =
+      BluefinProSdk.TOKEN_REFRESH_THRESHOLD_PERCENTAGE;
+    const refreshAtSeconds =
+      this.tokenSetAtSeconds +
+      tokenLifetimeSeconds * refreshAtLifetimePercentage;
+    const millisecondsUntilRefresh =
+      (refreshAtSeconds - currentTimeSeconds) * 1000;
+
+    const delayMs = Math.max(millisecondsUntilRefresh, 0);
+
+    console.log(
+      `Scheduling token refresh in ${Math.round(delayMs / 1000)} seconds`
+    );
+
+    this.updateTokenTimeout = setTimeout(() => {
+      this.refreshToken(true);
+    }, delayMs);
+  }
+
+  private setupVisibilityChangeListener(): void {
+    // Only set up in browser environment
+    if (typeof document !== 'undefined') {
+      this.visibilityChangeHandler = () => {
+        if (document.visibilityState === 'visible' && this.isConnected) {
+          console.log('Page became visible, checking token status');
+          this.handleVisible();
+        }
+      };
+
+      document.addEventListener(
+        'visibilitychange',
+        this.visibilityChangeHandler
+      );
+    }
+  }
+
+  private setupNetworkChangeListener(): void {
+    // Only set up in browser environment
+    if (typeof navigator !== 'undefined' && 'onLine' in navigator) {
+      window.addEventListener('online', this.handleOnline);
+      window.addEventListener('offline', this.handleOffline);
+    }
+  }
+
+  private async handleVisible(): Promise<void> {
+    if (!this.tokenResponse || !this.tokenSetAtSeconds) {
+      return;
+    }
+
+    this.refreshToken();
+  }
+
+  private async handleOnline(): Promise<void> {
+    if (!this.isConnected || !this.tokenResponse || !this.tokenSetAtSeconds) {
+      return;
+    }
+
+    console.log(
+      'Network reconnected, resuming token refresh and checking token status'
+    );
+
+    this.refreshToken(true);
+  }
+
+  private handleOffline(): void {
+    if (this.updateTokenTimeout) {
+      clearTimeout(this.updateTokenTimeout);
+      this.updateTokenTimeout = null;
+    }
   }
 
   private async login(): Promise<void> {
-    console.log("Logging in to get the access token");
+    console.log('Logging in to get the access token');
     this.tokenSetAtSeconds = Date.now() / 1000;
-  
+
     if (!this.currentAccountAddress) {
       this.currentAccountAddress = this.bfSigner.getAddress();
     }
-  
+
     console.log(`Logging in as ${this.currentAccountAddress}`);
-  
-    if (this.tokenResponse && this.tokenResponse.refreshTokenValidForSeconds) {
+
+    // Check if we have a valid refresh token first
+    if (this.tokenResponse?.refreshToken && this.isRefreshTokenValid()) {
       try {
+        console.log('Attempting to refresh token using refresh token');
         const response = await this.authApi.authTokenRefreshPut({
           refreshToken: this.tokenResponse.refreshToken,
         });
         this.tokenResponse = response.data;
+        console.log('Token refreshed successfully');
         return;
       } catch (e) {
-        console.error("Error refreshing token:", e);
-  
-        // If refreshing the token fails, the user should be logged in again
-        if (this.disableLoginPromptOnLogout) {
-          this.logout();
-          return;
-        }
+        console.error('Error refreshing token:', e);
+
+        // Throw the error to let the caller handle it
+        throw new Error(
+          `Token refresh failed: ${
+            e instanceof Error ? e.message : 'Unknown error'
+          }`
+        );
       }
     }
-  
-    // fallback login (modal) only happens if not disabled
-    const loginRequest: LoginRequest = {
-      accountAddress: this.currentAccountAddress,
-      signedAtMillis: Date.now(),
-      audience: "api",
-    };
-  
-    const signature = await this.bfSigner.signLoginRequest(loginRequest);
-    const response = await this.authApi.authV2TokenPost(
-      signature,
-      loginRequest,
-      this.initializeOptions?.refreshTokenValidForSeconds,
-      this.initializeOptions?.readOnly
-    );
-    this.tokenResponse = response.data;
+
+    // Fallback to full login only if refresh token is not available or invalid
+    // This should only happen during initial login or when refresh token is truly expired
+    try {
+      const loginRequest: LoginRequest = {
+        accountAddress: this.currentAccountAddress,
+        signedAtMillis: Date.now(),
+        audience: 'api',
+      };
+
+      const signature = await this.bfSigner.signLoginRequest(loginRequest);
+      const response = await this.authApi.authV2TokenPost(
+        signature,
+        loginRequest,
+        this.initializeOptions?.refreshTokenValidForSeconds,
+        this.initializeOptions?.readOnly
+      );
+      this.tokenResponse = response.data;
+    } catch (e) {
+      console.error('Full login failed:', e);
+
+      // If this fails and we're in a mode where logout should be disabled, don't logout
+      if (this.disableLoginPromptOnLogout) {
+        throw new Error(
+          `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`
+        );
+      }
+
+      // Otherwise, throw the error and let the caller decide
+      throw new Error(
+        `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`
+      );
+    }
   }
 
   public async getAccessToken() {
@@ -352,7 +515,7 @@ export class BluefinProSdk {
 
   public async updateLeverage(symbol: string, leverageE9: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contracts config");
+      throw new Error('Missing contracts config');
     }
 
     const signedFields: AccountPositionLeverageUpdateRequestSignedFields = {
@@ -374,7 +537,7 @@ export class BluefinProSdk {
 
   public async createOrder(params: OrderParams): Promise<any> {
     if (!this.contractsConfig) {
-      throw new Error("Missing contracts config");
+      throw new Error('Missing contracts config');
     }
 
     const signedFields: CreateOrderRequestSignedFields = {
@@ -404,7 +567,7 @@ export class BluefinProSdk {
       triggerPriceE9: params.triggerPriceE9,
       selfTradePreventionType: params.selfTradePreventionType,
     };
-    console.log("Creating order:", createOrderRequest);
+    console.log('Creating order:', createOrderRequest);
     return await this.tradeApi.postCreateOrder(createOrderRequest);
   }
 
@@ -427,7 +590,7 @@ export class BluefinProSdk {
     }
 
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error('Missing contractsConfig');
     }
 
     const signedFields: WithdrawRequestSignedFields = {
@@ -445,12 +608,12 @@ export class BluefinProSdk {
       signedFields,
       signature,
     });
-    console.log("Withdraw request sent:", signedFields);
+    console.log('Withdraw request sent:', signedFields);
   }
 
   public async authorizeAccount(accountAddress: string, alias?: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error('Missing contractsConfig');
     }
 
     const signedFields: AccountAuthorizationRequestSignedFields = {
@@ -471,12 +634,12 @@ export class BluefinProSdk {
       signature,
       alias,
     });
-    console.log("Authorize account request sent:", signedFields);
+    console.log('Authorize account request sent:', signedFields);
   }
 
   public async deauthorizeAccount(accountAddress: string) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error('Missing contractsConfig');
     }
 
     const signedFields: AccountAuthorizationRequestSignedFields = {
@@ -496,7 +659,7 @@ export class BluefinProSdk {
       signedFields,
       signature,
     });
-    console.log("Deauthorize account request sent:", signedFields);
+    console.log('Deauthorize account request sent:', signedFields);
   }
 
   public async adjustIsolatedMargin(
@@ -505,7 +668,7 @@ export class BluefinProSdk {
     add: boolean
   ) {
     if (!this.contractsConfig) {
-      throw new Error("Missing contractsConfig");
+      throw new Error('Missing contractsConfig');
     }
 
     const signedFields: AdjustIsolatedMarginRequestSignedFields = {
@@ -528,25 +691,29 @@ export class BluefinProSdk {
       signedFields,
       signature,
     });
-    console.log("Adjust isolated margin request sent:", signedFields);
+    console.log('Adjust isolated margin request sent:', signedFields);
   }
 
   public async getAccountPreferences() {
     return await this.accountDataApi.getAccountPreferences();
   }
 
-  public async updateAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest) {
-    return await this.accountDataApi.putAccountPreferences(updateAccountPreferenceRequest);
+  public async updateAccountPreferences(
+    updateAccountPreferenceRequest: UpdateAccountPreferenceRequest
+  ) {
+    return await this.accountDataApi.putAccountPreferences(
+      updateAccountPreferenceRequest
+    );
   }
 
   public async deposit(amountE9: string, accountAddress?: string) {
-    const assetSymbol = "USDC";
+    const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
     const assetType = this.assets?.find(
       (x) => x.symbol === assetSymbol
     )?.assetType;
     if (!assetType) {
-      throw new Error("Missing USDC asset type");
+      throw new Error('Missing USDC asset type');
     }
     const [splitCoin, mergedCoin] = await CoinUtils.createCoinWithBalance(
       this.suiClient,
@@ -584,24 +751,129 @@ export class BluefinProSdk {
     return this.bfSigner.executeTx(txb, this.suiClient);
   }
 
-  public async refreshToken(): Promise<void> {
+  public async refreshToken(force: boolean = false): Promise<void> {
     if (!this.isConnected) return;
-  
-    console.log("Checking token for refresh");
-  
-    if (
-      !this.tokenResponse ||
-      !this.tokenSetAtSeconds ||
-      Date.now() / 1000 - this.tokenSetAtSeconds >
-        this.tokenResponse.accessTokenValidForSeconds
-    ) {
-      console.log("Refreshing token");
-      
+
+    // If already refreshing, wait for that operation to complete
+    if (this.isRefreshing) {
+      if (this.refreshPromise) {
+        await this.refreshPromise;
+      }
+      return;
+    }
+
+    // Check if token needs refreshing
+    if (!this.isAccessTokenExpired() && !force) {
+      return;
+    }
+
+    this.isRefreshing = true;
+    this.refreshPromise = this.performTokenRefresh();
+
+    try {
+      await this.refreshPromise;
+    } finally {
+      this.isRefreshing = false;
+      this.refreshPromise = null;
+    }
+  }
+
+  private async performTokenRefresh(): Promise<void> {
+    const maxRetries = 5;
+    let retryCount = 0;
+    let consecutiveNetworkErrors = 0;
+
+    while (retryCount < maxRetries) {
       try {
+        console.log(
+          `Refreshing token (attempt ${retryCount + 1}/${maxRetries})`
+        );
+
+        // Check if refresh token is still valid
+        if (!this.isRefreshTokenValid()) {
+          console.log('Refresh token is expired or invalid, triggering logout');
+          this.logout();
+          return;
+        }
+
         await this.loginAndUpdateToken();
-        this.tokenSetAtSeconds = Date.now() / 1000;
+        console.log('Token refreshed successfully');
+        consecutiveNetworkErrors = 0; // Reset network error counter on success
+        return;
       } catch (error) {
-        console.log("Error refreshing token:", error);
+        retryCount++;
+        console.error(`Error refreshing token (attempt ${retryCount}):`, error);
+
+        // Check if this is a network error that we should retry
+        const isNetworkError =
+          error instanceof Error &&
+          (error.message.includes('Network Error') ||
+            error.message.includes('ERR_NETWORK') ||
+            error.message.includes('ECONNREFUSED') ||
+            error.message.includes('timeout') ||
+            error.message.includes('ERR_NETWORK_IO_SUSPENDED'));
+
+        // Check if we're currently offline (browser environment only)
+        const isOffline =
+          typeof navigator !== 'undefined' &&
+          'onLine' in navigator &&
+          !navigator.onLine;
+
+        if (isNetworkError) {
+          consecutiveNetworkErrors++;
+        }
+
+        // If we're offline, don't count this as a "real" error - just wait for network to come back
+        if (isOffline) {
+          console.log(
+            'User is offline, will retry when network comes back online'
+          );
+          return;
+        }
+
+        // If it's not a network error and login failed (tokenResponse is null), logout immediately
+        if (!isNetworkError && !this.tokenResponse) {
+          console.error('Login failed permanently, triggering logout');
+          this.logout();
+          return;
+        }
+
+        // If we've had too many consecutive network errors, pause refresh attempts temporarily
+        if (consecutiveNetworkErrors >= 10) {
+          // Clear any scheduled refresh
+          if (this.updateTokenTimeout) {
+            clearTimeout(this.updateTokenTimeout);
+            this.updateTokenTimeout = null;
+          }
+
+          setTimeout(() => {
+            console.log('Resuming token refresh attempts');
+            this.scheduleTokenRefresh(); // Reschedule refresh when resuming
+          }, 300000); // 5 minutes
+          return;
+        }
+
+        if (retryCount >= maxRetries && !isOffline) {
+          if (isNetworkError) {
+            console.warn(
+              'Max retries reached due to network errors, will retry later'
+            );
+            return; // Don't logout for network issues, just wait for next interval
+          } else {
+            console.error('Max retries reached, triggering logout');
+            this.logout();
+            return;
+          }
+        }
+
+        // Exponential backoff: wait 2^retryCount seconds, but cap at 30 seconds for network errors
+        const baseDelay = isNetworkError ? 5000 : 2000; // Start with 5s for network errors, 2s for others
+        const delayMs = Math.min(
+          baseDelay * Math.pow(2, retryCount - 1),
+          30000
+        );
+        console.log(`Retrying in ${delayMs}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
       }
     }
   }
@@ -611,7 +883,7 @@ export class BluefinProSdk {
   ): Promise<WebSocket> {
     return new Promise((resolve) => {
       if (!this.tokenResponse) {
-        throw new Error("Missing tokenResponse");
+        throw new Error('Missing tokenResponse');
       }
       const ws = new WebSocket(
         this.configs[Services.AccountWebsocket]!.basePath!,
@@ -624,7 +896,7 @@ export class BluefinProSdk {
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };
-      ws.on("open", () => {
+      ws.on('open', () => {
         resolve(ws);
       });
     });
@@ -640,26 +912,52 @@ export class BluefinProSdk {
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
       };
-      ws.on("open", () => {
+      ws.on('open', () => {
         resolve(ws);
       });
     });
   }
 
   public async logout(): Promise<void> {
-    console.log("Logging out");
+    console.log('Logging out');
+    if (this.updateTokenTimeout) {
+      clearTimeout(this.updateTokenTimeout);
+      this.updateTokenTimeout = null;
+    }
     this.tokenResponse = null;
     this.tokenSetAtSeconds = null;
     this.isConnected = false;
 
     this.onLogout?.();
-  };
+  }
 
   public async dispose(): Promise<void> {
-    console.log("Disposing SDK resources");
+    console.log('Disposing SDK resources');
 
-    if (this.updateTokenInterval) {
-      clearInterval(this.updateTokenInterval);
+    if (this.updateTokenTimeout) {
+      clearTimeout(this.updateTokenTimeout);
+      this.updateTokenTimeout = null;
+    }
+
+    // Clean up visibility change listener
+    if (this.visibilityChangeHandler && typeof document !== 'undefined') {
+      document.removeEventListener(
+        'visibilitychange',
+        this.visibilityChangeHandler
+      );
+      this.visibilityChangeHandler = undefined;
+    }
+
+    // Clean up network change listeners
+    if (typeof window !== 'undefined') {
+      if (this.onlineHandler) {
+        window.removeEventListener('online', this.onlineHandler);
+        this.onlineHandler = undefined;
+      }
+      if (this.offlineHandler) {
+        window.removeEventListener('offline', this.offlineHandler);
+        this.offlineHandler = undefined;
+      }
     }
 
     this.isConnected = false;
