@@ -2058,6 +2058,18 @@ export interface EpochConfigs {
      */
     'walRewardsAllocationE9': string;
     /**
+     * Interval number for the epoch.
+     * @type {number}
+     * @memberof EpochConfigs
+     */
+    'intervalNumber': number;
+    /**
+     * Epoch number for the epoch.
+     * @type {number}
+     * @memberof EpochConfigs
+     */
+    'epochNumber': number;
+    /**
      * Object to add custom configurations for campaigns.
      * @type {{ [key: string]: any | undefined; }}
      * @memberof EpochConfigs
@@ -6784,10 +6796,11 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns the latest epoch configs for the campaigns.
          * @summary /rewards/metadata/epoch/configs
+         * @param {number} [intervalNumber] Specify the interval number
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsEpochConfigMetadata: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRewardsEpochConfigMetadata: async (intervalNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/rewards/metadata/epoch/configs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6799,6 +6812,10 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (intervalNumber !== undefined) {
+                localVarQueryParameter['intervalNumber'] = intervalNumber;
+            }
 
 
     
@@ -7172,11 +7189,12 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         /**
          * Returns the latest epoch configs for the campaigns.
          * @summary /rewards/metadata/epoch/configs
+         * @param {number} [intervalNumber] Specify the interval number
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochConfigMetadata(options);
+        async getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochConfigMetadata(intervalNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsEpochConfigMetadata']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7367,11 +7385,12 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         /**
          * Returns the latest epoch configs for the campaigns.
          * @summary /rewards/metadata/epoch/configs
+         * @param {number} [intervalNumber] Specify the interval number
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
-            return localVarFp.getRewardsEpochConfigMetadata(options).then((request) => request(axios, basePath));
+        getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
+            return localVarFp.getRewardsEpochConfigMetadata(intervalNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the latest or next epoch epoch for campaign.
@@ -7557,12 +7576,13 @@ export class RewardsApi extends BaseAPI {
     /**
      * Returns the latest epoch configs for the campaigns.
      * @summary /rewards/metadata/epoch/configs
+     * @param {number} [intervalNumber] Specify the interval number
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi
      */
-    public getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).getRewardsEpochConfigMetadata(options).then((request) => request(this.axios, this.basePath));
+    public getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getRewardsEpochConfigMetadata(intervalNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
