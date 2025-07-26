@@ -279,7 +279,7 @@ No authorization required
 
 ## get_rewards_epoch_config_metadata
 
-> Vec<models::EpochConfigs> get_rewards_epoch_config_metadata()
+> models::EpochConfigsResponse get_rewards_epoch_config_metadata()
 /rewards/metadata/epoch/configs
 
 Returns the latest epoch configs for the campaigns.
@@ -290,7 +290,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<models::EpochConfigs>**](EpochConfigs.md)
+[**models::EpochConfigsResponse**](EpochConfigsResponse.md)
 
 ### Authorization
 

@@ -160,6 +160,7 @@ Class | Method | HTTP request | Description
  - [CreateOrderRequestSignedFields](openapi_client/docs/CreateOrderRequestSignedFields.md)
  - [CreateOrderResponse](openapi_client/docs/CreateOrderResponse.md)
  - [EpochConfigs](openapi_client/docs/EpochConfigs.md)
+ - [EpochConfigsResponse](openapi_client/docs/EpochConfigsResponse.md)
  - [EpochMetadata](openapi_client/docs/EpochMetadata.md)
  - [Error](openapi_client/docs/Error.md)
  - [ExchangeInfoResponse](openapi_client/docs/ExchangeInfoResponse.md)

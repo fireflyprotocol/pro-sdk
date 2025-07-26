@@ -50,6 +50,7 @@ docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
 docs/CreateOrderResponse.md
 docs/EpochConfigs.md
+docs/EpochConfigsResponse.md
 docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md
@@ -175,6 +176,7 @@ src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
 src/models/create_order_response.rs
 src/models/epoch_configs.rs
+src/models/epoch_configs_response.rs
 src/models/epoch_metadata.rs
 src/models/error.rs
 src/models/exchange_info_response.rs

@@ -57,6 +57,7 @@ openapi_client/docs/CreateOrderRequest.md
 openapi_client/docs/CreateOrderRequestSignedFields.md
 openapi_client/docs/CreateOrderResponse.md
 openapi_client/docs/EpochConfigs.md
+openapi_client/docs/EpochConfigsResponse.md
 openapi_client/docs/EpochMetadata.md
 openapi_client/docs/Error.md
 openapi_client/docs/ExchangeApi.md
@@ -174,6 +175,7 @@ openapi_client/models/create_order_request.py
 openapi_client/models/create_order_request_signed_fields.py
 openapi_client/models/create_order_response.py
 openapi_client/models/epoch_configs.py
+openapi_client/models/epoch_configs_response.py
 openapi_client/models/epoch_metadata.py
 openapi_client/models/error.py
 openapi_client/models/exchange_info_response.py
@@ -241,4 +243,5 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_epoch_configs_response.py
 openapi_client_README.md

@@ -52,6 +52,7 @@ docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
 docs/CreateOrderResponse.md
 docs/EpochConfigs.md
+docs/EpochConfigsResponse.md
 docs/EpochMetadata.md
 docs/Error.md
 docs/ExchangeApi.md

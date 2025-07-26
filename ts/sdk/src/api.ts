@@ -2067,6 +2067,31 @@ export interface EpochConfigs {
 /**
  * 
  * @export
+ * @interface EpochConfigsResponse
+ */
+export interface EpochConfigsResponse {
+    /**
+     * The maximum interval number available.
+     * @type {number}
+     * @memberof EpochConfigsResponse
+     */
+    'maxIntervalNumber': number;
+    /**
+     * The current interval number being queried.
+     * @type {number}
+     * @memberof EpochConfigsResponse
+     */
+    'intervalNumber': number;
+    /**
+     * List of epoch configs for different campaigns.
+     * @type {Array<EpochConfigs>}
+     * @memberof EpochConfigsResponse
+     */
+    'data': Array<EpochConfigs>;
+}
+/**
+ * 
+ * @export
  * @interface EpochMetadata
  */
 export interface EpochMetadata {
@@ -7175,7 +7200,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
+        async getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EpochConfigsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochConfigMetadata(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsEpochConfigMetadata']?.[localVarOperationServerIndex]?.url;
@@ -7370,7 +7395,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
+        getRewardsEpochConfigMetadata(options?: RawAxiosRequestConfig): AxiosPromise<EpochConfigsResponse> {
             return localVarFp.getRewardsEpochConfigMetadata(options).then((request) => request(axios, basePath));
         },
         /**

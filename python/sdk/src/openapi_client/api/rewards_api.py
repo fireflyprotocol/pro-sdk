@@ -23,7 +23,7 @@ from openapi_client.models.affiliate_metadata import AffiliateMetadata
 from openapi_client.models.affiliate_onboard_response import AffiliateOnboardResponse
 from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.campaign_metadata import CampaignMetadata
-from openapi_client.models.epoch_configs import EpochConfigs
+from openapi_client.models.epoch_configs_response import EpochConfigsResponse
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
 from openapi_client.models.get_affiliate_leader_dashboard200_response import GetAffiliateLeaderDashboard200Response
@@ -2470,7 +2470,7 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[EpochConfigs]:
+    ) -> EpochConfigsResponse:
         """/rewards/metadata/epoch/configs
 
         Returns the latest epoch configs for the campaigns.
@@ -2505,7 +2505,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[EpochConfigs]",
+            '200': "EpochConfigsResponse",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2533,7 +2533,7 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[EpochConfigs]]:
+    ) -> ApiResponse[EpochConfigsResponse]:
         """/rewards/metadata/epoch/configs
 
         Returns the latest epoch configs for the campaigns.
@@ -2568,7 +2568,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[EpochConfigs]",
+            '200': "EpochConfigsResponse",
         }
         response_data = await self.api_client.call_api(
             *_param,
@@ -2631,7 +2631,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[EpochConfigs]",
+            '200': "EpochConfigsResponse",
         }
         response_data = await self.api_client.call_api(
             *_param,

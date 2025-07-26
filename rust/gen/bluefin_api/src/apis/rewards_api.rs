@@ -521,7 +521,7 @@ pub async fn get_rewards_campaign_metadata(configuration: &configuration::Config
 }
 
 /// Returns the latest epoch configs for the campaigns.
-pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, ) -> Result<Vec<models::EpochConfigs>, Error<GetRewardsEpochConfigMetadataError>> {
+pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, ) -> Result<models::EpochConfigsResponse, Error<GetRewardsEpochConfigMetadataError>> {
 
     let uri_str = format!("{}/v1/rewards/metadata/epoch/configs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -545,8 +545,8 @@ pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Co
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::EpochConfigs&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::EpochConfigs&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EpochConfigsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EpochConfigsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
