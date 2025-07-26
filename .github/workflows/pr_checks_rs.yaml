@@ -1,0 +1,26 @@
+name: PR checks
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pr_checks_rs.yaml'
+      - 'rust/**/*.rs'
+      - 'rust/**/Cargo.toml'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Tests
+    runs-on: self-hosted
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Run doc and unit tests
+        run: cargo test --doc --workspace && cargo test --lib --workspace
