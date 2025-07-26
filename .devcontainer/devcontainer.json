@@ -1,0 +1,113 @@
+{
+	"name": "Pro SDK Dev Container",
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts",
+			"pnpmVersion": "latest",
+			"nvmVersion": "latest"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": true,
+			"version": "3.12"
+		},
+		"ghcr.io/devcontainers/features/rust:1": {
+			"version": "latest",
+			"profile": "complete",
+			"targets": "aarch64-unknown-linux-gnu"
+		},
+		"ghcr.io/devcontainers/features/java": {},
+		"ghcr.io/devcontainers/features/sshd:1": {
+			"version": "latest"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"42crunch.vscode-openapi",
+				"docker.docker",
+				"eamodio.gitlens",
+				"fill-labs.dependi",
+				"github.copilot",
+				"github.copilot-chat",
+				"ms-azuretools.vscode-containers",
+				"ms-azuretools.vscode-docker",
+				"ms-python.debugpy",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-vscode-remote.remote-containers",
+				"ms-vscode.makefile-tools",
+				"redhat.vscode-yaml",
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"usernamehw.errorlens",
+				"vadimcn.vscode-lldb",
+				"zxh404.vscode-proto3"
+			],
+			"settings": {
+				"window.newWindowProfile": "Default",
+				"editor.fontSize": 16,
+				"editor.formatOnPaste": true,
+				"files.autoSave": "afterDelay",
+				"redhat.telemetry.enabled": false,
+				"openapi.platformAuthType": "anond-token",
+				"editor.formatOnSave": true,
+				"editor.wordWrapColumn": 100,
+				"editor.rulers": [
+					100
+				],
+				"git.autofetch": true,
+				"git.confirmSync": false,
+				"terminal.integrated.fontSize": 16,
+				"debug.allowBreakpointsEverywhere": true,
+				"git.replaceTagsWhenPull": true,
+				"diffEditor.ignoreTrimWhitespace": false,
+				"makefile.configureOnOpen": true,
+				"files.insertFinalNewline": true,
+				"notebook.insertFinalNewline": true,
+				"explorer.confirmDelete": false,
+				"[jsonc]": {
+					"editor.defaultFormatter": "vscode.json-language-features"
+				},
+				"lldb.script": {},
+				"lldb.dbgconfig": {},
+				"editor.inlayHints.enabled": "offUnlessPressed",
+				"debug.console.fontSize": 16,
+				"terminal.integrated.scrollback": 5000,
+				"[json]": {
+					"editor.defaultFormatter": "vscode.json-language-features"
+				},
+				"docker.extension.enableComposeLanguageServer": true,
+				"github.copilot.nextEditSuggestions.enabled": true,
+				"editor.minimap.enabled": false,
+				"[yaml]": {
+					"diffEditor.ignoreTrimWhitespace": true
+				},
+				"files.watcherExclude": {
+					"**/target/**": true
+				},
+				"search.exclude": {
+					"**/target": true,
+					"**/Cargo.lock": true
+				}
+			}
+		}
+	},
+	"mounts": [
+		"source=${localWorkspaceFolder}/.git,target=/workspace/.git,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+	],
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+	"containerEnv": {
+		"CARGO_HOME": "/home/vscode/.cargo"
+	},
+	"remoteUser": "vscode",
+	"postCreateCommand": "bash .devcontainer/post-create.sh",
+	"runArgs": [
+		"--init",
+		"--privileged",
+		"--network=host",
+		"--name=pro-sdk-devcontainer"
+	]
+}
