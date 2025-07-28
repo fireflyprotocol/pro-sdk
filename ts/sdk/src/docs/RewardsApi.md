@@ -490,7 +490,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getRewardsEpochConfigMetadata**
-> Array<EpochConfigs> getRewardsEpochConfigMetadata()
+> EpochConfigsResponse getRewardsEpochConfigMetadata()
 
 Returns the latest epoch configs for the campaigns.
 
@@ -521,7 +521,7 @@ const { status, data } = await apiInstance.getRewardsEpochConfigMetadata(
 
 ### Return type
 
-**Array<EpochConfigs>**
+**EpochConfigsResponse**
 
 ### Authorization
 

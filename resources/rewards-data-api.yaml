@@ -320,6 +320,27 @@ components:
           description: Object to add custom configurations for campaigns.
           additionalProperties: true
 
+    EpochConfigsResponse:
+      type: object
+      required:
+        - maxIntervalNumber
+        - intervalNumber
+        - data
+      properties:
+        maxIntervalNumber:
+          type: integer
+          description: The maximum interval number available.
+          example: 14
+        intervalNumber:
+          type: integer
+          description: The current interval number being queried.
+          example: 3
+        data:
+          type: array
+          description: List of epoch configs for different campaigns.
+          items:
+            $ref: "#/components/schemas/EpochConfigs"
+
     FeeConfigs:
       type: object
       description: Map of various fee-related configurations
@@ -894,10 +915,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                description: List of campaign metadata objects.
-                items:
-                  $ref: "#/components/schemas/EpochConfigs"
+                $ref: "#/components/schemas/EpochConfigsResponse"
 
   /v1/rewards/metadata/interval:
     get:

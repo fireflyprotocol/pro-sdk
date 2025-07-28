@@ -279,7 +279,7 @@ No authorization required
 
 ## get_rewards_epoch_config_metadata
 
-> Vec<models::EpochConfigs> get_rewards_epoch_config_metadata(interval_number)
+> models::EpochConfigsResponse get_rewards_epoch_config_metadata(interval_number)
 /rewards/metadata/epoch/configs
 
 Returns the latest epoch configs for the campaigns.
@@ -293,7 +293,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::EpochConfigs>**](EpochConfigs.md)
+[**models::EpochConfigsResponse**](EpochConfigsResponse.md)
 
 ### Authorization
 

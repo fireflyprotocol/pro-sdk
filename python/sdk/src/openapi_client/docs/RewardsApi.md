@@ -622,7 +622,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_rewards_epoch_config_metadata**
-> List[EpochConfigs] get_rewards_epoch_config_metadata(interval_number=interval_number)
+> EpochConfigsResponse get_rewards_epoch_config_metadata(interval_number=interval_number)
 
 /rewards/metadata/epoch/configs
 
@@ -633,7 +633,7 @@ Returns the latest epoch configs for the campaigns.
 
 ```python
 import openapi_client
-from openapi_client.models.epoch_configs import EpochConfigs
+from openapi_client.models.epoch_configs_response import EpochConfigsResponse
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[EpochConfigs]**](EpochConfigs.md)
+[**EpochConfigsResponse**](EpochConfigsResponse.md)
 
 ### Authorization
 

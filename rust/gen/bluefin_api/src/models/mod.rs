@@ -90,6 +90,8 @@ pub mod create_order_response;
 pub use self::create_order_response::CreateOrderResponse;
 pub mod epoch_configs;
 pub use self::epoch_configs::EpochConfigs;
+pub mod epoch_configs_response;
+pub use self::epoch_configs_response::EpochConfigsResponse;
 pub mod epoch_metadata;
 pub use self::epoch_metadata::EpochMetadata;
 pub mod error;

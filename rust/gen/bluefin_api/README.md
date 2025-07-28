@@ -120,6 +120,7 @@ Class | Method | HTTP request | Description
  - [CreateOrderRequestSignedFields](docs/CreateOrderRequestSignedFields.md)
  - [CreateOrderResponse](docs/CreateOrderResponse.md)
  - [EpochConfigs](docs/EpochConfigs.md)
+ - [EpochConfigsResponse](docs/EpochConfigsResponse.md)
  - [EpochMetadata](docs/EpochMetadata.md)
  - [Error](docs/Error.md)
  - [ExchangeInfoResponse](docs/ExchangeInfoResponse.md)
