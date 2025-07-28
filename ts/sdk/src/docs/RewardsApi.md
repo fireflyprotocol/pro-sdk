@@ -505,11 +505,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new RewardsApi(configuration);
 
-const { status, data } = await apiInstance.getRewardsEpochConfigMetadata();
+let intervalNumber: number; //Specify the interval number (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getRewardsEpochConfigMetadata(
+    intervalNumber
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **intervalNumber** | [**number**] | Specify the interval number | (optional) defaults to undefined|
 
 
 ### Return type

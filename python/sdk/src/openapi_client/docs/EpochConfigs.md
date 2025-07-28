@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **sui_rewards_allocation_e9** | **str** | Allocation of Sui token rewards in the epoch (e9 format). | 
 **blue_rewards_allocation_e9** | **str** | Allocation of Blue token rewards in the epoch (e9 format). | 
 **wal_rewards_allocation_e9** | **str** | Allocation of wal token rewards in the epoch (e9 format) | 
+**interval_number** | **int** | Interval number for the epoch. | 
+**epoch_number** | **int** | Epoch number for the epoch. | 
 **config** | **Dict[str, object]** | Object to add custom configurations for campaigns. | 
 
 ## Example
