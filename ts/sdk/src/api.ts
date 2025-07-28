@@ -7218,7 +7218,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EpochConfigs>>> {
+        async getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EpochConfigsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRewardsEpochConfigMetadata(intervalNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getRewardsEpochConfigMetadata']?.[localVarOperationServerIndex]?.url;
@@ -7414,7 +7414,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<EpochConfigs>> {
+        getRewardsEpochConfigMetadata(intervalNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<EpochConfigsResponse> {
             return localVarFp.getRewardsEpochConfigMetadata(intervalNumber, options).then((request) => request(axios, basePath));
         },
         /**

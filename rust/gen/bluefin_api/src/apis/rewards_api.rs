@@ -521,11 +521,16 @@ pub async fn get_rewards_campaign_metadata(configuration: &configuration::Config
 }
 
 /// Returns the latest epoch configs for the campaigns.
-pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, ) -> Result<models::EpochConfigsResponse, Error<GetRewardsEpochConfigMetadataError>> {
+pub async fn get_rewards_epoch_config_metadata(configuration: &configuration::Configuration, interval_number: Option<i32>) -> Result<models::EpochConfigsResponse, Error<GetRewardsEpochConfigMetadataError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_interval_number = interval_number;
 
     let uri_str = format!("{}/v1/rewards/metadata/epoch/configs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_interval_number {
+        req_builder = req_builder.query(&[("intervalNumber", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

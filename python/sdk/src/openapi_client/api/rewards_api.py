@@ -2458,6 +2458,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_epoch_config_metadata(
         self,
+        interval_number: Annotated[Optional[StrictInt], Field(description="Specify the interval number")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2475,6 +2476,8 @@ class RewardsApi:
 
         Returns the latest epoch configs for the campaigns.
 
+        :param interval_number: Specify the interval number
+        :type interval_number: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2498,6 +2501,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_rewards_epoch_config_metadata_serialize(
+            interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2521,6 +2525,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_epoch_config_metadata_with_http_info(
         self,
+        interval_number: Annotated[Optional[StrictInt], Field(description="Specify the interval number")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2538,6 +2543,8 @@ class RewardsApi:
 
         Returns the latest epoch configs for the campaigns.
 
+        :param interval_number: Specify the interval number
+        :type interval_number: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2561,6 +2568,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_rewards_epoch_config_metadata_serialize(
+            interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2584,6 +2592,7 @@ class RewardsApi:
     @validate_call
     async def get_rewards_epoch_config_metadata_without_preload_content(
         self,
+        interval_number: Annotated[Optional[StrictInt], Field(description="Specify the interval number")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2601,6 +2610,8 @@ class RewardsApi:
 
         Returns the latest epoch configs for the campaigns.
 
+        :param interval_number: Specify the interval number
+        :type interval_number: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2624,6 +2635,7 @@ class RewardsApi:
         """ # noqa: E501
 
         _param = self._get_rewards_epoch_config_metadata_serialize(
+            interval_number=interval_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2642,6 +2654,7 @@ class RewardsApi:
 
     def _get_rewards_epoch_config_metadata_serialize(
         self,
+        interval_number,
         _request_auth,
         _content_type,
         _headers,
@@ -2664,6 +2677,10 @@ class RewardsApi:
 
         # process the path parameters
         # process the query parameters
+        if interval_number is not None:
+            
+            _query_params.append(('intervalNumber', interval_number))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

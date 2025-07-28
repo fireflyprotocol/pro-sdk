@@ -279,14 +279,17 @@ No authorization required
 
 ## get_rewards_epoch_config_metadata
 
-> models::EpochConfigsResponse get_rewards_epoch_config_metadata()
+> models::EpochConfigsResponse get_rewards_epoch_config_metadata(interval_number)
 /rewards/metadata/epoch/configs
 
 Returns the latest epoch configs for the campaigns.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**interval_number** | Option<**i32**> | Specify the interval number |  |
 
 ### Return type
 
