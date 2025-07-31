@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **string** |  | [default to undefined]
-**startDate** | **number** | Time in milliseconds for interval start date. | [default to undefined]
-**endDate** | **number** | Time in milliseconds for interval end date. | [default to undefined]
+**startDate** | **number** | Time in seconds for interval start date. | [default to undefined]
+**endDate** | **number** | Time in seconds for interval end date. | [default to undefined]
 **intervalId** | **number** | Interval Id of the interval. | [default to undefined]
 **intervalType** | **string** | Type of the interval. | [default to undefined]
 

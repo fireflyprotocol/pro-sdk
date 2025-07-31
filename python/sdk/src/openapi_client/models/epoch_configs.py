@@ -27,7 +27,7 @@ class EpochConfigs(BaseModel):
     EpochConfigs
     """ # noqa: E501
     campaign_name: StrictStr = Field(description="The name of the campaign.", alias="campaignName")
-    epoch_duration: StrictInt = Field(description="Duration of the epoch in milliseconds.", alias="epochDuration")
+    epoch_duration: StrictInt = Field(description="Duration of the epoch in seconds.", alias="epochDuration")
     sui_rewards_allocation_e9: StrictStr = Field(description="Allocation of Sui token rewards in the epoch (e9 format).", alias="suiRewardsAllocationE9")
     blue_rewards_allocation_e9: StrictStr = Field(description="Allocation of Blue token rewards in the epoch (e9 format).", alias="blueRewardsAllocationE9")
     wal_rewards_allocation_e9: StrictStr = Field(description="Allocation of wal token rewards in the epoch (e9 format)", alias="walRewardsAllocationE9")

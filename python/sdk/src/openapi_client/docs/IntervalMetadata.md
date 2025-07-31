@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **str** |  | 
-**start_date** | **int** | Time in milliseconds for interval start date. | 
-**end_date** | **int** | Time in milliseconds for interval end date. | 
+**start_date** | **int** | Time in seconds for interval start date. | 
+**end_date** | **int** | Time in seconds for interval end date. | 
 **interval_id** | **int** | Interval Id of the interval. | 
 **interval_type** | **str** | Type of the interval. | 
 

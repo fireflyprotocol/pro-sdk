@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **status** | **str** |  | 
 **campaign_name** | **str** | Name of the campaign. | 
 **parent_campaign_name** | **str** | Name of the parent campaign. | 
-**start_date** | **int** | Time in milliseconds for campaign start date. | 
-**end_date** | **int** | Time in milliseconds for campaign end date. | 
+**start_date** | **int** | Time in seconds for campaign start date. | 
+**end_date** | **int** | Time in seconds for campaign end date. | 
 
 ## Example
 

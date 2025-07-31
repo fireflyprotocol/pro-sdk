@@ -16,7 +16,7 @@ pub struct EpochConfigs {
     /// The name of the campaign.
     #[serde(rename = "campaignName")]
     pub campaign_name: String,
-    /// Duration of the epoch in milliseconds.
+    /// Duration of the epoch in seconds.
     #[serde(rename = "epochDuration")]
     pub epoch_duration: i32,
     /// Allocation of Sui token rewards in the epoch (e9 format).

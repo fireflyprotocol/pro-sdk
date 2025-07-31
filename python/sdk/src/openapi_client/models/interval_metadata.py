@@ -27,8 +27,8 @@ class IntervalMetadata(BaseModel):
     IntervalMetadata
     """ # noqa: E501
     status: StrictStr = Field(alias="Status")
-    start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="StartDate")
-    end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="EndDate")
+    start_date: StrictInt = Field(description="Time in seconds for interval start date.", alias="StartDate")
+    end_date: StrictInt = Field(description="Time in seconds for interval end date.", alias="EndDate")
     interval_id: StrictInt = Field(description="Interval Id of the interval.", alias="IntervalId")
     interval_type: StrictStr = Field(description="Type of the interval.", alias="IntervalType")
     __properties: ClassVar[List[str]] = ["Status", "StartDate", "EndDate", "IntervalId", "IntervalType"]

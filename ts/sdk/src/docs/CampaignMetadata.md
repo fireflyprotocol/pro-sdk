@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **status** | **string** |  | [default to undefined]
 **campaignName** | **string** | Name of the campaign. | [default to undefined]
 **parentCampaignName** | **string** | Name of the parent campaign. | [default to undefined]
-**startDate** | **number** | Time in milliseconds for campaign start date. | [default to undefined]
-**endDate** | **number** | Time in milliseconds for campaign end date. | [default to undefined]
+**startDate** | **number** | Time in seconds for campaign start date. | [default to undefined]
+**endDate** | **number** | Time in seconds for campaign end date. | [default to undefined]
 
 ## Example
 

@@ -1656,13 +1656,13 @@ export interface CampaignMetadata {
      */
     'ParentCampaignName': string;
     /**
-     * Time in milliseconds for campaign start date.
+     * Time in seconds for campaign start date.
      * @type {number}
      * @memberof CampaignMetadata
      */
     'StartDate': number;
     /**
-     * Time in milliseconds for campaign end date.
+     * Time in seconds for campaign end date.
      * @type {number}
      * @memberof CampaignMetadata
      */
@@ -2034,7 +2034,7 @@ export interface EpochConfigs {
      */
     'campaignName': string;
     /**
-     * Duration of the epoch in milliseconds.
+     * Duration of the epoch in seconds.
      * @type {number}
      * @memberof EpochConfigs
      */
@@ -2132,13 +2132,13 @@ export interface EpochMetadata {
      */
     'EpochNumber': number;
     /**
-     * Time in milliseconds for campaign start date.
+     * Time in seconds for campaign start date.
      * @type {number}
      * @memberof EpochMetadata
      */
     'StartDate': number;
     /**
-     * Time in milliseconds for campaign end date.
+     * Time in seconds for campaign end date.
      * @type {number}
      * @memberof EpochMetadata
      */
@@ -2392,13 +2392,13 @@ export interface IntervalMetadata {
      */
     'Status': IntervalMetadataStatusEnum;
     /**
-     * Time in milliseconds for interval start date.
+     * Time in seconds for interval start date.
      * @type {number}
      * @memberof IntervalMetadata
      */
     'StartDate': number;
     /**
-     * Time in milliseconds for interval end date.
+     * Time in seconds for interval end date.
      * @type {number}
      * @memberof IntervalMetadata
      */
@@ -4763,13 +4763,13 @@ export interface UserCampaignRewards {
      */
     'userFeePaidE9': string;
     /**
-     * Time in milliseconds for interval start date.
+     * Time in seconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
     'intervalStartDate': number;
     /**
-     * Time in milliseconds for interval end date.
+     * Time in seconds for interval end date.
      * @type {number}
      * @memberof UserCampaignRewards
      */

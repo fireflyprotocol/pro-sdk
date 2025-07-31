@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **campaignName** | **string** | Name of the campaign. | [default to undefined]
 **epochId** | **number** | Epoch Id of the epoch. | [default to undefined]
 **epochNumber** | **number** | Epoch number for the queried epoch. | [default to undefined]
-**startDate** | **number** | Time in milliseconds for campaign start date. | [default to undefined]
-**endDate** | **number** | Time in milliseconds for campaign end date. | [default to undefined]
+**startDate** | **number** | Time in seconds for campaign start date. | [default to undefined]
+**endDate** | **number** | Time in seconds for campaign end date. | [default to undefined]
 
 ## Example
 

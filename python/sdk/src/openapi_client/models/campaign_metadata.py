@@ -29,8 +29,8 @@ class CampaignMetadata(BaseModel):
     status: StrictStr = Field(alias="Status")
     campaign_name: StrictStr = Field(description="Name of the campaign.", alias="CampaignName")
     parent_campaign_name: StrictStr = Field(description="Name of the parent campaign.", alias="ParentCampaignName")
-    start_date: StrictInt = Field(description="Time in milliseconds for campaign start date.", alias="StartDate")
-    end_date: StrictInt = Field(description="Time in milliseconds for campaign end date.", alias="EndDate")
+    start_date: StrictInt = Field(description="Time in seconds for campaign start date.", alias="StartDate")
+    end_date: StrictInt = Field(description="Time in seconds for campaign end date.", alias="EndDate")
     __properties: ClassVar[List[str]] = ["Status", "CampaignName", "ParentCampaignName", "StartDate", "EndDate"]
 
     @field_validator('status')

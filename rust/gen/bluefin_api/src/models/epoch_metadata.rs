@@ -24,10 +24,10 @@ pub struct EpochMetadata {
     /// Epoch number for the queried epoch.
     #[serde(rename = "EpochNumber")]
     pub epoch_number: i32,
-    /// Time in milliseconds for campaign start date.
+    /// Time in seconds for campaign start date.
     #[serde(rename = "StartDate")]
     pub start_date: i32,
-    /// Time in milliseconds for campaign end date.
+    /// Time in seconds for campaign end date.
     #[serde(rename = "EndDate")]
     pub end_date: i32,
 }

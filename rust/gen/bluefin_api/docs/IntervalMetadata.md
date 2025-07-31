@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **String** |  | 
-**start_date** | **i32** | Time in milliseconds for interval start date. | 
-**end_date** | **i32** | Time in milliseconds for interval end date. | 
+**start_date** | **i32** | Time in seconds for interval start date. | 
+**end_date** | **i32** | Time in seconds for interval end date. | 
 **interval_id** | **i32** | Interval Id of the interval. | 
 **interval_type** | **String** | Type of the interval. | 
 

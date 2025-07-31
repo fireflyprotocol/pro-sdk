@@ -45,10 +45,10 @@ pub struct UserCampaignRewards {
     /// Total user fee paid in the epoch (e9 format).
     #[serde(rename = "userFeePaidE9")]
     pub user_fee_paid_e9: String,
-    /// Time in milliseconds for interval start date.
+    /// Time in seconds for interval start date.
     #[serde(rename = "intervalStartDate")]
     pub interval_start_date: i32,
-    /// Time in milliseconds for interval end date.
+    /// Time in seconds for interval end date.
     #[serde(rename = "intervalEndDate")]
     pub interval_end_date: i32,
     /// Indicates if the rewards have been disbursed.

@@ -96,12 +96,12 @@ components:
           example: 10000000
         intervalStartDate:
           type: integer
-          description: Time in milliseconds for interval start date.
-          example: 1724121094751
+          description: Time in seconds for interval start date.
+          example: 1724121094
         intervalEndDate:
           type: integer
-          description: Time in milliseconds for interval end date.
-          example: 1724121094751
+          description: Time in seconds for interval end date.
+          example: 1724121094
         isDisbursed:
           type: boolean
           description: Indicates if the rewards have been disbursed.
@@ -197,12 +197,12 @@ components:
           example: ""
         StartDate:
           type: integer
-          description: Time in milliseconds for campaign start date.
-          example: 1724121094751
+          description: Time in seconds for campaign start date.
+          example: 1724121094
         EndDate:
           type: integer
-          description: Time in milliseconds for campaign end date.
-          example: 1724121094751
+          description: Time in seconds for campaign end date.
+          example: 1724121094
 
     EpochMetadata:
       type: object
@@ -235,12 +235,12 @@ components:
           example: 6
         StartDate:
           type: integer
-          description: Time in milliseconds for campaign start date.
-          example: 1724121094751
+          description: Time in seconds for campaign start date.
+          example: 1724121094
         EndDate:
           type: integer
-          description: Time in milliseconds for campaign end date.
-          example: 1724121094751
+          description: Time in seconds for campaign end date.
+          example: 1724121094
 
     IntervalMetadata:
       type: object
@@ -260,12 +260,12 @@ components:
             - COOLDOWN
         StartDate:
           type: integer
-          description: Time in milliseconds for interval start date.
-          example: 1724121094751
+          description: Time in seconds for interval start date.
+          example: 1724121094
         EndDate:
           type: integer
-          description: Time in milliseconds for interval end date.
-          example: 1724121094751
+          description: Time in seconds for interval end date.
+          example: 1724121094
         IntervalId:
           type: integer
           description: Interval Id of the interval.
@@ -293,8 +293,8 @@ components:
           example: "TRADE_AND_EARN"
         epochDuration:
           type: integer
-          description: Duration of the epoch in milliseconds.
-          example: 604800000
+          description: Duration of the epoch in seconds.
+          example: 604800
         suiRewardsAllocationE9:
           type: string
           description: Allocation of Sui token rewards in the epoch (e9 format).
