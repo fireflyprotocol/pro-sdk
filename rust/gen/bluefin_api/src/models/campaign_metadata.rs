@@ -21,10 +21,10 @@ pub struct CampaignMetadata {
     /// Name of the parent campaign.
     #[serde(rename = "ParentCampaignName")]
     pub parent_campaign_name: String,
-    /// Time in milliseconds for campaign start date.
+    /// Time in seconds for campaign start date.
     #[serde(rename = "StartDate")]
     pub start_date: i32,
-    /// Time in milliseconds for campaign end date.
+    /// Time in seconds for campaign end date.
     #[serde(rename = "EndDate")]
     pub end_date: i32,
 }

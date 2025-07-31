@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **campaign_name** | **str** | The name of the campaign. | 
-**epoch_duration** | **int** | Duration of the epoch in milliseconds. | 
+**epoch_duration** | **int** | Duration of the epoch in seconds. | 
 **sui_rewards_allocation_e9** | **str** | Allocation of Sui token rewards in the epoch (e9 format). | 
 **blue_rewards_allocation_e9** | **str** | Allocation of Blue token rewards in the epoch (e9 format). | 
 **wal_rewards_allocation_e9** | **str** | Allocation of wal token rewards in the epoch (e9 format) | 

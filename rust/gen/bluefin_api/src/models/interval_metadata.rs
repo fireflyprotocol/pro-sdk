@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct IntervalMetadata {
     #[serde(rename = "Status")]
     pub status: Status,
-    /// Time in milliseconds for interval start date.
+    /// Time in seconds for interval start date.
     #[serde(rename = "StartDate")]
     pub start_date: i32,
-    /// Time in milliseconds for interval end date.
+    /// Time in seconds for interval end date.
     #[serde(rename = "EndDate")]
     pub end_date: i32,
     /// Interval Id of the interval.

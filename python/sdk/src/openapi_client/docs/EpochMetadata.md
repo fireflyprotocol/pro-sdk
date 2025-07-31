@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **campaign_name** | **str** | Name of the campaign. | 
 **epoch_id** | **int** | Epoch Id of the epoch. | 
 **epoch_number** | **int** | Epoch number for the queried epoch. | 
-**start_date** | **int** | Time in milliseconds for campaign start date. | 
-**end_date** | **int** | Time in milliseconds for campaign end date. | 
+**start_date** | **int** | Time in seconds for campaign start date. | 
+**end_date** | **int** | Time in seconds for campaign end date. | 
 
 ## Example
 

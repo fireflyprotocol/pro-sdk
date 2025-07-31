@@ -30,8 +30,8 @@ class EpochMetadata(BaseModel):
     campaign_name: StrictStr = Field(description="Name of the campaign.", alias="CampaignName")
     epoch_id: StrictInt = Field(description="Epoch Id of the epoch.", alias="EpochId")
     epoch_number: StrictInt = Field(description="Epoch number for the queried epoch.", alias="EpochNumber")
-    start_date: StrictInt = Field(description="Time in milliseconds for campaign start date.", alias="StartDate")
-    end_date: StrictInt = Field(description="Time in milliseconds for campaign end date.", alias="EndDate")
+    start_date: StrictInt = Field(description="Time in seconds for campaign start date.", alias="StartDate")
+    end_date: StrictInt = Field(description="Time in seconds for campaign end date.", alias="EndDate")
     __properties: ClassVar[List[str]] = ["Status", "CampaignName", "EpochId", "EpochNumber", "StartDate", "EndDate"]
 
     @field_validator('status')

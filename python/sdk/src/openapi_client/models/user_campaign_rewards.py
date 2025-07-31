@@ -37,8 +37,8 @@ class UserCampaignRewards(BaseModel):
     wal_rewards_e9: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="walRewardsE9")
     cash_rewards_e9: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="cashRewardsE9")
     user_fee_paid_e9: StrictStr = Field(description="Total user fee paid in the epoch (e9 format).", alias="userFeePaidE9")
-    interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="intervalStartDate")
-    interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="intervalEndDate")
+    interval_start_date: StrictInt = Field(description="Time in seconds for interval start date.", alias="intervalStartDate")
+    interval_end_date: StrictInt = Field(description="Time in seconds for interval end date.", alias="intervalEndDate")
     is_disbursed: StrictBool = Field(description="Indicates if the rewards have been disbursed.", alias="isDisbursed")
     txn_digest: StrictStr = Field(description="Transaction digest of the disbursement.", alias="txnDigest")
     __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest"]
