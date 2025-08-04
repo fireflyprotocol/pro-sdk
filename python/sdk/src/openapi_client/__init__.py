@@ -132,6 +132,9 @@ from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
+from openapi_client.models.stats_entry import StatsEntry
+from openapi_client.models.stats_interval import StatsInterval
+from openapi_client.models.stats_response import StatsResponse
 from openapi_client.models.subscription_response_message import SubscriptionResponseMessage
 from openapi_client.models.subscription_type import SubscriptionType
 from openapi_client.models.ticker_all_update import TickerAllUpdate

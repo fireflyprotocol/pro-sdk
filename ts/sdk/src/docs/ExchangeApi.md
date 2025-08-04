@@ -7,6 +7,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAllMarketTicker**](#getallmarketticker) | **GET** /v1/exchange/tickers | /exchange/tickers|
 |[**getCandlestickData**](#getcandlestickdata) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks|
 |[**getExchangeInfo**](#getexchangeinfo) | **GET** /v1/exchange/info | /exchange/info|
+|[**getExchangeStats**](#getexchangestats) | **GET** /v1/exchange/stats | /exchange/stats|
 |[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory|
 |[**getMarketTicker**](#getmarketticker) | **GET** /v1/exchange/ticker | /exchange/ticker|
 |[**getOrderbookDepth**](#getorderbookdepth) | **GET** /v1/exchange/depth | /exchange/depth|
@@ -166,6 +167,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getExchangeStats**
+> StatsResponse getExchangeStats()
+
+Retrieves exchange statistics.
+
+### Example
+
+```typescript
+import {
+    ExchangeApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new ExchangeApi(configuration);
+
+let interval: StatsInterval; // (optional) (default to undefined)
+let startTimeAtMillis: number; //Timestamp in milliseconds. (optional) (default to undefined)
+let endTimeAtMillis: number; //Timestamp in milliseconds. (optional) (default to undefined)
+let limit: number; //Number of records to return. Default is 30; max is 200. (optional) (default to 30)
+let page: number; //The page number to retrieve in a paginated response. (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getExchangeStats(
+    interval,
+    startTimeAtMillis,
+    endTimeAtMillis,
+    limit,
+    page
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **interval** | **StatsInterval** |  | (optional) defaults to undefined|
+| **startTimeAtMillis** | [**number**] | Timestamp in milliseconds. | (optional) defaults to undefined|
+| **endTimeAtMillis** | [**number**] | Timestamp in milliseconds. | (optional) defaults to undefined|
+| **limit** | [**number**] | Number of records to return. Default is 30; max is 200. | (optional) defaults to 30|
+| **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to undefined|
+
+
+### Return type
+
+**StatsResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response with exchange statistics. |  -  |
+|**400** | Invalid parameters provided. |  -  |
+|**422** | Unprocessable parameters provided. |  -  |
+|**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -355,7 +422,7 @@ const configuration = new Configuration();
 const apiInstance = new ExchangeApi(configuration);
 
 let symbol: string; //The market symbol to get the trades for. (default to undefined)
-let tradeType: 'Order' | 'Liquidation' | 'Deleverage' | 'UNSPECIFIED'; //Type of trade. (optional) (default to 'Order')
+let tradeType: TradeType; //Type of trade. (optional) (default to undefined)
 let limit: number; //Default 500; max 1000. (optional) (default to 500)
 let startTimeAtMillis: number; //The timestamp specifies the earliest point in time for which data should be returned. The value is not included. (optional) (default to undefined)
 let endTimeAtMillis: number; //The timestamp specifies the latest point in time for which data should be returned. The value is included. (optional) (default to undefined)
@@ -376,7 +443,7 @@ const { status, data } = await apiInstance.getRecentTrades(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **symbol** | [**string**] | The market symbol to get the trades for. | defaults to undefined|
-| **tradeType** | [**&#39;Order&#39; | &#39;Liquidation&#39; | &#39;Deleverage&#39; | &#39;UNSPECIFIED&#39;**]**Array<&#39;Order&#39; &#124; &#39;Liquidation&#39; &#124; &#39;Deleverage&#39; &#124; &#39;UNSPECIFIED&#39;>** | Type of trade. | (optional) defaults to 'Order'|
+| **tradeType** | **TradeType** | Type of trade. | (optional) defaults to undefined|
 | **limit** | [**number**] | Default 500; max 1000. | (optional) defaults to 500|
 | **startTimeAtMillis** | [**number**] | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. | (optional) defaults to undefined|
 | **endTimeAtMillis** | [**number**] | The timestamp specifies the latest point in time for which data should be returned. The value is included. | (optional) defaults to undefined|

@@ -104,6 +104,9 @@ docs/RefreshTokenResponse.md
 docs/RewardsApi.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/StatsEntry.md
+docs/StatsInterval.md
+docs/StatsResponse.md
 docs/StreamsApi.md
 docs/SubscriptionResponseMessage.md
 docs/SubscriptionType.md

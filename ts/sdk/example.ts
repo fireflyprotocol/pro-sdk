@@ -182,6 +182,11 @@ async function main() {
     ).data;
     logger.info(`Funding Rate History: ${JSON.stringify(fundingRateHistory)}`);
 
+    const stats = (
+        await client.exchangeDataApi.getExchangeStats()
+    ).data;
+    logger.info(`Stats: ${JSON.stringify(stats)}`);
+
     // Account Data API calls
     const accountTrades = (
       await client.accountDataApi.getAccountTrades(

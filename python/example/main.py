@@ -123,6 +123,9 @@ async def main():
         )
         log.info(f"{depth=} {tickers=} {recent_trades=} {funding_rate_history=}")
 
+        stats = await exchange_data_api.get_exchange_stats()
+        log.info(f"{stats=}")
+
         # ========= Account Data API =========
         account_data_api = client.account_data_api
         when = ((t := now()) - 60 * 60 * 1000, t)  # The past hour.

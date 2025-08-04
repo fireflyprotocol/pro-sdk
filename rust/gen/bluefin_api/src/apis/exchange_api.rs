@@ -36,6 +36,16 @@ pub enum GetExchangeInfoError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_exchange_stats`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetExchangeStatsError {
+    Status400(models::Error),
+    Status422(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_funding_rate_history`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -194,6 +204,62 @@ pub async fn get_exchange_info(configuration: &configuration::Configuration, ) -
     }
 }
 
+/// Retrieves exchange statistics.
+pub async fn get_exchange_stats(configuration: &configuration::Configuration, interval: Option<models::StatsInterval>, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, limit: Option<u32>, page: Option<u32>) -> Result<models::StatsResponse, Error<GetExchangeStatsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_interval = interval;
+    let p_start_time_at_millis = start_time_at_millis;
+    let p_end_time_at_millis = end_time_at_millis;
+    let p_limit = limit;
+    let p_page = page;
+
+    let uri_str = format!("{}/v1/exchange/stats", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_interval {
+        req_builder = req_builder.query(&[("interval", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_start_time_at_millis {
+        req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_end_time_at_millis {
+        req_builder = req_builder.query(&[("endTimeAtMillis", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::StatsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::StatsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetExchangeStatsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// Retrieve the funding rate history for a specific market address.
 pub async fn get_funding_rate_history(configuration: &configuration::Configuration, symbol: &str, limit: Option<u32>, start_time_at_millis: Option<u64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::FundingRateEntry>, Error<GetFundingRateHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -329,7 +395,7 @@ pub async fn get_orderbook_depth(configuration: &configuration::Configuration, s
 }
 
 /// Retrieves recent trades executed on a market.
-pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<&str>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetRecentTradesError>> {
+pub async fn get_recent_trades(configuration: &configuration::Configuration, symbol: &str, trade_type: Option<models::TradeType>, limit: Option<u32>, start_time_at_millis: Option<i64>, end_time_at_millis: Option<u64>, page: Option<u32>) -> Result<Vec<models::Trade>, Error<GetRecentTradesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_symbol = symbol;
     let p_trade_type = trade_type;

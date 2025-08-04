@@ -404,6 +404,13 @@ components:
         - "1w"
         - "1Mo"
         - "UNSPECIFIED"
+    StatsInterval:
+      type: string
+      enum:
+        - "1d"
+        - "1w"
+        - "1Mo"
+        - "UNSPECIFIED"
     CandlePriceType:
       type: string
       enum:
@@ -682,6 +689,43 @@ components:
         - fundingTimeAtMillis
         - fundingRateE9
 
+    StatsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatsEntry"
+      required:
+        - data
+
+    StatsEntry:
+      type: object
+      properties:
+        startTimeAtMillis:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds when the statistics period starts.
+          example: "1753920000000"
+        tvlE9:
+          type: string
+          description: Total value locked in the exchange in e9 format.
+          example: "1000000000000000000"
+        totalQuoteAssetVolumeE9:
+          type: string
+          description: Total quote asset volume in the exchange in e9 format.
+          example: "1000000000000000000"
+        endTimeAtMillis:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds when the statistics period ends.
+          example: "1754006399999"
+      required:
+        - startTimeAtMillis
+        - tvlE9
+        - totalQuoteAssetVolumeE9
+        - endTimeAtMillis
+
 paths:
   /v1/exchange/info:
     get:
@@ -750,12 +794,7 @@ paths:
           in: query
           required: false
           schema:
-            type: string
-            enum:
-              - Order
-              - Liquidation
-              - Deleverage
-              - UNSPECIFIED
+            $ref: "./common.yaml#/components/schemas/TradeType"
             default: Order
           description: Type of trade. # We only show order trades on our recent trades UI
         - name: limit
@@ -971,3 +1010,80 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FundingRateResponse"
+
+  /v1/exchange/stats:
+    get:
+      tags:
+        - Exchange
+      operationId: getExchangeStats
+      summary: /exchange/stats
+      description: "Retrieves exchange statistics."
+      parameters:
+        - name: interval
+          in: query
+          required: false
+          schema:
+            description: "The interval for which to retrieve statistics. Default is 1 day."
+            $ref: "#/components/schemas/StatsInterval"
+            default: "1d"
+        - name: startTimeAtMillis
+          in: query
+          required: false
+          description: "Timestamp in milliseconds."
+          example: 1499040000000
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: endTimeAtMillis
+          in: query
+          required: false
+          description: "Timestamp in milliseconds."
+          example: 1499644799999
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+        - name: limit
+          in: query
+          description: "Number of records to return. Default is 30; max is 200."
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 30
+            minimum: 0
+            maximum: 200
+        - name: page
+          in: query
+          required: false
+          description: "The page number to retrieve in a paginated response."
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        "200":
+          description: "Successful response with exchange statistics."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsResponse"
+        "400":
+          description: "Invalid parameters provided."
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "422":
+          description: "Unprocessable parameters provided."
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "Internal server error."
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
