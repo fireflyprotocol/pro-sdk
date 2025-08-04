@@ -3956,6 +3956,66 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
 
 
 /**
+ * 
+ * @export
+ * @interface StatsEntry
+ */
+export interface StatsEntry {
+    /**
+     * Timestamp in milliseconds when the statistics period starts.
+     * @type {number}
+     * @memberof StatsEntry
+     */
+    'startTimeAtMillis': number;
+    /**
+     * Total value locked in the exchange in e9 format.
+     * @type {string}
+     * @memberof StatsEntry
+     */
+    'tvlE9': string;
+    /**
+     * Total quote asset volume in the exchange in e9 format.
+     * @type {string}
+     * @memberof StatsEntry
+     */
+    'totalQuoteAssetVolumeE9': string;
+    /**
+     * Timestamp in milliseconds when the statistics period ends.
+     * @type {number}
+     * @memberof StatsEntry
+     */
+    'endTimeAtMillis': number;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const StatsInterval = {
+    _1d: '1d',
+    _1w: '1w',
+    _1Mo: '1Mo',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type StatsInterval = typeof StatsInterval[keyof typeof StatsInterval];
+
+
+/**
+ * 
+ * @export
+ * @interface StatsResponse
+ */
+export interface StatsResponse {
+    /**
+     * 
+     * @type {Array<StatsEntry>}
+     * @memberof StatsResponse
+     */
+    'data': Array<StatsEntry>;
+}
+/**
  * Response message indicating the success or failure of a subscription operation.
  * @export
  * @interface SubscriptionResponseMessage
@@ -5914,6 +5974,61 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Retrieves exchange statistics.
+         * @summary /exchange/stats
+         * @param {StatsInterval} [interval] 
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [limit] Number of records to return. Default is 30; max is 200.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeStats: async (interval?: StatsInterval, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/exchange/stats`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
+            }
+
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6053,7 +6168,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * Retrieves recent trades executed on a market.
          * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
-         * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
+         * @param {TradeType} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
          * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
@@ -6061,7 +6176,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades: async (symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRecentTrades: async (symbol: string, tradeType?: TradeType, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'symbol' is not null or undefined
             assertParamExists('getRecentTrades', 'symbol', symbol)
             const localVarPath = `/v1/exchange/trades`;
@@ -6165,6 +6280,23 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Retrieves exchange statistics.
+         * @summary /exchange/stats
+         * @param {StatsInterval} [interval] 
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [limit] Number of records to return. Default is 30; max is 200.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExchangeStats(interval?: StatsInterval, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeStats(interval, startTimeAtMillis, endTimeAtMillis, limit, page, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getExchangeStats']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6212,7 +6344,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * Retrieves recent trades executed on a market.
          * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
-         * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
+         * @param {TradeType} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
          * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
@@ -6220,7 +6352,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
+        async getRecentTrades(symbol: string, tradeType?: TradeType, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trade>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getRecentTrades']?.[localVarOperationServerIndex]?.url;
@@ -6271,6 +6403,20 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getExchangeInfo(options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieves exchange statistics.
+         * @summary /exchange/stats
+         * @param {StatsInterval} [interval] 
+         * @param {number} [startTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [endTimeAtMillis] Timestamp in milliseconds.
+         * @param {number} [limit] Number of records to return. Default is 30; max is 200.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeStats(interval?: StatsInterval, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<StatsResponse> {
+            return localVarFp.getExchangeStats(interval, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6309,7 +6455,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * Retrieves recent trades executed on a market.
          * @summary /exchange/trades
          * @param {string} symbol The market symbol to get the trades for.
-         * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
+         * @param {TradeType} [tradeType] Type of trade.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
          * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
@@ -6317,7 +6463,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
+        getRecentTrades(symbol: string, tradeType?: TradeType, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Trade>> {
             return localVarFp.getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
         },
     };
@@ -6371,6 +6517,22 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
+     * Retrieves exchange statistics.
+     * @summary /exchange/stats
+     * @param {StatsInterval} [interval] 
+     * @param {number} [startTimeAtMillis] Timestamp in milliseconds.
+     * @param {number} [endTimeAtMillis] Timestamp in milliseconds.
+     * @param {number} [limit] Number of records to return. Default is 30; max is 200.
+     * @param {number} [page] The page number to retrieve in a paginated response.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeApi
+     */
+    public getExchangeStats(interval?: StatsInterval, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getExchangeStats(interval, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Retrieve the funding rate history for a specific market address.
      * @summary /exchange/fundingRateHistory
      * @param {string} symbol The market symbol to get funding rate history for
@@ -6415,7 +6577,7 @@ export class ExchangeApi extends BaseAPI {
      * Retrieves recent trades executed on a market.
      * @summary /exchange/trades
      * @param {string} symbol The market symbol to get the trades for.
-     * @param {GetRecentTradesTradeTypeEnum} [tradeType] Type of trade.
+     * @param {TradeType} [tradeType] Type of trade.
      * @param {number} [limit] Default 500; max 1000.
      * @param {number} [startTimeAtMillis] The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
      * @param {number} [endTimeAtMillis] The timestamp specifies the latest point in time for which data should be returned. The value is included.
@@ -6424,21 +6586,11 @@ export class ExchangeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeApi
      */
-    public getRecentTrades(symbol: string, tradeType?: GetRecentTradesTradeTypeEnum, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
+    public getRecentTrades(symbol: string, tradeType?: TradeType, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig) {
         return ExchangeApiFp(this.configuration).getRecentTrades(symbol, tradeType, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
-/**
- * @export
- */
-export const GetRecentTradesTradeTypeEnum = {
-    Order: 'Order',
-    Liquidation: 'Liquidation',
-    Deleverage: 'Deleverage',
-    Unspecified: 'UNSPECIFIED'
-} as const;
-export type GetRecentTradesTradeTypeEnum = typeof GetRecentTradesTradeTypeEnum[keyof typeof GetRecentTradesTradeTypeEnum];
 
 
 /**

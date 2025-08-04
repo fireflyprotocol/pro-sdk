@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr, field_validator
+from pydantic import Field, StrictInt, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
 from openapi_client.models.candle_price_type import CandlePriceType
@@ -24,8 +24,11 @@ from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.orderbook_depth_response import OrderbookDepthResponse
+from openapi_client.models.stats_interval import StatsInterval
+from openapi_client.models.stats_response import StatsResponse
 from openapi_client.models.ticker_response import TickerResponse
 from openapi_client.models.trade import Trade
+from openapi_client.models.trade_type import TradeType
 
 from openapi_client.api_client import ApiClient, RequestSerialized
 from openapi_client.api_response import ApiResponse
@@ -884,6 +887,345 @@ class ExchangeApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/exchange/info',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def get_exchange_stats(
+        self,
+        interval: Optional[StatsInterval] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=0)]], Field(description="Number of records to return. Default is 30; max is 200.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> StatsResponse:
+        """/exchange/stats
+
+        Retrieves exchange statistics.
+
+        :param interval:
+        :type interval: StatsInterval
+        :param start_time_at_millis: Timestamp in milliseconds.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds.
+        :type end_time_at_millis: int
+        :param limit: Number of records to return. Default is 30; max is 200.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_exchange_stats_serialize(
+            interval=interval,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "StatsResponse",
+            '400': "Error",
+            '422': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def get_exchange_stats_with_http_info(
+        self,
+        interval: Optional[StatsInterval] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=0)]], Field(description="Number of records to return. Default is 30; max is 200.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[StatsResponse]:
+        """/exchange/stats
+
+        Retrieves exchange statistics.
+
+        :param interval:
+        :type interval: StatsInterval
+        :param start_time_at_millis: Timestamp in milliseconds.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds.
+        :type end_time_at_millis: int
+        :param limit: Number of records to return. Default is 30; max is 200.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_exchange_stats_serialize(
+            interval=interval,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "StatsResponse",
+            '400': "Error",
+            '422': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def get_exchange_stats_without_preload_content(
+        self,
+        interval: Optional[StatsInterval] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=0)]], Field(description="Number of records to return. Default is 30; max is 200.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """/exchange/stats
+
+        Retrieves exchange statistics.
+
+        :param interval:
+        :type interval: StatsInterval
+        :param start_time_at_millis: Timestamp in milliseconds.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: Timestamp in milliseconds.
+        :type end_time_at_millis: int
+        :param limit: Number of records to return. Default is 30; max is 200.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_exchange_stats_serialize(
+            interval=interval,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "StatsResponse",
+            '400': "Error",
+            '422': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_exchange_stats_serialize(
+        self,
+        interval,
+        start_time_at_millis,
+        end_time_at_millis,
+        limit,
+        page,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if interval is not None:
+            
+            _query_params.append(('interval', interval.value))
+            
+        if start_time_at_millis is not None:
+            
+            _query_params.append(('startTimeAtMillis', start_time_at_millis))
+            
+        if end_time_at_millis is not None:
+            
+            _query_params.append(('endTimeAtMillis', end_time_at_millis))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/exchange/stats',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1777,7 +2119,7 @@ class ExchangeApi:
     async def get_recent_trades(
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
-        trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
         start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
@@ -1802,7 +2144,7 @@ class ExchangeApi:
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str
         :param trade_type: Type of trade.
-        :type trade_type: str
+        :type trade_type: TradeType
         :param limit: Default 500; max 1000.
         :type limit: int
         :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -1864,7 +2206,7 @@ class ExchangeApi:
     async def get_recent_trades_with_http_info(
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
-        trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
         start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
@@ -1889,7 +2231,7 @@ class ExchangeApi:
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str
         :param trade_type: Type of trade.
-        :type trade_type: str
+        :type trade_type: TradeType
         :param limit: Default 500; max 1000.
         :type limit: int
         :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -1951,7 +2293,7 @@ class ExchangeApi:
     async def get_recent_trades_without_preload_content(
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the trades for.")],
-        trade_type: Annotated[Optional[StrictStr], Field(description="Type of trade.")] = None,
+        trade_type: Annotated[Optional[TradeType], Field(description="Type of trade.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 500; max 1000.")] = None,
         start_time_at_millis: Annotated[Optional[StrictInt], Field(description="The timestamp specifies the earliest point in time for which data should be returned. The value is not included.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="The timestamp specifies the latest point in time for which data should be returned. The value is included.")] = None,
@@ -1976,7 +2318,7 @@ class ExchangeApi:
         :param symbol: The market symbol to get the trades for. (required)
         :type symbol: str
         :param trade_type: Type of trade.
-        :type trade_type: str
+        :type trade_type: TradeType
         :param limit: Default 500; max 1000.
         :type limit: int
         :param start_time_at_millis: The timestamp specifies the earliest point in time for which data should be returned. The value is not included.
@@ -2066,7 +2408,7 @@ class ExchangeApi:
             
         if trade_type is not None:
             
-            _query_params.append(('tradeType', trade_type))
+            _query_params.append(('tradeType', trade_type.value))
             
         if limit is not None:
             

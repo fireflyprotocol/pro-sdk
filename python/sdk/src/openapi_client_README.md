@@ -79,6 +79,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_all_market_ticker**](openapi_client/docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](openapi_client/docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_exchange_info**](openapi_client/docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+*ExchangeApi* | [**get_exchange_stats**](openapi_client/docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 *ExchangeApi* | [**get_funding_rate_history**](openapi_client/docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -210,6 +211,9 @@ Class | Method | HTTP request | Description
  - [RefreshTokenResponse](openapi_client/docs/RefreshTokenResponse.md)
  - [RewardsSummary](openapi_client/docs/RewardsSummary.md)
  - [SelfTradePreventionType](openapi_client/docs/SelfTradePreventionType.md)
+ - [StatsEntry](openapi_client/docs/StatsEntry.md)
+ - [StatsInterval](openapi_client/docs/StatsInterval.md)
+ - [StatsResponse](openapi_client/docs/StatsResponse.md)
  - [SubscriptionResponseMessage](openapi_client/docs/SubscriptionResponseMessage.md)
  - [SubscriptionType](openapi_client/docs/SubscriptionType.md)
  - [TickerAllUpdate](openapi_client/docs/TickerAllUpdate.md)

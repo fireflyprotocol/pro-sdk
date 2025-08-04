@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 [**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 [**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+[**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 [**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -219,6 +220,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_exchange_stats**
+> StatsResponse get_exchange_stats(interval=interval, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
+
+/exchange/stats
+
+Retrieves exchange statistics.
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.stats_interval import StatsInterval
+from openapi_client.models.stats_response import StatsResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ExchangeApi(api_client)
+    interval = openapi_client.StatsInterval() # StatsInterval |  (optional)
+    start_time_at_millis = 1499040000000 # int | Timestamp in milliseconds. (optional)
+    end_time_at_millis = 1499644799999 # int | Timestamp in milliseconds. (optional)
+    limit = 30 # int | Number of records to return. Default is 30; max is 200. (optional) (default to 30)
+    page = 56 # int | The page number to retrieve in a paginated response. (optional)
+
+    try:
+        # /exchange/stats
+        api_response = await api_instance.get_exchange_stats(interval=interval, start_time_at_millis=start_time_at_millis, end_time_at_millis=end_time_at_millis, limit=limit, page=page)
+        print("The response of ExchangeApi->get_exchange_stats:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExchangeApi->get_exchange_stats: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **interval** | [**StatsInterval**](.md)|  | [optional] 
+ **start_time_at_millis** | **int**| Timestamp in milliseconds. | [optional] 
+ **end_time_at_millis** | **int**| Timestamp in milliseconds. | [optional] 
+ **limit** | **int**| Number of records to return. Default is 30; max is 200. | [optional] [default to 30]
+ **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
+
+### Return type
+
+[**StatsResponse**](StatsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with exchange statistics. |  -  |
+**400** | Invalid parameters provided. |  -  |
+**422** | Unprocessable parameters provided. |  -  |
+**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -450,6 +531,7 @@ Retrieves recent trades executed on a market.
 ```python
 import openapi_client
 from openapi_client.models.trade import Trade
+from openapi_client.models.trade_type import TradeType
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -465,7 +547,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.ExchangeApi(api_client)
     symbol = '291' # str | The market symbol to get the trades for.
-    trade_type = Order # str | Type of trade. (optional) (default to Order)
+    trade_type = openapi_client.TradeType() # TradeType | Type of trade. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
     start_time_at_millis = 56 # int | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. (optional)
     end_time_at_millis = 56 # int | The timestamp specifies the latest point in time for which data should be returned. The value is included. (optional)
@@ -488,7 +570,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **str**| The market symbol to get the trades for. | 
- **trade_type** | **str**| Type of trade. | [optional] [default to Order]
+ **trade_type** | [**TradeType**](.md)| Type of trade. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
  **start_time_at_millis** | **int**| The timestamp specifies the earliest point in time for which data should be returned. The value is not included. | [optional] 
  **end_time_at_millis** | **int**| The timestamp specifies the latest point in time for which data should be returned. The value is included. | [optional] 

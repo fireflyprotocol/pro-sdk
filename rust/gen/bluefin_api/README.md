@@ -39,6 +39,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_exchange_info**](docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+*ExchangeApi* | [**get_exchange_stats**](docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 *ExchangeApi* | [**get_funding_rate_history**](docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -170,6 +171,9 @@ Class | Method | HTTP request | Description
  - [RefreshTokenResponse](docs/RefreshTokenResponse.md)
  - [RewardsSummary](docs/RewardsSummary.md)
  - [SelfTradePreventionType](docs/SelfTradePreventionType.md)
+ - [StatsEntry](docs/StatsEntry.md)
+ - [StatsInterval](docs/StatsInterval.md)
+ - [StatsResponse](docs/StatsResponse.md)
  - [SubscriptionResponseMessage](docs/SubscriptionResponseMessage.md)
  - [SubscriptionType](docs/SubscriptionType.md)
  - [TickerAllUpdate](docs/TickerAllUpdate.md)

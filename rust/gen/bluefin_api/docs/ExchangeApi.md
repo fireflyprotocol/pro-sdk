@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 [**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 [**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
+[**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 [**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -91,6 +92,40 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::ExchangeInfoResponse**](ExchangeInfoResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_exchange_stats
+
+> models::StatsResponse get_exchange_stats(interval, start_time_at_millis, end_time_at_millis, limit, page)
+/exchange/stats
+
+Retrieves exchange statistics.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**interval** | Option<[**StatsInterval**](.md)> |  |  |
+**start_time_at_millis** | Option<**u64**> | Timestamp in milliseconds. |  |
+**end_time_at_millis** | Option<**u64**> | Timestamp in milliseconds. |  |
+**limit** | Option<**u32**> | Number of records to return. Default is 30; max is 200. |  |[default to 30]
+**page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
+
+### Return type
+
+[**models::StatsResponse**](StatsResponse.md)
 
 ### Authorization
 
@@ -212,7 +247,7 @@ Retrieves recent trades executed on a market.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | **String** | The market symbol to get the trades for. | [required] |
-**trade_type** | Option<**String**> | Type of trade. |  |[default to Order]
+**trade_type** | Option<[**TradeType**](.md)> | Type of trade. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **start_time_at_millis** | Option<**i64**> | The timestamp specifies the earliest point in time for which data should be returned. The value is not included. |  |
 **end_time_at_millis** | Option<**u64**> | The timestamp specifies the latest point in time for which data should be returned. The value is included. |  |

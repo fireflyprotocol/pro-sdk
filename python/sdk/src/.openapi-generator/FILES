@@ -109,6 +109,9 @@ openapi_client/docs/RefreshTokenResponse.md
 openapi_client/docs/RewardsApi.md
 openapi_client/docs/RewardsSummary.md
 openapi_client/docs/SelfTradePreventionType.md
+openapi_client/docs/StatsEntry.md
+openapi_client/docs/StatsInterval.md
+openapi_client/docs/StatsResponse.md
 openapi_client/docs/StreamsApi.md
 openapi_client/docs/SubscriptionResponseMessage.md
 openapi_client/docs/SubscriptionType.md
@@ -225,6 +228,9 @@ openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
 openapi_client/models/rewards_summary.py
 openapi_client/models/self_trade_prevention_type.py
+openapi_client/models/stats_entry.py
+openapi_client/models/stats_interval.py
+openapi_client/models/stats_response.py
 openapi_client/models/subscription_response_message.py
 openapi_client/models/subscription_type.py
 openapi_client/models/ticker_all_update.py
