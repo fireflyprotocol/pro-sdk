@@ -378,6 +378,40 @@ components:
           type: integer
           description: User set leverage (e.g., 10x).
           example: 100
+    SponsorTxRequest:
+      type: object
+      required:
+        - txBytes
+      properties:
+        txBytes:
+          type: string
+          description: |
+            Base64 encoded transaction bytes to be sponsored. 
+    SponsorTxResponse:
+      type: object
+      required:
+        - txBytes
+        - txDigest
+        - signature
+        - expireAtTime
+      properties:
+        txBytes:
+          type: string
+          description: Base64 encoded sponsored transaction bytes
+          example: "AAAHAQGBqpcKqHjgx3Y+bnN6jXANzeWNaHdEIzxjoT88J/uDrg+BuwMAAAAAAQEB+ygxBj7NM70gqRIM0v655Kce5AF0nkmNucR8pCbRlc0OgbsDAAAAAAEAQUBmMGJkNThhZDliMDc4NGE1OWNkMzg5Mzg3MTcyNmFmNDU0NmMxYzVjYjFlZmIwZWNhYWZiMjBmNTIyZGEyNTRmACDGxxyZbUN+tlidG4sXr80UgK/V8w9rcVXvRoqXE9MkDgAIQEIPAAAAAAABAD9m49s1UDNDTyVmXSIL0ZqoW0MjSqR7K1inh1I3roNi5GqsGQAAAAAgCQK8kb+BqyycnDEjzHkrWmmWmtksDnqD299hXUBFagIBAHSSMF4xOcX1aE8LN14YSl13YjL0oQpvNkODo9yXIKnTC21hcmdpbl9iYW5rD2RlcG9zaXRfdG9fYmFuawEHTR85KIsM90ckUmE/LPe6cKAd4f+clVuhBVoAFFj3JsIEY29pbgRDT0lOAAYBAAABAQABAgABAwABBAABBQDGxxyZbUN+tlidG4sXr80UgK/V8w9rcVXvRoqXE9MkDgHEhWdumbC2e1fm1qtehMNXFx/Yh9KkGfD6Dsuk4lX9Z2YezRgAAAAAIOJ6Tk1uHMd2SOEzE2Ge2Z0Qyw6JS+FnF4nqwzy2yboVjh5QT78MVNQ+lIlR9Q83EP/4O7ke4skRUJEY7RMx9e/oAwAAAAAAAJVSXgAAAAAAAA=="
+        txDigest:
+          type: string
+          description: Transaction digest
+          example: "3pgj3eXXYGHxjSA6kMM8vnqDQTPTSzPpRPHLtRcDMHKK"
+        signature:
+          type: string
+          description: Transaction signature
+          example: "AGED2GVUH08JJwy4baikVgSPg2zIphEL57k7StB0lmzKuYj/jYOJVsXKMWnIKiiYHVlXqbfZuPuZ6iVDc3PjYgXAryOXppMQ3BU2UI1HEwne7RRV96z5tjgWPAjDijz8bw=="
+        expireAtTime:
+          type: integer
+          format: int64
+          description: Transaction expiration time in milliseconds since Unix epoch
+          example: 1754059983000
   responses:
     DefaultError:
       description: Unexpected error
@@ -534,7 +568,6 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-
   /api/v1/account:
     get:
       tags:
@@ -580,7 +613,6 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-
   /api/v1/account/trades:
     get:
       tags:
@@ -754,6 +786,46 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+  /api/v1/account/sponsorTx:
+    post:
+      tags:
+        - Account Data
+      operationId: sponsorTx
+      summary: /account/sponsorTx
+      description: Sponsors a transaction if it's eligible for sponsorship based on allowlisted methods and kinds.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SponsorTxRequest"
+      responses:
+        "200":
+          description: Transaction successfully sponsored.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SponsorTxResponse"
+        "400":
+          description: "Invalid request - transaction not eligible for sponsorship or missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "Unauthorized access - missing or invalid authentication token"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "Internal server error"
           content:
             application/json:
               schema:

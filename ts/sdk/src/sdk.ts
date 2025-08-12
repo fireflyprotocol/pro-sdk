@@ -23,6 +23,7 @@ import {
   AdjustMarginOperation,
   RewardsApi,
   UpdateAccountPreferenceRequest,
+  SponsorTxRequest,
 } from './api';
 
 import { Configuration } from './configuration';
@@ -35,8 +36,9 @@ import {
   TransactionBlock,
   Ed25519Keypair,
   decodeSuiPrivateKey,
+  SuiBlocks,
 } from '@firefly-exchange/library-sui';
-import { toHex } from '@mysten/bcs';
+import { fromBase64, toHex } from '@mysten/bcs';
 
 interface EnvironmentConfig {
   [key: string]: {
@@ -334,6 +336,7 @@ export class BluefinProSdk {
   private async setContractsConfig() {
     const response = await this.exchangeDataApi.getExchangeInfo();
     this.contractsConfig = response.data.contractsConfig;
+    this.contractsConfig!.currentContractAddress = '0x3b985440fbf1624ec97932fce729a27c5fbea74a1d1781cee3f64fcb22c9cfef';
     this.assets = response.data.assets;
   }
 
@@ -723,7 +726,7 @@ export class BluefinProSdk {
     );
   }
 
-  public async deposit(amountE9: string, accountAddress?: string) {
+  public async deposit(amountE9: string, accountAddress?: string, args?: { sponsored?: boolean, fallbackToExecuteTx?: boolean }) {
     const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
     const assetType = this.assets?.find(
@@ -740,6 +743,7 @@ export class BluefinProSdk {
       this.currentAccountAddress || this.bfSigner.getAddress()
     );
 
+    //build the tx
     this.txBuilder?.depositToAssetBank(
       assetSymbol,
       accountAddress ||
@@ -748,10 +752,11 @@ export class BluefinProSdk {
       amountE9,
       splitCoin,
       {
-        txBlock: txb,
+        txBlock: txb
       }
     );
 
+    //add the transfer objects to the tx
     if (mergedCoin) {
       txb.transferObjects(
         [mergedCoin],
@@ -765,7 +770,36 @@ export class BluefinProSdk {
       );
     }
 
-    return this.bfSigner.executeTx(txb, this.suiClient);
+    if(args && args.sponsored){
+      // build the gasless tx payload bytes
+      const gaslessTxPayloadBytes = await this.buildGaslessTxPayloadBytes(txb);
+
+      try {
+        const request: SponsorTxRequest = {
+          txBytes: gaslessTxPayloadBytes,
+        };
+
+        // sponsor gas for the transaction
+        const sponsorTxApiResponse = await this.accountDataApi.sponsorTx(request);
+        const txBytes = fromBase64(sponsorTxApiResponse.data.txBytes);
+
+        // sign the transaction with user's wallet
+        const userSignedTx = await this.bfSigner.signTx(txBytes);
+
+        // execute the transaction with both user's signature and sponsor's signature
+        const response = await this.bfSigner.executeSponsoredTx(userSignedTx.bytes, userSignedTx.signature, sponsorTxApiResponse.data.signature, this.suiClient);
+
+        return response;
+      } catch (error) {
+        if(args?.fallbackToExecuteTx){
+          return this.bfSigner.executeTx(txb, this.suiClient);
+        }
+        throw error;
+      }
+    }
+    else {  
+      return this.bfSigner.executeTx(txb, this.suiClient);
+    }
   }
 
   public async refreshToken(force: boolean = false): Promise<void> {
@@ -979,4 +1013,19 @@ export class BluefinProSdk {
 
     this.isConnected = false;
   }
+
+  /**
+   * @description
+   * build gasless transaction payload bytes
+   * @param tx transcation block
+   * @returns string
+   * */
+
+  private buildGaslessTxPayloadBytes = async (txb: TransactionBlock): Promise<string> => {
+    try {
+      return await SuiBlocks.buildGaslessTxPayloadBytes(txb, this.suiClient);
+    } catch (error) {
+      throw new Error(error instanceof Error ? error.message : 'Build gasless tx payload bytes failed');
+    }
+  };
 }

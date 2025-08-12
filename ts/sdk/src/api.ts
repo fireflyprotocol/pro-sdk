@@ -3958,6 +3958,50 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
 /**
  * 
  * @export
+ * @interface SponsorTxRequest
+ */
+export interface SponsorTxRequest {
+    /**
+     * Base64 encoded transaction bytes to be sponsored.  
+     * @type {string}
+     * @memberof SponsorTxRequest
+     */
+    'txBytes': string;
+}
+/**
+ * 
+ * @export
+ * @interface SponsorTxResponse
+ */
+export interface SponsorTxResponse {
+    /**
+     * Base64 encoded sponsored transaction bytes
+     * @type {string}
+     * @memberof SponsorTxResponse
+     */
+    'txBytes': string;
+    /**
+     * Transaction digest
+     * @type {string}
+     * @memberof SponsorTxResponse
+     */
+    'txDigest': string;
+    /**
+     * Transaction signature
+     * @type {string}
+     * @memberof SponsorTxResponse
+     */
+    'signature': string;
+    /**
+     * Transaction expiration time in milliseconds since Unix epoch
+     * @type {number}
+     * @memberof SponsorTxResponse
+     */
+    'expireAtTime': number;
+}
+/**
+ * 
+ * @export
  * @interface StatsEntry
  */
 export interface StatsEntry {
@@ -5212,6 +5256,46 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Sponsors a transaction if it\'s eligible for sponsorship based on allowlisted methods and kinds.
+         * @summary /account/sponsorTx
+         * @param {SponsorTxRequest} sponsorTxRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sponsorTx: async (sponsorTxRequest: SponsorTxRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sponsorTxRequest' is not null or undefined
+            assertParamExists('sponsorTx', 'sponsorTxRequest', sponsorTxRequest)
+            const localVarPath = `/api/v1/account/sponsorTx`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sponsorTxRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -5311,6 +5395,19 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.putAccountPreferences']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Sponsors a transaction if it\'s eligible for sponsorship based on allowlisted methods and kinds.
+         * @summary /account/sponsorTx
+         * @param {SponsorTxRequest} sponsorTxRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async sponsorTx(sponsorTxRequest: SponsorTxRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SponsorTxResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.sponsorTx(sponsorTxRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AccountDataApi.sponsorTx']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -5391,6 +5488,16 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          */
         putAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.putAccountPreferences(updateAccountPreferenceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sponsors a transaction if it\'s eligible for sponsorship based on allowlisted methods and kinds.
+         * @summary /account/sponsorTx
+         * @param {SponsorTxRequest} sponsorTxRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sponsorTx(sponsorTxRequest: SponsorTxRequest, options?: RawAxiosRequestConfig): AxiosPromise<SponsorTxResponse> {
+            return localVarFp.sponsorTx(sponsorTxRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5483,6 +5590,18 @@ export class AccountDataApi extends BaseAPI {
      */
     public putAccountPreferences(updateAccountPreferenceRequest: UpdateAccountPreferenceRequest, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).putAccountPreferences(updateAccountPreferenceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Sponsors a transaction if it\'s eligible for sponsorship based on allowlisted methods and kinds.
+     * @summary /account/sponsorTx
+     * @param {SponsorTxRequest} sponsorTxRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountDataApi
+     */
+    public sponsorTx(sponsorTxRequest: SponsorTxRequest, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).sponsorTx(sponsorTxRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5675,7 +5794,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
+        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authJwksGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authJwksGet']?.[localVarOperationServerIndex]?.url;
@@ -5738,7 +5857,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
+        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
             return localVarFp.authJwksGet(options).then((request) => request(axios, basePath));
         },
         /**
