@@ -14,10 +14,20 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const StatsInterval = {
+    _1d: '1d',
+    _1w: '1w',
+    _1Mo: '1Mo',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type StatsInterval = typeof StatsInterval[keyof typeof StatsInterval];
+
+
 

@@ -14,10 +14,17 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * 
+ * @export
+ * @interface UpdateAffiliateFeeConfigRequest
+ */
+export interface UpdateAffiliateFeeConfigRequest {
+    /**
+     * Cashback amount to give to the referees
+     * @type {number}
+     * @memberof UpdateAffiliateFeeConfigRequest
+     */
+    'cashback': number;
+}
 

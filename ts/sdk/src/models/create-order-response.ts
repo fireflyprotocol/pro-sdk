@@ -14,10 +14,17 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * 
+ * @export
+ * @interface CreateOrderResponse
+ */
+export interface CreateOrderResponse {
+    /**
+     * The unique identifier of this order, to be used as a lookup key
+     * @type {string}
+     * @memberof CreateOrderResponse
+     */
+    'orderHash': string;
+}
 

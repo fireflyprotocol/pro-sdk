@@ -14,10 +14,20 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * Type of trade.
+ * @export
+ * @enum {string}
+ */
+
+export const TradeType = {
+    Order: 'ORDER',
+    Liquidation: 'LIQUIDATION',
+    Deleverage: 'DELEVERAGE',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type TradeType = typeof TradeType[keyof typeof TradeType];
+
+
 

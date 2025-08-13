@@ -14,10 +14,20 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const CandlePriceType = {
+    Last: 'Last',
+    Market: 'Market',
+    Oracle: 'Oracle',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type CandlePriceType = typeof CandlePriceType[keyof typeof CandlePriceType];
+
+
 

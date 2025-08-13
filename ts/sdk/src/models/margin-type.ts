@@ -14,10 +14,19 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * Margin type.
+ * @export
+ * @enum {string}
+ */
+
+export const MarginType = {
+    Cross: 'CROSS',
+    Isolated: 'ISOLATED',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type MarginType = typeof MarginType[keyof typeof MarginType];
+
+
 

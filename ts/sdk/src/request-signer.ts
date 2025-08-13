@@ -12,7 +12,7 @@ import {
   AccountAuthorizationRequestSignedFields,
   AdjustMarginOperation,
   AdjustIsolatedMarginRequestSignedFields,
-} from "./api";
+} from "./models";
 import {
   DryRunTransactionBlockResponse,
   SuiBlocks,

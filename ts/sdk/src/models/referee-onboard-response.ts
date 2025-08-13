@@ -14,10 +14,17 @@
 
 
 
-export * from './apis/account-data-api';
-export * from './apis/auth-api';
-export * from './apis/exchange-api';
-export * from './apis/rewards-api';
-export * from './apis/streams-api';
-export * from './apis/trade-api';
+/**
+ * 
+ * @export
+ * @interface RefereeOnboardResponse
+ */
+export interface RefereeOnboardResponse {
+    /**
+     * Response message indicating if the referral code exists
+     * @type {string}
+     * @memberof RefereeOnboardResponse
+     */
+    'message': string;
+}
 

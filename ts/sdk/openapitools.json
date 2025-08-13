@@ -19,6 +19,9 @@
     "paramNaming": "camelCase",
     "sortParamsByRequiredFlag": true,
     "enablePostProcessFile": false,
+    "withSeparateModelsAndApi": true,
+    "apiPackage": "apis",
+    "modelPackage": "models",
     "generateAliasAsModel": false
   }
 }
