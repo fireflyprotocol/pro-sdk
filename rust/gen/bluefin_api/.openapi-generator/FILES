@@ -102,6 +102,8 @@ docs/RefreshTokenResponse.md
 docs/RewardsApi.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SponsorTxRequest.md
+docs/SponsorTxResponse.md
 docs/StatsEntry.md
 docs/StatsInterval.md
 docs/StatsResponse.md
@@ -230,6 +232,8 @@ src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
 src/models/rewards_summary.rs
 src/models/self_trade_prevention_type.rs
+src/models/sponsor_tx_request.rs
+src/models/sponsor_tx_response.rs
 src/models/stats_entry.rs
 src/models/stats_interval.rs
 src/models/stats_response.rs

@@ -82,6 +82,16 @@ pub enum PutAccountPreferencesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`sponsor_tx`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SponsorTxError {
+    Status400(models::Error),
+    Status401(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 
 /// Retrieves the user's account details.
 pub async fn get_account_details(configuration: &configuration::Configuration, account_address: Option<&str>) -> Result<models::Account, Error<GetAccountDetailsError>> {
@@ -367,6 +377,47 @@ pub async fn put_account_preferences(configuration: &configuration::Configuratio
     } else {
         let content = resp.text().await?;
         let entity: Option<PutAccountPreferencesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Sponsors a transaction if it's eligible for sponsorship based on allowlisted methods and kinds.
+pub async fn sponsor_tx(configuration: &configuration::Configuration, sponsor_tx_request: models::SponsorTxRequest) -> Result<models::SponsorTxResponse, Error<SponsorTxError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_sponsor_tx_request = sponsor_tx_request;
+
+    let uri_str = format!("{}/api/v1/account/sponsorTx", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_sponsor_tx_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SponsorTxResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SponsorTxResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SponsorTxError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

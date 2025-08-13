@@ -109,6 +109,8 @@ openapi_client/docs/RefreshTokenResponse.md
 openapi_client/docs/RewardsApi.md
 openapi_client/docs/RewardsSummary.md
 openapi_client/docs/SelfTradePreventionType.md
+openapi_client/docs/SponsorTxRequest.md
+openapi_client/docs/SponsorTxResponse.md
 openapi_client/docs/StatsEntry.md
 openapi_client/docs/StatsInterval.md
 openapi_client/docs/StatsResponse.md
@@ -228,6 +230,8 @@ openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
 openapi_client/models/rewards_summary.py
 openapi_client/models/self_trade_prevention_type.py
+openapi_client/models/sponsor_tx_request.py
+openapi_client/models/sponsor_tx_response.py
 openapi_client/models/stats_entry.py
 openapi_client/models/stats_interval.py
 openapi_client/models/stats_response.py
@@ -249,4 +253,6 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_sponsor_tx_request.py
+openapi_client/test/test_sponsor_tx_response.py
 openapi_client_README.md

@@ -132,6 +132,8 @@ from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
+from openapi_client.models.sponsor_tx_request import SponsorTxRequest
+from openapi_client.models.sponsor_tx_response import SponsorTxResponse
 from openapi_client.models.stats_entry import StatsEntry
 from openapi_client.models.stats_interval import StatsInterval
 from openapi_client.models.stats_response import StatsResponse

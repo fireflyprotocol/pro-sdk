@@ -1,5 +1,6 @@
 import {
   Keypair,
+  SignatureWithBytes,
   Signer,
   parseSerializedSignature,
 } from "@mysten/sui/cryptography";
@@ -30,6 +31,8 @@ export interface IBluefinSigner {
   signAccountAuthorizationRequest: (fields: AccountAuthorizationRequestSignedFields, isAuthorize: boolean) => Promise<string>;
   signAdjustIsolatedMarginRequest: (fields: AdjustIsolatedMarginRequestSignedFields) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
+  signTx: (txb: Uint8Array | TransactionBlock) => Promise<SignatureWithBytes>;
+  executeSponsoredTx: (txBytes: string, userSignature: string, sponsorSignature: string, suiClient: SuiClient) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
   executeTx: (
     txb: TransactionBlock,
     suiClient: SuiClient
@@ -383,6 +386,14 @@ export class BluefinRequestSigner implements IBluefinSigner {
     }
 
     return signedMessageSerialized.signature;
+  }
+
+  async signTx(txb: Uint8Array | TransactionBlock) {
+    return SuiBlocks.signTxBlock(txb, this.wallet, this.wallet.isUIWallet());
+  }
+
+  async executeSponsoredTx(txBytes: string, userSignature: string, sponsorSignature: string, suiClient: SuiClient) {
+    return SuiBlocks.executeSponsoredTxBlock(txBytes, userSignature, sponsorSignature, suiClient);
   }
 
   async executeTx(txb: TransactionBlock, suiClient: SuiClient) {

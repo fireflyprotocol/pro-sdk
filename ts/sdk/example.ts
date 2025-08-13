@@ -133,6 +133,9 @@ async function main() {
     // Disable for now as the account does not have enough coins
     // await client.deposit((0.03*1e9).toString());
 
+    // Sponsored Deposit Call, fallbackToExecuteTx will perform simple executeTx if the sponsor tx fails
+    // await client.deposit((0.03*1e9).toString(), undefined, { sponsored: true, fallbackToExecuteTx: true });
+
     // Get Market Data from Exchange Data API
     const exchangeInfo = (await client.exchangeDataApi.getExchangeInfo()).data;
     logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);

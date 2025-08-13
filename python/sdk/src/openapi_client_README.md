@@ -72,6 +72,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_trades**](openapi_client/docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](openapi_client/docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
 *AccountDataApi* | [**put_account_preferences**](openapi_client/docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
+*AccountDataApi* | [**sponsor_tx**](openapi_client/docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 *AuthApi* | [**auth_jwks_get**](openapi_client/docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
 *AuthApi* | [**auth_token_post**](openapi_client/docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](openapi_client/docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
@@ -211,6 +212,8 @@ Class | Method | HTTP request | Description
  - [RefreshTokenResponse](openapi_client/docs/RefreshTokenResponse.md)
  - [RewardsSummary](openapi_client/docs/RewardsSummary.md)
  - [SelfTradePreventionType](openapi_client/docs/SelfTradePreventionType.md)
+ - [SponsorTxRequest](openapi_client/docs/SponsorTxRequest.md)
+ - [SponsorTxResponse](openapi_client/docs/SponsorTxResponse.md)
  - [StatsEntry](openapi_client/docs/StatsEntry.md)
  - [StatsInterval](openapi_client/docs/StatsInterval.md)
  - [StatsResponse](openapi_client/docs/StatsResponse.md)

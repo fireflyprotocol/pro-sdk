@@ -80,6 +80,8 @@ paths:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1transactions"
   /api/v1/account/trades:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1trades"
+  /api/v1/account/sponsorTx:
+    $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account~1sponsorTx"
 
   /v1/exchange/depth:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1depth"

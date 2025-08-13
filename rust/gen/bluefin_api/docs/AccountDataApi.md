@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
 [**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
+[**sponsor_tx**](AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 
 
 
@@ -189,6 +190,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## sponsor_tx
+
+> models::SponsorTxResponse sponsor_tx(sponsor_tx_request)
+/account/sponsorTx
+
+Sponsors a transaction if it's eligible for sponsorship based on allowlisted methods and kinds.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**sponsor_tx_request** | [**SponsorTxRequest**](SponsorTxRequest.md) |  | [required] |
+
+### Return type
+
+[**models::SponsorTxResponse**](SponsorTxResponse.md)
 
 ### Authorization
 

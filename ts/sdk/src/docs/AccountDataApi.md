@@ -10,6 +10,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | /account/trades|
 |[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | /account/transactions|
 |[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | /account/preferences|
+|[**sponsorTx**](#sponsortx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx|
 
 # **getAccountDetails**
 > Account getAccountDetails()
@@ -369,6 +370,61 @@ void (empty response body)
 |**404** | account not found |  -  |
 |**413** | request entity too large |  -  |
 |**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **sponsorTx**
+> SponsorTxResponse sponsorTx(sponsorTxRequest)
+
+Sponsors a transaction if it\'s eligible for sponsorship based on allowlisted methods and kinds.
+
+### Example
+
+```typescript
+import {
+    AccountDataApi,
+    Configuration,
+    SponsorTxRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AccountDataApi(configuration);
+
+let sponsorTxRequest: SponsorTxRequest; //
+
+const { status, data } = await apiInstance.sponsorTx(
+    sponsorTxRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **sponsorTxRequest** | **SponsorTxRequest**|  | |
+
+
+### Return type
+
+**SponsorTxResponse**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Transaction successfully sponsored. |  -  |
+|**400** | Invalid request - transaction not eligible for sponsorship or missing required parameters |  -  |
+|**401** | Unauthorized access - missing or invalid authentication token |  -  |
+|**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

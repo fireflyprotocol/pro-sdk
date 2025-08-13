@@ -32,6 +32,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
 *AccountDataApi* | [**put_account_preferences**](docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
+*AccountDataApi* | [**sponsor_tx**](docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 *AuthApi* | [**auth_jwks_get**](docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
 *AuthApi* | [**auth_token_post**](docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
@@ -171,6 +172,8 @@ Class | Method | HTTP request | Description
  - [RefreshTokenResponse](docs/RefreshTokenResponse.md)
  - [RewardsSummary](docs/RewardsSummary.md)
  - [SelfTradePreventionType](docs/SelfTradePreventionType.md)
+ - [SponsorTxRequest](docs/SponsorTxRequest.md)
+ - [SponsorTxResponse](docs/SponsorTxResponse.md)
  - [StatsEntry](docs/StatsEntry.md)
  - [StatsInterval](docs/StatsInterval.md)
  - [StatsResponse](docs/StatsResponse.md)
