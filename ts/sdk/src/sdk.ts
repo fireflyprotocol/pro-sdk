@@ -336,7 +336,6 @@ export class BluefinProSdk {
   private async setContractsConfig() {
     const response = await this.exchangeDataApi.getExchangeInfo();
     this.contractsConfig = response.data.contractsConfig;
-    this.contractsConfig!.currentContractAddress = '0x3b985440fbf1624ec97932fce729a27c5fbea74a1d1781cee3f64fcb22c9cfef';
     this.assets = response.data.assets;
   }
 
@@ -727,6 +726,7 @@ export class BluefinProSdk {
   }
 
   public async deposit(amountE9: string, accountAddress?: string, args?: { sponsored?: boolean, fallbackToExecuteTx?: boolean }) {
+    console.log('mk1 - deposit', amountE9, accountAddress, args);
     const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
     const assetType = this.assets?.find(
