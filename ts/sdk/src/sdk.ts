@@ -29,7 +29,7 @@ import {
 import { Configuration } from './configuration';
 import { IBluefinSigner } from './request-signer';
 import { WebSocket } from 'ws';
-import { IAsset, TxBuilder } from '@firefly-exchange/library-sui/dist/src/v3';
+import { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
 import {
   CoinUtils,
   SuiClient,

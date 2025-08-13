@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "target": "ES6",
-    "module": "commonjs",
     "noImplicitAny": true,
-    "outDir": "dist",
     "rootDir": ".",
     "skipLibCheck": true,
     "lib": [
@@ -15,6 +12,9 @@
       "node_modules/@types"
     ],
     "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "dist",
