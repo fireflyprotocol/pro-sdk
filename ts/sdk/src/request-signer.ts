@@ -31,7 +31,7 @@ export interface IBluefinSigner {
   signAccountAuthorizationRequest: (fields: AccountAuthorizationRequestSignedFields, isAuthorize: boolean) => Promise<string>;
   signAdjustIsolatedMarginRequest: (fields: AdjustIsolatedMarginRequestSignedFields) => Promise<string>;
   signLoginRequest: (request: LoginRequest) => Promise<string>;
-  signTx: (txb: Uint8Array | TransactionBlock) => Promise<SignatureWithBytes>;
+  signTx: (txb: TransactionBlock, suiClient: SuiClient) => Promise<SignatureWithBytes>;
   executeSponsoredTx: (txBytes: string, userSignature: string, sponsorSignature: string, suiClient: SuiClient) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
   executeTx: (
     txb: TransactionBlock,
@@ -388,8 +388,13 @@ export class BluefinRequestSigner implements IBluefinSigner {
     return signedMessageSerialized.signature;
   }
 
-  async signTx(txb: Uint8Array | TransactionBlock) {
-    return SuiBlocks.signTxBlock(txb, this.wallet, this.wallet.isUIWallet());
+  async signTx(txb: TransactionBlock, suiClient: SuiClient) {
+    return await SuiBlocks.buildAndSignTxBlock(
+      txb,
+      suiClient,
+      this.wallet,
+      this.wallet.isUIWallet()
+    );
   }
 
   async executeSponsoredTx(txBytes: string, userSignature: string, sponsorSignature: string, suiClient: SuiClient) {

@@ -726,15 +726,16 @@ export class BluefinProSdk {
   }
 
   public async deposit(amountE9: string, accountAddress?: string, args?: { sponsored?: boolean, fallbackToExecuteTx?: boolean }) {
-    console.log('mk1 - deposit', amountE9, accountAddress, args);
     const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
+
     const assetType = this.assets?.find(
       (x) => x.symbol === assetSymbol
     )?.assetType;
     if (!assetType) {
       throw new Error('Missing USDC asset type');
     }
+
     const [splitCoin, mergedCoin] = await CoinUtils.createCoinWithBalance(
       this.suiClient,
       txb,
@@ -755,7 +756,6 @@ export class BluefinProSdk {
         txBlock: txb
       }
     );
-
     //add the transfer objects to the tx
     if (mergedCoin) {
       txb.transferObjects(
@@ -781,10 +781,10 @@ export class BluefinProSdk {
 
         // sponsor gas for the transaction
         const sponsorTxApiResponse = await this.accountDataApi.sponsorTx(request);
-        const txBytes = fromBase64(sponsorTxApiResponse.data.txBytes);
+        const txBlockFromBytes = TransactionBlock.from(sponsorTxApiResponse.data.txBytes);
 
         // sign the transaction with user's wallet
-        const userSignedTx = await this.bfSigner.signTx(txBytes);
+        const userSignedTx = await this.bfSigner.signTx(txBlockFromBytes, this.suiClient);
 
         // execute the transaction with both user's signature and sponsor's signature
         const response = await this.bfSigner.executeSponsoredTx(userSignedTx.bytes, userSignedTx.signature, sponsorTxApiResponse.data.signature, this.suiClient);
