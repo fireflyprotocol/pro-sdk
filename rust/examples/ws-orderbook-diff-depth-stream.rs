@@ -1,21 +1,13 @@
-use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::apis::trade_api::post_create_order;
 use bluefin_api::models::{
-    CreateOrderRequest, CreateOrderRequestSignedFields, LoginRequest, MarketDataStreamName,
-    MarketStreamMessage, MarketStreamMessagePayload, MarketSubscriptionMessage,
-    MarketSubscriptionStreams, OrderSide, OrderTimeInForce, OrderType, SelfTradePreventionType,
-    SubscriptionResponseMessage, SubscriptionType,
+    MarketDataStreamName, MarketStreamMessage, MarketStreamMessagePayload,
+    MarketSubscriptionMessage, MarketSubscriptionStreams, SubscriptionResponseMessage,
+    SubscriptionType,
 };
 use bluefin_pro::prelude::*;
-use chrono::{TimeDelta, Utc};
 use futures_util::{SinkExt, StreamExt};
-use hex::FromHex;
-use rand::random;
-use std::ops::Add;
 use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::time::Duration;
-use sui_sdk_types::SignatureScheme;
 use tokio::sync::mpsc::Sender;
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
@@ -41,7 +33,7 @@ async fn listen_to_diff_depth_updates(
         SubscriptionType::Subscribe,
         vec![MarketSubscriptionStreams::new(
             symbol.into(),
-            vec![MarketDataStreamName::DiffDepth200Ms],
+            vec![MarketDataStreamName::DiffDepth10Ms],
         )],
     ))?;
 
@@ -107,48 +99,30 @@ async fn listen_to_diff_depth_updates(
     Ok(())
 }
 
-async fn create_order(signed_request: CreateOrderRequest, auth_token: &str) -> Result<String> {
-    println!("Sending request...");
-    // Send request and get back order hash
-    let mut config = Configuration::new();
-    config.bearer_access_token = Some(auth_token.into());
-    config.base_path = trade::testnet::URL.into();
-
-    let response = post_create_order(&config, signed_request).await?;
-
-    Ok(response.order_hash)
-}
-
+/// Connects to the Public Diff Depth Market websocket stream from 2 different connections
+/// and prints the first and last update IDs received from each connection.
 #[tokio::main]
 async fn main() -> Result<()> {
-    let environment = Environment::Staging;
-    // We construct an authentication request to obtain a token.
-    let request = LoginRequest {
-        account_address: environment.test_keys().unwrap().address.into(),
-        audience: auth::audience(environment).into(),
-        signed_at_millis: Utc::now().timestamp_millis(),
-    };
-
-    // Next, we generate a signature for the request.
-    let signature = request.signature(
-        SignatureScheme::Ed25519,
-        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
-    )?;
-
-    // Then, we submit our authentication request to the API for the desired environment.
-    let auth_token = request
-        .authenticate(&signature, environment)
-        .await?
-        .access_token;
+    let environment = Environment::Production;
 
     // We connect to the market stream WebSocket to listen for diff depth.
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
+    let (sender2, mut receiver2) = tokio::sync::mpsc::channel::<MarketStreamMessage>(100);
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     listen_to_diff_depth_updates(
         environment,
         "ETH-PERP",
         sender,
-        Duration::from_secs(20),
+        Duration::from_secs(600),
+        Arc::clone(&shutdown_flag),
+    )
+    .await?;
+
+    listen_to_diff_depth_updates(
+        environment,
+        "ETH-PERP",
+        sender2,
+        Duration::from_secs(600),
         Arc::clone(&shutdown_flag),
     )
     .await?;
@@ -159,45 +133,33 @@ async fn main() -> Result<()> {
                 payload: MarketStreamMessagePayload::OrderbookDiffDepthUpdate(msg),
             } = websocket_message
             {
-                println!("{msg:?}");
+                println!(
+                    "Task 1: first_update_id: {}, last_update_id: {}",
+                    msg.first_update_id, msg.last_update_id
+                );
             }
         }
     });
 
-    // We get the exchange info to fetch the IDS_ID
-    let contracts_info = exchange::info::contracts_config(environment).await?;
+    let handle2 = tokio::spawn(async move {
+        while let Some(websocket_message) = receiver2.recv().await {
+            if let MarketStreamMessage::OrderbookDiffDepthUpdate {
+                payload: MarketStreamMessagePayload::OrderbookDiffDepthUpdate(msg),
+            } = websocket_message
+            {
+                println!(
+                    "Task 2: first_update_id: {}, last_update_id: {}",
+                    msg.first_update_id, msg.last_update_id
+                );
+            }
+        }
+    });
 
-    // Create an order to update the orderbook
-    let request = CreateOrderRequest {
-        signed_fields: CreateOrderRequestSignedFields {
-            symbol: "ETH-PERP".into(),
-            account_address: environment.test_keys().unwrap().address.into(),
-            price_e9: (10_000.e9()).to_string(),
-            quantity_e9: (1.e9()).to_string(),
-            side: OrderSide::Short,
-            leverage_e9: (10.e9()).to_string(),
-            is_isolated: false,
-            salt: random::<u64>().to_string(),
-            ids_id: contracts_info.ids_id,
-            expires_at_millis: Utc::now().add(TimeDelta::seconds(301)).timestamp_millis(),
-            signed_at_millis: Utc::now().timestamp_millis(),
-        },
-        r#type: OrderType::Limit,
-        post_only: Some(true),
-        time_in_force: Some(OrderTimeInForce::Gtt),
-        trigger_price_e9: None,
-        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
-        ..CreateOrderRequest::default()
-    };
-
-    // Then, we sign our order.
-    let request = request.sign(
-        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
-        SignatureScheme::Ed25519,
-    )?;
-    create_order(request, &auth_token).await?;
+    // Sleep for 10s while the diff depth updates are being received.
+    tokio::time::sleep(Duration::from_secs(10)).await;
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::Relaxed);
     handle.await.expect("Could not join handle");
+    handle2.await.expect("Could not join handle2");
     Ok(())
 }

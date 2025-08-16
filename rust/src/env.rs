@@ -363,6 +363,7 @@ pub mod websocket {
             pub use super::production::*;
         }
 
+        /// Returns the WebSocket URL to Market streams for the given environment.
         #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
             #[allow(deprecated)]
@@ -370,6 +371,17 @@ pub mod websocket {
                 Environment::Dev | Environment::Devnet => dev::URL,
                 Environment::Staging | Environment::Testnet => staging::URL,
                 Environment::Production | Environment::Mainnet => production::URL,
+            }
+        }
+
+        /// Returns the colocated WebSocket URL to Account streams for the given environment.
+        /// For this URL, the user must be colocated with the exchange.
+        #[must_use]
+        pub fn colocated_url<'a>(environment: Environment) -> &'a str {
+            match environment {
+                Environment::Dev | Environment::Devnet => dev::COLOCATED_URL,
+                Environment::Staging | Environment::Testnet => staging::COLOCATED_URL,
+                Environment::Production | Environment::Mainnet => production::COLOCATED_URL,
             }
         }
     }
@@ -406,6 +418,7 @@ pub mod websocket {
             pub use super::production::*;
         }
 
+        /// Returns the WebSocket URL to Market streams for the given environment.
         #[must_use]
         pub fn url<'a>(environment: Environment) -> &'a str {
             #[allow(deprecated)]
@@ -413,6 +426,17 @@ pub mod websocket {
                 Environment::Dev | Environment::Devnet => dev::URL,
                 Environment::Staging | Environment::Testnet => staging::URL,
                 Environment::Production | Environment::Mainnet => production::URL,
+            }
+        }
+
+        /// Returns the colocated WebSocket URL to Market streams for the given environment.
+        /// For this URL, the user must be colocated with the exchange.
+        #[must_use]
+        pub fn colocated_url<'a>(environment: Environment) -> &'a str {
+            match environment {
+                Environment::Dev | Environment::Devnet => dev::COLOCATED_URL,
+                Environment::Staging | Environment::Testnet => staging::COLOCATED_URL,
+                Environment::Production | Environment::Mainnet => production::COLOCATED_URL,
             }
         }
     }
