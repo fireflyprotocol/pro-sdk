@@ -18,6 +18,8 @@ pub mod account_funding_rate_history;
 pub use self::account_funding_rate_history::AccountFundingRateHistory;
 pub mod account_funding_rate_history_data;
 pub use self::account_funding_rate_history_data::AccountFundingRateHistoryData;
+pub mod account_group_id_patch;
+pub use self::account_group_id_patch::AccountGroupIdPatch;
 pub mod account_market_preference;
 pub use self::account_market_preference::AccountMarketPreference;
 pub mod account_order_update;

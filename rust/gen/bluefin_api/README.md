@@ -31,6 +31,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_preferences**](docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+*AccountDataApi* | [**patch_account_group_id**](docs/AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 *AccountDataApi* | [**put_account_preferences**](docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**sponsor_tx**](docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 *AuthApi* | [**auth_jwks_get**](docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
@@ -86,6 +87,7 @@ Class | Method | HTTP request | Description
  - [AccountEventType](docs/AccountEventType.md)
  - [AccountFundingRateHistory](docs/AccountFundingRateHistory.md)
  - [AccountFundingRateHistoryData](docs/AccountFundingRateHistoryData.md)
+ - [AccountGroupIdPatch](docs/AccountGroupIdPatch.md)
  - [AccountMarketPreference](docs/AccountMarketPreference.md)
  - [AccountOrderUpdate](docs/AccountOrderUpdate.md)
  - [AccountPositionLeverageUpdateRequest](docs/AccountPositionLeverageUpdateRequest.md)
