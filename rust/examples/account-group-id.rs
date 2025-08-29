@@ -42,7 +42,7 @@ async fn main() -> Result<()> {
         &configuration,
         AccountGroupIdPatch {
             account_address: test_account_address.to_string(),
-            group_id: Some("test-group".into()),
+            group_id: Some("test".into()),
         },
     )
     .await?;

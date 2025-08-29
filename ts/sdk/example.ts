@@ -153,7 +153,7 @@ async function main() {
 
     client.updateAccountGroupId({
       accountAddress: suiWallet.getPublicKey().toSuiAddress(),
-      groupId: "test-group-1"
+      groupId: "test"
     }).catch((e) => {
       logger.error(`Failed to update account group ID: ${e}`);
     });
