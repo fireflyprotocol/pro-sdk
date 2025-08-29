@@ -151,6 +151,21 @@ async function main() {
 
     const symbol = perpMarket.symbol;
 
+    client.updateAccountGroupId({
+      accountAddress: suiWallet.getPublicKey().toSuiAddress(),
+      groupId: "test-group-1"
+    }).catch((e) => {
+      logger.error(`Failed to update account group ID: ${e}`);
+    });
+
+    client.accountDataApi.getAccountDetails(suiWallet.getPublicKey().toSuiAddress())
+      .then((res) => {
+        logger.info(`Account details after group ID update: ${JSON.stringify(res.data)}`);
+      })
+      .catch((e) => {
+        logger.error(`Failed to get account details: ${e}`);
+      });
+
     // Get market data
     const candleStick = (
       await client.exchangeDataApi.getCandlestickData(

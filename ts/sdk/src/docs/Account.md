@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**groupId** | **string** | The (optional) group ID of the account. Accounts belonging to the same group cannot trade against each other.  | [optional] [default to undefined]
 **tradingFees** | [**TradingFees**](TradingFees.md) |  | [default to undefined]
 **canTrade** | **boolean** | If the user can trade. | [default to undefined]
 **canDeposit** | **boolean** | If the current user can deposit to the account. | [default to undefined]
@@ -35,6 +36,7 @@ Name | Type | Description | Notes
 import { Account } from '@bluefin/api-client';
 
 const instance: Account = {
+    groupId,
     tradingFees,
     canTrade,
     canDeposit,

@@ -15,6 +15,7 @@ docs/AccountEventReason.md
 docs/AccountEventType.md
 docs/AccountFundingRateHistory.md
 docs/AccountFundingRateHistoryData.md
+docs/AccountGroupIdPatch.md
 docs/AccountMarketPreference.md
 docs/AccountOrderUpdate.md
 docs/AccountPositionLeverageUpdateRequest.md
