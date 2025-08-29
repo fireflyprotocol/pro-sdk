@@ -761,6 +761,12 @@ export interface AccountTransactionUpdate {
  */
 export interface AccountUpdate {
     /**
+     * The optional group ID of the account.
+     * @type {string}
+     * @memberof AccountUpdate
+     */
+    'groupId'?: string;
+    /**
      * 
      * @type {TradingFees}
      * @memberof AccountUpdate
