@@ -1630,7 +1630,7 @@ class AccountDataApi:
     ) -> None:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. 
+        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch
@@ -1701,7 +1701,7 @@ class AccountDataApi:
     ) -> ApiResponse[None]:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. 
+        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch
@@ -1772,7 +1772,7 @@ class AccountDataApi:
     ) -> RESTResponseType:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. 
+        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch

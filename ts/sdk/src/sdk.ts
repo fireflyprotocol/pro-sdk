@@ -727,7 +727,7 @@ export class BluefinProSdk {
   }
 
   // Update Account Group ID. 
-  // If grouID is null, it will remove the account from it's group.
+  // If groupID is null, it will remove the account from its group.
   // An account may only belong to 1 group at a time.
   public async updateAccountGroupId(updateAccountGroupIdRequest: AccountGroupIdPatch) {
       return await this.accountDataApi.patchAccountGroupID(

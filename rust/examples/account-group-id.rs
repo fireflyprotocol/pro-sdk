@@ -48,9 +48,7 @@ async fn main() -> Result<()> {
     .await?;
 
     // Check account details to verify the change
-    let account = get_account_details(&configuration, Some(test_account_address)).await?;
-
-    println!("{account:#?}");
+    get_account_details(&configuration, Some(test_account_address)).await?;
 
     Ok(())
 }

@@ -179,7 +179,7 @@ Name | Type | Description  | Required | Notes
 > patch_account_group_id(account_group_id_patch)
 Set the group ID for an account.
 
-Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. 
+Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
 ### Parameters
 
