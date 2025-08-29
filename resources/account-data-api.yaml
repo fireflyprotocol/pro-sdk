@@ -49,6 +49,12 @@ components:
         - authorizedWallets
         - accountAddress
       properties:
+        groupId:
+          type: string
+          description: |
+            The (optional) group ID of the account.
+            Accounts belonging to the same group cannot trade against each other.
+          example: "group1"
         tradingFees:
           $ref: "./common.yaml#/components/schemas/TradingFees"
         canTrade:
@@ -378,6 +384,21 @@ components:
           type: integer
           description: User set leverage (e.g., 10x).
           example: 100
+
+    AccountGroupIdPatch:
+      required:
+        - accountAddress
+      properties:
+        accountAddress:
+          type: string
+          description: The address of the account to update.
+          example: 0x3381fefb6c5d06282621bf591beb6dbcc3364d51a4c7a62bba8e317
+        groupId:
+          type: string
+          description: | 
+            The new group to assign the account to. 
+            If not present, the account will be removed from any group.
+
     SponsorTxRequest:
       type: object
       required:
@@ -387,6 +408,7 @@ components:
           type: string
           description: |
             Base64 encoded transaction bytes to be sponsored. 
+
     SponsorTxResponse:
       type: object
       required:
@@ -568,6 +590,48 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
+  
+  /api/v1/account/groupId:
+    patch:
+      tags:
+        - Account Data
+      summary: Set the group ID for an account.
+      operationId: patchAccountGroupID
+      requestBody:
+        description: Account group ID update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountGroupIdPatch"
+      responses:
+        "202":
+          description: Accepted and processing.
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+  
   /api/v1/account:
     get:
       tags:
