@@ -30,6 +30,8 @@ pub enum CommandFailureReasonCode {
     InvalidLeverage,
     #[serde(rename = "UNKNOWN_MARKET")]
     UnknownMarket,
+    #[serde(rename = "WITHDRAW_ZERO")]
+    WithdrawZero,
     #[serde(rename = "UNEXPECTED")]
     Unexpected,
 
@@ -46,6 +48,7 @@ impl std::fmt::Display for CommandFailureReasonCode {
             Self::DuplicateCommandHash => write!(f, "DUPLICATE_COMMAND_HASH"),
             Self::InvalidLeverage => write!(f, "INVALID_LEVERAGE"),
             Self::UnknownMarket => write!(f, "UNKNOWN_MARKET"),
+            Self::WithdrawZero => write!(f, "WITHDRAW_ZERO"),
             Self::Unexpected => write!(f, "UNEXPECTED"),
         }
     }

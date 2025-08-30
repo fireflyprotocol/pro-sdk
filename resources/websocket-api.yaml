@@ -234,6 +234,8 @@ components:
         - LeverageUpdated
         - IsolatedMarginUpdated
         - FundingRatePayment
+        - AccountGroupUpdated
+        - Unspecified
 
     OrderCancelReason:
       type: string
@@ -291,6 +293,7 @@ components:
         - DUPLICATE_COMMAND_HASH
         - INVALID_LEVERAGE
         - UNKNOWN_MARKET
+        - WITHDRAW_ZERO
         - UNEXPECTED
 
     FailedCommandType:

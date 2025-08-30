@@ -323,7 +323,9 @@ export const AccountEventReason = {
     OrdersForMarketCancelled: 'OrdersForMarketCancelled',
     LeverageUpdated: 'LeverageUpdated',
     IsolatedMarginUpdated: 'IsolatedMarginUpdated',
-    FundingRatePayment: 'FundingRatePayment'
+    FundingRatePayment: 'FundingRatePayment',
+    AccountGroupUpdated: 'AccountGroupUpdated',
+    Unspecified: 'Unspecified'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];
@@ -1843,6 +1845,7 @@ export const CommandFailureReasonCode = {
     DuplicateCommandHash: 'DUPLICATE_COMMAND_HASH',
     InvalidLeverage: 'INVALID_LEVERAGE',
     UnknownMarket: 'UNKNOWN_MARKET',
+    WithdrawZero: 'WITHDRAW_ZERO',
     Unexpected: 'UNEXPECTED'
 } as const;
 
