@@ -6,6 +6,7 @@ The payload of the message, which varies based on the event type.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**groupId** | **string** | The optional group ID of the account. | [optional] [default to undefined]
 **tradingFees** | [**TradingFees**](TradingFees.md) |  | [optional] [default to undefined]
 **canTrade** | **boolean** | If the user can trade. | [default to undefined]
 **canDeposit** | **boolean** | If the current user can deposit to the account. | [default to undefined]
@@ -80,6 +81,7 @@ Name | Type | Description | Notes
 import { AccountStreamMessagePayload } from '@bluefin/api-client';
 
 const instance: AccountStreamMessagePayload = {
+    groupId,
     tradingFees,
     canTrade,
     canDeposit,

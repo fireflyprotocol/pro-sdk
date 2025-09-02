@@ -30,6 +30,12 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
  */
 export interface Account {
     /**
+     * The (optional) group ID of the account. Accounts belonging to the same group cannot trade against each other. 
+     * @type {string}
+     * @memberof Account
+     */
+    'groupId'?: string;
+    /**
      * 
      * @type {TradingFees}
      * @memberof Account
@@ -317,7 +323,9 @@ export const AccountEventReason = {
     OrdersForMarketCancelled: 'OrdersForMarketCancelled',
     LeverageUpdated: 'LeverageUpdated',
     IsolatedMarginUpdated: 'IsolatedMarginUpdated',
-    FundingRatePayment: 'FundingRatePayment'
+    FundingRatePayment: 'FundingRatePayment',
+    AccountGroupUpdated: 'AccountGroupUpdated',
+    Unspecified: 'Unspecified'
 } as const;
 
 export type AccountEventReason = typeof AccountEventReason[keyof typeof AccountEventReason];
@@ -400,6 +408,25 @@ export interface AccountFundingRateHistoryData {
 }
 
 
+/**
+ * 
+ * @export
+ * @interface AccountGroupIdPatch
+ */
+export interface AccountGroupIdPatch {
+    /**
+     * The address of the account to update.
+     * @type {string}
+     * @memberof AccountGroupIdPatch
+     */
+    'accountAddress': string;
+    /**
+     * The new group to assign the account to.  If not present, the account will be removed from any group. 
+     * @type {string}
+     * @memberof AccountGroupIdPatch
+     */
+    'groupId'?: string;
+}
 /**
  * 
  * @export
@@ -735,6 +762,12 @@ export interface AccountTransactionUpdate {
  * @interface AccountUpdate
  */
 export interface AccountUpdate {
+    /**
+     * The optional group ID of the account.
+     * @type {string}
+     * @memberof AccountUpdate
+     */
+    'groupId'?: string;
     /**
      * 
      * @type {TradingFees}
@@ -1812,6 +1845,7 @@ export const CommandFailureReasonCode = {
     DuplicateCommandHash: 'DUPLICATE_COMMAND_HASH',
     InvalidLeverage: 'INVALID_LEVERAGE',
     UnknownMarket: 'UNKNOWN_MARKET',
+    WithdrawZero: 'WITHDRAW_ZERO',
     Unexpected: 'UNEXPECTED'
 } as const;
 
@@ -5217,6 +5251,46 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
+         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * @summary Set the group ID for an account.
+         * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchAccountGroupID: async (accountGroupIdPatch: AccountGroupIdPatch, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountGroupIdPatch' is not null or undefined
+            assertParamExists('patchAccountGroupID', 'accountGroupIdPatch', accountGroupIdPatch)
+            const localVarPath = `/api/v1/account/groupId`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(accountGroupIdPatch, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
          * @summary /account/preferences
          * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
@@ -5383,6 +5457,19 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * @summary Set the group ID for an account.
+         * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async patchAccountGroupID(accountGroupIdPatch: AccountGroupIdPatch, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.patchAccountGroupID(accountGroupIdPatch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AccountDataApi.patchAccountGroupID']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
          * @summary /account/preferences
          * @param {UpdateAccountPreferenceRequest} updateAccountPreferenceRequest 
@@ -5478,6 +5565,16 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          */
         getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<Transaction>> {
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * @summary Set the group ID for an account.
+         * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchAccountGroupID(accountGroupIdPatch: AccountGroupIdPatch, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.patchAccountGroupID(accountGroupIdPatch, options).then((request) => request(axios, basePath));
         },
         /**
          * Update user\'s account preferences. This will overwrite the preferences, so always send the full object.
@@ -5578,6 +5675,18 @@ export class AccountDataApi extends BaseAPI {
      */
     public getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+     * @summary Set the group ID for an account.
+     * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountDataApi
+     */
+    public patchAccountGroupID(accountGroupIdPatch: AccountGroupIdPatch, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).patchAccountGroupID(accountGroupIdPatch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5794,7 +5903,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async authJwksGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authJwksGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authJwksGet']?.[localVarOperationServerIndex]?.url;
@@ -5857,7 +5966,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+        authJwksGet(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
             return localVarFp.authJwksGet(options).then((request) => request(axios, basePath));
         },
         /**

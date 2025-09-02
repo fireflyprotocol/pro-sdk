@@ -20,6 +20,7 @@ openapi_client/docs/AccountEventReason.md
 openapi_client/docs/AccountEventType.md
 openapi_client/docs/AccountFundingRateHistory.md
 openapi_client/docs/AccountFundingRateHistoryData.md
+openapi_client/docs/AccountGroupIdPatch.md
 openapi_client/docs/AccountMarketPreference.md
 openapi_client/docs/AccountOrderUpdate.md
 openapi_client/docs/AccountPositionLeverageUpdateRequest.md
@@ -144,6 +145,7 @@ openapi_client/models/account_event_reason.py
 openapi_client/models/account_event_type.py
 openapi_client/models/account_funding_rate_history.py
 openapi_client/models/account_funding_rate_history_data.py
+openapi_client/models/account_group_id_patch.py
 openapi_client/models/account_market_preference.py
 openapi_client/models/account_order_update.py
 openapi_client/models/account_position_leverage_update_request.py
@@ -253,6 +255,4 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_sponsor_tx_request.py
-openapi_client/test/test_sponsor_tx_response.py
 openapi_client_README.md

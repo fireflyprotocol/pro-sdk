@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 /// AccountUpdate : Account information for the data stream.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountUpdate {
+    /// The optional group ID of the account.
+    #[serde(rename = "groupId", skip_serializing_if = "Option::is_none")]
+    pub group_id: Option<String>,
     #[serde(rename = "tradingFees", skip_serializing_if = "Option::is_none")]
     pub trading_fees: Option<models::TradingFees>,
     /// If the user can trade.
@@ -81,6 +84,7 @@ impl AccountUpdate {
     /// Account information for the data stream.
     pub fn new(can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, authorized_accounts: Vec<String>, authorized_wallets: Vec<models::AuthorizedWallet>) -> AccountUpdate {
         AccountUpdate {
+            group_id: None,
             trading_fees: None,
             can_trade,
             can_deposit,

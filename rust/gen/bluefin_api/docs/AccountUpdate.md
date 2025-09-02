@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**group_id** | Option<**String**> | The optional group ID of the account. | [optional]
 **trading_fees** | Option<[**models::TradingFees**](TradingFees.md)> |  | [optional]
 **can_trade** | **bool** | If the user can trade. | 
 **can_deposit** | **bool** | If the current user can deposit to the account. | 

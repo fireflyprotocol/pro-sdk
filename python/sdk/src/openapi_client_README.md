@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_preferences**](openapi_client/docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**get_account_trades**](openapi_client/docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](openapi_client/docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+*AccountDataApi* | [**patch_account_group_id**](openapi_client/docs/AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 *AccountDataApi* | [**put_account_preferences**](openapi_client/docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**sponsor_tx**](openapi_client/docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 *AuthApi* | [**auth_jwks_get**](openapi_client/docs/AuthApi.md#auth_jwks_get) | **GET** /auth/jwks | 
@@ -126,6 +127,7 @@ Class | Method | HTTP request | Description
  - [AccountEventType](openapi_client/docs/AccountEventType.md)
  - [AccountFundingRateHistory](openapi_client/docs/AccountFundingRateHistory.md)
  - [AccountFundingRateHistoryData](openapi_client/docs/AccountFundingRateHistoryData.md)
+ - [AccountGroupIdPatch](openapi_client/docs/AccountGroupIdPatch.md)
  - [AccountMarketPreference](openapi_client/docs/AccountMarketPreference.md)
  - [AccountOrderUpdate](openapi_client/docs/AccountOrderUpdate.md)
  - [AccountPositionLeverageUpdateRequest](openapi_client/docs/AccountPositionLeverageUpdateRequest.md)

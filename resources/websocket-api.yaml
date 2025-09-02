@@ -234,6 +234,8 @@ components:
         - LeverageUpdated
         - IsolatedMarginUpdated
         - FundingRatePayment
+        - AccountGroupUpdated
+        - Unspecified
 
     OrderCancelReason:
       type: string
@@ -291,6 +293,7 @@ components:
         - DUPLICATE_COMMAND_HASH
         - INVALID_LEVERAGE
         - UNKNOWN_MARKET
+        - WITHDRAW_ZERO
         - UNEXPECTED
 
     FailedCommandType:
@@ -556,6 +559,10 @@ components:
       type: object
       description: "Account information for the data stream."
       properties:
+        groupId:
+          type: string
+          description: "The optional group ID of the account."
+          example: "Trade Group 1"
         tradingFees:
           $ref: './common.yaml#/components/schemas/TradingFees'
         canTrade:

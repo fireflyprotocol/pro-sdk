@@ -9,6 +9,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAccountPreferences**](#getaccountpreferences) | **GET** /api/v1/account/preferences | /account/preferences|
 |[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | /account/trades|
 |[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | /account/transactions|
+|[**patchAccountGroupID**](#patchaccountgroupid) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.|
 |[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | /account/preferences|
 |[**sponsorTx**](#sponsortx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx|
 
@@ -309,6 +310,62 @@ const { status, data } = await apiInstance.getAccountTransactionHistory(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response with transaction history details. |  -  |
+|**400** | request missing required parameters |  -  |
+|**401** | unauthorized access |  -  |
+|**404** | account not found |  -  |
+|**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patchAccountGroupID**
+> patchAccountGroupID(accountGroupIdPatch)
+
+Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+
+### Example
+
+```typescript
+import {
+    AccountDataApi,
+    Configuration,
+    AccountGroupIdPatch
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AccountDataApi(configuration);
+
+let accountGroupIdPatch: AccountGroupIdPatch; //Account group ID update.
+
+const { status, data } = await apiInstance.patchAccountGroupID(
+    accountGroupIdPatch
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **accountGroupIdPatch** | **AccountGroupIdPatch**| Account group ID update. | |
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**202** | Accepted and processing. |  -  |
 |**400** | request missing required parameters |  -  |
 |**401** | unauthorized access |  -  |
 |**404** | account not found |  -  |

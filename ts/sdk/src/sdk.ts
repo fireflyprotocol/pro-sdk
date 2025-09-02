@@ -24,6 +24,7 @@ import {
   RewardsApi,
   UpdateAccountPreferenceRequest,
   SponsorTxRequest,
+  AccountGroupIdPatch,
 } from './api';
 
 import { Configuration } from './configuration';
@@ -723,6 +724,15 @@ export class BluefinProSdk {
     return await this.accountDataApi.putAccountPreferences(
       updateAccountPreferenceRequest
     );
+  }
+
+  // Update Account Group ID. 
+  // If groupID is null, it will remove the account from its group.
+  // An account may only belong to 1 group at a time.
+  public async updateAccountGroupId(updateAccountGroupIdRequest: AccountGroupIdPatch) {
+      return await this.accountDataApi.patchAccountGroupID(
+        updateAccountGroupIdRequest
+      );
   }
 
   public async deposit(amountE9: string, accountAddress?: string, args?: { sponsored?: boolean, fallbackToExecuteTx?: boolean }) {

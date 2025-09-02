@@ -12,6 +12,7 @@
 | DuplicateCommandHash | DUPLICATE_COMMAND_HASH |
 | InvalidLeverage | INVALID_LEVERAGE |
 | UnknownMarket | UNKNOWN_MARKET |
+| WithdrawZero | WITHDRAW_ZERO |
 | Unexpected | UNEXPECTED |
 
 

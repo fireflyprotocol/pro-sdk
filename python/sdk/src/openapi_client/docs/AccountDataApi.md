@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+[**patch_account_group_id**](AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 [**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 [**sponsor_tx**](AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
 
@@ -428,6 +429,91 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response with transaction history details. |  -  |
+**400** | request missing required parameters |  -  |
+**401** | unauthorized access |  -  |
+**404** | account not found |  -  |
+**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_account_group_id**
+> patch_account_group_id(account_group_id_patch)
+
+Set the group ID for an account.
+
+Sets or updates the group ID for a specific account. 
+Accounts belonging to the same group cannot trade against each other.
+If the groupId is not set, the account will be removed from its group.
+Only the first 6 characters of the groupID are guaranteed to be respected,
+longer group IDs may be rejected.
+
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.account_group_id_patch import AccountGroupIdPatch
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.AccountDataApi(api_client)
+    account_group_id_patch = openapi_client.AccountGroupIdPatch() # AccountGroupIdPatch | Account group ID update.
+
+    try:
+        # Set the group ID for an account.
+        await api_instance.patch_account_group_id(account_group_id_patch)
+    except Exception as e:
+        print("Exception when calling AccountDataApi->patch_account_group_id: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_group_id_patch** | [**AccountGroupIdPatch**](AccountGroupIdPatch.md)| Account group ID update. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Accepted and processing. |  -  |
 **400** | request missing required parameters |  -  |
 **401** | unauthorized access |  -  |
 **404** | account not found |  -  |

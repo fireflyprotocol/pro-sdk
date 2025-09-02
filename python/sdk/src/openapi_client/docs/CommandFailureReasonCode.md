@@ -19,6 +19,8 @@
 
 * `UNKNOWN_MARKET` (value: `'UNKNOWN_MARKET'`)
 
+* `WITHDRAW_ZERO` (value: `'WITHDRAW_ZERO'`)
+
 * `UNEXPECTED` (value: `'UNEXPECTED'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

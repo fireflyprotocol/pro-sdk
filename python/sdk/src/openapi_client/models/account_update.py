@@ -29,6 +29,7 @@ class AccountUpdate(BaseModel):
     """
     Account information for the data stream.
     """ # noqa: E501
+    group_id: Optional[StrictStr] = Field(default=None, description="The optional group ID of the account.", alias="groupId")
     trading_fees: Optional[TradingFees] = Field(default=None, alias="tradingFees")
     can_trade: StrictBool = Field(description="If the user can trade.", alias="canTrade")
     can_deposit: StrictBool = Field(description="If the current user can deposit to the account.", alias="canDeposit")
@@ -50,7 +51,7 @@ class AccountUpdate(BaseModel):
     assets: List[Asset]
     authorized_accounts: List[StrictStr] = Field(description="Deprecated: Replaced with authorizedWallets.", alias="authorizedAccounts")
     authorized_wallets: List[AuthorizedWallet] = Field(description="The wallets that are authorized to trade on behalf of the current account.", alias="authorizedWallets")
-    __properties: ClassVar[List[str]] = ["tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "authorizedAccounts", "authorizedWallets"]
+    __properties: ClassVar[List[str]] = ["groupId", "tradingFees", "canTrade", "canDeposit", "canWithdraw", "crossEffectiveBalanceE9", "crossMarginRequiredE9", "totalOrderMarginRequiredE9", "marginAvailableE9", "crossMaintenanceMarginRequiredE9", "crossMaintenanceMarginAvailableE9", "crossMaintenanceMarginRatioE9", "crossLeverageE9", "totalUnrealizedPnlE9", "crossUnrealizedPnlE9", "crossUnrealizedLossE9", "crossAccountValueE9", "totalAccountValueE9", "updatedAtMillis", "assets", "authorizedAccounts", "authorizedWallets"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -120,6 +121,7 @@ class AccountUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "groupId": obj.get("groupId"),
             "tradingFees": TradingFees.from_dict(obj["tradingFees"]) if obj.get("tradingFees") is not None else None,
             "canTrade": obj.get("canTrade"),
             "canDeposit": obj.get("canDeposit"),

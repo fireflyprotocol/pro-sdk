@@ -6,6 +6,7 @@ The payload of the message, which varies based on the event type.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**group_id** | **str** | The optional group ID of the account. | [optional] 
 **trading_fees** | [**TradingFees**](TradingFees.md) |  | [optional] 
 **can_trade** | **bool** | If the user can trade. | 
 **can_deposit** | **bool** | If the current user can deposit to the account. | 

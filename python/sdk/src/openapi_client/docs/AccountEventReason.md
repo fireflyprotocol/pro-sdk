@@ -22,6 +22,10 @@ The reason for the account-related event.
 
 * `FUNDINGRATEPAYMENT` (value: `'FundingRatePayment'`)
 
+* `ACCOUNTGROUPUPDATED` (value: `'AccountGroupUpdated'`)
+
+* `UNSPECIFIED` (value: `'Unspecified'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
