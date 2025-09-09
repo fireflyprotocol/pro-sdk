@@ -84,7 +84,7 @@ No authorization required
 > models::CountryResponse get_country()
 /exchange/country
 
-Check if the country is supported.
+Check if the country is geo restricted.
 
 ### Parameters
 

@@ -177,7 +177,7 @@ pub async fn get_candlestick_data(configuration: &configuration::Configuration, 
     }
 }
 
-/// Check if the country is supported.
+/// Check if the country is geo restricted.
 pub async fn get_country(configuration: &configuration::Configuration, ) -> Result<models::CountryResponse, Error<GetCountryError>> {
 
     let uri_str = format!("{}/v1/exchange/country", configuration.base_path);

@@ -130,7 +130,7 @@ No authorization required
 # **getCountry**
 > CountryResponse getCountry()
 
-Check if the country is supported.
+Check if the country is geo restricted.
 
 ### Example
 

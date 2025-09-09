@@ -1108,7 +1108,7 @@ paths:
         - Exchange
       operationId: getCountry
       summary: /exchange/country
-      description: Check if the country is supported.
+      description: Check if the country is geo restricted.
       responses:
         "200":
           description: Successful response

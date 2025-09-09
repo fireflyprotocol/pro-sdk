@@ -165,7 +165,7 @@ No authorization required
 
 /exchange/country
 
-Check if the country is supported.
+Check if the country is geo restricted.
 
 ### Example
 

@@ -676,7 +676,7 @@ class ExchangeApi:
     ) -> CountryResponse:
         """/exchange/country
 
-        Check if the country is supported.
+        Check if the country is geo restricted.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -740,7 +740,7 @@ class ExchangeApi:
     ) -> ApiResponse[CountryResponse]:
         """/exchange/country
 
-        Check if the country is supported.
+        Check if the country is geo restricted.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -804,7 +804,7 @@ class ExchangeApi:
     ) -> RESTResponseType:
         """/exchange/country
 
-        Check if the country is supported.
+        Check if the country is geo restricted.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

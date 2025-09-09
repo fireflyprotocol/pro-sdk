@@ -6191,7 +6191,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Check if the country is supported.
+         * Check if the country is geo restricted.
          * @summary /exchange/country
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6545,7 +6545,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Check if the country is supported.
+         * Check if the country is geo restricted.
          * @summary /exchange/country
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6683,7 +6683,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * Check if the country is supported.
+         * Check if the country is geo restricted.
          * @summary /exchange/country
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6804,7 +6804,7 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
-     * Check if the country is supported.
+     * Check if the country is geo restricted.
      * @summary /exchange/country
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
