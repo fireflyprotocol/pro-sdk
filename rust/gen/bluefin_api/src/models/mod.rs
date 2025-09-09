@@ -84,6 +84,8 @@ pub mod command_failure_reason_code;
 pub use self::command_failure_reason_code::CommandFailureReasonCode;
 pub mod contracts_config;
 pub use self::contracts_config::ContractsConfig;
+pub mod country_response;
+pub use self::country_response::CountryResponse;
 pub mod create_order_request;
 pub use self::create_order_request::CreateOrderRequest;
 pub mod create_order_request_signed_fields;

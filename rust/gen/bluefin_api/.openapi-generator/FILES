@@ -47,6 +47,7 @@ docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/CommandFailureReasonCode.md
 docs/ContractsConfig.md
+docs/CountryResponse.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
 docs/CreateOrderResponse.md
@@ -179,6 +180,7 @@ src/models/candle_price_type.rs
 src/models/candlestick_update.rs
 src/models/command_failure_reason_code.rs
 src/models/contracts_config.rs
+src/models/country_response.rs
 src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
 src/models/create_order_response.rs

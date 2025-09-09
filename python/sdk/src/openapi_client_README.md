@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_v2_token_post**](openapi_client/docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
 *ExchangeApi* | [**get_all_market_ticker**](openapi_client/docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](openapi_client/docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+*ExchangeApi* | [**get_country**](openapi_client/docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 *ExchangeApi* | [**get_exchange_info**](openapi_client/docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 *ExchangeApi* | [**get_exchange_stats**](openapi_client/docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 *ExchangeApi* | [**get_funding_rate_history**](openapi_client/docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
@@ -160,6 +161,7 @@ Class | Method | HTTP request | Description
  - [CandlestickUpdate](openapi_client/docs/CandlestickUpdate.md)
  - [CommandFailureReasonCode](openapi_client/docs/CommandFailureReasonCode.md)
  - [ContractsConfig](openapi_client/docs/ContractsConfig.md)
+ - [CountryResponse](openapi_client/docs/CountryResponse.md)
  - [CreateOrderRequest](openapi_client/docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](openapi_client/docs/CreateOrderRequestSignedFields.md)
  - [CreateOrderResponse](openapi_client/docs/CreateOrderResponse.md)

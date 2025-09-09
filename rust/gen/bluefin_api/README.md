@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_v2_token_post**](docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
 *ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+*ExchangeApi* | [**get_country**](docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 *ExchangeApi* | [**get_exchange_info**](docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 *ExchangeApi* | [**get_exchange_stats**](docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 *ExchangeApi* | [**get_funding_rate_history**](docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
@@ -120,6 +121,7 @@ Class | Method | HTTP request | Description
  - [CandlestickUpdate](docs/CandlestickUpdate.md)
  - [CommandFailureReasonCode](docs/CommandFailureReasonCode.md)
  - [ContractsConfig](docs/ContractsConfig.md)
+ - [CountryResponse](docs/CountryResponse.md)
  - [CreateOrderRequest](docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](docs/CreateOrderRequestSignedFields.md)
  - [CreateOrderResponse](docs/CreateOrderResponse.md)

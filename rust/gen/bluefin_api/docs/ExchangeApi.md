@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_all_market_ticker**](ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 [**get_candlestick_data**](ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
+[**get_country**](ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 [**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 [**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
@@ -65,6 +66,33 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<Vec<String>>**](Vec.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_country
+
+> models::CountryResponse get_country()
+/exchange/country
+
+Check if the country is supported.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::CountryResponse**](CountryResponse.md)
 
 ### Authorization
 
