@@ -57,6 +57,7 @@ from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
 from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
 from openapi_client.models.contracts_config import ContractsConfig
+from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
 from openapi_client.models.create_order_response import CreateOrderResponse

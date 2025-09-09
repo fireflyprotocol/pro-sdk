@@ -49,6 +49,7 @@ docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/CommandFailureReasonCode.md
 docs/ContractsConfig.md
+docs/CountryResponse.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
 docs/CreateOrderResponse.md

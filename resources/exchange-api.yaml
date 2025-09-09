@@ -726,6 +726,20 @@ components:
         - totalQuoteAssetVolumeE9
         - endTimeAtMillis
 
+    CountryResponse:
+      type: object
+      properties:
+        country:
+          type: string
+          description: The country code in ISO 3166-1 alpha-2 format.
+          example: US
+        isBlockedCountry:
+          type: boolean
+          description: Indicates if the country is blocked.
+      required:
+        - country
+        - isBlockedCountry
+
 paths:
   /v1/exchange/info:
     get:
@@ -1083,6 +1097,27 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         "500":
           description: "Internal server error."
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/exchange/country:
+    get:
+      tags:
+        - Exchange
+      operationId: getCountry
+      summary: /exchange/country
+      description: Check if the country is geo restricted.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountryResponse"
+        "500":
+          description: Internal server error.
           content:
             application/json:
               schema:

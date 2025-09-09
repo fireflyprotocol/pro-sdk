@@ -101,6 +101,8 @@ paths:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1fundingRateHistory"
   /v1/exchange/stats:
     $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1stats"
+  /v1/exchange/country:
+    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1country"
 
   /api/v1/trade/leverage:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1leverage"

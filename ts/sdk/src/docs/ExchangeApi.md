@@ -6,6 +6,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |------------- | ------------- | -------------|
 |[**getAllMarketTicker**](#getallmarketticker) | **GET** /v1/exchange/tickers | /exchange/tickers|
 |[**getCandlestickData**](#getcandlestickdata) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks|
+|[**getCountry**](#getcountry) | **GET** /v1/exchange/country | /exchange/country|
 |[**getExchangeInfo**](#getexchangeinfo) | **GET** /v1/exchange/info | /exchange/info|
 |[**getExchangeStats**](#getexchangestats) | **GET** /v1/exchange/stats | /exchange/stats|
 |[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory|
@@ -123,6 +124,51 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Kline/candlestick data |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCountry**
+> CountryResponse getCountry()
+
+Check if the country is geo restricted.
+
+### Example
+
+```typescript
+import {
+    ExchangeApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new ExchangeApi(configuration);
+
+const { status, data } = await apiInstance.getCountry();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**CountryResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response |  -  |
+|**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

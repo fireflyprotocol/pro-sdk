@@ -1907,6 +1907,25 @@ export type ContractsConfigNetworkEnum = typeof ContractsConfigNetworkEnum[keyof
 /**
  * 
  * @export
+ * @interface CountryResponse
+ */
+export interface CountryResponse {
+    /**
+     * The country code in ISO 3166-1 alpha-2 format.
+     * @type {string}
+     * @memberof CountryResponse
+     */
+    'country': string;
+    /**
+     * Indicates if the country is blocked.
+     * @type {boolean}
+     * @memberof CountryResponse
+     */
+    'isBlockedCountry': boolean;
+}
+/**
+ * 
+ * @export
  * @interface CreateOrderRequest
  */
 export interface CreateOrderRequest {
@@ -6172,6 +6191,36 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Check if the country is geo restricted.
+         * @summary /exchange/country
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCountry: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/exchange/country`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns the current exchange information including available margin assets, markets, and rules.
          * @summary /exchange/info
          * @param {*} [options] Override http request option.
@@ -6496,6 +6545,18 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Check if the country is geo restricted.
+         * @summary /exchange/country
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCountry(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCountry(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getCountry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Returns the current exchange information including available margin assets, markets, and rules.
          * @summary /exchange/info
          * @param {*} [options] Override http request option.
@@ -6622,6 +6683,15 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
+         * Check if the country is geo restricted.
+         * @summary /exchange/country
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCountry(options?: RawAxiosRequestConfig): AxiosPromise<CountryResponse> {
+            return localVarFp.getCountry(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns the current exchange information including available margin assets, markets, and rules.
          * @summary /exchange/info
          * @param {*} [options] Override http request option.
@@ -6731,6 +6801,17 @@ export class ExchangeApi extends BaseAPI {
      */
     public getCandlestickData(symbol: string, interval: KlineInterval, type: CandlePriceType, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return ExchangeApiFp(this.configuration).getCandlestickData(symbol, interval, type, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Check if the country is geo restricted.
+     * @summary /exchange/country
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeApi
+     */
+    public getCountry(options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getCountry(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
