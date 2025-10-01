@@ -39,7 +39,7 @@ pub struct CreateOrderRequestSignedFields {
     /// the ID of the internal datastore for the target network
     #[serde(rename = "idsId")]
     pub ids_id: String,
-    /// timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+    /// The timestamp in millis at which order will expire.
     #[serde(rename = "expiresAtMillis")]
     pub expires_at_millis: i64,
     /// The timestamp in millis at which the request was signed
