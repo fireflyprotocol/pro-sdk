@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **is_isolated** | **bool** | Is this order isolated or cross margin. Note market must be set to the same mode. | [default to false]
 **salt** | **String** | The random generated SALT. Should always be a number | 
 **ids_id** | **String** | the ID of the internal datastore for the target network | 
-**expires_at_millis** | **i64** | timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided | 
+**expires_at_millis** | **i64** | The timestamp in millis at which order will expire. | 
 **signed_at_millis** | **i64** | The timestamp in millis at which the request was signed | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

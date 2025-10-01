@@ -2047,7 +2047,7 @@ export interface CreateOrderRequestSignedFields {
      */
     'idsId': string;
     /**
-     * timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+     * The timestamp in millis at which order will expire.
      * @type {number}
      * @memberof CreateOrderRequestSignedFields
      */

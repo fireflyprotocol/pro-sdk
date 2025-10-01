@@ -36,7 +36,7 @@ class CreateOrderRequestSignedFields(BaseModel):
     is_isolated: StrictBool = Field(description="Is this order isolated or cross margin. Note market must be set to the same mode.", alias="isIsolated")
     salt: StrictStr = Field(description="The random generated SALT. Should always be a number")
     ids_id: StrictStr = Field(description="the ID of the internal datastore for the target network", alias="idsId")
-    expires_at_millis: StrictInt = Field(description="timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided", alias="expiresAtMillis")
+    expires_at_millis: StrictInt = Field(description="The timestamp in millis at which order will expire.", alias="expiresAtMillis")
     signed_at_millis: StrictInt = Field(description="The timestamp in millis at which the request was signed", alias="signedAtMillis")
     __properties: ClassVar[List[str]] = ["symbol", "accountAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "idsId", "expiresAtMillis", "signedAtMillis"]
 

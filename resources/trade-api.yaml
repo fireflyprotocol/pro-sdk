@@ -104,7 +104,7 @@ components:
         expiresAtMillis:
           type: integer
           format: int64
-          description: timestamp in millis at which order will expire. Defaults to 1 month for LIMIT orders if not provided
+          description: The timestamp in millis at which order will expire.
           example: 12345665432
         signedAtMillis:
           type: integer
