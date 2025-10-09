@@ -519,6 +519,11 @@ paths:
                 $ref: '#/components/schemas/CreateOrderResponse'
         '202':
           description: Order creation submitted successfully.
+          headers:
+            Taker-Delay:
+              description: Indicates whether the order creation request was delayed (e.g. due to speed bump).
+              schema:
+                type: boolean
           content:
             application/json:
               schema:

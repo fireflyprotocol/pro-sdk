@@ -289,7 +289,7 @@ const { status, data } = await apiInstance.postCreateOrder(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Order creation successful. |  -  |
-|**202** | Order creation submitted successfully. |  -  |
+|**202** | Order creation submitted successfully. |  * Taker-Delay - Indicates whether the order creation request was delayed (e.g. due to speed bump). <br>  |
 |**400** | Bad Request. The request was invalid or malformed. |  -  |
 |**401** | Unauthorized. Authentication is required or invalid. Signature is invalid |  -  |
 |**403** | Forbidden. |  -  |
