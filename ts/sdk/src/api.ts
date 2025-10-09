@@ -421,7 +421,7 @@ export interface AccountGroupIdPatch {
      */
     'accountAddress': string;
     /**
-     * The new group to assign the account to.  If not present, the account will be removed from any group. 
+     * The new group to assign the account to. If not present, the account will be removed from any group. 
      * @type {string}
      * @memberof AccountGroupIdPatch
      */
@@ -4015,7 +4015,7 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
  */
 export interface SponsorTxRequest {
     /**
-     * Base64 encoded transaction bytes to be sponsored.  
+     * Base64 encoded transaction bytes to be sponsored. 
      * @type {string}
      * @memberof SponsorTxRequest
      */
@@ -5146,7 +5146,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5211,7 +5211,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
@@ -5270,7 +5270,7 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
          * @param {*} [options] Override http request option.
@@ -5444,7 +5444,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5463,7 +5463,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
@@ -5476,7 +5476,7 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
          * @param {*} [options] Override http request option.
@@ -5560,7 +5560,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @summary /account/trades
          * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
          * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5576,7 +5576,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
          * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
          * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
@@ -5586,7 +5586,7 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
-         * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+         * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
          * @param {*} [options] Override http request option.
@@ -5667,7 +5667,7 @@ export class AccountDataApi extends BaseAPI {
      * @summary /account/trades
      * @param {string} [symbol] Market address to filter trades by. If not specified, returns trades for all markets.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
      * @param {number} [limit] Default 500; max 1000.
      * @param {TradeType} [tradeType] Type of trade. By default returns all. UNSPECIFIED returns all.
      * @param {number} [page] The page number to retrieve in a paginated response.
@@ -5685,7 +5685,7 @@ export class AccountDataApi extends BaseAPI {
      * @param {Array<TransactionType>} [types] Optional query parameter to filter transactions by type.
      * @param {string} [assetSymbol] Optional query parameter to filter transactions by asset bank address.
      * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
-     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
      * @param {number} [limit] Default 500; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
@@ -5697,7 +5697,7 @@ export class AccountDataApi extends BaseAPI {
     }
 
     /**
-     * Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+     * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
      * @summary Set the group ID for an account.
      * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
      * @param {*} [options] Override http request option.

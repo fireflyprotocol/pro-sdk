@@ -26,7 +26,7 @@ class SponsorTxRequest(BaseModel):
     """
     SponsorTxRequest
     """ # noqa: E501
-    tx_bytes: StrictStr = Field(description="Base64 encoded transaction bytes to be sponsored.  ", alias="txBytes")
+    tx_bytes: StrictStr = Field(description="Base64 encoded transaction bytes to be sponsored. ", alias="txBytes")
     __properties: ClassVar[List[str]] = ["txBytes"]
 
     model_config = ConfigDict(

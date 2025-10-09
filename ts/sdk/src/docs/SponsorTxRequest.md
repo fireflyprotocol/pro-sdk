@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**txBytes** | **string** | Base64 encoded transaction bytes to be sponsored.   | [default to undefined]
+**txBytes** | **string** | Base64 encoded transaction bytes to be sponsored.  | [default to undefined]
 
 ## Example
 

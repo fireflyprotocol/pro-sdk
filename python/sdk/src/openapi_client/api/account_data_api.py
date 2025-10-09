@@ -895,7 +895,7 @@ class AccountDataApi:
         self,
         symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
@@ -920,7 +920,7 @@ class AccountDataApi:
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -986,7 +986,7 @@ class AccountDataApi:
         self,
         symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
@@ -1011,7 +1011,7 @@ class AccountDataApi:
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -1077,7 +1077,7 @@ class AccountDataApi:
         self,
         symbol: Annotated[Optional[StrictStr], Field(description="Market address to filter trades by. If not specified, returns trades for all markets.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         trade_type: Annotated[Optional[TradeType], Field(description="Type of trade. By default returns all. UNSPECIFIED returns all.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
@@ -1102,7 +1102,7 @@ class AccountDataApi:
         :type symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -1256,7 +1256,7 @@ class AccountDataApi:
         types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -1282,7 +1282,7 @@ class AccountDataApi:
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -1347,7 +1347,7 @@ class AccountDataApi:
         types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -1373,7 +1373,7 @@ class AccountDataApi:
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -1438,7 +1438,7 @@ class AccountDataApi:
         types: Annotated[Optional[List[TransactionType]], Field(description="Optional query parameter to filter transactions by type.")] = None,
         asset_symbol: Annotated[Optional[StrictStr], Field(description="Optional query parameter to filter transactions by asset bank address.")] = None,
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
-        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
@@ -1464,7 +1464,7 @@ class AccountDataApi:
         :type asset_symbol: str
         :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
         :type start_time_at_millis: int
-        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart.
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
         :type end_time_at_millis: int
         :param limit: Default 500; max 1000.
         :type limit: int
@@ -1630,7 +1630,7 @@ class AccountDataApi:
     ) -> None:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+        Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch
@@ -1701,7 +1701,7 @@ class AccountDataApi:
     ) -> ApiResponse[None]:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+        Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch
@@ -1772,7 +1772,7 @@ class AccountDataApi:
     ) -> RESTResponseType:
         """Set the group ID for an account.
 
-        Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+        Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
         :param account_group_id_patch: Account group ID update. (required)
         :type account_group_id_patch: AccountGroupIdPatch

@@ -362,7 +362,7 @@ pub async fn get_account_transaction_history(configuration: &configuration::Conf
     }
 }
 
-/// Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+/// Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 pub async fn patch_account_group_id(configuration: &configuration::Configuration, account_group_id_patch: models::AccountGroupIdPatch) -> Result<(), Error<PatchAccountGroupIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_group_id_patch = account_group_id_patch;

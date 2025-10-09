@@ -195,7 +195,7 @@ const apiInstance = new AccountDataApi(configuration);
 
 let symbol: string; //Market address to filter trades by. If not specified, returns trades for all markets. (optional) (default to undefined)
 let startTimeAtMillis: number; //Start time in milliseconds. Defaults to 7 days ago if not specified. (optional) (default to undefined)
-let endTimeAtMillis: number; //End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional) (default to undefined)
+let endTimeAtMillis: number; //End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. (optional) (default to undefined)
 let limit: number; //Default 500; max 1000. (optional) (default to 500)
 let tradeType: TradeType; //Type of trade. By default returns all. UNSPECIFIED returns all. (optional) (default to undefined)
 let page: number; //The page number to retrieve in a paginated response. (optional) (default to undefined)
@@ -216,7 +216,7 @@ const { status, data } = await apiInstance.getAccountTrades(
 |------------- | ------------- | ------------- | -------------|
 | **symbol** | [**string**] | Market address to filter trades by. If not specified, returns trades for all markets. | (optional) defaults to undefined|
 | **startTimeAtMillis** | [**number**] | Start time in milliseconds. Defaults to 7 days ago if not specified. | (optional) defaults to undefined|
-| **endTimeAtMillis** | [**number**] | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | (optional) defaults to undefined|
+| **endTimeAtMillis** | [**number**] | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. | (optional) defaults to undefined|
 | **limit** | [**number**] | Default 500; max 1000. | (optional) defaults to 500|
 | **tradeType** | **TradeType** | Type of trade. By default returns all. UNSPECIFIED returns all. | (optional) defaults to undefined|
 | **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to undefined|
@@ -266,7 +266,7 @@ const apiInstance = new AccountDataApi(configuration);
 let types: Array<TransactionType>; //Optional query parameter to filter transactions by type. (optional) (default to undefined)
 let assetSymbol: string; //Optional query parameter to filter transactions by asset bank address. (optional) (default to undefined)
 let startTimeAtMillis: number; //Start time in milliseconds. Defaults to 7 days ago if not specified. (optional) (default to undefined)
-let endTimeAtMillis: number; //End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional) (default to undefined)
+let endTimeAtMillis: number; //End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. (optional) (default to undefined)
 let limit: number; //Default 500; max 1000. (optional) (default to 500)
 let page: number; //The page number to retrieve in a paginated response. (optional) (default to undefined)
 
@@ -287,7 +287,7 @@ const { status, data } = await apiInstance.getAccountTransactionHistory(
 | **types** | **Array&lt;TransactionType&gt;** | Optional query parameter to filter transactions by type. | (optional) defaults to undefined|
 | **assetSymbol** | [**string**] | Optional query parameter to filter transactions by asset bank address. | (optional) defaults to undefined|
 | **startTimeAtMillis** | [**number**] | Start time in milliseconds. Defaults to 7 days ago if not specified. | (optional) defaults to undefined|
-| **endTimeAtMillis** | [**number**] | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | (optional) defaults to undefined|
+| **endTimeAtMillis** | [**number**] | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. | (optional) defaults to undefined|
 | **limit** | [**number**] | Default 500; max 1000. | (optional) defaults to 500|
 | **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to undefined|
 
@@ -320,7 +320,7 @@ const { status, data } = await apiInstance.getAccountTransactionHistory(
 # **patchAccountGroupID**
 > patchAccountGroupID(accountGroupIdPatch)
 
-Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
 ### Example
 

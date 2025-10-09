@@ -290,7 +290,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.AccountDataApi(api_client)
     symbol = 'symbol_example' # str | Market address to filter trades by. If not specified, returns trades for all markets. (optional)
     start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
-    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
+    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
     trade_type = openapi_client.TradeType() # TradeType | Type of trade. By default returns all. UNSPECIFIED returns all. (optional)
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **str**| Market address to filter trades by. If not specified, returns trades for all markets. | [optional] 
  **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
- **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
+ **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
  **trade_type** | [**TradeType**](.md)| Type of trade. By default returns all. UNSPECIFIED returns all. | [optional] 
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
@@ -384,7 +384,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     types = [openapi_client.TransactionType()] # List[TransactionType] | Optional query parameter to filter transactions by type. (optional)
     asset_symbol = 'asset_symbol_example' # str | Optional query parameter to filter transactions by asset bank address. (optional)
     start_time_at_millis = 56 # int | Start time in milliseconds. Defaults to 7 days ago if not specified. (optional)
-    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. (optional)
+    end_time_at_millis = 56 # int | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. (optional)
     limit = 500 # int | Default 500; max 1000. (optional) (default to 500)
     page = 56 # int | The page number to retrieve in a paginated response. (optional)
 
@@ -407,7 +407,7 @@ Name | Type | Description  | Notes
  **types** | [**List[TransactionType]**](TransactionType.md)| Optional query parameter to filter transactions by type. | [optional] 
  **asset_symbol** | **str**| Optional query parameter to filter transactions by asset bank address. | [optional] 
  **start_time_at_millis** | **int**| Start time in milliseconds. Defaults to 7 days ago if not specified. | [optional] 
- **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. | [optional] 
+ **end_time_at_millis** | **int**| End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. | [optional] 
  **limit** | **int**| Default 500; max 1000. | [optional] [default to 500]
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] 
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 Set the group ID for an account.
 
-Sets or updates the group ID for a specific account. 
+Sets or updates the group ID for a specific account.
 Accounts belonging to the same group cannot trade against each other.
 If the groupId is not set, the account will be removed from its group.
 Only the first 6 characters of the groupID are guaranteed to be respected,

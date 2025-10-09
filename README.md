@@ -21,7 +21,7 @@ docker run --rm -v $PWD/out:/spec -p 4000:4000 redocly/cli preview
 Please install the following tools locally:
 
 - the rust toolchain: https://rustup.rs
-- the OpenAPI Generator CLI using npm: https://openapi-generator.tech/docs/installation#npm 
+- the OpenAPI Generator CLI using npm: https://openapi-generator.tech/docs/installation#npm
 
 ### ApiGen
 
@@ -53,5 +53,5 @@ apigen -l ts
 
 In case of any updates, periodically rebuild the dev tools by running the following command in the the root of the repository:
 ```bash
-cargo install --path tools
+cargo install --path tools --force
 ```
