@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SponsorTxRequest {
-    /// Base64 encoded transaction bytes to be sponsored.  
+    /// Base64 encoded transaction bytes to be sponsored. 
     #[serde(rename = "txBytes")]
     pub tx_bytes: String,
 }

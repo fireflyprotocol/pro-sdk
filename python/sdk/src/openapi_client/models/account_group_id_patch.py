@@ -27,7 +27,7 @@ class AccountGroupIdPatch(BaseModel):
     AccountGroupIdPatch
     """ # noqa: E501
     account_address: StrictStr = Field(description="The address of the account to update.", alias="accountAddress")
-    group_id: Optional[StrictStr] = Field(default=None, description="The new group to assign the account to.  If not present, the account will be removed from any group. ", alias="groupId")
+    group_id: Optional[StrictStr] = Field(default=None, description="The new group to assign the account to. If not present, the account will be removed from any group. ", alias="groupId")
     __properties: ClassVar[List[str]] = ["accountAddress", "groupId"]
 
     model_config = ConfigDict(

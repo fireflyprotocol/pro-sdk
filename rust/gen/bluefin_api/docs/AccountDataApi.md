@@ -118,7 +118,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Market address to filter trades by. If not specified, returns trades for all markets. |  |
 **start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
-**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
+**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **trade_type** | Option<[**TradeType**](.md)> | Type of trade. By default returns all. UNSPECIFIED returns all. |  |
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
@@ -154,7 +154,7 @@ Name | Type | Description  | Required | Notes
 **types** | Option<[**Vec<models::TransactionType>**](models::TransactionType.md)> | Optional query parameter to filter transactions by type. |  |
 **asset_symbol** | Option<**String**> | Optional query parameter to filter transactions by asset bank address. |  |
 **start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
-**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 7 days apart. |  |
+**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Required | Notes
 > patch_account_group_id(account_group_id_patch)
 Set the group ID for an account.
 
-Sets or updates the group ID for a specific account.  Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
+Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
 
 ### Parameters
 

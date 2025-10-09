@@ -16,7 +16,7 @@ pub struct AccountGroupIdPatch {
     /// The address of the account to update.
     #[serde(rename = "accountAddress")]
     pub account_address: String,
-    /// The new group to assign the account to.  If not present, the account will be removed from any group. 
+    /// The new group to assign the account to. If not present, the account will be removed from any group. 
     #[serde(rename = "groupId", skip_serializing_if = "Option::is_none")]
     pub group_id: Option<String>,
 }
