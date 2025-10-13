@@ -2260,6 +2260,18 @@ export interface FeeConfigs {
      * @memberof FeeConfigs
      */
     'perpsRevShare'?: string;
+    /**
+     * Ember refferal share for an affiliate
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'emberRefferalShare'?: string;
+    /**
+     * Ember revenue share for an affiliate
+     * @type {string}
+     * @memberof FeeConfigs
+     */
+    'emberRevShare'?: string;
 }
 /**
  * 
@@ -4680,6 +4692,19 @@ export interface UpdateAccountPreferenceRequest {
 /**
  * 
  * @export
+ * @interface UpdateAffiliateEmberRefferalShareRequest
+ */
+export interface UpdateAffiliateEmberRefferalShareRequest {
+    /**
+     * Ember refferal share for an affiliate.
+     * @type {number}
+     * @memberof UpdateAffiliateEmberRefferalShareRequest
+     */
+    'emberRefferalShare': number;
+}
+/**
+ * 
+ * @export
  * @interface UpdateAffiliateFeeConfigRequest
  */
 export interface UpdateAffiliateFeeConfigRequest {
@@ -7043,6 +7068,46 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Update the ember refferal share for an affiliate.
+         * @summary /rewards/affiliate/emberRefferalShare
+         * @param {UpdateAffiliateEmberRefferalShareRequest} updateAffiliateEmberRefferalShareRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAffiliateEmberRefferalShare: async (updateAffiliateEmberRefferalShareRequest: UpdateAffiliateEmberRefferalShareRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateAffiliateEmberRefferalShareRequest' is not null or undefined
+            assertParamExists('updateAffiliateEmberRefferalShare', 'updateAffiliateEmberRefferalShareRequest', updateAffiliateEmberRefferalShareRequest)
+            const localVarPath = `/v1/rewards/affiliate/emberRefferalShare`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAffiliateEmberRefferalShareRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update the fee config for an affiliate.
          * @summary /rewards/affiliate/feeConfig
          * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
@@ -7290,6 +7355,19 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Update the ember refferal share for an affiliate.
+         * @summary /rewards/affiliate/emberRefferalShare
+         * @param {UpdateAffiliateEmberRefferalShareRequest} updateAffiliateEmberRefferalShareRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest: UpdateAffiliateEmberRefferalShareRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AffiliateMetadata>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.updateAffiliateEmberRefferalShare']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Update the fee config for an affiliate.
          * @summary /rewards/affiliate/feeConfig
          * @param {UpdateAffiliateFeeConfigRequest} updateAffiliateFeeConfigRequest 
@@ -7466,6 +7544,16 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          */
         onboardReferee(onboardRefereeRequest: OnboardRefereeRequest, options?: RawAxiosRequestConfig): AxiosPromise<RefereeOnboardResponse> {
             return localVarFp.onboardReferee(onboardRefereeRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update the ember refferal share for an affiliate.
+         * @summary /rewards/affiliate/emberRefferalShare
+         * @param {UpdateAffiliateEmberRefferalShareRequest} updateAffiliateEmberRefferalShareRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest: UpdateAffiliateEmberRefferalShareRequest, options?: RawAxiosRequestConfig): AxiosPromise<AffiliateMetadata> {
+            return localVarFp.updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Update the fee config for an affiliate.
@@ -7668,6 +7756,18 @@ export class RewardsApi extends BaseAPI {
      */
     public onboardReferee(onboardRefereeRequest: OnboardRefereeRequest, options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).onboardReferee(onboardRefereeRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update the ember refferal share for an affiliate.
+     * @summary /rewards/affiliate/emberRefferalShare
+     * @param {UpdateAffiliateEmberRefferalShareRequest} updateAffiliateEmberRefferalShareRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest: UpdateAffiliateEmberRefferalShareRequest, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

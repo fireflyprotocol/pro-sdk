@@ -35,6 +35,12 @@ pub struct FeeConfigs {
     /// Revenue share percentage for perps
     #[serde(rename = "perpsRevShare", skip_serializing_if = "Option::is_none")]
     pub perps_rev_share: Option<String>,
+    /// Ember refferal share for an affiliate
+    #[serde(rename = "emberRefferalShare", skip_serializing_if = "Option::is_none")]
+    pub ember_refferal_share: Option<String>,
+    /// Ember revenue share for an affiliate
+    #[serde(rename = "emberRevShare", skip_serializing_if = "Option::is_none")]
+    pub ember_rev_share: Option<String>,
 }
 
 impl FeeConfigs {
@@ -48,6 +54,8 @@ impl FeeConfigs {
             referral_lending_rewards: None,
             perps_fee_cashback: None,
             perps_rev_share: None,
+            ember_refferal_share: None,
+            ember_rev_share: None,
         }
     }
 }

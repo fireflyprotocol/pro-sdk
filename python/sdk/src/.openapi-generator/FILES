@@ -123,6 +123,7 @@ openapi_client/docs/TradingFees.md
 openapi_client/docs/Transaction.md
 openapi_client/docs/TransactionType.md
 openapi_client/docs/UpdateAccountPreferenceRequest.md
+openapi_client/docs/UpdateAffiliateEmberRefferalShareRequest.md
 openapi_client/docs/UpdateAffiliateFeeConfigRequest.md
 openapi_client/docs/UserCampaignRewards.md
 openapi_client/docs/WithdrawRequest.md
@@ -237,10 +238,12 @@ openapi_client/models/trading_fees.py
 openapi_client/models/transaction.py
 openapi_client/models/transaction_type.py
 openapi_client/models/update_account_preference_request.py
+openapi_client/models/update_affiliate_ember_refferal_share_request.py
 openapi_client/models/update_affiliate_fee_config_request.py
 openapi_client/models/user_campaign_rewards.py
 openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_update_affiliate_ember_refferal_share_request.py
 openapi_client_README.md

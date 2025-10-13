@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_summary**](openapi_client/docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
 *RewardsApi* | [**onboard_affiliate**](openapi_client/docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](openapi_client/docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+*RewardsApi* | [**update_affiliate_ember_refferal_share**](openapi_client/docs/RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
 *RewardsApi* | [**update_affiliate_fee_config**](openapi_client/docs/RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 *StreamsApi* | [**web_socket_account_data**](openapi_client/docs/StreamsApi.md#web_socket_account_data) | **GET** /ws/account | 
 *StreamsApi* | [**web_socket_market_data**](openapi_client/docs/StreamsApi.md#web_socket_market_data) | **GET** /ws/market | 
@@ -222,6 +223,7 @@ Class | Method | HTTP request | Description
  - [Transaction](openapi_client/docs/Transaction.md)
  - [TransactionType](openapi_client/docs/TransactionType.md)
  - [UpdateAccountPreferenceRequest](openapi_client/docs/UpdateAccountPreferenceRequest.md)
+ - [UpdateAffiliateEmberRefferalShareRequest](openapi_client/docs/UpdateAffiliateEmberRefferalShareRequest.md)
  - [UpdateAffiliateFeeConfigRequest](openapi_client/docs/UpdateAffiliateFeeConfigRequest.md)
  - [UserCampaignRewards](openapi_client/docs/UserCampaignRewards.md)
  - [WithdrawRequest](openapi_client/docs/WithdrawRequest.md)

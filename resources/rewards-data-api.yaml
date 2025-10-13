@@ -373,6 +373,14 @@ components:
           type: string
           description: Revenue share percentage for perps
           example: "10"
+        emberRefferalShare:
+          type: string
+          description: Ember refferal share for an affiliate
+          example: "80"
+        emberRevShare:
+          type: string
+          description: Ember revenue share for an affiliate
+          example: "4"
     # Not adding userAddress as it is not required for the API if we are extracting it from auth token
     # Post endpoints are for admin-only access, need to add auth for these endpoints
 
@@ -1511,6 +1519,60 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         "400":
           description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/rewards/affiliate/emberRefferalShare:
+    post:
+      tags:
+        - Rewards
+      operationId: updateAffiliateEmberRefferalShare
+      summary: /rewards/affiliate/emberRefferalShare
+      description: Update the ember refferal share for an affiliate.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - emberRefferalShare
+              properties:
+                emberRefferalShare:
+                  type: integer
+                  description: Ember refferal share for an affiliate.
+                  example: 80
+      responses:
+        "200":
+          description: Ember refferal share request processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AffiliateMetadata"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
           content:
             application/json:
               schema:

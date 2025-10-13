@@ -116,6 +116,7 @@ docs/TradingFees.md
 docs/Transaction.md
 docs/TransactionType.md
 docs/UpdateAccountPreferenceRequest.md
+docs/UpdateAffiliateEmberRefferalShareRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md
@@ -239,6 +240,7 @@ src/models/trading_fees.rs
 src/models/transaction.rs
 src/models/transaction_type.rs
 src/models/update_account_preference_request.rs
+src/models/update_affiliate_ember_refferal_share_request.rs
 src/models/update_affiliate_fee_config_request.rs
 src/models/user_campaign_rewards.rs
 src/models/withdraw_request.rs

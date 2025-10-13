@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **referral_lending_rewards** | **str** | Earnings from referral lending rewards | [optional] 
 **perps_fee_cashback** | **str** | Cashback from perps fees | [optional] 
 **perps_rev_share** | **str** | Revenue share percentage for perps | [optional] 
+**ember_refferal_share** | **str** | Ember refferal share for an affiliate | [optional] 
+**ember_rev_share** | **str** | Ember revenue share for an affiliate | [optional] 
 
 ## Example
 
