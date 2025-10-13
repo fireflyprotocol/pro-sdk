@@ -27,10 +27,12 @@ class StatsEntry(BaseModel):
     StatsEntry
     """ # noqa: E501
     start_time_at_millis: StrictInt = Field(description="Timestamp in milliseconds when the statistics period starts.", alias="startTimeAtMillis")
+    legacy_tvl_e9: StrictStr = Field(description="Total value locked in the exchange in e9 format.", alias="legacyTvlE9")
     tvl_e9: StrictStr = Field(description="Total value locked in the exchange in e9 format.", alias="tvlE9")
+    total_legacy_quote_asset_volume_e9: StrictStr = Field(description="Total quote asset volume in the legacy exchange in e9 format.", alias="totalLegacyQuoteAssetVolumeE9")
     total_quote_asset_volume_e9: StrictStr = Field(description="Total quote asset volume in the exchange in e9 format.", alias="totalQuoteAssetVolumeE9")
     end_time_at_millis: StrictInt = Field(description="Timestamp in milliseconds when the statistics period ends.", alias="endTimeAtMillis")
-    __properties: ClassVar[List[str]] = ["startTimeAtMillis", "tvlE9", "totalQuoteAssetVolumeE9", "endTimeAtMillis"]
+    __properties: ClassVar[List[str]] = ["startTimeAtMillis", "legacyTvlE9", "tvlE9", "totalLegacyQuoteAssetVolumeE9", "totalQuoteAssetVolumeE9", "endTimeAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +86,9 @@ class StatsEntry(BaseModel):
 
         _obj = cls.model_validate({
             "startTimeAtMillis": obj.get("startTimeAtMillis"),
+            "legacyTvlE9": obj.get("legacyTvlE9"),
             "tvlE9": obj.get("tvlE9"),
+            "totalLegacyQuoteAssetVolumeE9": obj.get("totalLegacyQuoteAssetVolumeE9"),
             "totalQuoteAssetVolumeE9": obj.get("totalQuoteAssetVolumeE9"),
             "endTimeAtMillis": obj.get("endTimeAtMillis")
         })

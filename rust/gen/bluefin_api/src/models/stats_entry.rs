@@ -17,8 +17,14 @@ pub struct StatsEntry {
     #[serde(rename = "startTimeAtMillis")]
     pub start_time_at_millis: i64,
     /// Total value locked in the exchange in e9 format.
+    #[serde(rename = "legacyTvlE9")]
+    pub legacy_tvl_e9: String,
+    /// Total value locked in the exchange in e9 format.
     #[serde(rename = "tvlE9")]
     pub tvl_e9: String,
+    /// Total quote asset volume in the legacy exchange in e9 format.
+    #[serde(rename = "totalLegacyQuoteAssetVolumeE9")]
+    pub total_legacy_quote_asset_volume_e9: String,
     /// Total quote asset volume in the exchange in e9 format.
     #[serde(rename = "totalQuoteAssetVolumeE9")]
     pub total_quote_asset_volume_e9: String,
@@ -28,10 +34,12 @@ pub struct StatsEntry {
 }
 
 impl StatsEntry {
-    pub fn new(start_time_at_millis: i64, tvl_e9: String, total_quote_asset_volume_e9: String, end_time_at_millis: i64) -> StatsEntry {
+    pub fn new(start_time_at_millis: i64, legacy_tvl_e9: String, tvl_e9: String, total_legacy_quote_asset_volume_e9: String, total_quote_asset_volume_e9: String, end_time_at_millis: i64) -> StatsEntry {
         StatsEntry {
             start_time_at_millis,
+            legacy_tvl_e9,
             tvl_e9,
+            total_legacy_quote_asset_volume_e9,
             total_quote_asset_volume_e9,
             end_time_at_millis,
         }
