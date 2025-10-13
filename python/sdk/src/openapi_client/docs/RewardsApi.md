@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+[**update_affiliate_ember_refferal_share**](RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
 [**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 
 
@@ -1064,6 +1065,89 @@ Name | Type | Description  | Notes
 **400** | referral code is required |  -  |
 **412** | parent affiliate is not active |  -  |
 **409** | referee already exists |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_affiliate_ember_refferal_share**
+> AffiliateMetadata update_affiliate_ember_refferal_share(update_affiliate_ember_refferal_share_request)
+
+/rewards/affiliate/emberRefferalShare
+
+Update the ember refferal share for an affiliate.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.affiliate_metadata import AffiliateMetadata
+from openapi_client.models.update_affiliate_ember_refferal_share_request import UpdateAffiliateEmberRefferalShareRequest
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.RewardsApi(api_client)
+    update_affiliate_ember_refferal_share_request = openapi_client.UpdateAffiliateEmberRefferalShareRequest() # UpdateAffiliateEmberRefferalShareRequest | 
+
+    try:
+        # /rewards/affiliate/emberRefferalShare
+        api_response = await api_instance.update_affiliate_ember_refferal_share(update_affiliate_ember_refferal_share_request)
+        print("The response of RewardsApi->update_affiliate_ember_refferal_share:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RewardsApi->update_affiliate_ember_refferal_share: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **update_affiliate_ember_refferal_share_request** | [**UpdateAffiliateEmberRefferalShareRequest**](UpdateAffiliateEmberRefferalShareRequest.md)|  | 
+
+### Return type
+
+[**AffiliateMetadata**](AffiliateMetadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Ember refferal share request processed successfully |  -  |
+**401** | unauthorized access |  -  |
+**404** | address not found |  -  |
+**400** | request missing required parameters |  -  |
+**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

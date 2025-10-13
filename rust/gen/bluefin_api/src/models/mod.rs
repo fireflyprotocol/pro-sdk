@@ -228,6 +228,8 @@ pub mod transaction_type;
 pub use self::transaction_type::TransactionType;
 pub mod update_account_preference_request;
 pub use self::update_account_preference_request::UpdateAccountPreferenceRequest;
+pub mod update_affiliate_ember_refferal_share_request;
+pub use self::update_affiliate_ember_refferal_share_request::UpdateAffiliateEmberRefferalShareRequest;
 pub mod update_affiliate_fee_config_request;
 pub use self::update_affiliate_fee_config_request::UpdateAffiliateFeeConfigRequest;
 pub mod user_campaign_rewards;

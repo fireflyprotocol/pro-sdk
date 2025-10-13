@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **referralLendingRewards** | **string** | Earnings from referral lending rewards | [optional] [default to undefined]
 **perpsFeeCashback** | **string** | Cashback from perps fees | [optional] [default to undefined]
 **perpsRevShare** | **string** | Revenue share percentage for perps | [optional] [default to undefined]
+**emberRefferalShare** | **string** | Ember refferal share for an affiliate | [optional] [default to undefined]
+**emberRevShare** | **string** | Ember revenue share for an affiliate | [optional] [default to undefined]
 
 ## Example
 
@@ -27,6 +29,8 @@ const instance: FeeConfigs = {
     referralLendingRewards,
     perpsFeeCashback,
     perpsRevShare,
+    emberRefferalShare,
+    emberRevShare,
 };
 ```
 
