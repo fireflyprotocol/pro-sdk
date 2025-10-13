@@ -1,6 +1,6 @@
 {
   "name": "@bluefin-exchange/pro-sdk",
-  "version": "0.1.59",
+  "version": "0.1.60",
   "description": "OpenAPI client for @bluefin-exchange/pro-sdk",
   "author": "Bluefin",
   "repository": {
