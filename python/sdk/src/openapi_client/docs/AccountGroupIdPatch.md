@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_address** | **str** | The address of the account to update. | 
-**group_id** | **str** | The new group to assign the account to. If not present, the account will be removed from any group.  | [optional] 
+**group_id** | **str** | The new group to assign the account to. If not set, the account will be removed from it&#39;s group.  | [optional] 
 
 ## Example
 

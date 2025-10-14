@@ -26,7 +26,7 @@ class SponsorTxRequest(BaseModel):
     """
     SponsorTxRequest
     """ # noqa: E501
-    tx_bytes: StrictStr = Field(description="Base64 encoded transaction bytes to be sponsored. ", alias="txBytes")
+    tx_bytes: StrictStr = Field(description="Base64 encoded transaction bytes to be sponsored.  To create txBytes: 1. Create a TransactionBlock with move calls (e.g., deposit_to_asset_bank) 2. Serialize the TransactionBlock to bytes using BCS (Binary Canonical Serialization) 3. Encode the bytes to base64 string Reference implementation: https://github.com/fireflyprotocol/library-sui/blob/1412fff4d4fe7cf6b7ec04d700e777628c57c70a/src/classes/SuiBlocks.ts#L220 ", alias="txBytes")
     __properties: ClassVar[List[str]] = ["txBytes"]
 
     model_config = ConfigDict(

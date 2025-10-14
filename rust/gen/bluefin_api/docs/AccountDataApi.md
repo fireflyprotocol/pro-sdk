@@ -47,7 +47,7 @@ No authorization required
 
 ## get_account_funding_rate_history
 
-> models::AccountFundingRateHistory get_account_funding_rate_history(account_address, limit, page)
+> models::AccountFundingRateHistory get_account_funding_rate_history(account_address, limit, page, start_time_at_millis, end_time_at_millis)
 /account/fundingRateHistory
 
 Retrieves the funding rate history for a specific account.
@@ -60,6 +60,8 @@ Name | Type | Description  | Required | Notes
 **account_address** | Option<**String**> | Account address to filter funding rate history by. |  |
 **limit** | Option<**u32**> | Default 500; max 1000. |  |[default to 500]
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |[default to 1]
+**start_time_at_millis** | Option<**u32**> | Start time in milliseconds. Defaults to 7 days ago if not specified. |  |
+**end_time_at_millis** | Option<**u32**> | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. |  |
 
 ### Return type
 

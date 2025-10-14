@@ -145,11 +145,13 @@ pub async fn get_account_details(configuration: &configuration::Configuration, a
 }
 
 /// Retrieves the funding rate history for a specific account.
-pub async fn get_account_funding_rate_history(configuration: &configuration::Configuration, account_address: Option<&str>, limit: Option<u32>, page: Option<u32>) -> Result<models::AccountFundingRateHistory, Error<GetAccountFundingRateHistoryError>> {
+pub async fn get_account_funding_rate_history(configuration: &configuration::Configuration, account_address: Option<&str>, limit: Option<u32>, page: Option<u32>, start_time_at_millis: Option<u32>, end_time_at_millis: Option<u32>) -> Result<models::AccountFundingRateHistory, Error<GetAccountFundingRateHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_account_address = account_address;
     let p_limit = limit;
     let p_page = page;
+    let p_start_time_at_millis = start_time_at_millis;
+    let p_end_time_at_millis = end_time_at_millis;
 
     let uri_str = format!("{}/api/v1/account/fundingRateHistory", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -162,6 +164,12 @@ pub async fn get_account_funding_rate_history(configuration: &configuration::Con
     }
     if let Some(ref param_value) = p_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_start_time_at_millis {
+        req_builder = req_builder.query(&[("startTimeAtMillis", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_end_time_at_millis {
+        req_builder = req_builder.query(&[("endTimeAtMillis", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

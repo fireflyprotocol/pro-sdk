@@ -16,7 +16,7 @@ pub struct StatsEntry {
     /// Timestamp in milliseconds when the statistics period starts.
     #[serde(rename = "startTimeAtMillis")]
     pub start_time_at_millis: i64,
-    /// Total value locked in the exchange in e9 format.
+    /// Total value locked in the legacy exchange in e9 format.
     #[serde(rename = "legacyTvlE9")]
     pub legacy_tvl_e9: String,
     /// Total value locked in the exchange in e9 format.

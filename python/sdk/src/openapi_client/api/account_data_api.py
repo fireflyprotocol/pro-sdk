@@ -329,6 +329,8 @@ class AccountDataApi:
         account_address: Annotated[Optional[StrictStr], Field(description="Account address to filter funding rate history by.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -352,6 +354,10 @@ class AccountDataApi:
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
+        :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
+        :type end_time_at_millis: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -378,6 +384,8 @@ class AccountDataApi:
             account_address=account_address,
             limit=limit,
             page=page,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -408,6 +416,8 @@ class AccountDataApi:
         account_address: Annotated[Optional[StrictStr], Field(description="Account address to filter funding rate history by.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -431,6 +441,10 @@ class AccountDataApi:
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
+        :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
+        :type end_time_at_millis: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -457,6 +471,8 @@ class AccountDataApi:
             account_address=account_address,
             limit=limit,
             page=page,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -487,6 +503,8 @@ class AccountDataApi:
         account_address: Annotated[Optional[StrictStr], Field(description="Account address to filter funding rate history by.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 500; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Start time in milliseconds. Defaults to 7 days ago if not specified.")] = None,
+        end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -510,6 +528,10 @@ class AccountDataApi:
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
+        :param start_time_at_millis: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        :type start_time_at_millis: int
+        :param end_time_at_millis: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
+        :type end_time_at_millis: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -536,6 +558,8 @@ class AccountDataApi:
             account_address=account_address,
             limit=limit,
             page=page,
+            start_time_at_millis=start_time_at_millis,
+            end_time_at_millis=end_time_at_millis,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -561,6 +585,8 @@ class AccountDataApi:
         account_address,
         limit,
         page,
+        start_time_at_millis,
+        end_time_at_millis,
         _request_auth,
         _content_type,
         _headers,
@@ -594,6 +620,14 @@ class AccountDataApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if start_time_at_millis is not None:
+            
+            _query_params.append(('startTimeAtMillis', start_time_at_millis))
+            
+        if end_time_at_millis is not None:
+            
+            _query_params.append(('endTimeAtMillis', end_time_at_millis))
             
         # process the header parameters
         # process the form parameters

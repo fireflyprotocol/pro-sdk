@@ -87,11 +87,15 @@ const apiInstance = new AccountDataApi(configuration);
 let accountAddress: string; //Account address to filter funding rate history by. (optional) (default to undefined)
 let limit: number; //Default 500; max 1000. (optional) (default to 500)
 let page: number; //The page number to retrieve in a paginated response. (optional) (default to 1)
+let startTimeAtMillis: number; //Start time in milliseconds. Defaults to 7 days ago if not specified. (optional) (default to undefined)
+let endTimeAtMillis: number; //End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAccountFundingRateHistory(
     accountAddress,
     limit,
-    page
+    page,
+    startTimeAtMillis,
+    endTimeAtMillis
 );
 ```
 
@@ -102,6 +106,8 @@ const { status, data } = await apiInstance.getAccountFundingRateHistory(
 | **accountAddress** | [**string**] | Account address to filter funding rate history by. | (optional) defaults to undefined|
 | **limit** | [**number**] | Default 500; max 1000. | (optional) defaults to 500|
 | **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to 1|
+| **startTimeAtMillis** | [**number**] | Start time in milliseconds. Defaults to 7 days ago if not specified. | (optional) defaults to undefined|
+| **endTimeAtMillis** | [**number**] | End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart. | (optional) defaults to undefined|
 
 
 ### Return type
