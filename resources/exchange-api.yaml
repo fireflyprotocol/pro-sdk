@@ -709,7 +709,7 @@ components:
           example: "1753920000000"
         legacyTvlE9:
           type: string
-          description: Total value locked in the exchange in e9 format.
+          description: Total value locked in the legacy exchange in e9 format.
           example: "1000000000000000000"
         tvlE9:
           type: string
