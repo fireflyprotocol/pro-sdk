@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **referral_lending_rewards** | Option<**String**> | Earnings from referral lending rewards | [optional]
 **perps_fee_cashback** | Option<**String**> | Cashback from perps fees | [optional]
 **perps_rev_share** | Option<**String**> | Revenue share percentage for perps | [optional]
+**ember_refferal_share** | Option<**String**> | Ember refferal share for an affiliate | [optional]
+**ember_rev_share** | Option<**String**> | Ember revenue share for an affiliate | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

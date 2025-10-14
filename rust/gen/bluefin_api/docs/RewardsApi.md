@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
+[**update_affiliate_ember_refferal_share**](RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
 [**update_affiliate_fee_config**](RewardsApi.md#update_affiliate_fee_config) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig
 
 
@@ -442,6 +443,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RefereeOnboardResponse**](RefereeOnboardResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_affiliate_ember_refferal_share
+
+> models::AffiliateMetadata update_affiliate_ember_refferal_share(update_affiliate_ember_refferal_share_request)
+/rewards/affiliate/emberRefferalShare
+
+Update the ember refferal share for an affiliate.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_affiliate_ember_refferal_share_request** | [**UpdateAffiliateEmberRefferalShareRequest**](UpdateAffiliateEmberRefferalShareRequest.md) |  | [required] |
+
+### Return type
+
+[**models::AffiliateMetadata**](AffiliateMetadata.md)
 
 ### Authorization
 

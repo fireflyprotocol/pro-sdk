@@ -18,6 +18,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
+|[**updateAffiliateEmberRefferalShare**](#updateaffiliateemberrefferalshare) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare|
 |[**updateAffiliateFeeConfig**](#updateaffiliatefeeconfig) | **POST** /v1/rewards/affiliate/feeConfig | /rewards/affiliate/feeConfig|
 
 # **getAffiliateIntervalOverview**
@@ -798,6 +799,62 @@ const { status, data } = await apiInstance.onboardReferee(
 |**400** | referral code is required |  -  |
 |**412** | parent affiliate is not active |  -  |
 |**409** | referee already exists |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateAffiliateEmberRefferalShare**
+> AffiliateMetadata updateAffiliateEmberRefferalShare(updateAffiliateEmberRefferalShareRequest)
+
+Update the ember refferal share for an affiliate.
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration,
+    UpdateAffiliateEmberRefferalShareRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+let updateAffiliateEmberRefferalShareRequest: UpdateAffiliateEmberRefferalShareRequest; //
+
+const { status, data } = await apiInstance.updateAffiliateEmberRefferalShare(
+    updateAffiliateEmberRefferalShareRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **updateAffiliateEmberRefferalShareRequest** | **UpdateAffiliateEmberRefferalShareRequest**|  | |
+
+
+### Return type
+
+**AffiliateMetadata**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Ember refferal share request processed successfully |  -  |
+|**401** | unauthorized access |  -  |
+|**404** | address not found |  -  |
+|**400** | request missing required parameters |  -  |
+|**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
