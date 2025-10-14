@@ -259,5 +259,4 @@ openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_update_affiliate_ember_refferal_share_request.py
 openapi_client_README.md

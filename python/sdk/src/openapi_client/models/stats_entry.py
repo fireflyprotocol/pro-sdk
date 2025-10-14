@@ -27,7 +27,7 @@ class StatsEntry(BaseModel):
     StatsEntry
     """ # noqa: E501
     start_time_at_millis: StrictInt = Field(description="Timestamp in milliseconds when the statistics period starts.", alias="startTimeAtMillis")
-    legacy_tvl_e9: StrictStr = Field(description="Total value locked in the exchange in e9 format.", alias="legacyTvlE9")
+    legacy_tvl_e9: StrictStr = Field(description="Total value locked in the legacy exchange in e9 format.", alias="legacyTvlE9")
     tvl_e9: StrictStr = Field(description="Total value locked in the exchange in e9 format.", alias="tvlE9")
     total_legacy_quote_asset_volume_e9: StrictStr = Field(description="Total quote asset volume in the legacy exchange in e9 format.", alias="totalLegacyQuoteAssetVolumeE9")
     total_quote_asset_volume_e9: StrictStr = Field(description="Total quote asset volume in the exchange in e9 format.", alias="totalQuoteAssetVolumeE9")

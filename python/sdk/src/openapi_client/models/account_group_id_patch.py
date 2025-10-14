@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class AccountGroupIdPatch(BaseModel):
     AccountGroupIdPatch
     """ # noqa: E501
     account_address: StrictStr = Field(description="The address of the account to update.", alias="accountAddress")
-    group_id: Optional[StrictStr] = Field(default=None, description="The new group to assign the account to. If not present, the account will be removed from any group. ", alias="groupId")
+    group_id: Optional[Annotated[str, Field(strict=True, max_length=6)]] = Field(default=None, description="The new group to assign the account to. If not set, the account will be removed from it's group. ", alias="groupId")
     __properties: ClassVar[List[str]] = ["accountAddress", "groupId"]
 
     model_config = ConfigDict(

@@ -21,6 +21,8 @@ async fn send_request(auth_token: &str) -> Result<AccountFundingRateHistory> {
         None,
         None,
         None,
+        None,
+        None,
     )
     .await?)
 }

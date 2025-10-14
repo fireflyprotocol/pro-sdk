@@ -421,7 +421,7 @@ export interface AccountGroupIdPatch {
      */
     'accountAddress': string;
     /**
-     * The new group to assign the account to. If not present, the account will be removed from any group. 
+     * The new group to assign the account to. If not set, the account will be removed from it\'s group. 
      * @type {string}
      * @memberof AccountGroupIdPatch
      */
@@ -4027,7 +4027,7 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
  */
 export interface SponsorTxRequest {
     /**
-     * Base64 encoded transaction bytes to be sponsored. 
+     * Base64 encoded transaction bytes to be sponsored.  To create txBytes: 1. Create a TransactionBlock with move calls (e.g., deposit_to_asset_bank) 2. Serialize the TransactionBlock to bytes using BCS (Binary Canonical Serialization) 3. Encode the bytes to base64 string Reference implementation: https://github.com/fireflyprotocol/library-sui/blob/1412fff4d4fe7cf6b7ec04d700e777628c57c70a/src/classes/SuiBlocks.ts#L220 
      * @type {string}
      * @memberof SponsorTxRequest
      */
@@ -4077,7 +4077,7 @@ export interface StatsEntry {
      */
     'startTimeAtMillis': number;
     /**
-     * Total value locked in the exchange in e9 format.
+     * Total value locked in the legacy exchange in e9 format.
      * @type {string}
      * @memberof StatsEntry
      */
@@ -5101,10 +5101,12 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountFundingRateHistory: async (accountAddress?: string, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAccountFundingRateHistory: async (accountAddress?: string, limit?: number, page?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/account/fundingRateHistory`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5131,6 +5133,14 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
+            }
+
+            if (startTimeAtMillis !== undefined) {
+                localVarQueryParameter['startTimeAtMillis'] = startTimeAtMillis;
+            }
+
+            if (endTimeAtMillis !== undefined) {
+                localVarQueryParameter['endTimeAtMillis'] = endTimeAtMillis;
             }
 
 
@@ -5455,11 +5465,13 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountFundingRateHistory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountFundingRateHistory(accountAddress, limit, page, options);
+        async getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountFundingRateHistory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountFundingRateHistory(accountAddress, limit, page, startTimeAtMillis, endTimeAtMillis, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountFundingRateHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5577,11 +5589,13 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
          * @param {string} [accountAddress] Account address to filter funding rate history by.
          * @param {number} [limit] Default 500; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+         * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<AccountFundingRateHistory> {
-            return localVarFp.getAccountFundingRateHistory(accountAddress, limit, page, options).then((request) => request(axios, basePath));
+        getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, options?: RawAxiosRequestConfig): AxiosPromise<AccountFundingRateHistory> {
+            return localVarFp.getAccountFundingRateHistory(accountAddress, limit, page, startTimeAtMillis, endTimeAtMillis, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves the user\'s account preferences.
@@ -5680,12 +5694,14 @@ export class AccountDataApi extends BaseAPI {
      * @param {string} [accountAddress] Account address to filter funding rate history by.
      * @param {number} [limit] Default 500; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
+     * @param {number} [startTimeAtMillis] Start time in milliseconds. Defaults to 7 days ago if not specified.
+     * @param {number} [endTimeAtMillis] End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountDataApi
      */
-    public getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return AccountDataApiFp(this.configuration).getAccountFundingRateHistory(accountAddress, limit, page, options).then((request) => request(this.axios, this.basePath));
+    public getAccountFundingRateHistory(accountAddress?: string, limit?: number, page?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountFundingRateHistory(accountAddress, limit, page, startTimeAtMillis, endTimeAtMillis, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

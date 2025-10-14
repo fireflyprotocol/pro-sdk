@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountAddress** | **string** | The address of the account to update. | [default to undefined]
-**groupId** | **string** | The new group to assign the account to. If not present, the account will be removed from any group.  | [optional] [default to undefined]
+**groupId** | **string** | The new group to assign the account to. If not set, the account will be removed from it\&#39;s group.  | [optional] [default to undefined]
 
 ## Example
 

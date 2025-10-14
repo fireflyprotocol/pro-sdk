@@ -342,6 +342,21 @@ components:
           description: Transaction timestamp in milliseconds since Unix epoch.
           example: 1569514978020
 
+    AccountGroupIdPatch:
+      required:
+        - accountAddress
+      properties:
+        accountAddress:
+          type: string
+          description: The address of the account to update.
+          example: 0x3381fefb6c5d06282621bf591beb6dbcc3364d51a4c7a62bba8e317
+        groupId:
+          type: string
+          maxLength: 6
+          description: |
+            The new group to assign the account to.
+            If not set, the account will be removed from it's group.
+
     UpdateAccountPreferenceRequest:
       type: object
       additionalProperties: true
@@ -385,20 +400,6 @@ components:
           description: User set leverage (e.g., 10x).
           example: 100
 
-    AccountGroupIdPatch:
-      required:
-        - accountAddress
-      properties:
-        accountAddress:
-          type: string
-          description: The address of the account to update.
-          example: 0x3381fefb6c5d06282621bf591beb6dbcc3364d51a4c7a62bba8e317
-        groupId:
-          type: string
-          description: |
-            The new group to assign the account to.
-            If not present, the account will be removed from any group.
-
     SponsorTxRequest:
       type: object
       required:
@@ -408,6 +409,13 @@ components:
           type: string
           description: |
             Base64 encoded transaction bytes to be sponsored.
+
+            To create txBytes:
+            1. Create a TransactionBlock with move calls (e.g., deposit_to_asset_bank)
+            2. Serialize the TransactionBlock to bytes using BCS (Binary Canonical Serialization)
+            3. Encode the bytes to base64 string
+            Reference implementation: https://github.com/fireflyprotocol/library-sui/blob/1412fff4d4fe7cf6b7ec04d700e777628c57c70a/src/classes/SuiBlocks.ts#L220
+          example: "AAAHAQGBqpcKqHjgx3Y+bnN6jXANzeWNaHdEIzxjoT88J/uDrg+BuwMAAAAAAQEB+ygxBj7NM70gqRIM0v655Kce5AF0nkmNucR8pCbRlc0OgbsDAAAAAAEAQUBmMGJkNThhZDliMDc4NGE1OWNkMzg5Mzg3MTcyNmFmNDU0NmMxYzVjYjFlZmIwZWNhYWZiMjBmNTIyZGEyNTRmACDGxxyZbUN+tlidG4sXr80UgK/V8w9rcVXvRoqXE9MkDgAIQEIPAAAAAAABAD9m49s1UDNDTyVmXSIL0ZqoW0MjSqR7K1inh1I3roNi5GqsGQAAAAAgCQK8kb+BqyycnDEjzHkrWmmWmtksDnqD299hXUBFagIBAHSSMF4xOcX1aE8LN14YSl13YjL0oQpvNkODo9yXIKnTC21hcmdpbl9iYW5rD2RlcG9zaXRfdG9fYmFuawEHTR85KIsM90ckUmE/LPe6cKAd4f+clVuhBVoAFFj3JsIEY29pbgRDT0lOAAYBAAABAQABAgABAwABBAABBQDGxxyZbUN+tlidG4sXr80UgK/V8w9rcVXvRoqXE9MkDgAIQEIPAAAAAAABAD9m49s1UDNDTyVmXSIL0ZqoW0MjSqR7K1inh1I3roNi5GqsGQAAAAAgCQK8kb+BqyycnDEjzHkrWmmWmtksDnqD299hXUBFagIBAHSSMF4xOcX1aE8LN14YSl13YjL0oQpvNkODo9yXIKnTC21hcmdpbl9iYW5rD2RlcG9zaXRfdG9fYmFuawEHTR85KIsM90ckUmE/LPe6cKAd4f+clVuhBVoAFFj3JsIEY29pbgRDT0lOAAYBAAABAQABAgABAwABBAABBQDGxxyZbUN+tlidG4sXr80UgK/V8w9rcVXvRoqXE9MkDgHEhWdumbC2e1fm1qtehMNXFx/Yh9KkGfD6Dsuk4lX9Z2YezRgAAAAAIOJ6Tk1uHMd2SOEzE2Ge2Z0Qyw6JS+FnF4nqwzy2yboVjh5QT78MVNQ+lIlR9Q83EP/4O7ke4skRUJEY7RMx9e/oAwAAAAAAAJVSXgAAAAAAAA=="
 
     SponsorTxResponse:
       type: object
@@ -472,6 +480,22 @@ paths:
             type: integer
             default: 1
             minimum: 1
+        - name: startTimeAtMillis
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+          description: Start time in milliseconds. Defaults to 7 days ago if not specified.
+        - name: endTimeAtMillis
+          in: query
+          required: false
+          schema:
+            type: integer
+            x-go-type: int64
+            minimum: 0
+          description: End time in milliseconds. Defaults to now if not specified. Must be greater than start time and must be less than 90 days apart.
       responses:
         "200":
           description: Successful response with funding rate history.
