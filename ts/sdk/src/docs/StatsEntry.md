@@ -6,7 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **startTimeAtMillis** | **number** | Timestamp in milliseconds when the statistics period starts. | [default to undefined]
+**legacyTvlE9** | **string** | Total value locked in the exchange in e9 format. | [default to undefined]
 **tvlE9** | **string** | Total value locked in the exchange in e9 format. | [default to undefined]
+**totalLegacyQuoteAssetVolumeE9** | **string** | Total quote asset volume in the legacy exchange in e9 format. | [default to undefined]
 **totalQuoteAssetVolumeE9** | **string** | Total quote asset volume in the exchange in e9 format. | [default to undefined]
 **endTimeAtMillis** | **number** | Timestamp in milliseconds when the statistics period ends. | [default to undefined]
 
@@ -17,7 +19,9 @@ import { StatsEntry } from '@bluefin/api-client';
 
 const instance: StatsEntry = {
     startTimeAtMillis,
+    legacyTvlE9,
     tvlE9,
+    totalLegacyQuoteAssetVolumeE9,
     totalQuoteAssetVolumeE9,
     endTimeAtMillis,
 };

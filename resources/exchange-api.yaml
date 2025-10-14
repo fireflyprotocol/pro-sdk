@@ -707,9 +707,17 @@ components:
           format: int64
           description: Timestamp in milliseconds when the statistics period starts.
           example: "1753920000000"
+        legacyTvlE9:
+          type: string
+          description: Total value locked in the legacy exchange in e9 format.
+          example: "1000000000000000000"
         tvlE9:
           type: string
           description: Total value locked in the exchange in e9 format.
+          example: "1000000000000000000"
+        totalLegacyQuoteAssetVolumeE9:
+          type: string
+          description: Total quote asset volume in the legacy exchange in e9 format.
           example: "1000000000000000000"
         totalQuoteAssetVolumeE9:
           type: string
@@ -722,7 +730,9 @@ components:
           example: "1754006399999"
       required:
         - startTimeAtMillis
+        - legacyTvlE9
         - tvlE9
+        - totalLegacyQuoteAssetVolumeE9
         - totalQuoteAssetVolumeE9
         - endTimeAtMillis
 

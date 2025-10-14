@@ -4081,7 +4081,19 @@ export interface StatsEntry {
      * @type {string}
      * @memberof StatsEntry
      */
+    'legacyTvlE9': string;
+    /**
+     * Total value locked in the exchange in e9 format.
+     * @type {string}
+     * @memberof StatsEntry
+     */
     'tvlE9': string;
+    /**
+     * Total quote asset volume in the legacy exchange in e9 format.
+     * @type {string}
+     * @memberof StatsEntry
+     */
+    'totalLegacyQuoteAssetVolumeE9': string;
     /**
      * Total quote asset volume in the exchange in e9 format.
      * @type {string}
