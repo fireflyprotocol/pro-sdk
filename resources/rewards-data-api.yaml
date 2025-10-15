@@ -439,6 +439,10 @@ components:
             - "N" # Normal Affiliate
             - "U" # User
           example: "S"
+        isEmber:
+          type: boolean
+          description: Indicates whether the affiliate is an ember affiliate
+          example: true
 
     AffiliateOnboardResponse:
       type: object
@@ -513,10 +517,12 @@ components:
         - lendingRefereeEarningsE9
         - perpsReferralEarningsE9
         - spotLPReferralEarningsE9
+        - emberRefereeEarningsE9
         - lendingReferralEarningsE9
         - perpsTotalEarningsE9
         - spotLPTotalEarningsE9
         - lendingTotalEarningsE9
+        - emberTotalEarningsE9
         - totalReferralEarningsE9
         - totalRefereeEarningsE9
         - totalEarningsE9
@@ -541,6 +547,10 @@ components:
           type: string
           description: Referee earnings from lending (e9 format)
           example: "300000000"
+        emberRefereeEarningsE9:
+          type: string
+          description: Referee earnings from ember (e9 format)
+          example: "1000000000"
         perpsReferralEarningsE9:
           type: string
           description: Referral earnings from perps trading (e9 format)
@@ -565,6 +575,10 @@ components:
           type: string
           description: Total earnings from lending (e9 format)
           example: "300000000"
+        emberTotalEarningsE9:
+          type: string
+          description: Total earnings from ember (e9 format)
+          example: "1000000000"
         totalReferralEarningsE9:
           type: string
           description: Total earnings from referrals (e9 format)
@@ -590,12 +604,14 @@ components:
         - perpsRefereeEarningsE9
         - spotLPRefereeEarningsE9
         - lendingRefereeEarningsE9
+        - emberRefereeEarningsE9
         - perpsReferralEarningsE9
         - spotLPReferralEarningsE9
         - lendingReferralEarningsE9
         - perpsTotalEarningsE9
         - spotLPTotalEarningsE9
         - lendingTotalEarningsE9
+        - emberTotalEarningsE9
         - totalReferralEarningsE9
         - totalRefereeEarningsE9
         - totalEarningsE9
@@ -645,6 +661,10 @@ components:
           type: string
           description: Referee earnings from lending (e9 format)
           example: "300000000"
+        emberRefereeEarningsE9:
+          type: string
+          description: Referee earnings from ember (e9 format)
+          example: "1000000000"
         perpsReferralEarningsE9:
           type: string
           description: Referral earnings from perps trading (e9 format)
@@ -657,6 +677,10 @@ components:
           type: string
           description: Referral earnings from lending (e9 format)
           example: "300000000"
+        emberTotalEarningsE9:
+          type: string
+          description: Total earnings from ember (e9 format)
+          example: "1000000000"
         perpsTotalEarningsE9:
           type: string
           description: Total earnings from perps trading (e9 format)

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **status** | **string** | Status of the affiliate application | [optional] [default to undefined]
 **hasTraded** | **boolean** | Indicates whether the user has traded or not | [default to undefined]
 **tier** | **string** | Tier of the affiliate | [optional] [default to undefined]
+**isEmber** | **boolean** | Indicates whether the affiliate is an ember affiliate | [optional] [default to undefined]
 
 ## Example
 
@@ -30,6 +31,7 @@ const instance: AffiliateMetadata = {
     status,
     hasTraded,
     tier,
+    isEmber,
 };
 ```
 

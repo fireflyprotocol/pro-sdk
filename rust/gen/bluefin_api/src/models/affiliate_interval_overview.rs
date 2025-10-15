@@ -43,6 +43,9 @@ pub struct AffiliateIntervalOverview {
     /// Referee earnings from lending (e9 format)
     #[serde(rename = "lendingRefereeEarningsE9")]
     pub lending_referee_earnings_e9: String,
+    /// Referee earnings from ember (e9 format)
+    #[serde(rename = "emberRefereeEarningsE9")]
+    pub ember_referee_earnings_e9: String,
     /// Referral earnings from perps trading (e9 format)
     #[serde(rename = "perpsReferralEarningsE9")]
     pub perps_referral_earnings_e9: String,
@@ -52,6 +55,9 @@ pub struct AffiliateIntervalOverview {
     /// Referral earnings from lending (e9 format)
     #[serde(rename = "lendingReferralEarningsE9")]
     pub lending_referral_earnings_e9: String,
+    /// Total earnings from ember (e9 format)
+    #[serde(rename = "emberTotalEarningsE9")]
+    pub ember_total_earnings_e9: String,
     /// Total earnings from perps trading (e9 format)
     #[serde(rename = "perpsTotalEarningsE9")]
     pub perps_total_earnings_e9: String,
@@ -73,7 +79,7 @@ pub struct AffiliateIntervalOverview {
 }
 
 impl AffiliateIntervalOverview {
-    pub fn new(user_address: String, interval_number: i32, interval_start_date: i32, interval_end_date: i32, status: Status, referred_since: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateIntervalOverview {
+    pub fn new(user_address: String, interval_number: i32, interval_start_date: i32, interval_end_date: i32, status: Status, referred_since: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, ember_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, ember_total_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateIntervalOverview {
         AffiliateIntervalOverview {
             user_address,
             name: None,
@@ -85,9 +91,11 @@ impl AffiliateIntervalOverview {
             perps_referee_earnings_e9,
             spot_lp_referee_earnings_e9,
             lending_referee_earnings_e9,
+            ember_referee_earnings_e9,
             perps_referral_earnings_e9,
             spot_lp_referral_earnings_e9,
             lending_referral_earnings_e9,
+            ember_total_earnings_e9,
             perps_total_earnings_e9,
             spot_lp_total_earnings_e9,
             lending_total_earnings_e9,

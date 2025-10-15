@@ -1194,6 +1194,12 @@ export interface AffiliateIntervalOverview {
      */
     'lendingRefereeEarningsE9': string;
     /**
+     * Referee earnings from ember (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'emberRefereeEarningsE9': string;
+    /**
      * Referral earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateIntervalOverview
@@ -1211,6 +1217,12 @@ export interface AffiliateIntervalOverview {
      * @memberof AffiliateIntervalOverview
      */
     'lendingReferralEarningsE9': string;
+    /**
+     * Total earnings from ember (e9 format)
+     * @type {string}
+     * @memberof AffiliateIntervalOverview
+     */
+    'emberTotalEarningsE9': string;
     /**
      * Total earnings from perps trading (e9 format)
      * @type {string}
@@ -1385,6 +1397,12 @@ export interface AffiliateMetadata {
      * @memberof AffiliateMetadata
      */
     'tier'?: AffiliateMetadataTierEnum;
+    /**
+     * Indicates whether the affiliate is an ember affiliate
+     * @type {boolean}
+     * @memberof AffiliateMetadata
+     */
+    'isEmber'?: boolean;
 }
 
 export const AffiliateMetadataStatusEnum = {
@@ -1468,6 +1486,12 @@ export interface AffiliateOverview {
      */
     'lendingRefereeEarningsE9': string;
     /**
+     * Referee earnings from ember (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'emberRefereeEarningsE9': string;
+    /**
      * Referral earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateOverview
@@ -1503,6 +1527,12 @@ export interface AffiliateOverview {
      * @memberof AffiliateOverview
      */
     'lendingTotalEarningsE9': string;
+    /**
+     * Total earnings from ember (e9 format)
+     * @type {string}
+     * @memberof AffiliateOverview
+     */
+    'emberTotalEarningsE9': string;
     /**
      * Total earnings from referrals (e9 format)
      * @type {string}
