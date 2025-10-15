@@ -35,7 +35,8 @@ class AffiliateMetadata(BaseModel):
     status: Optional[StrictStr] = Field(default=None, description="Status of the affiliate application")
     has_traded: StrictBool = Field(description="Indicates whether the user has traded or not", alias="hasTraded")
     tier: Optional[StrictStr] = Field(default=None, description="Tier of the affiliate")
-    __properties: ClassVar[List[str]] = ["userAddress", "parentReferralCode", "referralCode", "name", "parentName", "fees", "status", "hasTraded", "tier"]
+    is_ember: Optional[StrictBool] = Field(default=None, description="Indicates whether the affiliate is an ember affiliate", alias="isEmber")
+    __properties: ClassVar[List[str]] = ["userAddress", "parentReferralCode", "referralCode", "name", "parentName", "fees", "status", "hasTraded", "tier", "isEmber"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -139,7 +140,8 @@ class AffiliateMetadata(BaseModel):
             "fees": FeeConfigs.from_dict(obj["fees"]) if obj.get("fees") is not None else None,
             "status": obj.get("status"),
             "hasTraded": obj.get("hasTraded"),
-            "tier": obj.get("tier")
+            "tier": obj.get("tier"),
+            "isEmber": obj.get("isEmber")
         })
         return _obj
 

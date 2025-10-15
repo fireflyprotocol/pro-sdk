@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **status** | **str** | Status of the affiliate application | [optional] 
 **has_traded** | **bool** | Indicates whether the user has traded or not | 
 **tier** | **str** | Tier of the affiliate | [optional] 
+**is_ember** | **bool** | Indicates whether the affiliate is an ember affiliate | [optional] 
 
 ## Example
 

@@ -39,6 +39,9 @@ pub struct AffiliateMetadata {
     /// Tier of the affiliate
     #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
     pub tier: Option<Tier>,
+    /// Indicates whether the affiliate is an ember affiliate
+    #[serde(rename = "isEmber", skip_serializing_if = "Option::is_none")]
+    pub is_ember: Option<bool>,
 }
 
 impl AffiliateMetadata {
@@ -53,6 +56,7 @@ impl AffiliateMetadata {
             status: None,
             has_traded,
             tier: None,
+            is_ember: None,
         }
     }
 }

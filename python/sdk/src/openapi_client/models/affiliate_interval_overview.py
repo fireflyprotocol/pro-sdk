@@ -36,16 +36,18 @@ class AffiliateIntervalOverview(BaseModel):
     perps_referee_earnings_e9: StrictStr = Field(description="Referee earnings from perps trading (e9 format)", alias="perpsRefereeEarningsE9")
     spot_lp_referee_earnings_e9: StrictStr = Field(description="Referee earnings from spot LP (e9 format)", alias="spotLPRefereeEarningsE9")
     lending_referee_earnings_e9: StrictStr = Field(description="Referee earnings from lending (e9 format)", alias="lendingRefereeEarningsE9")
+    ember_referee_earnings_e9: StrictStr = Field(description="Referee earnings from ember (e9 format)", alias="emberRefereeEarningsE9")
     perps_referral_earnings_e9: StrictStr = Field(description="Referral earnings from perps trading (e9 format)", alias="perpsReferralEarningsE9")
     spot_lp_referral_earnings_e9: StrictStr = Field(description="Referral earnings from spot LP (e9 format)", alias="spotLPReferralEarningsE9")
     lending_referral_earnings_e9: StrictStr = Field(description="Referral earnings from lending (e9 format)", alias="lendingReferralEarningsE9")
+    ember_total_earnings_e9: StrictStr = Field(description="Total earnings from ember (e9 format)", alias="emberTotalEarningsE9")
     perps_total_earnings_e9: StrictStr = Field(description="Total earnings from perps trading (e9 format)", alias="perpsTotalEarningsE9")
     spot_lp_total_earnings_e9: StrictStr = Field(description="Total earnings from spot LP (e9 format)", alias="spotLPTotalEarningsE9")
     lending_total_earnings_e9: StrictStr = Field(description="Total earnings from lending (e9 format)", alias="lendingTotalEarningsE9")
     total_referral_earnings_e9: StrictStr = Field(description="Total earnings from referrals (e9 format)", alias="totalReferralEarningsE9")
     total_referee_earnings_e9: StrictStr = Field(description="Total earnings from referee activities (e9 format)", alias="totalRefereeEarningsE9")
     total_earnings_e9: StrictStr = Field(description="Total earnings combining referrals and referee activities (e9 format)", alias="totalEarningsE9")
-    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "status", "referredSince", "perpsRefereeEarningsE9", "spotLPRefereeEarningsE9", "lendingRefereeEarningsE9", "perpsReferralEarningsE9", "spotLPReferralEarningsE9", "lendingReferralEarningsE9", "perpsTotalEarningsE9", "spotLPTotalEarningsE9", "lendingTotalEarningsE9", "totalReferralEarningsE9", "totalRefereeEarningsE9", "totalEarningsE9"]
+    __properties: ClassVar[List[str]] = ["userAddress", "name", "intervalNumber", "intervalStartDate", "intervalEndDate", "status", "referredSince", "perpsRefereeEarningsE9", "spotLPRefereeEarningsE9", "lendingRefereeEarningsE9", "emberRefereeEarningsE9", "perpsReferralEarningsE9", "spotLPReferralEarningsE9", "lendingReferralEarningsE9", "emberTotalEarningsE9", "perpsTotalEarningsE9", "spotLPTotalEarningsE9", "lendingTotalEarningsE9", "totalReferralEarningsE9", "totalRefereeEarningsE9", "totalEarningsE9"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -115,9 +117,11 @@ class AffiliateIntervalOverview(BaseModel):
             "perpsRefereeEarningsE9": obj.get("perpsRefereeEarningsE9"),
             "spotLPRefereeEarningsE9": obj.get("spotLPRefereeEarningsE9"),
             "lendingRefereeEarningsE9": obj.get("lendingRefereeEarningsE9"),
+            "emberRefereeEarningsE9": obj.get("emberRefereeEarningsE9"),
             "perpsReferralEarningsE9": obj.get("perpsReferralEarningsE9"),
             "spotLPReferralEarningsE9": obj.get("spotLPReferralEarningsE9"),
             "lendingReferralEarningsE9": obj.get("lendingReferralEarningsE9"),
+            "emberTotalEarningsE9": obj.get("emberTotalEarningsE9"),
             "perpsTotalEarningsE9": obj.get("perpsTotalEarningsE9"),
             "spotLPTotalEarningsE9": obj.get("spotLPTotalEarningsE9"),
             "lendingTotalEarningsE9": obj.get("lendingTotalEarningsE9"),

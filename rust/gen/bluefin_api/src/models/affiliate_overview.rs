@@ -28,6 +28,9 @@ pub struct AffiliateOverview {
     /// Referee earnings from lending (e9 format)
     #[serde(rename = "lendingRefereeEarningsE9")]
     pub lending_referee_earnings_e9: String,
+    /// Referee earnings from ember (e9 format)
+    #[serde(rename = "emberRefereeEarningsE9")]
+    pub ember_referee_earnings_e9: String,
     /// Referral earnings from perps trading (e9 format)
     #[serde(rename = "perpsReferralEarningsE9")]
     pub perps_referral_earnings_e9: String,
@@ -46,6 +49,9 @@ pub struct AffiliateOverview {
     /// Total earnings from lending (e9 format)
     #[serde(rename = "lendingTotalEarningsE9")]
     pub lending_total_earnings_e9: String,
+    /// Total earnings from ember (e9 format)
+    #[serde(rename = "emberTotalEarningsE9")]
+    pub ember_total_earnings_e9: String,
     /// Total earnings from referrals (e9 format)
     #[serde(rename = "totalReferralEarningsE9")]
     pub total_referral_earnings_e9: String,
@@ -58,19 +64,21 @@ pub struct AffiliateOverview {
 }
 
 impl AffiliateOverview {
-    pub fn new(user_address: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateOverview {
+    pub fn new(user_address: String, perps_referee_earnings_e9: String, spot_lp_referee_earnings_e9: String, lending_referee_earnings_e9: String, ember_referee_earnings_e9: String, perps_referral_earnings_e9: String, spot_lp_referral_earnings_e9: String, lending_referral_earnings_e9: String, perps_total_earnings_e9: String, spot_lp_total_earnings_e9: String, lending_total_earnings_e9: String, ember_total_earnings_e9: String, total_referral_earnings_e9: String, total_referee_earnings_e9: String, total_earnings_e9: String) -> AffiliateOverview {
         AffiliateOverview {
             user_address,
             name: None,
             perps_referee_earnings_e9,
             spot_lp_referee_earnings_e9,
             lending_referee_earnings_e9,
+            ember_referee_earnings_e9,
             perps_referral_earnings_e9,
             spot_lp_referral_earnings_e9,
             lending_referral_earnings_e9,
             perps_total_earnings_e9,
             spot_lp_total_earnings_e9,
             lending_total_earnings_e9,
+            ember_total_earnings_e9,
             total_referral_earnings_e9,
             total_referee_earnings_e9,
             total_earnings_e9,
