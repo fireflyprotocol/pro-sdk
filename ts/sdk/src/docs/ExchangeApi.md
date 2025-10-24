@@ -9,6 +9,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getCountry**](#getcountry) | **GET** /v1/exchange/country | /exchange/country|
 |[**getExchangeInfo**](#getexchangeinfo) | **GET** /v1/exchange/info | /exchange/info|
 |[**getExchangeStats**](#getexchangestats) | **GET** /v1/exchange/stats | /exchange/stats|
+|[**getExchangeStatsAllTime**](#getexchangestatsalltime) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime|
 |[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory|
 |[**getMarketTicker**](#getmarketticker) | **GET** /v1/exchange/ticker | /exchange/ticker|
 |[**getOrderbookDepth**](#getorderbookdepth) | **GET** /v1/exchange/depth | /exchange/depth|
@@ -278,6 +279,51 @@ No authorization required
 |**200** | Successful response with exchange statistics. |  -  |
 |**400** | Invalid parameters provided. |  -  |
 |**422** | Unprocessable parameters provided. |  -  |
+|**500** | Internal server error. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getExchangeStatsAllTime**
+> StatsAllTimeResponse getExchangeStatsAllTime()
+
+Retrieves all time exchange statistics.
+
+### Example
+
+```typescript
+import {
+    ExchangeApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new ExchangeApi(configuration);
+
+const { status, data } = await apiInstance.getExchangeStatsAllTime();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**StatsAllTimeResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response with exchange statistics. |  -  |
 |**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -126,6 +126,9 @@ async def main():
         stats = await exchange_data_api.get_exchange_stats()
         log.info(f"{stats=}")
 
+        stats_all_time = await exchange_data_api.get_exchange_stats_all_time()
+        log.info(f"{stats_all_time=}")
+
         country = await exchange_data_api.get_country()
         log.info(f"{country=}")
 

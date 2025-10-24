@@ -205,7 +205,12 @@ async function main() {
     ).data;
     logger.info(`Stats: ${JSON.stringify(stats)}`);
 
-    const country = (
+      const statsAllTime = (
+          await client.exchangeDataApi.getExchangeStatsAllTime()
+      ).data;
+      logger.info(`Stats All Time: ${JSON.stringify(statsAllTime)}`);
+
+      const country = (
         await client.exchangeDataApi.getCountry()
     ).data;
     logger.info(`Country: ${JSON.stringify(country)}`);

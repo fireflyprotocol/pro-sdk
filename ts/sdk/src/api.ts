@@ -4097,6 +4097,49 @@ export interface SponsorTxResponse {
 /**
  * 
  * @export
+ * @interface StatsAllTimeResponse
+ */
+export interface StatsAllTimeResponse {
+    /**
+     * Timestamp in milliseconds when the statistics period starts.
+     * @type {number}
+     * @memberof StatsAllTimeResponse
+     */
+    'startTimeAtMillis': number;
+    /**
+     * Total value locked in the legacy exchange in e9 format.
+     * @type {string}
+     * @memberof StatsAllTimeResponse
+     */
+    'legacyTvlE9': string;
+    /**
+     * Total value locked in the exchange in e9 format.
+     * @type {string}
+     * @memberof StatsAllTimeResponse
+     */
+    'tvlE9': string;
+    /**
+     * Total quote asset volume in the legacy exchange in e9 format.
+     * @type {string}
+     * @memberof StatsAllTimeResponse
+     */
+    'totalLegacyQuoteAssetVolumeE9': string;
+    /**
+     * Total quote asset volume in the exchange in e9 format.
+     * @type {string}
+     * @memberof StatsAllTimeResponse
+     */
+    'totalQuoteAssetVolumeE9': string;
+    /**
+     * Timestamp in milliseconds when the statistics period ends.
+     * @type {number}
+     * @memberof StatsAllTimeResponse
+     */
+    'endTimeAtMillis': number;
+}
+/**
+ * 
+ * @export
  * @interface StatsEntry
  */
 export interface StatsEntry {
@@ -6389,6 +6432,36 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Retrieves all time exchange statistics.
+         * @summary /v1/exchange/stats/allTime
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeStatsAllTime: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/exchange/stats/allTime`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6669,6 +6742,18 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Retrieves all time exchange statistics.
+         * @summary /v1/exchange/stats/allTime
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExchangeStatsAllTime(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsAllTimeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeStatsAllTime(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getExchangeStatsAllTime']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6798,6 +6883,15 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getExchangeStats(interval, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieves all time exchange statistics.
+         * @summary /v1/exchange/stats/allTime
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeStatsAllTime(options?: RawAxiosRequestConfig): AxiosPromise<StatsAllTimeResponse> {
+            return localVarFp.getExchangeStatsAllTime(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve the funding rate history for a specific market address.
          * @summary /exchange/fundingRateHistory
          * @param {string} symbol The market symbol to get funding rate history for
@@ -6922,6 +7016,17 @@ export class ExchangeApi extends BaseAPI {
      */
     public getExchangeStats(interval?: StatsInterval, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return ExchangeApiFp(this.configuration).getExchangeStats(interval, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieves all time exchange statistics.
+     * @summary /v1/exchange/stats/allTime
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeApi
+     */
+    public getExchangeStatsAllTime(options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getExchangeStatsAllTime(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

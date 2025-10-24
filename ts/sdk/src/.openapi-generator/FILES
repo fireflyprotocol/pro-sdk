@@ -108,6 +108,7 @@ docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
+docs/StatsAllTimeResponse.md
 docs/StatsEntry.md
 docs/StatsInterval.md
 docs/StatsResponse.md
