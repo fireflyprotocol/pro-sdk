@@ -198,6 +198,8 @@ pub mod sponsor_tx_request;
 pub use self::sponsor_tx_request::SponsorTxRequest;
 pub mod sponsor_tx_response;
 pub use self::sponsor_tx_response::SponsorTxResponse;
+pub mod stats_all_time_response;
+pub use self::stats_all_time_response::StatsAllTimeResponse;
 pub mod stats_entry;
 pub use self::stats_entry::StatsEntry;
 pub mod stats_interval;

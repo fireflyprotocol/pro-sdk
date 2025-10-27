@@ -736,6 +736,43 @@ components:
         - totalQuoteAssetVolumeE9
         - endTimeAtMillis
 
+    StatsAllTimeResponse:
+      type: object
+      properties:
+        startTimeAtMillis:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds when the statistics period starts.
+          example: "1753920000000"
+        legacyTvlE9:
+          type: string
+          description: Total value locked in the legacy exchange in e9 format.
+          example: "1000000000000000000"
+        tvlE9:
+          type: string
+          description: Total value locked in the exchange in e9 format.
+          example: "1000000000000000000"
+        totalLegacyQuoteAssetVolumeE9:
+          type: string
+          description: Total quote asset volume in the legacy exchange in e9 format.
+          example: "1000000000000000000"
+        totalQuoteAssetVolumeE9:
+          type: string
+          description: Total quote asset volume in the exchange in e9 format.
+          example: "1000000000000000000"
+        endTimeAtMillis:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds when the statistics period ends.
+          example: "1754006399999"
+      required:
+        - startTimeAtMillis
+        - legacyTvlE9
+        - tvlE9
+        - totalLegacyQuoteAssetVolumeE9
+        - totalQuoteAssetVolumeE9
+        - endTimeAtMillis
+
     CountryResponse:
       type: object
       properties:
@@ -1105,6 +1142,27 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "Internal server error."
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/exchange/stats/allTime:
+    get:
+      tags:
+        - Exchange
+      operationId: getExchangeStatsAllTime
+      summary: /v1/exchange/stats/allTime
+      description: "Retrieves all time exchange statistics."
+      responses:
+        "200":
+          description: "Successful response with exchange statistics."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsAllTimeResponse"
         "500":
           description: "Internal server error."
           content:

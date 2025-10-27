@@ -43,6 +43,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_country**](docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 *ExchangeApi* | [**get_exchange_info**](docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 *ExchangeApi* | [**get_exchange_stats**](docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
+*ExchangeApi* | [**get_exchange_stats_all_time**](docs/ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 *ExchangeApi* | [**get_funding_rate_history**](docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -179,6 +180,7 @@ Class | Method | HTTP request | Description
  - [SelfTradePreventionType](docs/SelfTradePreventionType.md)
  - [SponsorTxRequest](docs/SponsorTxRequest.md)
  - [SponsorTxResponse](docs/SponsorTxResponse.md)
+ - [StatsAllTimeResponse](docs/StatsAllTimeResponse.md)
  - [StatsEntry](docs/StatsEntry.md)
  - [StatsInterval](docs/StatsInterval.md)
  - [StatsResponse](docs/StatsResponse.md)

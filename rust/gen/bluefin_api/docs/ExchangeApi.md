@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_country**](ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 [**get_exchange_info**](ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 [**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
+[**get_exchange_stats_all_time**](ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 [**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -154,6 +155,33 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::StatsResponse**](StatsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_exchange_stats_all_time
+
+> models::StatsAllTimeResponse get_exchange_stats_all_time()
+/v1/exchange/stats/allTime
+
+Retrieves all time exchange statistics.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::StatsAllTimeResponse**](StatsAllTimeResponse.md)
 
 ### Authorization
 

@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_country**](openapi_client/docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
 *ExchangeApi* | [**get_exchange_info**](openapi_client/docs/ExchangeApi.md#get_exchange_info) | **GET** /v1/exchange/info | /exchange/info
 *ExchangeApi* | [**get_exchange_stats**](openapi_client/docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
+*ExchangeApi* | [**get_exchange_stats_all_time**](openapi_client/docs/ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 *ExchangeApi* | [**get_funding_rate_history**](openapi_client/docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
@@ -219,6 +220,7 @@ Class | Method | HTTP request | Description
  - [SelfTradePreventionType](openapi_client/docs/SelfTradePreventionType.md)
  - [SponsorTxRequest](openapi_client/docs/SponsorTxRequest.md)
  - [SponsorTxResponse](openapi_client/docs/SponsorTxResponse.md)
+ - [StatsAllTimeResponse](openapi_client/docs/StatsAllTimeResponse.md)
  - [StatsEntry](openapi_client/docs/StatsEntry.md)
  - [StatsInterval](openapi_client/docs/StatsInterval.md)
  - [StatsResponse](openapi_client/docs/StatsResponse.md)
