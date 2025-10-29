@@ -2575,6 +2575,25 @@ export const IntervalRewardsStatusEnum = {
 export type IntervalRewardsStatusEnum = typeof IntervalRewardsStatusEnum[keyof typeof IntervalRewardsStatusEnum];
 
 /**
+ * Base64 encoded ISS details with index.
+ * @export
+ * @interface IssBase64Details
+ */
+export interface IssBase64Details {
+    /**
+     * Base64 encoded ISS details value.
+     * @type {string}
+     * @memberof IssBase64Details
+     */
+    'value': string;
+    /**
+     * Index modulo 4 for the ISS details.
+     * @type {number}
+     * @memberof IssBase64Details
+     */
+    'indexMod4': number;
+}
+/**
  * 
  * @export
  * @enum {string}
@@ -3934,6 +3953,31 @@ export type PositionSide = typeof PositionSide[keyof typeof PositionSide];
 
 
 /**
+ * The generated zero-knowledge proof points.
+ * @export
+ * @interface ProofPoints
+ */
+export interface ProofPoints {
+    /**
+     * Point A of the proof.
+     * @type {Array<string>}
+     * @memberof ProofPoints
+     */
+    'a': Array<string>;
+    /**
+     * Point B of the proof.
+     * @type {Array<Array<string>>}
+     * @memberof ProofPoints
+     */
+    'b': Array<Array<string>>;
+    /**
+     * Point C of the proof.
+     * @type {Array<string>}
+     * @memberof ProofPoints
+     */
+    'c': Array<string>;
+}
+/**
  * 
  * @export
  * @interface RecentTradesUpdates
@@ -5126,6 +5170,93 @@ export interface WithdrawRequestSignedFields {
      */
     'signedAtMillis': number;
 }
+/**
+ * 
+ * @export
+ * @interface ZKLoginUserDetailsResponse
+ */
+export interface ZKLoginUserDetailsResponse {
+    /**
+     * The zkLogin user salt.
+     * @type {string}
+     * @memberof ZKLoginUserDetailsResponse
+     */
+    'salt': string;
+    /**
+     * The zkLogin user\'s address.
+     * @type {string}
+     * @memberof ZKLoginUserDetailsResponse
+     */
+    'address': string;
+    /**
+     * The zkLogin user\'s public key.
+     * @type {string}
+     * @memberof ZKLoginUserDetailsResponse
+     */
+    'publicKey': string;
+}
+/**
+ * 
+ * @export
+ * @interface ZKLoginZKPRequest
+ */
+export interface ZKLoginZKPRequest {
+    /**
+     * The network to use (e.g., \"mainnet\", \"testnet\").
+     * @type {string}
+     * @memberof ZKLoginZKPRequest
+     */
+    'network'?: string;
+    /**
+     * The ephemeral public key for the ZK proof.
+     * @type {string}
+     * @memberof ZKLoginZKPRequest
+     */
+    'ephemeralPublicKey': string;
+    /**
+     * The maximum epoch for the ZK proof.
+     * @type {number}
+     * @memberof ZKLoginZKPRequest
+     */
+    'maxEpoch': number;
+    /**
+     * Randomness value for the ZK proof.
+     * @type {string}
+     * @memberof ZKLoginZKPRequest
+     */
+    'randomness': string;
+}
+/**
+ * 
+ * @export
+ * @interface ZKLoginZKPResponse
+ */
+export interface ZKLoginZKPResponse {
+    /**
+     * 
+     * @type {ProofPoints}
+     * @memberof ZKLoginZKPResponse
+     */
+    'proofPoints'?: ProofPoints;
+    /**
+     * 
+     * @type {IssBase64Details}
+     * @memberof ZKLoginZKPResponse
+     */
+    'issBase64Details'?: IssBase64Details;
+    /**
+     * Base64 encoded header information.
+     * @type {string}
+     * @memberof ZKLoginZKPResponse
+     */
+    'headerBase64'?: string;
+    /**
+     * The address seed used in the proof.
+     * @type {string}
+     * @memberof ZKLoginZKPResponse
+     */
+    'addressSeed': string;
+}
 
 /**
  * AccountDataApi - axios parameter creator
@@ -5948,7 +6079,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Retrieves a new auth token for an account. Expiry is set to 5 min
+         * Retrieves a new auth token for an account. Expiry is set to 5 min.
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6033,6 +6164,83 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * ZK Login User Details
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getZkLoginUserDetails: async (zkloginJwt: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'zkloginJwt' is not null or undefined
+            assertParamExists('getZkLoginUserDetails', 'zkloginJwt', zkloginJwt)
+            const localVarPath = `/auth/zklogin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            if (zkloginJwt != null) {
+                localVarHeaderParameter['zklogin-jwt'] = String(zkloginJwt);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postZkLoginZkp: async (zkloginJwt: string, zKLoginZKPRequest: ZKLoginZKPRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'zkloginJwt' is not null or undefined
+            assertParamExists('postZkLoginZkp', 'zkloginJwt', zkloginJwt)
+            // verify required parameter 'zKLoginZKPRequest' is not null or undefined
+            assertParamExists('postZkLoginZkp', 'zKLoginZKPRequest', zKLoginZKPRequest)
+            const localVarPath = `/auth/zklogin/zkp`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            if (zkloginJwt != null) {
+                localVarHeaderParameter['zklogin-jwt'] = String(zkloginJwt);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(zKLoginZKPRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -6070,7 +6278,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Retrieves a new auth token for an account. Expiry is set to 5 min
+         * Retrieves a new auth token for an account. Expiry is set to 5 min.
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6094,6 +6302,32 @@ export const AuthApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authV2TokenPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * ZK Login User Details
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getZkLoginUserDetails(zkloginJwt: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ZKLoginUserDetailsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getZkLoginUserDetails(zkloginJwt, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.getZkLoginUserDetails']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postZkLoginZkp(zkloginJwt: string, zKLoginZKPRequest: ZKLoginZKPRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ZKLoginZKPResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postZkLoginZkp(zkloginJwt, zKLoginZKPRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.postZkLoginZkp']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -6127,7 +6361,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves a new auth token for an account. Expiry is set to 5 min
+         * Retrieves a new auth token for an account. Expiry is set to 5 min.
          * @param {RefreshTokenRequest} refreshTokenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6146,6 +6380,26 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          */
         authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
             return localVarFp.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ZK Login User Details
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getZkLoginUserDetails(zkloginJwt: string, options?: RawAxiosRequestConfig): AxiosPromise<ZKLoginUserDetailsResponse> {
+            return localVarFp.getZkLoginUserDetails(zkloginJwt, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+         * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postZkLoginZkp(zkloginJwt: string, zKLoginZKPRequest: ZKLoginZKPRequest, options?: RawAxiosRequestConfig): AxiosPromise<ZKLoginZKPResponse> {
+            return localVarFp.postZkLoginZkp(zkloginJwt, zKLoginZKPRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6182,7 +6436,7 @@ export class AuthApi extends BaseAPI {
     }
 
     /**
-     * Retrieves a new auth token for an account. Expiry is set to 5 min
+     * Retrieves a new auth token for an account. Expiry is set to 5 min.
      * @param {RefreshTokenRequest} refreshTokenRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6204,6 +6458,30 @@ export class AuthApi extends BaseAPI {
      */
     public authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ZK Login User Details
+     * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public getZkLoginUserDetails(zkloginJwt: string, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).getZkLoginUserDetails(zkloginJwt, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+     * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
+     * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public postZkLoginZkp(zkloginJwt: string, zKLoginZKPRequest: ZKLoginZKPRequest, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).postZkLoginZkp(zkloginJwt, zKLoginZKPRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

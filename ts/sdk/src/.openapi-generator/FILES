@@ -67,6 +67,7 @@ docs/GetAffiliateLeaderDashboard200Response.md
 docs/GetAffiliateOverview200Response.md
 docs/IntervalMetadata.md
 docs/IntervalRewards.md
+docs/IssBase64Details.md
 docs/KlineInterval.md
 docs/LoginRequest.md
 docs/LoginResponse.md
@@ -99,6 +100,7 @@ docs/OrderbookDiffDepthUpdate.md
 docs/OrderbookPartialDepthUpdate.md
 docs/Position.md
 docs/PositionSide.md
+docs/ProofPoints.md
 docs/RecentTradesUpdates.md
 docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
@@ -131,4 +133,7 @@ docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
 docs/WithdrawRequest.md
 docs/WithdrawRequestSignedFields.md
+docs/ZKLoginUserDetailsResponse.md
+docs/ZKLoginZKPRequest.md
+docs/ZKLoginZKPResponse.md
 git_push.sh
