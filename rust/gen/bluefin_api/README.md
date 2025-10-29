@@ -38,6 +38,8 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
+*AuthApi* | [**get_zk_login_user_details**](docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
+*AuthApi* | [**post_zk_login_zkp**](docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
 *ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_country**](docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
@@ -140,6 +142,7 @@ Class | Method | HTTP request | Description
  - [GetAffiliateOverview200Response](docs/GetAffiliateOverview200Response.md)
  - [IntervalMetadata](docs/IntervalMetadata.md)
  - [IntervalRewards](docs/IntervalRewards.md)
+ - [IssBase64Details](docs/IssBase64Details.md)
  - [KlineInterval](docs/KlineInterval.md)
  - [LoginRequest](docs/LoginRequest.md)
  - [LoginResponse](docs/LoginResponse.md)
@@ -172,6 +175,7 @@ Class | Method | HTTP request | Description
  - [OrderbookPartialDepthUpdate](docs/OrderbookPartialDepthUpdate.md)
  - [Position](docs/Position.md)
  - [PositionSide](docs/PositionSide.md)
+ - [ProofPoints](docs/ProofPoints.md)
  - [RecentTradesUpdates](docs/RecentTradesUpdates.md)
  - [RefereeOnboardResponse](docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](docs/RefreshTokenRequest.md)
@@ -201,6 +205,9 @@ Class | Method | HTTP request | Description
  - [UserCampaignRewards](docs/UserCampaignRewards.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](docs/WithdrawRequestSignedFields.md)
+ - [ZkLoginUserDetailsResponse](docs/ZkLoginUserDetailsResponse.md)
+ - [ZkLoginZkpRequest](docs/ZkLoginZkpRequest.md)
+ - [ZkLoginZkpResponse](docs/ZkLoginZkpResponse.md)
 
 
 To get access to the crate's generated documentation, use:
