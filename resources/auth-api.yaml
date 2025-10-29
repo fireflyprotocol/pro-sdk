@@ -94,7 +94,174 @@ components:
           type: integer
           format: int64
           x-go-type: int64
+
+    ZKLoginZKPRequest:
+      type: object
+      properties:
+        network:
+          type: string
+          description: The network to use (e.g., "mainnet", "testnet").
+        ephemeralPublicKey:
+          type: string
+          description: The ephemeral public key for the ZK proof.
+        maxEpoch:
+          type: integer
+          description: The maximum epoch for the ZK proof.
+        randomness:
+          type: string
+          description: Randomness value for the ZK proof.
+      required:
+        - ephemeralPublicKey
+        - maxEpoch
+        - randomness
+    
+    ProofPoints:
+      type: object
+      properties:
+        a:
+          type: array
+          items:
+            type: string
+          description: Point A of the proof.
+        b:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Point B of the proof.
+        c:
+          type: array
+          items:
+            type: string
+          description: Point C of the proof.
+      required:
+        - a
+        - b
+        - c
+      description: The generated zero-knowledge proof points.
+
+    IssBase64Details:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Base64 encoded ISS details value.
+        indexMod4:
+          type: integer
+          description: Index modulo 4 for the ISS details.
+      required:
+        - value
+        - indexMod4
+      description: Base64 encoded ISS details with index.
+
+    ZKLoginZKPResponse:
+      type: object
+      properties:
+        proofPoints:
+          $ref: '#/components/schemas/ProofPoints'
+        issBase64Details:
+          $ref: '#/components/schemas/IssBase64Details'
+        headerBase64:
+          type: string
+          description: Base64 encoded header information.
+        addressSeed:
+          type: string
+          description: The address seed used in the proof.
+      required:
+        - addressSeed
+
+    ZKLoginUserDetailsResponse:
+      type: object
+      properties:
+        salt:
+          type: string
+          description: The zkLogin user salt.
+        address:
+          type: string
+          description: The zkLogin user's address.
+        publicKey:
+          type: string
+          format: string
+          description: The zkLogin user's public key.
+      required:
+        - salt
+        - address
+        - publicKey
 paths:
+  /auth/zklogin:
+    get:
+      tags:
+        - Auth
+      description: ZK Login User Details
+      operationId: GetZkLoginUserDetails
+      parameters:
+        - in: header
+          name: zklogin-jwt
+          description: The JWT of the user signed in with zkLogin.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with zkLogin user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZKLoginUserDetailsResponse'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"  
+
+
+  /auth/zklogin/zkp:
+    post:
+      tags:
+        - Auth
+      summary: ZK Login Zero-Knowledge Proof Proxy Endpoint
+      operationId: PostZkLoginZkp
+      parameters:
+        - in: header
+          name: zklogin-jwt
+          description: The JWT of the user signed in with zkLogin.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZKLoginZKPRequest'
+      responses:
+        '200':
+          description: Successful response with ZK proof result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZKLoginZKPResponse'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"  
+
   /auth/jwks:
     get:
       tags:
@@ -244,7 +411,7 @@ paths:
     put:
       tags:
         - Auth
-      description: Retrieves a new auth token for an account. Expiry is set to 5 min
+      description: Retrieves a new auth token for an account. Expiry is set to 5 min.
       requestBody:
         required: true
         content:
@@ -278,3 +445,37 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'
+  
+  /auth/allowed/{accountAddress}:
+    get:
+      tags:
+        - Auth
+      summary: "Internal use only for private launch; Will be removed when we go fully live"
+      description: "check if the account is allowed to access the resource"
+      parameters:
+        - name: accountAddress
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "the account address to check"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '403':
+          description: "account not allowed"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+                

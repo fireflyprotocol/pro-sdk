@@ -69,6 +69,27 @@ paths:
             enum:
               - sui-staging
               - sui-prod
+  /auth/zklogin:
+    $ref: "./auth-api.yaml#/paths/~1auth~1zklogin"
+    servers:
+      - url: https://auth.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+
+  /auth/zklogin/zkp:
+    $ref: "./auth-api.yaml#/paths/~1auth~1zklogin~1zkp"
+    servers:
+      - url: https://auth.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
 
   /api/v1/account:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1account"
