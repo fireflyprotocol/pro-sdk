@@ -74,6 +74,7 @@ from openapi_client.models.get_affiliate_leader_dashboard200_response import Get
 from openapi_client.models.get_affiliate_overview200_response import GetAffiliateOverview200Response
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
+from openapi_client.models.iss_base64_details import IssBase64Details
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
@@ -106,6 +107,7 @@ from openapi_client.models.orderbook_diff_depth_update import OrderbookDiffDepth
 from openapi_client.models.orderbook_partial_depth_update import OrderbookPartialDepthUpdate
 from openapi_client.models.position import Position
 from openapi_client.models.position_side import PositionSide
+from openapi_client.models.proof_points import ProofPoints
 from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
@@ -135,3 +137,6 @@ from openapi_client.models.update_affiliate_fee_config_request import UpdateAffi
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
 from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.models.withdraw_request_signed_fields import WithdrawRequestSignedFields
+from openapi_client.models.zk_login_user_details_response import ZKLoginUserDetailsResponse
+from openapi_client.models.zk_login_zkp_request import ZKLoginZKPRequest
+from openapi_client.models.zk_login_zkp_response import ZKLoginZKPResponse

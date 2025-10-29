@@ -78,6 +78,8 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](openapi_client/docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](openapi_client/docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](openapi_client/docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
+*AuthApi* | [**get_zk_login_user_details**](openapi_client/docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
+*AuthApi* | [**post_zk_login_zkp**](openapi_client/docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
 *ExchangeApi* | [**get_all_market_ticker**](openapi_client/docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](openapi_client/docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_country**](openapi_client/docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
@@ -180,6 +182,7 @@ Class | Method | HTTP request | Description
  - [GetAffiliateOverview200Response](openapi_client/docs/GetAffiliateOverview200Response.md)
  - [IntervalMetadata](openapi_client/docs/IntervalMetadata.md)
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
+ - [IssBase64Details](openapi_client/docs/IssBase64Details.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
  - [LoginRequest](openapi_client/docs/LoginRequest.md)
  - [LoginResponse](openapi_client/docs/LoginResponse.md)
@@ -212,6 +215,7 @@ Class | Method | HTTP request | Description
  - [OrderbookPartialDepthUpdate](openapi_client/docs/OrderbookPartialDepthUpdate.md)
  - [Position](openapi_client/docs/Position.md)
  - [PositionSide](openapi_client/docs/PositionSide.md)
+ - [ProofPoints](openapi_client/docs/ProofPoints.md)
  - [RecentTradesUpdates](openapi_client/docs/RecentTradesUpdates.md)
  - [RefereeOnboardResponse](openapi_client/docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](openapi_client/docs/RefreshTokenRequest.md)
@@ -241,6 +245,9 @@ Class | Method | HTTP request | Description
  - [UserCampaignRewards](openapi_client/docs/UserCampaignRewards.md)
  - [WithdrawRequest](openapi_client/docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](openapi_client/docs/WithdrawRequestSignedFields.md)
+ - [ZKLoginUserDetailsResponse](openapi_client/docs/ZKLoginUserDetailsResponse.md)
+ - [ZKLoginZKPRequest](openapi_client/docs/ZKLoginZKPRequest.md)
+ - [ZKLoginZKPResponse](openapi_client/docs/ZKLoginZKPResponse.md)
 
 
 <a id="documentation-for-authorization"></a>
