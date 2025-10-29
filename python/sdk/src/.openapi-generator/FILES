@@ -72,6 +72,7 @@ openapi_client/docs/GetAffiliateLeaderDashboard200Response.md
 openapi_client/docs/GetAffiliateOverview200Response.md
 openapi_client/docs/IntervalMetadata.md
 openapi_client/docs/IntervalRewards.md
+openapi_client/docs/IssBase64Details.md
 openapi_client/docs/KlineInterval.md
 openapi_client/docs/LoginRequest.md
 openapi_client/docs/LoginResponse.md
@@ -104,6 +105,7 @@ openapi_client/docs/OrderbookDiffDepthUpdate.md
 openapi_client/docs/OrderbookPartialDepthUpdate.md
 openapi_client/docs/Position.md
 openapi_client/docs/PositionSide.md
+openapi_client/docs/ProofPoints.md
 openapi_client/docs/RecentTradesUpdates.md
 openapi_client/docs/RefereeOnboardResponse.md
 openapi_client/docs/RefreshTokenRequest.md
@@ -136,6 +138,9 @@ openapi_client/docs/UpdateAffiliateFeeConfigRequest.md
 openapi_client/docs/UserCampaignRewards.md
 openapi_client/docs/WithdrawRequest.md
 openapi_client/docs/WithdrawRequestSignedFields.md
+openapi_client/docs/ZKLoginUserDetailsResponse.md
+openapi_client/docs/ZKLoginZKPRequest.md
+openapi_client/docs/ZKLoginZKPResponse.md
 openapi_client/exceptions.py
 openapi_client/models/__init__.py
 openapi_client/models/account.py
@@ -198,6 +203,7 @@ openapi_client/models/get_affiliate_leader_dashboard200_response.py
 openapi_client/models/get_affiliate_overview200_response.py
 openapi_client/models/interval_metadata.py
 openapi_client/models/interval_rewards.py
+openapi_client/models/iss_base64_details.py
 openapi_client/models/kline_interval.py
 openapi_client/models/login_request.py
 openapi_client/models/login_response.py
@@ -230,6 +236,7 @@ openapi_client/models/orderbook_diff_depth_update.py
 openapi_client/models/orderbook_partial_depth_update.py
 openapi_client/models/position.py
 openapi_client/models/position_side.py
+openapi_client/models/proof_points.py
 openapi_client/models/recent_trades_updates.py
 openapi_client/models/referee_onboard_response.py
 openapi_client/models/refresh_token_request.py
@@ -259,6 +266,9 @@ openapi_client/models/update_affiliate_fee_config_request.py
 openapi_client/models/user_campaign_rewards.py
 openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
+openapi_client/models/zk_login_user_details_response.py
+openapi_client/models/zk_login_zkp_request.py
+openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
 openapi_client_README.md

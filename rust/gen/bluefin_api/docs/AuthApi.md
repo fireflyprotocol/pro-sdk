@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**auth_token_post**](AuthApi.md#auth_token_post) | **POST** /auth/token | 
 [**auth_token_refresh_put**](AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 [**auth_v2_token_post**](AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
+[**get_zk_login_user_details**](AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | /auth/zklogin
+[**post_zk_login_zkp**](AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp
 
 
 
@@ -74,7 +76,7 @@ No authorization required
 > models::RefreshTokenResponse auth_token_refresh_put(refresh_token_request)
 
 
-Retrieves a new auth token for an account. Expiry is set to 5 min
+Retrieves a new auth token for an account. Expiry is set to 5 min.
 
 ### Parameters
 
@@ -127,6 +129,65 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_zk_login_user_details
+
+> models::ZkLoginUserDetailsResponse get_zk_login_user_details(zklogin_jwt)
+/auth/zklogin
+
+ZK Login User Details
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**zklogin_jwt** | **String** | The JWT of the user signed in with zkLogin. | [required] |
+
+### Return type
+
+[**models::ZkLoginUserDetailsResponse**](ZKLoginUserDetailsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## post_zk_login_zkp
+
+> models::ZkLoginZkpResponse post_zk_login_zkp(zklogin_jwt, zk_login_zkp_request)
+/auth/zklogin/zkp
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**zklogin_jwt** | **String** | The JWT of the user signed in with zkLogin. | [required] |
+**zk_login_zkp_request** | [**ZkLoginZkpRequest**](ZkLoginZkpRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ZkLoginZkpResponse**](ZKLoginZKPResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

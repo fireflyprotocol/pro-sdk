@@ -8,6 +8,8 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**authTokenPost**](#authtokenpost) | **POST** /auth/token | |
 |[**authTokenRefreshPut**](#authtokenrefreshput) | **PUT** /auth/token/refresh | |
 |[**authV2TokenPost**](#authv2tokenpost) | **POST** /auth/v2/token | |
+|[**getZkLoginUserDetails**](#getzkloginuserdetails) | **GET** /auth/zklogin | /auth/zklogin|
+|[**postZkLoginZkp**](#postzkloginzkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp|
 
 # **authJwksGet**
 > { [key: string]: any | undefined; } authJwksGet()
@@ -122,7 +124,7 @@ No authorization required
 # **authTokenRefreshPut**
 > RefreshTokenResponse authTokenRefreshPut(refreshTokenRequest)
 
-Retrieves a new auth token for an account. Expiry is set to 5 min
+Retrieves a new auth token for an account. Expiry is set to 5 min.
 
 ### Example
 
@@ -238,6 +240,115 @@ No authorization required
 |**403** | invalid audience |  -  |
 |**500** | internal server error |  -  |
 |**0** | Unexpected error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getZkLoginUserDetails**
+> ZKLoginUserDetailsResponse getZkLoginUserDetails()
+
+ZK Login User Details
+
+### Example
+
+```typescript
+import {
+    AuthApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AuthApi(configuration);
+
+let zkloginJwt: string; //The JWT of the user signed in with zkLogin. (default to undefined)
+
+const { status, data } = await apiInstance.getZkLoginUserDetails(
+    zkloginJwt
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **zkloginJwt** | [**string**] | The JWT of the user signed in with zkLogin. | defaults to undefined|
+
+
+### Return type
+
+**ZKLoginUserDetailsResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response with zkLogin user details |  -  |
+|**400** | Bad Request |  -  |
+|**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **postZkLoginZkp**
+> ZKLoginZKPResponse postZkLoginZkp(zKLoginZKPRequest)
+
+
+### Example
+
+```typescript
+import {
+    AuthApi,
+    Configuration,
+    ZKLoginZKPRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AuthApi(configuration);
+
+let zkloginJwt: string; //The JWT of the user signed in with zkLogin. (default to undefined)
+let zKLoginZKPRequest: ZKLoginZKPRequest; //
+
+const { status, data } = await apiInstance.postZkLoginZkp(
+    zkloginJwt,
+    zKLoginZKPRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **zKLoginZKPRequest** | **ZKLoginZKPRequest**|  | |
+| **zkloginJwt** | [**string**] | The JWT of the user signed in with zkLogin. | defaults to undefined|
+
+
+### Return type
+
+**ZKLoginZKPResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response with ZK proof result |  -  |
+|**400** | Bad Request |  -  |
+|**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

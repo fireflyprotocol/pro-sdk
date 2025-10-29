@@ -58,6 +58,24 @@ pub enum AuthV2TokenPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_zk_login_user_details`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetZkLoginUserDetailsError {
+    Status400(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`post_zk_login_zkp`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PostZkLoginZkpError {
+    Status400(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 
 pub async fn auth_jwks_get(configuration: &configuration::Configuration, ) -> Result<std::collections::HashMap<String, serde_json::Value>, Error<AuthJwksGetError>> {
 
@@ -141,7 +159,7 @@ pub async fn auth_token_post(configuration: &configuration::Configuration, paylo
     }
 }
 
-/// Retrieves a new auth token for an account. Expiry is set to 5 min
+/// Retrieves a new auth token for an account. Expiry is set to 5 min.
 pub async fn auth_token_refresh_put(configuration: &configuration::Configuration, refresh_token_request: models::RefreshTokenRequest) -> Result<models::RefreshTokenResponse, Error<AuthTokenRefreshPutError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_refresh_token_request = refresh_token_request;
@@ -223,6 +241,83 @@ pub async fn auth_v2_token_post(configuration: &configuration::Configuration, pa
     } else {
         let content = resp.text().await?;
         let entity: Option<AuthV2TokenPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// ZK Login User Details
+pub async fn get_zk_login_user_details(configuration: &configuration::Configuration, zklogin_jwt: &str) -> Result<models::ZkLoginUserDetailsResponse, Error<GetZkLoginUserDetailsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_zklogin_jwt = zklogin_jwt;
+
+    let uri_str = format!("{}/auth/zklogin", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.header("zklogin-jwt", p_zklogin_jwt.to_string());
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ZkLoginUserDetailsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ZkLoginUserDetailsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetZkLoginUserDetailsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn post_zk_login_zkp(configuration: &configuration::Configuration, zklogin_jwt: &str, zk_login_zkp_request: models::ZkLoginZkpRequest) -> Result<models::ZkLoginZkpResponse, Error<PostZkLoginZkpError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_zklogin_jwt = zklogin_jwt;
+    let p_zk_login_zkp_request = zk_login_zkp_request;
+
+    let uri_str = format!("{}/auth/zklogin/zkp", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.header("zklogin-jwt", p_zklogin_jwt.to_string());
+    req_builder = req_builder.json(&p_zk_login_zkp_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ZkLoginZkpResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ZkLoginZkpResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PostZkLoginZkpError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
