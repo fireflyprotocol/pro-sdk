@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**auth_token_post**](AuthApi.md#auth_token_post) | **POST** /auth/token | 
 [**auth_token_refresh_put**](AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 [**auth_v2_token_post**](AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
-[**get_zk_login_user_details**](AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
-[**post_zk_login_zkp**](AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
+[**get_zk_login_user_details**](AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | /auth/zklogin
+[**post_zk_login_zkp**](AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp
 
 
 
@@ -137,7 +137,7 @@ No authorization required
 ## get_zk_login_user_details
 
 > models::ZkLoginUserDetailsResponse get_zk_login_user_details(zklogin_jwt)
-
+/auth/zklogin
 
 ZK Login User Details
 
@@ -167,7 +167,7 @@ No authorization required
 ## post_zk_login_zkp
 
 > models::ZkLoginZkpResponse post_zk_login_zkp(zklogin_jwt, zk_login_zkp_request)
-ZK Login Zero-Knowledge Proof Proxy Endpoint
+/auth/zklogin/zkp
 
 ### Parameters
 

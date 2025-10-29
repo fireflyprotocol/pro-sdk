@@ -271,9 +271,4 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_iss_base64_details.py
-openapi_client/test/test_proof_points.py
-openapi_client/test/test_zk_login_user_details_response.py
-openapi_client/test/test_zk_login_zkp_request.py
-openapi_client/test/test_zk_login_zkp_response.py
 openapi_client_README.md

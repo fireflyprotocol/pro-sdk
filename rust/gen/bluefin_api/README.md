@@ -38,8 +38,8 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
-*AuthApi* | [**get_zk_login_user_details**](docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
-*AuthApi* | [**post_zk_login_zkp**](docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
+*AuthApi* | [**get_zk_login_user_details**](docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | /auth/zklogin
+*AuthApi* | [**post_zk_login_zkp**](docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp
 *ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_country**](docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country

@@ -8,8 +8,8 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**authTokenPost**](#authtokenpost) | **POST** /auth/token | |
 |[**authTokenRefreshPut**](#authtokenrefreshput) | **PUT** /auth/token/refresh | |
 |[**authV2TokenPost**](#authv2tokenpost) | **POST** /auth/v2/token | |
-|[**getZkLoginUserDetails**](#getzkloginuserdetails) | **GET** /auth/zklogin | |
-|[**postZkLoginZkp**](#postzkloginzkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint|
+|[**getZkLoginUserDetails**](#getzkloginuserdetails) | **GET** /auth/zklogin | /auth/zklogin|
+|[**postZkLoginZkp**](#postzkloginzkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp|
 
 # **authJwksGet**
 > { [key: string]: any | undefined; } authJwksGet()

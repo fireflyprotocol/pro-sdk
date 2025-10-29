@@ -193,6 +193,7 @@ paths:
     get:
       tags:
         - Auth
+      summary: /auth/zklogin
       description: ZK Login User Details
       operationId: GetZkLoginUserDetails
       parameters:
@@ -227,7 +228,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: ZK Login Zero-Knowledge Proof Proxy Endpoint
+      summary: /auth/zklogin/zkp
       operationId: PostZkLoginZkp
       parameters:
         - in: header
@@ -445,37 +446,3 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'
-  
-  /auth/allowed/{accountAddress}:
-    get:
-      tags:
-        - Auth
-      summary: "Internal use only for private launch; Will be removed when we go fully live"
-      description: "check if the account is allowed to access the resource"
-      parameters:
-        - name: accountAddress
-          in: path
-          required: true
-          schema:
-            type: string
-          description: "the account address to check"
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
-        '403':
-          description: "account not allowed"
-          content:
-            application/json:
-              schema:
-                $ref: "./common.yaml#/components/schemas/Error"
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "./common.yaml#/components/schemas/Error"
-                

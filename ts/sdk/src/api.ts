@@ -6166,6 +6166,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6201,7 +6202,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -6306,6 +6307,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6318,7 +6320,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -6383,6 +6385,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6392,7 +6395,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -6462,6 +6465,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * ZK Login User Details
+     * @summary /auth/zklogin
      * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6473,7 +6477,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * 
-     * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+     * @summary /auth/zklogin/zkp
      * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
      * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
      * @param {*} [options] Override http request option.
