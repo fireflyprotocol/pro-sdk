@@ -8,12 +8,10 @@ type Result<T> = std::result::Result<T, Error>;
 #[tokio::main]
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
-    let response = get_country(
-        &Configuration {
-            base_path: exchange::url(environment).into(),
-            ..Configuration::default()
-        },
-    )
+    let response = get_country(&Configuration {
+        base_path: exchange::url(environment).into(),
+        ..Configuration::default()
+    })
     .await?;
 
     println!("{response:#?}");

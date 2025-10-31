@@ -257,11 +257,10 @@ async fn main() -> Result<()> {
                 ),
             ..
         } = websocket_message
+            && order_cancellation.order_hash == order_hash
         {
-            if order_cancellation.order_hash == order_hash {
-                println!("Order {order_hash} cancelled");
-                return Ok(());
-            }
+            println!("Order {order_hash} cancelled");
+            return Ok(());
         }
     }
 
