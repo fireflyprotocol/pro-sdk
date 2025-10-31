@@ -166,9 +166,10 @@ async fn main() -> Result<()> {
                 payload: AccountStreamMessagePayload::AccountUpdate(account_update),
                 reason,
             } = websocket_message
-                && reason == AccountEventReason::Withdraw {
-                    println!("{}", serde_json::to_string_pretty(&account_update).unwrap());
-                }
+                && reason == AccountEventReason::Withdraw
+            {
+                println!("{}", serde_json::to_string_pretty(&account_update).unwrap());
+            }
         }
     });
 
