@@ -13,6 +13,7 @@ pub fn execute(shutdown_flag: &Arc<AtomicBool>, timeout: u64) {
     });
 }
 
+#[allow(dead_code)]
 #[tokio::main]
 async fn main() {
     let shutdown_flag = Arc::new(AtomicBool::new(false));
