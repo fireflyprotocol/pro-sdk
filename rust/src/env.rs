@@ -378,6 +378,7 @@ pub mod websocket {
         /// For this URL, the user must be colocated with the exchange.
         #[must_use]
         pub fn colocated_url<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::COLOCATED_URL,
                 Environment::Staging | Environment::Testnet => staging::COLOCATED_URL,
@@ -433,6 +434,7 @@ pub mod websocket {
         /// For this URL, the user must be colocated with the exchange.
         #[must_use]
         pub fn colocated_url<'a>(environment: Environment) -> &'a str {
+            #[allow(deprecated)]
             match environment {
                 Environment::Dev | Environment::Devnet => dev::COLOCATED_URL,
                 Environment::Staging | Environment::Testnet => staging::COLOCATED_URL,
