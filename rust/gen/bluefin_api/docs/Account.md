@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **group_id** | Option<**String**> | The (optional) group ID of the account. Accounts belonging to the same group cannot trade against each other.  | [optional]
+**investor_category** | **String** | The account type. | 
 **trading_fees** | [**models::TradingFees**](TradingFees.md) |  | 
 **can_trade** | **bool** | If the user can trade. | 
 **can_deposit** | **bool** | If the current user can deposit to the account. | 
