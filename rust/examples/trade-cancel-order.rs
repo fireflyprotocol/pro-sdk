@@ -257,12 +257,10 @@ async fn main() -> Result<()> {
                 ),
             ..
         } = websocket_message
-        {
-            if order_cancellation.order_hash == order_hash {
+            && order_cancellation.order_hash == order_hash {
                 println!("Order {order_hash} cancelled");
                 return Ok(());
             }
-        }
     }
 
     shutdown_flag.store(true, std::sync::atomic::Ordering::SeqCst);

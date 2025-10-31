@@ -447,11 +447,11 @@ pub mod conversion {
 
             fn try_from(val: bluefin_api::models::WithdrawRequest) -> Result<Self, Self::Error> {
                 let eds = Address::from_hex(&val.signed_fields.eds_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.eds_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.eds_id.clone()))?;
                 let asset_symbol = val.signed_fields.asset_symbol;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let amount = parse_u64("amount", &val.signed_fields.amount_e9)?;
                 let salt = parse_u64("salt", &val.signed_fields.salt)?;
@@ -477,15 +477,15 @@ pub mod conversion {
                 val: bluefin_api::models::AccountAuthorizationRequest,
             ) -> Result<Self, Self::Error> {
                 let ids = Address::from_hex(&val.signed_fields.ids_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.clone()))?;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let user = Address::from_hex(&val.signed_fields.authorized_account_address)
                     .map_err(|_| {
                         signature::Error::Address(
-                            val.signed_fields.authorized_account_address.to_string(),
+                            val.signed_fields.authorized_account_address.clone(),
                         )
                     })?;
                 let status = true;
@@ -512,15 +512,15 @@ pub mod conversion {
                 val: bluefin_api::models::AccountAuthorizationRequest,
             ) -> Result<Self, Self::Error> {
                 let ids = Address::from_hex(&val.signed_fields.ids_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.clone()))?;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let user = Address::from_hex(&val.signed_fields.authorized_account_address)
                     .map_err(|_| {
                         signature::Error::Address(
-                            val.signed_fields.authorized_account_address.to_string(),
+                            val.signed_fields.authorized_account_address.clone(),
                         )
                     })?;
                 let status = false;
@@ -543,10 +543,10 @@ pub mod conversion {
 
             fn try_from(val: bluefin_api::models::CreateOrderRequest) -> Result<Self, Self::Error> {
                 let ids = Address::from_hex(&val.signed_fields.ids_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.clone()))?;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let market = val.signed_fields.symbol;
                 let price = parse_u64("price", &val.signed_fields.price_e9)?;
@@ -588,10 +588,10 @@ pub mod conversion {
                 val: bluefin_api::models::AccountPositionLeverageUpdateRequest,
             ) -> Result<Self, Self::Error> {
                 let ids = Address::from_hex(&val.signed_fields.ids_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.clone()))?;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let market = val.signed_fields.symbol;
                 let leverage = parse_u64("leverage", &val.signed_fields.leverage_e9)?;
@@ -620,10 +620,10 @@ pub mod conversion {
                 use bluefin_api::models::AdjustMarginOperation;
 
                 let ids = Address::from_hex(&val.signed_fields.ids_id)
-                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.to_string()))?;
+                    .map_err(|_| signature::Error::Address(val.signed_fields.ids_id.clone()))?;
                 let account =
                     Address::from_hex(&val.signed_fields.account_address).map_err(|_| {
-                        signature::Error::Address(val.signed_fields.account_address.to_string())
+                        signature::Error::Address(val.signed_fields.account_address.clone())
                     })?;
                 let market = val.signed_fields.symbol;
                 let add = val.signed_fields.operation == AdjustMarginOperation::Add;
