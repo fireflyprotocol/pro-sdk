@@ -7,7 +7,9 @@ python/sdk/src/.openapi-generator* binary linguist-generated
 python/sdk/src/.openapi-generator/* binary linguist-generated
 ts/sdk/src/.openapi-generator* binary linguist-generated
 ts/sdk/src/.openapi-generator/* binary linguist-generated
+ts/sdk/src/api.ts binary linguist-generated
 ts/sdk/src/configuration.ts binary linguist-generated
+ts/sdk/src/docs/* binary linguist-generated
 ts/sdk/src/index.ts binary linguist-generated
 ts/sdk/src/package.json binary linguist-generated
 ts/sdk/src/tsconfig.json binary linguist-generated
