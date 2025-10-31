@@ -36,6 +36,12 @@ export interface Account {
      */
     'groupId'?: string;
     /**
+     * The account type.
+     * @type {string}
+     * @memberof Account
+     */
+    'investorCategory': AccountInvestorCategoryEnum;
+    /**
      * 
      * @type {TradingFees}
      * @memberof Account
@@ -175,6 +181,14 @@ export interface Account {
      */
     'authorizedWallets': Array<AuthorizedWallet>;
 }
+
+export const AccountInvestorCategoryEnum = {
+    Retail: 'RETAIL',
+    Institutional: 'INSTITUTIONAL'
+} as const;
+
+export type AccountInvestorCategoryEnum = typeof AccountInvestorCategoryEnum[keyof typeof AccountInvestorCategoryEnum];
+
 /**
  * Aggregated details about a trade in the account.
  * @export

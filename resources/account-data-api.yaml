@@ -25,6 +25,7 @@ components:
     Account:
       type: object
       required:
+        - investorCategory
         - tradingFees
         - canTrade
         - canDeposit
@@ -55,6 +56,10 @@ components:
             The (optional) group ID of the account.
             Accounts belonging to the same group cannot trade against each other.
           example: "group1"
+        investorCategory:
+          type: string
+          enum: [RETAIL, INSTITUTIONAL]
+          description: The account type.
         tradingFees:
           $ref: "./common.yaml#/components/schemas/TradingFees"
         canTrade:
