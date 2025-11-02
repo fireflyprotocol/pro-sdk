@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **perpsRank** | **number** | Ranking in perps trading category | [default to undefined]
 **spotRank** | **number** | Ranking in spot trading category | [default to undefined]
 **lendingRank** | **number** | Ranking in lending category | [default to undefined]
+**emberRank** | **number** | Ranking in ember category | [default to undefined]
 **perpsTotalEarningsE9** | **string** | Total earnings from perps trading (e9 format) | [default to undefined]
 **spotTotalEarningsE9** | **string** | Total earnings from spot trading (e9 format) | [default to undefined]
 **lendingTotalEarningsE9** | **string** | Total earnings from lending (e9 format) | [default to undefined]
@@ -29,6 +30,7 @@ const instance: AffiliateLeaderDashboard = {
     perpsRank,
     spotRank,
     lendingRank,
+    emberRank,
     perpsTotalEarningsE9,
     spotTotalEarningsE9,
     lendingTotalEarningsE9,
