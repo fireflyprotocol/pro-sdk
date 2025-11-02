@@ -714,6 +714,7 @@ components:
         - perpsRank
         - spotRank
         - lendingRank
+        - emberRank
         - perpsTotalEarningsE9
         - spotTotalEarningsE9
         - lendingTotalEarningsE9
@@ -746,6 +747,10 @@ components:
           type: integer
           description: Ranking in lending category
           example: 7
+        emberRank:
+          type: integer
+          description: Ranking in ember category
+          example: 4
         perpsTotalEarningsE9:
           type: string
           description: Total earnings from perps trading (e9 format)

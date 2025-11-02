@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **perps_rank** | **i32** | Ranking in perps trading category | 
 **spot_rank** | **i32** | Ranking in spot trading category | 
 **lending_rank** | **i32** | Ranking in lending category | 
+**ember_rank** | **i32** | Ranking in ember category | 
 **perps_total_earnings_e9** | **String** | Total earnings from perps trading (e9 format) | 
 **spot_total_earnings_e9** | **String** | Total earnings from spot trading (e9 format) | 
 **lending_total_earnings_e9** | **String** | Total earnings from lending (e9 format) | 

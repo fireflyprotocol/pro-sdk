@@ -1333,6 +1333,12 @@ export interface AffiliateLeaderDashboard {
      */
     'lendingRank': number;
     /**
+     * Ranking in ember category
+     * @type {number}
+     * @memberof AffiliateLeaderDashboard
+     */
+    'emberRank': number;
+    /**
      * Total earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateLeaderDashboard
