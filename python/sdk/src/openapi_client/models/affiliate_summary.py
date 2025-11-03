@@ -32,7 +32,8 @@ class AffiliateSummary(BaseModel):
     perps_ranking: StrictInt = Field(description="Ranking in perps trading category", alias="perpsRanking")
     spot_ranking: StrictInt = Field(description="Ranking in spot trading category", alias="spotRanking")
     lend_ranking: StrictInt = Field(description="Ranking in lending category", alias="lendRanking")
-    __properties: ClassVar[List[str]] = ["userAddress", "totalReferredUsers", "totalEarningsE9", "perpsRanking", "spotRanking", "lendRanking"]
+    ember_ranking: StrictInt = Field(description="Ranking in ember category", alias="emberRanking")
+    __properties: ClassVar[List[str]] = ["userAddress", "totalReferredUsers", "totalEarningsE9", "perpsRanking", "spotRanking", "lendRanking", "emberRanking"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +91,8 @@ class AffiliateSummary(BaseModel):
             "totalEarningsE9": obj.get("totalEarningsE9"),
             "perpsRanking": obj.get("perpsRanking"),
             "spotRanking": obj.get("spotRanking"),
-            "lendRanking": obj.get("lendRanking")
+            "lendRanking": obj.get("lendRanking"),
+            "emberRanking": obj.get("emberRanking")
         })
         return _obj
 

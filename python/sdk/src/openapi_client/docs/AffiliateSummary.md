@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **perps_ranking** | **int** | Ranking in perps trading category | 
 **spot_ranking** | **int** | Ranking in spot trading category | 
 **lend_ranking** | **int** | Ranking in lending category | 
+**ember_ranking** | **int** | Ranking in ember category | 
 
 ## Example
 
