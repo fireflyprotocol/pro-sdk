@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **perpsRanking** | **number** | Ranking in perps trading category | [default to undefined]
 **spotRanking** | **number** | Ranking in spot trading category | [default to undefined]
 **lendRanking** | **number** | Ranking in lending category | [default to undefined]
+**emberRanking** | **number** | Ranking in ember category | [default to undefined]
 
 ## Example
 
@@ -24,6 +25,7 @@ const instance: AffiliateSummary = {
     perpsRanking,
     spotRanking,
     lendRanking,
+    emberRanking,
 };
 ```
 

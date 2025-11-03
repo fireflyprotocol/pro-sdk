@@ -1614,6 +1614,12 @@ export interface AffiliateSummary {
      * @memberof AffiliateSummary
      */
     'lendRanking': number;
+    /**
+     * Ranking in ember category
+     * @type {number}
+     * @memberof AffiliateSummary
+     */
+    'emberRanking': number;
 }
 /**
  * Details about an asset in the account.

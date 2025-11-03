@@ -482,6 +482,7 @@ components:
         - perpsRanking
         - spotRanking
         - lendRanking
+        - emberRanking
       properties:
         userAddress:
           type: string
@@ -507,6 +508,10 @@ components:
           type: integer
           description: Ranking in lending category
           example: 7
+        emberRanking:
+          type: integer
+          description: Ranking in ember category
+          example: 4
 
     AffiliateOverview:
       type: object
