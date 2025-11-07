@@ -529,9 +529,7 @@ export class BluefinProSdk {
     }
 
     if (this.isConnected) {
-      if (this.refreshTokenPromise) {
-        await this.refreshTokenPromise;
-      } else if (this.isAccessTokenExpired()) {
+      if (this.isAccessTokenExpired()) {
         await this.refreshToken();
       }
     } else if (this.isAccessTokenExpired()) {
@@ -839,8 +837,8 @@ export class BluefinProSdk {
     if (this.isRefreshing) {
       if (this.refreshTokenPromise) {
         await this.refreshTokenPromise;
+        return;
       }
-      return;
     }
 
     // Check if token needs refreshing
@@ -849,9 +847,9 @@ export class BluefinProSdk {
     }
 
     this.isRefreshing = true;
-    this.refreshTokenPromise = this.performTokenRefresh();
 
     try {
+      this.refreshTokenPromise = this.performTokenRefresh();
       await this.refreshTokenPromise;
     } finally {
       this.isRefreshing = false;
@@ -965,7 +963,7 @@ export class BluefinProSdk {
     const accessToken = await this.getAccessToken();
     return new Promise((resolve) => {
       const ws = new WebSocket(
-        this.configs[Services.AccountWebsocket]!.basePath!,
+        String(this.configs[Services.AccountWebsocket]!.basePath),
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
