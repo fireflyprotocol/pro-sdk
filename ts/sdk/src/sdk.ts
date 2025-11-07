@@ -837,8 +837,8 @@ export class BluefinProSdk {
     if (this.isRefreshing) {
       if (this.refreshTokenPromise) {
         await this.refreshTokenPromise;
-        return;
       }
+      return;
     }
 
     // Check if token needs refreshing
@@ -963,7 +963,7 @@ export class BluefinProSdk {
     const accessToken = await this.getAccessToken();
     return new Promise((resolve) => {
       const ws = new WebSocket(
-        String(this.configs[Services.AccountWebsocket]!.basePath),
+        this.configs[Services.AccountWebsocket]!.basePath!,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
