@@ -483,6 +483,9 @@ components:
         - spotRanking
         - lendRanking
         - emberRanking
+        - totalEmberEarningsE9
+        - totalPerpsEarningsE9
+        - totalSpotEarningsE9
       properties:
         userAddress:
           type: string
@@ -512,6 +515,18 @@ components:
           type: integer
           description: Ranking in ember category
           example: 4
+        totalEmberEarningsE9:
+          type: string
+          description: Total earnings from ember (e9 format)
+          example: "1000000000"
+        totalSpotEarningsE9:
+          type: string
+          description: Total earnings from spot (e9 format)
+          example: "1000000000"
+        totalPerpsEarningsE9:
+          type: string
+          description: Total earnings from perps (e9 format)
+          example: "1000000000"
 
     AffiliateOverview:
       type: object
