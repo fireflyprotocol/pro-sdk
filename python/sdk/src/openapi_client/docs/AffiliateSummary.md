@@ -12,6 +12,9 @@ Name | Type | Description | Notes
 **spot_ranking** | **int** | Ranking in spot trading category | 
 **lend_ranking** | **int** | Ranking in lending category | 
 **ember_ranking** | **int** | Ranking in ember category | 
+**total_ember_earnings_e9** | **str** | Total earnings from ember (e9 format) | 
+**total_spot_earnings_e9** | **str** | Total earnings from spot (e9 format) | 
+**total_perps_earnings_e9** | **str** | Total earnings from perps (e9 format) | 
 
 ## Example
 

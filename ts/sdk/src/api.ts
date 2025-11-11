@@ -1620,6 +1620,24 @@ export interface AffiliateSummary {
      * @memberof AffiliateSummary
      */
     'emberRanking': number;
+    /**
+     * Total earnings from ember (e9 format)
+     * @type {string}
+     * @memberof AffiliateSummary
+     */
+    'totalEmberEarningsE9': string;
+    /**
+     * Total earnings from spot (e9 format)
+     * @type {string}
+     * @memberof AffiliateSummary
+     */
+    'totalSpotEarningsE9': string;
+    /**
+     * Total earnings from perps (e9 format)
+     * @type {string}
+     * @memberof AffiliateSummary
+     */
+    'totalPerpsEarningsE9': string;
 }
 /**
  * Details about an asset in the account.

@@ -34,10 +34,19 @@ pub struct AffiliateSummary {
     /// Ranking in ember category
     #[serde(rename = "emberRanking")]
     pub ember_ranking: i32,
+    /// Total earnings from ember (e9 format)
+    #[serde(rename = "totalEmberEarningsE9")]
+    pub total_ember_earnings_e9: String,
+    /// Total earnings from spot (e9 format)
+    #[serde(rename = "totalSpotEarningsE9")]
+    pub total_spot_earnings_e9: String,
+    /// Total earnings from perps (e9 format)
+    #[serde(rename = "totalPerpsEarningsE9")]
+    pub total_perps_earnings_e9: String,
 }
 
 impl AffiliateSummary {
-    pub fn new(user_address: String, total_referred_users: i32, total_earnings_e9: String, perps_ranking: i32, spot_ranking: i32, lend_ranking: i32, ember_ranking: i32) -> AffiliateSummary {
+    pub fn new(user_address: String, total_referred_users: i32, total_earnings_e9: String, perps_ranking: i32, spot_ranking: i32, lend_ranking: i32, ember_ranking: i32, total_ember_earnings_e9: String, total_spot_earnings_e9: String, total_perps_earnings_e9: String) -> AffiliateSummary {
         AffiliateSummary {
             user_address,
             total_referred_users,
@@ -46,6 +55,9 @@ impl AffiliateSummary {
             spot_ranking,
             lend_ranking,
             ember_ranking,
+            total_ember_earnings_e9,
+            total_spot_earnings_e9,
+            total_perps_earnings_e9,
         }
     }
 }
