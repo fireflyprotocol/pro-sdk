@@ -33,6 +33,8 @@ openapi_client/docs/AccountSubscriptionMessage.md
 openapi_client/docs/AccountTradeUpdate.md
 openapi_client/docs/AccountTransactionUpdate.md
 openapi_client/docs/AccountUpdate.md
+openapi_client/docs/AccountValueHistory.md
+openapi_client/docs/AccountValueHistoryData.md
 openapi_client/docs/ActiveOrderUpdate.md
 openapi_client/docs/AdjustIsolatedMarginRequest.md
 openapi_client/docs/AdjustIsolatedMarginRequestSignedFields.md
@@ -67,6 +69,7 @@ openapi_client/docs/ExchangeInfoResponse.md
 openapi_client/docs/FailedCommandType.md
 openapi_client/docs/FeeConfigs.md
 openapi_client/docs/FundingRateEntry.md
+openapi_client/docs/GetAccountValueHistoryParamsInterval.md
 openapi_client/docs/GetAffiliateIntervalOverview200Response.md
 openapi_client/docs/GetAffiliateLeaderDashboard200Response.md
 openapi_client/docs/GetAffiliateOverview200Response.md
@@ -166,6 +169,8 @@ openapi_client/models/account_subscription_message.py
 openapi_client/models/account_trade_update.py
 openapi_client/models/account_transaction_update.py
 openapi_client/models/account_update.py
+openapi_client/models/account_value_history.py
+openapi_client/models/account_value_history_data.py
 openapi_client/models/active_order_update.py
 openapi_client/models/adjust_isolated_margin_request.py
 openapi_client/models/adjust_isolated_margin_request_signed_fields.py
@@ -198,6 +203,7 @@ openapi_client/models/exchange_info_response.py
 openapi_client/models/failed_command_type.py
 openapi_client/models/fee_configs.py
 openapi_client/models/funding_rate_entry.py
+openapi_client/models/get_account_value_history_params_interval.py
 openapi_client/models/get_affiliate_interval_overview200_response.py
 openapi_client/models/get_affiliate_leader_dashboard200_response.py
 openapi_client/models/get_affiliate_overview200_response.py
@@ -271,4 +277,7 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_account_value_history.py
+openapi_client/test/test_account_value_history_data.py
+openapi_client/test/test_get_account_value_history_params_interval.py
 openapi_client_README.md

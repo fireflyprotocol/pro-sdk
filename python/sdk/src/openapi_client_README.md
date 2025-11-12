@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_preferences**](openapi_client/docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**get_account_trades**](openapi_client/docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](openapi_client/docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+*AccountDataApi* | [**get_account_value_history**](openapi_client/docs/AccountDataApi.md#get_account_value_history) | **GET** /api/v1/account/valueHistory | /account/valueHistory
 *AccountDataApi* | [**patch_account_group_id**](openapi_client/docs/AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 *AccountDataApi* | [**put_account_preferences**](openapi_client/docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**sponsor_tx**](openapi_client/docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
@@ -145,6 +146,8 @@ Class | Method | HTTP request | Description
  - [AccountTradeUpdate](openapi_client/docs/AccountTradeUpdate.md)
  - [AccountTransactionUpdate](openapi_client/docs/AccountTransactionUpdate.md)
  - [AccountUpdate](openapi_client/docs/AccountUpdate.md)
+ - [AccountValueHistory](openapi_client/docs/AccountValueHistory.md)
+ - [AccountValueHistoryData](openapi_client/docs/AccountValueHistoryData.md)
  - [ActiveOrderUpdate](openapi_client/docs/ActiveOrderUpdate.md)
  - [AdjustIsolatedMarginRequest](openapi_client/docs/AdjustIsolatedMarginRequest.md)
  - [AdjustIsolatedMarginRequestSignedFields](openapi_client/docs/AdjustIsolatedMarginRequestSignedFields.md)
@@ -177,6 +180,7 @@ Class | Method | HTTP request | Description
  - [FailedCommandType](openapi_client/docs/FailedCommandType.md)
  - [FeeConfigs](openapi_client/docs/FeeConfigs.md)
  - [FundingRateEntry](openapi_client/docs/FundingRateEntry.md)
+ - [GetAccountValueHistoryParamsInterval](openapi_client/docs/GetAccountValueHistoryParamsInterval.md)
  - [GetAffiliateIntervalOverview200Response](openapi_client/docs/GetAffiliateIntervalOverview200Response.md)
  - [GetAffiliateLeaderDashboard200Response](openapi_client/docs/GetAffiliateLeaderDashboard200Response.md)
  - [GetAffiliateOverview200Response](openapi_client/docs/GetAffiliateOverview200Response.md)

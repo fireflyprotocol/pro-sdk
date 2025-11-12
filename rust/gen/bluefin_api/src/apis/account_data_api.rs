@@ -70,6 +70,17 @@ pub enum GetAccountTransactionHistoryError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_account_value_history`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAccountValueHistoryError {
+    Status400(models::Error),
+    Status401(models::Error),
+    Status404(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`patch_account_group_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -366,6 +377,47 @@ pub async fn get_account_transaction_history(configuration: &configuration::Conf
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAccountTransactionHistoryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Retrieves the account value history for a specific account over a given time interval.
+pub async fn get_account_value_history(configuration: &configuration::Configuration, interval: &str) -> Result<models::AccountValueHistory, Error<GetAccountValueHistoryError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_interval = interval;
+
+    let uri_str = format!("{}/api/v1/account/valueHistory", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("interval", &p_interval.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AccountValueHistory`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AccountValueHistory`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAccountValueHistoryError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

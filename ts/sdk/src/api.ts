@@ -911,6 +911,86 @@ export interface AccountUpdate {
     'authorizedWallets': Array<AuthorizedWallet>;
 }
 /**
+ * 
+ * @export
+ * @interface AccountValueHistory
+ */
+export interface AccountValueHistory {
+    /**
+     * Latest account value (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'latestValueE9': string;
+    /**
+     * Change in value from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'valueChangeE9': string;
+    /**
+     * Percentage change in value from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'valueChangePercentageE9': string;
+    /**
+     * Latest unrealized PnL value (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'latestUnrealizedPnlE9': string;
+    /**
+     * Change in unrealized PnL from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'unrealizedPnlChangeE9': string;
+    /**
+     * Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'unrealizedPnlChangePercentageE9': string;
+    /**
+     * Total value across all data points (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'totalValueE9': string;
+    /**
+     * 
+     * @type {Array<AccountValueHistoryData>}
+     * @memberof AccountValueHistory
+     */
+    'values': Array<AccountValueHistoryData>;
+}
+/**
+ * 
+ * @export
+ * @interface AccountValueHistoryData
+ */
+export interface AccountValueHistoryData {
+    /**
+     * Timestamp in milliseconds since Unix epoch.
+     * @type {number}
+     * @memberof AccountValueHistoryData
+     */
+    'timestampMillis': number;
+    /**
+     * Unrealized PnL at this timestamp (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistoryData
+     */
+    'unrealizedPnlE9': string;
+    /**
+     * Account value at this timestamp (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistoryData
+     */
+    'valueE9': string;
+}
+/**
  * Information about an order update.
  * @export
  * @interface ActiveOrderUpdate
@@ -2425,6 +2505,23 @@ export interface FundingRateEntry {
      */
     'fundingRateE9': string;
 }
+/**
+ * Time interval for the value history.
+ * @export
+ * @enum {string}
+ */
+
+export const GetAccountValueHistoryParamsInterval = {
+    _24h: '24h',
+    _7d: '7d',
+    _30d: '30d',
+    _90d: '90d',
+    All: 'all'
+} as const;
+
+export type GetAccountValueHistoryParamsInterval = typeof GetAccountValueHistoryParamsInterval[keyof typeof GetAccountValueHistoryParamsInterval];
+
+
 /**
  * 
  * @export
@@ -5565,6 +5662,47 @@ export const AccountDataApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
+         * Retrieves the account value history for a specific account over a given time interval.
+         * @summary /account/valueHistory
+         * @param {GetAccountValueHistoryParamsInterval} interval Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccountValueHistory: async (interval: GetAccountValueHistoryParamsInterval, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'interval' is not null or undefined
+            assertParamExists('getAccountValueHistory', 'interval', interval)
+            const localVarPath = `/api/v1/account/valueHistory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
@@ -5773,6 +5911,19 @@ export const AccountDataApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Retrieves the account value history for a specific account over a given time interval.
+         * @summary /account/valueHistory
+         * @param {GetAccountValueHistoryParamsInterval} interval Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAccountValueHistory(interval: GetAccountValueHistoryParamsInterval, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountValueHistory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountValueHistory(interval, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AccountDataApi.getAccountValueHistory']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
@@ -5885,6 +6036,16 @@ export const AccountDataApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieves the account value history for a specific account over a given time interval.
+         * @summary /account/valueHistory
+         * @param {GetAccountValueHistoryParamsInterval} interval Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccountValueHistory(interval: GetAccountValueHistoryParamsInterval, options?: RawAxiosRequestConfig): AxiosPromise<AccountValueHistory> {
+            return localVarFp.getAccountValueHistory(interval, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Sets or updates the group ID for a specific account. Accounts belonging to the same group cannot trade against each other. If the groupId is not set, the account will be removed from its group. Only the first 6 characters of the groupID are guaranteed to be respected, longer group IDs may be rejected. 
          * @summary Set the group ID for an account.
          * @param {AccountGroupIdPatch} accountGroupIdPatch Account group ID update.
@@ -5995,6 +6156,18 @@ export class AccountDataApi extends BaseAPI {
      */
     public getAccountTransactionHistory(types?: Array<TransactionType>, assetSymbol?: string, startTimeAtMillis?: number, endTimeAtMillis?: number, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
         return AccountDataApiFp(this.configuration).getAccountTransactionHistory(types, assetSymbol, startTimeAtMillis, endTimeAtMillis, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieves the account value history for a specific account over a given time interval.
+     * @summary /account/valueHistory
+     * @param {GetAccountValueHistoryParamsInterval} interval Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountDataApi
+     */
+    public getAccountValueHistory(interval: GetAccountValueHistoryParamsInterval, options?: RawAxiosRequestConfig) {
+        return AccountDataApiFp(this.configuration).getAccountValueHistory(interval, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
