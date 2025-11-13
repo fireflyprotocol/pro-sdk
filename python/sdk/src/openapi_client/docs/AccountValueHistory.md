@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **latest_unrealized_pnl_e9** | **str** | Latest unrealized PnL value (e9 format). | 
 **unrealized_pnl_change_e9** | **str** | Change in unrealized PnL from the first to the last value in the interval (e9 format). | 
 **unrealized_pnl_change_percentage_e9** | **str** | Percentage change in unrealized PnL from the first to the last value in the interval (e9 format). | 
-**total_value_e9** | **str** | Total value across all data points (e9 format). | 
 **values** | [**List[AccountValueHistoryData]**](AccountValueHistoryData.md) |  | 
 
 ## Example

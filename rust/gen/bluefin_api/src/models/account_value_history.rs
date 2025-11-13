@@ -31,15 +31,12 @@ pub struct AccountValueHistory {
     /// Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).
     #[serde(rename = "unrealizedPnlChangePercentageE9")]
     pub unrealized_pnl_change_percentage_e9: String,
-    /// Total value across all data points (e9 format).
-    #[serde(rename = "totalValueE9")]
-    pub total_value_e9: String,
     #[serde(rename = "values")]
     pub values: Vec<models::AccountValueHistoryData>,
 }
 
 impl AccountValueHistory {
-    pub fn new(latest_value_e9: String, value_change_e9: String, value_change_percentage_e9: String, latest_unrealized_pnl_e9: String, unrealized_pnl_change_e9: String, unrealized_pnl_change_percentage_e9: String, total_value_e9: String, values: Vec<models::AccountValueHistoryData>) -> AccountValueHistory {
+    pub fn new(latest_value_e9: String, value_change_e9: String, value_change_percentage_e9: String, latest_unrealized_pnl_e9: String, unrealized_pnl_change_e9: String, unrealized_pnl_change_percentage_e9: String, values: Vec<models::AccountValueHistoryData>) -> AccountValueHistory {
         AccountValueHistory {
             latest_value_e9,
             value_change_e9,
@@ -47,7 +44,6 @@ impl AccountValueHistory {
             latest_unrealized_pnl_e9,
             unrealized_pnl_change_e9,
             unrealized_pnl_change_percentage_e9,
-            total_value_e9,
             values,
         }
     }

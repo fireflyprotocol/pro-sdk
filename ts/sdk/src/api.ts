@@ -953,12 +953,6 @@ export interface AccountValueHistory {
      */
     'unrealizedPnlChangePercentageE9': string;
     /**
-     * Total value across all data points (e9 format).
-     * @type {string}
-     * @memberof AccountValueHistory
-     */
-    'totalValueE9': string;
-    /**
      * 
      * @type {Array<AccountValueHistoryData>}
      * @memberof AccountValueHistory

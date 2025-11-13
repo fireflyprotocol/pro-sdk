@@ -423,7 +423,6 @@ components:
         - latestUnrealizedPnlE9
         - unrealizedPnlChangeE9
         - unrealizedPnlChangePercentageE9
-        - totalValueE9
         - values
       properties:
         latestValueE9:
@@ -449,10 +448,6 @@ components:
         unrealizedPnlChangePercentageE9:
           type: string
           description: Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).
-          example: "0"
-        totalValueE9:
-          type: string
-          description: Total value across all data points (e9 format).
           example: "0"
         values:
           type: array
