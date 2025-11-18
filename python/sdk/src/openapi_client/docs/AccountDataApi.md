@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+[**get_account_value_history**](AccountDataApi.md#get_account_value_history) | **GET** /api/v1/account/valueHistory | /account/valueHistory
 [**patch_account_group_id**](AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 [**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 [**sponsor_tx**](AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
@@ -433,6 +434,88 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response with transaction history details. |  -  |
+**400** | request missing required parameters |  -  |
+**401** | unauthorized access |  -  |
+**404** | account not found |  -  |
+**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_account_value_history**
+> AccountValueHistory get_account_value_history(interval)
+
+/account/valueHistory
+
+Retrieves the account value history for a specific account over a given time interval.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.account_value_history import AccountValueHistory
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.AccountDataApi(api_client)
+    interval = openapi_client.GetAccountValueHistoryParamsInterval() # GetAccountValueHistoryParamsInterval | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+
+    try:
+        # /account/valueHistory
+        api_response = await api_instance.get_account_value_history(interval)
+        print("The response of AccountDataApi->get_account_value_history:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountDataApi->get_account_value_history: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **interval** | **GetAccountValueHistoryParamsInterval**| Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | 
+
+### Return type
+
+[**AccountValueHistory**](AccountValueHistory.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response with account value history. |  -  |
 **400** | request missing required parameters |  -  |
 **401** | unauthorized access |  -  |
 **404** | account not found |  -  |
