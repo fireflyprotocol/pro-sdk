@@ -2759,12 +2759,6 @@ export interface MarkAsClaimedRequest {
      * @memberof MarkAsClaimedRequest
      */
     'txnDigest': string;
-    /**
-     * The reward types to mark as claimed
-     * @type {Array<string>}
-     * @memberof MarkAsClaimedRequest
-     */
-    'rewardTypes': Array<MarkAsClaimedRequestRewardTypesEnum>;
 }
 
 export const MarkAsClaimedRequestCampaignNameEnum = {
@@ -2774,15 +2768,6 @@ export const MarkAsClaimedRequestCampaignNameEnum = {
 } as const;
 
 export type MarkAsClaimedRequestCampaignNameEnum = typeof MarkAsClaimedRequestCampaignNameEnum[keyof typeof MarkAsClaimedRequestCampaignNameEnum];
-export const MarkAsClaimedRequestRewardTypesEnum = {
-    Blue: 'BLUE',
-    Sui: 'SUI',
-    Cash: 'CASH',
-    Wal: 'WAL',
-    Deep: 'DEEP'
-} as const;
-
-export type MarkAsClaimedRequestRewardTypesEnum = typeof MarkAsClaimedRequestRewardTypesEnum[keyof typeof MarkAsClaimedRequestRewardTypesEnum];
 
 /**
  * 

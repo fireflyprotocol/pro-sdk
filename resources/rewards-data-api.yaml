@@ -1682,20 +1682,6 @@ paths:
                   type: string
                   description: The transaction digest of the claim
                   example: "0x1234567890abcdef"
-                rewardTypes:
-                  type: array
-                  description: The reward types to mark as claimed
-                  items:
-                    type: string
-                    description: The reward type
-                    enum:
-                      - BLUE
-                      - SUI
-                      - CASH
-                      - WAL
-                      - DEEP
-                  example:
-                    - ["BLUE", "SUI"]
       responses:
         "200":
           description: Successful response indicating if the claim was marked as claimed successfully

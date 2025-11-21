@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **interval_number** | **int** | The interval number | 
 **campaign_name** | **str** | The campaign name | 
 **txn_digest** | **str** | The transaction digest of the claim | 
-**reward_types** | **List[str]** | The reward types to mark as claimed | 
 
 ## Example
 

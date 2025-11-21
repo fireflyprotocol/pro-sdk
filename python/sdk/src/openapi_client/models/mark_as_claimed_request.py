@@ -29,22 +29,13 @@ class MarkAsClaimedRequest(BaseModel):
     interval_number: StrictInt = Field(description="The interval number", alias="intervalNumber")
     campaign_name: StrictStr = Field(description="The campaign name", alias="campaignName")
     txn_digest: StrictStr = Field(description="The transaction digest of the claim", alias="txnDigest")
-    reward_types: List[StrictStr] = Field(description="The reward types to mark as claimed", alias="rewardTypes")
-    __properties: ClassVar[List[str]] = ["intervalNumber", "campaignName", "txnDigest", "rewardTypes"]
+    __properties: ClassVar[List[str]] = ["intervalNumber", "campaignName", "txnDigest"]
 
     @field_validator('campaign_name')
     def campaign_name_validate_enum(cls, value):
         """Validates the enum"""
         if value not in set(['TRADE_AND_EARN', 'WAL_TRADE_AND_EARN', 'AFFILIATE']):
             raise ValueError("must be one of enum values ('TRADE_AND_EARN', 'WAL_TRADE_AND_EARN', 'AFFILIATE')")
-        return value
-
-    @field_validator('reward_types')
-    def reward_types_validate_enum(cls, value):
-        """Validates the enum"""
-        for i in value:
-            if i not in set(['BLUE', 'SUI', 'CASH', 'WAL', 'DEEP']):
-                raise ValueError("each list item must be one of ('BLUE', 'SUI', 'CASH', 'WAL', 'DEEP')")
         return value
 
     model_config = ConfigDict(
@@ -100,8 +91,7 @@ class MarkAsClaimedRequest(BaseModel):
         _obj = cls.model_validate({
             "intervalNumber": obj.get("intervalNumber"),
             "campaignName": obj.get("campaignName"),
-            "txnDigest": obj.get("txnDigest"),
-            "rewardTypes": obj.get("rewardTypes")
+            "txnDigest": obj.get("txnDigest")
         })
         return _obj
 

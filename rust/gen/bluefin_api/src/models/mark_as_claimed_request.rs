@@ -22,18 +22,14 @@ pub struct MarkAsClaimedRequest {
     /// The transaction digest of the claim
     #[serde(rename = "txnDigest")]
     pub txn_digest: String,
-    /// The reward types to mark as claimed
-    #[serde(rename = "rewardTypes")]
-    pub reward_types: Vec<RewardTypes>,
 }
 
 impl MarkAsClaimedRequest {
-    pub fn new(interval_number: i32, campaign_name: CampaignName, txn_digest: String, reward_types: Vec<RewardTypes>) -> MarkAsClaimedRequest {
+    pub fn new(interval_number: i32, campaign_name: CampaignName, txn_digest: String) -> MarkAsClaimedRequest {
         MarkAsClaimedRequest {
             interval_number,
             campaign_name,
             txn_digest,
-            reward_types,
         }
     }
 }
@@ -51,26 +47,6 @@ pub enum CampaignName {
 impl Default for CampaignName {
     fn default() -> CampaignName {
         Self::TradeAndEarn
-    }
-}
-/// The reward types to mark as claimed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum RewardTypes {
-    #[serde(rename = "BLUE")]
-    Blue,
-    #[serde(rename = "SUI")]
-    Sui,
-    #[serde(rename = "CASH")]
-    Cash,
-    #[serde(rename = "WAL")]
-    Wal,
-    #[serde(rename = "DEEP")]
-    Deep,
-}
-
-impl Default for RewardTypes {
-    fn default() -> RewardTypes {
-        Self::Blue
     }
 }
 
