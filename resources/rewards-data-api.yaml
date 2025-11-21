@@ -1663,7 +1663,6 @@ paths:
               required:
                 - intervalNumber
                 - campaignName
-                - rewardTypes
                 - txnDigest
               properties:
                 intervalNumber:
