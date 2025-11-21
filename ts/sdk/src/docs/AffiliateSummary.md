@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **perpsRanking** | **number** | Ranking in perps trading category | [default to undefined]
 **spotRanking** | **number** | Ranking in spot trading category | [default to undefined]
 **lendRanking** | **number** | Ranking in lending category | [default to undefined]
+**emberRanking** | **number** | Ranking in ember category | [default to undefined]
+**totalEmberEarningsE9** | **string** | Total earnings from ember (e9 format) | [default to undefined]
+**totalSpotEarningsE9** | **string** | Total earnings from spot (e9 format) | [default to undefined]
+**totalPerpsEarningsE9** | **string** | Total earnings from perps (e9 format) | [default to undefined]
 
 ## Example
 
@@ -24,6 +28,10 @@ const instance: AffiliateSummary = {
     perpsRanking,
     spotRanking,
     lendRanking,
+    emberRanking,
+    totalEmberEarningsE9,
+    totalSpotEarningsE9,
+    totalPerpsEarningsE9,
 };
 ```
 

@@ -146,7 +146,7 @@ export class BluefinProSdk {
   private onLogout?: () => void;
   private onAccessTokenUpdate?: (accessToken: string) => void;
   private isRefreshing: boolean;
-  private refreshPromise: Promise<void> | null;
+  private refreshTokenPromise: Promise<void> | null;
   private visibilityChangeHandler?: () => void;
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
@@ -168,7 +168,7 @@ export class BluefinProSdk {
     this.onLogout = opts?.onLogout;
     this.onAccessTokenUpdate = opts?.onAccessTokenUpdate;
     this.isRefreshing = false;
-    this.refreshPromise = null;
+    this.refreshTokenPromise = null;
     this.visibilityChangeHandler = undefined;
     this.onlineHandler = undefined;
     this.offlineHandler = undefined;
@@ -207,27 +207,33 @@ export class BluefinProSdk {
     this.configs[Services.Auth] = authApiConfig;
     this.authApi = new AuthApi(authApiConfig);
 
+    const boundGetAccessToken = this.getAccessToken.bind(this);
+
     const exchangeApiConfig = new Configuration({
       basePath: basePaths.apiHost,
     });
+    exchangeApiConfig.accessToken = boundGetAccessToken;
     this.configs[Services.Exchange] = exchangeApiConfig;
     this.exchangeDataApi = new ExchangeApi(exchangeApiConfig);
 
     const rewardsApiConfig = new Configuration({
       basePath: basePaths.apiHost,
     });
+    rewardsApiConfig.accessToken = boundGetAccessToken;
     this.configs[Services.Rewards] = rewardsApiConfig;
     this.rewardsDataApi = new RewardsApi(rewardsApiConfig);
 
     const accountDataApiConfig = new Configuration({
       basePath: basePaths.apiHost,
     });
+    accountDataApiConfig.accessToken = boundGetAccessToken;
     this.configs[Services.Account] = accountDataApiConfig;
     this.accountDataApi = new AccountDataApi(accountDataApiConfig);
 
     const tradeApiConfig = new Configuration({
       basePath: basePaths.tradeHost,
     });
+    tradeApiConfig.accessToken = boundGetAccessToken;
     this.configs[Services.Trade] = tradeApiConfig;
     this.tradeApi = new TradeApi(tradeApiConfig);
 
@@ -350,12 +356,6 @@ export class BluefinProSdk {
 
     this.isConnected = true;
 
-    this.configs[Services.Account]!.accessToken =
-      this.tokenResponse.accessToken;
-    this.configs[Services.Trade]!.accessToken = this.tokenResponse.accessToken;
-    this.configs[Services.Rewards]!.accessToken =
-      this.tokenResponse.accessToken;
-
     // Notify about token refresh
     this.onAccessTokenUpdate?.(this.tokenResponse.accessToken);
 
@@ -454,7 +454,6 @@ export class BluefinProSdk {
 
   private async login(): Promise<void> {
     console.log('Logging in to get the access token');
-    this.tokenSetAtSeconds = Date.now() / 1000;
 
     if (!this.currentAccountAddress) {
       this.currentAccountAddress = this.bfSigner.getAddress();
@@ -470,6 +469,7 @@ export class BluefinProSdk {
           refreshToken: this.tokenResponse.refreshToken,
         });
         this.tokenResponse = response.data;
+        this.tokenSetAtSeconds = Date.now() / 1000;
         console.log('Token refreshed successfully');
         return;
       } catch (e) {
@@ -501,6 +501,7 @@ export class BluefinProSdk {
         this.initializeOptions?.readOnly
       );
       this.tokenResponse = response.data;
+      this.tokenSetAtSeconds = Date.now() / 1000;
     } catch (e) {
       console.error('Full login failed:', e);
 
@@ -518,11 +519,28 @@ export class BluefinProSdk {
     }
   }
 
-  public async getAccessToken() {
+  public async getAccessToken(): Promise<string> {
     if (!this.tokenResponse) {
       await this.login();
     }
-    return this.tokenResponse!.accessToken;
+
+    if (!this.tokenResponse) {
+      throw new Error('Unable to obtain access token');
+    }
+
+    if (this.isConnected) {
+      if (this.isAccessTokenExpired()) {
+        await this.refreshToken();
+      }
+    } else if (this.isAccessTokenExpired()) {
+      await this.login();
+    }
+
+    if (!this.tokenResponse) {
+      throw new Error('Access token unavailable after refresh');
+    }
+
+    return this.tokenResponse.accessToken;
   }
 
   public async getOpenOrders(symbol?: string) {
@@ -817,8 +835,8 @@ export class BluefinProSdk {
 
     // If already refreshing, wait for that operation to complete
     if (this.isRefreshing) {
-      if (this.refreshPromise) {
-        await this.refreshPromise;
+      if (this.refreshTokenPromise) {
+        await this.refreshTokenPromise;
       }
       return;
     }
@@ -829,13 +847,13 @@ export class BluefinProSdk {
     }
 
     this.isRefreshing = true;
-    this.refreshPromise = this.performTokenRefresh();
 
     try {
-      await this.refreshPromise;
+      this.refreshTokenPromise = this.performTokenRefresh();
+      await this.refreshTokenPromise;
     } finally {
       this.isRefreshing = false;
-      this.refreshPromise = null;
+      this.refreshTokenPromise = null;
     }
   }
 
@@ -942,15 +960,13 @@ export class BluefinProSdk {
   public async createAccountDataStreamListener(
     handler: (data: AccountStreamMessage) => Promise<void>
   ): Promise<WebSocket> {
+    const accessToken = await this.getAccessToken();
     return new Promise((resolve) => {
-      if (!this.tokenResponse) {
-        throw new Error('Missing tokenResponse');
-      }
       const ws = new WebSocket(
         this.configs[Services.AccountWebsocket]!.basePath!,
         {
           headers: {
-            Authorization: `Bearer ${this.tokenResponse.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );

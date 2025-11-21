@@ -260,6 +260,8 @@ paths:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1leaderDashboard"
   /v1/rewards/affiliate/emberRefferalShare:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1affiliate~1emberRefferalShare"
+  /v1/rewards/claims/mark-claimed:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1claims~1mark-claimed"
   
   
   

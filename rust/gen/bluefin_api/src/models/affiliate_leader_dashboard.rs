@@ -34,6 +34,9 @@ pub struct AffiliateLeaderDashboard {
     /// Ranking in lending category
     #[serde(rename = "lendingRank")]
     pub lending_rank: i32,
+    /// Ranking in ember category
+    #[serde(rename = "emberRank")]
+    pub ember_rank: i32,
     /// Total earnings from perps trading (e9 format)
     #[serde(rename = "perpsTotalEarningsE9")]
     pub perps_total_earnings_e9: String,
@@ -46,7 +49,7 @@ pub struct AffiliateLeaderDashboard {
 }
 
 impl AffiliateLeaderDashboard {
-    pub fn new(user_address: String, parent_address: String, perps_rank: i32, spot_rank: i32, lending_rank: i32, perps_total_earnings_e9: String, spot_total_earnings_e9: String, lending_total_earnings_e9: String) -> AffiliateLeaderDashboard {
+    pub fn new(user_address: String, parent_address: String, perps_rank: i32, spot_rank: i32, lending_rank: i32, ember_rank: i32, perps_total_earnings_e9: String, spot_total_earnings_e9: String, lending_total_earnings_e9: String) -> AffiliateLeaderDashboard {
         AffiliateLeaderDashboard {
             user_address,
             name: None,
@@ -55,6 +58,7 @@ impl AffiliateLeaderDashboard {
             perps_rank,
             spot_rank,
             lending_rank,
+            ember_rank,
             perps_total_earnings_e9,
             spot_total_earnings_e9,
             lending_total_earnings_e9,
