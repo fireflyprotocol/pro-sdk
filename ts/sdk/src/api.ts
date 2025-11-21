@@ -5195,6 +5195,12 @@ export interface UserCampaignRewards {
      * @memberof UserCampaignRewards
      */
     'claimSignature'?: Array<ClaimSignatureItem>;
+    /**
+     * Status of the claim.
+     * @type {string}
+     * @memberof UserCampaignRewards
+     */
+    'claimStatus'?: UserCampaignRewardsClaimStatusEnum;
 }
 
 export const UserCampaignRewardsStatusEnum = {
@@ -5205,6 +5211,13 @@ export const UserCampaignRewardsStatusEnum = {
 } as const;
 
 export type UserCampaignRewardsStatusEnum = typeof UserCampaignRewardsStatusEnum[keyof typeof UserCampaignRewardsStatusEnum];
+export const UserCampaignRewardsClaimStatusEnum = {
+    Claimable: 'CLAIMABLE',
+    Claimed: 'CLAIMED',
+    NotYetClaimable: 'NOT_YET_CLAIMABLE'
+} as const;
+
+export type UserCampaignRewardsClaimStatusEnum = typeof UserCampaignRewardsClaimStatusEnum[keyof typeof UserCampaignRewardsClaimStatusEnum];
 
 /**
  * 

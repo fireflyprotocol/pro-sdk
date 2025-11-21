@@ -115,6 +115,14 @@ components:
           description: Array of claim signatures for different reward types.
           items:
             $ref: "#/components/schemas/ClaimSignatureItem"
+        claimStatus:
+          type: string
+          enum:
+            - CLAIMABLE
+            - CLAIMED
+            - NOT_YET_CLAIMABLE
+          description: Status of the claim.
+          example: "CLAIMABLE"
     ClaimSignatureItem:
       type: object
       required:

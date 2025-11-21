@@ -43,13 +43,24 @@ class UserCampaignRewards(BaseModel):
     is_disbursed: StrictBool = Field(description="Indicates if the rewards have been disbursed.", alias="isDisbursed")
     txn_digest: StrictStr = Field(description="Transaction digest of the disbursement.", alias="txnDigest")
     claim_signature: Optional[List[ClaimSignatureItem]] = Field(default=None, description="Array of claim signatures for different reward types.", alias="claimSignature")
-    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest", "claimSignature"]
+    claim_status: Optional[StrictStr] = Field(default=None, description="Status of the claim.", alias="claimStatus")
+    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest", "claimSignature", "claimStatus"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
         if value not in set(['ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN']):
             raise ValueError("must be one of enum values ('ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN')")
+        return value
+
+    @field_validator('claim_status')
+    def claim_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE']):
+            raise ValueError("must be one of enum values ('CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE')")
         return value
 
     model_config = ConfigDict(
@@ -125,7 +136,8 @@ class UserCampaignRewards(BaseModel):
             "intervalEndDate": obj.get("intervalEndDate"),
             "isDisbursed": obj.get("isDisbursed"),
             "txnDigest": obj.get("txnDigest"),
-            "claimSignature": [ClaimSignatureItem.from_dict(_item) for _item in obj["claimSignature"]] if obj.get("claimSignature") is not None else None
+            "claimSignature": [ClaimSignatureItem.from_dict(_item) for _item in obj["claimSignature"]] if obj.get("claimSignature") is not None else None,
+            "claimStatus": obj.get("claimStatus")
         })
         return _obj
 

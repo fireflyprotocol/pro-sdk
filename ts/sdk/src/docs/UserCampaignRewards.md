@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **isDisbursed** | **boolean** | Indicates if the rewards have been disbursed. | [default to undefined]
 **txnDigest** | **string** | Transaction digest of the disbursement. | [default to undefined]
 **claimSignature** | [**Array&lt;ClaimSignatureItem&gt;**](ClaimSignatureItem.md) | Array of claim signatures for different reward types. | [optional] [default to undefined]
+**claimStatus** | **string** | Status of the claim. | [optional] [default to undefined]
 
 ## Example
 
@@ -44,6 +45,7 @@ const instance: UserCampaignRewards = {
     isDisbursed,
     txnDigest,
     claimSignature,
+    claimStatus,
 };
 ```
 

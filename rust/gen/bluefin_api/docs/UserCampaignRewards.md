@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **is_disbursed** | **bool** | Indicates if the rewards have been disbursed. | 
 **txn_digest** | **String** | Transaction digest of the disbursement. | 
 **claim_signature** | Option<[**Vec<models::ClaimSignatureItem>**](ClaimSignatureItem.md)> | Array of claim signatures for different reward types. | [optional]
+**claim_status** | Option<**String**> | Status of the claim. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

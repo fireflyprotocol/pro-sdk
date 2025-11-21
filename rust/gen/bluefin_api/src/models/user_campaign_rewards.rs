@@ -60,6 +60,9 @@ pub struct UserCampaignRewards {
     /// Array of claim signatures for different reward types.
     #[serde(rename = "claimSignature", skip_serializing_if = "Option::is_none")]
     pub claim_signature: Option<Vec<models::ClaimSignatureItem>>,
+    /// Status of the claim.
+    #[serde(rename = "claimStatus", skip_serializing_if = "Option::is_none")]
+    pub claim_status: Option<ClaimStatus>,
 }
 
 impl UserCampaignRewards {
@@ -81,6 +84,7 @@ impl UserCampaignRewards {
             is_disbursed,
             txn_digest,
             claim_signature: None,
+            claim_status: None,
         }
     }
 }
@@ -100,6 +104,22 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Active
+    }
+}
+/// Status of the claim.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ClaimStatus {
+    #[serde(rename = "CLAIMABLE")]
+    Claimable,
+    #[serde(rename = "CLAIMED")]
+    Claimed,
+    #[serde(rename = "NOT_YET_CLAIMABLE")]
+    NotYetClaimable,
+}
+
+impl Default for ClaimStatus {
+    fn default() -> ClaimStatus {
+        Self::Claimable
     }
 }
 

@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **is_disbursed** | **bool** | Indicates if the rewards have been disbursed. | 
 **txn_digest** | **str** | Transaction digest of the disbursement. | 
 **claim_signature** | [**List[ClaimSignatureItem]**](ClaimSignatureItem.md) | Array of claim signatures for different reward types. | [optional] 
+**claim_status** | **str** | Status of the claim. | [optional] 
 
 ## Example
 
