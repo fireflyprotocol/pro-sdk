@@ -79,6 +79,8 @@ from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
 from openapi_client.models.margin_type import MarginType
+from openapi_client.models.mark_as_claimed_request import MarkAsClaimedRequest
+from openapi_client.models.mark_as_claimed_response import MarkAsClaimedResponse
 from openapi_client.models.mark_price_update import MarkPriceUpdate
 from openapi_client.models.market import Market
 from openapi_client.models.market_data_stream_name import MarketDataStreamName

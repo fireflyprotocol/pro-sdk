@@ -473,6 +473,24 @@ components:
           description: Response message indicating if the referral code exists
           example: "onboarded successfully"
 
+    MarkAsClaimedResponse:
+      type: object
+      required:
+        - message
+        - status
+      properties:
+        message:
+          type: string
+          description: Response message indicating if the claim was marked as claimed successfully
+          example: "Claim marked as claimed successfully"
+        status:
+          type: string
+          description: Status of the claim
+          example: "CLAIMED"
+          enum:
+            - CLAIMED
+            - CLAIMABLE
+
     AffiliateSummary:
       type: object
       required:
@@ -1626,3 +1644,71 @@ paths:
               application/json:
                 schema:
                   $ref: "./common.yaml#/components/schemas/Error"
+  
+  /v1/rewards/claims/mark-claimed:
+    post:
+      tags:
+        - Rewards
+      operationId: markAsClaimed
+      summary: /v1/rewards/claims/mark-claimed
+      description: Mark user claims as claimed for the specified campaign name and interval number
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - intervalNumber
+                - campaignName
+                - txnDigest
+              properties:
+                intervalNumber:
+                  type: integer
+                  description: The interval number
+                  example: 1
+                campaignName:
+                  type: string
+                  description: The campaign name
+                  enum:
+                    - TRADE_AND_EARN
+                    - WAL_TRADE_AND_EARN
+                    - AFFILIATE
+                  example: "TRADE_AND_EARN"
+                txnDigest:
+                  type: string
+                  description: The transaction digest of the claim
+                  example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response indicating if the claim was marked as claimed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarkAsClaimedResponse"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "address not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
