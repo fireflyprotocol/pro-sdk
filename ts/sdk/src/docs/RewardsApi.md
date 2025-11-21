@@ -16,6 +16,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
 |[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
+|[**markAsClaimed**](#markasclaimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
 |[**updateAffiliateEmberRefferalShare**](#updateaffiliateemberrefferalshare) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare|
@@ -687,6 +688,62 @@ This endpoint does not have any parameters.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **markAsClaimed**
+> MarkAsClaimedResponse markAsClaimed(markAsClaimedRequest)
+
+Mark user claims as claimed for the specified campaign name and interval number
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration,
+    MarkAsClaimedRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+let markAsClaimedRequest: MarkAsClaimedRequest; //
+
+const { status, data } = await apiInstance.markAsClaimed(
+    markAsClaimedRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **markAsClaimedRequest** | **MarkAsClaimedRequest**|  | |
+
+
+### Return type
+
+**MarkAsClaimedResponse**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response indicating if the claim was marked as claimed successfully |  -  |
+|**401** | unauthorized access |  -  |
+|**404** | address not found |  -  |
+|**400** | request missing required parameters |  -  |
+|**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
