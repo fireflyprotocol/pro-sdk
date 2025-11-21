@@ -45,10 +45,10 @@ pub struct UserCampaignRewards {
     /// Total user fee paid in the epoch (e9 format).
     #[serde(rename = "userFeePaidE9")]
     pub user_fee_paid_e9: String,
-    /// Time in seconds for interval start date.
+    /// Time in milliseconds for interval start date.
     #[serde(rename = "intervalStartDate")]
     pub interval_start_date: i32,
-    /// Time in seconds for interval end date.
+    /// Time in milliseconds for interval end date.
     #[serde(rename = "intervalEndDate")]
     pub interval_end_date: i32,
     /// Indicates if the rewards have been disbursed.
@@ -57,6 +57,9 @@ pub struct UserCampaignRewards {
     /// Transaction digest of the disbursement.
     #[serde(rename = "txnDigest")]
     pub txn_digest: String,
+    /// Array of claim signatures for different reward types.
+    #[serde(rename = "claimSignature", skip_serializing_if = "Option::is_none")]
+    pub claim_signature: Option<Vec<models::ClaimSignatureItem>>,
 }
 
 impl UserCampaignRewards {
@@ -77,6 +80,7 @@ impl UserCampaignRewards {
             interval_end_date,
             is_disbursed,
             txn_digest,
+            claim_signature: None,
         }
     }
 }

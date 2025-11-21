@@ -1877,6 +1877,41 @@ export interface CandlestickUpdate {
 /**
  * 
  * @export
+ * @interface ClaimSignatureItem
+ */
+export interface ClaimSignatureItem {
+    /**
+     * Type of reward for this claim signature.
+     * @type {string}
+     * @memberof ClaimSignatureItem
+     */
+    'rewardType': ClaimSignatureItemRewardTypeEnum;
+    /**
+     * 
+     * @type {SigPayload}
+     * @memberof ClaimSignatureItem
+     */
+    'sigpayload': SigPayload;
+    /**
+     * Signature for the claim.
+     * @type {string}
+     * @memberof ClaimSignatureItem
+     */
+    'signature': string;
+}
+
+export const ClaimSignatureItemRewardTypeEnum = {
+    Blue: 'Blue',
+    Sui: 'Sui',
+    Wal: 'Wal',
+    Cash: 'Cash'
+} as const;
+
+export type ClaimSignatureItemRewardTypeEnum = typeof ClaimSignatureItemRewardTypeEnum[keyof typeof ClaimSignatureItemRewardTypeEnum];
+
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -4111,6 +4146,49 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
 /**
  * 
  * @export
+ * @interface SigPayload
+ */
+export interface SigPayload {
+    /**
+     * Target address for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'target': string;
+    /**
+     * Receiver address for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'receiver': string;
+    /**
+     * Amount to be claimed.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'amount': string;
+    /**
+     * Expiry timestamp for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'expiry': string;
+    /**
+     * Nonce for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'nonce': string;
+    /**
+     * Type identifier for the claim.
+     * @type {number}
+     * @memberof SigPayload
+     */
+    'type': number;
+}
+/**
+ * 
+ * @export
  * @interface SponsorTxRequest
  */
 export interface SponsorTxRequest {
@@ -5088,13 +5166,13 @@ export interface UserCampaignRewards {
      */
     'userFeePaidE9': string;
     /**
-     * Time in seconds for interval start date.
+     * Time in milliseconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
     'intervalStartDate': number;
     /**
-     * Time in seconds for interval end date.
+     * Time in milliseconds for interval end date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
@@ -5111,6 +5189,12 @@ export interface UserCampaignRewards {
      * @memberof UserCampaignRewards
      */
     'txnDigest': string;
+    /**
+     * Array of claim signatures for different reward types.
+     * @type {Array<ClaimSignatureItem>}
+     * @memberof UserCampaignRewards
+     */
+    'claimSignature'?: Array<ClaimSignatureItem>;
 }
 
 export const UserCampaignRewardsStatusEnum = {

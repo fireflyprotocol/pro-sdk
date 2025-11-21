@@ -45,6 +45,7 @@ docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
+docs/ClaimSignatureItem.md
 docs/CommandFailureReasonCode.md
 docs/ContractsConfig.md
 docs/CountryResponse.md
@@ -106,6 +107,7 @@ docs/RefreshTokenResponse.md
 docs/RewardsApi.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SigPayload.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
 docs/StatsAllTimeResponse.md
@@ -185,6 +187,7 @@ src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
 src/models/candlestick_update.rs
+src/models/claim_signature_item.rs
 src/models/command_failure_reason_code.rs
 src/models/contracts_config.rs
 src/models/country_response.rs
@@ -245,6 +248,7 @@ src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
 src/models/rewards_summary.rs
 src/models/self_trade_prevention_type.rs
+src/models/sig_payload.rs
 src/models/sponsor_tx_request.rs
 src/models/sponsor_tx_response.rs
 src/models/stats_all_time_response.rs
