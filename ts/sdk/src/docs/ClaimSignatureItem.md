@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **rewardType** | **string** | Type of reward for this claim signature. | [default to undefined]
-**sigpayload** | [**SigPayload**](SigPayload.md) |  | [default to undefined]
+**sigPayload** | [**SigPayload**](SigPayload.md) |  | [default to undefined]
 **signature** | **string** | Signature for the claim. | [default to undefined]
 
 ## Example
@@ -16,7 +16,7 @@ import { ClaimSignatureItem } from '@bluefin/api-client';
 
 const instance: ClaimSignatureItem = {
     rewardType,
-    sigpayload,
+    sigPayload,
     signature,
 };
 ```

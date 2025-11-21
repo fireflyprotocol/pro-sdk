@@ -28,9 +28,9 @@ class ClaimSignatureItem(BaseModel):
     ClaimSignatureItem
     """ # noqa: E501
     reward_type: StrictStr = Field(description="Type of reward for this claim signature.", alias="rewardType")
-    sigpayload: SigPayload
+    sig_payload: SigPayload = Field(alias="sigPayload")
     signature: StrictStr = Field(description="Signature for the claim.")
-    __properties: ClassVar[List[str]] = ["rewardType", "sigpayload", "signature"]
+    __properties: ClassVar[List[str]] = ["rewardType", "sigPayload", "signature"]
 
     @field_validator('reward_type')
     def reward_type_validate_enum(cls, value):
@@ -78,9 +78,9 @@ class ClaimSignatureItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of sigpayload
-        if self.sigpayload:
-            _dict['sigpayload'] = self.sigpayload.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sig_payload
+        if self.sig_payload:
+            _dict['sigPayload'] = self.sig_payload.to_dict()
         return _dict
 
     @classmethod
@@ -94,7 +94,7 @@ class ClaimSignatureItem(BaseModel):
 
         _obj = cls.model_validate({
             "rewardType": obj.get("rewardType"),
-            "sigpayload": SigPayload.from_dict(obj["sigpayload"]) if obj.get("sigpayload") is not None else None,
+            "sigPayload": SigPayload.from_dict(obj["sigPayload"]) if obj.get("sigPayload") is not None else None,
             "signature": obj.get("signature")
         })
         return _obj

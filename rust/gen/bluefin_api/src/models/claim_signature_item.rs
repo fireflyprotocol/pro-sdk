@@ -16,18 +16,18 @@ pub struct ClaimSignatureItem {
     /// Type of reward for this claim signature.
     #[serde(rename = "rewardType")]
     pub reward_type: RewardType,
-    #[serde(rename = "sigpayload")]
-    pub sigpayload: models::SigPayload,
+    #[serde(rename = "sigPayload")]
+    pub sig_payload: models::SigPayload,
     /// Signature for the claim.
     #[serde(rename = "signature")]
     pub signature: String,
 }
 
 impl ClaimSignatureItem {
-    pub fn new(reward_type: RewardType, sigpayload: models::SigPayload, signature: String) -> ClaimSignatureItem {
+    pub fn new(reward_type: RewardType, sig_payload: models::SigPayload, signature: String) -> ClaimSignatureItem {
         ClaimSignatureItem {
             reward_type,
-            sigpayload,
+            sig_payload,
             signature,
         }
     }

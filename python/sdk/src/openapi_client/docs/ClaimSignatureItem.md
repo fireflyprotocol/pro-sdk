@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **reward_type** | **str** | Type of reward for this claim signature. | 
-**sigpayload** | [**SigPayload**](SigPayload.md) |  | 
+**sig_payload** | [**SigPayload**](SigPayload.md) |  | 
 **signature** | **str** | Signature for the claim. | 
 
 ## Example

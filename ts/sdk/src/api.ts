@@ -1891,7 +1891,7 @@ export interface ClaimSignatureItem {
      * @type {SigPayload}
      * @memberof ClaimSignatureItem
      */
-    'sigpayload': SigPayload;
+    'sigPayload': SigPayload;
     /**
      * Signature for the claim.
      * @type {string}

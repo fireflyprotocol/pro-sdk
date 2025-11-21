@@ -119,7 +119,7 @@ components:
       type: object
       required:
         - rewardType
-        - sigpayload
+        - sigPayload
         - signature
       properties:
         rewardType:
@@ -131,13 +131,13 @@ components:
             - Cash
           description: Type of reward for this claim signature.
           example: "Blue"
-        sigpayload:
-          $ref: "#/components/schemas/SigPayload"
+        sigPayload:
+          $ref: "#/components/schemas/sigPayload"
         signature:
           type: string
           description: Signature for the claim.
           example: ""
-    SigPayload:
+    sigPayload:
       type: object
       required:
         - target
