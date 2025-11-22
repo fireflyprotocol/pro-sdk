@@ -52,6 +52,7 @@ openapi_client/docs/CancelOrdersRequest.md
 openapi_client/docs/CancelOrdersResponse.md
 openapi_client/docs/CandlePriceType.md
 openapi_client/docs/CandlestickUpdate.md
+openapi_client/docs/ClaimSignatureItem.md
 openapi_client/docs/CommandFailureReasonCode.md
 openapi_client/docs/ContractsConfig.md
 openapi_client/docs/CountryResponse.md
@@ -77,8 +78,6 @@ openapi_client/docs/KlineInterval.md
 openapi_client/docs/LoginRequest.md
 openapi_client/docs/LoginResponse.md
 openapi_client/docs/MarginType.md
-openapi_client/docs/MarkAsClaimedRequest.md
-openapi_client/docs/MarkAsClaimedResponse.md
 openapi_client/docs/MarkPriceUpdate.md
 openapi_client/docs/Market.md
 openapi_client/docs/MarketDataStreamName.md
@@ -115,6 +114,7 @@ openapi_client/docs/RefreshTokenResponse.md
 openapi_client/docs/RewardsApi.md
 openapi_client/docs/RewardsSummary.md
 openapi_client/docs/SelfTradePreventionType.md
+openapi_client/docs/SigPayload.md
 openapi_client/docs/SponsorTxRequest.md
 openapi_client/docs/SponsorTxResponse.md
 openapi_client/docs/StatsAllTimeResponse.md
@@ -186,6 +186,7 @@ openapi_client/models/cancel_orders_request.py
 openapi_client/models/cancel_orders_response.py
 openapi_client/models/candle_price_type.py
 openapi_client/models/candlestick_update.py
+openapi_client/models/claim_signature_item.py
 openapi_client/models/command_failure_reason_code.py
 openapi_client/models/contracts_config.py
 openapi_client/models/country_response.py
@@ -210,8 +211,6 @@ openapi_client/models/kline_interval.py
 openapi_client/models/login_request.py
 openapi_client/models/login_response.py
 openapi_client/models/margin_type.py
-openapi_client/models/mark_as_claimed_request.py
-openapi_client/models/mark_as_claimed_response.py
 openapi_client/models/mark_price_update.py
 openapi_client/models/market.py
 openapi_client/models/market_data_stream_name.py
@@ -247,6 +246,7 @@ openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
 openapi_client/models/rewards_summary.py
 openapi_client/models/self_trade_prevention_type.py
+openapi_client/models/sig_payload.py
 openapi_client/models/sponsor_tx_request.py
 openapi_client/models/sponsor_tx_response.py
 openapi_client/models/stats_all_time_response.py

@@ -1333,12 +1333,6 @@ export interface AffiliateLeaderDashboard {
      */
     'lendingRank': number;
     /**
-     * Ranking in ember category
-     * @type {number}
-     * @memberof AffiliateLeaderDashboard
-     */
-    'emberRank': number;
-    /**
      * Total earnings from perps trading (e9 format)
      * @type {string}
      * @memberof AffiliateLeaderDashboard
@@ -1614,30 +1608,6 @@ export interface AffiliateSummary {
      * @memberof AffiliateSummary
      */
     'lendRanking': number;
-    /**
-     * Ranking in ember category
-     * @type {number}
-     * @memberof AffiliateSummary
-     */
-    'emberRanking': number;
-    /**
-     * Total earnings from ember (e9 format)
-     * @type {string}
-     * @memberof AffiliateSummary
-     */
-    'totalEmberEarningsE9': string;
-    /**
-     * Total earnings from spot (e9 format)
-     * @type {string}
-     * @memberof AffiliateSummary
-     */
-    'totalSpotEarningsE9': string;
-    /**
-     * Total earnings from perps (e9 format)
-     * @type {string}
-     * @memberof AffiliateSummary
-     */
-    'totalPerpsEarningsE9': string;
 }
 /**
  * Details about an asset in the account.
@@ -1904,6 +1874,41 @@ export interface CandlestickUpdate {
      */
     'numTrades': number;
 }
+/**
+ * 
+ * @export
+ * @interface ClaimSignatureItem
+ */
+export interface ClaimSignatureItem {
+    /**
+     * Type of reward for this claim signature.
+     * @type {string}
+     * @memberof ClaimSignatureItem
+     */
+    'rewardType': ClaimSignatureItemRewardTypeEnum;
+    /**
+     * 
+     * @type {SigPayload}
+     * @memberof ClaimSignatureItem
+     */
+    'sigPayload': SigPayload;
+    /**
+     * Signature for the claim.
+     * @type {string}
+     * @memberof ClaimSignatureItem
+     */
+    'signature': string;
+}
+
+export const ClaimSignatureItemRewardTypeEnum = {
+    Blue: 'Blue',
+    Sui: 'Sui',
+    Wal: 'Wal',
+    Cash: 'Cash'
+} as const;
+
+export type ClaimSignatureItemRewardTypeEnum = typeof ClaimSignatureItemRewardTypeEnum[keyof typeof ClaimSignatureItemRewardTypeEnum];
+
 /**
  * 
  * @export
@@ -2734,67 +2739,6 @@ export const MarginType = {
 
 export type MarginType = typeof MarginType[keyof typeof MarginType];
 
-
-/**
- * 
- * @export
- * @interface MarkAsClaimedRequest
- */
-export interface MarkAsClaimedRequest {
-    /**
-     * The interval number
-     * @type {number}
-     * @memberof MarkAsClaimedRequest
-     */
-    'intervalNumber': number;
-    /**
-     * The campaign name
-     * @type {string}
-     * @memberof MarkAsClaimedRequest
-     */
-    'campaignName': MarkAsClaimedRequestCampaignNameEnum;
-    /**
-     * The transaction digest of the claim
-     * @type {string}
-     * @memberof MarkAsClaimedRequest
-     */
-    'txnDigest': string;
-}
-
-export const MarkAsClaimedRequestCampaignNameEnum = {
-    TradeAndEarn: 'TRADE_AND_EARN',
-    WalTradeAndEarn: 'WAL_TRADE_AND_EARN',
-    Affiliate: 'AFFILIATE'
-} as const;
-
-export type MarkAsClaimedRequestCampaignNameEnum = typeof MarkAsClaimedRequestCampaignNameEnum[keyof typeof MarkAsClaimedRequestCampaignNameEnum];
-
-/**
- * 
- * @export
- * @interface MarkAsClaimedResponse
- */
-export interface MarkAsClaimedResponse {
-    /**
-     * Response message indicating if the claim was marked as claimed successfully
-     * @type {string}
-     * @memberof MarkAsClaimedResponse
-     */
-    'message': string;
-    /**
-     * Status of the claim
-     * @type {string}
-     * @memberof MarkAsClaimedResponse
-     */
-    'status': MarkAsClaimedResponseStatusEnum;
-}
-
-export const MarkAsClaimedResponseStatusEnum = {
-    Claimed: 'CLAIMED',
-    Claimable: 'CLAIMABLE'
-} as const;
-
-export type MarkAsClaimedResponseStatusEnum = typeof MarkAsClaimedResponseStatusEnum[keyof typeof MarkAsClaimedResponseStatusEnum];
 
 /**
  * 
@@ -4202,6 +4146,49 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
 /**
  * 
  * @export
+ * @interface SigPayload
+ */
+export interface SigPayload {
+    /**
+     * Target address for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'target': string;
+    /**
+     * Receiver address for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'receiver': string;
+    /**
+     * Amount to be claimed.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'amount': string;
+    /**
+     * Expiry timestamp for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'expiry': string;
+    /**
+     * Nonce for the claim.
+     * @type {string}
+     * @memberof SigPayload
+     */
+    'nonce': string;
+    /**
+     * Type identifier for the claim.
+     * @type {number}
+     * @memberof SigPayload
+     */
+    'type': number;
+}
+/**
+ * 
+ * @export
  * @interface SponsorTxRequest
  */
 export interface SponsorTxRequest {
@@ -5179,13 +5166,13 @@ export interface UserCampaignRewards {
      */
     'userFeePaidE9': string;
     /**
-     * Time in seconds for interval start date.
+     * Time in milliseconds for interval start date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
     'intervalStartDate': number;
     /**
-     * Time in seconds for interval end date.
+     * Time in milliseconds for interval end date.
      * @type {number}
      * @memberof UserCampaignRewards
      */
@@ -5202,6 +5189,18 @@ export interface UserCampaignRewards {
      * @memberof UserCampaignRewards
      */
     'txnDigest': string;
+    /**
+     * Array of claim signatures for different reward types.
+     * @type {Array<ClaimSignatureItem>}
+     * @memberof UserCampaignRewards
+     */
+    'claimSignature'?: Array<ClaimSignatureItem>;
+    /**
+     * Status of the claim.
+     * @type {string}
+     * @memberof UserCampaignRewards
+     */
+    'claimStatus'?: UserCampaignRewardsClaimStatusEnum;
 }
 
 export const UserCampaignRewardsStatusEnum = {
@@ -5212,6 +5211,13 @@ export const UserCampaignRewardsStatusEnum = {
 } as const;
 
 export type UserCampaignRewardsStatusEnum = typeof UserCampaignRewardsStatusEnum[keyof typeof UserCampaignRewardsStatusEnum];
+export const UserCampaignRewardsClaimStatusEnum = {
+    Claimable: 'CLAIMABLE',
+    Claimed: 'CLAIMED',
+    NotYetClaimable: 'NOT_YET_CLAIMABLE'
+} as const;
+
+export type UserCampaignRewardsClaimStatusEnum = typeof UserCampaignRewardsClaimStatusEnum[keyof typeof UserCampaignRewardsClaimStatusEnum];
 
 /**
  * 
@@ -7999,46 +8005,6 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Mark user claims as claimed for the specified campaign name and interval number
-         * @summary /v1/rewards/claims/mark-claimed
-         * @param {MarkAsClaimedRequest} markAsClaimedRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        markAsClaimed: async (markAsClaimedRequest: MarkAsClaimedRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'markAsClaimedRequest' is not null or undefined
-            assertParamExists('markAsClaimed', 'markAsClaimedRequest', markAsClaimedRequest)
-            const localVarPath = `/v1/rewards/claims/mark-claimed`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(markAsClaimedRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Submit an application to become an affiliate.
          * @summary /rewards/affiliate/onboard
          * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
@@ -8380,19 +8346,6 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Mark user claims as claimed for the specified campaign name and interval number
-         * @summary /v1/rewards/claims/mark-claimed
-         * @param {MarkAsClaimedRequest} markAsClaimedRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async markAsClaimed(markAsClaimedRequest: MarkAsClaimedRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MarkAsClaimedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.markAsClaimed(markAsClaimedRequest, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RewardsApi.markAsClaimed']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Submit an application to become an affiliate.
          * @summary /rewards/affiliate/onboard
          * @param {OnboardAffiliateRequest} onboardAffiliateRequest 
@@ -8588,16 +8541,6 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          */
         getRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
             return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Mark user claims as claimed for the specified campaign name and interval number
-         * @summary /v1/rewards/claims/mark-claimed
-         * @param {MarkAsClaimedRequest} markAsClaimedRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        markAsClaimed(markAsClaimedRequest: MarkAsClaimedRequest, options?: RawAxiosRequestConfig): AxiosPromise<MarkAsClaimedResponse> {
-            return localVarFp.markAsClaimed(markAsClaimedRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Submit an application to become an affiliate.
@@ -8806,18 +8749,6 @@ export class RewardsApi extends BaseAPI {
      */
     public getRewardsSummary(options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getRewardsSummary(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Mark user claims as claimed for the specified campaign name and interval number
-     * @summary /v1/rewards/claims/mark-claimed
-     * @param {MarkAsClaimedRequest} markAsClaimedRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RewardsApi
-     */
-    public markAsClaimed(markAsClaimedRequest: MarkAsClaimedRequest, options?: RawAxiosRequestConfig) {
-        return RewardsApiFp(this.configuration).markAsClaimed(markAsClaimedRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
