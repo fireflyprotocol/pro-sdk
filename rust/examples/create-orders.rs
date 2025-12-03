@@ -16,7 +16,7 @@ use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::time::Duration;
 use sui_sdk_types::SignatureScheme;
-use tokio::sync::broadcast;
+use tokio::sync::broadcast::{self, Receiver};
 use tokio::time::timeout;
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::Message;
@@ -131,6 +131,35 @@ async fn listen_to_account_order_updates(
     Ok(())
 }
 
+async fn handle_order_updates(mut receiver: Receiver<AccountStreamMessage>) {
+    while let Ok(websocket_message) = receiver.recv().await {
+        match websocket_message {
+            AccountStreamMessage::AccountOrderUpdate {
+                payload:
+                    AccountStreamMessagePayload::AccountOrderUpdate(
+                        AccountOrderUpdate::ActiveOrderUpdate(order_update),
+                    ),
+                ..
+            } => {
+                println!("Order {} opened", order_update.order_hash);
+                println!("Account Order Update {order_update:#?}");
+                break;
+            }
+            AccountStreamMessage::AccountOrderUpdate {
+                payload:
+                    AccountStreamMessagePayload::AccountOrderUpdate(
+                        AccountOrderUpdate::OrderCancellationUpdate(order_cancelled),
+                    ),
+                ..
+            } => {
+                eprintln!("Order {} cancelled", order_cancelled.order_hash);
+                break;
+            }
+            _ => eprintln!("Unknown message received {websocket_message:#?}"),
+        }
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
@@ -189,7 +218,7 @@ async fn main() -> Result<()> {
 
     // Listen to order updates to see when an order has been opened
     let shutdown_flag = Arc::new(AtomicBool::new(false));
-    let (sender, mut receiver) = broadcast::channel(20);
+    let (sender, receiver) = broadcast::channel(20);
     listen_to_account_order_updates(
         &auth_token,
         environment,
@@ -199,37 +228,8 @@ async fn main() -> Result<()> {
     )
     .await?;
 
-    let handle = tokio::spawn(async move {
-        // Listen to websocket channel to check if the order hash been opened
-        while let Ok(websocket_message) = receiver.recv().await {
-            match websocket_message {
-                AccountStreamMessage::AccountOrderUpdate {
-                    payload:
-                        AccountStreamMessagePayload::AccountOrderUpdate(
-                            AccountOrderUpdate::ActiveOrderUpdate(order_update),
-                        ),
-                    ..
-                } => {
-                    println!("Order {} opened", order_update.order_hash);
-                    println!("Account Order Update {order_update:#?}");
-                    break;
-                }
-                AccountStreamMessage::AccountOrderUpdate {
-                    payload:
-                        AccountStreamMessagePayload::AccountOrderUpdate(
-                            AccountOrderUpdate::OrderCancellationUpdate(order_cancelled),
-                        ),
-                    ..
-                } => {
-                    eprintln!("Order {} cancelled", order_cancelled.order_hash);
-                    break;
-                }
-                unexpected => {
-                    eprintln!("Unknown message received {unexpected:#?}");
-                }
-            }
-        }
-    });
+    // Listen to websocket channel to check if the order hash been opened
+    let handle = tokio::spawn(handle_order_updates(receiver));
 
     println!("Waiting for account order updates...");
     println!("auth token: {auth_token}");
@@ -241,5 +241,8 @@ async fn main() -> Result<()> {
     let computed_hash = request.clone().compute_hash().unwrap();
     assert_eq!(computed_hash, received_order_hash);
     println!("Order hash matches");
+
+    handle.await.expect("Could not join handle");
+
     Ok(())
 }
