@@ -8,6 +8,7 @@ use bluefin_api::models::{
 use bluefin_api::models::{CreateOrderRequestSignedFields, LoginRequest};
 use bluefin_pro::prelude::*;
 use chrono::{TimeDelta, Utc};
+use futures_util::stream::{SplitSink, SplitStream};
 use futures_util::{SinkExt, StreamExt};
 use hex::FromHex;
 use rand::random;
@@ -16,12 +17,13 @@ use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::time::Duration;
 use sui_sdk_types::SignatureScheme;
+use tokio::net::TcpStream;
 use tokio::sync::broadcast::{self, Receiver};
 use tokio::time::timeout;
-use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 use tokio_tungstenite::tungstenite::http::HeaderValue;
+use tokio_tungstenite::{MaybeTlsStream, WebSocketStream, connect_async};
 
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
@@ -47,6 +49,65 @@ async fn send_request(
     Ok(response.order_hash)
 }
 
+type TcpWebSocketStream = WebSocketStream<MaybeTlsStream<TcpStream>>;
+
+async fn handle_ping_pong(
+    shutdown_flag: Arc<AtomicBool>,
+    mut ws_sender: SplitSink<TcpWebSocketStream, Message>,
+    mut ws_receiver: SplitStream<TcpWebSocketStream>,
+    sender: broadcast::Sender<AccountStreamMessage>,
+    max_time_without_messages: Duration,
+) {
+    while !shutdown_flag.load(std::sync::atomic::Ordering::Relaxed) {
+        let Ok(message) = timeout(max_time_without_messages, ws_receiver.next()).await else {
+            println!("Websocket receiver task timed out due to inactivity.");
+            return;
+        };
+        let Some(Ok(message)) = message else {
+            println!("Websocket receiver task terminated");
+            return;
+        };
+        match message {
+            Message::Ping(_) => {
+                println!("Ping received");
+                // Send Pong.
+                if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
+                    eprintln!("Error sending Pong: {error}");
+                    return;
+                }
+                println!("Pong sent");
+            }
+            Message::Pong(_) => println!("Pong received"),
+            Message::Text(text) => {
+                // Check if it's the account update.
+                if let Ok(websocket_message) = serde_json::from_str::<AccountStreamMessage>(&text) {
+                    if let Err(error) = sender.send(websocket_message) {
+                        eprintln!("Error sending message to channel: {error}");
+                        return;
+                    }
+                }
+                // Check if it's a subscription message.
+                else if let Ok(subscription_message) =
+                    serde_json::from_str::<SubscriptionResponseMessage>(&text)
+                {
+                    println!(
+                        "Subscription response message received: {}",
+                        serde_json::to_string_pretty(&subscription_message).unwrap()
+                    );
+                }
+            }
+            Message::Close(_) => {
+                println!("Close received");
+                return;
+            }
+            _ => {
+                eprintln!("Unknown message received");
+                return;
+            }
+        }
+    }
+}
+
 async fn listen_to_account_order_updates(
     auth_token: &str,
     environment: Environment,
@@ -63,7 +124,7 @@ async fn listen_to_account_order_updates(
     let (websocket_stream, _) = connect_async(url).await?;
 
     // Next, we send a subscription message to receive account updates.
-    let (mut ws_sender, mut ws_receiver) = websocket_stream.split();
+    let (mut ws_sender, ws_receiver) = websocket_stream.split();
     ws_sender
         .send(Message::Text(serde_json::to_string(
             &AccountSubscriptionMessage::new(
@@ -74,58 +135,13 @@ async fn listen_to_account_order_updates(
         .await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
-    tokio::spawn(async move {
-        while !shutdown_flag.load(std::sync::atomic::Ordering::Relaxed) {
-            let Ok(message) = timeout(max_time_without_messages, ws_receiver.next()).await else {
-                println!("Websocket receiver task timed out due to inactivity.");
-                return;
-            };
-            let Some(Ok(message)) = message else {
-                println!("Websocket receiver task terminated");
-                return;
-            };
-            match message {
-                Message::Ping(_) => {
-                    println!("Ping received");
-                    // Send Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
-                        eprintln!("Error sending Pong: {error}");
-                        return;
-                    }
-                    println!("Pong sent");
-                }
-                Message::Pong(_) => println!("Pong received"),
-                Message::Text(text) => {
-                    // Check if it's the account update.
-                    if let Ok(websocket_message) =
-                        serde_json::from_str::<AccountStreamMessage>(&text)
-                    {
-                        if let Err(error) = sender.send(websocket_message) {
-                            eprintln!("Error sending message to channel: {error}");
-                            return;
-                        }
-                    }
-                    // Check if it's a subscription message.
-                    else if let Ok(subscription_message) =
-                        serde_json::from_str::<SubscriptionResponseMessage>(&text)
-                    {
-                        println!(
-                            "Subscription response message received: {}",
-                            serde_json::to_string_pretty(&subscription_message).unwrap()
-                        );
-                    }
-                }
-                Message::Close(_) => {
-                    println!("Close received");
-                    return;
-                }
-                _ => {
-                    eprintln!("Unknown message received");
-                    return;
-                }
-            }
-        }
-    });
+    tokio::spawn(handle_ping_pong(
+        shutdown_flag,
+        ws_sender,
+        ws_receiver,
+        sender,
+        max_time_without_messages,
+    ));
 
     // Finally, we return without error.
     Ok(())
