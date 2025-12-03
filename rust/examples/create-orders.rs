@@ -70,7 +70,6 @@ async fn handle_ping_pong(
         match message {
             Message::Ping(_) => {
                 println!("Ping received");
-                // Send Pong.
                 if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                     eprintln!("Error sending Pong: {error}");
                     return;
@@ -79,20 +78,18 @@ async fn handle_ping_pong(
             }
             Message::Pong(_) => println!("Pong received"),
             Message::Text(text) => {
-                // Check if it's the account update.
+                // Broadcast account update, or print subscription response.
                 if let Ok(websocket_message) = serde_json::from_str::<AccountStreamMessage>(&text) {
                     if let Err(error) = sender.send(websocket_message) {
                         eprintln!("Error sending message to channel: {error}");
                         return;
                     }
-                }
-                // Check if it's a subscription message.
-                else if let Ok(subscription_message) =
+                } else if let Ok(subscription_message) =
                     serde_json::from_str::<SubscriptionResponseMessage>(&text)
                 {
                     println!(
                         "Subscription response message received: {}",
-                        serde_json::to_string_pretty(&subscription_message).unwrap()
+                        serde_json::to_string_pretty(&subscription_message).unwrap_or(text)
                     );
                 }
             }
