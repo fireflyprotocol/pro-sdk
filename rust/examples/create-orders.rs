@@ -133,29 +133,25 @@ async fn listen_to_account_order_updates(
 
 async fn handle_order_updates(mut receiver: Receiver<AccountStreamMessage>) {
     while let Ok(websocket_message) = receiver.recv().await {
-        match websocket_message {
-            AccountStreamMessage::AccountOrderUpdate {
-                payload:
-                    AccountStreamMessagePayload::AccountOrderUpdate(
-                        AccountOrderUpdate::ActiveOrderUpdate(order_update),
-                    ),
-                ..
-            } => {
+        let AccountStreamMessage::AccountOrderUpdate {
+            payload: AccountStreamMessagePayload::AccountOrderUpdate(update),
+            ..
+        } = &websocket_message
+        else {
+            eprintln!("Unknown message received {websocket_message:#?}");
+            continue;
+        };
+
+        match update {
+            AccountOrderUpdate::ActiveOrderUpdate(order_update) => {
                 println!("Order {} opened", order_update.order_hash);
                 println!("Account Order Update {order_update:#?}");
                 break;
             }
-            AccountStreamMessage::AccountOrderUpdate {
-                payload:
-                    AccountStreamMessagePayload::AccountOrderUpdate(
-                        AccountOrderUpdate::OrderCancellationUpdate(order_cancelled),
-                    ),
-                ..
-            } => {
+            AccountOrderUpdate::OrderCancellationUpdate(order_cancelled) => {
                 eprintln!("Order {} cancelled", order_cancelled.order_hash);
                 break;
             }
-            _ => eprintln!("Unknown message received {websocket_message:#?}"),
         }
     }
 }
