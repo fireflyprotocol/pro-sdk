@@ -71,6 +71,8 @@ docs/KlineInterval.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
+docs/MarkAsClaimedRequest.md
+docs/MarkAsClaimedResponse.md
 docs/MarkPriceUpdate.md
 docs/Market.md
 docs/MarketDataStreamName.md
@@ -212,6 +214,8 @@ src/models/kline_interval.rs
 src/models/login_request.rs
 src/models/login_response.rs
 src/models/margin_type.rs
+src/models/mark_as_claimed_request.rs
+src/models/mark_as_claimed_response.rs
 src/models/mark_price_update.rs
 src/models/market.rs
 src/models/market_data_stream_name.rs

@@ -73,6 +73,8 @@ docs/KlineInterval.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
+docs/MarkAsClaimedRequest.md
+docs/MarkAsClaimedResponse.md
 docs/MarkPriceUpdate.md
 docs/Market.md
 docs/MarketDataStreamName.md
