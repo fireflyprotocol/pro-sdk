@@ -169,6 +169,32 @@ async fn handle_order_updates(mut receiver: Receiver<AccountStreamMessage>) {
     }
 }
 
+fn new_request(environment: Environment, ids_id: String) -> CreateOrderRequest {
+    CreateOrderRequest {
+        signed_fields: CreateOrderRequestSignedFields {
+            symbol: "ETH-PERP".to_string(),
+            account_address: environment.test_keys().unwrap().address.into(),
+            price_e9: (10_000.e9()).to_string(),
+            quantity_e9: (1.e9()).to_string(),
+            side: OrderSide::Short,
+            leverage_e9: (10.e9()).to_string(),
+            is_isolated: false,
+            salt: random::<u64>().to_string(),
+            ids_id,
+            expires_at_millis: Utc::now().add(TimeDelta::minutes(6)).timestamp_millis(),
+            signed_at_millis: Utc::now().timestamp_millis(),
+        },
+        client_order_id: None,
+        r#type: OrderType::Limit,
+        reduce_only: false,
+        post_only: Some(true),
+        time_in_force: Some(OrderTimeInForce::Gtt),
+        trigger_price_e9: None,
+        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
+        ..Default::default()
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
@@ -191,33 +217,9 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    // We get the exchange info to fetch the IDS_ID
+    // Next, we construct an unsigned request using the exchange's IDS ID.
     let contracts_info = exchange::info::contracts_config(environment).await?;
-
-    // Next, we construct an unsigned request.
-    let request = CreateOrderRequest {
-        signed_fields: CreateOrderRequestSignedFields {
-            symbol: "ETH-PERP".to_string(),
-            account_address: environment.test_keys().unwrap().address.into(),
-            price_e9: (10_000.e9()).to_string(),
-            quantity_e9: (1.e9()).to_string(),
-            side: OrderSide::Short,
-            leverage_e9: (10.e9()).to_string(),
-            is_isolated: false,
-            salt: random::<u64>().to_string(),
-            ids_id: contracts_info.ids_id,
-            expires_at_millis: Utc::now().add(TimeDelta::minutes(6)).timestamp_millis(),
-            signed_at_millis: Utc::now().timestamp_millis(),
-        },
-        client_order_id: None,
-        r#type: OrderType::Limit,
-        reduce_only: false,
-        post_only: Some(true),
-        time_in_force: Some(OrderTimeInForce::Gtt),
-        trigger_price_e9: None,
-        self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
-        ..Default::default()
-    };
+    let request = new_request(environment, contracts_info.ids_id);
 
     // Then, we sign our order.
     let request = request.sign(
