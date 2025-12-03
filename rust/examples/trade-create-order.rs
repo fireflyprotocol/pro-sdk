@@ -200,7 +200,7 @@ async fn main() -> Result<()> {
     .await?;
 
     let handle = tokio::spawn(async move {
-        // Listen to websocket channel to check if the order hash been opened
+        // Listen to websocket channel to check if the order has been opened.
         while let Ok(websocket_message) = receiver.recv().await {
             match websocket_message {
                 AccountStreamMessage::AccountOrderUpdate {
