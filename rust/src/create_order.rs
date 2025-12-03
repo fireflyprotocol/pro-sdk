@@ -14,8 +14,7 @@ impl RequestExt for CreateOrderRequest {
     }
 
     fn compute_hash(self) -> Result<String> {
-        let converted =
-            signature::conversion::hashable::CreateOrderRequest::try_from(self.clone())?;
+        let converted = signature::conversion::hashable::CreateOrderRequest::try_from(self)?;
         signature::compute_hash(&converted)
     }
 }

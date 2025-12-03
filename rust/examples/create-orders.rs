@@ -51,7 +51,8 @@ async fn send_request(
 
 type TcpWebSocketStream = WebSocketStream<MaybeTlsStream<TcpStream>>;
 
-async fn handle_ping_pong(
+/// Implements our responses to incoming WebSocket messages.
+async fn handle_websocket(
     shutdown_flag: Arc<AtomicBool>,
     mut ws_sender: SplitSink<TcpWebSocketStream, Message>,
     mut ws_receiver: SplitStream<TcpWebSocketStream>,
@@ -105,7 +106,9 @@ async fn handle_ping_pong(
     }
 }
 
-async fn listen_to_account_order_updates(
+/// Requests a WebSocket subscription, and broadcasts any received
+/// [`AccountOrderUpdate`] messages to the sender.
+async fn subscribe_to_updates(
     auth_token: &str,
     environment: Environment,
     sender: broadcast::Sender<AccountStreamMessage>,
@@ -132,7 +135,7 @@ async fn listen_to_account_order_updates(
         .await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
-    tokio::spawn(handle_ping_pong(
+    tokio::spawn(handle_websocket(
         shutdown_flag,
         ws_sender,
         ws_receiver,
@@ -218,8 +221,9 @@ async fn main() -> Result<()> {
         .access_token;
 
     // Next, we construct an unsigned request using the exchange's IDS ID.
-    let contracts_info = exchange::info::contracts_config(environment).await?;
-    let request = new_request(environment, contracts_info.ids_id);
+    let ids_id = exchange::info::contracts_config(environment).await?.ids_id;
+
+    let request = new_request(environment, ids_id);
 
     // Then, we sign our order.
     let request = request.sign(
@@ -227,10 +231,14 @@ async fn main() -> Result<()> {
         SignatureScheme::Ed25519,
     )?;
 
-    // Listen to order updates to see when an order has been opened
-    let shutdown_flag = Arc::new(AtomicBool::new(false));
+    // Listen to order updates to see when an order has been opened. In this
+    // example, we first spawn a handler to read from an internal broadcast channel,
+    // and then subscribe to updates via WebSocket. Our WebSocket handler
+    // automatically broadcasts order updates to the channel.
     let (sender, receiver) = broadcast::channel(20);
-    listen_to_account_order_updates(
+    let handle = tokio::spawn(handle_order_updates(receiver));
+    let shutdown_flag = Arc::new(AtomicBool::new(false));
+    subscribe_to_updates(
         &auth_token,
         environment,
         sender,
@@ -238,19 +246,15 @@ async fn main() -> Result<()> {
         Arc::clone(&shutdown_flag),
     )
     .await?;
-
-    // Listen to websocket channel to check if the order hash been opened
-    let handle = tokio::spawn(handle_order_updates(receiver));
-
     println!("Waiting for account order updates...");
+
     println!("auth token: {auth_token}");
-    let received_order_hash =
-        send_request(request.clone(), &auth_token, environment, false).await?;
+    let computed_order_hash = request.clone().compute_hash().unwrap();
+    let received_order_hash = send_request(request, &auth_token, environment, false).await?;
 
     // Finally, we check that we've received the expected order hash.
     println!("Order Submitted: {received_order_hash}");
-    let computed_hash = request.clone().compute_hash().unwrap();
-    assert_eq!(computed_hash, received_order_hash);
+    assert_eq!(computed_order_hash, received_order_hash);
     println!("Order hash matches");
 
     handle.await.expect("Could not join handle");
