@@ -78,6 +78,8 @@ openapi_client/docs/KlineInterval.md
 openapi_client/docs/LoginRequest.md
 openapi_client/docs/LoginResponse.md
 openapi_client/docs/MarginType.md
+openapi_client/docs/MarkAsClaimedRequest.md
+openapi_client/docs/MarkAsClaimedResponse.md
 openapi_client/docs/MarkPriceUpdate.md
 openapi_client/docs/Market.md
 openapi_client/docs/MarketDataStreamName.md
@@ -211,6 +213,8 @@ openapi_client/models/kline_interval.py
 openapi_client/models/login_request.py
 openapi_client/models/login_response.py
 openapi_client/models/margin_type.py
+openapi_client/models/mark_as_claimed_request.py
+openapi_client/models/mark_as_claimed_response.py
 openapi_client/models/mark_price_update.py
 openapi_client/models/market.py
 openapi_client/models/market_data_stream_name.py
