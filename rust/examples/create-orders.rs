@@ -241,11 +241,5 @@ async fn main() -> Result<()> {
     let computed_hash = request.clone().compute_hash().unwrap();
     assert_eq!(computed_hash, received_order_hash);
     println!("Order hash matches");
-
-    println!("Submitting order through colocated url...");
-    let received_order_hash = send_request(request.clone(), &auth_token, environment, true).await?;
-
-    println!("Order Submitted through colocated URL: {received_order_hash}");
-    handle.await.expect("Could not join handle");
     Ok(())
 }
