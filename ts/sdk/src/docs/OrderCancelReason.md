@@ -62,4 +62,12 @@ The reason for an order cancellation.
 
 * `AccountDeauthorized` (value: `'ACCOUNT_DEAUTHORIZED'`)
 
+* `TooManyMatches` (value: `'TOO_MANY_MATCHES'`)
+
+* `MarginCall` (value: `'MARGIN_CALL'`)
+
+* `InsufficientBalance` (value: `'INSUFFICIENT_BALANCE'`)
+
+* `TradeQuantityOutOfBound` (value: `'TRADE_QUANTITY_OUT_OF_BOUND'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
