@@ -1,22 +1,22 @@
 //! This is how Bluefin generates Rust code from the accompanying OpenAPI specifications.
 //!
-//! To install this command locally, change to the parent `rust` directory and run:
-//!
 //! ```sh
-//! cargo install --path . --bin apigen
+//! cargo run --bin apigen
 //! ```
 //!
 //! If you don't have `cargo`, start [here](https://rustup.rs/).
 
 use std::path::PathBuf;
-use std::process::{exit, Command};
+use std::process::{Command, exit};
 use std::str::FromStr;
 use std::{env, fmt, io};
 
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
 
-const USAGE: &str = "apigen { -l } { rust | python | ts }
+const USAGE: &str = "
+
+    apigen [ {-l | --lang} { rust | python | typescript | rs | py | ts } ]...
 
 Please ensure that npm and openapi-generator-cli are installed following the instructions at:
 https://openapi-generator.tech/docs/installation
@@ -30,8 +30,6 @@ pub enum Error {
     Io(io::Error),
     /// The supplied value is not a supported target language.
     Lang(String),
-    /// The `--lang` argument was expected, but not provided.
-    NoLang,
     /// The input directory could not be found.
     Path,
     /// A subcommand returned bad status.
@@ -55,7 +53,6 @@ impl fmt::Display for Error {
             Error::Flag(flag) => write!(f, "{flag} is not recognized"),
             Error::Io(err) => write!(f, "{err}; are npm and openapi-generator-cli in your PATH?"),
             Error::Lang(s) => write!(f, "{s} is not a supported language"),
-            Error::NoLang => write!(f, "expected --lang LANGUAGE"),
             Error::Path => write!(f, "{INPUT_DIR}: directory not found"),
             Error::Status { command } => write!(f, "{command} returned bad status"),
         }
@@ -181,17 +178,11 @@ fn input_parent() -> Result<PathBuf> {
 fn main_imp() -> Result<()> {
     let args = env::args().skip(1).collect::<Vec<_>>();
 
-    // TODO(jeff): Validate args before invoking the generator.  They should be the prefixes of file
-    //  names in the input ("resources") directory.
-    if args.is_empty() {
-        return Err(Error::NoLang);
-    }
-
     // You may feel we're being lazy by cd-ing to the top of the repo merely so we can use relative
     // paths in the `generate` function.  You may even be right.  But maybe laziness isn't so bad.
     env::set_current_dir(input_parent()?)?;
 
-    let mut lang = None;
+    let mut langs = Vec::new();
     let mut args = args.into_iter();
     while let Some(arg) = args.next() {
         match arg.as_str() {
@@ -203,12 +194,21 @@ fn main_imp() -> Result<()> {
                 }
                 return Ok(());
             }
-            "-l" | "--lang" => lang = Some(args.next().ok_or(Error::Flag(arg))?.parse()?),
+            "-l" | "--lang" => langs.push(args.next().ok_or(Error::Flag(arg))?.parse()?),
             _ => return Err(Error::Flag(arg)),
         }
     }
 
-    generate(lang.ok_or(Error::NoLang)?)
+    // Default to generating all languages.
+    if langs.is_empty() {
+        langs.extend([Lang::Python, Lang::Rust, Lang::Typescript]);
+    }
+
+    for lang in langs {
+        generate(lang)?;
+    }
+
+    Ok(())
 }
 
 fn main() {
