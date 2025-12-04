@@ -177,7 +177,7 @@ fn new_create_order_command(
         client_order_id: None,
         r#type: OrderType::Limit,
         reduce_only: false,
-        post_only: None,
+        post_only: Some(true),
         time_in_force: Some(OrderTimeInForce::Gtt),
         trigger_price_e9: None,
         self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
