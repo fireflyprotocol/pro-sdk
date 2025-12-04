@@ -98,29 +98,27 @@ async fn subscribe_to_updates(
     environment: Environment,
     max_time_without_messages: Duration,
 ) -> Result<JoinHandle<()>> {
-    // First, spawn a handler to read from an internal broadcast channel; then,
-    // subscribe to updates via WebSocket. Our WebSocket handler automatically
-    // broadcasts order updates to the channel.
+    // Spawn a handler to read from an internal broadcast channel. Our WebSocket
+    // listener will automatically broadcast order updates to the channel.
     let (sender, receiver) = broadcast::channel(20);
     let handle = tokio::spawn(handle_channel(receiver));
     let shutdown_flag = Arc::new(AtomicBool::new(false));
 
-    // We establish a connection through the websocket URL for that environment.
-    let mut url = ws::account::url(environment).into_client_request()?;
-    url.headers_mut().insert(
-        "Authorization",
-        HeaderValue::from_str(&format!("Bearer {auth_token}"))?,
-    );
-    let (websocket_stream, _) = connect_async(url).await?;
+    // Establish a connection through the WebSocket URL for that environment.
+    let mut connection = ws::account::url(environment).into_client_request()?;
+    let header = HeaderValue::from_str(&format!("Bearer {auth_token}"))?;
+    connection.headers_mut().insert("Authorization", header);
+    let (socket, _) = connect_async(connection).await?;
 
-    // Next, we send a subscription message to receive account updates.
-    let (mut ws_sender, ws_receiver) = websocket_stream.split();
-    let request = vec![AccountDataStream::AccountOrderUpdate];
-    let request = AccountSubscriptionMessage::new(SubscriptionType::Subscribe, request);
-    let request = serde_json::to_string(&request)?;
-    ws_sender.send(Message::Text(request)).await?;
+    // Send a subscription message to receive account updates.
+    let (mut ws_sender, ws_receiver) = socket.split();
+    let sub = vec![AccountDataStream::AccountOrderUpdate];
+    let sub = AccountSubscriptionMessage::new(SubscriptionType::Subscribe, sub);
+    let sub = serde_json::to_string(&sub)?;
+    ws_sender.send(Message::Text(sub)).await?;
 
-    // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
+    // Spawn a WebSocket listener for messages on the subscribed topic. It needs
+    // both the WebSocket sender and receiver to support ping/pong (keep-alive).
     tokio::spawn(handle_websocket(
         shutdown_flag,
         ws_sender,
@@ -129,7 +127,6 @@ async fn subscribe_to_updates(
         max_time_without_messages,
     ));
 
-    // Finally, we return without error.
     Ok(handle)
 }
 
@@ -145,16 +142,18 @@ async fn handle_channel(mut receiver: Receiver<AccountStreamMessage>) {
         };
         match update {
             AccountOrderUpdate::ActiveOrderUpdate(order) => {
-                println!("Order updated: {order:#?}");
-                break;
+                println!("{order:?}");
             }
             AccountOrderUpdate::OrderCancellationUpdate(cancel) => {
-                println!("Order cancelled: {cancel:?}");
-                break;
+                println!("{cancel:?}");
             }
         }
     }
 }
+
+const MARKET_SYMBOL: &str = "AVAX-PERP";
+const MIN_ORDER_PRICE_E9: u64 = 100_000_000;
+const TICK_SIZE_E9: u64 = 1_000_000;
 
 fn new_create_order_command(
     environment: Environment,
@@ -163,11 +162,11 @@ fn new_create_order_command(
 ) -> CreateOrderRequest {
     CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
-            symbol: "ETH-PERP".to_string(),
+            symbol: MARKET_SYMBOL.into(),
             account_address: environment.test_keys().unwrap().address.into(),
             price_e9: price_e9.to_string(),
             quantity_e9: (1.e9()).to_string(),
-            side: OrderSide::Long,
+            side: OrderSide::Short,
             leverage_e9: (10.e9()).to_string(),
             is_isolated: false,
             salt: random::<u64>().to_string(),
@@ -210,18 +209,24 @@ async fn main() -> Result<()> {
 
     // Subscribe to WebSocket, and log updates asynchronously.
     let auth_token = log_in(environment).await?;
-    let handle = subscribe_to_updates(&auth_token, environment, Duration::from_secs(10)).await?;
+    let handle = subscribe_to_updates(&auth_token, environment, Duration::from_secs(4)).await?;
 
     // The IDS ID of the target environment is required in all commands.
     let ids_id = exchange::info::contracts_config(environment).await?.ids_id;
     let pkey = PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?;
 
-    let command = new_create_order_command(environment, ids_id, 10_000.e9());
-    let command = command.sign(pkey, SignatureScheme::Ed25519)?;
-
-    let computed_order_hash = command.clone().compute_hash().unwrap();
-    let received_order_hash = send_request(command, &auth_token, environment, false).await?;
-    assert_eq!(computed_order_hash, received_order_hash);
+    // Place a spate of orders at low prices. We need enough orders (>98) to
+    // cause a taker to be canceled with reason `TOO_MANY_MATCHES`.
+    //
+    // The prices in this loop increase linearly: `y = mx + b`, where `y` is the
+    // price, `m` is the tick size, and `b` is the minimum order price.
+    for price_e9 in (1..=100).map(|m| m * TICK_SIZE_E9 + MIN_ORDER_PRICE_E9) {
+        let command = new_create_order_command(environment, ids_id.clone(), price_e9);
+        let command = command.sign(pkey, SignatureScheme::Ed25519)?;
+        let computed_order_hash = command.clone().compute_hash().unwrap();
+        let received_order_hash = send_request(command, &auth_token, environment, false).await?;
+        assert_eq!(received_order_hash, computed_order_hash);
+    }
 
     handle.await?;
     Ok(())
