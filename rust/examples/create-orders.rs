@@ -156,7 +156,11 @@ async fn handle_channel(mut receiver: Receiver<AccountStreamMessage>) {
     }
 }
 
-fn new_request(environment: Environment, ids_id: String, price_e9: u64) -> CreateOrderRequest {
+fn new_create_order_command(
+    environment: Environment,
+    ids_id: String,
+    price_e9: u64,
+) -> CreateOrderRequest {
     CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
             symbol: "ETH-PERP".to_string(),
@@ -182,48 +186,43 @@ fn new_request(environment: Environment, ids_id: String, price_e9: u64) -> Creat
     }
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    let environment = Environment::Staging;
-    // We construct an authentication request to obtain a token.
+async fn log_in(environment: Environment) -> Result<String> {
     let request = LoginRequest {
         account_address: environment.test_keys().unwrap().address.into(),
         audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
-    // Next, we generate a signature for the request.
     let signature = request.signature(
         SignatureScheme::Ed25519,
         PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
     )?;
 
-    // Then, we submit our authentication request to the API for the desired environment.
-    let auth_token = request
+    Ok(request
         .authenticate(&signature, environment)
         .await?
-        .access_token;
+        .access_token)
+}
 
-    // Listen to order updates to see when an order has been opened.
-    //
+#[tokio::main]
+async fn main() -> Result<()> {
+    let environment = Environment::Staging;
+
+    // Subscribe to WebSocket, and log updates asynchronously.
+    let auth_token = log_in(environment).await?;
     let handle = subscribe_to_updates(&auth_token, environment, Duration::from_secs(10)).await?;
 
-    // Next, we construct an unsigned request using the exchange's IDS ID.
+    // The IDS ID of the target environment is required in all commands.
     let ids_id = exchange::info::contracts_config(environment).await?.ids_id;
-    let request = new_request(environment, ids_id, 10_000.e9());
+    let pkey = PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?;
 
-    // Then, we sign our order.
-    let request = request.sign(
-        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
-        SignatureScheme::Ed25519,
-    )?;
+    let command = new_create_order_command(environment, ids_id, 10_000.e9());
+    let command = command.sign(pkey, SignatureScheme::Ed25519)?;
 
-    let computed_order_hash = request.clone().compute_hash().unwrap();
-    let received_order_hash = send_request(request, &auth_token, environment, false).await?;
-
-    // Finally, we check that we've received the expected order hash.
+    let computed_order_hash = command.clone().compute_hash().unwrap();
+    let received_order_hash = send_request(command, &auth_token, environment, false).await?;
     assert_eq!(computed_order_hash, received_order_hash);
 
-    handle.await.expect("Could not join handle");
+    handle.await?;
     Ok(())
 }
