@@ -19,6 +19,7 @@ use std::time::Duration;
 use sui_sdk_types::SignatureScheme;
 use tokio::net::TcpStream;
 use tokio::sync::broadcast::{self, Receiver};
+use tokio::task::JoinHandle;
 use tokio::time::timeout;
 use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
@@ -91,15 +92,19 @@ async fn handle_websocket(
     }
 }
 
-/// Requests a WebSocket subscription, and broadcasts any received
-/// [`AccountOrderUpdate`] messages to the sender.
+/// Requests a WebSocket subscription, and logs received messages.
 async fn subscribe_to_updates(
     auth_token: &str,
     environment: Environment,
-    sender: broadcast::Sender<AccountStreamMessage>,
     max_time_without_messages: Duration,
-    shutdown_flag: Arc<AtomicBool>,
-) -> Result<()> {
+) -> Result<JoinHandle<()>> {
+    // First, spawn a handler to read from an internal broadcast channel; then,
+    // subscribe to updates via WebSocket. Our WebSocket handler automatically
+    // broadcasts order updates to the channel.
+    let (sender, receiver) = broadcast::channel(20);
+    let handle = tokio::spawn(handle_channel(receiver));
+    let shutdown_flag = Arc::new(AtomicBool::new(false));
+
     // We establish a connection through the websocket URL for that environment.
     let mut url = ws::account::url(environment).into_client_request()?;
     url.headers_mut().insert(
@@ -110,14 +115,10 @@ async fn subscribe_to_updates(
 
     // Next, we send a subscription message to receive account updates.
     let (mut ws_sender, ws_receiver) = websocket_stream.split();
-    ws_sender
-        .send(Message::Text(serde_json::to_string(
-            &AccountSubscriptionMessage::new(
-                SubscriptionType::Subscribe,
-                vec![AccountDataStream::AccountOrderUpdate],
-            ),
-        )?))
-        .await?;
+    let request = vec![AccountDataStream::AccountOrderUpdate];
+    let request = AccountSubscriptionMessage::new(SubscriptionType::Subscribe, request);
+    let request = serde_json::to_string(&request)?;
+    ws_sender.send(Message::Text(request)).await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
     tokio::spawn(handle_websocket(
@@ -129,7 +130,7 @@ async fn subscribe_to_updates(
     ));
 
     // Finally, we return without error.
-    Ok(())
+    Ok(handle)
 }
 
 async fn handle_channel(mut receiver: Receiver<AccountStreamMessage>) {
@@ -173,7 +174,7 @@ fn new_request(environment: Environment, ids_id: String, price_e9: u64) -> Creat
         client_order_id: None,
         r#type: OrderType::Limit,
         reduce_only: false,
-        post_only: Some(true),
+        post_only: None,
         time_in_force: Some(OrderTimeInForce::Gtt),
         trigger_price_e9: None,
         self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
@@ -203,21 +204,9 @@ async fn main() -> Result<()> {
         .await?
         .access_token;
 
-    // Listen to order updates to see when an order has been opened. In this
-    // example, we first spawn a handler to read from an internal broadcast
-    // channel, and then subscribe to updates via WebSocket. Our WebSocket
-    // handler automatically broadcasts order updates to the channel.
-    let (sender, receiver) = broadcast::channel(20);
-    let handle = tokio::spawn(handle_channel(receiver));
-    let shutdown_flag = Arc::new(AtomicBool::new(false));
-    subscribe_to_updates(
-        &auth_token,
-        environment,
-        sender,
-        Duration::from_secs(10),
-        Arc::clone(&shutdown_flag),
-    )
-    .await?;
+    // Listen to order updates to see when an order has been opened.
+    //
+    let handle = subscribe_to_updates(&auth_token, environment, Duration::from_secs(10)).await?;
 
     // Next, we construct an unsigned request using the exchange's IDS ID.
     let ids_id = exchange::info::contracts_config(environment).await?.ids_id;
