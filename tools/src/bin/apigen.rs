@@ -155,8 +155,8 @@ fn generate(lang: Lang) -> Result<()> {
 
     Command::new(command)
         .arg("generate")
+        .args(["--openapitools", lang.config()])
         .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
-        .args(["--config", lang.config()])
         .args(["--generator-name", lang.generator()])
         .args(["--output", lang.output()])
         .status()?
