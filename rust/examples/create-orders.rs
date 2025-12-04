@@ -147,7 +147,7 @@ async fn subscribe_to_updates(
     Ok(())
 }
 
-async fn handle_order_updates(mut receiver: Receiver<AccountStreamMessage>) {
+async fn handle_channel(mut receiver: Receiver<AccountStreamMessage>) {
     while let Ok(websocket_message) = receiver.recv().await {
         let AccountStreamMessage::AccountOrderUpdate {
             payload: AccountStreamMessagePayload::AccountOrderUpdate(update),
@@ -232,11 +232,11 @@ async fn main() -> Result<()> {
     )?;
 
     // Listen to order updates to see when an order has been opened. In this
-    // example, we first spawn a handler to read from an internal broadcast channel,
-    // and then subscribe to updates via WebSocket. Our WebSocket handler
-    // automatically broadcasts order updates to the channel.
+    // example, we first spawn a handler to read from an internal broadcast
+    // channel, and then subscribe to updates via WebSocket. Our WebSocket
+    // handler automatically broadcasts order updates to the channel.
     let (sender, receiver) = broadcast::channel(20);
-    let handle = tokio::spawn(handle_order_updates(receiver));
+    let handle = tokio::spawn(handle_channel(receiver));
     let shutdown_flag = Arc::new(AtomicBool::new(false));
     subscribe_to_updates(
         &auth_token,
