@@ -3648,7 +3648,11 @@ export const OrderCancelReason = {
     OrderNotReducingPosition: 'ORDER_NOT_REDUCING_POSITION',
     UserCancelledAllStandbyOnMarket: 'USER_CANCELLED_ALL_STANDBY_ON_MARKET',
     PositionExceedsMaxOpenInterest: 'POSITION_EXCEEDS_MAX_OPEN_INTEREST',
-    AccountDeauthorized: 'ACCOUNT_DEAUTHORIZED'
+    AccountDeauthorized: 'ACCOUNT_DEAUTHORIZED',
+    TooManyMatches: 'TOO_MANY_MATCHES',
+    MarginCall: 'MARGIN_CALL',
+    InsufficientBalance: 'INSUFFICIENT_BALANCE',
+    TradeQuantityOutOfBound: 'TRADE_QUANTITY_OUT_OF_BOUND'
 } as const;
 
 export type OrderCancelReason = typeof OrderCancelReason[keyof typeof OrderCancelReason];

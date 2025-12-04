@@ -73,6 +73,14 @@ pub enum OrderCancelReason {
     PositionExceedsMaxOpenInterest,
     #[serde(rename = "ACCOUNT_DEAUTHORIZED")]
     AccountDeauthorized,
+    #[serde(rename = "TOO_MANY_MATCHES")]
+    TooManyMatches,
+    #[serde(rename = "MARGIN_CALL")]
+    MarginCall,
+    #[serde(rename = "INSUFFICIENT_BALANCE")]
+    InsufficientBalance,
+    #[serde(rename = "TRADE_QUANTITY_OUT_OF_BOUND")]
+    TradeQuantityOutOfBound,
 
 }
 
@@ -108,6 +116,10 @@ impl std::fmt::Display for OrderCancelReason {
             Self::UserCancelledAllStandbyOnMarket => write!(f, "USER_CANCELLED_ALL_STANDBY_ON_MARKET"),
             Self::PositionExceedsMaxOpenInterest => write!(f, "POSITION_EXCEEDS_MAX_OPEN_INTEREST"),
             Self::AccountDeauthorized => write!(f, "ACCOUNT_DEAUTHORIZED"),
+            Self::TooManyMatches => write!(f, "TOO_MANY_MATCHES"),
+            Self::MarginCall => write!(f, "MARGIN_CALL"),
+            Self::InsufficientBalance => write!(f, "INSUFFICIENT_BALANCE"),
+            Self::TradeQuantityOutOfBound => write!(f, "TRADE_QUANTITY_OUT_OF_BOUND"),
         }
     }
 }
