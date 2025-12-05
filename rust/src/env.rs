@@ -1,13 +1,13 @@
 /// Useful details for testing in Bluefin's Dev and Staging environments.
 #[derive(Clone)]
-pub struct TestKeySet {
+pub struct KeySet {
     pub address: &'static str,
     pub public_key: &'static str,
     pub private_key: &'static str,
 }
 
 /// The address and keys are currently identical for dev and staging.
-const TEST_KEYS: TestKeySet = TestKeySet {
+const TEST_KEYS: KeySet = KeySet {
     address: "0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
     public_key: "989e35904229360dfbf53a9277db36d401f597c4c0a693acc286bf439269a5cb",
     private_key: "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1",
@@ -31,7 +31,7 @@ pub enum Environment {
 impl Environment {
     /// Returns details of this environment, or None if `self` is Production.
     #[must_use]
-    pub fn test_keys(self) -> Option<TestKeySet> {
+    pub fn test_keys(self) -> Option<KeySet> {
         #[allow(deprecated)]
         match self {
             Environment::Dev

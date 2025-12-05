@@ -8,6 +8,8 @@ mod signature;
 mod update_leverage;
 mod withdraw;
 
+pub use env::KeySet;
+
 mod core {
     pub use crate::arithmetic::HasE9;
     #[allow(deprecated)]
@@ -21,6 +23,9 @@ pub mod prelude {
     pub use crate::authenticate::{
         Authenticate as _, AuthenticationOptions, Refresh as _, RequestExt as _,
     };
-    pub use crate::core::*;
     pub use crate::signature::RequestExt as _;
+
+    // TODO: Slim down the prelude. Deprecate names before removing them, so we
+    //  don't suddenly break users.
+    pub use crate::core::*;
 }

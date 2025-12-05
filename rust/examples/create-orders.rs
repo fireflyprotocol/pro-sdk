@@ -29,6 +29,8 @@ use tokio_tungstenite::{MaybeTlsStream, WebSocketStream, connect_async};
 type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
+type TcpWebSocketStream = WebSocketStream<MaybeTlsStream<TcpStream>>;
+
 async fn send_request(
     signed_request: CreateOrderRequest,
     auth_token: &str,
@@ -48,8 +50,6 @@ async fn send_request(
 
     Ok(response.order_hash)
 }
-
-type TcpWebSocketStream = WebSocketStream<MaybeTlsStream<TcpStream>>;
 
 /// Implements our responses to incoming WebSocket messages.
 async fn handle_websocket(
