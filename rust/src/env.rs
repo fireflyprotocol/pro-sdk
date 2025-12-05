@@ -2,7 +2,10 @@
 #[derive(Clone)]
 pub struct KeySet {
     pub address: &'static str,
+
+    /// 64 hexadecimal (not base64) digits.
     pub public_key: &'static str,
+
     pub private_key: &'static str,
 }
 
@@ -13,7 +16,7 @@ const TEST_KEYS: KeySet = KeySet {
     private_key: "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1",
 };
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum Environment {
     Dev,
     Staging,

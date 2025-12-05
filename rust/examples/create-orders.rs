@@ -6,7 +6,7 @@ use bluefin_api::models::{
     SelfTradePreventionType, SubscriptionType,
 };
 use bluefin_api::models::{CreateOrderRequestSignedFields, LoginRequest};
-use bluefin_pro::prelude::*;
+use bluefin_pro::{self as bfp, prelude::*};
 use chrono::{TimeDelta, Utc};
 use futures_util::stream::{SplitSink, SplitStream};
 use futures_util::{SinkExt, StreamExt};
@@ -30,6 +30,16 @@ type Error = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, Error>;
 
 type TcpWebSocketStream = WebSocketStream<MaybeTlsStream<TcpStream>>;
+
+const MARKET_SYMBOL: &str = "AVAX-PERP";
+const MIN_ORDER_PRICE_E9: u64 = 100_000_000;
+const TICK_SIZE_E9: u64 = 1_000_000;
+
+pub const KEYS: bfp::KeySet = bfp::KeySet {
+    address: "0x5dc56495f5ac595e9fec40a35d68aad077d092ff80c55de6704b6850da2ea30f",
+    public_key: "fe2b424eaae95439066d0a82548f8ab5949234840e95d55b03603ca107eaeb87",
+    private_key: "4aa8e28e77d0c72a19b6358cc8980a5ab6d9cb53059c5679bd028b3de4c37536",
+};
 
 async fn send_request(
     signed_request: CreateOrderRequest,
@@ -151,19 +161,15 @@ async fn handle_channel(mut receiver: Receiver<AccountStreamMessage>) {
     }
 }
 
-const MARKET_SYMBOL: &str = "AVAX-PERP";
-const MIN_ORDER_PRICE_E9: u64 = 100_000_000;
-const TICK_SIZE_E9: u64 = 1_000_000;
-
 fn new_create_order_command(
-    environment: Environment,
+    account_address: String,
     ids_id: String,
     price_e9: u64,
 ) -> CreateOrderRequest {
     CreateOrderRequest {
         signed_fields: CreateOrderRequestSignedFields {
             symbol: MARKET_SYMBOL.into(),
-            account_address: environment.test_keys().unwrap().address.into(),
+            account_address,
             price_e9: price_e9.to_string(),
             quantity_e9: (1.e9()).to_string(),
             side: OrderSide::Short,
@@ -185,17 +191,14 @@ fn new_create_order_command(
     }
 }
 
-async fn log_in(environment: Environment) -> Result<String> {
+async fn log_in(environment: Environment, address: String, pkey: PrivateKey) -> Result<String> {
     let request = LoginRequest {
-        account_address: environment.test_keys().unwrap().address.into(),
+        account_address: address,
         audience: auth::audience(environment).into(),
         signed_at_millis: Utc::now().timestamp_millis(),
     };
 
-    let signature = request.signature(
-        SignatureScheme::Ed25519,
-        PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?,
-    )?;
+    let signature = request.signature(SignatureScheme::Ed25519, pkey)?;
 
     Ok(request
         .authenticate(&signature, environment)
@@ -207,13 +210,18 @@ async fn log_in(environment: Environment) -> Result<String> {
 async fn main() -> Result<()> {
     let environment = Environment::Staging;
 
+    let Some(keys) = environment.test_keys() else {
+        panic!("{environment:?}: test keys not found");
+    };
+
+    let pkey = PrivateKey::from_hex(keys.private_key).expect("private key");
+
     // Subscribe to WebSocket, and log updates asynchronously.
-    let auth_token = log_in(environment).await?;
+    let auth_token = log_in(environment, keys.address.into(), pkey).await?;
     let handle = subscribe_to_updates(&auth_token, environment, Duration::from_secs(4)).await?;
 
     // The IDS ID of the target environment is required in all commands.
     let ids_id = exchange::info::contracts_config(environment).await?.ids_id;
-    let pkey = PrivateKey::from_hex(environment.test_keys().unwrap().private_key)?;
 
     // Place a spate of orders at low prices. We need enough orders (>98) to
     // cause a taker to be canceled with reason `TOO_MANY_MATCHES`.
@@ -221,7 +229,7 @@ async fn main() -> Result<()> {
     // The prices in this loop increase linearly: `y = mx + b`, where `y` is the
     // price, `m` is the tick size, and `b` is the minimum order price.
     for price_e9 in (1..=100).map(|m| m * TICK_SIZE_E9 + MIN_ORDER_PRICE_E9) {
-        let command = new_create_order_command(environment, ids_id.clone(), price_e9);
+        let command = new_create_order_command(keys.address.into(), ids_id.clone(), price_e9);
         let command = command.sign(pkey, SignatureScheme::Ed25519)?;
         let computed_order_hash = command.clone().compute_hash().unwrap();
         let received_order_hash = send_request(command, &auth_token, environment, false).await?;

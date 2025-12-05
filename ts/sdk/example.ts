@@ -22,6 +22,8 @@ import {
 import { hexToBytes } from "@noble/hashes/utils";
 import { SuiClient, Ed25519Keypair } from "@firefly-exchange/library-sui";
 
+import { bech32 } from "@scure/base";
+
 // Configure logging
 const logger = {
   info: (message: string) =>
@@ -86,262 +88,28 @@ async function handleAccountDataEvent(
   }
 }
 
+export function base64ToHex(data: string): string {
+  return Buffer.from(data, "base64").toString("hex");
+}
+
+export function bech32ToHex(bech32String: string): string {
+  const { words } = bech32.decode(bech32String as any);
+  const bytes = bech32.fromWords(words);
+  return Buffer.from(bytes).toString("hex").slice(2); // skip leading "00"
+}
+
 async function main() {
-  // Create wallet from mnemonic
-  // const suiWallet = Ed25519Keypair.deriveKeypair(
-  //   // "dilemma salmon lake ceiling moral glide cute that ginger float area aunt vague remind cage mother concert inch dizzy present proud program time urge",
-  //   "know puzzle puzzle table miss member token image loop velvet skin legend clarify affair wisdom alert lucky unveil mean two question nice spatial grape"
-  // );
-
-  const suiWallet = Ed25519Keypair.fromSecretKey(
-    hexToBytes(
-      "3427d19dcf5781f0874c36c78aec22c03acda435d69efcbf249e8821793567a1"
-    )
+  const keys = Ed25519Keypair.deriveKeypair(
+    "hair scan buyer choice pretty budget involve day rare manual history scrap"
   );
-  const otherSuiWallet = Ed25519Keypair.fromSecretKey(
-    hexToBytes(
-      "1269e3f8279bed96907a6e809a93eea2528926abbdf56584f43544859fa8c0da"
-    )
-  );
-  logger.info(`Sui Address: ${suiWallet.getPublicKey().toSuiAddress()}`);
-  logger.info(`Other Sui Address: ${otherSuiWallet.getPublicKey().toSuiAddress()}`);
 
-  const bfSigner = new BluefinRequestSigner(makeSigner(suiWallet, false));
-  const otherBfSigner = new BluefinRequestSigner(makeSigner(otherSuiWallet, false));
-  const client = new BluefinProSdk(
-    bfSigner,
-    "testnet",
-    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
-  );
-  await client.initialize();
+  const public_key = base64ToHex(keys.getPublicKey().toBase64());
+  const private_key = bech32ToHex(keys.getSecretKey());
 
-  // Example: Creating SDK with custom time offset
-  // const customTime = Date.now() + 5000; // 5 seconds in the future
-  // const clientWithTimeOffset = new BluefinProSdk(
-  //   bfSigner,
-  //   "testnet",
-  //   new SuiClient({ url: "https://fullnode.testnet.sui.io:443" }),
-  //   { currentTimeMs: customTime }
-  // );
-  // await clientWithTimeOffset.initialize();
-  // 
-  // Later, you can update the time offset:
-  // const newCustomTime = Date.now() + 10000; // 10 seconds in the future
-  // clientWithTimeOffset.updateCurrentTimeMs(newCustomTime);
+  // Should match the address of the original passphrase (above).
+  let address = Ed25519Keypair.fromSecretKey(hexToBytes(private_key)).toSuiAddress();
 
-  try {
-    // Disable for now as the account does not have enough coins
-    // await client.deposit((0.03*1e9).toString());
-
-    // Sponsored Deposit Call, fallbackToExecuteTx will perform simple executeTx if the sponsor tx fails
-    // await client.deposit((0.03*1e9).toString(), undefined, { sponsored: true, fallbackToExecuteTx: true });
-
-    // Get Market Data from Exchange Data API
-    const exchangeInfo = (await client.exchangeDataApi.getExchangeInfo()).data;
-    logger.info(`Exchange Info: ${JSON.stringify(exchangeInfo)}`);
-
-    // Find the first market available if any
-    const perpMarket =
-      exchangeInfo.markets.length > 0
-        ? exchangeInfo.markets[0]
-        : (() => {
-            throw new Error("No market is available");
-          })();
-    logger.info(`Selected market: ${JSON.stringify(perpMarket)}`);
-
-    const symbol = perpMarket.symbol;
-
-    client.updateAccountGroupId({
-      accountAddress: suiWallet.getPublicKey().toSuiAddress(),
-      groupId: "test"
-    }).catch((e) => {
-      logger.error(`Failed to update account group ID: ${e}`);
-    });
-
-    client.accountDataApi.getAccountDetails(suiWallet.getPublicKey().toSuiAddress())
-      .then((res) => {
-        logger.info(`Account details after group ID update: ${JSON.stringify(res.data)}`);
-      })
-      .catch((e) => {
-        logger.error(`Failed to get account details: ${e}`);
-      });
-
-    // Get market data
-    const candleStick = (
-      await client.exchangeDataApi.getCandlestickData(
-        symbol,
-        KlineInterval._1m,
-        CandlePriceType.Oracle
-      )
-    ).data;
-    logger.info(`Candle stick: ${JSON.stringify(candleStick)}`);
-
-    const rewards = (
-      await client.rewardsDataApi.getCampaignRewards(
-        "TRADE_AND_EARN",
-        suiWallet.toSuiAddress(),
-      )
-    ).data;
-    logger.info(`Rewards: ${JSON.stringify(rewards)}`);
-
-    const depth = (await client.exchangeDataApi.getOrderbookDepth(symbol)).data;
-    logger.info(`Depth: ${JSON.stringify(depth)}`);
-
-    const ticker = (await client.exchangeDataApi.getMarketTicker(symbol)).data;
-    logger.info(`Exchange Market ticker: ${JSON.stringify(ticker)}`);
-   
-
-    const recentTrades = (await client.exchangeDataApi.getRecentTrades(symbol))
-      .data;
-    logger.info(`Recent Trades: ${JSON.stringify(recentTrades)}`);
-
-    const fundingRateHistory = (
-      await client.exchangeDataApi.getFundingRateHistory(symbol)
-    ).data;
-    logger.info(`Funding Rate History: ${JSON.stringify(fundingRateHistory)}`);
-
-    const stats = (
-        await client.exchangeDataApi.getExchangeStats()
-    ).data;
-    logger.info(`Stats: ${JSON.stringify(stats)}`);
-
-      const statsAllTime = (
-          await client.exchangeDataApi.getExchangeStatsAllTime()
-      ).data;
-      logger.info(`Stats All Time: ${JSON.stringify(statsAllTime)}`);
-
-      const country = (
-        await client.exchangeDataApi.getCountry()
-    ).data;
-    logger.info(`Country: ${JSON.stringify(country)}`);
-
-    // Account Data API calls
-    const accountTrades = (
-      await client.accountDataApi.getAccountTrades(
-        symbol,
-        Date.now() - 10000000,
-        Date.now(),
-        1000,
-        TradeType.Order,
-        1
-      )
-    ).data;
-    logger.info(`Trades History ${JSON.stringify(accountTrades)}`);
-
-    const depositHistory = (
-      await client.accountDataApi.getAccountTransactionHistory(
-        [TransactionType.Deposit, TransactionType.Withdraw],
-        symbol,
-        Date.now() - 10000000,
-        Date.now(),
-        1000,
-        1
-      )
-    ).data;
-    logger.info(`Deposits history: ${JSON.stringify(depositHistory)}`);
-
-    const accountDetails = (
-        await client.accountDataApi.getAccountDetails(suiWallet.getPublicKey().toSuiAddress())
-    ).data;
-    logger.info(`Account Details: ${JSON.stringify(accountDetails)}`);
-
-    const accountPreferences = (
-      await client.accountDataApi.getAccountPreferences()
-    ).data;
-    logger.info(`Account Preferences: ${JSON.stringify(accountPreferences)}`);
-
-    const accountFundingrateHistory = (
-      await client.accountDataApi.getAccountFundingRateHistory()
-    ).data;
-    logger.info(
-      `Account Funding Rate history: ${JSON.stringify(
-        accountFundingrateHistory
-      )}`
-    );
-
-    // Set up WebSocket listeners
-    const accountDataListener = await client.createAccountDataStreamListener(
-      handleAccountDataEvent
-    );
-    const marketDataListener = await client.createMarketDataStreamListener(
-      handleMarketDataEvent
-    );
-
-    await accountDataListener.send(
-      JSON.stringify({
-        method: "Subscribe",
-        dataStreams: [
-          AccountDataStream.AccountOrderUpdate,
-          AccountDataStream.AccountPositionUpdate,
-          AccountDataStream.AccountTradeUpdate,
-          AccountDataStream.AccountTransactionUpdate,
-          AccountDataStream.AccountUpdate,
-        ],
-      })
-    );
-
-    await marketDataListener.send(
-      JSON.stringify({
-        method: "Subscribe",
-        dataStreams: [
-          {
-            symbol: symbol,
-            streams: [
-              MarketDataStreamName.MarkPrice,
-              MarketDataStreamName.RecentTrade,
-              MarketDataStreamName.OraclePrice,
-              MarketDataStreamName.Ticker,
-              MarketDataStreamName.TickerAll,
-              MarketDataStreamName.DiffDepth500Ms,
-              MarketDataStreamName.PartialDepth5,
-            ],
-          },
-        ],
-      })
-    );
-
-    // Place order
-    const orderParams: OrderParams = {
-      clientOrderId: "123456",
-      type: OrderType.Limit,
-      symbol: symbol,
-      priceE9: "10000000",
-      quantityE9: "100000000000",
-      side: OrderSide.Long,
-      leverageE9: "1000000000",
-      isIsolated: false,
-      expiresAtMillis: Date.now() + 6 * 60 * 1000,
-      postOnly: false,
-      reduceOnly: false,
-      timeInForce: OrderTimeInForce.Gtt,
-    };
-
-    const orderCreationResult = (await client.createOrder(orderParams)).data;
-    logger.info(
-      `Order Creation Result: ${JSON.stringify(orderCreationResult)}`
-    );
-
-    logger.info("Update Leverage to 2");
-    await client.updateLeverage(symbol, "2000000000");
-
-    // Withdraw 10 USD
-    await client.withdraw("USDC", "10000000000");
-    logger.info("Withdraw request success");
-
-    await client.authorizeAccount(otherBfSigner.getAddress());
-    logger.info("Authorize account request success");
-
-    await client.deauthorizeAccount(otherBfSigner.getAddress());
-    logger.info("Deauthorize account request success");
-
-    await client.adjustIsolatedMargin(symbol, "10000000000", true);
-    logger.info("Adjust isolated margin request success");
-
-    // Keep connection alive
-    await new Promise((resolve) => setTimeout(resolve, 50000));
-  } finally {
-    await client.dispose();
-  }
+  console.log({ public_key, private_key, address });
 }
 
 // Run the main function

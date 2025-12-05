@@ -5,8 +5,8 @@
 
 To build and compile the typescript sources to javascript use:
 ```
-npm install
-npm run build
+yarn install
+yarn run build
 ```
 
 ### Publishing
@@ -39,7 +39,7 @@ openapi-generator generate -i ../resources/bluefin-api.yaml -c ./sdk/openapitool
 ## Examples
 
 ```bash
-npm install
-npm install -g ts-node
+yarn install
+yarn global add ts-node
 ts-node --project tsconfig.esm.json example.ts
 ```
