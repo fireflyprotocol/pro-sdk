@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from enum import Enum
 from random import randint
-from typing import Callable, Awaitable, Any
+from typing import Callable, Awaitable, Any, Optional
 
 from asgiref.sync import sync_to_async
 from openapi_client import OrderType, OrderTimeInForce, SelfTradePreventionType, OrderSide
@@ -34,6 +34,8 @@ class Environment(str, Enum):
     PRODUCTION = ('sui-prod', 'https://fullnode.mainnet.sui.io:443')
     STAGING = ('sui-staging', 'https://fullnode.testnet.sui.io:443')
     DEV = ('sui-dev', 'https://fullnode.testnet.sui.io:443')
+
+    _rpc_url: str
 
     def __new__(cls, env_name: str, rpc_url: str):
         obj = str.__new__(cls, env_name)
@@ -67,8 +69,8 @@ class Order:
     reduce_only: bool = False
     post_only: bool = False
     time_in_force: OrderTimeInForce = OrderTimeInForce.GTT
-    trigger_price_e9: str = None
-    self_trade_prevention_type: SelfTradePreventionType = None
+    trigger_price_e9: Optional[str] = None
+    self_trade_prevention_type: Optional[SelfTradePreventionType] = None
 
 
 logger = logging.getLogger(__name__)
@@ -79,8 +81,8 @@ def generate_salt():
 
 
 class BluefinProSdk:
-    _sui_wallet = SuiWallet
-    current_account_address = None
+    _sui_wallet: SuiWallet
+    current_account_address: Optional[str] = None
     _token_response = None
     _token_set_at_seconds = None
     __is_connected = False
@@ -91,11 +93,11 @@ class BluefinProSdk:
     def __init__(self,
                  sui_wallet: SuiWallet,
                  env: Environment = Environment.PRODUCTION,
-                 target_account_address: str = None,
+                 target_account_address: Optional[str] = None,
                  debug: bool = False,
                  colocation_enabled: bool = False,
-                 read_only: bool | None = None,
-                 refresh_token_valid_for_seconds: int | None = None,
+                 read_only: Optional[bool] = None,
+                 refresh_token_valid_for_seconds: Optional[int] = None,
                  ):
         """
         :param sui_wallet: SuiWallet instance
@@ -155,12 +157,14 @@ class BluefinProSdk:
         # set contracts and rpc calls
         exchange_info = await self.exchange_data_api.get_exchange_info()
         self.__contracts_config = exchange_info.contracts_config
+        if self.__contracts_config is None:
+            raise RuntimeError("Failed to get contracts config from exchange info")
         # todo: dynamic supoorted assets once we support multi collat
         contracts_config = {
-            "ExternalDataStore": exchange_info.contracts_config.eds_id,
-            "InternalDataStore": exchange_info.contracts_config.ids_id,
-            "Package": exchange_info.contracts_config.current_contract_address,
-            "Operators": exchange_info.contracts_config.operators,
+            "ExternalDataStore": self.__contracts_config.eds_id,
+            "InternalDataStore": self.__contracts_config.ids_id,
+            "Package": self.__contracts_config.current_contract_address,
+            "Operators": self.__contracts_config.operators,
             "SupportedAssets": {
                 "USDC": {
                     "coinType": exchange_info.assets[0].asset_type,
@@ -172,7 +176,7 @@ class BluefinProSdk:
         # set RpcUrl enum from
         self.__rpc_calls = ProRpcCalls(self._sui_wallet, ProContracts(contracts_config), url=self.env.rpc_url)
 
-    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: int, destination_address: str = None):
+    async def deposit_to_asset_bank(self, asset_symbol: str, amount_e9: int, destination_address: Optional[str] = None):
         """
         Deposits the provided asset of provided amount into the external asset bank.
         :param asset_symbol: The symbol of the asset being deposited (e.g. "USDC")
@@ -182,13 +186,17 @@ class BluefinProSdk:
         """
         if not self.__is_connected:
             raise RuntimeError("Not connected. Please call init() first.")
+        if self.__rpc_calls is None:
+            raise RuntimeError("RPC calls not initialized. Please call init() first.")
         if destination_address is None:
             destination_address = self.current_account_address or self._sui_wallet.sui_address
 
-        sync_to_async(self.__rpc_calls.deposit_to_asset_bank)(asset_symbol, amount_e9, destination_address)
+        await sync_to_async(self.__rpc_calls.deposit_to_asset_bank)(asset_symbol, amount_e9, destination_address)
 
     async def __login_and_update_token(self):
         await self._login()
+        if self._token_response is None:
+            raise RuntimeError("Login failed: no token received")
         self.account_data_api.api_client.set_default_header("Authorization",
                                                             "Bearer " + self._token_response.access_token)
         self._trade_api.api_client.set_default_header("Authorization",
@@ -229,64 +237,78 @@ class BluefinProSdk:
         return await self._trade_api.get_standby_orders(symbol)
 
     async def update_leverage(self, symbol: str, leverage_e9: str):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = AccountPositionLeverageUpdateRequestSignedFields(
-            account_address=self.current_account_address,
+            accountAddress=self.current_account_address,
             symbol=symbol,
-            leverage_e9=leverage_e9,
+            leverageE9=leverage_e9,
             salt=generate_salt(),
-            signed_at_millis=int(time.time() * 1000),
-            ids_id=self.__contracts_config.ids_id
+            signedAtMillis=int(time.time() * 1000),
+            idsId=self.__contracts_config.ids_id
         )
 
         signature = self.sign.adjust_leverage(signed_fields)
 
         return await self._trade_api.put_leverage_update(
             AccountPositionLeverageUpdateRequest(
-                signed_fields=signed_fields, signature=signature, request_hash="")
+                signedFields=signed_fields, signature=signature)
         )
 
     async def adjust_isolated_margin(self, symbol: str, quantity_e9: str, add: bool):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = AdjustIsolatedMarginRequestSignedFields(
-            account_address=self.current_account_address,
+            accountAddress=self.current_account_address,
             symbol=symbol,
-            quantity_e9=quantity_e9,
+            quantityE9=quantity_e9,
             operation=AdjustMarginOperation.ADD if add else AdjustMarginOperation.SUBTRACT,
             salt=generate_salt(),
-            signed_at_millis=int(time.time() * 1000),
-            ids_id=self.__contracts_config.ids_id
+            signedAtMillis=int(time.time() * 1000),
+            idsId=self.__contracts_config.ids_id
         )
 
         signature = self.sign.adjust_isolated_margin(signed_fields)
 
         return await self._trade_api.put_adjust_isolated_margin(
             AdjustIsolatedMarginRequest(
-                signed_fields=signed_fields, signature=signature, request_hash="")
+                signedFields=signed_fields, signature=signature)
         )
 
     async def create_order(self, order: Order):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = CreateOrderRequestSignedFields(symbol=order.symbol,
-                                                       ids_id=self.__contracts_config.ids_id,
-                                                       account_address=self.current_account_address,
-                                                       price_e9=order.price_e9,
-                                                       quantity_e9=order.quantity_e9, side=order.side,
-                                                       leverage_e9=order.leverage_e9, is_isolated=order.is_isolated,
+                                                       idsId=self.__contracts_config.ids_id,
+                                                       accountAddress=self.current_account_address,
+                                                       priceE9=order.price_e9,
+                                                       quantityE9=order.quantity_e9, side=order.side,
+                                                       leverageE9=order.leverage_e9, isIsolated=order.is_isolated,
                                                        salt=generate_salt(),
-                                                       expires_at_millis=order.expires_at_millis,
-                                                       signed_at_millis=int(time.time() * 1000))
+                                                       expiresAtMillis=order.expires_at_millis,
+                                                       signedAtMillis=int(time.time() * 1000))
 
         signature = self.sign.order(signed_fields)
 
         create_order_request = CreateOrderRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature=signature,
-            order_hash="",
-            client_order_id=order.client_order_id,
+            clientOrderId=order.client_order_id,
             type=order.type,
-            reduce_only=order.reduce_only,
-            post_only=order.post_only,
-            time_in_force=order.time_in_force,
-            trigger_price_e9=order.trigger_price_e9,
-            self_trade_prevention_type=order.self_trade_prevention_type,
+            reduceOnly=order.reduce_only,
+            postOnly=order.post_only,
+            timeInForce=order.time_in_force,
+            triggerPriceE9=order.trigger_price_e9,
+            selfTradePreventionType=order.self_trade_prevention_type,
         )
 
         logger.debug(
@@ -300,56 +322,71 @@ class BluefinProSdk:
         return await self._trade_api.cancel_standby_orders(cancel_orders_request)
 
     async def withdraw(self, asset_symbol: str, amount_e9: str):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = WithdrawRequestSignedFields(
-            asset_symbol=asset_symbol,
+            assetSymbol=asset_symbol,
             # for now account_address is always sui_address
-            account_address=self.current_account_address,
-            amount_e9=amount_e9,
+            accountAddress=self.current_account_address,
+            amountE9=amount_e9,
             salt=generate_salt(),
-            signed_at_millis=int(time.time() * 1000),
-            eds_id=self.__contracts_config.eds_id,
+            signedAtMillis=int(time.time() * 1000),
+            edsId=self.__contracts_config.eds_id,
         )
 
         signature = self.sign.withdraw(signed_fields)
 
         request = WithdrawRequest(
-            signed_fields=signed_fields, signature=signature, request_hash="")
+            signedFields=signed_fields, signature=signature)
 
         await self._trade_api.post_withdraw(request)
         logger.info(f"Withdraw request sent successfully {request}")
 
-    async def authorize_account(self, authorized_account_address: str, alias: str | None = None):
+    async def authorize_account(self, authorized_account_address: str, alias: Optional[str] = None):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = AccountAuthorizationRequestSignedFields(
-            account_address=self.current_account_address,
-            authorized_account_address=authorized_account_address,
-            ids_id=self.__contracts_config.ids_id,
+            accountAddress=self.current_account_address,
+            authorizedAccountAddress=authorized_account_address,
+            idsId=self.__contracts_config.ids_id,
             salt=generate_salt(),
-            signed_at_millis=int(time.time() * 1000),
+            signedAtMillis=int(time.time() * 1000),
         )
 
         signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.AUTHORIZE.value)
 
         await self._trade_api.put_authorize_account(
             AccountAuthorizationRequest(
-                signed_fields=signed_fields, signature=signature, request_hash="", alias=alias)
+                signedFields=signed_fields, signature=signature, alias=alias)
         )
 
         logger.info(f"Authorize account request sent successfully {signed_fields}")
 
     async def deauthorize_account(self, authorized_account_address: str):
+        if self.current_account_address is None:
+            raise RuntimeError("Account address is not set")
+        if self.__contracts_config is None:
+            raise RuntimeError("Contracts config is not initialized. Call init() first.")
+        
         signed_fields = AccountAuthorizationRequestSignedFields(
-            account_address=self.current_account_address,
-            authorized_account_address=authorized_account_address,
-            ids_id=self.__contracts_config.ids_id,
+            accountAddress=self.current_account_address,
+            authorizedAccountAddress=authorized_account_address,
+            idsId=self.__contracts_config.ids_id,
             salt=generate_salt(),
-            signed_at_millis=int(time.time() * 1000),
+            signedAtMillis=int(time.time() * 1000),
         )
 
         signature = self.sign.authorize_account(signed_fields, is_authorize=AccountAuthorizationAction.DEAUTHORIZE.value)
 
         await self._trade_api.put_deauthorize_account(
             AccountAuthorizationRequest(
-                signed_fields=signed_fields, signature=signature, request_hash="")
+                signedFields=signed_fields, signature=signature)
         )
 
         logger.info(f"Deauthorize account request sent successfully {signed_fields}")
@@ -363,8 +400,8 @@ class BluefinProSdk:
 
         logger.info(f"Logging in as {self.current_account_address}")
         login_request = LoginRequest(
-            account_address=self.current_account_address,
-            signed_at_millis=int(time.time() * 1000),
+            accountAddress=self.current_account_address,
+            signedAtMillis=int(time.time() * 1000),
             audience="api"
         )
 
@@ -405,15 +442,21 @@ class BluefinProSdk:
     async def get_access_token(self):
         if not self.__is_connected:
             raise RuntimeError("Not connected")
+        if self._token_response is None:
+            raise RuntimeError("Token not available")
         return self._token_response.access_token
 
     async def create_account_data_stream_listener(self,
                                                   handler: Callable[[Any], Awaitable[None]]):
+        if self._token_response is None:
+            raise RuntimeError("Not connected. Call init() first.")
         return AccountDataStreamListener(self.account_data_stream_url,
                                          self._token_response.access_token, handler)
 
     async def create_market_data_stream_listener(self,
                                                  handler: Callable[[Any], Awaitable[None]]) -> MarketDataStreamListener:
+        if self._token_response is None:
+            raise RuntimeError("Not connected. Call init() first.")
         return MarketDataStreamListener(self.market_data_stream_url,
                                         self._token_response.access_token, handler)
 
@@ -438,9 +481,10 @@ class BluefinProSdk:
             logger.debug("check token for refresh")
             # Check validity of tokens every make sure it's actually using refresh tokens or just remove refresh token response
             # add 20 seconds for safety margin
-            if time.time() - self._token_set_at_seconds > self._token_response.access_token_valid_for_seconds - 20:
-                logger.debug("Refreshing token")
-                # todo refresh token instead
-                self._token_set_at_seconds = time.time()
-                await self.__login_and_update_token()
+            if self._token_response is not None and self._token_set_at_seconds is not None:
+                if time.time() - self._token_set_at_seconds > self._token_response.access_token_valid_for_seconds - 20:
+                    logger.debug("Refreshing token")
+                    # todo refresh token instead
+                    self._token_set_at_seconds = time.time()
+                    await self.__login_and_update_token()
             await asyncio.sleep(10)

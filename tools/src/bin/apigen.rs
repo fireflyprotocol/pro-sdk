@@ -1,4 +1,4 @@
-//! This is how Bluefin generates Rust code from the accompanying OpenAPI specifications.
+//! This is how Bluefin generates Rust code from the accompanying `OpenAPI` specifications.
 //!
 //! ```sh
 //! cargo run --bin apigen
@@ -11,7 +11,7 @@ use std::process::{Command, exit};
 use std::str::FromStr;
 use std::{env, fmt, io};
 
-/// Name of the directory where OpenAPI YAML specs live.
+/// Name of the directory where `OpenAPI` YAML specs live.
 const INPUT_DIR: &str = "resources";
 
 const USAGE: &str = "
@@ -76,7 +76,7 @@ enum Lang {
 }
 
 impl Lang {
-    /// Returns a repo-relative path to the OpenAPI definition for this language.
+    /// Returns a repo-relative path to the `OpenAPI` definition for this language.
     fn config(self) -> &'static str {
         match self {
             Lang::Python => "python/sdk/config.yaml",
@@ -85,7 +85,7 @@ impl Lang {
         }
     }
 
-    /// Returns an OpenAPI generator name.
+    /// Returns an `OpenAPI` generator name.
     fn generator(self) -> &'static str {
         match self {
             Lang::Python => "python",
@@ -117,7 +117,7 @@ impl FromStr for Lang {
     }
 }
 
-/// Invokes the OpenAPI code generator command for the named specification.  For example:
+/// Invokes the `OpenAPI` code generator command for the named specification.  For example:
 ///
 /// ```rs
 /// generate("websocket-account")?;
@@ -125,10 +125,10 @@ impl FromStr for Lang {
 ///
 /// # Errors
 ///
-/// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
+/// Will return `Err` if the `OpenAPI` generator cannot be found, or if it returns bad status.
 fn generate(lang: Lang) -> Result<()> {
     let npm_command = "npm";
-    // Check whether npm is installed.
+    // Check whether npm is installed on the system.
     Command::new(npm_command)
         .arg("--version")
         .status()?

@@ -10,16 +10,16 @@ class TestHashable(unittest.TestCase):
     
     def test_withdraw_request_hash(self):
         signed_fields = WithdrawRequestSignedFields(
-            eds_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            asset_symbol="BTC-PERP",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            amount_e9="1000000000",
+            edsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            assetSymbol="BTC-PERP",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            amountE9="1000000000",
             salt="12345",
-            signed_at_millis=1725931543867
+            signedAtMillis=1725931543867
         )
         
         request = WithdrawRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature=""
         )
         
@@ -41,15 +41,15 @@ class TestHashable(unittest.TestCase):
     def test_authorize_account_request_hash(self): 
         # Create signed fields
         signed_fields = AccountAuthorizationRequestSignedFields(
-            ids_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            authorized_account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            idsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            authorizedAccountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             salt="67890",
-            signed_at_millis=1725931543867
+            signedAtMillis=1725931543867
         )
         
         request = AccountAuthorizationRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature=""
         )
         
@@ -71,15 +71,15 @@ class TestHashable(unittest.TestCase):
     def test_deauthorize_account_request_hash(self):
         # Create signed fields
         signed_fields = AccountAuthorizationRequestSignedFields(
-            ids_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            authorized_account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            idsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            authorizedAccountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             salt="67890",
-            signed_at_millis=1725931543867
+            signedAtMillis=1725931543867
         )
         
         request = AccountAuthorizationRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature=""
         )
         
@@ -101,28 +101,28 @@ class TestHashable(unittest.TestCase):
     def test_create_order_request_hash(self):
         signed_fields = CreateOrderRequestSignedFields(
             symbol="BTC-PERP",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            price_e9="50000000000",
-            quantity_e9="1000000000",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            priceE9="50000000000",
+            quantityE9="1000000000",
             side=OrderSide.LONG,
-            leverage_e9="10000000000",
-            is_isolated=False,
+            leverageE9="10000000000",
+            isIsolated=False,
             salt="12345",
-            ids_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            expires_at_millis=1725931543867,
-            signed_at_millis=1725931543867
+            idsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            expiresAtMillis=1725931543867,
+            signedAtMillis=1725931543867
         )
         
         request = CreateOrderRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature="",
-            client_order_id="",
+            clientOrderId="",
             type=OrderType.MARKET,
-            reduce_only=False,
-            post_only=False,
-            time_in_force=None,
-            trigger_price_e9=None,
-            self_trade_prevention_type=None
+            reduceOnly=False,
+            postOnly=False,
+            timeInForce=None,
+            triggerPriceE9=None,
+            selfTradePreventionType=None
         )
         
         # Create create order request
@@ -149,16 +149,16 @@ class TestHashable(unittest.TestCase):
 
     def test_adjust_leverage_request_hash(self):
         signed_fields = AccountPositionLeverageUpdateRequestSignedFields(
-            ids_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            idsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             symbol="BTC-PERP",
-            leverage_e9="10000000000",
+            leverageE9="10000000000",
             salt="12345",
-            signed_at_millis=1725931543867
+            signedAtMillis=1725931543867
         )
         
         request = AccountPositionLeverageUpdateRequest(
-            signed_fields=signed_fields,
+            signedFields=signed_fields,
             signature=""
         )
         
@@ -179,13 +179,13 @@ class TestHashable(unittest.TestCase):
     
     def test_adjust_isolated_margin_request_hash(self):
         signed_fields = AdjustIsolatedMarginRequestSignedFields(
-            ids_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
-            account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            idsId="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            accountAddress="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             symbol="BTC-PERP",
             operation=AdjustMarginOperation.ADD,
-            quantity_e9="1000000000",
+            quantityE9="1000000000",
             salt="12345",
-            signed_at_millis=1725931543867
+            signedAtMillis=1725931543867
         )
         
         request = AdjustIsolatedMarginRequest(

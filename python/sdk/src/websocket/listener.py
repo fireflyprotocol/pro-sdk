@@ -1,9 +1,11 @@
 import asyncio
 import json
 import logging
-from typing import List, Callable, Any, Awaitable
+from typing import List, Callable, Any, Awaitable, Optional, TYPE_CHECKING
 
 import websockets
+if TYPE_CHECKING:
+    from websockets.legacy.client import WebSocketClientProtocol
 from openapi_client import *
 
 logger = logging.getLogger("data_stream_listeners")
@@ -21,9 +23,9 @@ class WebsocketEventsListener:
         self.websocket_url = websocket_url
         self.token = token
         self.message_handler = raw_message_handler
-        self.websocket = None
-        self._listener_task = None
-        self._ping_task = None
+        self.websocket: Any = None
+        self._listener_task: Optional[asyncio.Task] = None
+        self._ping_task: Optional[asyncio.Task] = None
         self.connected = False
 
     async def connect(self):
@@ -60,6 +62,8 @@ class WebsocketEventsListener:
 
     async def _listen_to_websocket(self):
         """Listen for incoming WebSocket messages."""
+        if self.websocket is None:
+            raise RuntimeError("WebSocket is not connected")
         try:
             async for message in self.websocket:
                 try:
@@ -75,6 +79,8 @@ class WebsocketEventsListener:
         """Send periodic ping messages to the WebSocket."""
         try:
             while self.connected:
+                if self.websocket is None:
+                    break
                 await self.websocket.ping("Ping")
                 logger.debug("Ping sent.")
                 await asyncio.sleep(10)  # Ping interval
@@ -151,12 +157,18 @@ class MarketDataStreamListener(WebsocketEventsListener):
                                                                          data_streams=subscription).to_json()
         if not self.connected:
             raise RuntimeError("Cannot subscribe: WebSocket is not connected.")
+        if self.websocket is None:
+            raise RuntimeError("WebSocket is not initialized")
 
         await self._send_message(subscription_message)
 
         # get subscription resopnse
-        result = SubscriptionResponseMessage.from_json(await self.websocket.recv())
+        recv_data = await self.websocket.recv()
+        recv_str = recv_data if isinstance(recv_data, str) else recv_data.decode('utf-8')
+        result = SubscriptionResponseMessage.from_json(recv_str)
 
+        if result is None:
+            raise RuntimeError("Failed to parse subscription response")
         if not result.success:
             raise RuntimeError(
                 f"Failed to subscribe to market data streams: {result.message}")
@@ -206,11 +218,17 @@ class AccountDataStreamListener(WebsocketEventsListener):
 
         if not self.connected:
             raise RuntimeError("Cannot subscribe: WebSocket is not connected.")
+        if self.websocket is None:
+            raise RuntimeError("WebSocket is not initialized")
 
         await self._send_message(subscription_message)
         # get subscription response
-        result = SubscriptionResponseMessage.from_json(await self.websocket.recv())
+        recv_data = await self.websocket.recv()
+        recv_str = recv_data if isinstance(recv_data, str) else recv_data.decode('utf-8')
+        result = SubscriptionResponseMessage.from_json(recv_str)
 
+        if result is None:
+            raise RuntimeError("Failed to parse subscription response")
         if not result.success:
             raise RuntimeError(
                 f"Failed to subscribe to streams: {result.message}")
