@@ -3,10 +3,11 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from bip_utils import Bip44, Bip44Coins, Bip39SeedGenerator, Bip39MnemonicValidator, Bip39Languages
 
 from hashlib import blake2b
+from typing import Optional
 
 class SuiWallet:
 
-    def __init__(self, private_key_bytes: bytes = None, mnemonic: str = None):
+    def __init__(self, private_key_bytes: Optional[bytes] = None, mnemonic: Optional[str] = None):
         if private_key_bytes is None and mnemonic is None:
             raise ValueError(
                 "Either private_key_bytes or mnemonic must be provided")
@@ -14,8 +15,10 @@ class SuiWallet:
         if private_key_bytes is not None:
             self.private_key = Ed25519PrivateKey.from_private_bytes(
                 private_key_bytes)
-        else:
+        elif mnemonic is not None:
             self.private_key = self.__private_key_from_mnemonic(mnemonic)
+        else:
+            raise ValueError("Either private_key_bytes or mnemonic must be provided")
 
         self.public_key_bytes = self.private_key.public_key().public_bytes(
             encoding=serialization.Encoding.Raw,

@@ -1,4 +1,5 @@
 import struct
+from typing import Callable
 
 
 class BCSSerializer:
@@ -70,7 +71,7 @@ class BCSSerializer:
         self.serialize_u32_as_uleb128(len(encoded))
         self.buffer.extend(encoded)
 
-    def serialize_list(self, values: list, element_serializer: callable) -> None:
+    def serialize_list(self, values: list, element_serializer: Callable) -> None:
         """
         Serialize a list with u32 length prefix.
         
@@ -86,7 +87,7 @@ class BCSSerializer:
         for value in values:
             element_serializer(value)
 
-    def serialize_tuple(self, values: tuple, element_serializers: list[callable]) -> None:
+    def serialize_tuple(self, values: tuple, element_serializers: list[Callable]) -> None:
         """
         Serialize a tuple with fixed serializers.
         
@@ -102,7 +103,7 @@ class BCSSerializer:
         for value, serializer in zip(values, element_serializers):
             serializer(value)
 
-    def serialize_dict(self, dictionary: dict, key_serializer: callable, value_serializer: callable) -> None:
+    def serialize_dict(self, dictionary: dict, key_serializer: Callable, value_serializer: Callable) -> None:
         if len(dictionary) > self.MAX_SEQUENCE_LENGTH:
             raise ValueError(f"Dictionary length {len(dictionary)} exceeds maximum {self.MAX_SEQUENCE_LENGTH}")
         self.serialize_u32(len(dictionary))
@@ -116,14 +117,14 @@ class BCSSerializer:
         For example, in Sui, an Address is a 32-byte identifier.
         """
 
-        address = hex_to_byte_array(address)
+        address_bytes = hex_to_byte_array(address)
 
-        if not isinstance(address, (bytes, bytearray)):
+        if not isinstance(address_bytes, (bytes, bytearray)):
             raise TypeError("Address must be a byte array.")
 
-        if len(address) not in {32}:
+        if len(address_bytes) not in {32}:
             raise ValueError("Address must be 32 bytes in length.")
-        self.buffer.extend(address)
+        self.buffer.extend(address_bytes)
 
     def serialize_uint8_array(self, array: list):
         """

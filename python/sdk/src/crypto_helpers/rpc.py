@@ -1,5 +1,6 @@
 import base64
 from hashlib import blake2b
+from typing import Optional
 
 from crypto_helpers.wallet import SuiWallet
 from crypto_helpers.contracts import ProContracts
@@ -22,11 +23,11 @@ class ProRpcCalls:
             generated signature
 
         """
-        tx_bytes = base64.b64decode(tx_bytes)
+        tx_bytes_decoded = base64.b64decode(tx_bytes)
 
         intent = bytearray()
         intent.extend([0, 0, 0])
-        intent = intent + tx_bytes
+        intent = intent + bytearray(tx_bytes_decoded)
         hash = blake2b(intent, digest_size=32).digest()
 
         result = self.sui_wallet.private_key.sign(hash)
@@ -37,7 +38,7 @@ class ProRpcCalls:
         res = base64.b64encode(temp)
         return res.decode()
     
-    def deposit_to_asset_bank(self, coin_symbol: str, amount: int, destination: str = None):
+    def deposit_to_asset_bank(self, coin_symbol: str, amount: int, destination: Optional[str] = None):
         """
         Deposits the provided coin of provided amount
         into the external asset bank
@@ -86,7 +87,8 @@ class ProRpcCalls:
         signature = self.sign_tx(tx_bytes)
         res = rpc_sui_executeTransactionBlock(self.rpc_url, tx_bytes, signature)
         try:
-            success = res["result"]["effects"]["status"]["status"] == "success"
+            # Type checker doesn't understand dynamic dict access, but this is correct
+            success = res["result"]["effects"]["status"]["status"] == "success"  # type: ignore
             return success, res
         except Exception as e:
             return False , res
