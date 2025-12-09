@@ -47,8 +47,10 @@ class Trade(BaseModel):
     trading_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for trading fee.", alias="tradingFeeAsset")
     gas_fee_e9: Optional[StrictStr] = Field(default=None, description="Gas fee.", alias="gasFeeE9")
     gas_fee_asset: Optional[StrictStr] = Field(default=None, description="Asset used for gas fee.", alias="gasFeeAsset")
+    mark_price_e9: Optional[StrictStr] = Field(default=None, description="Mark price at the time of trade execution (e9 format).", alias="markPriceE9")
+    oracle_price_e9: Optional[StrictStr] = Field(default=None, description="Oracle price at the time of trade execution (e9 format).", alias="oraclePriceE9")
     executed_at_millis: StrictInt = Field(description="Trade timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "orderType", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "executedAtMillis"]
+    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "orderType", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "markPriceE9", "oraclePriceE9", "executedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -118,6 +120,8 @@ class Trade(BaseModel):
             "tradingFeeAsset": obj.get("tradingFeeAsset"),
             "gasFeeE9": obj.get("gasFeeE9"),
             "gasFeeAsset": obj.get("gasFeeAsset"),
+            "markPriceE9": obj.get("markPriceE9"),
+            "oraclePriceE9": obj.get("oraclePriceE9"),
             "executedAtMillis": obj.get("executedAtMillis")
         })
         return _obj

@@ -60,6 +60,12 @@ pub struct Trade {
     /// Asset used for gas fee.
     #[serde(rename = "gasFeeAsset", skip_serializing_if = "Option::is_none")]
     pub gas_fee_asset: Option<String>,
+    /// Mark price at the time of trade execution (e9 format).
+    #[serde(rename = "markPriceE9", skip_serializing_if = "Option::is_none")]
+    pub mark_price_e9: Option<String>,
+    /// Oracle price at the time of trade execution (e9 format).
+    #[serde(rename = "oraclePriceE9", skip_serializing_if = "Option::is_none")]
+    pub oracle_price_e9: Option<String>,
     /// Trade timestamp in milliseconds since Unix epoch.
     #[serde(rename = "executedAtMillis")]
     pub executed_at_millis: i64,
@@ -85,6 +91,8 @@ impl Trade {
             trading_fee_asset: None,
             gas_fee_e9: None,
             gas_fee_asset: None,
+            mark_price_e9: None,
+            oracle_price_e9: None,
             executed_at_millis,
         }
     }

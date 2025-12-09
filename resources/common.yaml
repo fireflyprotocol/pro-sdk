@@ -213,6 +213,14 @@ components:
           type: string
           description: Asset used for gas fee.
           example: USDC
+        markPriceE9:
+          type: string
+          description: Mark price at the time of trade execution (e9 format).
+          example: "49950000000000"
+        oraclePriceE9:
+          type: string
+          description: Oracle price at the time of trade execution (e9 format).
+          example: "49950000000000"
         executedAtMillis:
           type: integer
           format: int64
