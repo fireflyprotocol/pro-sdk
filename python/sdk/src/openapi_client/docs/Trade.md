@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **trading_fee_asset** | **str** | Asset used for trading fee. | [optional] 
 **gas_fee_e9** | **str** | Gas fee. | [optional] 
 **gas_fee_asset** | **str** | Asset used for gas fee. | [optional] 
+**mark_price_e9** | **str** | Mark price at the time of trade execution (e9 format). | [optional] 
+**oracle_price_e9** | **str** | Oracle price at the time of trade execution (e9 format). | [optional] 
 **executed_at_millis** | **int** | Trade timestamp in milliseconds since Unix epoch. | 
 
 ## Example

@@ -4993,6 +4993,18 @@ export interface Trade {
      */
     'gasFeeAsset'?: string;
     /**
+     * Mark price at the time of trade execution (e9 format).
+     * @type {string}
+     * @memberof Trade
+     */
+    'markPriceE9'?: string;
+    /**
+     * Oracle price at the time of trade execution (e9 format).
+     * @type {string}
+     * @memberof Trade
+     */
+    'oraclePriceE9'?: string;
+    /**
      * Trade timestamp in milliseconds since Unix epoch.
      * @type {number}
      * @memberof Trade
