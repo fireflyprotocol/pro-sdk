@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_affiliate_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
 *RewardsApi* | [**get_affiliate_summary**](openapi_client/docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
 *RewardsApi* | [**get_campaign_rewards**](openapi_client/docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+*RewardsApi* | [**get_contract_config**](openapi_client/docs/RewardsApi.md#get_contract_config) | **GET** /v1/rewards/contract/config | Get contract configurations
 *RewardsApi* | [**get_rewards**](openapi_client/docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
 *RewardsApi* | [**get_rewards_campaign_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
 *RewardsApi* | [**get_rewards_epoch_config_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs

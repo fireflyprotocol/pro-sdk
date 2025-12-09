@@ -7877,6 +7877,36 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Returns the contract configuration metadata
+         * @summary Get contract configurations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContractConfig: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/rewards/contract/config`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns the rewards earned by users for the intervals.
          * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
@@ -8402,6 +8432,18 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Returns the contract configuration metadata
+         * @summary Get contract configurations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getContractConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getContractConfig(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getContractConfig']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Returns the rewards earned by users for the intervals.
          * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
@@ -8630,6 +8672,15 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getCampaignRewards(campaignName, userAddress, epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns the contract configuration metadata
+         * @summary Get contract configurations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContractConfig(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
+            return localVarFp.getContractConfig(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns the rewards earned by users for the intervals.
          * @summary /rewards
          * @param {number} [intervalNumber] Optionally specify interval number.
@@ -8834,6 +8885,17 @@ export class RewardsApi extends BaseAPI {
      */
     public getCampaignRewards(campaignName: string, userAddress: string, epochNumber?: number, options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getCampaignRewards(campaignName, userAddress, epochNumber, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the contract configuration metadata
+     * @summary Get contract configurations
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getContractConfig(options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getContractConfig(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
