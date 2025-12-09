@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
 [**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
 [**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+[**get_contract_config**](RewardsApi.md#get_contract_config) | **GET** /v1/rewards/contract/config | Get contract configurations
 [**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
 [**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
 [**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
@@ -205,6 +206,33 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<models::UserCampaignRewards>**](UserCampaignRewards.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_contract_config
+
+> std::collections::HashMap<String, serde_json::Value> get_contract_config()
+Get contract configurations
+
+Returns the contract configuration metadata
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)
 
 ### Authorization
 

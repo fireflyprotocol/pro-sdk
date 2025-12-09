@@ -10,6 +10,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAffiliateOverview**](#getaffiliateoverview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview|
 |[**getAffiliateSummary**](#getaffiliatesummary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary|
 |[**getCampaignRewards**](#getcampaignrewards) | **GET** /v1/rewards/campaign | /rewards/campaign|
+|[**getContractConfig**](#getcontractconfig) | **GET** /v1/rewards/contract/config | Get contract configurations|
 |[**getRewards**](#getrewards) | **GET** /v1/rewards | /rewards|
 |[**getRewardsCampaignMetadata**](#getrewardscampaignmetadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign|
 |[**getRewardsEpochConfigMetadata**](#getrewardsepochconfigmetadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs|
@@ -383,6 +384,51 @@ No authorization required
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
 |**400** | request missing required parameters |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getContractConfig**
+> { [key: string]: any | undefined; } getContractConfig()
+
+Returns the contract configuration metadata
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+const { status, data } = await apiInstance.getContractConfig();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**{ [key: string]: any | undefined; }**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response |  -  |
+|**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
