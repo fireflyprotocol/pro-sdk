@@ -1972,67 +1972,67 @@ export interface ContractConfig {
      * @type {string}
      * @memberof ContractConfig
      */
-    'AdminCap'?: string;
+    'adminCap'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'Package'?: string;
+    'package'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'UpgradeCap'?: string;
+    'upgradeCap'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'SupportedCoin'?: string;
+    'supportedCoin'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinBank'?: string;
+    'bluefinBank'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinSequencer'?: string;
+    'bluefinSequencer'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinSubAccounts'?: string;
+    'bluefinSubAccounts'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinVaultStore'?: string;
+    'bluefinVaultStore'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinPackageBase'?: string;
+    'bluefinPackageBase'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'BluefinPackage'?: string;
+    'bluefinPackage'?: string;
     /**
      * 
      * @type {{ [key: string]: RewardsPoolEntry | undefined; }}
      * @memberof ContractConfig
      */
-    'RewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
+    'rewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
 }
 /**
  * Contract configuration for the exchange.

@@ -25,31 +25,31 @@ components:
     ContractConfig:
       type: object
       properties:
-        AdminCap:
+        adminCap:
           type: string
-        Package:
+        package:
           type: string
-        UpgradeCap:
+        upgradeCap:
           type: string
-        SupportedCoin:
+        supportedCoin:
           type: string
-        BluefinBank:
+        bluefinBank:
           type: string
-        BluefinSequencer:
+        bluefinSequencer:
           type: string
-        BluefinSubAccounts:
+        bluefinSubAccounts:
           type: string
-        BluefinVaultStore:
+        bluefinVaultStore:
           type: string
-        BluefinPackageBase:
+        bluefinPackageBase:
           type: string
-        BluefinPackage:
+        bluefinPackage:
           type: string
-        RewardsPool:
+        rewardsPool:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/RewardsPoolEntry"
-            
+
     RewardsPoolEntry:
       type: object
       properties:

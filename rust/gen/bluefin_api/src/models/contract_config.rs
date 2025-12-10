@@ -13,27 +13,27 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ContractConfig {
-    #[serde(rename = "AdminCap", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "adminCap", skip_serializing_if = "Option::is_none")]
     pub admin_cap: Option<String>,
-    #[serde(rename = "Package", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "package", skip_serializing_if = "Option::is_none")]
     pub package: Option<String>,
-    #[serde(rename = "UpgradeCap", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "upgradeCap", skip_serializing_if = "Option::is_none")]
     pub upgrade_cap: Option<String>,
-    #[serde(rename = "SupportedCoin", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "supportedCoin", skip_serializing_if = "Option::is_none")]
     pub supported_coin: Option<String>,
-    #[serde(rename = "BluefinBank", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinBank", skip_serializing_if = "Option::is_none")]
     pub bluefin_bank: Option<String>,
-    #[serde(rename = "BluefinSequencer", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinSequencer", skip_serializing_if = "Option::is_none")]
     pub bluefin_sequencer: Option<String>,
-    #[serde(rename = "BluefinSubAccounts", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinSubAccounts", skip_serializing_if = "Option::is_none")]
     pub bluefin_sub_accounts: Option<String>,
-    #[serde(rename = "BluefinVaultStore", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinVaultStore", skip_serializing_if = "Option::is_none")]
     pub bluefin_vault_store: Option<String>,
-    #[serde(rename = "BluefinPackageBase", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinPackageBase", skip_serializing_if = "Option::is_none")]
     pub bluefin_package_base: Option<String>,
-    #[serde(rename = "BluefinPackage", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bluefinPackage", skip_serializing_if = "Option::is_none")]
     pub bluefin_package: Option<String>,
-    #[serde(rename = "RewardsPool", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "rewardsPool", skip_serializing_if = "Option::is_none")]
     pub rewards_pool: Option<std::collections::HashMap<String, models::RewardsPoolEntry>>,
 }
 

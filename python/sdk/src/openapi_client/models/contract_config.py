@@ -27,18 +27,18 @@ class ContractConfig(BaseModel):
     """
     ContractConfig
     """ # noqa: E501
-    admin_cap: Optional[StrictStr] = Field(default=None, alias="AdminCap")
-    package: Optional[StrictStr] = Field(default=None, alias="Package")
-    upgrade_cap: Optional[StrictStr] = Field(default=None, alias="UpgradeCap")
-    supported_coin: Optional[StrictStr] = Field(default=None, alias="SupportedCoin")
-    bluefin_bank: Optional[StrictStr] = Field(default=None, alias="BluefinBank")
-    bluefin_sequencer: Optional[StrictStr] = Field(default=None, alias="BluefinSequencer")
-    bluefin_sub_accounts: Optional[StrictStr] = Field(default=None, alias="BluefinSubAccounts")
-    bluefin_vault_store: Optional[StrictStr] = Field(default=None, alias="BluefinVaultStore")
-    bluefin_package_base: Optional[StrictStr] = Field(default=None, alias="BluefinPackageBase")
-    bluefin_package: Optional[StrictStr] = Field(default=None, alias="BluefinPackage")
-    rewards_pool: Optional[Dict[str, RewardsPoolEntry]] = Field(default=None, alias="RewardsPool")
-    __properties: ClassVar[List[str]] = ["AdminCap", "Package", "UpgradeCap", "SupportedCoin", "BluefinBank", "BluefinSequencer", "BluefinSubAccounts", "BluefinVaultStore", "BluefinPackageBase", "BluefinPackage", "RewardsPool"]
+    admin_cap: Optional[StrictStr] = Field(default=None, alias="adminCap")
+    package: Optional[StrictStr] = None
+    upgrade_cap: Optional[StrictStr] = Field(default=None, alias="upgradeCap")
+    supported_coin: Optional[StrictStr] = Field(default=None, alias="supportedCoin")
+    bluefin_bank: Optional[StrictStr] = Field(default=None, alias="bluefinBank")
+    bluefin_sequencer: Optional[StrictStr] = Field(default=None, alias="bluefinSequencer")
+    bluefin_sub_accounts: Optional[StrictStr] = Field(default=None, alias="bluefinSubAccounts")
+    bluefin_vault_store: Optional[StrictStr] = Field(default=None, alias="bluefinVaultStore")
+    bluefin_package_base: Optional[StrictStr] = Field(default=None, alias="bluefinPackageBase")
+    bluefin_package: Optional[StrictStr] = Field(default=None, alias="bluefinPackage")
+    rewards_pool: Optional[Dict[str, RewardsPoolEntry]] = Field(default=None, alias="rewardsPool")
+    __properties: ClassVar[List[str]] = ["adminCap", "package", "upgradeCap", "supportedCoin", "bluefinBank", "bluefinSequencer", "bluefinSubAccounts", "bluefinVaultStore", "bluefinPackageBase", "bluefinPackage", "rewardsPool"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +85,7 @@ class ContractConfig(BaseModel):
             for _key_rewards_pool in self.rewards_pool:
                 if self.rewards_pool[_key_rewards_pool]:
                     _field_dict[_key_rewards_pool] = self.rewards_pool[_key_rewards_pool].to_dict()
-            _dict['RewardsPool'] = _field_dict
+            _dict['rewardsPool'] = _field_dict
         return _dict
 
     @classmethod
@@ -98,21 +98,21 @@ class ContractConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdminCap": obj.get("AdminCap"),
-            "Package": obj.get("Package"),
-            "UpgradeCap": obj.get("UpgradeCap"),
-            "SupportedCoin": obj.get("SupportedCoin"),
-            "BluefinBank": obj.get("BluefinBank"),
-            "BluefinSequencer": obj.get("BluefinSequencer"),
-            "BluefinSubAccounts": obj.get("BluefinSubAccounts"),
-            "BluefinVaultStore": obj.get("BluefinVaultStore"),
-            "BluefinPackageBase": obj.get("BluefinPackageBase"),
-            "BluefinPackage": obj.get("BluefinPackage"),
-            "RewardsPool": dict(
+            "adminCap": obj.get("adminCap"),
+            "package": obj.get("package"),
+            "upgradeCap": obj.get("upgradeCap"),
+            "supportedCoin": obj.get("supportedCoin"),
+            "bluefinBank": obj.get("bluefinBank"),
+            "bluefinSequencer": obj.get("bluefinSequencer"),
+            "bluefinSubAccounts": obj.get("bluefinSubAccounts"),
+            "bluefinVaultStore": obj.get("bluefinVaultStore"),
+            "bluefinPackageBase": obj.get("bluefinPackageBase"),
+            "bluefinPackage": obj.get("bluefinPackage"),
+            "rewardsPool": dict(
                 (_k, RewardsPoolEntry.from_dict(_v))
-                for _k, _v in obj["RewardsPool"].items()
+                for _k, _v in obj["rewardsPool"].items()
             )
-            if obj.get("RewardsPool") is not None
+            if obj.get("rewardsPool") is not None
             else None
         })
         return _obj
