@@ -5413,7 +5413,8 @@ export type UserCampaignRewardsStatusEnum = typeof UserCampaignRewardsStatusEnum
 export const UserCampaignRewardsClaimStatusEnum = {
     Claimable: 'CLAIMABLE',
     Claimed: 'CLAIMED',
-    NotYetClaimable: 'NOT_YET_CLAIMABLE'
+    NotYetClaimable: 'NOT_YET_CLAIMABLE',
+    ClaimEnded: 'CLAIM_ENDED'
 } as const;
 
 export type UserCampaignRewardsClaimStatusEnum = typeof UserCampaignRewardsClaimStatusEnum[keyof typeof UserCampaignRewardsClaimStatusEnum];

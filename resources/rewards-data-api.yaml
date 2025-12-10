@@ -157,6 +157,7 @@ components:
             - CLAIMABLE
             - CLAIMED
             - NOT_YET_CLAIMABLE
+            - CLAIM_ENDED
           description: Status of the claim.
           example: "CLAIMABLE"
     ClaimSignatureItem:

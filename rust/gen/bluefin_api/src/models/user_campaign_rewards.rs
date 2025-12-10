@@ -115,6 +115,8 @@ pub enum ClaimStatus {
     Claimed,
     #[serde(rename = "NOT_YET_CLAIMABLE")]
     NotYetClaimable,
+    #[serde(rename = "CLAIM_ENDED")]
+    ClaimEnded,
 }
 
 impl Default for ClaimStatus {
