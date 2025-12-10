@@ -464,7 +464,7 @@ pub async fn get_campaign_rewards(configuration: &configuration::Configuration, 
 }
 
 /// Returns the contract configuration metadata
-pub async fn get_contract_config(configuration: &configuration::Configuration, ) -> Result<std::collections::HashMap<String, serde_json::Value>, Error<GetContractConfigError>> {
+pub async fn get_contract_config(configuration: &configuration::Configuration, ) -> Result<models::ContractConfig, Error<GetContractConfigError>> {
 
     let uri_str = format!("{}/v1/rewards/contract/config", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -488,8 +488,8 @@ pub async fn get_contract_config(configuration: &configuration::Configuration, )
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `std::collections::HashMap&lt;String, serde_json::Value&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `std::collections::HashMap&lt;String, serde_json::Value&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContractConfig`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContractConfig`")))),
         }
     } else {
         let content = resp.text().await?;

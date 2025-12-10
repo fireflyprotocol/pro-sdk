@@ -47,6 +47,7 @@ docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ClaimSignatureItem.md
 docs/CommandFailureReasonCode.md
+docs/ContractConfig.md
 docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
@@ -107,6 +108,7 @@ docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/RewardsApi.md
+docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
 docs/SigPayload.md
@@ -191,6 +193,7 @@ src/models/candle_price_type.rs
 src/models/candlestick_update.rs
 src/models/claim_signature_item.rs
 src/models/command_failure_reason_code.rs
+src/models/contract_config.rs
 src/models/contracts_config.rs
 src/models/country_response.rs
 src/models/create_order_request.rs
@@ -250,6 +253,7 @@ src/models/recent_trades_updates.rs
 src/models/referee_onboard_response.rs
 src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
+src/models/rewards_pool_entry.rs
 src/models/rewards_summary.rs
 src/models/self_trade_prevention_type.rs
 src/models/sig_payload.rs

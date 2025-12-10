@@ -22,6 +22,42 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    ContractConfig:
+      type: object
+      properties:
+        adminCap:
+          type: string
+        package:
+          type: string
+        upgradeCap:
+          type: string
+        supportedCoin:
+          type: string
+        bluefinBank:
+          type: string
+        bluefinSequencer:
+          type: string
+        bluefinSubAccounts:
+          type: string
+        bluefinVaultStore:
+          type: string
+        bluefinPackageBase:
+          type: string
+        bluefinPackage:
+          type: string
+        rewardsPool:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/RewardsPoolEntry"
+
+    RewardsPoolEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        coin:
+          type: string
+    
     CampaignRewards:
       $ref:
         "#/components/schemas/UserCampaignRewards"
@@ -121,6 +157,7 @@ components:
             - CLAIMABLE
             - CLAIMED
             - NOT_YET_CLAIMABLE
+            - CLAIM_ENDED
           description: Status of the claim.
           example: "CLAIMABLE"
     ClaimSignatureItem:
@@ -1794,8 +1831,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: true
+                $ref: "#/components/schemas/ContractConfig"
         "500":
           description: "internal server error"
           content:

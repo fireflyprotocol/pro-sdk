@@ -54,6 +54,7 @@ openapi_client/docs/CandlePriceType.md
 openapi_client/docs/CandlestickUpdate.md
 openapi_client/docs/ClaimSignatureItem.md
 openapi_client/docs/CommandFailureReasonCode.md
+openapi_client/docs/ContractConfig.md
 openapi_client/docs/ContractsConfig.md
 openapi_client/docs/CountryResponse.md
 openapi_client/docs/CreateOrderRequest.md
@@ -114,6 +115,7 @@ openapi_client/docs/RefereeOnboardResponse.md
 openapi_client/docs/RefreshTokenRequest.md
 openapi_client/docs/RefreshTokenResponse.md
 openapi_client/docs/RewardsApi.md
+openapi_client/docs/RewardsPoolEntry.md
 openapi_client/docs/RewardsSummary.md
 openapi_client/docs/SelfTradePreventionType.md
 openapi_client/docs/SigPayload.md
@@ -190,6 +192,7 @@ openapi_client/models/candle_price_type.py
 openapi_client/models/candlestick_update.py
 openapi_client/models/claim_signature_item.py
 openapi_client/models/command_failure_reason_code.py
+openapi_client/models/contract_config.py
 openapi_client/models/contracts_config.py
 openapi_client/models/country_response.py
 openapi_client/models/create_order_request.py
@@ -248,6 +251,7 @@ openapi_client/models/recent_trades_updates.py
 openapi_client/models/referee_onboard_response.py
 openapi_client/models/refresh_token_request.py
 openapi_client/models/refresh_token_response.py
+openapi_client/models/rewards_pool_entry.py
 openapi_client/models/rewards_summary.py
 openapi_client/models/self_trade_prevention_type.py
 openapi_client/models/sig_payload.py

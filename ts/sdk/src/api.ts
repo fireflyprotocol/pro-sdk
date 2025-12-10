@@ -1962,6 +1962,79 @@ export type CommandFailureReasonCode = typeof CommandFailureReasonCode[keyof typ
 
 
 /**
+ * 
+ * @export
+ * @interface ContractConfig
+ */
+export interface ContractConfig {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'adminCap'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'package'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'upgradeCap'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'supportedCoin'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinBank'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinSequencer'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinSubAccounts'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinVaultStore'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinPackageBase'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'bluefinPackage'?: string;
+    /**
+     * 
+     * @type {{ [key: string]: RewardsPoolEntry | undefined; }}
+     * @memberof ContractConfig
+     */
+    'rewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
+}
+/**
  * Contract configuration for the exchange.
  * @export
  * @interface ContractsConfig
@@ -4194,6 +4267,25 @@ export interface RefreshTokenResponse {
 /**
  * 
  * @export
+ * @interface RewardsPoolEntry
+ */
+export interface RewardsPoolEntry {
+    /**
+     * 
+     * @type {string}
+     * @memberof RewardsPoolEntry
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RewardsPoolEntry
+     */
+    'coin'?: string;
+}
+/**
+ * 
+ * @export
  * @interface RewardsSummary
  */
 export interface RewardsSummary {
@@ -5321,7 +5413,8 @@ export type UserCampaignRewardsStatusEnum = typeof UserCampaignRewardsStatusEnum
 export const UserCampaignRewardsClaimStatusEnum = {
     Claimable: 'CLAIMABLE',
     Claimed: 'CLAIMED',
-    NotYetClaimable: 'NOT_YET_CLAIMABLE'
+    NotYetClaimable: 'NOT_YET_CLAIMABLE',
+    ClaimEnded: 'CLAIM_ENDED'
 } as const;
 
 export type UserCampaignRewardsClaimStatusEnum = typeof UserCampaignRewardsClaimStatusEnum[keyof typeof UserCampaignRewardsClaimStatusEnum];
@@ -8449,7 +8542,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getContractConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
+        async getContractConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractConfig>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getContractConfig(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getContractConfig']?.[localVarOperationServerIndex]?.url;
@@ -8689,7 +8782,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContractConfig(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
+        getContractConfig(options?: RawAxiosRequestConfig): AxiosPromise<ContractConfig> {
             return localVarFp.getContractConfig(options).then((request) => request(axios, basePath));
         },
         /**

@@ -59,8 +59,8 @@ class UserCampaignRewards(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE']):
-            raise ValueError("must be one of enum values ('CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE')")
+        if value not in set(['CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE', 'CLAIM_ENDED']):
+            raise ValueError("must be one of enum values ('CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE', 'CLAIM_ENDED')")
         return value
 
     model_config = ConfigDict(
