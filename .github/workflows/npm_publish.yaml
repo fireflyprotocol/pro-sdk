@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
+          provenance: true
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -30,4 +31,4 @@ jobs:
         run: yarn build
 
       - name: Publish to NPM
-        run: npm publish
+        run: npm publish --provenance --access public
