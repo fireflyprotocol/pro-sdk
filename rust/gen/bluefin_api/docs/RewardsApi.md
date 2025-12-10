@@ -221,7 +221,7 @@ No authorization required
 
 ## get_contract_config
 
-> std::collections::HashMap<String, serde_json::Value> get_contract_config()
+> models::ContractConfig get_contract_config()
 Get contract configurations
 
 Returns the contract configuration metadata
@@ -232,7 +232,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)
+[**models::ContractConfig**](ContractConfig.md)
 
 ### Authorization
 

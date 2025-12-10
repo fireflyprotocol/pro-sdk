@@ -49,6 +49,7 @@ docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ClaimSignatureItem.md
 docs/CommandFailureReasonCode.md
+docs/ContractConfig.md
 docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
@@ -109,6 +110,7 @@ docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/RewardsApi.md
+docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
 docs/SigPayload.md

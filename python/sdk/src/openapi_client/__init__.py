@@ -79,6 +79,7 @@ from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
 from openapi_client.models.claim_signature_item import ClaimSignatureItem
 from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
+from openapi_client.models.contract_config import ContractConfig
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.create_order_request import CreateOrderRequest
@@ -137,6 +138,7 @@ from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
+from openapi_client.models.rewards_pool_entry import RewardsPoolEntry
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from openapi_client.models.sig_payload import SigPayload

@@ -477,7 +477,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_contract_config**
-> Dict[str, object] get_contract_config()
+> ContractConfig get_contract_config()
 
 Get contract configurations
 
@@ -488,6 +488,7 @@ Returns the contract configuration metadata
 
 ```python
 import openapi_client
+from openapi_client.models.contract_config import ContractConfig
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -520,7 +521,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Dict[str, object]**
+[**ContractConfig**](ContractConfig.md)
 
 ### Authorization
 

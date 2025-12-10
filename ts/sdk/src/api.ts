@@ -1962,6 +1962,79 @@ export type CommandFailureReasonCode = typeof CommandFailureReasonCode[keyof typ
 
 
 /**
+ * 
+ * @export
+ * @interface ContractConfig
+ */
+export interface ContractConfig {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'AdminCap'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'Package'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'UpgradeCap'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'SupportedCoin'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinBank'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinSequencer'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinSubAccounts'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinVaultStore'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinPackageBase'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractConfig
+     */
+    'BluefinPackage'?: string;
+    /**
+     * 
+     * @type {{ [key: string]: RewardsPoolEntry | undefined; }}
+     * @memberof ContractConfig
+     */
+    'RewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
+}
+/**
  * Contract configuration for the exchange.
  * @export
  * @interface ContractsConfig
@@ -4190,6 +4263,25 @@ export interface RefreshTokenResponse {
      * @memberof RefreshTokenResponse
      */
     'refreshTokenValidForSeconds': number;
+}
+/**
+ * 
+ * @export
+ * @interface RewardsPoolEntry
+ */
+export interface RewardsPoolEntry {
+    /**
+     * 
+     * @type {string}
+     * @memberof RewardsPoolEntry
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RewardsPoolEntry
+     */
+    'coin'?: string;
 }
 /**
  * 
@@ -8449,7 +8541,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getContractConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any | undefined; }>> {
+        async getContractConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractConfig>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getContractConfig(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RewardsApi.getContractConfig']?.[localVarOperationServerIndex]?.url;
@@ -8689,7 +8781,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContractConfig(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any | undefined; }> {
+        getContractConfig(options?: RawAxiosRequestConfig): AxiosPromise<ContractConfig> {
             return localVarFp.getContractConfig(options).then((request) => request(axios, basePath));
         },
         /**

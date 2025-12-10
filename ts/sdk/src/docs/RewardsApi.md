@@ -388,7 +388,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getContractConfig**
-> { [key: string]: any | undefined; } getContractConfig()
+> ContractConfig getContractConfig()
 
 Returns the contract configuration metadata
 
@@ -412,7 +412,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**{ [key: string]: any | undefined; }**
+**ContractConfig**
 
 ### Authorization
 
