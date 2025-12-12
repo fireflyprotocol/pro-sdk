@@ -1987,48 +1987,6 @@ export interface ContractConfig {
     'upgradeCap'?: string;
     /**
      * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'supportedCoin'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinBank'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinSequencer'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinSubAccounts'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinVaultStore'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinPackageBase'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ContractConfig
-     */
-    'bluefinPackage'?: string;
-    /**
-     * 
      * @type {{ [key: string]: RewardsPoolEntry | undefined; }}
      * @memberof ContractConfig
      */
