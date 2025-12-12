@@ -13,13 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ContractConfig {
-    #[serde(rename = "adminCap", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "AdminCap", skip_serializing_if = "Option::is_none")]
     pub admin_cap: Option<String>,
-    #[serde(rename = "package", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "Package", skip_serializing_if = "Option::is_none")]
     pub package: Option<String>,
-    #[serde(rename = "upgradeCap", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "UpgradeCap", skip_serializing_if = "Option::is_none")]
     pub upgrade_cap: Option<String>,
-    #[serde(rename = "rewardsPool", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "RewardsPool", skip_serializing_if = "Option::is_none")]
     pub rewards_pool: Option<std::collections::HashMap<String, models::RewardsPoolEntry>>,
 }
 

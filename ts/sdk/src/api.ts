@@ -1972,25 +1972,25 @@ export interface ContractConfig {
      * @type {string}
      * @memberof ContractConfig
      */
-    'adminCap'?: string;
+    'AdminCap'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'package'?: string;
+    'Package'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractConfig
      */
-    'upgradeCap'?: string;
+    'UpgradeCap'?: string;
     /**
      * 
      * @type {{ [key: string]: RewardsPoolEntry | undefined; }}
      * @memberof ContractConfig
      */
-    'rewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
+    'RewardsPool'?: { [key: string]: RewardsPoolEntry | undefined; };
 }
 /**
  * Contract configuration for the exchange.

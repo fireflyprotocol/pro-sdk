@@ -27,11 +27,11 @@ class ContractConfig(BaseModel):
     """
     ContractConfig
     """ # noqa: E501
-    admin_cap: Optional[StrictStr] = Field(default=None, alias="adminCap")
-    package: Optional[StrictStr] = None
-    upgrade_cap: Optional[StrictStr] = Field(default=None, alias="upgradeCap")
-    rewards_pool: Optional[Dict[str, RewardsPoolEntry]] = Field(default=None, alias="rewardsPool")
-    __properties: ClassVar[List[str]] = ["adminCap", "package", "upgradeCap", "rewardsPool"]
+    admin_cap: Optional[StrictStr] = Field(default=None, alias="AdminCap")
+    package: Optional[StrictStr] = Field(default=None, alias="Package")
+    upgrade_cap: Optional[StrictStr] = Field(default=None, alias="UpgradeCap")
+    rewards_pool: Optional[Dict[str, RewardsPoolEntry]] = Field(default=None, alias="RewardsPool")
+    __properties: ClassVar[List[str]] = ["AdminCap", "Package", "UpgradeCap", "RewardsPool"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,7 +78,7 @@ class ContractConfig(BaseModel):
             for _key_rewards_pool in self.rewards_pool:
                 if self.rewards_pool[_key_rewards_pool]:
                     _field_dict[_key_rewards_pool] = self.rewards_pool[_key_rewards_pool].to_dict()
-            _dict['rewardsPool'] = _field_dict
+            _dict['RewardsPool'] = _field_dict
         return _dict
 
     @classmethod
@@ -91,14 +91,14 @@ class ContractConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "adminCap": obj.get("adminCap"),
-            "package": obj.get("package"),
-            "upgradeCap": obj.get("upgradeCap"),
-            "rewardsPool": dict(
+            "AdminCap": obj.get("AdminCap"),
+            "Package": obj.get("Package"),
+            "UpgradeCap": obj.get("UpgradeCap"),
+            "RewardsPool": dict(
                 (_k, RewardsPoolEntry.from_dict(_v))
-                for _k, _v in obj["rewardsPool"].items()
+                for _k, _v in obj["RewardsPool"].items()
             )
-            if obj.get("rewardsPool") is not None
+            if obj.get("RewardsPool") is not None
             else None
         })
         return _obj
