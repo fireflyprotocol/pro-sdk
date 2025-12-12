@@ -8,13 +8,6 @@ Name | Type | Description | Notes
 **admin_cap** | **str** |  | [optional] 
 **package** | **str** |  | [optional] 
 **upgrade_cap** | **str** |  | [optional] 
-**supported_coin** | **str** |  | [optional] 
-**bluefin_bank** | **str** |  | [optional] 
-**bluefin_sequencer** | **str** |  | [optional] 
-**bluefin_sub_accounts** | **str** |  | [optional] 
-**bluefin_vault_store** | **str** |  | [optional] 
-**bluefin_package_base** | **str** |  | [optional] 
-**bluefin_package** | **str** |  | [optional] 
 **rewards_pool** | [**Dict[str, RewardsPoolEntry]**](RewardsPoolEntry.md) |  | [optional] 
 
 ## Example

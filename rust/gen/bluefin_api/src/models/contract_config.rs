@@ -19,20 +19,6 @@ pub struct ContractConfig {
     pub package: Option<String>,
     #[serde(rename = "upgradeCap", skip_serializing_if = "Option::is_none")]
     pub upgrade_cap: Option<String>,
-    #[serde(rename = "supportedCoin", skip_serializing_if = "Option::is_none")]
-    pub supported_coin: Option<String>,
-    #[serde(rename = "bluefinBank", skip_serializing_if = "Option::is_none")]
-    pub bluefin_bank: Option<String>,
-    #[serde(rename = "bluefinSequencer", skip_serializing_if = "Option::is_none")]
-    pub bluefin_sequencer: Option<String>,
-    #[serde(rename = "bluefinSubAccounts", skip_serializing_if = "Option::is_none")]
-    pub bluefin_sub_accounts: Option<String>,
-    #[serde(rename = "bluefinVaultStore", skip_serializing_if = "Option::is_none")]
-    pub bluefin_vault_store: Option<String>,
-    #[serde(rename = "bluefinPackageBase", skip_serializing_if = "Option::is_none")]
-    pub bluefin_package_base: Option<String>,
-    #[serde(rename = "bluefinPackage", skip_serializing_if = "Option::is_none")]
-    pub bluefin_package: Option<String>,
     #[serde(rename = "rewardsPool", skip_serializing_if = "Option::is_none")]
     pub rewards_pool: Option<std::collections::HashMap<String, models::RewardsPoolEntry>>,
 }
@@ -43,13 +29,6 @@ impl ContractConfig {
             admin_cap: None,
             package: None,
             upgrade_cap: None,
-            supported_coin: None,
-            bluefin_bank: None,
-            bluefin_sequencer: None,
-            bluefin_sub_accounts: None,
-            bluefin_vault_store: None,
-            bluefin_package_base: None,
-            bluefin_package: None,
             rewards_pool: None,
         }
     }

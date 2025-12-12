@@ -30,15 +30,8 @@ class ContractConfig(BaseModel):
     admin_cap: Optional[StrictStr] = Field(default=None, alias="adminCap")
     package: Optional[StrictStr] = None
     upgrade_cap: Optional[StrictStr] = Field(default=None, alias="upgradeCap")
-    supported_coin: Optional[StrictStr] = Field(default=None, alias="supportedCoin")
-    bluefin_bank: Optional[StrictStr] = Field(default=None, alias="bluefinBank")
-    bluefin_sequencer: Optional[StrictStr] = Field(default=None, alias="bluefinSequencer")
-    bluefin_sub_accounts: Optional[StrictStr] = Field(default=None, alias="bluefinSubAccounts")
-    bluefin_vault_store: Optional[StrictStr] = Field(default=None, alias="bluefinVaultStore")
-    bluefin_package_base: Optional[StrictStr] = Field(default=None, alias="bluefinPackageBase")
-    bluefin_package: Optional[StrictStr] = Field(default=None, alias="bluefinPackage")
     rewards_pool: Optional[Dict[str, RewardsPoolEntry]] = Field(default=None, alias="rewardsPool")
-    __properties: ClassVar[List[str]] = ["adminCap", "package", "upgradeCap", "supportedCoin", "bluefinBank", "bluefinSequencer", "bluefinSubAccounts", "bluefinVaultStore", "bluefinPackageBase", "bluefinPackage", "rewardsPool"]
+    __properties: ClassVar[List[str]] = ["adminCap", "package", "upgradeCap", "rewardsPool"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,13 +94,6 @@ class ContractConfig(BaseModel):
             "adminCap": obj.get("adminCap"),
             "package": obj.get("package"),
             "upgradeCap": obj.get("upgradeCap"),
-            "supportedCoin": obj.get("supportedCoin"),
-            "bluefinBank": obj.get("bluefinBank"),
-            "bluefinSequencer": obj.get("bluefinSequencer"),
-            "bluefinSubAccounts": obj.get("bluefinSubAccounts"),
-            "bluefinVaultStore": obj.get("bluefinVaultStore"),
-            "bluefinPackageBase": obj.get("bluefinPackageBase"),
-            "bluefinPackage": obj.get("bluefinPackage"),
             "rewardsPool": dict(
                 (_k, RewardsPoolEntry.from_dict(_v))
                 for _k, _v in obj["rewardsPool"].items()
