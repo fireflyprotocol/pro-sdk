@@ -31,20 +31,6 @@ components:
           type: string
         upgradeCap:
           type: string
-        supportedCoin:
-          type: string
-        bluefinBank:
-          type: string
-        bluefinSequencer:
-          type: string
-        bluefinSubAccounts:
-          type: string
-        bluefinVaultStore:
-          type: string
-        bluefinPackageBase:
-          type: string
-        bluefinPackage:
-          type: string
         rewardsPool:
           type: object
           additionalProperties:
