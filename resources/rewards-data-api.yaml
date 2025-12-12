@@ -25,13 +25,13 @@ components:
     ContractConfig:
       type: object
       properties:
-        adminCap:
+        AdminCap:
           type: string
-        package:
+        Package:
           type: string
-        upgradeCap:
+        UpgradeCap:
           type: string
-        rewardsPool:
+        RewardsPool:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/RewardsPoolEntry"
