@@ -17,6 +17,7 @@ import {
   BluefinRequestSigner,
   BluefinProSdk,
   makeSigner,
+  GetAccountValueHistoryParamsInterval,
 } from "./index";
 
 import { hexToBytes } from "@noble/hashes/utils";
@@ -257,6 +258,13 @@ async function main() {
       `Account Funding Rate history: ${JSON.stringify(
         accountFundingrateHistory
       )}`
+    );
+
+    const accountValueHistory = (
+      await client.accountDataApi.getAccountValueHistory(GetAccountValueHistoryParamsInterval._24h)
+    ).data;
+    logger.info(
+      `Account Value history for last 24 hours: ${JSON.stringify(accountValueHistory)}`
     );
 
     // Set up WebSocket listeners

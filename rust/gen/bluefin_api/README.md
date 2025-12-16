@@ -31,6 +31,7 @@ Class | Method | HTTP request | Description
 *AccountDataApi* | [**get_account_preferences**](docs/AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**get_account_trades**](docs/AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 *AccountDataApi* | [**get_account_transaction_history**](docs/AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+*AccountDataApi* | [**get_account_value_history**](docs/AccountDataApi.md#get_account_value_history) | **GET** /api/v1/account/valueHistory | /account/valueHistory
 *AccountDataApi* | [**patch_account_group_id**](docs/AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 *AccountDataApi* | [**put_account_preferences**](docs/AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 *AccountDataApi* | [**sponsor_tx**](docs/AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
@@ -107,6 +108,8 @@ Class | Method | HTTP request | Description
  - [AccountTradeUpdate](docs/AccountTradeUpdate.md)
  - [AccountTransactionUpdate](docs/AccountTransactionUpdate.md)
  - [AccountUpdate](docs/AccountUpdate.md)
+ - [AccountValueHistory](docs/AccountValueHistory.md)
+ - [AccountValueHistoryData](docs/AccountValueHistoryData.md)
  - [ActiveOrderUpdate](docs/ActiveOrderUpdate.md)
  - [AdjustIsolatedMarginRequest](docs/AdjustIsolatedMarginRequest.md)
  - [AdjustIsolatedMarginRequestSignedFields](docs/AdjustIsolatedMarginRequestSignedFields.md)
@@ -141,6 +144,7 @@ Class | Method | HTTP request | Description
  - [FailedCommandType](docs/FailedCommandType.md)
  - [FeeConfigs](docs/FeeConfigs.md)
  - [FundingRateEntry](docs/FundingRateEntry.md)
+ - [GetAccountValueHistoryParamsInterval](docs/GetAccountValueHistoryParamsInterval.md)
  - [GetAffiliateIntervalOverview200Response](docs/GetAffiliateIntervalOverview200Response.md)
  - [GetAffiliateLeaderDashboard200Response](docs/GetAffiliateLeaderDashboard200Response.md)
  - [GetAffiliateOverview200Response](docs/GetAffiliateOverview200Response.md)

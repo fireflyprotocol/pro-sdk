@@ -26,6 +26,8 @@ docs/AccountSubscriptionMessage.md
 docs/AccountTradeUpdate.md
 docs/AccountTransactionUpdate.md
 docs/AccountUpdate.md
+docs/AccountValueHistory.md
+docs/AccountValueHistoryData.md
 docs/ActiveOrderUpdate.md
 docs/AdjustIsolatedMarginRequest.md
 docs/AdjustIsolatedMarginRequestSignedFields.md
@@ -62,6 +64,7 @@ docs/ExchangeInfoResponse.md
 docs/FailedCommandType.md
 docs/FeeConfigs.md
 docs/FundingRateEntry.md
+docs/GetAccountValueHistoryParamsInterval.md
 docs/GetAffiliateIntervalOverview200Response.md
 docs/GetAffiliateLeaderDashboard200Response.md
 docs/GetAffiliateOverview200Response.md
@@ -173,6 +176,8 @@ src/models/account_subscription_message.rs
 src/models/account_trade_update.rs
 src/models/account_transaction_update.rs
 src/models/account_update.rs
+src/models/account_value_history.rs
+src/models/account_value_history_data.rs
 src/models/active_order_update.rs
 src/models/adjust_isolated_margin_request.rs
 src/models/adjust_isolated_margin_request_signed_fields.rs
@@ -207,6 +212,7 @@ src/models/exchange_info_response.rs
 src/models/failed_command_type.rs
 src/models/fee_configs.rs
 src/models/funding_rate_entry.rs
+src/models/get_account_value_history_params_interval.rs
 src/models/get_affiliate_interval_overview_200_response.rs
 src/models/get_affiliate_leader_dashboard_200_response.rs
 src/models/get_affiliate_overview_200_response.rs

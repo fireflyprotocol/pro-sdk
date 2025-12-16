@@ -405,6 +405,76 @@ components:
           description: User set leverage (e.g., 10x).
           example: 100
 
+    GetAccountValueHistoryParamsInterval:
+      type: string
+      enum:
+        - 24h
+        - 7d
+        - 30d
+        - 90d
+        - all
+      description: Time interval for the value history.
+    AccountValueHistory:
+      type: object
+      required:
+        - latestValueE9
+        - valueChangeE9
+        - valueChangePercentageE9
+        - latestUnrealizedPnlE9
+        - unrealizedPnlChangeE9
+        - unrealizedPnlChangePercentageE9
+        - values
+      properties:
+        latestValueE9:
+          type: string
+          description: Latest account value (e9 format).
+          example: "0"
+        valueChangeE9:
+          type: string
+          description: Change in value from the first to the last value in the interval (e9 format).
+          example: "0"
+        valueChangePercentageE9:
+          type: string
+          description: Percentage change in value from the first to the last value in the interval (e9 format).
+          example: "0"
+        latestUnrealizedPnlE9:
+          type: string
+          description: Latest unrealized PnL value (e9 format).
+          example: "0"
+        unrealizedPnlChangeE9:
+          type: string
+          description: Change in unrealized PnL from the first to the last value in the interval (e9 format).
+          example: "0"
+        unrealizedPnlChangePercentageE9:
+          type: string
+          description: Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).
+          example: "0"
+        values:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountValueHistoryData"
+
+    AccountValueHistoryData:
+      type: object
+      required:
+        - timestampMillis
+        - unrealizedPnlE9
+        - valueE9
+      properties:
+        timestampMillis:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds since Unix epoch.
+          example: 1627872345678
+        unrealizedPnlE9:
+          type: string
+          description: Unrealized PnL at this timestamp (e9 format).
+          example: "0"
+        valueE9:
+          type: string
+          description: Account value at this timestamp (e9 format).
+          example: "0"
+
     SponsorTxRequest:
       type: object
       required:
@@ -508,6 +578,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AccountFundingRateHistory"
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+  /api/v1/account/valueHistory:
+    get:
+      tags:
+        - Account Data
+      operationId: getAccountValueHistory
+      summary: /account/valueHistory
+      description: Retrieves the account value history for a specific account over a given time interval.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: interval
+          in: query
+          required: true
+          schema:
+            type: string
+            $ref: "#/components/schemas/GetAccountValueHistoryParamsInterval"
+          description: Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
+      responses:
+        "200":
+          description: Successful response with account value history.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountValueHistory"
         "400":
           description: "request missing required parameters"
           content:

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_account_preferences**](AccountDataApi.md#get_account_preferences) | **GET** /api/v1/account/preferences | /account/preferences
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
+[**get_account_value_history**](AccountDataApi.md#get_account_value_history) | **GET** /api/v1/account/valueHistory | /account/valueHistory
 [**patch_account_group_id**](AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 [**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 [**sponsor_tx**](AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
@@ -163,6 +164,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<models::Transaction>**](Transaction.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_account_value_history
+
+> models::AccountValueHistory get_account_value_history(interval)
+/account/valueHistory
+
+Retrieves the account value history for a specific account over a given time interval.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**interval** | **GetAccountValueHistoryParamsInterval** | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | [required] |
+
+### Return type
+
+[**models::AccountValueHistory**](AccountValueHistory.md)
 
 ### Authorization
 
