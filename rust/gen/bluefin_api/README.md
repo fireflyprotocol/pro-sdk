@@ -57,12 +57,14 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_affiliate_overview**](docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
 *RewardsApi* | [**get_affiliate_summary**](docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
 *RewardsApi* | [**get_campaign_rewards**](docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+*RewardsApi* | [**get_contract_config**](docs/RewardsApi.md#get_contract_config) | **GET** /v1/rewards/contract/config | Get contract configurations
 *RewardsApi* | [**get_rewards**](docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
 *RewardsApi* | [**get_rewards_campaign_metadata**](docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
 *RewardsApi* | [**get_rewards_epoch_config_metadata**](docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
 *RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 *RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 *RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+*RewardsApi* | [**mark_as_claimed**](docs/RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 *RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
 *RewardsApi* | [**update_affiliate_ember_refferal_share**](docs/RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
@@ -126,7 +128,9 @@ Class | Method | HTTP request | Description
  - [CancelOrdersResponse](docs/CancelOrdersResponse.md)
  - [CandlePriceType](docs/CandlePriceType.md)
  - [CandlestickUpdate](docs/CandlestickUpdate.md)
+ - [ClaimSignatureItem](docs/ClaimSignatureItem.md)
  - [CommandFailureReasonCode](docs/CommandFailureReasonCode.md)
+ - [ContractConfig](docs/ContractConfig.md)
  - [ContractsConfig](docs/ContractsConfig.md)
  - [CountryResponse](docs/CountryResponse.md)
  - [CreateOrderRequest](docs/CreateOrderRequest.md)
@@ -151,6 +155,8 @@ Class | Method | HTTP request | Description
  - [LoginRequest](docs/LoginRequest.md)
  - [LoginResponse](docs/LoginResponse.md)
  - [MarginType](docs/MarginType.md)
+ - [MarkAsClaimedRequest](docs/MarkAsClaimedRequest.md)
+ - [MarkAsClaimedResponse](docs/MarkAsClaimedResponse.md)
  - [MarkPriceUpdate](docs/MarkPriceUpdate.md)
  - [Market](docs/Market.md)
  - [MarketDataStreamName](docs/MarketDataStreamName.md)
@@ -184,8 +190,10 @@ Class | Method | HTTP request | Description
  - [RefereeOnboardResponse](docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](docs/RefreshTokenResponse.md)
+ - [RewardsPoolEntry](docs/RewardsPoolEntry.md)
  - [RewardsSummary](docs/RewardsSummary.md)
  - [SelfTradePreventionType](docs/SelfTradePreventionType.md)
+ - [SigPayload](docs/SigPayload.md)
  - [SponsorTxRequest](docs/SponsorTxRequest.md)
  - [SponsorTxResponse](docs/SponsorTxResponse.md)
  - [StatsAllTimeResponse](docs/StatsAllTimeResponse.md)

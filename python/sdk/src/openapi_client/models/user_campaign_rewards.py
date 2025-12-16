@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from openapi_client.models.claim_signature_item import ClaimSignatureItem
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -37,17 +38,29 @@ class UserCampaignRewards(BaseModel):
     wal_rewards_e9: StrictStr = Field(description="Total wal-perp rewards earned in the epoch (e9 format).", alias="walRewardsE9")
     cash_rewards_e9: StrictStr = Field(description="Total cash rewards earned in the epoch (e9 format).", alias="cashRewardsE9")
     user_fee_paid_e9: StrictStr = Field(description="Total user fee paid in the epoch (e9 format).", alias="userFeePaidE9")
-    interval_start_date: StrictInt = Field(description="Time in seconds for interval start date.", alias="intervalStartDate")
-    interval_end_date: StrictInt = Field(description="Time in seconds for interval end date.", alias="intervalEndDate")
+    interval_start_date: StrictInt = Field(description="Time in milliseconds for interval start date.", alias="intervalStartDate")
+    interval_end_date: StrictInt = Field(description="Time in milliseconds for interval end date.", alias="intervalEndDate")
     is_disbursed: StrictBool = Field(description="Indicates if the rewards have been disbursed.", alias="isDisbursed")
     txn_digest: StrictStr = Field(description="Transaction digest of the disbursement.", alias="txnDigest")
-    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest"]
+    claim_signature: Optional[List[ClaimSignatureItem]] = Field(default=None, description="Array of claim signatures for different reward types.", alias="claimSignature")
+    claim_status: Optional[StrictStr] = Field(default=None, description="Status of the claim.", alias="claimStatus")
+    __properties: ClassVar[List[str]] = ["userAddress", "campaignName", "epochNumber", "intervalNumber", "symbol", "status", "blueRewardsE9", "suiRewardsE9", "walRewardsE9", "cashRewardsE9", "userFeePaidE9", "intervalStartDate", "intervalEndDate", "isDisbursed", "txnDigest", "claimSignature", "claimStatus"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
         if value not in set(['ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN']):
             raise ValueError("must be one of enum values ('ACTIVE', 'NOT_STARTED', 'FINALIZED', 'COOLDOWN')")
+        return value
+
+    @field_validator('claim_status')
+    def claim_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE', 'CLAIM_ENDED']):
+            raise ValueError("must be one of enum values ('CLAIMABLE', 'CLAIMED', 'NOT_YET_CLAIMABLE', 'CLAIM_ENDED')")
         return value
 
     model_config = ConfigDict(
@@ -89,6 +102,13 @@ class UserCampaignRewards(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in claim_signature (list)
+        _items = []
+        if self.claim_signature:
+            for _item_claim_signature in self.claim_signature:
+                if _item_claim_signature:
+                    _items.append(_item_claim_signature.to_dict())
+            _dict['claimSignature'] = _items
         return _dict
 
     @classmethod
@@ -115,7 +135,9 @@ class UserCampaignRewards(BaseModel):
             "intervalStartDate": obj.get("intervalStartDate"),
             "intervalEndDate": obj.get("intervalEndDate"),
             "isDisbursed": obj.get("isDisbursed"),
-            "txnDigest": obj.get("txnDigest")
+            "txnDigest": obj.get("txnDigest"),
+            "claimSignature": [ClaimSignatureItem.from_dict(_item) for _item in obj["claimSignature"]] if obj.get("claimSignature") is not None else None,
+            "claimStatus": obj.get("claimStatus")
         })
         return _obj
 

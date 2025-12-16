@@ -73,6 +73,14 @@ pub enum GetCampaignRewardsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_contract_config`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetContractConfigError {
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_rewards`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -112,6 +120,17 @@ pub enum GetRewardsIntervalMetadataError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRewardsSummaryError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`mark_as_claimed`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum MarkAsClaimedError {
+    Status401(models::Error),
+    Status404(models::Error),
+    Status400(models::Error),
+    Status500(models::Error),
     UnknownValue(serde_json::Value),
 }
 
@@ -444,6 +463,41 @@ pub async fn get_campaign_rewards(configuration: &configuration::Configuration, 
     }
 }
 
+/// Returns the contract configuration metadata
+pub async fn get_contract_config(configuration: &configuration::Configuration, ) -> Result<models::ContractConfig, Error<GetContractConfigError>> {
+
+    let uri_str = format!("{}/v1/rewards/contract/config", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContractConfig`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContractConfig`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetContractConfigError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// Returns the rewards earned by users for the intervals.
 pub async fn get_rewards(configuration: &configuration::Configuration, interval_number: Option<i32>) -> Result<Vec<models::IntervalRewards>, Error<GetRewardsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -689,6 +743,47 @@ pub async fn get_rewards_summary(configuration: &configuration::Configuration, )
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRewardsSummaryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Mark user claims as claimed for the specified campaign name and interval number
+pub async fn mark_as_claimed(configuration: &configuration::Configuration, mark_as_claimed_request: models::MarkAsClaimedRequest) -> Result<models::MarkAsClaimedResponse, Error<MarkAsClaimedError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_mark_as_claimed_request = mark_as_claimed_request;
+
+    let uri_str = format!("{}/v1/rewards/claims/mark-claimed", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_mark_as_claimed_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MarkAsClaimedResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MarkAsClaimedResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<MarkAsClaimedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

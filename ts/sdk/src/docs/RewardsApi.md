@@ -10,12 +10,14 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAffiliateOverview**](#getaffiliateoverview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview|
 |[**getAffiliateSummary**](#getaffiliatesummary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary|
 |[**getCampaignRewards**](#getcampaignrewards) | **GET** /v1/rewards/campaign | /rewards/campaign|
+|[**getContractConfig**](#getcontractconfig) | **GET** /v1/rewards/contract/config | Get contract configurations|
 |[**getRewards**](#getrewards) | **GET** /v1/rewards | /rewards|
 |[**getRewardsCampaignMetadata**](#getrewardscampaignmetadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign|
 |[**getRewardsEpochConfigMetadata**](#getrewardsepochconfigmetadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs|
 |[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
 |[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
+|[**markAsClaimed**](#markasclaimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
 |[**updateAffiliateEmberRefferalShare**](#updateaffiliateemberrefferalshare) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare|
@@ -385,6 +387,51 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getContractConfig**
+> ContractConfig getContractConfig()
+
+Returns the contract configuration metadata
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+const { status, data } = await apiInstance.getContractConfig();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**ContractConfig**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response |  -  |
+|**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getRewards**
 > Array<IntervalRewards> getRewards()
 
@@ -687,6 +734,62 @@ This endpoint does not have any parameters.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **markAsClaimed**
+> MarkAsClaimedResponse markAsClaimed(markAsClaimedRequest)
+
+Mark user claims as claimed for the specified campaign name and interval number
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration,
+    MarkAsClaimedRequest
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+let markAsClaimedRequest: MarkAsClaimedRequest; //
+
+const { status, data } = await apiInstance.markAsClaimed(
+    markAsClaimedRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **markAsClaimedRequest** | **MarkAsClaimedRequest**|  | |
+
+
+### Return type
+
+**MarkAsClaimedResponse**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response indicating if the claim was marked as claimed successfully |  -  |
+|**401** | unauthorized access |  -  |
+|**404** | address not found |  -  |
+|**400** | request missing required parameters |  -  |
+|**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

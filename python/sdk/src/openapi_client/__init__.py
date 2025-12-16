@@ -79,7 +79,9 @@ from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.cancel_orders_response import CancelOrdersResponse
 from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
+from openapi_client.models.claim_signature_item import ClaimSignatureItem
 from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
+from openapi_client.models.contract_config import ContractConfig
 from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.create_order_request import CreateOrderRequest
@@ -104,6 +106,8 @@ from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
 from openapi_client.models.margin_type import MarginType
+from openapi_client.models.mark_as_claimed_request import MarkAsClaimedRequest
+from openapi_client.models.mark_as_claimed_response import MarkAsClaimedResponse
 from openapi_client.models.mark_price_update import MarkPriceUpdate
 from openapi_client.models.market import Market
 from openapi_client.models.market_data_stream_name import MarketDataStreamName
@@ -137,8 +141,10 @@ from openapi_client.models.recent_trades_updates import RecentTradesUpdates
 from openapi_client.models.referee_onboard_response import RefereeOnboardResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
+from openapi_client.models.rewards_pool_entry import RewardsPoolEntry
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
+from openapi_client.models.sig_payload import SigPayload
 from openapi_client.models.sponsor_tx_request import SponsorTxRequest
 from openapi_client.models.sponsor_tx_response import SponsorTxResponse
 from openapi_client.models.stats_all_time_response import StatsAllTimeResponse

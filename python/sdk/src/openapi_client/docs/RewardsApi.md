@@ -10,12 +10,14 @@ Method | HTTP request | Description
 [**get_affiliate_overview**](RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
 [**get_affiliate_summary**](RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
 [**get_campaign_rewards**](RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+[**get_contract_config**](RewardsApi.md#get_contract_config) | **GET** /v1/rewards/contract/config | Get contract configurations
 [**get_rewards**](RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
 [**get_rewards_campaign_metadata**](RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
 [**get_rewards_epoch_config_metadata**](RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
 [**update_affiliate_ember_refferal_share**](RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
@@ -474,6 +476,71 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_contract_config**
+> ContractConfig get_contract_config()
+
+Get contract configurations
+
+Returns the contract configuration metadata
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.contract_config import ContractConfig
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.RewardsApi(api_client)
+
+    try:
+        # Get contract configurations
+        api_response = await api_instance.get_contract_config()
+        print("The response of RewardsApi->get_contract_config:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RewardsApi->get_contract_config: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ContractConfig**](ContractConfig.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_rewards**
 > List[IntervalRewards] get_rewards(interval_number=interval_number)
 
@@ -899,6 +966,89 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **mark_as_claimed**
+> MarkAsClaimedResponse mark_as_claimed(mark_as_claimed_request)
+
+/v1/rewards/claims/mark-claimed
+
+Mark user claims as claimed for the specified campaign name and interval number
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import openapi_client
+from openapi_client.models.mark_as_claimed_request import MarkAsClaimedRequest
+from openapi_client.models.mark_as_claimed_response import MarkAsClaimedResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = openapi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.RewardsApi(api_client)
+    mark_as_claimed_request = openapi_client.MarkAsClaimedRequest() # MarkAsClaimedRequest | 
+
+    try:
+        # /v1/rewards/claims/mark-claimed
+        api_response = await api_instance.mark_as_claimed(mark_as_claimed_request)
+        print("The response of RewardsApi->mark_as_claimed:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RewardsApi->mark_as_claimed: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mark_as_claimed_request** | [**MarkAsClaimedRequest**](MarkAsClaimedRequest.md)|  | 
+
+### Return type
+
+[**MarkAsClaimedResponse**](MarkAsClaimedResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response indicating if the claim was marked as claimed successfully |  -  |
+**401** | unauthorized access |  -  |
+**404** | address not found |  -  |
+**400** | request missing required parameters |  -  |
+**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

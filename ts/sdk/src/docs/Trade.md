@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **tradingFeeAsset** | **string** | Asset used for trading fee. | [optional] [default to undefined]
 **gasFeeE9** | **string** | Gas fee. | [optional] [default to undefined]
 **gasFeeAsset** | **string** | Asset used for gas fee. | [optional] [default to undefined]
+**markPriceE9** | **string** | Mark price at the time of trade execution (e9 format). | [optional] [default to undefined]
+**oraclePriceE9** | **string** | Oracle price at the time of trade execution (e9 format). | [optional] [default to undefined]
 **executedAtMillis** | **number** | Trade timestamp in milliseconds since Unix epoch. | [default to undefined]
 
 ## Example
@@ -47,6 +49,8 @@ const instance: Trade = {
     tradingFeeAsset,
     gasFeeE9,
     gasFeeAsset,
+    markPriceE9,
+    oraclePriceE9,
     executedAtMillis,
 };
 ```

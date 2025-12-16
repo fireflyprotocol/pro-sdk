@@ -47,7 +47,9 @@ docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
+docs/ClaimSignatureItem.md
 docs/CommandFailureReasonCode.md
+docs/ContractConfig.md
 docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
@@ -73,6 +75,8 @@ docs/KlineInterval.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
+docs/MarkAsClaimedRequest.md
+docs/MarkAsClaimedResponse.md
 docs/MarkPriceUpdate.md
 docs/Market.md
 docs/MarketDataStreamName.md
@@ -107,8 +111,10 @@ docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/RewardsApi.md
+docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SigPayload.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
 docs/StatsAllTimeResponse.md
@@ -190,7 +196,9 @@ src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
 src/models/candlestick_update.rs
+src/models/claim_signature_item.rs
 src/models/command_failure_reason_code.rs
+src/models/contract_config.rs
 src/models/contracts_config.rs
 src/models/country_response.rs
 src/models/create_order_request.rs
@@ -215,6 +223,8 @@ src/models/kline_interval.rs
 src/models/login_request.rs
 src/models/login_response.rs
 src/models/margin_type.rs
+src/models/mark_as_claimed_request.rs
+src/models/mark_as_claimed_response.rs
 src/models/mark_price_update.rs
 src/models/market.rs
 src/models/market_data_stream_name.rs
@@ -249,8 +259,10 @@ src/models/recent_trades_updates.rs
 src/models/referee_onboard_response.rs
 src/models/refresh_token_request.rs
 src/models/refresh_token_response.rs
+src/models/rewards_pool_entry.rs
 src/models/rewards_summary.rs
 src/models/self_trade_prevention_type.rs
+src/models/sig_payload.rs
 src/models/sponsor_tx_request.rs
 src/models/sponsor_tx_response.rs
 src/models/stats_all_time_response.rs

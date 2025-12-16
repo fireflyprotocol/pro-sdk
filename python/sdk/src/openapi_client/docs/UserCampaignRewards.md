@@ -16,10 +16,12 @@ Name | Type | Description | Notes
 **wal_rewards_e9** | **str** | Total wal-perp rewards earned in the epoch (e9 format). | 
 **cash_rewards_e9** | **str** | Total cash rewards earned in the epoch (e9 format). | 
 **user_fee_paid_e9** | **str** | Total user fee paid in the epoch (e9 format). | 
-**interval_start_date** | **int** | Time in seconds for interval start date. | 
-**interval_end_date** | **int** | Time in seconds for interval end date. | 
+**interval_start_date** | **int** | Time in milliseconds for interval start date. | 
+**interval_end_date** | **int** | Time in milliseconds for interval end date. | 
 **is_disbursed** | **bool** | Indicates if the rewards have been disbursed. | 
 **txn_digest** | **str** | Transaction digest of the disbursement. | 
+**claim_signature** | [**List[ClaimSignatureItem]**](ClaimSignatureItem.md) | Array of claim signatures for different reward types. | [optional] 
+**claim_status** | **str** | Status of the claim. | [optional] 
 
 ## Example
 

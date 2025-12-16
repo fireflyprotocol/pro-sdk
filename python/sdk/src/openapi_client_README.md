@@ -97,12 +97,14 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_affiliate_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_overview) | **GET** /v1/rewards/affiliate/overview | /rewards/affiliate/overview
 *RewardsApi* | [**get_affiliate_summary**](openapi_client/docs/RewardsApi.md#get_affiliate_summary) | **GET** /v1/rewards/affiliate/summary | /rewards/affiliate/summary
 *RewardsApi* | [**get_campaign_rewards**](openapi_client/docs/RewardsApi.md#get_campaign_rewards) | **GET** /v1/rewards/campaign | /rewards/campaign
+*RewardsApi* | [**get_contract_config**](openapi_client/docs/RewardsApi.md#get_contract_config) | **GET** /v1/rewards/contract/config | Get contract configurations
 *RewardsApi* | [**get_rewards**](openapi_client/docs/RewardsApi.md#get_rewards) | **GET** /v1/rewards | /rewards
 *RewardsApi* | [**get_rewards_campaign_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_campaign_metadata) | **GET** /v1/rewards/metadata/campaign | /rewards/metadata/campaign
 *RewardsApi* | [**get_rewards_epoch_config_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_config_metadata) | **GET** /v1/rewards/metadata/epoch/configs | /rewards/metadata/epoch/configs
 *RewardsApi* | [**get_rewards_epoch_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 *RewardsApi* | [**get_rewards_interval_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 *RewardsApi* | [**get_rewards_summary**](openapi_client/docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+*RewardsApi* | [**mark_as_claimed**](openapi_client/docs/RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 *RewardsApi* | [**onboard_affiliate**](openapi_client/docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](openapi_client/docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
 *RewardsApi* | [**update_affiliate_ember_refferal_share**](openapi_client/docs/RewardsApi.md#update_affiliate_ember_refferal_share) | **POST** /v1/rewards/affiliate/emberRefferalShare | /rewards/affiliate/emberRefferalShare
@@ -166,7 +168,9 @@ Class | Method | HTTP request | Description
  - [CancelOrdersResponse](openapi_client/docs/CancelOrdersResponse.md)
  - [CandlePriceType](openapi_client/docs/CandlePriceType.md)
  - [CandlestickUpdate](openapi_client/docs/CandlestickUpdate.md)
+ - [ClaimSignatureItem](openapi_client/docs/ClaimSignatureItem.md)
  - [CommandFailureReasonCode](openapi_client/docs/CommandFailureReasonCode.md)
+ - [ContractConfig](openapi_client/docs/ContractConfig.md)
  - [ContractsConfig](openapi_client/docs/ContractsConfig.md)
  - [CountryResponse](openapi_client/docs/CountryResponse.md)
  - [CreateOrderRequest](openapi_client/docs/CreateOrderRequest.md)
@@ -191,6 +195,8 @@ Class | Method | HTTP request | Description
  - [LoginRequest](openapi_client/docs/LoginRequest.md)
  - [LoginResponse](openapi_client/docs/LoginResponse.md)
  - [MarginType](openapi_client/docs/MarginType.md)
+ - [MarkAsClaimedRequest](openapi_client/docs/MarkAsClaimedRequest.md)
+ - [MarkAsClaimedResponse](openapi_client/docs/MarkAsClaimedResponse.md)
  - [MarkPriceUpdate](openapi_client/docs/MarkPriceUpdate.md)
  - [Market](openapi_client/docs/Market.md)
  - [MarketDataStreamName](openapi_client/docs/MarketDataStreamName.md)
@@ -224,8 +230,10 @@ Class | Method | HTTP request | Description
  - [RefereeOnboardResponse](openapi_client/docs/RefereeOnboardResponse.md)
  - [RefreshTokenRequest](openapi_client/docs/RefreshTokenRequest.md)
  - [RefreshTokenResponse](openapi_client/docs/RefreshTokenResponse.md)
+ - [RewardsPoolEntry](openapi_client/docs/RewardsPoolEntry.md)
  - [RewardsSummary](openapi_client/docs/RewardsSummary.md)
  - [SelfTradePreventionType](openapi_client/docs/SelfTradePreventionType.md)
+ - [SigPayload](openapi_client/docs/SigPayload.md)
  - [SponsorTxRequest](openapi_client/docs/SponsorTxRequest.md)
  - [SponsorTxResponse](openapi_client/docs/SponsorTxResponse.md)
  - [StatsAllTimeResponse](openapi_client/docs/StatsAllTimeResponse.md)

@@ -49,7 +49,9 @@ docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
+docs/ClaimSignatureItem.md
 docs/CommandFailureReasonCode.md
+docs/ContractConfig.md
 docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
@@ -75,6 +77,8 @@ docs/KlineInterval.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
+docs/MarkAsClaimedRequest.md
+docs/MarkAsClaimedResponse.md
 docs/MarkPriceUpdate.md
 docs/Market.md
 docs/MarketDataStreamName.md
@@ -109,8 +113,10 @@ docs/RefereeOnboardResponse.md
 docs/RefreshTokenRequest.md
 docs/RefreshTokenResponse.md
 docs/RewardsApi.md
+docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SigPayload.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
 docs/StatsAllTimeResponse.md
