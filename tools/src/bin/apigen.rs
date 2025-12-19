@@ -5,6 +5,11 @@
 //! ```
 //!
 //! If you don't have `cargo`, start [here](https://rustup.rs/).
+//!
+//! # TODO
+//!
+//! - [ ] Automate SemVer bumps.
+//! - [ ] Automate publication to package repositories: NPM, crates.io, etc.
 
 use std::path::PathBuf;
 use std::process::{Command, exit};
