@@ -274,6 +274,7 @@ components:
         - MARGIN_CALL
         - INSUFFICIENT_BALANCE
         - TRADE_QUANTITY_OUT_OF_BOUND
+        - MARKET_TAKE_BOUND_BREACHED
 
     OrderCancellationFailureReason:
       type: string

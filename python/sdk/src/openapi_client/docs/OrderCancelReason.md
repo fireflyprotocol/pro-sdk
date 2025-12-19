@@ -70,6 +70,8 @@ The reason for an order cancellation.
 
 * `TRADE_QUANTITY_OUT_OF_BOUND` (value: `'TRADE_QUANTITY_OUT_OF_BOUND'`)
 
+* `MARKET_TAKE_BOUND_BREACHED` (value: `'MARKET_TAKE_BOUND_BREACHED'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

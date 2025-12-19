@@ -59,6 +59,7 @@ class OrderCancelReason(str, Enum):
     MARGIN_CALL = 'MARGIN_CALL'
     INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE'
     TRADE_QUANTITY_OUT_OF_BOUND = 'TRADE_QUANTITY_OUT_OF_BOUND'
+    MARKET_TAKE_BOUND_BREACHED = 'MARKET_TAKE_BOUND_BREACHED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
