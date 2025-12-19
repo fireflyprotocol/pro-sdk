@@ -3774,7 +3774,8 @@ export const OrderCancelReason = {
     TooManyMatches: 'TOO_MANY_MATCHES',
     MarginCall: 'MARGIN_CALL',
     InsufficientBalance: 'INSUFFICIENT_BALANCE',
-    TradeQuantityOutOfBound: 'TRADE_QUANTITY_OUT_OF_BOUND'
+    TradeQuantityOutOfBound: 'TRADE_QUANTITY_OUT_OF_BOUND',
+    MarketTakeBoundBreached: 'MARKET_TAKE_BOUND_BREACHED'
 } as const;
 
 export type OrderCancelReason = typeof OrderCancelReason[keyof typeof OrderCancelReason];
