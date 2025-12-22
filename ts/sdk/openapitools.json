@@ -12,7 +12,7 @@
     "preferInterface": false,
     "typescriptThreePlus": true,
     "npmName": "@bluefin/api-client",
-    "npmVersion": "1.0.0",
+    "npmVersion": "1.2.0",
     "nullSafeAdditionalProps": true,
     "enumNameSuffix": "Enum",
     "modelPropertyNaming": "camelCase",
