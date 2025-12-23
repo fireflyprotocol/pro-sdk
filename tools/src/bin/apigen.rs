@@ -8,13 +8,17 @@
 //!
 //! # TODO
 //!
-//! - [ ] Automate SemVer bumps.
-//! - [ ] Automate publication to package repositories: NPM, crates.io, etc.
+//! - [ ] Automate publication to package repositories: PyPI, crates.io, and NPM
 
 use std::path::PathBuf;
 use std::process::{Command, exit};
-use std::str::FromStr;
 use std::{env, fmt, io};
+
+use tools::Lang;
+
+// Import version bump functionality from library (only when feature is enabled)
+#[cfg(feature = "version-bump")]
+use tools::semver;
 
 /// Name of the directory where OpenAPI YAML specs live.
 const INPUT_DIR: &str = "resources";
@@ -22,6 +26,12 @@ const INPUT_DIR: &str = "resources";
 const USAGE: &str = "
 
     apigen [ {-l | --lang} { rust | python | typescript | rs | py | ts } ]...
+           [ -B | --no-bump ]
+
+Options:
+    -l, --lang <LANG>   Target language(s) for code generation
+    -B, --no-bump       Skip version bumping (state file still updated)
+    -h, --help          Show this help message
 
 Please ensure that npm and openapi-generator-cli are installed following the instructions at:
 https://openapi-generator.tech/docs/installation
@@ -39,6 +49,9 @@ pub enum Error {
     Path,
     /// A subcommand returned bad status.
     Status { command: &'static str },
+    /// Version bump error.
+    #[cfg(feature = "version-bump")]
+    Bump(semver::Error),
 }
 
 impl Error {
@@ -60,6 +73,8 @@ impl fmt::Display for Error {
             Error::Lang(s) => write!(f, "{s} is not a supported language"),
             Error::Path => write!(f, "{INPUT_DIR}: directory not found"),
             Error::Status { command } => write!(f, "{command} returned bad status"),
+            #[cfg(feature = "version-bump")]
+            Error::Bump(err) => write!(f, "{err}"),
         }
     }
 }
@@ -70,104 +85,55 @@ impl From<io::Error> for Error {
     }
 }
 
+impl From<tools::ParseLangError> for Error {
+    fn from(value: tools::ParseLangError) -> Self {
+        Error::Lang(value.0)
+    }
+}
+
+#[cfg(feature = "version-bump")]
+impl From<semver::Error> for Error {
+    fn from(value: semver::Error) -> Self {
+        Error::Bump(value)
+    }
+}
+
 type Result<T> = std::result::Result<T, Error>;
 
-/// The target language in which to generate code.
-#[derive(Clone, Copy)]
-enum Lang {
-    Python,
-    Rust,
-    Typescript,
+/// Runs a command and returns an error if it fails.
+fn run_command(cmd: &mut Command, name: &'static str) -> Result<()> {
+    cmd.status()?
+        .success()
+        .then_some(())
+        .ok_or(Error::status(name))
 }
 
-impl Lang {
-    /// Returns a repo-relative path to the OpenAPI definition for this language.
-    fn config(self) -> &'static str {
-        match self {
-            Lang::Python => "python/sdk/config.yaml",
-            Lang::Rust => "rust/gen/config.yaml",
-            Lang::Typescript => "ts/sdk/openapitools.json",
-        }
-    }
-
-    /// Returns an OpenAPI generator name.
-    fn generator(self) -> &'static str {
-        match self {
-            Lang::Python => "python",
-            Lang::Rust => "rust",
-            Lang::Typescript => "typescript-axios",
-        }
-    }
-
-    /// Returns the target directory path where code should be generated.
-    fn output(self) -> &'static str {
-        match self {
-            Lang::Python => "python/sdk/src",
-            Lang::Rust => "rust/gen/bluefin_api",
-            Lang::Typescript => "ts/sdk/src",
-        }
-    }
+/// Verifies that required tools are installed and sets the generator version.
+fn setup_generator() -> Result<()> {
+    run_command(Command::new("npm").arg("--version"), "npm")?;
+    run_command(
+        Command::new("openapi-generator-cli").arg("version"),
+        "openapi-generator-cli",
+    )?;
+    run_command(
+        Command::new("openapi-generator-cli").args(["version-manager", "set", "7.13.0"]),
+        "openapi-generator-cli",
+    )
 }
 
-impl FromStr for Lang {
-    type Err = Error;
-
-    fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        match s {
-            "py" | "python" => Ok(Lang::Python),
-            "rs" | "rust" => Ok(Lang::Rust),
-            "ts" | "typescript" | "typescript-axios" => Ok(Lang::Typescript),
-            _ => Err(Error::Flag(s.to_owned())),
-        }
-    }
-}
-
-/// Invokes the OpenAPI code generator command for the named specification.  For example:
-///
-/// ```rs
-/// generate("websocket-account")?;
-/// ```
-///
-/// # Errors
-///
-/// Will return `Err` if the OpenAPI generator cannot be found, or if it returns bad status.
+/// Invokes the OpenAPI code generator command for the named specification.
 fn generate(lang: Lang) -> Result<()> {
-    let npm_command = "npm";
-    // Check whether npm is installed.
-    Command::new(npm_command)
-        .arg("--version")
-        .status()?
-        .success()
-        .then_some(())
-        .ok_or(Error::status(npm_command))?;
+    setup_generator()?;
 
-    // Check whether openapi-generator-cli is installed.
-    let command = "openapi-generator-cli";
-    Command::new(command)
-        .arg("version")
-        .status()?
-        .success()
-        .then_some(())
-        .ok_or(Error::status(command))?;
-
-    // Set openapi-generator-cli version to 7.13.0 and run code generation.
-    Command::new(command)
-        .args(["version-manager", "set", "7.13.0"])
-        .status()?
-        .success()
-        .then_some(())
-        .ok_or(Error::status(command))?;
-
-    Command::new(command)
-        .arg("generate")
-        .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
-        .args(["--config", lang.config()])
-        .args(["--generator-name", lang.generator()])
-        .args(["--output", lang.output()])
-        .status()?
-        .success()
-        .then_some(())
-        .ok_or(Error::status(command))
+    run_command(
+        Command::new("openapi-generator-cli")
+            .arg("generate")
+            .args(["--input-spec", &format!("{INPUT_DIR}/bluefin-api.yaml")])
+            .args(["--config", lang.config()])
+            .args(["--generator-name", lang.generator()])
+            .args(["--output", lang.output()]),
+        "openapi-generator-cli",
+    )
 }
 
 /// Returns the nearest ancestor of the current working directory containing a "resources" folder.
@@ -180,36 +146,69 @@ fn input_parent() -> Result<PathBuf> {
     Ok(dir.into())
 }
 
-fn main_imp() -> Result<()> {
-    let args = env::args().skip(1).collect::<Vec<_>>();
+/// Parsed command-line arguments.
+struct Args {
+    langs: Vec<Lang>,
+    #[cfg(feature = "version-bump")]
+    no_bump: bool,
+}
 
-    // You may feel we're being lazy by cd-ing to the top of the repo merely so we can use relative
-    // paths in the `generate` function.  You may even be right.  But maybe laziness isn't so bad.
-    env::set_current_dir(input_parent()?)?;
+/// Prints help and warns about any remaining arguments.
+fn print_help(remaining_args: impl Iterator<Item = String>) {
+    println!("usage: {USAGE}");
+    let remaining: Vec<_> = remaining_args.collect();
+    if !remaining.is_empty() {
+        eprintln!("warning: ignoring args: {remaining:?}");
+    }
+}
 
+/// Parses command-line arguments and returns None if help was requested.
+fn parse_args() -> Result<Option<Args>> {
     let mut langs = Vec::new();
-    let mut args = args.into_iter();
+    #[cfg(feature = "version-bump")]
+    let mut no_bump = false;
+
+    let mut args = env::args().skip(1);
     while let Some(arg) = args.next() {
         match arg.as_str() {
             "-h" | "--help" => {
-                println!("usage: {USAGE}");
-                let args = args.collect::<Vec<_>>();
-                if !args.is_empty() {
-                    eprintln!("warning: ignoring args: {args:?}");
-                }
-                return Ok(());
+                print_help(args);
+                return Ok(None);
             }
             "-l" | "--lang" => langs.push(args.next().ok_or(Error::Flag(arg))?.parse()?),
+            #[cfg(feature = "version-bump")]
+            "-B" | "--no-bump" => no_bump = true,
+            #[cfg(not(feature = "version-bump"))]
+            "-B" | "--no-bump" => {
+                eprintln!("warning: --no-bump ignored (version-bump feature disabled)")
+            }
             _ => return Err(Error::Flag(arg)),
         }
     }
 
-    // Default to generating all languages.
     if langs.is_empty() {
-        langs.extend([Lang::Python, Lang::Rust, Lang::Typescript]);
+        langs.extend([Lang::Python, Lang::Rust, Lang::TypeScript]);
     }
 
-    for lang in langs {
+    Ok(Some(Args {
+        langs,
+        #[cfg(feature = "version-bump")]
+        no_bump,
+    }))
+}
+
+fn main_imp() -> Result<()> {
+    // Change to repo root so we can use relative paths in the generate function.
+    env::set_current_dir(input_parent()?)?;
+
+    let Some(args) = parse_args()? else {
+        return Ok(());
+    };
+
+    #[cfg(feature = "version-bump")]
+    semver::run(args.no_bump, &args.langs)?;
+
+    for lang in args.langs {
         generate(lang)?;
     }
 

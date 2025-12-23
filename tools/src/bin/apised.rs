@@ -78,7 +78,7 @@ fn main_imp() -> Result<()> {
     for arg in args {
         match arg.as_str() {
             "-h" | "--help" => {
-                println!("usage: apised SPEC [account-data, auth, exchange, trade, websocket]")
+                println!("usage: apised SPEC [account-data, auth, exchange, trade, websocket]");
             }
             flag if flag.starts_with('-') => return Err(Error::Flag(arg)),
             _ => run(&arg)?,
