@@ -2,6 +2,7 @@ import requests
 import json
 import time
 from hashlib import blake2b
+from typing import Optional
 
 LOCKED_OBJECT_ERROR_CODE = (
     "Failed to sign transaction by a quorum of validators because of locked objects"
@@ -91,6 +92,7 @@ def rpc_sui_executeTransactionBlock(url, txBytes, signature, maxRetries=5):
 
     headers = {"Content-Type": "application/json"}
 
+    result = None
     for i in range(0, maxRetries):
         response = requests.request("POST", url, headers=headers, data=payload)
         result = json.loads(response.text)
@@ -101,7 +103,7 @@ def rpc_sui_executeTransactionBlock(url, txBytes, signature, maxRetries=5):
             return result
 
         time.sleep(1)
-    return result
+    return result if result is not None else {"error": "Max retries exceeded"}
 
 def rpc_sui_getDynamicFieldObject(url:str, parentObjectId: str, fieldName: str,fieldSuiObjectType:str, maxRetries=5):
     """
@@ -129,6 +131,7 @@ def rpc_sui_getDynamicFieldObject(url:str, parentObjectId: str, fieldName: str,f
 
     headers = {"Content-Type": "application/json"}
 
+    result = None
     for i in range(0, maxRetries):
         response = requests.request("POST", url, headers=headers, data=payload)
         result = json.loads(response.text)
@@ -139,7 +142,7 @@ def rpc_sui_getDynamicFieldObject(url:str, parentObjectId: str, fieldName: str,f
             return result
 
         time.sleep(1)
-    return result
+    return result if result is not None else {"error": "Max retries exceeded"}
 
 def rpc_call_sui_function(url, params, method="suix_getCoins"):
     """
@@ -161,7 +164,7 @@ def rpc_call_sui_function(url, params, method="suix_getCoins"):
     result = json.loads(response.text)
     return result["result"]["data"]
 
-def get_coins(user_address: str = None, coin_type: str = "0x::sui::SUI", url: str = None):
+def get_coins(user_address: Optional[str] = None, coin_type: str = "0x::sui::SUI", url: Optional[str] = None):
         """
         Returns the list of the coins of type tokenType owned by user
         """
@@ -176,7 +179,7 @@ def get_coins(user_address: str = None, coin_type: str = "0x::sui::SUI", url: st
             print(e)
             raise (Exception("Failed to get coins, Exception: {}".format(e)))
         
-async def get_coin_balance(user_address: str = None, coin_type: str = "0x::sui::SUI", url: str = None) -> str:
+async def get_coin_balance(user_address: Optional[str] = None, coin_type: str = "0x::sui::SUI", url: Optional[str] = None) -> str:
         """
         Returns user's token balance.
         """
@@ -191,16 +194,17 @@ async def get_coin_balance(user_address: str = None, coin_type: str = "0x::sui::
         except Exception as e:
             raise (Exception("Failed to get coin balance, Exception: {}".format(e)))
 
-def get_coin_having_balance(user_address: str = None, coin_type: str = "0x::sui::SUI", balance: str = None , url: str = None, exact_match: bool = False) -> str:
+def get_coin_having_balance(user_address: Optional[str] = None, coin_type: str = "0x::sui::SUI", balance: Optional[int] = None , url: Optional[str] = None, exact_match: bool = False) -> str:
         
         coin_list = get_coins(user_address, coin_type, url)
         
         for coin in coin_list:
-            if exact_match:
-                 if int(coin["balance"]) == int(balance):
-                      return coin["coinObjectId"]
-            elif int(coin["balance"]) >= balance:
-                return coin["coinObjectId"]
+            if balance is not None:
+                if exact_match:
+                    if int(coin["balance"]) == balance:
+                        return coin["coinObjectId"]
+                elif int(coin["balance"]) >= balance:
+                    return coin["coinObjectId"]
         raise Exception(
             "Not enough balance available in single coin, please merge your coins"
         )

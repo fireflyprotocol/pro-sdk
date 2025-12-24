@@ -1,6 +1,7 @@
 import json
 import base64
 from hashlib import blake2b
+from typing import Dict, Any
 from openapi_client import WithdrawRequestSignedFields, \
     AccountPositionLeverageUpdateRequestSignedFields, \
     CreateOrderRequestSignedFields, \
@@ -273,7 +274,7 @@ class Signature:
         return message
         
 
-    def create_personal_sign_message(self, data:json) -> bytes:
+    def create_personal_sign_message(self, data: Dict[str, Any]) -> bytes:
         """
         Creates a personal sign message with the given json
         """
