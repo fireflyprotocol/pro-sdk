@@ -25,33 +25,23 @@ Please install the following tools locally:
 
 ### ApiGen
 
-Tool to programmatically generate OpenAPI code. Runs the appropriate `openapi-generator-cli` command for each target language.
+Tool to programmatically generate OpenAPI bindings. To call the appropriate `openapi-generator-cli` command for all target languages, run the following from the `tools/` folder:
 
-Navigate to the root of the repository.
 ```bash
-cargo install --path tools
+cargo run --bin apigen
 ```
 
-This will install the dev tools to your cargo toolchain.
+Or, from anywhere in the repository:
 
-Now you can call apigen to generate OpenAPI code for all 3 languages by calling:
-
-Rust:
 ```bash
-apigen -l rust
+cargo run --bin apigen --manifest-path $(git rev-parse --show-toplevel)/tools/Cargo.toml
 ```
 
-Python:
+Use `--lang` to restrict generation to a single language:
+
 ```bash
-apigen -l python
+# --lang python|rust|typescript; or, -l py|rs|ts
+cargo run --bin apigen -- --lang python
 ```
 
-Typescript:
-```bash
-apigen -l ts
-```
-
-In case of any updates, periodically rebuild the dev tools by running the following command in the the root of the repository:
-```bash
-cargo install --path tools --force
-```
+If OpenAPI specs have changed since the last run of `apigen`, the tool will automatically increment the minor version of all SDKs (resetting the patch level to 0), and store hashes of the updated specs in [a versioned file](./.apigen-state) for future reference.
