@@ -1,5 +1,5 @@
 additionalProperties:
-  library: "asyncio"
+  library: asyncio
   generateSourceCodeOnly: true
   useOneOfDiscriminatorLookup: true
-  packageVersion: 1.2.0
+  packageVersion: 1.4.0

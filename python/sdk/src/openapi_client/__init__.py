@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.2.0"
+__version__ = "1.4.0"
 
 # import apis into sdk package
 from openapi_client.api.account_data_api import AccountDataApi
