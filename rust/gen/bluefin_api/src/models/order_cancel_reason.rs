@@ -83,6 +83,8 @@ pub enum OrderCancelReason {
     TradeQuantityOutOfBound,
     #[serde(rename = "MARKET_TAKE_BOUND_BREACHED")]
     MarketTakeBoundBreached,
+    #[serde(rename = "ORDERS_EXCEED_MAX_OPEN_INTEREST")]
+    OrdersExceedMaxOpenInterest,
 
 }
 
@@ -123,6 +125,7 @@ impl std::fmt::Display for OrderCancelReason {
             Self::InsufficientBalance => write!(f, "INSUFFICIENT_BALANCE"),
             Self::TradeQuantityOutOfBound => write!(f, "TRADE_QUANTITY_OUT_OF_BOUND"),
             Self::MarketTakeBoundBreached => write!(f, "MARKET_TAKE_BOUND_BREACHED"),
+            Self::OrdersExceedMaxOpenInterest => write!(f, "ORDERS_EXCEED_MAX_OPEN_INTEREST"),
         }
     }
 }

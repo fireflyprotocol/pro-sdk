@@ -1,27 +1,5 @@
 {
-  "name": "@bluefin-exchange/pro-sdk",
-  "version": "1.2.0",
-  "description": "OpenAPI client for @bluefin-exchange/pro-sdk",
   "author": "Bluefin",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fireflyprotocol/pro-sdk.git"
-  },
-  "keywords": [
-    "@fireflyprotocol/pro-sdk"
-  ],
-  "license": "Unlicense",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
-  "scripts": {
-    "build:types": "tsc -p tsconfig.types.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build": "npm run build:types && npm run build:esm && npm run build:cjs",
-    "clean": "rm -rf dist",
-    "prepare": "npm run build"
-  },
   "dependencies": {
     "@firefly-exchange/library-sui": "^2.8.13",
     "@mysten/bcs": "^1.2.1",
@@ -31,25 +9,47 @@
     "isomorphic-ws": "^5.0.0",
     "ws": "^8.18.0"
   },
-  "peerDependencies": {
-    "@mysten/sui": "^1.28.2"
-  },
+  "description": "OpenAPI client for @bluefin-exchange/pro-sdk",
   "devDependencies": {
     "@types/node": "^22.10.7",
     "typescript": "^4.0 || ^5.0"
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
     "dist/"
   ],
+  "keywords": [
+    "@fireflyprotocol/pro-sdk"
+  ],
+  "license": "Unlicense",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "name": "@bluefin-exchange/pro-sdk",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "peerDependencies": {
+    "@mysten/sui": "^1.28.2"
+  },
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fireflyprotocol/pro-sdk.git"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:esm && npm run build:cjs",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build"
+  },
+  "types": "./dist/types/index.d.ts",
+  "version": "1.4.0"
 }

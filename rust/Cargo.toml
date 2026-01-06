@@ -1,43 +1,78 @@
-[package]
-name = "bluefin-pro"
-version = "1.2.0"
-edition = "2024"
+[dependencies]
+base64 = "0.22.1"
+bcs = "0.1.6"
+blake2 = "0.10.6"
+chrono = "0.4.40"
+hex = "0.4.3"
+serde_json = "1.0.140"
+sha2 = "0.10.8"
 
-license = "Unlicense"
-description = "Software Development Kit for Bluefin Pro"
-homepage = "https://bluefin.io/"
-repository = "https://github.com/fireflyprotocol/pro-sdk"
-keywords = ["blue", "bluefin", "sui"]
+[dependencies.bluefin_api]
+path = "gen/bluefin_api"
+version = "1.4.0"
+
+[dependencies.ed25519-dalek]
+features = ["rand_core"]
+version = "2.1.1"
+
+[dependencies.reqwest]
+features = ["rustls-tls"]
+version = "0.12.19"
+
+[dependencies.secp256k1]
+features = [
+    "global-context",
+    "rand",
+    "recovery",
+]
+version = "0.30.0"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0.219"
+
+[dependencies.sui-crypto]
+features = [
+    "ed25519",
+    "secp256k1",
+]
+version = "0.0.4"
+
+[dependencies.sui-sdk-types]
+features = [
+    "serde",
+    "hash",
+]
+version = "0.0.4"
+
+[dev-dependencies]
+futures-util = "0.3.31"
+rand = "0.8.5"
+
+[dev-dependencies.tokio]
+features = ["full"]
+version = "1.44.2"
+
+[dev-dependencies.tokio-tungstenite]
+features = ["native-tls"]
+version = "0.24.0"
+
+[package]
 categories = [
     "api-bindings",
     "authentication",
     "cryptography::cryptocurrencies",
     "finance",
 ]
-
-[dependencies]
-bluefin_api = { path = "gen/bluefin_api", version = "1.2.0" }
-
-hex = "0.4.3"
-sha2 = "0.10.8"
-bcs = "0.1.6"
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.140"
-blake2 = "0.10.6"
-base64 = "0.22.1"
-chrono = "0.4.40"
-ed25519-dalek = { version = "2.1.1", features = ["rand_core"] }
-secp256k1 = { version = "0.30.0", features = [
-    "global-context",
-    "rand",
-    "recovery",
-] }
-sui-crypto = { version = "0.0.4", features = ["ed25519", "secp256k1"] }
-sui-sdk-types = { version = "0.0.4", features = ["serde", "hash"] }
-reqwest = { version = "0.12.19", features = ["rustls-tls"] }
-
-[dev-dependencies]
-rand = "0.8.5"
-tokio = { version = "1.44.2", features = ["full"] }
-tokio-tungstenite = { version = "0.24.0", features = ["native-tls"] }
-futures-util = "0.3.31"
+description = "Software Development Kit for Bluefin Pro"
+edition = "2024"
+homepage = "https://bluefin.io/"
+keywords = [
+    "blue",
+    "bluefin",
+    "sui",
+]
+license = "Unlicense"
+name = "bluefin-pro"
+repository = "https://github.com/fireflyprotocol/pro-sdk"
+version = "1.4.0"

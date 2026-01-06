@@ -1,24 +1,24 @@
 {
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
-  "spaces": 2,
+  "additionalProperties": {
+    "avoidBoxedModels": true,
+    "enablePostProcessFile": false,
+    "enumNameSuffix": "Enum",
+    "generateAliasAsModel": false,
+    "hideGenerationTimestamp": true,
+    "modelPropertyNaming": "camelCase",
+    "npmName": "@bluefin/api-client",
+    "npmVersion": "1.2.0",
+    "nullSafeAdditionalProps": true,
+    "packageName": "bluefin-pro-api-client",
+    "paramNaming": "camelCase",
+    "preferInterface": false,
+    "sortParamsByRequiredFlag": true,
+    "typescriptThreePlus": true
+  },
   "generator-cli": {
     "version": "7.13.0"
   },
   "generatorName": "typescript-axios",
-  "additionalProperties": {
-    "hideGenerationTimestamp": true,
-    "avoidBoxedModels": true,
-    "packageName": "bluefin-pro-api-client",
-    "preferInterface": false,
-    "typescriptThreePlus": true,
-    "npmName": "@bluefin/api-client",
-    "npmVersion": "1.2.0",
-    "nullSafeAdditionalProps": true,
-    "enumNameSuffix": "Enum",
-    "modelPropertyNaming": "camelCase",
-    "paramNaming": "camelCase",
-    "sortParamsByRequiredFlag": true,
-    "enablePostProcessFile": false,
-    "generateAliasAsModel": false
-  }
+  "spaces": 2
 }

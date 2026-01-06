@@ -38,6 +38,7 @@
 | InsufficientBalance | INSUFFICIENT_BALANCE |
 | TradeQuantityOutOfBound | TRADE_QUANTITY_OUT_OF_BOUND |
 | MarketTakeBoundBreached | MARKET_TAKE_BOUND_BREACHED |
+| OrdersExceedMaxOpenInterest | ORDERS_EXCEED_MAX_OPEN_INTEREST |
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

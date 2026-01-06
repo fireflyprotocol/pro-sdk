@@ -275,6 +275,7 @@ components:
         - INSUFFICIENT_BALANCE
         - TRADE_QUANTITY_OUT_OF_BOUND
         - MARKET_TAKE_BOUND_BREACHED
+        - ORDERS_EXCEED_MAX_OPEN_INTEREST
 
     OrderCancellationFailureReason:
       type: string
@@ -628,14 +629,14 @@ components:
           example: "1000000000" # 1,000 USD
         crossAccountValueE9:
           type: string
-          description: | 
+          description: |
             The total value of the cross account, combining the cross effective
             balance and unrealized PnL across all cross positions, and subtracting any pending
             funding payments on any cross position.
           example: "1000000000" # 1,000 USD
         totalAccountValueE9:
           type: string
-          description: | 
+          description: |
             The total value of the account, combining the total effective
             balance and unrealized PnL across all positions, and subtracting any pending
             funding payments on any position.
@@ -698,7 +699,7 @@ components:
           type: integer
           format: int64
           description: The timestamp in milliseconds when the wallet was authorized.
-        
+
     AccountTradeUpdate:
       type: object
       description: "Details about a trade in the account."
@@ -1072,7 +1073,7 @@ components:
           items:
             $ref: './common.yaml#/components/schemas/Trade'
       required:
-        - trades      
+        - trades
 
     OrderbookDiffDepthUpdate:
       type: object
