@@ -2,7 +2,7 @@
 //!
 //! Provides SHA-256 hashing for individual files and spec bundles.
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fs;
 use std::io::Read;
 use std::path::Path;
@@ -29,8 +29,8 @@ pub fn hash_file(path: &Path) -> Result<String> {
 /// # Errors
 ///
 /// Returns an error if any spec file is missing or cannot be read.
-pub fn hash_spec_bundle(spec_files: &[String]) -> Result<(HashMap<String, String>, String)> {
-    let mut file_hashes = HashMap::new();
+pub fn hash_spec_bundle(spec_files: &[String]) -> Result<(BTreeMap<String, String>, String)> {
+    let mut file_hashes = BTreeMap::new();
 
     for spec_file in spec_files {
         let path = Path::new(spec_file);

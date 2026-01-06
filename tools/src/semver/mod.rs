@@ -100,7 +100,7 @@ pub const VERSION_LOCATIONS: &[version::Location] = &[
 /// for debugging purposes.
 fn print_baseline_info(
     spec_files: &[String],
-    file_hashes: &std::collections::HashMap<String, String>,
+    file_hashes: &std::collections::BTreeMap<String, String>,
 ) {
     println!("First run detected; establishing baseline (no version bump)");
     println!("Spec files being tracked:");
@@ -116,7 +116,7 @@ fn print_baseline_info(
 /// Compares current file hashes against the previous state and prints
 /// files that were modified, newly added, or deleted.
 fn print_changed_files(
-    file_hashes: &std::collections::HashMap<String, String>,
+    file_hashes: &std::collections::BTreeMap<String, String>,
     previous_state: &ApigenState,
 ) {
     println!("Changed files:");

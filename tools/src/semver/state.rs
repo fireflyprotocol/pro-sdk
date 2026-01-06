@@ -2,7 +2,7 @@
 //!
 //! Handles persistence and comparison of spec file hashes to detect changes.
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fs;
 use std::io::Write;
 use std::path::Path;
@@ -21,8 +21,9 @@ pub struct ApigenState {
     pub algorithm: String,
     /// Timestamp of last successful generation.
     pub generated_at: DateTime<Utc>,
-    /// Map of spec file path to SHA-256 hash.
-    pub spec_files: HashMap<String, String>,
+    /// Map of spec file path to SHA-256 hash. Uses `BTreeMap` for stable key
+    /// ordering, ensuring consistent JSON serialization for easier diff review.
+    pub spec_files: BTreeMap<String, String>,
     /// Combined hash of all spec files.
     pub combined_hash: String,
 }
@@ -65,8 +66,7 @@ pub fn detect_changes(current_hash: &str, previous: Option<&ApigenState>) -> boo
 
 /// Creates a new `ApigenState` from the current spec hashes.
 #[must_use]
-#[expect(clippy::implicit_hasher)]
-pub fn create_state(file_hashes: HashMap<String, String>, combined_hash: String) -> ApigenState {
+pub fn create_state(file_hashes: BTreeMap<String, String>, combined_hash: String) -> ApigenState {
     ApigenState {
         version: "1".to_string(),
         algorithm: "sha256".to_string(),
