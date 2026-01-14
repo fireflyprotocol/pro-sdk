@@ -1,3 +1,6 @@
+[workspace]
+members = [".", "gen/bluefin_api"]
+
 [dependencies]
 base64 = "0.22.1"
 bcs = "0.1.6"
@@ -75,4 +78,4 @@ keywords = [
 license = "Unlicense"
 name = "bluefin-pro"
 repository = "https://github.com/fireflyprotocol/pro-sdk"
-version = "1.4.0"
+version = "1.4.1"
