@@ -16,9 +16,6 @@ pub struct Account {
     /// The (optional) group ID of the account. Accounts belonging to the same group cannot trade against each other. 
     #[serde(rename = "groupId", skip_serializing_if = "Option::is_none")]
     pub group_id: Option<String>,
-    /// The account type.
-    #[serde(rename = "investorCategory")]
-    pub investor_category: InvestorCategory,
     #[serde(rename = "tradingFees")]
     pub trading_fees: models::TradingFees,
     /// If the user can trade.
@@ -88,10 +85,9 @@ pub struct Account {
 }
 
 impl Account {
-    pub fn new(investor_category: InvestorCategory, trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>, account_address: String, authorized_wallets: Vec<models::AuthorizedWallet>) -> Account {
+    pub fn new(trading_fees: models::TradingFees, can_trade: bool, can_deposit: bool, can_withdraw: bool, cross_effective_balance_e9: String, cross_margin_required_e9: String, total_order_margin_required_e9: String, margin_available_e9: String, cross_maintenance_margin_required_e9: String, cross_maintenance_margin_available_e9: String, cross_maintenance_margin_ratio_e9: String, cross_leverage_e9: String, total_unrealized_pnl_e9: String, cross_unrealized_pnl_e9: String, cross_unrealized_loss_e9: String, cross_account_value_e9: String, total_account_value_e9: String, updated_at_millis: i64, assets: Vec<models::Asset>, positions: Vec<models::Position>, authorized_accounts: Vec<String>, account_address: String, authorized_wallets: Vec<models::AuthorizedWallet>) -> Account {
         Account {
             group_id: None,
-            investor_category,
             trading_fees,
             can_trade,
             can_deposit,
@@ -116,20 +112,6 @@ impl Account {
             account_address,
             authorized_wallets,
         }
-    }
-}
-/// The account type.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum InvestorCategory {
-    #[serde(rename = "RETAIL")]
-    Retail,
-    #[serde(rename = "INSTITUTIONAL")]
-    Institutional,
-}
-
-impl Default for InvestorCategory {
-    fn default() -> InvestorCategory {
-        Self::Retail
     }
 }
 
