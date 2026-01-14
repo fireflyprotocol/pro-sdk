@@ -3912,6 +3912,7 @@ export const OrderType = {
     StopLossLimit: 'STOP_LOSS_LIMIT',
     TakeProfitLimit: 'TAKE_PROFIT_LIMIT',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
+    Adl: 'ADL',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
