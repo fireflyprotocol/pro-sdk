@@ -1,0 +1,26 @@
+name: crates.io Release
+
+on:
+  push:
+    tags:
+      - rust-release-*
+
+jobs:
+  publish-rust:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rust
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Verify build
+        run: cargo --color=never build --release
+
+      - name: Publish to crates.io
+        run: cargo --color=never publish --workspace
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
