@@ -12,7 +12,7 @@ sha2 = "0.10.8"
 
 [dependencies.bluefin_api]
 path = "gen/bluefin_api"
-version = "1.4.0"
+version = "1.5.0"
 
 [dependencies.ed25519-dalek]
 features = ["rand_core"]
@@ -78,4 +78,4 @@ keywords = [
 license = "Unlicense"
 name = "bluefin-pro"
 repository = "https://github.com/fireflyprotocol/pro-sdk"
-version = "1.4.1"
+version = "1.5.0"
