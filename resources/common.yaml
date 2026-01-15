@@ -56,6 +56,7 @@ components:
       - STOP_LOSS_LIMIT
       - TAKE_PROFIT_LIMIT
       - BANKRUPTCY_LIQUIDATION
+      - ADL
       - UNSPECIFIED
     PositionSide:
       type: string
