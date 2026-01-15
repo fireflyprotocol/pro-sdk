@@ -135,6 +135,7 @@ Class | Method | HTTP request | Description
  - [CountryResponse](docs/CountryResponse.md)
  - [CreateOrderRequest](docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](docs/CreateOrderRequestSignedFields.md)
+ - [CreateOrderRequestTwapConfig](docs/CreateOrderRequestTwapConfig.md)
  - [CreateOrderResponse](docs/CreateOrderResponse.md)
  - [EpochConfigs](docs/EpochConfigs.md)
  - [EpochConfigsResponse](docs/EpochConfigsResponse.md)

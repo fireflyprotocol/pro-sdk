@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **time_in_force** | [**OrderTimeInForce**](OrderTimeInForce.md) | Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill  | [optional] 
 **trigger_price_e9** | **str** | Trigger price in base e9 for stop orders. This should always be a number | [optional] 
 **self_trade_prevention_type** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [optional] [default to SelfTradePreventionType.MAKER]
+**twap_config** | [**CreateOrderRequestTwapConfig**](CreateOrderRequestTwapConfig.md) |  | [optional] 
 
 ## Example
 

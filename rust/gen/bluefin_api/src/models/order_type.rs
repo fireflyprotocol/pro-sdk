@@ -35,6 +35,8 @@ pub enum OrderType {
     TakeProfitLimit,
     #[serde(rename = "BANKRUPTCY_LIQUIDATION")]
     BankruptcyLiquidation,
+    #[serde(rename = "TIME_WEIGHTED_AVERAGE_PRICE")]
+    TimeWeightedAveragePrice,
     #[serde(rename = "ADL")]
     Adl,
     #[serde(rename = "UNSPECIFIED")]
@@ -55,6 +57,7 @@ impl std::fmt::Display for OrderType {
             Self::StopLossLimit => write!(f, "STOP_LOSS_LIMIT"),
             Self::TakeProfitLimit => write!(f, "TAKE_PROFIT_LIMIT"),
             Self::BankruptcyLiquidation => write!(f, "BANKRUPTCY_LIQUIDATION"),
+            Self::TimeWeightedAveragePrice => write!(f, "TIME_WEIGHTED_AVERAGE_PRICE"),
             Self::Adl => write!(f, "ADL"),
             Self::Unspecified => write!(f, "UNSPECIFIED"),
         }

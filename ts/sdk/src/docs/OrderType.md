@@ -24,6 +24,8 @@ The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
 
 * `BankruptcyLiquidation` (value: `'BANKRUPTCY_LIQUIDATION'`)
 
+* `TimeWeightedAveragePrice` (value: `'TIME_WEIGHTED_AVERAGE_PRICE'`)
+
 * `Adl` (value: `'ADL'`)
 
 * `Unspecified` (value: `'UNSPECIFIED'`)

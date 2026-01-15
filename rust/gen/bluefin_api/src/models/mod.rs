@@ -98,6 +98,8 @@ pub mod create_order_request;
 pub use self::create_order_request::CreateOrderRequest;
 pub mod create_order_request_signed_fields;
 pub use self::create_order_request_signed_fields::CreateOrderRequestSignedFields;
+pub mod create_order_request_twap_config;
+pub use self::create_order_request_twap_config::CreateOrderRequestTwapConfig;
 pub mod create_order_response;
 pub use self::create_order_response::CreateOrderResponse;
 pub mod epoch_configs;

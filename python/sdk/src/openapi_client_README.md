@@ -175,6 +175,7 @@ Class | Method | HTTP request | Description
  - [CountryResponse](openapi_client/docs/CountryResponse.md)
  - [CreateOrderRequest](openapi_client/docs/CreateOrderRequest.md)
  - [CreateOrderRequestSignedFields](openapi_client/docs/CreateOrderRequestSignedFields.md)
+ - [CreateOrderRequestTwapConfig](openapi_client/docs/CreateOrderRequestTwapConfig.md)
  - [CreateOrderResponse](openapi_client/docs/CreateOrderResponse.md)
  - [EpochConfigs](openapi_client/docs/EpochConfigs.md)
  - [EpochConfigsResponse](openapi_client/docs/EpochConfigsResponse.md)

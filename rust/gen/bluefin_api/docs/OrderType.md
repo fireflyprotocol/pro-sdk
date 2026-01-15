@@ -14,6 +14,7 @@
 | StopLossLimit | STOP_LOSS_LIMIT |
 | TakeProfitLimit | TAKE_PROFIT_LIMIT |
 | BankruptcyLiquidation | BANKRUPTCY_LIQUIDATION |
+| TimeWeightedAveragePrice | TIME_WEIGHTED_AVERAGE_PRICE |
 | Adl | ADL |
 | Unspecified | UNSPECIFIED |
 

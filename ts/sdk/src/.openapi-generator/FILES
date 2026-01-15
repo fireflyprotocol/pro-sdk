@@ -56,6 +56,7 @@ docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
+docs/CreateOrderRequestTwapConfig.md
 docs/CreateOrderResponse.md
 docs/EpochConfigs.md
 docs/EpochConfigsResponse.md

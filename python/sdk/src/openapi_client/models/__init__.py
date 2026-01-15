@@ -64,6 +64,7 @@ from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
+from openapi_client.models.create_order_request_twap_config import CreateOrderRequestTwapConfig
 from openapi_client.models.create_order_response import CreateOrderResponse
 from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_configs_response import EpochConfigsResponse
