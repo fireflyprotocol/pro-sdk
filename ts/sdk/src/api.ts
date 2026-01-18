@@ -2183,6 +2183,12 @@ export interface CreateOrderRequest {
      * @memberof CreateOrderRequest
      */
     'selfTradePreventionType'?: SelfTradePreventionType;
+    /**
+     * 
+     * @type {CreateOrderRequestTwapConfig}
+     * @memberof CreateOrderRequest
+     */
+    'twapConfig'?: CreateOrderRequestTwapConfig;
 }
 
 
@@ -2261,6 +2267,25 @@ export interface CreateOrderRequestSignedFields {
 }
 
 
+/**
+ * Configuration for Time-Weighted Average Price orders
+ * @export
+ * @interface CreateOrderRequestTwapConfig
+ */
+export interface CreateOrderRequestTwapConfig {
+    /**
+     * Number of sub-orders to split the total quantity into
+     * @type {string}
+     * @memberof CreateOrderRequestTwapConfig
+     */
+    'subOrdersCount'?: string;
+    /**
+     * Total time in minutes over which to execute the TWAP order
+     * @type {string}
+     * @memberof CreateOrderRequestTwapConfig
+     */
+    'runningTimeInMinutes'?: string;
+}
 /**
  * 
  * @export
@@ -3912,6 +3937,7 @@ export const OrderType = {
     StopLossLimit: 'STOP_LOSS_LIMIT',
     TakeProfitLimit: 'TAKE_PROFIT_LIMIT',
     BankruptcyLiquidation: 'BANKRUPTCY_LIQUIDATION',
+    TimeWeightedAveragePrice: 'TIME_WEIGHTED_AVERAGE_PRICE',
     Adl: 'ADL',
     Unspecified: 'UNSPECIFIED'
 } as const;

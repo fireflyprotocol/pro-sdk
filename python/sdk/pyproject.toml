@@ -21,7 +21,7 @@ description = "Python Boilerplate contains all the boilerplate you need to creat
 name = "bluefin_pro_sdk"
 readme = "README.rst"
 requires-python = ">=3.9.2,<3.13.0"
-version = "1.6.0"
+version = "1.7.0"
 
 [[project.authors]]
 email = "audreyr@example.com"

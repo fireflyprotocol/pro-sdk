@@ -61,6 +61,7 @@ openapi_client/docs/ContractsConfig.md
 openapi_client/docs/CountryResponse.md
 openapi_client/docs/CreateOrderRequest.md
 openapi_client/docs/CreateOrderRequestSignedFields.md
+openapi_client/docs/CreateOrderRequestTwapConfig.md
 openapi_client/docs/CreateOrderResponse.md
 openapi_client/docs/EpochConfigs.md
 openapi_client/docs/EpochConfigsResponse.md
@@ -202,6 +203,7 @@ openapi_client/models/contracts_config.py
 openapi_client/models/country_response.py
 openapi_client/models/create_order_request.py
 openapi_client/models/create_order_request_signed_fields.py
+openapi_client/models/create_order_request_twap_config.py
 openapi_client/models/create_order_response.py
 openapi_client/models/epoch_configs.py
 openapi_client/models/epoch_configs_response.py

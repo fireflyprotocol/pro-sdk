@@ -54,6 +54,7 @@ docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
+docs/CreateOrderRequestTwapConfig.md
 docs/CreateOrderResponse.md
 docs/EpochConfigs.md
 docs/EpochConfigsResponse.md
@@ -203,6 +204,7 @@ src/models/contracts_config.rs
 src/models/country_response.rs
 src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
+src/models/create_order_request_twap_config.rs
 src/models/create_order_response.rs
 src/models/epoch_configs.rs
 src/models/epoch_configs_response.rs

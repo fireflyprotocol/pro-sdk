@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **timeInForce** | [**OrderTimeInForce**](OrderTimeInForce.md) | Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill  | [optional] [default to undefined]
 **triggerPriceE9** | **string** | Trigger price in base e9 for stop orders. This should always be a number | [optional] [default to undefined]
 **selfTradePreventionType** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [optional] [default to undefined]
+**twapConfig** | [**CreateOrderRequestTwapConfig**](CreateOrderRequestTwapConfig.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -30,6 +31,7 @@ const instance: CreateOrderRequest = {
     timeInForce,
     triggerPriceE9,
     selfTradePreventionType,
+    twapConfig,
 };
 ```
 

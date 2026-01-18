@@ -201,6 +201,20 @@ components:
           example: 300000000
         selfTradePreventionType:
           $ref: './common.yaml#/components/schemas/SelfTradePreventionType'
+        # TWAP-specific fields (only used when type is TIME_WEIGHTED_AVERAGE_PRICE)
+        twapConfig:
+          type: object
+          properties:
+            subOrdersCount:
+              type: string
+              description: Number of sub-orders to split the total quantity into
+              example: "5"
+            runningTimeInMinutes:
+              type: string  
+              description: Total time in minutes over which to execute the TWAP order
+              example: "30"
+          description: Configuration for Time-Weighted Average Price orders
+
       required:
         - signedFields
         - signature
