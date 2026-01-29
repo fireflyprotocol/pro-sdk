@@ -304,6 +304,10 @@ components:
           format: int64
           description: Last update time in milliseconds.
           example: 1724121094751
+        estimatedFundingRateE9:
+          type: string
+          description: Live estimated funding rate based on current hour's average market and oracle prices (e9 format).
+          example: 12500000
       example:
         {
           "symbol": "0x123456",
@@ -338,6 +342,7 @@ components:
           "priceChange24hrE9": "-200000000000",
           "priceChangePercent24hrE9": "-630000000",
           "updatedAtMillis": 1625792500000,
+          "estimatedFundingRateE9": "12500000",
         }
       required:
         - symbol
@@ -372,6 +377,7 @@ components:
         - priceChange24hrE9
         - priceChangePercent24hrE9
         - updatedAtMillis
+        - estimatedFundingRateE9
 
     FundingRateResponse:
       type: array

@@ -58,7 +58,8 @@ class TickerResponse(BaseModel):
     price_change24hr_e9: StrictStr = Field(description="24hr Market price change (e9 format).", alias="priceChange24hrE9")
     price_change_percent24hr_e9: StrictStr = Field(description="24hr Market price change in percentage (e9 format).", alias="priceChangePercent24hrE9")
     updated_at_millis: StrictInt = Field(description="Last update time in milliseconds.", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtMillis", "openTime24hrAtMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "updatedAtMillis"]
+    estimated_funding_rate_e9: StrictStr = Field(description="Live estimated funding rate based on current hour's average market and oracle prices (e9 format).", alias="estimatedFundingRateE9")
+    __properties: ClassVar[List[str]] = ["symbol", "lastQuantityE9", "lastTimeAtMillis", "lastPriceE9", "lastFundingRateE9", "nextFundingTimeAtMillis", "avgFundingRate8hrE9", "oraclePriceE9", "oraclePriceDirection", "markPriceE9", "markPriceDirection", "marketPriceE9", "marketPriceDirection", "bestBidPriceE9", "bestBidQuantityE9", "bestAskPriceE9", "bestAskQuantityE9", "openInterestE9", "highPrice24hrE9", "lowPrice24hrE9", "volume24hrE9", "quoteVolume24hrE9", "closePrice24hrE9", "openPrice24hrE9", "closeTime24hrAtMillis", "openTime24hrAtMillis", "firstId24hr", "lastId24hr", "count24hr", "priceChange24hrE9", "priceChangePercent24hrE9", "updatedAtMillis", "estimatedFundingRateE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -142,7 +143,8 @@ class TickerResponse(BaseModel):
             "count24hr": obj.get("count24hr"),
             "priceChange24hrE9": obj.get("priceChange24hrE9"),
             "priceChangePercent24hrE9": obj.get("priceChangePercent24hrE9"),
-            "updatedAtMillis": obj.get("updatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis"),
+            "estimatedFundingRateE9": obj.get("estimatedFundingRateE9")
         })
         return _obj
 

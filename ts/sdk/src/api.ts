@@ -4840,6 +4840,12 @@ export interface TickerResponse {
      * @memberof TickerResponse
      */
     'updatedAtMillis': number;
+    /**
+     * Live estimated funding rate based on current hour\'s average market and oracle prices (e9 format).
+     * @type {string}
+     * @memberof TickerResponse
+     */
+    'estimatedFundingRateE9': string;
 }
 /**
  * Represents detailed market ticker information.
