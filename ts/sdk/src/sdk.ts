@@ -39,6 +39,8 @@ import {
   decodeSuiPrivateKey,
   SuiBlocks,
 } from '@firefly-exchange/library-sui';
+// RewardsDistributorInteractor for reward claiming
+import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/index';
 import { fromBase64, toHex } from '@mysten/bcs';
 
 interface EnvironmentConfig {
@@ -91,6 +93,21 @@ export interface OrderParams {
   triggerPriceE9?: string;
   selfTradePreventionType?: SelfTradePreventionType;
   signerAddress?: string;
+}
+
+export interface ClaimPayload {
+  target: string;
+  receiver: string;
+  amount: string;
+  expiry: string;
+  nonce: string;
+  type: number;
+}
+
+export interface BatchClaimParams {
+  sigPayload: ClaimPayload;
+  signature: string;
+  rewardType: 'Blue' | 'Sui' | 'Wal' | string; // Reward type to look up coin from contract config
 }
 
 enum Services {
@@ -828,6 +845,42 @@ export class BluefinProSdk {
     else {  
       return this.bfSigner.executeTx(txb, this.suiClient);
     }
+  }
+
+  /**
+   * Batch claim rewards on-chain using RewardsDistributorInteractor
+   * @param payload Array of claim payloads with signatures
+   * @returns Transaction response
+   */
+  public async batchClaimRewards(payload: BatchClaimParams[]) {
+    // Get the rewards contract config from API (same as useClaimConfigQuery)
+    const { data } = await this.rewardsDataApi.getContractConfig();
+
+    if (!data) {
+      throw new Error('Failed to get rewards contract config');
+    }
+
+    // Get the signer from BluefinRequestSigner
+    const signer = (this.bfSigner as any).wallet;
+
+    // Create the RewardsDistributorInteractor
+    const interactor = new RewardsDistributorInteractor(
+      this.suiClient as any,
+      data as any,
+      signer,
+      this.bfSigner.isUIWallet()
+    );
+
+    // Transform payload to the format expected by claimRewardsBatch
+    const batch = payload.map(({ signature, sigPayload }) => ({
+      signature,
+      payload: sigPayload,
+    }));
+
+    // Execute the batch claim
+    const tx = await interactor.claimRewardsBatch(batch);
+
+    return tx;
   }
 
   public async refreshToken(force: boolean = false): Promise<void> {
