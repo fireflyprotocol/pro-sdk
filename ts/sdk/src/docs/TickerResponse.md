@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **priceChange24hrE9** | **string** | 24hr Market price change (e9 format). | [default to undefined]
 **priceChangePercent24hrE9** | **string** | 24hr Market price change in percentage (e9 format). | [default to undefined]
 **updatedAtMillis** | **number** | Last update time in milliseconds. | [default to undefined]
+**estimatedFundingRateE9** | **string** | Live estimated funding rate based on current hour\&#39;s average market and oracle prices (e9 format). | [default to undefined]
 
 ## Example
 
@@ -76,6 +77,7 @@ const instance: TickerResponse = {
     priceChange24hrE9,
     priceChangePercent24hrE9,
     updatedAtMillis,
+    estimatedFundingRateE9,
 };
 ```
 
