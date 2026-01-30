@@ -18,6 +18,7 @@ import {
   BluefinProSdk,
   makeSigner,
   GetAccountValueHistoryParamsInterval,
+  BatchClaimParams,
 } from "./index";
 
 import { hexToBytes } from "@noble/hashes/utils";
@@ -344,6 +345,50 @@ async function main() {
 
     await client.adjustIsolatedMargin(symbol, "10000000000", true);
     logger.info("Adjust isolated margin request success");
+
+    // Example: Batch claim rewards
+    // This example shows how to claim rewards on-chain using signatures from the API
+    try {
+      // First, get campaign rewards which include claim signatures
+      const campaignRewards = (
+        await client.rewardsDataApi.getCampaignRewards(
+          "TRADE_AND_EARN",
+          suiWallet.getPublicKey().toSuiAddress()
+        )
+      ).data;
+      logger.info(`Campaign Rewards: ${JSON.stringify(campaignRewards)}`);
+
+      // If there are claimable rewards with signatures, batch claim them
+      if (campaignRewards && campaignRewards.length > 0) {
+        // Transform the API response to BatchClaimParams format
+        const claimPayloads: BatchClaimParams[] = campaignRewards
+          .filter((reward) => reward.claimSignature && reward.claimSignature.length > 0)
+          .flatMap((reward) =>
+            reward.claimSignature!.map((claimSig) => ({
+              sigPayload: {
+                target: claimSig.sigPayload.target,
+                receiver: claimSig.sigPayload.receiver,
+                amount: claimSig.sigPayload.amount,
+                expiry: claimSig.sigPayload.expiry,
+                nonce: claimSig.sigPayload.nonce,
+                type: claimSig.sigPayload.type,
+              },
+              signature: claimSig.signature,
+              rewardType: claimSig.rewardType, // 'Blue', 'Sui', 'Wal', etc.
+            }))
+          );
+
+        if (claimPayloads.length > 0) {
+          logger.info(`Claiming ${claimPayloads.length} rewards...`);
+          const claimTx = await client.batchClaimRewards(claimPayloads);
+          logger.info(`Batch claim transaction result: ${JSON.stringify(claimTx)}`);
+        } else {
+          logger.info("No claimable rewards found");
+        }
+      }
+    } catch (claimError) {
+      logger.error(`Batch claim rewards error: ${claimError}`);
+    }
 
     // Keep connection alive
     await new Promise((resolve) => setTimeout(resolve, 50000));
