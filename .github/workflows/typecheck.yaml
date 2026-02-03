@@ -1,5 +1,8 @@
 name: Typecheck (ts/sdk)
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     paths:
