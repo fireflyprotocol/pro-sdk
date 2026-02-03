@@ -41,7 +41,7 @@ import {
 } from '@firefly-exchange/library-sui';
 // RewardsDistributorInteractor for reward claiming
 import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/index';
-import { fromBase64, toHex } from '@mysten/bcs';
+import { toHex } from '@mysten/bcs';
 
 interface EnvironmentConfig {
   [key: string]: {
@@ -173,7 +173,7 @@ export class BluefinProSdk {
     private readonly bfSigner: IBluefinSigner,
     private environment: 'mainnet' | 'testnet' | 'devnet' = 'mainnet',
     private suiClient: SuiClient,
-    opts?: BluefinProSdkOptions
+    opts?: BluefinProSdkOptions,
   ) {
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
@@ -189,7 +189,7 @@ export class BluefinProSdk {
     this.visibilityChangeHandler = undefined;
     this.onlineHandler = undefined;
     this.offlineHandler = undefined;
-    
+
     // Initialize time offset based on provided currentTimeMs
     if (opts?.currentTimeMs !== undefined) {
       this.timeOffsetMs = opts.currentTimeMs - Date.now();
@@ -387,11 +387,7 @@ export class BluefinProSdk {
       this.updateTokenTimeout = null;
     }
 
-    if (
-      !this.isConnected ||
-      !this.tokenResponse ||
-      !this.tokenSetAtSeconds
-    ) {
+    if (!this.isConnected || !this.tokenResponse || !this.tokenSetAtSeconds) {
       return;
     }
 
@@ -409,7 +405,7 @@ export class BluefinProSdk {
     const delayMs = Math.max(millisecondsUntilRefresh, 0);
 
     console.log(
-      `Scheduling token refresh in ${Math.round(delayMs / 1000)} seconds`
+      `Scheduling token refresh in ${Math.round(delayMs / 1000)} seconds`,
     );
 
     this.updateTokenTimeout = setTimeout(() => {
@@ -429,7 +425,7 @@ export class BluefinProSdk {
 
       document.addEventListener(
         'visibilitychange',
-        this.visibilityChangeHandler
+        this.visibilityChangeHandler,
       );
     }
   }
@@ -456,7 +452,7 @@ export class BluefinProSdk {
     }
 
     console.log(
-      'Network reconnected, resuming token refresh and checking token status'
+      'Network reconnected, resuming token refresh and checking token status',
     );
 
     this.refreshToken(true);
@@ -496,7 +492,7 @@ export class BluefinProSdk {
         throw new Error(
           `Token refresh failed: ${
             e instanceof Error ? e.message : 'Unknown error'
-          }`
+          }`,
         );
       }
     }
@@ -515,7 +511,7 @@ export class BluefinProSdk {
         signature,
         loginRequest,
         this.initializeOptions?.refreshTokenValidForSeconds,
-        this.initializeOptions?.readOnly
+        this.initializeOptions?.readOnly,
       );
       this.tokenResponse = response.data;
       this.tokenSetAtSeconds = Date.now() / 1000;
@@ -525,13 +521,13 @@ export class BluefinProSdk {
       // If this fails and we're in a mode where logout should be disabled, don't logout
       if (this.disableLoginPromptOnLogout) {
         throw new Error(
-          `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`
+          `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
         );
       }
 
       // Otherwise, throw the error and let the caller decide
       throw new Error(
-        `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`
+        `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
       );
     }
   }
@@ -637,7 +633,7 @@ export class BluefinProSdk {
   public async withdraw(assetSymbol: string, amountE9: string) {
     const exchangeInfo = await this.exchangeDataApi.getExchangeInfo();
     const asset = exchangeInfo.data.assets.find(
-      (asset) => asset.symbol === assetSymbol
+      (asset) => asset.symbol === assetSymbol,
     );
 
     if (!asset) {
@@ -681,7 +677,7 @@ export class BluefinProSdk {
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
       signedFields,
-      true
+      true,
     );
 
     await this.tradeApi.putAuthorizeAccount({
@@ -707,7 +703,7 @@ export class BluefinProSdk {
 
     const signature = await this.bfSigner.signAccountAuthorizationRequest(
       signedFields,
-      false
+      false,
     );
 
     await this.tradeApi.putDeauthorizeAccount({
@@ -720,7 +716,7 @@ export class BluefinProSdk {
   public async adjustIsolatedMargin(
     symbol: string,
     amountE9: string,
-    add: boolean
+    add: boolean,
   ) {
     if (!this.contractsConfig) {
       throw new Error('Missing contractsConfig');
@@ -738,9 +734,8 @@ export class BluefinProSdk {
       signedAtMillis: this.getCurrentTimeMs(),
     };
 
-    const signature = await this.bfSigner.signAdjustIsolatedMarginRequest(
-      signedFields
-    );
+    const signature =
+      await this.bfSigner.signAdjustIsolatedMarginRequest(signedFields);
 
     await this.tradeApi.putAdjustIsolatedMargin({
       signedFields,
@@ -754,28 +749,34 @@ export class BluefinProSdk {
   }
 
   public async updateAccountPreferences(
-    updateAccountPreferenceRequest: UpdateAccountPreferenceRequest
+    updateAccountPreferenceRequest: UpdateAccountPreferenceRequest,
   ) {
     return await this.accountDataApi.putAccountPreferences(
-      updateAccountPreferenceRequest
+      updateAccountPreferenceRequest,
     );
   }
 
-  // Update Account Group ID. 
+  // Update Account Group ID.
   // If groupID is null, it will remove the account from its group.
   // An account may only belong to 1 group at a time.
-  public async updateAccountGroupId(updateAccountGroupIdRequest: AccountGroupIdPatch) {
-      return await this.accountDataApi.patchAccountGroupID(
-        updateAccountGroupIdRequest
-      );
+  public async updateAccountGroupId(
+    updateAccountGroupIdRequest: AccountGroupIdPatch,
+  ) {
+    return await this.accountDataApi.patchAccountGroupID(
+      updateAccountGroupIdRequest,
+    );
   }
 
-  public async deposit(amountE9: string, accountAddress?: string, args?: { sponsored?: boolean, fallbackToExecuteTx?: boolean }) {
+  public async deposit(
+    amountE9: string,
+    accountAddress?: string,
+    args?: { sponsored?: boolean; fallbackToExecuteTx?: boolean },
+  ) {
     const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
 
     const assetType = this.assets?.find(
-      (x) => x.symbol === assetSymbol
+      (x) => x.symbol === assetSymbol,
     )?.assetType;
     if (!assetType) {
       throw new Error('Missing USDC asset type');
@@ -786,7 +787,7 @@ export class BluefinProSdk {
       txb,
       amountE9,
       assetType,
-      this.currentAccountAddress || this.bfSigner.getAddress()
+      this.currentAccountAddress || this.bfSigner.getAddress(),
     );
 
     //build the tx
@@ -798,24 +799,24 @@ export class BluefinProSdk {
       amountE9,
       splitCoin,
       {
-        txBlock: txb
-      }
+        txBlock: txb,
+      },
     );
     //add the transfer objects to the tx
     if (mergedCoin) {
       txb.transferObjects(
         [mergedCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress()
+        this.currentAccountAddress || this.bfSigner.getAddress(),
       );
     }
     if (splitCoin) {
       txb.transferObjects(
         [splitCoin],
-        this.currentAccountAddress || this.bfSigner.getAddress()
+        this.currentAccountAddress || this.bfSigner.getAddress(),
       );
     }
 
-    if(args && args.sponsored){
+    if (args && args.sponsored) {
       // build the gasless tx payload bytes
       const gaslessTxPayloadBytes = await this.buildGaslessTxPayloadBytes(txb);
 
@@ -825,24 +826,34 @@ export class BluefinProSdk {
         };
 
         // sponsor gas for the transaction
-        const sponsorTxApiResponse = await this.accountDataApi.sponsorTx(request);
-        const txBlockFromBytes = TransactionBlock.from(sponsorTxApiResponse.data.txBytes);
+        const sponsorTxApiResponse =
+          await this.accountDataApi.sponsorTx(request);
+        const txBlockFromBytes = TransactionBlock.from(
+          sponsorTxApiResponse.data.txBytes,
+        );
 
         // sign the transaction with user's wallet
-        const userSignedTx = await this.bfSigner.signTx(txBlockFromBytes, this.suiClient);
+        const userSignedTx = await this.bfSigner.signTx(
+          txBlockFromBytes,
+          this.suiClient,
+        );
 
         // execute the transaction with both user's signature and sponsor's signature
-        const response = await this.bfSigner.executeSponsoredTx(userSignedTx.bytes, userSignedTx.signature, sponsorTxApiResponse.data.signature, this.suiClient);
+        const response = await this.bfSigner.executeSponsoredTx(
+          userSignedTx.bytes,
+          userSignedTx.signature,
+          sponsorTxApiResponse.data.signature,
+          this.suiClient,
+        );
 
         return response;
       } catch (error) {
-        if(args?.fallbackToExecuteTx){
+        if (args?.fallbackToExecuteTx) {
           return this.bfSigner.executeTx(txb, this.suiClient);
         }
         throw error;
       }
-    }
-    else {  
+    } else {
       return this.bfSigner.executeTx(txb, this.suiClient);
     }
   }
@@ -868,7 +879,7 @@ export class BluefinProSdk {
       this.suiClient as any,
       data as any,
       signer,
-      this.bfSigner.isUIWallet()
+      this.bfSigner.isUIWallet(),
     );
 
     // Transform payload to the format expected by claimRewardsBatch
@@ -918,7 +929,7 @@ export class BluefinProSdk {
     while (retryCount < maxRetries) {
       try {
         console.log(
-          `Refreshing token (attempt ${retryCount + 1}/${maxRetries})`
+          `Refreshing token (attempt ${retryCount + 1}/${maxRetries})`,
         );
 
         // Check if refresh token is still valid
@@ -958,7 +969,7 @@ export class BluefinProSdk {
         // If we're offline, don't count this as a "real" error - just wait for network to come back
         if (isOffline) {
           console.log(
-            'User is offline, will retry when network comes back online'
+            'User is offline, will retry when network comes back online',
           );
           return;
         }
@@ -988,7 +999,7 @@ export class BluefinProSdk {
         if (retryCount >= maxRetries && !isOffline) {
           if (isNetworkError) {
             console.warn(
-              'Max retries reached due to network errors, will retry later'
+              'Max retries reached due to network errors, will retry later',
             );
             return; // Don't logout for network issues, just wait for next interval
           } else {
@@ -1002,7 +1013,7 @@ export class BluefinProSdk {
         const baseDelay = isNetworkError ? 5000 : 2000; // Start with 5s for network errors, 2s for others
         const delayMs = Math.min(
           baseDelay * Math.pow(2, retryCount - 1),
-          30000
+          30000,
         );
         console.log(`Retrying in ${delayMs}ms...`);
         await new Promise((resolve) => setTimeout(resolve, delayMs));
@@ -1011,7 +1022,7 @@ export class BluefinProSdk {
   }
 
   public async createAccountDataStreamListener(
-    handler: (data: AccountStreamMessage) => Promise<void>
+    handler: (data: AccountStreamMessage) => Promise<void>,
   ): Promise<WebSocket> {
     const accessToken = await this.getAccessToken();
     return new Promise((resolve) => {
@@ -1021,7 +1032,7 @@ export class BluefinProSdk {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
@@ -1033,11 +1044,11 @@ export class BluefinProSdk {
   }
 
   public async createMarketDataStreamListener(
-    handler: (data: MarketStreamMessage) => Promise<void>
+    handler: (data: MarketStreamMessage) => Promise<void>,
   ): Promise<WebSocket> {
     return new Promise((resolve) => {
       const ws = new WebSocket(
-        this.configs[Services.MarketWebsocket]!.basePath!
+        this.configs[Services.MarketWebsocket]!.basePath!,
       );
       ws.onmessage = async (event) => {
         await handler(JSON.parse(<string>event.data));
@@ -1073,7 +1084,7 @@ export class BluefinProSdk {
     if (this.visibilityChangeHandler && typeof document !== 'undefined') {
       document.removeEventListener(
         'visibilitychange',
-        this.visibilityChangeHandler
+        this.visibilityChangeHandler,
       );
       this.visibilityChangeHandler = undefined;
     }
@@ -1100,11 +1111,17 @@ export class BluefinProSdk {
    * @returns string
    * */
 
-  public buildGaslessTxPayloadBytes = async (txb: TransactionBlock): Promise<string> => {
+  public buildGaslessTxPayloadBytes = async (
+    txb: TransactionBlock,
+  ): Promise<string> => {
     try {
       return await SuiBlocks.buildGaslessTxPayloadBytes(txb, this.suiClient);
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Build gasless tx payload bytes failed');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Build gasless tx payload bytes failed',
+      );
     }
   };
 
