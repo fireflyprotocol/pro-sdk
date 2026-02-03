@@ -11,7 +11,7 @@ on:
 
 jobs:
   typecheck:
-    runs-on: self-hosted-v2
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ts/sdk
