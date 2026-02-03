@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **price_change24hr_e9** | **str** | 24hr Market price change (e9 format). | 
 **price_change_percent24hr_e9** | **str** | 24hr Market price change in percentage (e9 format). | 
 **updated_at_millis** | **int** | Last update time in milliseconds. | 
+**estimated_funding_rate_e9** | **str** | Live estimated funding rate based on current hour&#39;s average market and oracle prices (e9 format). | 
 
 ## Example
 
