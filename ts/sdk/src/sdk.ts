@@ -1100,11 +1100,29 @@ export class BluefinProSdk {
    * @returns string
    * */
 
-  private buildGaslessTxPayloadBytes = async (txb: TransactionBlock): Promise<string> => {
+  public buildGaslessTxPayloadBytes = async (txb: TransactionBlock): Promise<string> => {
     try {
       return await SuiBlocks.buildGaslessTxPayloadBytes(txb, this.suiClient);
     } catch (error) {
       throw new Error(error instanceof Error ? error.message : 'Build gasless tx payload bytes failed');
     }
   };
+
+  /**
+   * @description
+   * Get the transaction builder instance
+   * @returns TxBuilder instance or undefined if not initialized
+   */
+  public getTxBuilder(): TxBuilder | undefined {
+    return this.txBuilder;
+  }
+
+  /**
+   * @description
+   * Get the Bluefin signer instance
+   * @returns IBluefinSigner instance
+   */
+  public getSigner(): IBluefinSigner {
+    return this.bfSigner;
+  }
 }
