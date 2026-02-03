@@ -8,7 +8,7 @@ on:
 
 jobs:
   typecheck:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-v2
     defaults:
       run:
         working-directory: ts/sdk
