@@ -37,6 +37,7 @@ export interface IBluefinSigner {
     txb: TransactionBlock,
     suiClient: SuiClient
   ) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
+  isUIWallet(): boolean;
 }
 
 export interface ISigner {
