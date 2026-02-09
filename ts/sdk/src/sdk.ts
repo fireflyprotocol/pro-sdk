@@ -8,6 +8,7 @@ import {
   AccountPositionLeverageUpdateRequestSignedFields,
   CreateOrderRequestSignedFields,
   CreateOrderRequest,
+  CreateOrderRequestTwapConfig,
   AccountDataApi,
   AuthApi,
   ExchangeApi,
@@ -92,6 +93,7 @@ export interface OrderParams {
   timeInForce?: OrderTimeInForce;
   triggerPriceE9?: string;
   selfTradePreventionType?: SelfTradePreventionType;
+  twapConfig?: CreateOrderRequestTwapConfig;
   signerAddress?: string;
 }
 
@@ -617,6 +619,7 @@ export class BluefinProSdk {
       timeInForce: params.timeInForce,
       triggerPriceE9: params.triggerPriceE9,
       selfTradePreventionType: params.selfTradePreventionType,
+      twapConfig: params.twapConfig,
     };
     console.log('Creating order:', createOrderRequest);
     return await this.tradeApi.postCreateOrder(createOrderRequest);
