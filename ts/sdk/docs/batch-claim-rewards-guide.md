@@ -46,12 +46,33 @@ await sdk.initialize();
 const userAddress = wallet.getPublicKey().toSuiAddress();
 
 const response = await sdk.rewardsDataApi.getCampaignRewards(
-  "TRADE_AND_EARN",  // Campaign name
+  "TRADE_AND_EARN",  // Campaign name (see available campaigns below)
   userAddress
 );
 
 const campaignRewards = response.data;
 console.log("Available rewards:", campaignRewards);
+```
+
+#### Available Campaign Names
+
+| Campaign | Description |
+|----------|-------------|
+| `TRADE_AND_EARN` | Trading rewards program |
+| `WAL_TRADE_AND_EARN` | WAL token trading rewards |
+| `AFFILIATE` | Affiliate/referral rewards |
+
+You can query each campaign separately or loop through all campaigns to fetch all available rewards:
+
+```typescript
+// Fetch rewards from all campaigns
+const campaigns = ["TRADE_AND_EARN", "WAL_TRADE_AND_EARN", "AFFILIATE"];
+const allRewards = [];
+
+for (const campaign of campaigns) {
+  const { data } = await sdk.rewardsDataApi.getCampaignRewards(campaign, userAddress);
+  allRewards.push(...data);
+}
 ```
 
 ### Step 3: Filter Claimable Rewards
