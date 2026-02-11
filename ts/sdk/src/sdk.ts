@@ -8,7 +8,7 @@ import {
   AccountPositionLeverageUpdateRequestSignedFields,
   CreateOrderRequestSignedFields,
   CreateOrderRequest,
-  CreateOrderRequestTwapConfig,
+  OrderTwapConfig,
   AccountDataApi,
   AuthApi,
   ExchangeApi,
@@ -93,7 +93,7 @@ export interface OrderParams {
   timeInForce?: OrderTimeInForce;
   triggerPriceE9?: string;
   selfTradePreventionType?: SelfTradePreventionType;
-  twapConfig?: CreateOrderRequestTwapConfig;
+  twapConfig?: OrderTwapConfig;
   signerAddress?: string;
 }
 
