@@ -2185,10 +2185,10 @@ export interface CreateOrderRequest {
     'selfTradePreventionType'?: SelfTradePreventionType;
     /**
      * 
-     * @type {CreateOrderRequestTwapConfig}
+     * @type {OrderTwapConfig}
      * @memberof CreateOrderRequest
      */
-    'twapConfig'?: CreateOrderRequestTwapConfig;
+    'twapConfig'?: OrderTwapConfig;
 }
 
 
@@ -2267,25 +2267,6 @@ export interface CreateOrderRequestSignedFields {
 }
 
 
-/**
- * Configuration for Time-Weighted Average Price orders
- * @export
- * @interface CreateOrderRequestTwapConfig
- */
-export interface CreateOrderRequestTwapConfig {
-    /**
-     * Number of sub-orders to split the total quantity into
-     * @type {string}
-     * @memberof CreateOrderRequestTwapConfig
-     */
-    'subOrdersCount'?: string;
-    /**
-     * Total time in minutes over which to execute the TWAP order
-     * @type {string}
-     * @memberof CreateOrderRequestTwapConfig
-     */
-    'runningTimeInMinutes'?: string;
-}
 /**
  * 
  * @export
@@ -3654,6 +3635,12 @@ export interface OpenOrderResponse {
      */
     'selfTradePreventionType': SelfTradePreventionType;
     /**
+     * 
+     * @type {OrderTwapConfig}
+     * @memberof OpenOrderResponse
+     */
+    'twapConfig'?: OrderTwapConfig;
+    /**
      * The timestamp in millis when the order was opened
      * @type {number}
      * @memberof OpenOrderResponse
@@ -3920,6 +3907,25 @@ export const OrderTimeInForce = {
 export type OrderTimeInForce = typeof OrderTimeInForce[keyof typeof OrderTimeInForce];
 
 
+/**
+ * Configuration for Time-Weighted Average Price orders
+ * @export
+ * @interface OrderTwapConfig
+ */
+export interface OrderTwapConfig {
+    /**
+     * Number of sub-orders to split the total quantity into
+     * @type {string}
+     * @memberof OrderTwapConfig
+     */
+    'subOrdersCount'?: string;
+    /**
+     * Total time in minutes over which to execute the TWAP order
+     * @type {string}
+     * @memberof OrderTwapConfig
+     */
+    'runningTimeInMinutes'?: string;
+}
 /**
  * The type of order. (BANKRUPTCY_LIQUIDATION is deprecated)
  * @export

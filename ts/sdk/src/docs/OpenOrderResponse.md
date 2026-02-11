@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **filledQuantityE9** | **string** | The quantity in base e9 of the asset currently filled. This should always be a number | [default to undefined]
 **status** | [**OrderStatus**](OrderStatus.md) |  | [default to undefined]
 **selfTradePreventionType** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [default to undefined]
+**twapConfig** | [**OrderTwapConfig**](OrderTwapConfig.md) |  | [optional] [default to undefined]
 **orderTimeAtMillis** | **number** | The timestamp in millis when the order was opened | [default to undefined]
 **updatedAtMillis** | **number** | The timestamp in millis that this order was last updated (including status updates) | [default to undefined]
 
@@ -56,6 +57,7 @@ const instance: OpenOrderResponse = {
     filledQuantityE9,
     status,
     selfTradePreventionType,
+    twapConfig,
     orderTimeAtMillis,
     updatedAtMillis,
 };

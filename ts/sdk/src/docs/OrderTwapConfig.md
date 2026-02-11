@@ -1,4 +1,4 @@
-# CreateOrderRequestTwapConfig
+# OrderTwapConfig
 
 Configuration for Time-Weighted Average Price orders
 
@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CreateOrderRequestTwapConfig } from '@bluefin/api-client';
+import { OrderTwapConfig } from '@bluefin/api-client';
 
-const instance: CreateOrderRequestTwapConfig = {
+const instance: OrderTwapConfig = {
     subOrdersCount,
     runningTimeInMinutes,
 };
