@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **filled_quantity_e9** | **String** | The quantity in base e9 of the asset currently filled. This should always be a number | 
 **status** | [**models::OrderStatus**](OrderStatus.md) |  | 
 **self_trade_prevention_type** | [**models::SelfTradePreventionType**](SelfTradePreventionType.md) |  | 
+**twap_config** | Option<[**models::OrderTwapConfig**](OrderTwapConfig.md)> |  | [optional]
 **order_time_at_millis** | **i64** | The timestamp in millis when the order was opened | 
 **updated_at_millis** | **i64** | The timestamp in millis that this order was last updated (including status updates) | 
 

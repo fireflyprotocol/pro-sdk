@@ -145,6 +145,10 @@ components:
         message:
           type: string
           description: A human-readable message describing the error.
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional structured details about the error.
       required:
       - message
     Trade:

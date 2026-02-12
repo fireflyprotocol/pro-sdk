@@ -3426,6 +3426,12 @@ export interface ModelError {
      * @memberof ModelError
      */
     'message': string;
+    /**
+     * Additional structured details about the error.
+     * @type {{ [key: string]: any | undefined; }}
+     * @memberof ModelError
+     */
+    'details'?: { [key: string]: any | undefined; };
 }
 /**
  * 

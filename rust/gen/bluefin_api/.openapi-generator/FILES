@@ -54,7 +54,6 @@ docs/ContractsConfig.md
 docs/CountryResponse.md
 docs/CreateOrderRequest.md
 docs/CreateOrderRequestSignedFields.md
-docs/CreateOrderRequestTwapConfig.md
 docs/CreateOrderResponse.md
 docs/EpochConfigs.md
 docs/EpochConfigsResponse.md
@@ -100,6 +99,7 @@ docs/OrderCancellationUpdate.md
 docs/OrderSide.md
 docs/OrderStatus.md
 docs/OrderTimeInForce.md
+docs/OrderTwapConfig.md
 docs/OrderType.md
 docs/OrderbookDepthResponse.md
 docs/OrderbookDiffDepthUpdate.md
@@ -204,7 +204,6 @@ src/models/contracts_config.rs
 src/models/country_response.rs
 src/models/create_order_request.rs
 src/models/create_order_request_signed_fields.rs
-src/models/create_order_request_twap_config.rs
 src/models/create_order_response.rs
 src/models/epoch_configs.rs
 src/models/epoch_configs_response.rs
@@ -250,6 +249,7 @@ src/models/order_cancellation_update.rs
 src/models/order_side.rs
 src/models/order_status.rs
 src/models/order_time_in_force.rs
+src/models/order_twap_config.rs
 src/models/order_type.rs
 src/models/orderbook_depth_response.rs
 src/models/orderbook_diff_depth_update.rs

@@ -28,7 +28,8 @@ class Error(BaseModel):
     """ # noqa: E501
     error_code: Optional[StrictStr] = Field(default=None, description="A code representing the type of error.", alias="errorCode")
     message: StrictStr = Field(description="A human-readable message describing the error.")
-    __properties: ClassVar[List[str]] = ["errorCode", "message"]
+    details: Optional[Dict[str, Any]] = Field(default=None, description="Additional structured details about the error.")
+    __properties: ClassVar[List[str]] = ["errorCode", "message", "details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +83,8 @@ class Error(BaseModel):
 
         _obj = cls.model_validate({
             "errorCode": obj.get("errorCode"),
-            "message": obj.get("message")
+            "message": obj.get("message"),
+            "details": obj.get("details")
         })
         return _obj
 

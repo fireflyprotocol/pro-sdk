@@ -38,7 +38,7 @@ pub struct CreateOrderRequest {
     #[serde(rename = "selfTradePreventionType", skip_serializing_if = "Option::is_none")]
     pub self_trade_prevention_type: Option<models::SelfTradePreventionType>,
     #[serde(rename = "twapConfig", skip_serializing_if = "Option::is_none")]
-    pub twap_config: Option<models::CreateOrderRequestTwapConfig>,
+    pub twap_config: Option<models::OrderTwapConfig>,
 }
 
 impl CreateOrderRequest {

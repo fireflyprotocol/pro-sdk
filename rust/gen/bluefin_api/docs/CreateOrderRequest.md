@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **time_in_force** | Option<[**models::OrderTimeInForce**](OrderTimeInForce.md)> | Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill  | [optional]
 **trigger_price_e9** | Option<**String**> | Trigger price in base e9 for stop orders. This should always be a number | [optional]
 **self_trade_prevention_type** | Option<[**models::SelfTradePreventionType**](SelfTradePreventionType.md)> |  | [optional]
-**twap_config** | Option<[**models::CreateOrderRequestTwapConfig**](CreateOrderRequest_twapConfig.md)> |  | [optional]
+**twap_config** | Option<[**models::OrderTwapConfig**](OrderTwapConfig.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

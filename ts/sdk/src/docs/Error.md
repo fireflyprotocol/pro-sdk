@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **errorCode** | **string** | A code representing the type of error. | [optional] [default to undefined]
 **message** | **string** | A human-readable message describing the error. | [default to undefined]
+**details** | **{ [key: string]: any | undefined; }** | Additional structured details about the error. | [optional] [default to undefined]
 
 ## Example
 
@@ -16,6 +17,7 @@ import { ModelError } from '@bluefin/api-client';
 const instance: ModelError = {
     errorCode,
     message,
+    details,
 };
 ```
 

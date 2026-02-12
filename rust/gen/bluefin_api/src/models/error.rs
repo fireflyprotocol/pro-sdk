@@ -19,6 +19,9 @@ pub struct Error {
     /// A human-readable message describing the error.
     #[serde(rename = "message")]
     pub message: String,
+    /// Additional structured details about the error.
+    #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
+    pub details: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl Error {
@@ -26,6 +29,7 @@ impl Error {
         Error {
             error_code: None,
             message,
+            details: None,
         }
     }
 }

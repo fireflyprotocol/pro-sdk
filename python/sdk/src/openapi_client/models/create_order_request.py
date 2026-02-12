@@ -20,8 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
-from openapi_client.models.create_order_request_twap_config import CreateOrderRequestTwapConfig
 from openapi_client.models.order_time_in_force import OrderTimeInForce
+from openapi_client.models.order_twap_config import OrderTwapConfig
 from openapi_client.models.order_type import OrderType
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from typing import Optional, Set
@@ -40,7 +40,7 @@ class CreateOrderRequest(BaseModel):
     time_in_force: Optional[OrderTimeInForce] = Field(default=None, description="Omit or set to null for market orders; otherwise, choose a valid time-in-force value. GTT: Good Til Time  IOC: Immediate Or Cancel  FOK: Fill Or Kill ", alias="timeInForce")
     trigger_price_e9: Optional[StrictStr] = Field(default=None, description="Trigger price in base e9 for stop orders. This should always be a number", alias="triggerPriceE9")
     self_trade_prevention_type: Optional[SelfTradePreventionType] = Field(default=SelfTradePreventionType.MAKER, alias="selfTradePreventionType")
-    twap_config: Optional[CreateOrderRequestTwapConfig] = Field(default=None, alias="twapConfig")
+    twap_config: Optional[OrderTwapConfig] = Field(default=None, alias="twapConfig")
     __properties: ClassVar[List[str]] = ["signedFields", "signature", "clientOrderId", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "selfTradePreventionType", "twapConfig"]
 
     model_config = ConfigDict(
@@ -109,7 +109,7 @@ class CreateOrderRequest(BaseModel):
             "timeInForce": obj.get("timeInForce"),
             "triggerPriceE9": obj.get("triggerPriceE9"),
             "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
-            "twapConfig": CreateOrderRequestTwapConfig.from_dict(obj["twapConfig"]) if obj.get("twapConfig") is not None else None
+            "twapConfig": OrderTwapConfig.from_dict(obj["twapConfig"]) if obj.get("twapConfig") is not None else None
         })
         return _obj
 
