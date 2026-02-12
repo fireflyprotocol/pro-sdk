@@ -104,6 +104,8 @@ console.log("Order created:", result.data);
 ### 4. Get Account Information
 
 ```typescript
+import { TradeType } from "@bluefin-exchange/pro-sdk";
+
 // Get account details
 const accountDetails = await client.accountDataApi.getAccountDetails(
   wallet.getPublicKey().toSuiAddress()
@@ -178,6 +180,7 @@ await accountListener.send(
       AccountDataStream.AccountOrderUpdate,
       AccountDataStream.AccountPositionUpdate,
       AccountDataStream.AccountTradeUpdate,
+      AccountDataStream.AccountTransactionUpdate,
       AccountDataStream.AccountUpdate,
     ],
   })

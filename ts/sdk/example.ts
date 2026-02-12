@@ -181,7 +181,7 @@ async function main() {
     const rewards = (
       await client.rewardsDataApi.getCampaignRewards(
         "TRADE_AND_EARN",
-        suiWallet.toSuiAddress(),
+        suiWallet.getPublicKey().toSuiAddress(),
       )
     ).data;
     logger.info(`Rewards: ${JSON.stringify(rewards)}`);
