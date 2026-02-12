@@ -297,7 +297,7 @@ npx ts-node --project tsconfig.esm.json example.ts
 
 ### Generating OpenAPI Client
 
-The OpenAPI client code in the `src/` directory is automatically generated. To regenerate:
+The OpenAPI client code in the `src/` directory is automatically generated. To regenerate (from the `ts/sdk` directory):
 
 ```bash
 openapi-generator generate -i ../../resources/bluefin-api.yaml \
