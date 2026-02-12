@@ -71,6 +71,8 @@ pub struct OpenOrderResponse {
     pub status: models::OrderStatus,
     #[serde(rename = "selfTradePreventionType")]
     pub self_trade_prevention_type: models::SelfTradePreventionType,
+    #[serde(rename = "twapConfig", skip_serializing_if = "Option::is_none")]
+    pub twap_config: Option<models::OrderTwapConfig>,
     /// The timestamp in millis when the order was opened
     #[serde(rename = "orderTimeAtMillis")]
     pub order_time_at_millis: i64,
@@ -103,6 +105,7 @@ impl OpenOrderResponse {
             filled_quantity_e9,
             status,
             self_trade_prevention_type,
+            twap_config: None,
             order_time_at_millis,
             updated_at_millis,
         }

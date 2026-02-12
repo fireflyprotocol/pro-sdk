@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **error_code** | **str** | A code representing the type of error. | [optional] 
 **message** | **str** | A human-readable message describing the error. | 
+**details** | **Dict[str, object]** | Additional structured details about the error. | [optional] 
 
 ## Example
 

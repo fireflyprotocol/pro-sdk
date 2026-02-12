@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.order_side import OrderSide
 from openapi_client.models.order_status import OrderStatus
 from openapi_client.models.order_time_in_force import OrderTimeInForce
+from openapi_client.models.order_twap_config import OrderTwapConfig
 from openapi_client.models.order_type import OrderType
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from typing import Optional, Set
@@ -52,9 +53,10 @@ class OpenOrderResponse(BaseModel):
     filled_quantity_e9: StrictStr = Field(description="The quantity in base e9 of the asset currently filled. This should always be a number", alias="filledQuantityE9")
     status: OrderStatus
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
+    twap_config: Optional[OrderTwapConfig] = Field(default=None, alias="twapConfig")
     order_time_at_millis: StrictInt = Field(description="The timestamp in millis when the order was opened", alias="orderTimeAtMillis")
     updated_at_millis: StrictInt = Field(description="The timestamp in millis that this order was last updated (including status updates)", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "signerAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "orderTimeAtMillis", "updatedAtMillis"]
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "signerAddress", "priceE9", "quantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "filledQuantityE9", "status", "selfTradePreventionType", "twapConfig", "orderTimeAtMillis", "updatedAtMillis"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,6 +97,9 @@ class OpenOrderResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of twap_config
+        if self.twap_config:
+            _dict['twapConfig'] = self.twap_config.to_dict()
         return _dict
 
     @classmethod
@@ -128,6 +133,7 @@ class OpenOrderResponse(BaseModel):
             "filledQuantityE9": obj.get("filledQuantityE9"),
             "status": obj.get("status"),
             "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
+            "twapConfig": OrderTwapConfig.from_dict(obj["twapConfig"]) if obj.get("twapConfig") is not None else None,
             "orderTimeAtMillis": obj.get("orderTimeAtMillis"),
             "updatedAtMillis": obj.get("updatedAtMillis")
         })

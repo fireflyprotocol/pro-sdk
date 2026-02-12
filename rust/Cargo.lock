@@ -99,7 +99,7 @@ dependencies = [
 
 [[package]]
 name = "bluefin-pro"
-version = "1.5.0"
+version = "1.8.0"
 dependencies = [
  "base64",
  "bcs",
@@ -123,7 +123,7 @@ dependencies = [
 
 [[package]]
 name = "bluefin_api"
-version = "1.5.0"
+version = "1.8.0"
 dependencies = [
  "reqwest",
  "serde",

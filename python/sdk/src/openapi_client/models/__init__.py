@@ -64,7 +64,6 @@ from openapi_client.models.contracts_config import ContractsConfig
 from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.create_order_request import CreateOrderRequest
 from openapi_client.models.create_order_request_signed_fields import CreateOrderRequestSignedFields
-from openapi_client.models.create_order_request_twap_config import CreateOrderRequestTwapConfig
 from openapi_client.models.create_order_response import CreateOrderResponse
 from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_configs_response import EpochConfigsResponse
@@ -109,6 +108,7 @@ from openapi_client.models.order_cancellation_update import OrderCancellationUpd
 from openapi_client.models.order_side import OrderSide
 from openapi_client.models.order_status import OrderStatus
 from openapi_client.models.order_time_in_force import OrderTimeInForce
+from openapi_client.models.order_twap_config import OrderTwapConfig
 from openapi_client.models.order_type import OrderType
 from openapi_client.models.orderbook_depth_response import OrderbookDepthResponse
 from openapi_client.models.orderbook_diff_depth_update import OrderbookDiffDepthUpdate
