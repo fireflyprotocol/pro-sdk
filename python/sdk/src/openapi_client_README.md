@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_exchange_stats**](openapi_client/docs/ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 *ExchangeApi* | [**get_exchange_stats_all_time**](openapi_client/docs/ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 *ExchangeApi* | [**get_funding_rate_history**](openapi_client/docs/ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+*ExchangeApi* | [**get_leaderboard**](openapi_client/docs/ExchangeApi.md#get_leaderboard) | **GET** /api/v1/accounts/leaderboard | /accounts/leaderboard
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 *ExchangeApi* | [**get_recent_trades**](openapi_client/docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
@@ -192,6 +193,9 @@ Class | Method | HTTP request | Description
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [IssBase64Details](openapi_client/docs/IssBase64Details.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
+ - [LeaderboardEntry](openapi_client/docs/LeaderboardEntry.md)
+ - [LeaderboardInterval](openapi_client/docs/LeaderboardInterval.md)
+ - [LeaderboardResponse](openapi_client/docs/LeaderboardResponse.md)
  - [LoginRequest](openapi_client/docs/LoginRequest.md)
  - [LoginResponse](openapi_client/docs/LoginResponse.md)
  - [MarginType](openapi_client/docs/MarginType.md)
@@ -235,6 +239,7 @@ Class | Method | HTTP request | Description
  - [RewardsSummary](openapi_client/docs/RewardsSummary.md)
  - [SelfTradePreventionType](openapi_client/docs/SelfTradePreventionType.md)
  - [SigPayload](openapi_client/docs/SigPayload.md)
+ - [SortOrder](openapi_client/docs/SortOrder.md)
  - [SponsorTxRequest](openapi_client/docs/SponsorTxRequest.md)
  - [SponsorTxResponse](openapi_client/docs/SponsorTxResponse.md)
  - [StatsAllTimeResponse](openapi_client/docs/StatsAllTimeResponse.md)

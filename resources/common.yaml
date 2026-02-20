@@ -80,6 +80,13 @@ components:
         BOTH: On a self trade, both the taker and the maker order will be cancelled
         
         UNSPECIFIED: set to default value
+    SortOrder:
+        type: string
+        description: "The order in which results should be sorted."
+        enum:
+        - ASC
+        - DESC
+        - UNSPECIFIED
     TradeSide:
       type: string
       description: Trade side based on the user order in this trade.

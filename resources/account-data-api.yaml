@@ -470,6 +470,56 @@ components:
           description: Account value at this timestamp (e9 format).
           example: "0"
 
+    LeaderboardInterval:
+      type: string
+      enum:
+        - "1d"
+        - "7d"
+        - "30d"
+        - "ALL_TIME"
+        - "UNSPECIFIED"
+      x-enum-varnames:
+        - "LeaderboardIntervalN1d"
+        - "LeaderboardIntervalN7d"
+        - "LeaderboardIntervalN30d"
+        - "LeaderboardIntervalALLTIME"
+        - "LeaderboardIntervalUNSPECIFIED"
+    LeaderboardResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeaderboardEntry"
+      required:
+        - data
+    LeaderboardEntry:
+      type: object
+      properties:
+        rank:
+          type: integer
+          format: int64
+          description: Rank of the trader in the leaderboard.
+        accountAddress:
+          type: string
+          description: The address of the account.
+          example: "0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde"
+        accountValueE9:
+          type: string
+          description: Total account value of the trader in e9 format.
+        pnlE9:
+          type: string
+          description: Total profit and loss of the trader in e9 format.
+        volumeE9:
+          type: string
+          description: Total trading volume of the trader in e9 format.
+      required:
+        - rank
+        - accountAddress
+        - accountValueE9
+        - pnlE9
+        - volumeE9
+
     SponsorTxRequest:
       type: object
       required:
@@ -512,6 +562,7 @@ components:
           format: int64
           description: Transaction expiration time in milliseconds since Unix epoch
           example: 1754059983000
+
   responses:
     DefaultError:
       description: Unexpected error
@@ -1004,6 +1055,88 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
+
+  /api/v1/accounts/leaderboard:
+    get:
+      tags:
+        - Exchange
+      operationId: getLeaderboard
+      summary: /accounts/leaderboard
+      description: Retrieves the leaderboard of traders based on their performance.
+      parameters:
+        - name: interval
+          in: query
+          required: false
+          description: "The interval to get the leaderboard for. Default or Unspecified is 7d."
+          schema:
+            $ref: "#/components/schemas/LeaderboardInterval"
+        - name: sortBy
+          in: query
+          required: false
+          description: "The field to sort by. Default or Unspecified is accountValue."
+          schema:
+            type: string
+            enum:
+              - accountValue
+              - pnl
+              - volume
+              - UNSPECIFIED
+            example: "accountValue"
+            default: "accountValue"
+            x-enum-varnames:
+              - "GetLeaderboardSortByAccountValue"
+              - "GetLeaderboardSortByPnL"
+              - "GetLeaderboardSortByVolume"
+              - "GetLeaderboardSortByUNSPECIFIED"
+        - name: sortOrder
+          in: query
+          required: false
+          description: "The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC."
+          schema:
+            $ref: "./common.yaml#/components/schemas/SortOrder"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 100
+          description: Default 50; max 100.
+        - name: page
+          in: query
+          required: false
+          description: The page number to retrieve in a paginated response.
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        "200":
+          description: Leaderboard data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaderboardResponse"
+        "400":
+          description: Invalid parameters provided.
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: No data found for the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
   /api/v1/account/sponsorTx:
     post:
       tags:

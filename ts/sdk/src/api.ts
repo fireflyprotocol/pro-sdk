@@ -2814,6 +2814,73 @@ export type KlineInterval = typeof KlineInterval[keyof typeof KlineInterval];
 
 
 /**
+ * 
+ * @export
+ * @interface LeaderboardEntry
+ */
+export interface LeaderboardEntry {
+    /**
+     * Rank of the trader in the leaderboard.
+     * @type {number}
+     * @memberof LeaderboardEntry
+     */
+    'rank': number;
+    /**
+     * The address of the account.
+     * @type {string}
+     * @memberof LeaderboardEntry
+     */
+    'accountAddress': string;
+    /**
+     * Total account value of the trader in e9 format.
+     * @type {string}
+     * @memberof LeaderboardEntry
+     */
+    'accountValueE9': string;
+    /**
+     * Total profit and loss of the trader in e9 format.
+     * @type {string}
+     * @memberof LeaderboardEntry
+     */
+    'pnlE9': string;
+    /**
+     * Total trading volume of the trader in e9 format.
+     * @type {string}
+     * @memberof LeaderboardEntry
+     */
+    'volumeE9': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const LeaderboardInterval = {
+    LeaderboardIntervalN1d: '1d',
+    LeaderboardIntervalN7d: '7d',
+    LeaderboardIntervalN30d: '30d',
+    LeaderboardIntervalALLTIME: 'ALL_TIME',
+    LeaderboardIntervalUNSPECIFIED: 'UNSPECIFIED'
+} as const;
+
+export type LeaderboardInterval = typeof LeaderboardInterval[keyof typeof LeaderboardInterval];
+
+
+/**
+ * 
+ * @export
+ * @interface LeaderboardResponse
+ */
+export interface LeaderboardResponse {
+    /**
+     * 
+     * @type {Array<LeaderboardEntry>}
+     * @memberof LeaderboardResponse
+     */
+    'data': Array<LeaderboardEntry>;
+}
+/**
  * User is expected to sign this payload and sends is signature in login api as header and payload itself in request body 
  * @export
  * @interface LoginRequest
@@ -4449,6 +4516,21 @@ export interface SigPayload {
      */
     'type': number;
 }
+/**
+ * The order in which results should be sorted.
+ * @export
+ * @enum {string}
+ */
+
+export const SortOrder = {
+    Asc: 'ASC',
+    Desc: 'DESC',
+    Unspecified: 'UNSPECIFIED'
+} as const;
+
+export type SortOrder = typeof SortOrder[keyof typeof SortOrder];
+
+
 /**
  * 
  * @export
@@ -7270,6 +7352,61 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Retrieves the leaderboard of traders based on their performance.
+         * @summary /accounts/leaderboard
+         * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
+         * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
+         * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeaderboard: async (interval?: LeaderboardInterval, sortBy?: GetLeaderboardSortByEnum, sortOrder?: SortOrder, limit?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/accounts/leaderboard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieves aggregated ticker data for a market.
          * @summary /exchange/ticker
          * @param {string} symbol Market symbol.
@@ -7522,6 +7659,23 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Retrieves the leaderboard of traders based on their performance.
+         * @summary /accounts/leaderboard
+         * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
+         * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
+         * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeaderboard(interval?: LeaderboardInterval, sortBy?: GetLeaderboardSortByEnum, sortOrder?: SortOrder, limit?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LeaderboardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeaderboard(interval, sortBy, sortOrder, limit, page, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExchangeApi.getLeaderboard']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieves aggregated ticker data for a market.
          * @summary /exchange/ticker
          * @param {string} symbol Market symbol.
@@ -7655,6 +7809,20 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          */
         getFundingRateHistory(symbol: string, limit?: number, startTimeAtMillis?: number, endTimeAtMillis?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<FundingRateEntry>> {
             return localVarFp.getFundingRateHistory(symbol, limit, startTimeAtMillis, endTimeAtMillis, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves the leaderboard of traders based on their performance.
+         * @summary /accounts/leaderboard
+         * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
+         * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
+         * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [page] The page number to retrieve in a paginated response.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeaderboard(interval?: LeaderboardInterval, sortBy?: GetLeaderboardSortByEnum, sortOrder?: SortOrder, limit?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<LeaderboardResponse> {
+            return localVarFp.getLeaderboard(interval, sortBy, sortOrder, limit, page, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves aggregated ticker data for a market.
@@ -7797,6 +7965,22 @@ export class ExchangeApi extends BaseAPI {
     }
 
     /**
+     * Retrieves the leaderboard of traders based on their performance.
+     * @summary /accounts/leaderboard
+     * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
+     * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
+     * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+     * @param {number} [limit] Default 50; max 100.
+     * @param {number} [page] The page number to retrieve in a paginated response.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeApi
+     */
+    public getLeaderboard(interval?: LeaderboardInterval, sortBy?: GetLeaderboardSortByEnum, sortOrder?: SortOrder, limit?: number, page?: number, options?: RawAxiosRequestConfig) {
+        return ExchangeApiFp(this.configuration).getLeaderboard(interval, sortBy, sortOrder, limit, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Retrieves aggregated ticker data for a market.
      * @summary /exchange/ticker
      * @param {string} symbol Market symbol.
@@ -7839,6 +8023,16 @@ export class ExchangeApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetLeaderboardSortByEnum = {
+    GetLeaderboardSortByAccountValue: 'accountValue',
+    GetLeaderboardSortByPnL: 'pnl',
+    GetLeaderboardSortByVolume: 'volume',
+    GetLeaderboardSortByUNSPECIFIED: 'UNSPECIFIED'
+} as const;
+export type GetLeaderboardSortByEnum = typeof GetLeaderboardSortByEnum[keyof typeof GetLeaderboardSortByEnum];
 
 
 /**
