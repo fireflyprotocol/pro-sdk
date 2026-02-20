@@ -17,6 +17,7 @@ import time
 from bluefin_pro_sdk import BluefinProSdk, Order, Environment
 from crypto_helpers.signature import SuiWallet
 from openapi_client.models.account_data_stream import AccountDataStream
+from openapi_client.models.leaderboard_interval import LeaderboardInterval
 from openapi_client.models.transaction_type import TransactionType
 import openapi_client as api
 
@@ -131,6 +132,11 @@ async def main():
 
         country = await exchange_data_api.get_country()
         log.info(f"{country=}")
+
+        leaderboard = await exchange_data_api.get_leaderboard(
+            interval=LeaderboardInterval.LeaderboardIntervalN30d,
+        )
+        log.info(f"{leaderboard=}")
 
         # ========= Account Data API =========
         account_data_api = client.account_data_api
