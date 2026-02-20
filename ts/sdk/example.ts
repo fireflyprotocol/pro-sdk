@@ -19,6 +19,7 @@ import {
   makeSigner,
   GetAccountValueHistoryParamsInterval,
   BatchClaimParams,
+  LeaderboardInterval,
 } from "./index";
 
 import { hexToBytes } from "@noble/hashes/utils";
@@ -216,6 +217,11 @@ async function main() {
         await client.exchangeDataApi.getCountry()
     ).data;
     logger.info(`Country: ${JSON.stringify(country)}`);
+
+    const leaderboard = (
+        await client.exchangeDataApi.getLeaderboard(LeaderboardInterval.LeaderboardIntervalN30d)
+    ).data;
+    logger.info(`Leaderboard: ${JSON.stringify(leaderboard)}`);
 
     // Account Data API calls
     const accountTrades = (
