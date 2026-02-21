@@ -6,10 +6,11 @@
     "declarationMap": true,
     "outDir": "dist/types",
     "module": "commonjs",
+    "moduleResolution": "node16",
     "paths": {
       "@firefly-exchange/library-sui/v3": [
         "./node_modules/@firefly-exchange/library-sui/dist/src/v3"
       ]
-    },
+    }
   }
 }
