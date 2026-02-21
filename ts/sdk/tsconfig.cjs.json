@@ -5,6 +5,9 @@
     "moduleResolution": "Node",
     "outDir": "dist/cjs",
     "paths": {
+      "@firefly-exchange/library-sui/index": [
+        "./node_modules/@firefly-exchange/library-sui/dist/src/index"
+      ],
       "@firefly-exchange/library-sui/v3": [
         "./node_modules/@firefly-exchange/library-sui/dist/src/v3"
       ]
