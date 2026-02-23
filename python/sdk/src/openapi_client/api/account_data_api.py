@@ -24,6 +24,7 @@ from openapi_client.models.account_funding_rate_history import AccountFundingRat
 from openapi_client.models.account_group_id_patch import AccountGroupIdPatch
 from openapi_client.models.account_preference import AccountPreference
 from openapi_client.models.account_value_history import AccountValueHistory
+from openapi_client.models.get_account_value_history_params_interval import GetAccountValueHistoryParamsInterval
 from openapi_client.models.sponsor_tx_request import SponsorTxRequest
 from openapi_client.models.sponsor_tx_response import SponsorTxResponse
 from openapi_client.models.trade import Trade
@@ -1649,7 +1650,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_value_history(
         self,
-        interval: Annotated[StrictStr, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
+        interval: Annotated[GetAccountValueHistoryParamsInterval, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1720,7 +1721,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_value_history_with_http_info(
         self,
-        interval: Annotated[StrictStr, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
+        interval: Annotated[GetAccountValueHistoryParamsInterval, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1791,7 +1792,7 @@ class AccountDataApi:
     @validate_call
     async def get_account_value_history_without_preload_content(
         self,
-        interval: Annotated[StrictStr, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
+        interval: Annotated[GetAccountValueHistoryParamsInterval, Field(description="Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

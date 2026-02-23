@@ -611,7 +611,6 @@ paths:
           in: query
           required: true
           schema:
-            type: string
             $ref: "#/components/schemas/GetAccountValueHistoryParamsInterval"
           description: Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all.
       responses:
