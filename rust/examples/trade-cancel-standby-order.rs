@@ -93,6 +93,7 @@ async fn main() -> Result<()> {
         time_in_force: None,
         trigger_price_e9: Some((10_000.e9()).to_string()),
         self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
+        twap_config: None,
     };
 
     // Then, we sign our order.
