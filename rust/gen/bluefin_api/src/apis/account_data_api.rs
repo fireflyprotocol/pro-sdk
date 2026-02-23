@@ -382,7 +382,7 @@ pub async fn get_account_transaction_history(configuration: &configuration::Conf
 }
 
 /// Retrieves the account value history for a specific account over a given time interval.
-pub async fn get_account_value_history(configuration: &configuration::Configuration, interval: &str) -> Result<models::AccountValueHistory, Error<GetAccountValueHistoryError>> {
+pub async fn get_account_value_history(configuration: &configuration::Configuration, interval: models::GetAccountValueHistoryParamsInterval) -> Result<models::AccountValueHistory, Error<GetAccountValueHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_interval = interval;
 

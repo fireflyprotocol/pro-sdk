@@ -455,6 +455,7 @@ Retrieves the account value history for a specific account over a given time int
 ```python
 import openapi_client
 from openapi_client.models.account_value_history import AccountValueHistory
+from openapi_client.models.get_account_value_history_params_interval import GetAccountValueHistoryParamsInterval
 from openapi_client.rest import ApiException
 from pprint import pprint
 
@@ -496,7 +497,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **interval** | **GetAccountValueHistoryParamsInterval**| Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | 
+ **interval** | [**GetAccountValueHistoryParamsInterval**](.md)| Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | 
 
 ### Return type
 
