@@ -224,6 +224,7 @@ async fn main() -> Result<()> {
         time_in_force: Some(OrderTimeInForce::Gtt),
         trigger_price_e9: None,
         self_trade_prevention_type: Some(SelfTradePreventionType::Maker),
+        twap_config: None,
     };
 
     // Then, we sign our order.
