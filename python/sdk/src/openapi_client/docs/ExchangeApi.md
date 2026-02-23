@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 [**get_exchange_stats_all_time**](ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+[**get_leaderboard**](ExchangeApi.md#get_leaderboard) | **GET** /api/v1/accounts/leaderboard | /accounts/leaderboard
 [**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 [**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
@@ -508,6 +509,87 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response with funding rate history. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_leaderboard**
+> LeaderboardResponse get_leaderboard(interval=interval, sort_by=sort_by, sort_order=sort_order, limit=limit, page=page)
+
+/accounts/leaderboard
+
+Retrieves the leaderboard of traders based on their performance.
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.leaderboard_interval import LeaderboardInterval
+from openapi_client.models.leaderboard_response import LeaderboardResponse
+from openapi_client.models.sort_order import SortOrder
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ExchangeApi(api_client)
+    interval = openapi_client.LeaderboardInterval() # LeaderboardInterval | The interval to get the leaderboard for. Default or Unspecified is 7d. (optional)
+    sort_by = accountValue # str | The field to sort by. Default or Unspecified is accountValue. (optional) (default to accountValue)
+    sort_order = openapi_client.SortOrder() # SortOrder | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. (optional)
+    limit = 50 # int | Default 50; max 100. (optional) (default to 50)
+    page = 1 # int | The page number to retrieve in a paginated response. (optional) (default to 1)
+
+    try:
+        # /accounts/leaderboard
+        api_response = await api_instance.get_leaderboard(interval=interval, sort_by=sort_by, sort_order=sort_order, limit=limit, page=page)
+        print("The response of ExchangeApi->get_leaderboard:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExchangeApi->get_leaderboard: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **interval** | [**LeaderboardInterval**](.md)| The interval to get the leaderboard for. Default or Unspecified is 7d. | [optional] 
+ **sort_by** | **str**| The field to sort by. Default or Unspecified is accountValue. | [optional] [default to accountValue]
+ **sort_order** | [**SortOrder**](.md)| The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. | [optional] 
+ **limit** | **int**| Default 50; max 100. | [optional] [default to 50]
+ **page** | **int**| The page number to retrieve in a paginated response. | [optional] [default to 1]
+
+### Return type
+
+[**LeaderboardResponse**](LeaderboardResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Leaderboard data |  -  |
+**400** | Invalid parameters provided. |  -  |
+**404** | No data found for the specified parameters. |  -  |
+**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
