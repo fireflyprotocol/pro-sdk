@@ -155,7 +155,9 @@ async def main():
         account_funding_rate_history = await account_data_api.get_account_funding_rate_history()
         log.info(f"{account_funding_rate_history=}")
 
-        account_value_history = await account_data_api.get_account_value_history()
+        account_value_history = await account_data_api.get_account_value_history(
+            interval=api.GetAccountValueHistoryParamsInterval.ENUM_24H,
+        )
         log.info(f"{account_value_history=}")
 
         # Subscribe to WebSockets and log events as they arrive.

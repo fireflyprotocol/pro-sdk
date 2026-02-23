@@ -189,7 +189,7 @@ Retrieves the account value history for a specific account over a given time int
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**interval** | **GetAccountValueHistoryParamsInterval** | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | [required] |
+**interval** | [**GetAccountValueHistoryParamsInterval**](.md) | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | [required] |
 
 ### Return type
 

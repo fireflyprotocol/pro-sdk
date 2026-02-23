@@ -1,6 +1,6 @@
 use bluefin_api::apis::account_data_api::get_account_value_history;
 use bluefin_api::apis::configuration::Configuration;
-use bluefin_api::models::{AccountValueHistory, LoginRequest};
+use bluefin_api::models::{AccountValueHistory, GetAccountValueHistoryParamsInterval, LoginRequest};
 use bluefin_pro::prelude::*;
 use chrono::Utc;
 use hex::FromHex;
@@ -18,7 +18,7 @@ async fn send_request(auth_token: &str) -> Result<AccountValueHistory> {
             bearer_access_token: Some(auth_token.into()),
             ..Configuration::new()
         },
-        "24h", // interval parameter: 24h, 7d, 30d, 90d, or all
+        GetAccountValueHistoryParamsInterval::Variant24h, // interval parameter: 24h, 7d, 30d, 90d, or all
     )
     .await?)
 }

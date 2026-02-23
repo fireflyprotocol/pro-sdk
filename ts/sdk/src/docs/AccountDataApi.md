@@ -351,7 +351,7 @@ const { status, data } = await apiInstance.getAccountValueHistory(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **interval** | [**GetAccountValueHistoryParamsInterval**] | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | defaults to undefined|
+| **interval** | **GetAccountValueHistoryParamsInterval** | Time interval for the value history. Options are 24h, 7d, 30d, 90d, or all. | defaults to undefined|
 
 
 ### Return type
