@@ -207,15 +207,20 @@ async function main() {
     ).data;
     logger.info(`Stats: ${JSON.stringify(stats)}`);
 
-      const statsAllTime = (
-          await client.exchangeDataApi.getExchangeStatsAllTime()
-      ).data;
-      logger.info(`Stats All Time: ${JSON.stringify(statsAllTime)}`);
+    const statsAllTime = (
+        await client.exchangeDataApi.getExchangeStatsAllTime()
+    ).data;
+    logger.info(`Stats All Time: ${JSON.stringify(statsAllTime)}`);
 
-      const country = (
+    const country = (
         await client.exchangeDataApi.getCountry()
     ).data;
     logger.info(`Country: ${JSON.stringify(country)}`);
+
+    const leaderboard = (
+        await client.exchangeDataApi.getLeaderboard()
+    ).data;
+    logger.info(`Leaderboard: ${JSON.stringify(leaderboard)}`);
 
     // Account Data API calls
     const accountTrades = (

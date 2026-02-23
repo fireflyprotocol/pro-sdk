@@ -132,6 +132,9 @@ async def main():
         country = await exchange_data_api.get_country()
         log.info(f"{country=}")
 
+        leaderboard = await exchange_data_api.get_leaderboard()
+        log.info(f"{leaderboard=}")
+
         # ========= Account Data API =========
         account_data_api = client.account_data_api
         when = ((t := now()) - 60 * 60 * 1000, t)  # The past hour.

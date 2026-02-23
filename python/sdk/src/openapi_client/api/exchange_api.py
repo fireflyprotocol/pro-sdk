@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictInt, StrictStr, field_validator
 from typing import List, Optional
 from typing_extensions import Annotated
 from openapi_client.models.candle_price_type import CandlePriceType
@@ -24,7 +24,10 @@ from openapi_client.models.country_response import CountryResponse
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.funding_rate_entry import FundingRateEntry
 from openapi_client.models.kline_interval import KlineInterval
+from openapi_client.models.leaderboard_interval import LeaderboardInterval
+from openapi_client.models.leaderboard_response import LeaderboardResponse
 from openapi_client.models.orderbook_depth_response import OrderbookDepthResponse
+from openapi_client.models.sort_order import SortOrder
 from openapi_client.models.stats_all_time_response import StatsAllTimeResponse
 from openapi_client.models.stats_interval import StatsInterval
 from openapi_client.models.stats_response import StatsResponse
@@ -2054,6 +2057,345 @@ class ExchangeApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/exchange/fundingRateHistory',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def get_leaderboard(
+        self,
+        interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
+        sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
+        sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LeaderboardResponse:
+        """/accounts/leaderboard
+
+        Retrieves the leaderboard of traders based on their performance.
+
+        :param interval: The interval to get the leaderboard for. Default or Unspecified is 7d.
+        :type interval: LeaderboardInterval
+        :param sort_by: The field to sort by. Default or Unspecified is accountValue.
+        :type sort_by: str
+        :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+        :type sort_order: SortOrder
+        :param limit: Default 50; max 100.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_leaderboard_serialize(
+            interval=interval,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LeaderboardResponse",
+            '400': "Error",
+            '404': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def get_leaderboard_with_http_info(
+        self,
+        interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
+        sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
+        sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LeaderboardResponse]:
+        """/accounts/leaderboard
+
+        Retrieves the leaderboard of traders based on their performance.
+
+        :param interval: The interval to get the leaderboard for. Default or Unspecified is 7d.
+        :type interval: LeaderboardInterval
+        :param sort_by: The field to sort by. Default or Unspecified is accountValue.
+        :type sort_by: str
+        :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+        :type sort_order: SortOrder
+        :param limit: Default 50; max 100.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_leaderboard_serialize(
+            interval=interval,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LeaderboardResponse",
+            '400': "Error",
+            '404': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def get_leaderboard_without_preload_content(
+        self,
+        interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
+        sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
+        sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """/accounts/leaderboard
+
+        Retrieves the leaderboard of traders based on their performance.
+
+        :param interval: The interval to get the leaderboard for. Default or Unspecified is 7d.
+        :type interval: LeaderboardInterval
+        :param sort_by: The field to sort by. Default or Unspecified is accountValue.
+        :type sort_by: str
+        :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
+        :type sort_order: SortOrder
+        :param limit: Default 50; max 100.
+        :type limit: int
+        :param page: The page number to retrieve in a paginated response.
+        :type page: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_leaderboard_serialize(
+            interval=interval,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            limit=limit,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LeaderboardResponse",
+            '400': "Error",
+            '404': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_leaderboard_serialize(
+        self,
+        interval,
+        sort_by,
+        sort_order,
+        limit,
+        page,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if interval is not None:
+            
+            _query_params.append(('interval', interval.value))
+            
+        if sort_by is not None:
+            
+            _query_params.append(('sortBy', sort_by))
+            
+        if sort_order is not None:
+            
+            _query_params.append(('sortOrder', sort_order.value))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/accounts/leaderboard',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

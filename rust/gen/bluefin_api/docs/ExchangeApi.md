@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_exchange_stats**](ExchangeApi.md#get_exchange_stats) | **GET** /v1/exchange/stats | /exchange/stats
 [**get_exchange_stats_all_time**](ExchangeApi.md#get_exchange_stats_all_time) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime
 [**get_funding_rate_history**](ExchangeApi.md#get_funding_rate_history) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory
+[**get_leaderboard**](ExchangeApi.md#get_leaderboard) | **GET** /api/v1/accounts/leaderboard | /accounts/leaderboard
 [**get_market_ticker**](ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 [**get_orderbook_depth**](ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 [**get_recent_trades**](ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
@@ -216,6 +217,40 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<models::FundingRateEntry>**](FundingRateEntry.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_leaderboard
+
+> models::LeaderboardResponse get_leaderboard(interval, sort_by, sort_order, limit, page)
+/accounts/leaderboard
+
+Retrieves the leaderboard of traders based on their performance.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**interval** | Option<[**LeaderboardInterval**](.md)> | The interval to get the leaderboard for. Default or Unspecified is 7d. |  |
+**sort_by** | Option<**String**> | The field to sort by. Default or Unspecified is accountValue. |  |[default to accountValue]
+**sort_order** | Option<[**SortOrder**](.md)> | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. |  |
+**limit** | Option<**u32**> | Default 50; max 100. |  |[default to 50]
+**page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |[default to 1]
+
+### Return type
+
+[**models::LeaderboardResponse**](LeaderboardResponse.md)
 
 ### Authorization
 

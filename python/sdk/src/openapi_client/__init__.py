@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.9.0"
+__version__ = "1.10.0"
 
 # import apis into sdk package
 from openapi_client.api.account_data_api import AccountDataApi
@@ -103,6 +103,9 @@ from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.iss_base64_details import IssBase64Details
 from openapi_client.models.kline_interval import KlineInterval
+from openapi_client.models.leaderboard_entry import LeaderboardEntry
+from openapi_client.models.leaderboard_interval import LeaderboardInterval
+from openapi_client.models.leaderboard_response import LeaderboardResponse
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
 from openapi_client.models.margin_type import MarginType
@@ -146,6 +149,7 @@ from openapi_client.models.rewards_pool_entry import RewardsPoolEntry
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
 from openapi_client.models.sig_payload import SigPayload
+from openapi_client.models.sort_order import SortOrder
 from openapi_client.models.sponsor_tx_request import SponsorTxRequest
 from openapi_client.models.sponsor_tx_response import SponsorTxResponse
 from openapi_client.models.stats_all_time_response import StatsAllTimeResponse

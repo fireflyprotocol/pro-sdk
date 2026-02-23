@@ -11,6 +11,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getExchangeStats**](#getexchangestats) | **GET** /v1/exchange/stats | /exchange/stats|
 |[**getExchangeStatsAllTime**](#getexchangestatsalltime) | **GET** /v1/exchange/stats/allTime | /v1/exchange/stats/allTime|
 |[**getFundingRateHistory**](#getfundingratehistory) | **GET** /v1/exchange/fundingRateHistory | /exchange/fundingRateHistory|
+|[**getLeaderboard**](#getleaderboard) | **GET** /api/v1/accounts/leaderboard | /accounts/leaderboard|
 |[**getMarketTicker**](#getmarketticker) | **GET** /v1/exchange/ticker | /exchange/ticker|
 |[**getOrderbookDepth**](#getorderbookdepth) | **GET** /v1/exchange/depth | /exchange/depth|
 |[**getRecentTrades**](#getrecenttrades) | **GET** /v1/exchange/trades | /exchange/trades|
@@ -388,6 +389,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response with funding rate history. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getLeaderboard**
+> LeaderboardResponse getLeaderboard()
+
+Retrieves the leaderboard of traders based on their performance.
+
+### Example
+
+```typescript
+import {
+    ExchangeApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new ExchangeApi(configuration);
+
+let interval: LeaderboardInterval; //The interval to get the leaderboard for. Default or Unspecified is 7d. (optional) (default to undefined)
+let sortBy: 'accountValue' | 'pnl' | 'volume' | 'UNSPECIFIED'; //The field to sort by. Default or Unspecified is accountValue. (optional) (default to 'accountValue')
+let sortOrder: SortOrder; //The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. (optional) (default to undefined)
+let limit: number; //Default 50; max 100. (optional) (default to 50)
+let page: number; //The page number to retrieve in a paginated response. (optional) (default to 1)
+
+const { status, data } = await apiInstance.getLeaderboard(
+    interval,
+    sortBy,
+    sortOrder,
+    limit,
+    page
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **interval** | **LeaderboardInterval** | The interval to get the leaderboard for. Default or Unspecified is 7d. | (optional) defaults to undefined|
+| **sortBy** | [**&#39;accountValue&#39; | &#39;pnl&#39; | &#39;volume&#39; | &#39;UNSPECIFIED&#39;**]**Array<&#39;accountValue&#39; &#124; &#39;pnl&#39; &#124; &#39;volume&#39; &#124; &#39;UNSPECIFIED&#39;>** | The field to sort by. Default or Unspecified is accountValue. | (optional) defaults to 'accountValue'|
+| **sortOrder** | **SortOrder** | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. | (optional) defaults to undefined|
+| **limit** | [**number**] | Default 50; max 100. | (optional) defaults to 50|
+| **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to 1|
+
+
+### Return type
+
+**LeaderboardResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Leaderboard data |  -  |
+|**400** | Invalid parameters provided. |  -  |
+|**404** | No data found for the specified parameters. |  -  |
+|**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

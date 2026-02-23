@@ -74,6 +74,9 @@ docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/IssBase64Details.md
 docs/KlineInterval.md
+docs/LeaderboardEntry.md
+docs/LeaderboardInterval.md
+docs/LeaderboardResponse.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
@@ -118,6 +121,7 @@ docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
 docs/SigPayload.md
+docs/SortOrder.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
 docs/StatsAllTimeResponse.md
