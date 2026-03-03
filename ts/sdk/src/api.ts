@@ -2816,6 +2816,603 @@ export type KlineInterval = typeof KlineInterval[keyof typeof KlineInterval];
 /**
  * 
  * @export
+ * @interface KoraCampaignBonus
+ */
+export interface KoraCampaignBonus {
+    /**
+     * Type of bonus (e.g., VOLUME_BONUS, REFERRAL_BONUS)
+     * @type {string}
+     * @memberof KoraCampaignBonus
+     */
+    'bonusType'?: string;
+    /**
+     * CC reward amount for this bonus
+     * @type {string}
+     * @memberof KoraCampaignBonus
+     */
+    'bonusCcReward'?: string;
+    /**
+     * Points earned for this bonus
+     * @type {string}
+     * @memberof KoraCampaignBonus
+     */
+    'bonusPoints'?: string;
+    /**
+     * Criteria that was met for earning this bonus
+     * @type {string}
+     * @memberof KoraCampaignBonus
+     */
+    'bonusCriteria'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface KoraCampaignMetadata
+ */
+export interface KoraCampaignMetadata {
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraCampaignMetadata
+     */
+    'status': KoraCampaignMetadataStatusEnum;
+    /**
+     * Name of the campaign
+     * @type {string}
+     * @memberof KoraCampaignMetadata
+     */
+    'campaignName': string;
+    /**
+     * Name of the parent campaign
+     * @type {string}
+     * @memberof KoraCampaignMetadata
+     */
+    'parentCampaignName'?: string;
+    /**
+     * Time in milliseconds for campaign start date
+     * @type {number}
+     * @memberof KoraCampaignMetadata
+     */
+    'startDate': number;
+    /**
+     * Time in milliseconds for campaign end date
+     * @type {number}
+     * @memberof KoraCampaignMetadata
+     */
+    'endDate': number;
+}
+
+export const KoraCampaignMetadataStatusEnum = {
+    Active: 'ACTIVE',
+    Inactive: 'INACTIVE'
+} as const;
+
+export type KoraCampaignMetadataStatusEnum = typeof KoraCampaignMetadataStatusEnum[keyof typeof KoraCampaignMetadataStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface KoraCampaignRewards
+ */
+export interface KoraCampaignRewards {
+    /**
+     * User address for the rewards earned data
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'userAddress': string;
+    /**
+     * Name of the campaign
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'campaignName': string;
+    /**
+     * Epoch number for the rewards earned data
+     * @type {number}
+     * @memberof KoraCampaignRewards
+     */
+    'epochNumber': number;
+    /**
+     * Interval number for the rewards earned data
+     * @type {number}
+     * @memberof KoraCampaignRewards
+     */
+    'intervalNumber': number;
+    /**
+     * Market Symbol
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'symbol'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'status': KoraCampaignRewardsStatusEnum;
+    /**
+     * Total blue token rewards
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'blueRewards'?: string;
+    /**
+     * Total sui token rewards
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'suiRewards'?: string;
+    /**
+     * Total wal rewards
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'walRewards'?: string;
+    /**
+     * Total cash rewards
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'cashRewards'?: string;
+    /**
+     * Total CC token rewards
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'ccRewards'?: string;
+    /**
+     * Total Kora points earned
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'koraPoints'?: string;
+    /**
+     * Total user fee paid
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'userFeePaid'?: string;
+    /**
+     * Time in milliseconds for interval start date
+     * @type {number}
+     * @memberof KoraCampaignRewards
+     */
+    'intervalStartDate'?: number;
+    /**
+     * Time in milliseconds for interval end date
+     * @type {number}
+     * @memberof KoraCampaignRewards
+     */
+    'intervalEndDate'?: number;
+    /**
+     * Indicates if rewards have been disbursed
+     * @type {boolean}
+     * @memberof KoraCampaignRewards
+     */
+    'isDisbursed'?: boolean;
+    /**
+     * Transaction digest of the disbursement
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'txnDigest'?: string;
+    /**
+     * Status of the claim
+     * @type {string}
+     * @memberof KoraCampaignRewards
+     */
+    'claimStatus'?: KoraCampaignRewardsClaimStatusEnum;
+    /**
+     * List of bonuses attached to this reward entry
+     * @type {Array<KoraCampaignBonus>}
+     * @memberof KoraCampaignRewards
+     */
+    'bonuses'?: Array<KoraCampaignBonus>;
+}
+
+export const KoraCampaignRewardsStatusEnum = {
+    Active: 'ACTIVE',
+    NotStarted: 'NOT_STARTED',
+    Finalized: 'FINALIZED',
+    Cooldown: 'COOLDOWN'
+} as const;
+
+export type KoraCampaignRewardsStatusEnum = typeof KoraCampaignRewardsStatusEnum[keyof typeof KoraCampaignRewardsStatusEnum];
+export const KoraCampaignRewardsClaimStatusEnum = {
+    Claimable: 'CLAIMABLE',
+    Claimed: 'CLAIMED',
+    NotYetClaimable: 'NOT_YET_CLAIMABLE',
+    ClaimEnded: 'CLAIM_ENDED'
+} as const;
+
+export type KoraCampaignRewardsClaimStatusEnum = typeof KoraCampaignRewardsClaimStatusEnum[keyof typeof KoraCampaignRewardsClaimStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface KoraEpochConfig
+ */
+export interface KoraEpochConfig {
+    /**
+     * The name of the campaign
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'campaignName': string;
+    /**
+     * Duration of the epoch in hours
+     * @type {number}
+     * @memberof KoraEpochConfig
+     */
+    'epochDuration': number;
+    /**
+     * Allocation of Sui rewards for this epoch
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'suiRewardsAllocation'?: string;
+    /**
+     * Allocation of Blue rewards for this epoch
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'blueRewardsAllocation'?: string;
+    /**
+     * Allocation of Wal rewards for this epoch
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'walRewardsAllocation'?: string;
+    /**
+     * Allocation of CC token rewards for this epoch
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'ccRewardsAllocation'?: string;
+    /**
+     * Allocation of Kora points rewards for this epoch
+     * @type {string}
+     * @memberof KoraEpochConfig
+     */
+    'koraPointsRewardsAllocation'?: string;
+    /**
+     * Interval number for the epoch
+     * @type {number}
+     * @memberof KoraEpochConfig
+     */
+    'intervalNumber': number;
+    /**
+     * Epoch number
+     * @type {number}
+     * @memberof KoraEpochConfig
+     */
+    'epochNumber': number;
+    /**
+     * Additional campaign-specific configurations
+     * @type {{ [key: string]: any | undefined; }}
+     * @memberof KoraEpochConfig
+     */
+    'config'?: { [key: string]: any | undefined; };
+}
+/**
+ * 
+ * @export
+ * @interface KoraEpochConfigResponse
+ */
+export interface KoraEpochConfigResponse {
+    /**
+     * The maximum interval number available
+     * @type {number}
+     * @memberof KoraEpochConfigResponse
+     */
+    'maxIntervalNumber': number;
+    /**
+     * The current interval number being queried
+     * @type {number}
+     * @memberof KoraEpochConfigResponse
+     */
+    'intervalNumber': number;
+    /**
+     * 
+     * @type {Array<KoraEpochConfig>}
+     * @memberof KoraEpochConfigResponse
+     */
+    'data': Array<KoraEpochConfig>;
+}
+/**
+ * 
+ * @export
+ * @interface KoraEpochMetadata
+ */
+export interface KoraEpochMetadata {
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraEpochMetadata
+     */
+    'status': KoraEpochMetadataStatusEnum;
+    /**
+     * Name of the campaign
+     * @type {string}
+     * @memberof KoraEpochMetadata
+     */
+    'campaignName': string;
+    /**
+     * Epoch ID
+     * @type {string}
+     * @memberof KoraEpochMetadata
+     */
+    'epochId': string;
+    /**
+     * Epoch number
+     * @type {number}
+     * @memberof KoraEpochMetadata
+     */
+    'epochNumber': number;
+    /**
+     * Time in milliseconds for epoch start date
+     * @type {number}
+     * @memberof KoraEpochMetadata
+     */
+    'startDate': number;
+    /**
+     * Time in milliseconds for epoch end date
+     * @type {number}
+     * @memberof KoraEpochMetadata
+     */
+    'endDate': number;
+}
+
+export const KoraEpochMetadataStatusEnum = {
+    Active: 'ACTIVE',
+    NotStarted: 'NOT_STARTED',
+    Finalized: 'FINALIZED',
+    Cooldown: 'COOLDOWN'
+} as const;
+
+export type KoraEpochMetadataStatusEnum = typeof KoraEpochMetadataStatusEnum[keyof typeof KoraEpochMetadataStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface KoraHealthCheck200Response
+ */
+export interface KoraHealthCheck200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraHealthCheck200Response
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof KoraHealthCheck200Response
+     */
+    'timestamp'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface KoraIntervalMetadata
+ */
+export interface KoraIntervalMetadata {
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraIntervalMetadata
+     */
+    'status': KoraIntervalMetadataStatusEnum;
+    /**
+     * Time in milliseconds for interval start date
+     * @type {number}
+     * @memberof KoraIntervalMetadata
+     */
+    'startDate': number;
+    /**
+     * Time in milliseconds for interval end date
+     * @type {number}
+     * @memberof KoraIntervalMetadata
+     */
+    'endDate': number;
+    /**
+     * Interval ID
+     * @type {number}
+     * @memberof KoraIntervalMetadata
+     */
+    'intervalId': number;
+    /**
+     * Type of the interval
+     * @type {string}
+     * @memberof KoraIntervalMetadata
+     */
+    'intervalType'?: string;
+    /**
+     * Protocol for the interval
+     * @type {string}
+     * @memberof KoraIntervalMetadata
+     */
+    'protocol'?: KoraIntervalMetadataProtocolEnum;
+}
+
+export const KoraIntervalMetadataStatusEnum = {
+    Active: 'ACTIVE',
+    NotStarted: 'NOT_STARTED',
+    Finalized: 'FINALIZED',
+    Cooldown: 'COOLDOWN'
+} as const;
+
+export type KoraIntervalMetadataStatusEnum = typeof KoraIntervalMetadataStatusEnum[keyof typeof KoraIntervalMetadataStatusEnum];
+export const KoraIntervalMetadataProtocolEnum = {
+    Bluefin: 'bluefin',
+    Kora: 'kora'
+} as const;
+
+export type KoraIntervalMetadataProtocolEnum = typeof KoraIntervalMetadataProtocolEnum[keyof typeof KoraIntervalMetadataProtocolEnum];
+
+/**
+ * 
+ * @export
+ * @interface KoraLeaderboardEntry
+ */
+export interface KoraLeaderboardEntry {
+    /**
+     * Overall ranking position based on sortBy parameter
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'rank': number;
+    /**
+     * Wallet address of the user
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'userAddress': string;
+    /**
+     * Total swap volume (USD equivalent)
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalVolumeE6': string;
+    /**
+     * Total fees paid
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalFeeE6'?: string;
+    /**
+     * Total number of qualifying swap transactions
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalTransactions': number;
+    /**
+     * CC token rewards earned
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'ccRewards': string;
+    /**
+     * Kora points earned
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'koraPoints': string;
+    /**
+     * Total bonus points earned
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalBonusPoints'?: string;
+    /**
+     * Total bonus CC tokens earned
+     * @type {string}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalBonusCC'?: string;
+    /**
+     * Ranking based purely on trading volume
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'volumeRank'?: number;
+    /**
+     * Ranking based purely on transaction count
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'transactionRank'?: number;
+    /**
+     * Ranking based on combined CC + Kora points value
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'totalEarningsRank'?: number;
+    /**
+     * Timestamp of user\'s most recent swap (milliseconds)
+     * @type {number}
+     * @memberof KoraLeaderboardEntry
+     */
+    'lastActivityDate'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface KoraLeaderboardResponse
+ */
+export interface KoraLeaderboardResponse {
+    /**
+     * 
+     * @type {Array<KoraLeaderboardEntry>}
+     * @memberof KoraLeaderboardResponse
+     */
+    'data': Array<KoraLeaderboardEntry>;
+    /**
+     * Total number of records
+     * @type {number}
+     * @memberof KoraLeaderboardResponse
+     */
+    'total': number;
+    /**
+     * Page size for pagination
+     * @type {number}
+     * @memberof KoraLeaderboardResponse
+     */
+    'limit': number;
+    /**
+     * Current page number
+     * @type {number}
+     * @memberof KoraLeaderboardResponse
+     */
+    'page': number;
+}
+/**
+ * 
+ * @export
+ * @interface KoraRewardsSummary
+ */
+export interface KoraRewardsSummary {
+    /**
+     * User address for the rewards earned data
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'userAddress': string;
+    /**
+     * Total Blue token rewards earned
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'blueRewards'?: string;
+    /**
+     * Total Sui token rewards earned
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'suiRewards'?: string;
+    /**
+     * Total wal rewards earned
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'walRewards'?: string;
+    /**
+     * Total CC token rewards earned across all Kora campaigns
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'ccRewards'?: string;
+    /**
+     * Total Kora points earned across all Kora campaigns
+     * @type {string}
+     * @memberof KoraRewardsSummary
+     */
+    'koraPoints'?: string;
+}
+/**
+ * 
+ * @export
  * @interface LeaderboardEntry
  */
 export interface LeaderboardEntry {
@@ -8033,6 +8630,739 @@ export const GetLeaderboardSortByEnum = {
     GetLeaderboardSortByUNSPECIFIED: 'UNSPECIFIED'
 } as const;
 export type GetLeaderboardSortByEnum = typeof GetLeaderboardSortByEnum[keyof typeof GetLeaderboardSortByEnum];
+
+
+/**
+ * KoraApi - axios parameter creator
+ * @export
+ */
+export const KoraApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns metadata for Kora rewards campaigns.
+         * @summary Get Kora campaign metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraCampaignMetadataStatusEnum} [status] Filter by campaign status
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraCampaignMetadata: async (campaignName?: string, status?: GetKoraCampaignMetadataStatusEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/metadata/campaign`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (campaignName !== undefined) {
+                localVarQueryParameter['campaignName'] = campaignName;
+            }
+
+            if (status !== undefined) {
+                localVarQueryParameter['status'] = status;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the rewards earned by users for Kora campaigns.
+         * @summary Get Kora campaign rewards
+         * @param {string} userAddress Specify wallet address
+         * @param {GetKoraCampaignRewardsCampaignNameEnum} [campaignName] Specify the campaign name
+         * @param {number} [epochNumber] Optionally specify epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraCampaignRewards: async (userAddress: string, campaignName?: GetKoraCampaignRewardsCampaignNameEnum, epochNumber?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userAddress' is not null or undefined
+            assertParamExists('getKoraCampaignRewards', 'userAddress', userAddress)
+            const localVarPath = `/v1/kora/rewards/campaign`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (campaignName !== undefined) {
+                localVarQueryParameter['campaignName'] = campaignName;
+            }
+
+            if (epochNumber !== undefined) {
+                localVarQueryParameter['epochNumber'] = epochNumber;
+            }
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns epoch configuration including reward allocations for Kora.
+         * @summary Get Kora epoch configuration
+         * @param {number} [intervalNumber] Specify the interval number
+         * @param {string} [campaignName] Filter by campaign name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraEpochConfigMetadata: async (intervalNumber?: number, campaignName?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/metadata/epoch/configs`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (intervalNumber !== undefined) {
+                localVarQueryParameter['intervalNumber'] = intervalNumber;
+            }
+
+            if (campaignName !== undefined) {
+                localVarQueryParameter['campaignName'] = campaignName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the latest or next epoch for a Kora campaign.
+         * @summary Get Kora epoch metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraEpochMetadataEpochEnum} [epoch] Specify \&quot;next\&quot; or \&quot;latest\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraEpochMetadata: async (campaignName?: string, epoch?: GetKoraEpochMetadataEpochEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/metadata/epoch`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (campaignName !== undefined) {
+                localVarQueryParameter['campaignName'] = campaignName;
+            }
+
+            if (epoch !== undefined) {
+                localVarQueryParameter['epoch'] = epoch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns interval metadata for Kora.
+         * @summary Get Kora interval metadata
+         * @param {string} [interval] Interval number or \&quot;next\&quot;/\&quot;latest\&quot;
+         * @param {GetKoraIntervalMetadataProtocolEnum} [protocol] Filter by protocol
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraIntervalMetadata: async (interval?: string, protocol?: GetKoraIntervalMetadataProtocolEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/metadata/interval`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+            if (protocol !== undefined) {
+                localVarQueryParameter['protocol'] = protocol;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns rankings and earnings for Kora swap participants, sorted by the specified category.
+         * @summary Get Kora swap leaderboard
+         * @param {string} [epochId] Specify epoch ID (defaults to current active epoch)
+         * @param {GetKoraLeaderboardSortByEnum} [sortBy] The category to sort rankings by
+         * @param {GetKoraLeaderboardSortOrderEnum} [sortOrder] The order to sort rankings by
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Page size for pagination
+         * @param {string} [search] Filter by user address (partial match supported)
+         * @param {string} [minVolumeE6] Minimum trading volume filter (e6 format)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraLeaderboard: async (epochId?: string, sortBy?: GetKoraLeaderboardSortByEnum, sortOrder?: GetKoraLeaderboardSortOrderEnum, page?: number, limit?: number, search?: string, minVolumeE6?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/leaderboard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (epochId !== undefined) {
+                localVarQueryParameter['epochId'] = epochId;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (minVolumeE6 !== undefined) {
+                localVarQueryParameter['minVolumeE6'] = minVolumeE6;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the all-time rewards earned by users including Kora CC and points.
+         * @summary Get Kora all-time rewards summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraRewardsSummary: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/rewards/summary`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        koraHealthCheck: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/health`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * KoraApi - functional programming interface
+ * @export
+ */
+export const KoraApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = KoraApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Returns metadata for Kora rewards campaigns.
+         * @summary Get Kora campaign metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraCampaignMetadataStatusEnum} [status] Filter by campaign status
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraCampaignMetadata(campaignName?: string, status?: GetKoraCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraCampaignMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraCampaignMetadata(campaignName, status, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraCampaignMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the rewards earned by users for Kora campaigns.
+         * @summary Get Kora campaign rewards
+         * @param {string} userAddress Specify wallet address
+         * @param {GetKoraCampaignRewardsCampaignNameEnum} [campaignName] Specify the campaign name
+         * @param {number} [epochNumber] Optionally specify epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraCampaignRewards(userAddress: string, campaignName?: GetKoraCampaignRewardsCampaignNameEnum, epochNumber?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraCampaignRewards>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraCampaignRewards(userAddress, campaignName, epochNumber, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraCampaignRewards']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns epoch configuration including reward allocations for Kora.
+         * @summary Get Kora epoch configuration
+         * @param {number} [intervalNumber] Specify the interval number
+         * @param {string} [campaignName] Filter by campaign name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraEpochConfigMetadata(intervalNumber?: number, campaignName?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<KoraEpochConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraEpochConfigMetadata(intervalNumber, campaignName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraEpochConfigMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the latest or next epoch for a Kora campaign.
+         * @summary Get Kora epoch metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraEpochMetadataEpochEnum} [epoch] Specify \&quot;next\&quot; or \&quot;latest\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraEpochMetadata(campaignName?: string, epoch?: GetKoraEpochMetadataEpochEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraEpochMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraEpochMetadata(campaignName, epoch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraEpochMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns interval metadata for Kora.
+         * @summary Get Kora interval metadata
+         * @param {string} [interval] Interval number or \&quot;next\&quot;/\&quot;latest\&quot;
+         * @param {GetKoraIntervalMetadataProtocolEnum} [protocol] Filter by protocol
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraIntervalMetadata(interval?: string, protocol?: GetKoraIntervalMetadataProtocolEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraIntervalMetadata>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraIntervalMetadata(interval, protocol, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraIntervalMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns rankings and earnings for Kora swap participants, sorted by the specified category.
+         * @summary Get Kora swap leaderboard
+         * @param {string} [epochId] Specify epoch ID (defaults to current active epoch)
+         * @param {GetKoraLeaderboardSortByEnum} [sortBy] The category to sort rankings by
+         * @param {GetKoraLeaderboardSortOrderEnum} [sortOrder] The order to sort rankings by
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Page size for pagination
+         * @param {string} [search] Filter by user address (partial match supported)
+         * @param {string} [minVolumeE6] Minimum trading volume filter (e6 format)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraLeaderboard(epochId?: string, sortBy?: GetKoraLeaderboardSortByEnum, sortOrder?: GetKoraLeaderboardSortOrderEnum, page?: number, limit?: number, search?: string, minVolumeE6?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<KoraLeaderboardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraLeaderboard(epochId, sortBy, sortOrder, page, limit, search, minVolumeE6, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraLeaderboard']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the all-time rewards earned by users including Kora CC and points.
+         * @summary Get Kora all-time rewards summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getKoraRewardsSummary(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraRewardsSummary>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getKoraRewardsSummary(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.getKoraRewardsSummary']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async koraHealthCheck(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<KoraHealthCheck200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.koraHealthCheck(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.koraHealthCheck']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * KoraApi - factory interface
+ * @export
+ */
+export const KoraApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = KoraApiFp(configuration)
+    return {
+        /**
+         * Returns metadata for Kora rewards campaigns.
+         * @summary Get Kora campaign metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraCampaignMetadataStatusEnum} [status] Filter by campaign status
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraCampaignMetadata(campaignName?: string, status?: GetKoraCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraCampaignMetadata>> {
+            return localVarFp.getKoraCampaignMetadata(campaignName, status, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the rewards earned by users for Kora campaigns.
+         * @summary Get Kora campaign rewards
+         * @param {string} userAddress Specify wallet address
+         * @param {GetKoraCampaignRewardsCampaignNameEnum} [campaignName] Specify the campaign name
+         * @param {number} [epochNumber] Optionally specify epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraCampaignRewards(userAddress: string, campaignName?: GetKoraCampaignRewardsCampaignNameEnum, epochNumber?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraCampaignRewards>> {
+            return localVarFp.getKoraCampaignRewards(userAddress, campaignName, epochNumber, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns epoch configuration including reward allocations for Kora.
+         * @summary Get Kora epoch configuration
+         * @param {number} [intervalNumber] Specify the interval number
+         * @param {string} [campaignName] Filter by campaign name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraEpochConfigMetadata(intervalNumber?: number, campaignName?: string, options?: RawAxiosRequestConfig): AxiosPromise<KoraEpochConfigResponse> {
+            return localVarFp.getKoraEpochConfigMetadata(intervalNumber, campaignName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the latest or next epoch for a Kora campaign.
+         * @summary Get Kora epoch metadata
+         * @param {string} [campaignName] Specify the campaign name
+         * @param {GetKoraEpochMetadataEpochEnum} [epoch] Specify \&quot;next\&quot; or \&quot;latest\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraEpochMetadata(campaignName?: string, epoch?: GetKoraEpochMetadataEpochEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraEpochMetadata>> {
+            return localVarFp.getKoraEpochMetadata(campaignName, epoch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns interval metadata for Kora.
+         * @summary Get Kora interval metadata
+         * @param {string} [interval] Interval number or \&quot;next\&quot;/\&quot;latest\&quot;
+         * @param {GetKoraIntervalMetadataProtocolEnum} [protocol] Filter by protocol
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraIntervalMetadata(interval?: string, protocol?: GetKoraIntervalMetadataProtocolEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraIntervalMetadata>> {
+            return localVarFp.getKoraIntervalMetadata(interval, protocol, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns rankings and earnings for Kora swap participants, sorted by the specified category.
+         * @summary Get Kora swap leaderboard
+         * @param {string} [epochId] Specify epoch ID (defaults to current active epoch)
+         * @param {GetKoraLeaderboardSortByEnum} [sortBy] The category to sort rankings by
+         * @param {GetKoraLeaderboardSortOrderEnum} [sortOrder] The order to sort rankings by
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Page size for pagination
+         * @param {string} [search] Filter by user address (partial match supported)
+         * @param {string} [minVolumeE6] Minimum trading volume filter (e6 format)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraLeaderboard(epochId?: string, sortBy?: GetKoraLeaderboardSortByEnum, sortOrder?: GetKoraLeaderboardSortOrderEnum, page?: number, limit?: number, search?: string, minVolumeE6?: string, options?: RawAxiosRequestConfig): AxiosPromise<KoraLeaderboardResponse> {
+            return localVarFp.getKoraLeaderboard(epochId, sortBy, sortOrder, page, limit, search, minVolumeE6, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the all-time rewards earned by users including Kora CC and points.
+         * @summary Get Kora all-time rewards summary
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getKoraRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraRewardsSummary>> {
+            return localVarFp.getKoraRewardsSummary(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        koraHealthCheck(options?: RawAxiosRequestConfig): AxiosPromise<KoraHealthCheck200Response> {
+            return localVarFp.koraHealthCheck(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * KoraApi - object-oriented interface
+ * @export
+ * @class KoraApi
+ * @extends {BaseAPI}
+ */
+export class KoraApi extends BaseAPI {
+    /**
+     * Returns metadata for Kora rewards campaigns.
+     * @summary Get Kora campaign metadata
+     * @param {string} [campaignName] Specify the campaign name
+     * @param {GetKoraCampaignMetadataStatusEnum} [status] Filter by campaign status
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraCampaignMetadata(campaignName?: string, status?: GetKoraCampaignMetadataStatusEnum, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraCampaignMetadata(campaignName, status, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the rewards earned by users for Kora campaigns.
+     * @summary Get Kora campaign rewards
+     * @param {string} userAddress Specify wallet address
+     * @param {GetKoraCampaignRewardsCampaignNameEnum} [campaignName] Specify the campaign name
+     * @param {number} [epochNumber] Optionally specify epoch number
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraCampaignRewards(userAddress: string, campaignName?: GetKoraCampaignRewardsCampaignNameEnum, epochNumber?: number, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraCampaignRewards(userAddress, campaignName, epochNumber, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns epoch configuration including reward allocations for Kora.
+     * @summary Get Kora epoch configuration
+     * @param {number} [intervalNumber] Specify the interval number
+     * @param {string} [campaignName] Filter by campaign name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraEpochConfigMetadata(intervalNumber?: number, campaignName?: string, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraEpochConfigMetadata(intervalNumber, campaignName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the latest or next epoch for a Kora campaign.
+     * @summary Get Kora epoch metadata
+     * @param {string} [campaignName] Specify the campaign name
+     * @param {GetKoraEpochMetadataEpochEnum} [epoch] Specify \&quot;next\&quot; or \&quot;latest\&quot;
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraEpochMetadata(campaignName?: string, epoch?: GetKoraEpochMetadataEpochEnum, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraEpochMetadata(campaignName, epoch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns interval metadata for Kora.
+     * @summary Get Kora interval metadata
+     * @param {string} [interval] Interval number or \&quot;next\&quot;/\&quot;latest\&quot;
+     * @param {GetKoraIntervalMetadataProtocolEnum} [protocol] Filter by protocol
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraIntervalMetadata(interval?: string, protocol?: GetKoraIntervalMetadataProtocolEnum, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraIntervalMetadata(interval, protocol, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns rankings and earnings for Kora swap participants, sorted by the specified category.
+     * @summary Get Kora swap leaderboard
+     * @param {string} [epochId] Specify epoch ID (defaults to current active epoch)
+     * @param {GetKoraLeaderboardSortByEnum} [sortBy] The category to sort rankings by
+     * @param {GetKoraLeaderboardSortOrderEnum} [sortOrder] The order to sort rankings by
+     * @param {number} [page] Page number for pagination
+     * @param {number} [limit] Page size for pagination
+     * @param {string} [search] Filter by user address (partial match supported)
+     * @param {string} [minVolumeE6] Minimum trading volume filter (e6 format)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraLeaderboard(epochId?: string, sortBy?: GetKoraLeaderboardSortByEnum, sortOrder?: GetKoraLeaderboardSortOrderEnum, page?: number, limit?: number, search?: string, minVolumeE6?: string, options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraLeaderboard(epochId, sortBy, sortOrder, page, limit, search, minVolumeE6, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the all-time rewards earned by users including Kora CC and points.
+     * @summary Get Kora all-time rewards summary
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public getKoraRewardsSummary(options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).getKoraRewardsSummary(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the health status of the Kora rewards service.
+     * @summary Kora service health check
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public koraHealthCheck(options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).koraHealthCheck(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const GetKoraCampaignMetadataStatusEnum = {
+    Active: 'ACTIVE',
+    Inactive: 'INACTIVE'
+} as const;
+export type GetKoraCampaignMetadataStatusEnum = typeof GetKoraCampaignMetadataStatusEnum[keyof typeof GetKoraCampaignMetadataStatusEnum];
+/**
+ * @export
+ */
+export const GetKoraCampaignRewardsCampaignNameEnum = {
+    KoraSwaps: 'KORA_SWAPS'
+} as const;
+export type GetKoraCampaignRewardsCampaignNameEnum = typeof GetKoraCampaignRewardsCampaignNameEnum[keyof typeof GetKoraCampaignRewardsCampaignNameEnum];
+/**
+ * @export
+ */
+export const GetKoraEpochMetadataEpochEnum = {
+    Next: 'next',
+    Latest: 'latest'
+} as const;
+export type GetKoraEpochMetadataEpochEnum = typeof GetKoraEpochMetadataEpochEnum[keyof typeof GetKoraEpochMetadataEpochEnum];
+/**
+ * @export
+ */
+export const GetKoraIntervalMetadataProtocolEnum = {
+    Bluefin: 'bluefin',
+    Kora: 'kora'
+} as const;
+export type GetKoraIntervalMetadataProtocolEnum = typeof GetKoraIntervalMetadataProtocolEnum[keyof typeof GetKoraIntervalMetadataProtocolEnum];
+/**
+ * @export
+ */
+export const GetKoraLeaderboardSortByEnum = {
+    VolumeRank: 'volumeRank',
+    TransactionRank: 'transactionRank',
+    TotalEarnings: 'totalEarnings'
+} as const;
+export type GetKoraLeaderboardSortByEnum = typeof GetKoraLeaderboardSortByEnum[keyof typeof GetKoraLeaderboardSortByEnum];
+/**
+ * @export
+ */
+export const GetKoraLeaderboardSortOrderEnum = {
+    Asc: 'asc',
+    Desc: 'desc'
+} as const;
+export type GetKoraLeaderboardSortOrderEnum = typeof GetKoraLeaderboardSortOrderEnum[keyof typeof GetKoraLeaderboardSortOrderEnum];
 
 
 /**

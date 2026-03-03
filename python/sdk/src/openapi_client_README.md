@@ -92,6 +92,14 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 *ExchangeApi* | [**get_recent_trades**](openapi_client/docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
+*KoraApi* | [**get_kora_campaign_metadata**](openapi_client/docs/KoraApi.md#get_kora_campaign_metadata) | **GET** /v1/kora/metadata/campaign | Get Kora campaign metadata
+*KoraApi* | [**get_kora_campaign_rewards**](openapi_client/docs/KoraApi.md#get_kora_campaign_rewards) | **GET** /v1/kora/rewards/campaign | Get Kora campaign rewards
+*KoraApi* | [**get_kora_epoch_config_metadata**](openapi_client/docs/KoraApi.md#get_kora_epoch_config_metadata) | **GET** /v1/kora/metadata/epoch/configs | Get Kora epoch configuration
+*KoraApi* | [**get_kora_epoch_metadata**](openapi_client/docs/KoraApi.md#get_kora_epoch_metadata) | **GET** /v1/kora/metadata/epoch | Get Kora epoch metadata
+*KoraApi* | [**get_kora_interval_metadata**](openapi_client/docs/KoraApi.md#get_kora_interval_metadata) | **GET** /v1/kora/metadata/interval | Get Kora interval metadata
+*KoraApi* | [**get_kora_leaderboard**](openapi_client/docs/KoraApi.md#get_kora_leaderboard) | **GET** /v1/kora/leaderboard | Get Kora swap leaderboard
+*KoraApi* | [**get_kora_rewards_summary**](openapi_client/docs/KoraApi.md#get_kora_rewards_summary) | **GET** /v1/kora/rewards/summary | Get Kora all-time rewards summary
+*KoraApi* | [**kora_health_check**](openapi_client/docs/KoraApi.md#kora_health_check) | **GET** /v1/kora/health | Kora service health check
 *RewardsApi* | [**get_affiliate_interval_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
 *RewardsApi* | [**get_affiliate_leader_dashboard**](openapi_client/docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
 *RewardsApi* | [**get_affiliate_metadata**](openapi_client/docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate
@@ -193,6 +201,17 @@ Class | Method | HTTP request | Description
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [IssBase64Details](openapi_client/docs/IssBase64Details.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
+ - [KoraCampaignBonus](openapi_client/docs/KoraCampaignBonus.md)
+ - [KoraCampaignMetadata](openapi_client/docs/KoraCampaignMetadata.md)
+ - [KoraCampaignRewards](openapi_client/docs/KoraCampaignRewards.md)
+ - [KoraEpochConfig](openapi_client/docs/KoraEpochConfig.md)
+ - [KoraEpochConfigResponse](openapi_client/docs/KoraEpochConfigResponse.md)
+ - [KoraEpochMetadata](openapi_client/docs/KoraEpochMetadata.md)
+ - [KoraHealthCheck200Response](openapi_client/docs/KoraHealthCheck200Response.md)
+ - [KoraIntervalMetadata](openapi_client/docs/KoraIntervalMetadata.md)
+ - [KoraLeaderboardEntry](openapi_client/docs/KoraLeaderboardEntry.md)
+ - [KoraLeaderboardResponse](openapi_client/docs/KoraLeaderboardResponse.md)
+ - [KoraRewardsSummary](openapi_client/docs/KoraRewardsSummary.md)
  - [LeaderboardEntry](openapi_client/docs/LeaderboardEntry.md)
  - [LeaderboardInterval](openapi_client/docs/LeaderboardInterval.md)
  - [LeaderboardResponse](openapi_client/docs/LeaderboardResponse.md)

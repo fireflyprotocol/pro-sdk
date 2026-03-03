@@ -268,9 +268,25 @@ paths:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1claims~1mark-claimed"
   /v1/rewards/contract/config:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1contract~1config"
-  
-  
-              
+
+  # Kora Rewards Endpoints
+  /v1/kora/leaderboard:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1leaderboard"
+  /v1/kora/rewards/campaign:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1rewards~1campaign"
+  /v1/kora/rewards/summary:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1rewards~1summary"
+  /v1/kora/metadata/campaign:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1metadata~1campaign"
+  /v1/kora/metadata/epoch:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1metadata~1epoch"
+  /v1/kora/metadata/epoch/configs:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1metadata~1epoch~1configs"
+  /v1/kora/metadata/interval:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1metadata~1interval"
+  /v1/kora/health:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1health"
+
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"
     servers:

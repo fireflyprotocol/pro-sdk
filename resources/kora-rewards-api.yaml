@@ -1,0 +1,805 @@
+openapi: 3.0.3
+info:
+  title: Kora Rewards API
+  description: |
+    API for Kora swap rewards and campaigns.
+    All numeric quantities are represented as strings in e6 format.
+  version: 1.0.0
+tags:
+  - name: Kora
+    description: Kora swap rewards endpoints
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Kora Leaderboard Schemas
+    KoraLeaderboardEntry:
+      type: object
+      required:
+        - rank
+        - userAddress
+        - totalVolumeE6
+        - totalTransactions
+        - ccRewards
+        - koraPoints
+      properties:
+        rank:
+          type: integer
+          description: Overall ranking position based on sortBy parameter
+          example: 1
+        userAddress:
+          type: string
+          description: Wallet address of the user
+          example: "0x1234567890abcdef"
+        totalVolumeE6:
+          type: string
+          description: Total swap volume (USD equivalent)
+          example: "50000.123456"
+        totalFeeE6:
+          type: string
+          description: Total fees paid
+          example: "150.75"
+        totalTransactions:
+          type: integer
+          description: Total number of qualifying swap transactions
+          example: 1250
+        ccRewards:
+          type: string
+          description: CC token rewards earned
+          example: "1500.75"
+        koraPoints:
+          type: string
+          description: Kora points earned
+          example: "2500.5"
+        totalBonusPoints:
+          type: string
+          description: Total bonus points earned
+          example: "500.25"
+        totalBonusCC:
+          type: string
+          description: Total bonus CC tokens earned
+          example: "200.5"
+        volumeRank:
+          type: integer
+          description: Ranking based purely on trading volume
+          example: 1
+        transactionRank:
+          type: integer
+          description: Ranking based purely on transaction count
+          example: 3
+        totalEarningsRank:
+          type: integer
+          description: Ranking based on combined CC + Kora points value
+          example: 1
+        lastActivityDate:
+          type: integer
+          description: Timestamp of user's most recent swap (milliseconds)
+          example: 1724725894751
+
+    KoraLeaderboardResponse:
+      type: object
+      required:
+        - data
+        - total
+        - limit
+        - page
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/KoraLeaderboardEntry"
+        total:
+          type: integer
+          description: Total number of records
+          example: 2847
+        limit:
+          type: integer
+          description: Page size for pagination
+          example: 500
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+
+    # Kora Bonus Schema
+    KoraUserBonus:
+      type: object
+      required:
+        - id
+        - epochId
+        - userAddress
+        - bonusType
+        - bonusCCRewards
+        - bonusPoints
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Bonus record ID
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        epochId:
+          type: string
+          format: uuid
+          description: Epoch ID
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        userAddress:
+          type: string
+          description: User wallet address
+          example: "0x1234567890abcdef"
+        bonusType:
+          type: string
+          description: Type of bonus (daily_trader, volume_leader, first_trader, etc.)
+          example: "daily_trader"
+        bonusCCRewards:
+          type: string
+          description: CC token bonus amount
+          example: "100.5"
+        bonusPoints:
+          type: string
+          description: Points bonus amount
+          example: "200.75"
+        bonusCriteria:
+          type: object
+          description: Criteria met for bonus eligibility
+          additionalProperties: true
+        createdAt:
+          type: integer
+          description: Bonus award timestamp (milliseconds)
+          example: 1724725894751
+
+    # Kora Campaign Rewards
+    KoraCampaignRewards:
+      type: object
+      required:
+        - userAddress
+        - campaignName
+        - epochNumber
+        - intervalNumber
+        - status
+      properties:
+        userAddress:
+          type: string
+          description: User address for the rewards earned data
+          example: "0x1234567890abcdef"
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        epochNumber:
+          type: integer
+          description: Epoch number for the rewards earned data
+          example: 7
+        intervalNumber:
+          type: integer
+          description: Interval number for the rewards earned data
+          example: 7
+        symbol:
+          type: string
+          description: Market Symbol
+          example: "KORA-SWAPS"
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        blueRewards:
+          type: string
+          description: Total blue token rewards
+          example: "100.5"
+        suiRewards:
+          type: string
+          description: Total sui token rewards
+          example: "200.25"
+        walRewards:
+          type: string
+          description: Total wal rewards
+          example: "50.75"
+        cashRewards:
+          type: string
+          description: Total cash rewards
+          example: "0"
+        ccRewards:
+          type: string
+          description: Total CC token rewards
+          example: "1500.75"
+        koraPoints:
+          type: string
+          description: Total Kora points earned
+          example: "2500.5"
+        userFeePaid:
+          type: string
+          description: Total user fee paid
+          example: "15.25"
+        intervalStartDate:
+          type: integer
+          description: Time in milliseconds for interval start date
+          example: 1724121094751
+        intervalEndDate:
+          type: integer
+          description: Time in milliseconds for interval end date
+          example: 1724725894751
+        isDisbursed:
+          type: boolean
+          description: Indicates if rewards have been disbursed
+          example: true
+        txnDigest:
+          type: string
+          description: Transaction digest of the disbursement
+          example: "8Fs9Q4ljB0cc0NhcqSVZRgTxe9KwZeRqjGYYYe4jXgXL"
+        claimStatus:
+          type: string
+          enum:
+            - CLAIMABLE
+            - CLAIMED
+            - NOT_YET_CLAIMABLE
+            - CLAIM_ENDED
+          description: Status of the claim
+          example: "CLAIMED"
+        bonuses:
+          type: array
+          description: List of bonuses attached to this reward entry
+          items:
+            $ref: "#/components/schemas/KoraCampaignBonus"
+
+    # Bonus attached to campaign rewards
+    KoraCampaignBonus:
+      type: object
+      properties:
+        bonusType:
+          type: string
+          description: Type of bonus (e.g., VOLUME_BONUS, REFERRAL_BONUS)
+          example: "VOLUME_BONUS"
+        bonusCcReward:
+          type: string
+          description: CC reward amount for this bonus
+          example: "500.5"
+        bonusPoints:
+          type: string
+          description: Points earned for this bonus
+          example: "1000.75"
+        bonusCriteria:
+          type: string
+          description: Criteria that was met for earning this bonus
+          example: "volume_threshold_100k"
+
+    # Kora Rewards Summary
+    KoraRewardsSummary:
+      type: object
+      required:
+        - userAddress
+      properties:
+        userAddress:
+          type: string
+          description: User address for the rewards earned data
+          example: "0x1234567890abcdef"
+        blueRewards:
+          type: string
+          description: Total Blue token rewards earned
+          example: "100.5"
+        suiRewards:
+          type: string
+          description: Total Sui token rewards earned
+          example: "200.25"
+        walRewards:
+          type: string
+          description: Total wal rewards earned
+          example: "50.75"
+        ccRewards:
+          type: string
+          description: Total CC token rewards earned across all Kora campaigns
+          example: "1500.75"
+        koraPoints:
+          type: string
+          description: Total Kora points earned across all Kora campaigns
+          example: "2500.5"
+
+    # Kora Campaign Metadata
+    KoraCampaignMetadata:
+      type: object
+      required:
+        - status
+        - campaignName
+        - startDate
+        - endDate
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        parentCampaignName:
+          type: string
+          description: Name of the parent campaign
+          example: ""
+        startDate:
+          type: integer
+          description: Time in milliseconds for campaign start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for campaign end date
+          example: 1724121094751
+
+    # Kora Epoch Metadata
+    KoraEpochMetadata:
+      type: object
+      required:
+        - status
+        - campaignName
+        - epochId
+        - epochNumber
+        - startDate
+        - endDate
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        epochId:
+          type: string
+          format: uuid
+          description: Epoch ID
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        epochNumber:
+          type: integer
+          description: Epoch number
+          example: 7
+        startDate:
+          type: integer
+          description: Time in milliseconds for epoch start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for epoch end date
+          example: 1724725894751
+
+    # Kora Interval Metadata
+    KoraIntervalMetadata:
+      type: object
+      required:
+        - status
+        - startDate
+        - endDate
+        - intervalId
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        startDate:
+          type: integer
+          description: Time in milliseconds for interval start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for interval end date
+          example: 1724725894751
+        intervalId:
+          type: integer
+          description: Interval ID
+          example: 7
+        intervalType:
+          type: string
+          description: Type of the interval
+          example: "WEEK"
+        protocol:
+          type: string
+          enum:
+            - bluefin
+            - kora
+          description: Protocol for the interval
+          example: "kora"
+
+    # Kora Epoch Config
+    KoraEpochConfig:
+      type: object
+      required:
+        - campaignName
+        - epochDuration
+        - intervalNumber
+        - epochNumber
+      properties:
+        campaignName:
+          type: string
+          description: The name of the campaign
+          example: "KORA_SWAPS"
+        epochDuration:
+          type: integer
+          description: Duration of the epoch in hours
+          example: 168
+        suiRewardsAllocation:
+          type: string
+          description: Allocation of Sui rewards for this epoch
+          example: "1000.5"
+        blueRewardsAllocation:
+          type: string
+          description: Allocation of Blue rewards for this epoch
+          example: "2000.25"
+        walRewardsAllocation:
+          type: string
+          description: Allocation of Wal rewards for this epoch
+          example: "500.75"
+        ccRewardsAllocation:
+          type: string
+          description: Allocation of CC token rewards for this epoch
+          example: "5000.5"
+        koraPointsRewardsAllocation:
+          type: string
+          description: Allocation of Kora points rewards for this epoch
+          example: "10000.25"
+        intervalNumber:
+          type: integer
+          description: Interval number for the epoch
+          example: 7
+        epochNumber:
+          type: integer
+          description: Epoch number
+          example: 7
+        config:
+          type: object
+          description: Additional campaign-specific configurations
+          additionalProperties: true
+
+    KoraEpochConfigResponse:
+      type: object
+      required:
+        - maxIntervalNumber
+        - intervalNumber
+        - data
+      properties:
+        maxIntervalNumber:
+          type: integer
+          description: The maximum interval number available
+          example: 14
+        intervalNumber:
+          type: integer
+          description: The current interval number being queried
+          example: 7
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/KoraEpochConfig"
+
+paths:
+  # ============================================================================
+  # KORA LEADERBOARD ENDPOINT
+  # ============================================================================
+  /v1/kora/leaderboard:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraLeaderboard
+      summary: Get Kora swap leaderboard
+      description: Returns rankings and earnings for Kora swap participants, sorted by the specified category.
+      parameters:
+        - name: epochId
+          in: query
+          required: false
+          description: Specify epoch ID (defaults to current active epoch)
+          schema:
+            type: string
+            format: uuid
+        - name: sortBy
+          in: query
+          required: false
+          description: The category to sort rankings by
+          schema:
+            type: string
+            enum:
+              - volumeRank
+              - transactionRank
+              - totalEarnings
+            default: volumeRank
+        - name: sortOrder
+          in: query
+          required: false
+          description: The order to sort rankings by
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: limit
+          in: query
+          required: false
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+            minimum: 1
+        - name: search
+          in: query
+          required: false
+          description: Filter by user address (partial match supported)
+          schema:
+            type: string
+        - name: minVolumeE6
+          in: query
+          required: false
+          description: Minimum trading volume filter (e6 format)
+          schema:
+            type: string
+            default: "0"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KoraLeaderboardResponse"
+        "400":
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  # ============================================================================
+  # KORA REWARDS ENDPOINTS
+  # ============================================================================
+  /v1/kora/rewards/campaign:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraCampaignRewards
+      summary: Get Kora campaign rewards
+      description: Returns the rewards earned by users for Kora campaigns.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            enum:
+              - KORA_SWAPS
+            default: KORA_SWAPS
+            example: "KORA_SWAPS"
+        - name: epochNumber
+          in: query
+          required: false
+          description: Optionally specify epoch number
+          schema:
+            type: integer
+            example: 7
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraCampaignRewards"
+        "400":
+          description: Missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/kora/rewards/summary:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraRewardsSummary
+      summary: Get Kora all-time rewards summary
+      description: Returns the all-time rewards earned by users including Kora CC and points.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraRewardsSummary"
+
+  # ============================================================================
+  # KORA METADATA ENDPOINTS
+  # ============================================================================
+  /v1/kora/metadata/campaign:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraCampaignMetadata
+      summary: Get Kora campaign metadata
+      description: Returns metadata for Kora rewards campaigns.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+        - name: status
+          in: query
+          required: false
+          description: Filter by campaign status
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - INACTIVE
+            default: ACTIVE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraCampaignMetadata"
+
+  /v1/kora/metadata/epoch:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraEpochMetadata
+      summary: Get Kora epoch metadata
+      description: Returns the latest or next epoch for a Kora campaign.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+        - name: epoch
+          in: query
+          required: false
+          description: Specify "next" or "latest"
+          schema:
+            type: string
+            enum: ["next", "latest"]
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraEpochMetadata"
+
+  /v1/kora/metadata/epoch/configs:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraEpochConfigMetadata
+      summary: Get Kora epoch configuration
+      description: Returns epoch configuration including reward allocations for Kora.
+      parameters:
+        - name: intervalNumber
+          in: query
+          required: false
+          description: Specify the interval number
+          schema:
+            type: integer
+            example: 7
+        - name: campaignName
+          in: query
+          required: false
+          description: Filter by campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KoraEpochConfigResponse"
+
+  /v1/kora/metadata/interval:
+    get:
+      tags:
+        - Kora
+      operationId: getKoraIntervalMetadata
+      summary: Get Kora interval metadata
+      description: Returns interval metadata for Kora.
+      parameters:
+        - name: interval
+          in: query
+          required: false
+          description: Interval number or "next"/"latest"
+          schema:
+            type: string
+            example: "latest"
+        - name: protocol
+          in: query
+          required: false
+          description: Filter by protocol
+          schema:
+            type: string
+            enum:
+              - bluefin
+              - kora
+            default: kora
+            example: "kora"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraIntervalMetadata"
+
+  # ============================================================================
+  # KORA HEALTH CHECK
+  # ============================================================================
+  /v1/kora/health:
+    get:
+      tags:
+        - Kora
+      operationId: koraHealthCheck
+      summary: Kora service health check
+      description: Returns the health status of the Kora rewards service.
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  timestamp:
+                    type: integer
+                    example: 1724725894751
