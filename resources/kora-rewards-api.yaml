@@ -12,7 +12,7 @@ tags:
   - name: Rewards
     description: General rewards endpoints extended for Kora
 servers:
-  - url: https://api.{env}.kora.so
+  - url: https://rewards.api.{env}.kora.so
     variables:
       env:
         default: staging
