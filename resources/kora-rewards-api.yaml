@@ -400,8 +400,14 @@ paths:
       operationId: getRewardsSummary
       summary: Get all-time rewards summary
       description: Returns the all-time rewards earned by users including Kora CC and points.
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
       responses:
         "200":
           description: Successful response

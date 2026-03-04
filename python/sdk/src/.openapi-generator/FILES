@@ -307,6 +307,4 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_error1.py
-openapi_client/test/test_kora_user_bonus_response.py
 openapi_client_README.md
