@@ -59,6 +59,7 @@ docs/EpochConfigs.md
 docs/EpochConfigsResponse.md
 docs/EpochMetadata.md
 docs/Error.md
+docs/Error1.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
 docs/FailedCommandType.md
@@ -72,6 +73,9 @@ docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/IssBase64Details.md
 docs/KlineInterval.md
+docs/KoraApi.md
+docs/KoraHealthCheck200Response.md
+docs/KoraUserBonusResponse.md
 docs/LeaderboardEntry.md
 docs/LeaderboardInterval.md
 docs/LeaderboardResponse.md
@@ -153,6 +157,7 @@ src/apis/account_data_api.rs
 src/apis/auth_api.rs
 src/apis/configuration.rs
 src/apis/exchange_api.rs
+src/apis/kora_api.rs
 src/apis/mod.rs
 src/apis/rewards_api.rs
 src/apis/streams_api.rs
@@ -213,6 +218,7 @@ src/models/epoch_configs.rs
 src/models/epoch_configs_response.rs
 src/models/epoch_metadata.rs
 src/models/error.rs
+src/models/error_1.rs
 src/models/exchange_info_response.rs
 src/models/failed_command_type.rs
 src/models/fee_configs.rs
@@ -225,6 +231,8 @@ src/models/interval_metadata.rs
 src/models/interval_rewards.rs
 src/models/iss_base64_details.rs
 src/models/kline_interval.rs
+src/models/kora_health_check_200_response.rs
+src/models/kora_user_bonus_response.rs
 src/models/leaderboard_entry.rs
 src/models/leaderboard_interval.rs
 src/models/leaderboard_response.rs

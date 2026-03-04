@@ -20,6 +20,7 @@ __version__ = "1.11.0"
 from openapi_client.api.account_data_api import AccountDataApi
 from openapi_client.api.auth_api import AuthApi
 from openapi_client.api.exchange_api import ExchangeApi
+from openapi_client.api.kora_api import KoraApi
 from openapi_client.api.rewards_api import RewardsApi
 from openapi_client.api.streams_api import StreamsApi
 from openapi_client.api.trade_api import TradeApi
@@ -91,6 +92,7 @@ from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_configs_response import EpochConfigsResponse
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
+from openapi_client.models.error1 import Error1
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.failed_command_type import FailedCommandType
 from openapi_client.models.fee_configs import FeeConfigs
@@ -103,6 +105,8 @@ from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.iss_base64_details import IssBase64Details
 from openapi_client.models.kline_interval import KlineInterval
+from openapi_client.models.kora_health_check200_response import KoraHealthCheck200Response
+from openapi_client.models.kora_user_bonus_response import KoraUserBonusResponse
 from openapi_client.models.leaderboard_entry import LeaderboardEntry
 from openapi_client.models.leaderboard_interval import LeaderboardInterval
 from openapi_client.models.leaderboard_response import LeaderboardResponse

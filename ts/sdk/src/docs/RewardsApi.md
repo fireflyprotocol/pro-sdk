@@ -17,6 +17,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
 |[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
+|[**getUserBonuses**](#getuserbonuses) | **GET** /v1/rewards/bonuses | Get all user bonuses by epoch|
 |[**markAsClaimed**](#markasclaimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
@@ -734,6 +735,58 @@ This endpoint does not have any parameters.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserBonuses**
+> Array<KoraUserBonusResponse> getUserBonuses()
+
+Returns the bonuses earned by all users for a specific epoch number.
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+let epochNumber: number; //Specify the epoch number (default to undefined)
+
+const { status, data } = await apiInstance.getUserBonuses(
+    epochNumber
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **epochNumber** | [**number**] | Specify the epoch number | defaults to undefined|
+
+
+### Return type
+
+**Array<KoraUserBonusResponse>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response |  -  |
+|**400** | Missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

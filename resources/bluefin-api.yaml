@@ -268,9 +268,13 @@ paths:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1claims~1mark-claimed"
   /v1/rewards/contract/config:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1contract~1config"
-  
-  
-              
+
+  # Kora Rewards Endpoints
+  /v1/rewards/bonuses:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1rewards~1bonuses"
+  /v1/kora/health:
+    $ref: "./kora-rewards-api.yaml#/paths/~1v1~1kora~1health"
+
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"
     servers:

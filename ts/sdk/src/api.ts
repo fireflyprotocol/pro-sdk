@@ -2440,6 +2440,25 @@ export type EpochMetadataStatusEnum = typeof EpochMetadataStatusEnum[keyof typeo
 /**
  * 
  * @export
+ * @interface Error1
+ */
+export interface Error1 {
+    /**
+     * Error message
+     * @type {string}
+     * @memberof Error1
+     */
+    'error'?: string;
+    /**
+     * Error code
+     * @type {string}
+     * @memberof Error1
+     */
+    'code'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ExchangeInfoResponse
  */
 export interface ExchangeInfoResponse {
@@ -2837,6 +2856,62 @@ export const KlineInterval = {
 export type KlineInterval = typeof KlineInterval[keyof typeof KlineInterval];
 
 
+/**
+ * 
+ * @export
+ * @interface KoraHealthCheck200Response
+ */
+export interface KoraHealthCheck200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof KoraHealthCheck200Response
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof KoraHealthCheck200Response
+     */
+    'timestamp'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface KoraUserBonusResponse
+ */
+export interface KoraUserBonusResponse {
+    /**
+     * User wallet address
+     * @type {string}
+     * @memberof KoraUserBonusResponse
+     */
+    'userAddress': string;
+    /**
+     * Epoch number for the bonus
+     * @type {number}
+     * @memberof KoraUserBonusResponse
+     */
+    'epochNumber': number;
+    /**
+     * Total bonus points earned
+     * @type {string}
+     * @memberof KoraUserBonusResponse
+     */
+    'bonusPoints': string;
+    /**
+     * Total bonus CC rewards earned
+     * @type {string}
+     * @memberof KoraUserBonusResponse
+     */
+    'bonusCcRewards': string;
+    /**
+     * Criteria for earning the bonus
+     * @type {string}
+     * @memberof KoraUserBonusResponse
+     */
+    'criteria'?: string;
+}
 /**
  * 
  * @export
@@ -8060,6 +8135,107 @@ export type GetLeaderboardSortByEnum = typeof GetLeaderboardSortByEnum[keyof typ
 
 
 /**
+ * KoraApi - axios parameter creator
+ * @export
+ */
+export const KoraApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        koraHealthCheck: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/kora/health`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * KoraApi - functional programming interface
+ * @export
+ */
+export const KoraApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = KoraApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async koraHealthCheck(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<KoraHealthCheck200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.koraHealthCheck(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['KoraApi.koraHealthCheck']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * KoraApi - factory interface
+ * @export
+ */
+export const KoraApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = KoraApiFp(configuration)
+    return {
+        /**
+         * Returns the health status of the Kora rewards service.
+         * @summary Kora service health check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        koraHealthCheck(options?: RawAxiosRequestConfig): AxiosPromise<KoraHealthCheck200Response> {
+            return localVarFp.koraHealthCheck(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * KoraApi - object-oriented interface
+ * @export
+ * @class KoraApi
+ * @extends {BaseAPI}
+ */
+export class KoraApi extends BaseAPI {
+    /**
+     * Returns the health status of the Kora rewards service.
+     * @summary Kora service health check
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KoraApi
+     */
+    public koraHealthCheck(options?: RawAxiosRequestConfig) {
+        return KoraApiFp(this.configuration).koraHealthCheck(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * RewardsApi - axios parameter creator
  * @export
  */
@@ -8611,6 +8787,43 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Returns the bonuses earned by all users for a specific epoch number.
+         * @summary Get all user bonuses by epoch
+         * @param {number} epochNumber Specify the epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserBonuses: async (epochNumber: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'epochNumber' is not null or undefined
+            assertParamExists('getUserBonuses', 'epochNumber', epochNumber)
+            const localVarPath = `/v1/rewards/bonuses`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (epochNumber !== undefined) {
+                localVarQueryParameter['epochNumber'] = epochNumber;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Mark user claims as claimed for the specified campaign name and interval number
          * @summary /v1/rewards/claims/mark-claimed
          * @param {MarkAsClaimedRequest} markAsClaimedRequest 
@@ -9004,6 +9217,19 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Returns the bonuses earned by all users for a specific epoch number.
+         * @summary Get all user bonuses by epoch
+         * @param {number} epochNumber Specify the epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserBonuses(epochNumber: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<KoraUserBonusResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserBonuses(epochNumber, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getUserBonuses']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Mark user claims as claimed for the specified campaign name and interval number
          * @summary /v1/rewards/claims/mark-claimed
          * @param {MarkAsClaimedRequest} markAsClaimedRequest 
@@ -9221,6 +9447,16 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          */
         getRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
             return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the bonuses earned by all users for a specific epoch number.
+         * @summary Get all user bonuses by epoch
+         * @param {number} epochNumber Specify the epoch number
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserBonuses(epochNumber: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<KoraUserBonusResponse>> {
+            return localVarFp.getUserBonuses(epochNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * Mark user claims as claimed for the specified campaign name and interval number
@@ -9450,6 +9686,18 @@ export class RewardsApi extends BaseAPI {
      */
     public getRewardsSummary(options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getRewardsSummary(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the bonuses earned by all users for a specific epoch number.
+     * @summary Get all user bonuses by epoch
+     * @param {number} epochNumber Specify the epoch number
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getUserBonuses(epochNumber: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getUserBonuses(epochNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

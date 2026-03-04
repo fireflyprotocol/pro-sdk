@@ -1,0 +1,623 @@
+openapi: 3.0.3
+info:
+  title: Kora Rewards API
+  description: |
+    API for Kora swap rewards and campaigns.
+    All numeric quantities are represented as strings in their original decimal format (e0).
+    For example: "123.456789" represents the actual token amount, not a scaled integer.
+  version: 1.0.0
+tags:
+  - name: Kora
+    description: Kora swap rewards endpoints
+  - name: Rewards
+    description: General rewards endpoints extended for Kora
+servers:
+  - url: https://rewards.api.{env}.kora.so
+    variables:
+      env:
+        default: staging
+        enum:
+          - staging
+          - prod
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+
+    # Campaign Rewards (extended for Kora)
+    KoraCampaignRewards:
+      type: object
+      required:
+        - userAddress
+        - campaignName
+        - epochNumber
+        - intervalNumber
+        - status
+      properties:
+        userAddress:
+          type: string
+          description: User address for the rewards earned data
+          example: "0x1234567890abcdef"
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        epochNumber:
+          type: integer
+          description: Epoch number for the rewards earned data
+          example: 7
+        intervalNumber:
+          type: integer
+          description: Interval number for the rewards earned data
+          example: 7
+        symbol:
+          type: string
+          description: Market Symbol
+          example: "KORA-SWAPS"
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        ccRewards:
+          type: string
+          description: Total CC token rewards
+          example: "1500.75"
+        koraPoints:
+          type: string
+          description: Total Kora points earned
+          example: "2500.5"
+        intervalStartDate:
+          type: integer
+          description: Time in milliseconds for interval start date
+          example: 1724121094751
+        intervalEndDate:
+          type: integer
+          description: Time in milliseconds for interval end date
+          example: 1724725894751
+        isDisbursed:
+          type: boolean
+          description: Indicates if rewards have been disbursed
+          example: true
+        txnDigest:
+          type: string
+          description: Transaction digest of the disbursement
+          example: "8Fs9Q4ljB0cc0NhcqSVZRgTxe9KwZeRqjGYYYe4jXgXL"
+        claimStatus:
+          type: string
+          enum:
+            - CLAIMABLE
+            - CLAIMED
+            - NOT_YET_CLAIMABLE
+            - CLAIM_ENDED
+          description: Status of the claim
+          example: "CLAIMED"
+        bonusCcReward:
+          type: string
+          description: Total CC reward amount from bonuses
+          example: "500.5"
+        bonusPoints:
+          type: string
+          description: Total points earned from bonuses
+          example: "1000.75"
+        bonusCriteria:
+          type: string
+          description: Criteria for earning bonuses
+          example: "volume_threshold_100k"
+        isEligible:
+          type: boolean
+          description: Indicates if the user is eligible for rewards
+          example: true
+        hasCompleted:
+          type: boolean
+          description: Indicates if the user has completed the required criteria
+          example: false
+
+    # Rewards Summary (extended for Kora)
+    KoraRewardsSummary:
+      type: object
+      required:
+        - userAddress
+      properties:
+        userAddress:
+          type: string
+          description: User address for the rewards earned data
+          example: "0x1234567890abcdef"
+        ccRewards:
+          type: string
+          description: Total CC token rewards earned across all Kora campaigns
+          example: "1500.75"
+        koraPoints:
+          type: string
+          description: Total Kora points earned across all Kora campaigns
+          example: "2500.5"
+        totalTransactions:
+          type: integer
+          description: Total number of transactions across all Kora campaigns
+          example: 150
+        allTimeVolume:
+          type: string
+          description: All time trading volume across all Kora campaigns
+          example: "500000.75"
+
+    # User Bonus Response (simplified)
+    KoraUserBonusResponse:
+      type: object
+      required:
+        - userAddress
+        - epochNumber
+        - bonusPoints
+        - bonusCcRewards
+      properties:
+        userAddress:
+          type: string
+          description: User wallet address
+          example: "0x1234567890abcdef"
+        epochNumber:
+          type: integer
+          description: Epoch number for the bonus
+          example: 7
+        bonusPoints:
+          type: string
+          description: Total bonus points earned
+          example: "1000.75"
+        bonusCcRewards:
+          type: string
+          description: Total bonus CC rewards earned
+          example: "500.5"
+        criteria:
+          type: string
+          description: Criteria for earning the bonus
+          example: "volume_threshold_100k"
+
+    # Campaign Metadata
+    CampaignMetadata:
+      type: object
+      required:
+        - status
+        - campaignName
+        - startDate
+        - endDate
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        parentCampaignName:
+          type: string
+          description: Name of the parent campaign
+          example: ""
+        startDate:
+          type: integer
+          description: Time in milliseconds for campaign start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for campaign end date
+          example: 1724121094751
+
+    # Epoch Metadata
+    EpochMetadata:
+      type: object
+      required:
+        - status
+        - campaignName
+        - epochId
+        - epochNumber
+        - startDate
+        - endDate
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        campaignName:
+          type: string
+          description: Name of the campaign
+          example: "KORA_SWAPS"
+        epochId:
+          type: string
+          format: uuid
+          description: Epoch ID
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        epochNumber:
+          type: integer
+          description: Epoch number
+          example: 7
+        startDate:
+          type: integer
+          description: Time in milliseconds for epoch start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for epoch end date
+          example: 1724725894751
+
+    # Interval Metadata
+    IntervalMetadata:
+      type: object
+      required:
+        - status
+        - startDate
+        - endDate
+        - intervalId
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - NOT_STARTED
+            - FINALIZED
+            - COOLDOWN
+        startDate:
+          type: integer
+          description: Time in milliseconds for interval start date
+          example: 1724121094751
+        endDate:
+          type: integer
+          description: Time in milliseconds for interval end date
+          example: 1724725894751
+        intervalId:
+          type: integer
+          description: Interval ID
+          example: 7
+        intervalType:
+          type: string
+          description: Type of the interval
+          example: "WEEK"
+        protocol:
+          type: string
+          enum:
+            - bluefin
+            - kora
+          description: Protocol for the interval
+          example: "kora"
+
+    # Epoch Config
+    EpochConfig:
+      type: object
+      required:
+        - campaignName
+        - epochDuration
+        - intervalNumber
+        - epochNumber
+      properties:
+        campaignName:
+          type: string
+          description: The name of the campaign
+          example: "KORA_SWAPS"
+        epochDuration:
+          type: integer
+          description: Duration of the epoch in hours
+          example: 168
+        ccRewardsAllocation:
+          type: string
+          description: Allocation of CC token rewards for this epoch
+          example: "5000.5"
+        koraPointsRewardsAllocation:
+          type: string
+          description: Allocation of Kora points rewards for this epoch
+          example: "10000.25"
+        intervalNumber:
+          type: integer
+          description: Interval number for the epoch
+          example: 7
+        epochNumber:
+          type: integer
+          description: Epoch number
+          example: 7
+        config:
+          type: object
+          description: Additional campaign-specific configurations
+          additionalProperties: true
+        bonusCriteria:
+          type: string
+          description: Criteria for earning bonuses in this epoch
+          example: "volume_threshold_100k"
+
+paths:
+  # ============================================================================
+  # REWARDS ENDPOINTS (Extended for Kora)
+  # ============================================================================
+
+  /v1/rewards/campaign:
+    get:
+      tags:
+        - Rewards
+      operationId: getCampaignRewards
+      summary: Get campaign rewards
+      description: Returns the rewards earned by users for a specific campaign (including KORA_SWAPS).
+      parameters:
+        - name: campaignName
+          in: query
+          required: true
+          description: Specify the campaign name
+          schema:
+            type: string
+            enum:
+              - KORA_SWAPS
+            example: "KORA_SWAPS"
+        - name: epochNumber
+          in: query
+          required: false
+          description: Optionally specify epoch number
+          schema:
+            type: integer
+            example: 7
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraCampaignRewards"
+        "400":
+          description: Missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /v1/rewards/summary:
+    get:
+      tags:
+        - Rewards
+      operationId: getRewardsSummary
+      summary: Get all-time rewards summary
+      description: Returns the all-time rewards earned by users including Kora CC and points.
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: Specify wallet address
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraRewardsSummary"
+
+  /v1/rewards/bonuses:
+    get:
+      tags:
+        - Rewards
+      operationId: getUserBonuses
+      summary: Get all user bonuses by epoch
+      description: Returns the bonuses earned by all users for a specific epoch number.
+      parameters:
+        - name: epochNumber
+          in: query
+          required: true
+          description: Specify the epoch number
+          schema:
+            type: integer
+            example: 7
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KoraUserBonusResponse"
+        "400":
+          description: Missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ============================================================================
+  # METADATA ENDPOINTS
+  # ============================================================================
+
+  /v1/rewards/metadata/campaign:
+    get:
+      tags:
+        - Rewards
+      operationId: getCampaignMetadata
+      summary: Get campaign metadata
+      description: Returns metadata for rewards campaigns including Kora campaigns.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+        - name: status
+          in: query
+          required: false
+          description: Filter by campaign status
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - INACTIVE
+            default: ACTIVE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CampaignMetadata"
+
+  /v1/rewards/metadata/epoch:
+    get:
+      tags:
+        - Rewards
+      operationId: getEpochMetadata
+      summary: Get epoch metadata
+      description: Returns the latest or next epoch for a campaign.
+      parameters:
+        - name: campaignName
+          in: query
+          required: false
+          description: Specify the campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+        - name: epoch
+          in: query
+          required: false
+          description: Specify "next" or "latest"
+          schema:
+            type: string
+            enum: ["next", "latest"]
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EpochMetadata"
+
+  /v1/rewards/metadata/epoch/configs:
+    get:
+      tags:
+        - Rewards
+      operationId: getEpochConfigMetadata
+      summary: Get epoch configuration
+      description: Returns epoch configuration including reward allocations.
+      parameters:
+        - name: intervalNumber
+          in: query
+          required: false
+          description: Specify the interval number
+          schema:
+            type: integer
+            example: 7
+        - name: campaignName
+          in: query
+          required: false
+          description: Filter by campaign name
+          schema:
+            type: string
+            example: "KORA_SWAPS"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maxIntervalNumber:
+                    type: integer
+                    example: 14
+                  intervalNumber:
+                    type: integer
+                    example: 7
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EpochConfig"
+
+  /v1/rewards/metadata/interval:
+    get:
+      tags:
+        - Rewards
+      operationId: getIntervalMetadata
+      summary: Get interval metadata
+      description: Returns interval metadata with protocol filtering support.
+      parameters:
+        - name: interval
+          in: query
+          required: false
+          description: Interval number or "next"/"latest"
+          schema:
+            type: string
+            example: "latest"
+        - name: protocol
+          in: query
+          required: false
+          description: Filter by protocol
+          schema:
+            type: string
+            enum:
+              - bluefin
+              - kora
+            example: "kora"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntervalMetadata"
+
+  # ============================================================================
+  # HEALTH CHECK
+  # ============================================================================
+
+  /v1/kora/health:
+    get:
+      tags:
+        - Kora
+      operationId: koraHealthCheck
+      summary: Kora service health check
+      description: Returns the health status of the Kora rewards service.
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  timestamp:
+                    type: integer
+                    example: 1724725894751

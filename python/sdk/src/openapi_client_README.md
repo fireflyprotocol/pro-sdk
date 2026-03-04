@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](openapi_client/docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](openapi_client/docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 *ExchangeApi* | [**get_recent_trades**](openapi_client/docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
+*KoraApi* | [**kora_health_check**](openapi_client/docs/KoraApi.md#kora_health_check) | **GET** /v1/kora/health | Kora service health check
 *RewardsApi* | [**get_affiliate_interval_overview**](openapi_client/docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
 *RewardsApi* | [**get_affiliate_leader_dashboard**](openapi_client/docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
 *RewardsApi* | [**get_affiliate_metadata**](openapi_client/docs/RewardsApi.md#get_affiliate_metadata) | **GET** /v1/rewards/affiliate | /rewards/affiliate
@@ -105,6 +106,7 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_epoch_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 *RewardsApi* | [**get_rewards_interval_metadata**](openapi_client/docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 *RewardsApi* | [**get_rewards_summary**](openapi_client/docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+*RewardsApi* | [**get_user_bonuses**](openapi_client/docs/RewardsApi.md#get_user_bonuses) | **GET** /v1/rewards/bonuses | Get all user bonuses by epoch
 *RewardsApi* | [**mark_as_claimed**](openapi_client/docs/RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 *RewardsApi* | [**onboard_affiliate**](openapi_client/docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](openapi_client/docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -181,6 +183,7 @@ Class | Method | HTTP request | Description
  - [EpochConfigsResponse](openapi_client/docs/EpochConfigsResponse.md)
  - [EpochMetadata](openapi_client/docs/EpochMetadata.md)
  - [Error](openapi_client/docs/Error.md)
+ - [Error1](openapi_client/docs/Error1.md)
  - [ExchangeInfoResponse](openapi_client/docs/ExchangeInfoResponse.md)
  - [FailedCommandType](openapi_client/docs/FailedCommandType.md)
  - [FeeConfigs](openapi_client/docs/FeeConfigs.md)
@@ -193,6 +196,8 @@ Class | Method | HTTP request | Description
  - [IntervalRewards](openapi_client/docs/IntervalRewards.md)
  - [IssBase64Details](openapi_client/docs/IssBase64Details.md)
  - [KlineInterval](openapi_client/docs/KlineInterval.md)
+ - [KoraHealthCheck200Response](openapi_client/docs/KoraHealthCheck200Response.md)
+ - [KoraUserBonusResponse](openapi_client/docs/KoraUserBonusResponse.md)
  - [LeaderboardEntry](openapi_client/docs/LeaderboardEntry.md)
  - [LeaderboardInterval](openapi_client/docs/LeaderboardInterval.md)
  - [LeaderboardResponse](openapi_client/docs/LeaderboardResponse.md)
