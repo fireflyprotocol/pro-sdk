@@ -15,10 +15,10 @@ servers:
   - url: https://api.{env}.kora.so
     variables:
       env:
-        default: sui-staging
+        default: staging
         enum:
-          - sui-staging
-          - sui-prod
+          - staging
+          - prod
 
 components:
   securitySchemes:
