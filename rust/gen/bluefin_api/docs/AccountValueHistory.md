@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **latest_unrealized_pnl_e9** | **String** | Latest unrealized PnL value (e9 format). | 
 **unrealized_pnl_change_e9** | **String** | Change in unrealized PnL from the first to the last value in the interval (e9 format). | 
 **unrealized_pnl_change_percentage_e9** | **String** | Percentage change in unrealized PnL from the first to the last value in the interval (e9 format). | 
+**latest_accumulated_pnl_e9** | **String** | Latest accumulated PnL value (e9 format). This is the cumulative sum of all period PnLs. | 
+**accumulated_pnl_change_e9** | **String** | Change in accumulated PnL from the first to the last value in the interval (e9 format). | 
+**accumulated_pnl_change_percentage_e9** | **String** | Percentage change in accumulated PnL from the first to the last value in the interval (e9 format). | 
 **values** | [**Vec<models::AccountValueHistoryData>**](AccountValueHistoryData.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

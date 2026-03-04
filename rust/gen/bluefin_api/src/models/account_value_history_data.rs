@@ -22,14 +22,18 @@ pub struct AccountValueHistoryData {
     /// Account value at this timestamp (e9 format).
     #[serde(rename = "valueE9")]
     pub value_e9: String,
+    /// Accumulated PnL at this timestamp (e9 format). This is the cumulative sum of all period PnLs up to this point.
+    #[serde(rename = "accumulatedPnlE9")]
+    pub accumulated_pnl_e9: String,
 }
 
 impl AccountValueHistoryData {
-    pub fn new(timestamp_millis: i64, unrealized_pnl_e9: String, value_e9: String) -> AccountValueHistoryData {
+    pub fn new(timestamp_millis: i64, unrealized_pnl_e9: String, value_e9: String, accumulated_pnl_e9: String) -> AccountValueHistoryData {
         AccountValueHistoryData {
             timestamp_millis,
             unrealized_pnl_e9,
             value_e9,
+            accumulated_pnl_e9,
         }
     }
 }

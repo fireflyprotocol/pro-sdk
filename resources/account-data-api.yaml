@@ -418,6 +418,9 @@ components:
         - latestUnrealizedPnlE9
         - unrealizedPnlChangeE9
         - unrealizedPnlChangePercentageE9
+        - latestAccumulatedPnlE9
+        - accumulatedPnlChangeE9
+        - accumulatedPnlChangePercentageE9
         - values
       properties:
         latestValueE9:
@@ -444,6 +447,18 @@ components:
           type: string
           description: Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).
           example: "0"
+        latestAccumulatedPnlE9:
+          type: string
+          description: Latest accumulated PnL value (e9 format). This is the cumulative sum of all period PnLs.
+          example: "0"
+        accumulatedPnlChangeE9:
+          type: string
+          description: Change in accumulated PnL from the first to the last value in the interval (e9 format).
+          example: "0"
+        accumulatedPnlChangePercentageE9:
+          type: string
+          description: Percentage change in accumulated PnL from the first to the last value in the interval (e9 format).
+          example: "0"
         values:
           type: array
           items:
@@ -455,6 +470,7 @@ components:
         - timestampMillis
         - unrealizedPnlE9
         - valueE9
+        - accumulatedPnlE9
       properties:
         timestampMillis:
           type: integer
@@ -468,6 +484,10 @@ components:
         valueE9:
           type: string
           description: Account value at this timestamp (e9 format).
+          example: "0"
+        accumulatedPnlE9:
+          type: string
+          description: Accumulated PnL at this timestamp (e9 format). This is the cumulative sum of all period PnLs up to this point.
           example: "0"
 
     LeaderboardInterval:

@@ -299,8 +299,4 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_leaderboard_entry.py
-openapi_client/test/test_leaderboard_interval.py
-openapi_client/test/test_leaderboard_response.py
-openapi_client/test/test_sort_order.py
 openapi_client_README.md

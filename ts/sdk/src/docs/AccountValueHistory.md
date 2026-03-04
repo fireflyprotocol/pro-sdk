@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **latestUnrealizedPnlE9** | **string** | Latest unrealized PnL value (e9 format). | [default to undefined]
 **unrealizedPnlChangeE9** | **string** | Change in unrealized PnL from the first to the last value in the interval (e9 format). | [default to undefined]
 **unrealizedPnlChangePercentageE9** | **string** | Percentage change in unrealized PnL from the first to the last value in the interval (e9 format). | [default to undefined]
+**latestAccumulatedPnlE9** | **string** | Latest accumulated PnL value (e9 format). This is the cumulative sum of all period PnLs. | [default to undefined]
+**accumulatedPnlChangeE9** | **string** | Change in accumulated PnL from the first to the last value in the interval (e9 format). | [default to undefined]
+**accumulatedPnlChangePercentageE9** | **string** | Percentage change in accumulated PnL from the first to the last value in the interval (e9 format). | [default to undefined]
 **values** | [**Array&lt;AccountValueHistoryData&gt;**](AccountValueHistoryData.md) |  | [default to undefined]
 
 ## Example
@@ -25,6 +28,9 @@ const instance: AccountValueHistory = {
     latestUnrealizedPnlE9,
     unrealizedPnlChangeE9,
     unrealizedPnlChangePercentageE9,
+    latestAccumulatedPnlE9,
+    accumulatedPnlChangeE9,
+    accumulatedPnlChangePercentageE9,
     values,
 };
 ```

@@ -29,7 +29,8 @@ class AccountValueHistoryData(BaseModel):
     timestamp_millis: StrictInt = Field(description="Timestamp in milliseconds since Unix epoch.", alias="timestampMillis")
     unrealized_pnl_e9: StrictStr = Field(description="Unrealized PnL at this timestamp (e9 format).", alias="unrealizedPnlE9")
     value_e9: StrictStr = Field(description="Account value at this timestamp (e9 format).", alias="valueE9")
-    __properties: ClassVar[List[str]] = ["timestampMillis", "unrealizedPnlE9", "valueE9"]
+    accumulated_pnl_e9: StrictStr = Field(description="Accumulated PnL at this timestamp (e9 format). This is the cumulative sum of all period PnLs up to this point.", alias="accumulatedPnlE9")
+    __properties: ClassVar[List[str]] = ["timestampMillis", "unrealizedPnlE9", "valueE9", "accumulatedPnlE9"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +85,8 @@ class AccountValueHistoryData(BaseModel):
         _obj = cls.model_validate({
             "timestampMillis": obj.get("timestampMillis"),
             "unrealizedPnlE9": obj.get("unrealizedPnlE9"),
-            "valueE9": obj.get("valueE9")
+            "valueE9": obj.get("valueE9"),
+            "accumulatedPnlE9": obj.get("accumulatedPnlE9")
         })
         return _obj
 

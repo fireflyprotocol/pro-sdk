@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **timestamp_millis** | **int** | Timestamp in milliseconds since Unix epoch. | 
 **unrealized_pnl_e9** | **str** | Unrealized PnL at this timestamp (e9 format). | 
 **value_e9** | **str** | Account value at this timestamp (e9 format). | 
+**accumulated_pnl_e9** | **str** | Accumulated PnL at this timestamp (e9 format). This is the cumulative sum of all period PnLs up to this point. | 
 
 ## Example
 
