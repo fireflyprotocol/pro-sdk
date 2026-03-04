@@ -52,13 +52,6 @@ Class | Method | HTTP request | Description
 *ExchangeApi* | [**get_market_ticker**](docs/ExchangeApi.md#get_market_ticker) | **GET** /v1/exchange/ticker | /exchange/ticker
 *ExchangeApi* | [**get_orderbook_depth**](docs/ExchangeApi.md#get_orderbook_depth) | **GET** /v1/exchange/depth | /exchange/depth
 *ExchangeApi* | [**get_recent_trades**](docs/ExchangeApi.md#get_recent_trades) | **GET** /v1/exchange/trades | /exchange/trades
-*KoraApi* | [**get_kora_campaign_metadata**](docs/KoraApi.md#get_kora_campaign_metadata) | **GET** /v1/kora/metadata/campaign | Get Kora campaign metadata
-*KoraApi* | [**get_kora_campaign_rewards**](docs/KoraApi.md#get_kora_campaign_rewards) | **GET** /v1/kora/rewards/campaign | Get Kora campaign rewards
-*KoraApi* | [**get_kora_epoch_config_metadata**](docs/KoraApi.md#get_kora_epoch_config_metadata) | **GET** /v1/kora/metadata/epoch/configs | Get Kora epoch configuration
-*KoraApi* | [**get_kora_epoch_metadata**](docs/KoraApi.md#get_kora_epoch_metadata) | **GET** /v1/kora/metadata/epoch | Get Kora epoch metadata
-*KoraApi* | [**get_kora_interval_metadata**](docs/KoraApi.md#get_kora_interval_metadata) | **GET** /v1/kora/metadata/interval | Get Kora interval metadata
-*KoraApi* | [**get_kora_leaderboard**](docs/KoraApi.md#get_kora_leaderboard) | **GET** /v1/kora/leaderboard | Get Kora swap leaderboard
-*KoraApi* | [**get_kora_rewards_summary**](docs/KoraApi.md#get_kora_rewards_summary) | **GET** /v1/kora/rewards/summary | Get Kora all-time rewards summary
 *KoraApi* | [**kora_health_check**](docs/KoraApi.md#kora_health_check) | **GET** /v1/kora/health | Kora service health check
 *RewardsApi* | [**get_affiliate_interval_overview**](docs/RewardsApi.md#get_affiliate_interval_overview) | **GET** /v1/rewards/affiliate/intervalOverview | /rewards/affiliate/intervalOverview
 *RewardsApi* | [**get_affiliate_leader_dashboard**](docs/RewardsApi.md#get_affiliate_leader_dashboard) | **GET** /v1/rewards/affiliate/leaderDashboard | /rewards/affiliate/leaderDashboard
@@ -73,6 +66,7 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 *RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 *RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+*RewardsApi* | [**get_user_bonuses**](docs/RewardsApi.md#get_user_bonuses) | **GET** /v1/rewards/bonuses | Get all user bonuses by epoch
 *RewardsApi* | [**mark_as_claimed**](docs/RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 *RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -149,6 +143,7 @@ Class | Method | HTTP request | Description
  - [EpochConfigsResponse](docs/EpochConfigsResponse.md)
  - [EpochMetadata](docs/EpochMetadata.md)
  - [Error](docs/Error.md)
+ - [Error1](docs/Error1.md)
  - [ExchangeInfoResponse](docs/ExchangeInfoResponse.md)
  - [FailedCommandType](docs/FailedCommandType.md)
  - [FeeConfigs](docs/FeeConfigs.md)
@@ -161,17 +156,8 @@ Class | Method | HTTP request | Description
  - [IntervalRewards](docs/IntervalRewards.md)
  - [IssBase64Details](docs/IssBase64Details.md)
  - [KlineInterval](docs/KlineInterval.md)
- - [KoraCampaignBonus](docs/KoraCampaignBonus.md)
- - [KoraCampaignMetadata](docs/KoraCampaignMetadata.md)
- - [KoraCampaignRewards](docs/KoraCampaignRewards.md)
- - [KoraEpochConfig](docs/KoraEpochConfig.md)
- - [KoraEpochConfigResponse](docs/KoraEpochConfigResponse.md)
- - [KoraEpochMetadata](docs/KoraEpochMetadata.md)
  - [KoraHealthCheck200Response](docs/KoraHealthCheck200Response.md)
- - [KoraIntervalMetadata](docs/KoraIntervalMetadata.md)
- - [KoraLeaderboardEntry](docs/KoraLeaderboardEntry.md)
- - [KoraLeaderboardResponse](docs/KoraLeaderboardResponse.md)
- - [KoraRewardsSummary](docs/KoraRewardsSummary.md)
+ - [KoraUserBonusResponse](docs/KoraUserBonusResponse.md)
  - [LeaderboardEntry](docs/LeaderboardEntry.md)
  - [LeaderboardInterval](docs/LeaderboardInterval.md)
  - [LeaderboardResponse](docs/LeaderboardResponse.md)

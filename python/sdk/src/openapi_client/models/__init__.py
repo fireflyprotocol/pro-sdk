@@ -69,6 +69,7 @@ from openapi_client.models.epoch_configs import EpochConfigs
 from openapi_client.models.epoch_configs_response import EpochConfigsResponse
 from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.error import Error
+from openapi_client.models.error1 import Error1
 from openapi_client.models.exchange_info_response import ExchangeInfoResponse
 from openapi_client.models.failed_command_type import FailedCommandType
 from openapi_client.models.fee_configs import FeeConfigs
@@ -81,17 +82,8 @@ from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.iss_base64_details import IssBase64Details
 from openapi_client.models.kline_interval import KlineInterval
-from openapi_client.models.kora_campaign_bonus import KoraCampaignBonus
-from openapi_client.models.kora_campaign_metadata import KoraCampaignMetadata
-from openapi_client.models.kora_campaign_rewards import KoraCampaignRewards
-from openapi_client.models.kora_epoch_config import KoraEpochConfig
-from openapi_client.models.kora_epoch_config_response import KoraEpochConfigResponse
-from openapi_client.models.kora_epoch_metadata import KoraEpochMetadata
 from openapi_client.models.kora_health_check200_response import KoraHealthCheck200Response
-from openapi_client.models.kora_interval_metadata import KoraIntervalMetadata
-from openapi_client.models.kora_leaderboard_entry import KoraLeaderboardEntry
-from openapi_client.models.kora_leaderboard_response import KoraLeaderboardResponse
-from openapi_client.models.kora_rewards_summary import KoraRewardsSummary
+from openapi_client.models.kora_user_bonus_response import KoraUserBonusResponse
 from openapi_client.models.leaderboard_entry import LeaderboardEntry
 from openapi_client.models.leaderboard_interval import LeaderboardInterval
 from openapi_client.models.leaderboard_response import LeaderboardResponse

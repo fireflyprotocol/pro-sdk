@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**get_user_bonuses**](RewardsApi.md#get_user_bonuses) | **GET** /v1/rewards/bonuses | Get all user bonuses by epoch
 [**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -966,6 +967,75 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_user_bonuses**
+> List[KoraUserBonusResponse] get_user_bonuses(epoch_number)
+
+Get all user bonuses by epoch
+
+Returns the bonuses earned by all users for a specific epoch number.
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.kora_user_bonus_response import KoraUserBonusResponse
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.RewardsApi(api_client)
+    epoch_number = 7 # int | Specify the epoch number
+
+    try:
+        # Get all user bonuses by epoch
+        api_response = await api_instance.get_user_bonuses(epoch_number)
+        print("The response of RewardsApi->get_user_bonuses:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RewardsApi->get_user_bonuses: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **epoch_number** | **int**| Specify the epoch number | 
+
+### Return type
+
+[**List[KoraUserBonusResponse]**](KoraUserBonusResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** | Missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

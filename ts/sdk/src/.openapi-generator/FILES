@@ -61,6 +61,7 @@ docs/EpochConfigs.md
 docs/EpochConfigsResponse.md
 docs/EpochMetadata.md
 docs/Error.md
+docs/Error1.md
 docs/ExchangeApi.md
 docs/ExchangeInfoResponse.md
 docs/FailedCommandType.md
@@ -75,17 +76,8 @@ docs/IntervalRewards.md
 docs/IssBase64Details.md
 docs/KlineInterval.md
 docs/KoraApi.md
-docs/KoraCampaignBonus.md
-docs/KoraCampaignMetadata.md
-docs/KoraCampaignRewards.md
-docs/KoraEpochConfig.md
-docs/KoraEpochConfigResponse.md
-docs/KoraEpochMetadata.md
 docs/KoraHealthCheck200Response.md
-docs/KoraIntervalMetadata.md
-docs/KoraLeaderboardEntry.md
-docs/KoraLeaderboardResponse.md
-docs/KoraRewardsSummary.md
+docs/KoraUserBonusResponse.md
 docs/LeaderboardEntry.md
 docs/LeaderboardInterval.md
 docs/LeaderboardResponse.md
