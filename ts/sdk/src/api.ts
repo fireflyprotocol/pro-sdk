@@ -939,6 +939,24 @@ export interface AccountValueHistory {
      */
     'unrealizedPnlChangePercentageE9': string;
     /**
+     * Latest accumulated PnL value (e9 format). This is the cumulative sum of all period PnLs.
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'latestAccumulatedPnlE9': string;
+    /**
+     * Change in accumulated PnL from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'accumulatedPnlChangeE9': string;
+    /**
+     * Percentage change in accumulated PnL from the first to the last value in the interval (e9 format).
+     * @type {string}
+     * @memberof AccountValueHistory
+     */
+    'accumulatedPnlChangePercentageE9': string;
+    /**
      * 
      * @type {Array<AccountValueHistoryData>}
      * @memberof AccountValueHistory
@@ -969,6 +987,12 @@ export interface AccountValueHistoryData {
      * @memberof AccountValueHistoryData
      */
     'valueE9': string;
+    /**
+     * Accumulated PnL at this timestamp (e9 format). This is the cumulative sum of all period PnLs up to this point.
+     * @type {string}
+     * @memberof AccountValueHistoryData
+     */
+    'accumulatedPnlE9': string;
 }
 /**
  * Information about an order update.

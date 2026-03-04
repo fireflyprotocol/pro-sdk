@@ -33,8 +33,11 @@ class AccountValueHistory(BaseModel):
     latest_unrealized_pnl_e9: StrictStr = Field(description="Latest unrealized PnL value (e9 format).", alias="latestUnrealizedPnlE9")
     unrealized_pnl_change_e9: StrictStr = Field(description="Change in unrealized PnL from the first to the last value in the interval (e9 format).", alias="unrealizedPnlChangeE9")
     unrealized_pnl_change_percentage_e9: StrictStr = Field(description="Percentage change in unrealized PnL from the first to the last value in the interval (e9 format).", alias="unrealizedPnlChangePercentageE9")
+    latest_accumulated_pnl_e9: StrictStr = Field(description="Latest accumulated PnL value (e9 format). This is the cumulative sum of all period PnLs.", alias="latestAccumulatedPnlE9")
+    accumulated_pnl_change_e9: StrictStr = Field(description="Change in accumulated PnL from the first to the last value in the interval (e9 format).", alias="accumulatedPnlChangeE9")
+    accumulated_pnl_change_percentage_e9: StrictStr = Field(description="Percentage change in accumulated PnL from the first to the last value in the interval (e9 format).", alias="accumulatedPnlChangePercentageE9")
     values: List[AccountValueHistoryData]
-    __properties: ClassVar[List[str]] = ["latestValueE9", "valueChangeE9", "valueChangePercentageE9", "latestUnrealizedPnlE9", "unrealizedPnlChangeE9", "unrealizedPnlChangePercentageE9", "values"]
+    __properties: ClassVar[List[str]] = ["latestValueE9", "valueChangeE9", "valueChangePercentageE9", "latestUnrealizedPnlE9", "unrealizedPnlChangeE9", "unrealizedPnlChangePercentageE9", "latestAccumulatedPnlE9", "accumulatedPnlChangeE9", "accumulatedPnlChangePercentageE9", "values"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,6 +103,9 @@ class AccountValueHistory(BaseModel):
             "latestUnrealizedPnlE9": obj.get("latestUnrealizedPnlE9"),
             "unrealizedPnlChangeE9": obj.get("unrealizedPnlChangeE9"),
             "unrealizedPnlChangePercentageE9": obj.get("unrealizedPnlChangePercentageE9"),
+            "latestAccumulatedPnlE9": obj.get("latestAccumulatedPnlE9"),
+            "accumulatedPnlChangeE9": obj.get("accumulatedPnlChangeE9"),
+            "accumulatedPnlChangePercentageE9": obj.get("accumulatedPnlChangePercentageE9"),
             "values": [AccountValueHistoryData.from_dict(_item) for _item in obj["values"]] if obj.get("values") is not None else None
         })
         return _obj
