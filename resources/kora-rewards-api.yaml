@@ -12,7 +12,7 @@ tags:
   - name: Rewards
     description: General rewards endpoints extended for Kora
 servers:
-  - url: https://api.{env}.bluefin.io
+  - url: https://api.{env}.kora.so
     variables:
       env:
         default: sui-staging
