@@ -1155,6 +1155,47 @@ paths:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
 
+  /api/v1/accounts/{accountAddress}/valueHistory:
+    get:
+      tags:
+        - Account Data
+      operationId: getAccountValueHistoryByAccount
+      summary: /accounts/{accountAddress}/valueHistory
+      description: Retrieves the account value history for 24h.
+      security: []
+      parameters:
+        - name: accountAddress
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Account address to fetch account value history for.
+      responses:
+        "200":
+          description: Successful response with account value history.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountValueHistory"
+        "400":
+          description: Invalid parameters provided.
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "404":
+          description: "account not found"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "500":
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
   /api/v1/account/sponsorTx:
     post:
       tags:
