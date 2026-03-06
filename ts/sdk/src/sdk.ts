@@ -43,6 +43,18 @@ import {
 // RewardsDistributorInteractor for reward claiming
 import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/index';
 import { toHex } from '@mysten/bcs';
+import globalAxios from 'axios';
+
+// Enable HTTP/2 in Node.js environments for better performance
+// Only enable for Node.js specifically (not Bun, Deno, or browsers)
+// Axios HTTP/2 support is toggled via httpVersion in the http adapter
+if (
+  typeof process !== 'undefined' &&
+  process.versions &&
+  process.versions.node
+) {
+  globalAxios.defaults.httpVersion = 2;
+}
 
 interface EnvironmentConfig {
   [key: string]: {
@@ -492,8 +504,7 @@ export class BluefinProSdk {
 
         // Throw the error to let the caller handle it
         throw new Error(
-          `Token refresh failed: ${
-            e instanceof Error ? e.message : 'Unknown error'
+          `Token refresh failed: ${e instanceof Error ? e.message : 'Unknown error'
           }`,
         );
       }
@@ -797,8 +808,8 @@ export class BluefinProSdk {
     this.txBuilder?.depositToAssetBank(
       assetSymbol,
       accountAddress ||
-        this.currentAccountAddress ||
-        this.bfSigner.getAddress(),
+      this.currentAccountAddress ||
+      this.bfSigner.getAddress(),
       amountE9,
       splitCoin,
       {
