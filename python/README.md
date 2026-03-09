@@ -1,13 +1,13 @@
 # Python Bluefin Pro SDK
 
-## Install the SDK 
+## Install the SDK
 We will soon be publishing the library to a public repository on PyPI.  For now, you can pull the code with github as sumbodule
 and install it locally.  To do this, run the following commands:
-```bash 
-git submodule add git@github.com:fireflyprotocol/pro-sdk.git submodules/pro-sdk 
+```bash
+git submodule add git@github.com:fireflyprotocol/pro-sdk.git submodules/pro-sdk
 ```
 
-NOTE: Due to a limitation you need to use python version `3.12` or older.
+NOTE: Due to a limitation you need to use python version `3.13` or older.
 then using pip, install the SDK locally here is example pip requirements.txt contents:
 ```text
 ./submodules/pro-sdk/python/sdk
@@ -32,12 +32,12 @@ requirements:
 # install poetry if needed.
 pipx install poetry
 
-# Set it to use python3.12 (making sure you have python 3.12 installed).
-# If you don't have python 3.12 installed, you can use pyenv to install it:
-# pyenv install 3.12
+# Set it to use python3.13 (making sure you have python 3.13 installed).
+# If you don't have python 3.13 installed, you can use pyenv to install it:
+# pyenv install 3.13
 
 # From the `python` directory, run the following commands:
-python3.12 -m venv .venv 
+python3.13 -m venv .venv
 source .venv/bin/activate
 poetry install
 ```
@@ -64,6 +64,6 @@ openapi-generator generate -i ../../resources/bluefin-api.yaml -c config.yaml -g
 This will:
 
 1. Use the OpenAPI spec from ``../../resources/bluefin-api.yaml``
-2. Apply configuration from ``config.yaml`` 
+2. Apply configuration from ``config.yaml``
 3. Generate a Python client
 4. Output the generated code to the ``src`` directory
