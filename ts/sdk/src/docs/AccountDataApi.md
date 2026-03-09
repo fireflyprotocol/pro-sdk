@@ -10,6 +10,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getAccountTrades**](#getaccounttrades) | **GET** /api/v1/account/trades | /account/trades|
 |[**getAccountTransactionHistory**](#getaccounttransactionhistory) | **GET** /api/v1/account/transactions | /account/transactions|
 |[**getAccountValueHistory**](#getaccountvaluehistory) | **GET** /api/v1/account/valueHistory | /account/valueHistory|
+|[**getAccountValueHistoryByAccount**](#getaccountvaluehistorybyaccount) | **GET** /api/v1/accounts/{accountAddress}/valueHistory | /accounts/{accountAddress}/valueHistory|
 |[**patchAccountGroupID**](#patchaccountgroupid) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.|
 |[**putAccountPreferences**](#putaccountpreferences) | **PUT** /api/v1/account/preferences | /account/preferences|
 |[**sponsorTx**](#sponsortx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx|
@@ -374,6 +375,60 @@ const { status, data } = await apiInstance.getAccountValueHistory(
 |**200** | Successful response with account value history. |  -  |
 |**400** | request missing required parameters |  -  |
 |**401** | unauthorized access |  -  |
+|**404** | account not found |  -  |
+|**500** | internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAccountValueHistoryByAccount**
+> AccountValueHistory getAccountValueHistoryByAccount()
+
+Retrieves the account value history for 24h.
+
+### Example
+
+```typescript
+import {
+    AccountDataApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new AccountDataApi(configuration);
+
+let accountAddress: string; //Account address to fetch account value history for. (default to undefined)
+
+const { status, data } = await apiInstance.getAccountValueHistoryByAccount(
+    accountAddress
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **accountAddress** | [**string**] | Account address to fetch account value history for. | defaults to undefined|
+
+
+### Return type
+
+**AccountValueHistory**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful response with account value history. |  -  |
+|**400** | Invalid parameters provided. |  -  |
 |**404** | account not found |  -  |
 |**500** | internal server error |  -  |
 

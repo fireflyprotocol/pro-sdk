@@ -2,5 +2,5 @@ additionalProperties:
   hideGenerationTimestamp: 'true'
   avoidBoxedModels: 'true'
   packageName: bluefin_api
-  packageVersion: 1.11.0
+  packageVersion: 1.12.0
   preferUnsignedInt: 'true'

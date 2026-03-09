@@ -163,6 +163,11 @@ async def main():
         )
         log.info(f"{account_value_history=}")
 
+        account_value_history_by_account = await account_data_api.get_account_value_history_by_account(
+            account_address=sui_wallet.sui_address
+        )
+        log.info(f"{account_value_history_by_account=}")
+
         # Subscribe to WebSockets and log events as they arrive.
         async with await client.create_account_data_stream_listener(
             handler=log_update

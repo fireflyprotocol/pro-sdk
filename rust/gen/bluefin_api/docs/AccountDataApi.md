@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_account_trades**](AccountDataApi.md#get_account_trades) | **GET** /api/v1/account/trades | /account/trades
 [**get_account_transaction_history**](AccountDataApi.md#get_account_transaction_history) | **GET** /api/v1/account/transactions | /account/transactions
 [**get_account_value_history**](AccountDataApi.md#get_account_value_history) | **GET** /api/v1/account/valueHistory | /account/valueHistory
+[**get_account_value_history_by_account**](AccountDataApi.md#get_account_value_history_by_account) | **GET** /api/v1/accounts/{accountAddress}/valueHistory | /accounts/{accountAddress}/valueHistory
 [**patch_account_group_id**](AccountDataApi.md#patch_account_group_id) | **PATCH** /api/v1/account/groupId | Set the group ID for an account.
 [**put_account_preferences**](AccountDataApi.md#put_account_preferences) | **PUT** /api/v1/account/preferences | /account/preferences
 [**sponsor_tx**](AccountDataApi.md#sponsor_tx) | **POST** /api/v1/account/sponsorTx | /account/sponsorTx
@@ -198,6 +199,36 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_account_value_history_by_account
+
+> models::AccountValueHistory get_account_value_history_by_account(account_address)
+/accounts/{accountAddress}/valueHistory
+
+Retrieves the account value history for 24h.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**account_address** | **String** | Account address to fetch account value history for. | [required] |
+
+### Return type
+
+[**models::AccountValueHistory**](AccountValueHistory.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

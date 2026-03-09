@@ -14,7 +14,7 @@ async fn send_request(auth_token: &str) -> Result<AccountValueHistory> {
     println!("Sending request...");
     Ok(get_account_value_history(
         &Configuration {
-            base_path: account::testnet::URL.into(),
+            base_path: account::staging::URL.into(),
             bearer_access_token: Some(auth_token.into()),
             ..Configuration::new()
         },

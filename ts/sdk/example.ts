@@ -273,6 +273,15 @@ async function main() {
       `Account Value history for last 24 hours: ${JSON.stringify(accountValueHistory)}`
     );
 
+    const accountValueHistoryByAccount = (
+        await client.accountDataApi.getAccountValueHistoryByAccount(
+            suiWallet.getPublicKey().toSuiAddress()
+        )
+    ).data;
+    logger.info(
+        `Account Value history By Account for last 24 hours: ${JSON.stringify(accountValueHistory)}`
+    );
+
     // Set up WebSocket listeners
     const accountDataListener = await client.createAccountDataStreamListener(
       handleAccountDataEvent
