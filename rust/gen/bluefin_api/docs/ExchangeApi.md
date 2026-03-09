@@ -59,7 +59,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | **String** | The market symbol to get the klines for. | [required] |
 **interval** | [**KlineInterval**](.md) | The interval to get the klines for. | [required] |
-**r#type** | [**CandlePriceType**](.md) | Candle price type (last price, market price or oracle). | [required] |
+**r#type** | [**CandlePriceType**](.md) | Candle price type (last price, market price, oracle or mark price). | [required] |
 **start_time_at_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines from. |  |
 **end_time_at_millis** | Option<**u64**> | Timestamp in milliseconds in ms to get klines until. |  |
 **limit** | Option<**u32**> | Default 50; max 1000. |  |[default to 50]
