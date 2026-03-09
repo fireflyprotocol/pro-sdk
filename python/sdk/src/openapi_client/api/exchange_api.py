@@ -303,7 +303,7 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
-        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
+        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price, oracle or mark price).")],
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
@@ -329,7 +329,7 @@ class ExchangeApi:
         :type symbol: str
         :param interval: The interval to get the klines for. (required)
         :type interval: KlineInterval
-        :param type: Candle price type (last price, market price or oracle). (required)
+        :param type: Candle price type (last price, market price, oracle or mark price). (required)
         :type type: CandlePriceType
         :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
         :type start_time_at_millis: int
@@ -394,7 +394,7 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
-        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
+        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price, oracle or mark price).")],
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
@@ -420,7 +420,7 @@ class ExchangeApi:
         :type symbol: str
         :param interval: The interval to get the klines for. (required)
         :type interval: KlineInterval
-        :param type: Candle price type (last price, market price or oracle). (required)
+        :param type: Candle price type (last price, market price, oracle or mark price). (required)
         :type type: CandlePriceType
         :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
         :type start_time_at_millis: int
@@ -485,7 +485,7 @@ class ExchangeApi:
         self,
         symbol: Annotated[StrictStr, Field(description="The market symbol to get the klines for.")],
         interval: Annotated[KlineInterval, Field(description="The interval to get the klines for.")],
-        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price or oracle).")],
+        type: Annotated[CandlePriceType, Field(description="Candle price type (last price, market price, oracle or mark price).")],
         start_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines from.")] = None,
         end_time_at_millis: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Timestamp in milliseconds in ms to get klines until.")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Default 50; max 1000.")] = None,
@@ -511,7 +511,7 @@ class ExchangeApi:
         :type symbol: str
         :param interval: The interval to get the klines for. (required)
         :type interval: KlineInterval
-        :param type: Candle price type (last price, market price or oracle). (required)
+        :param type: Candle price type (last price, market price, oracle or mark price). (required)
         :type type: CandlePriceType
         :param start_time_at_millis: Timestamp in milliseconds in ms to get klines from.
         :type start_time_at_millis: int

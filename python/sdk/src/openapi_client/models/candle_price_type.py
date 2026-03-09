@@ -29,6 +29,7 @@ class CandlePriceType(str, Enum):
     LAST = 'Last'
     MARKET = 'Market'
     ORACLE = 'Oracle'
+    MARK = 'Mark'
     UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
