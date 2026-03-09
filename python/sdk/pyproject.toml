@@ -20,7 +20,7 @@ dependencies = [
 description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
 name = "bluefin_pro_sdk"
 readme = "README.rst"
-requires-python = ">=3.9.2,<3.13.0"
+requires-python = ">=3.9.2,<3.14.0"
 version = "1.13.0"
 
 [[project.authors]]
