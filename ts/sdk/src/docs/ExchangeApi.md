@@ -78,7 +78,7 @@ const apiInstance = new ExchangeApi(configuration);
 
 let symbol: string; //The market symbol to get the klines for. (default to undefined)
 let interval: KlineInterval; //The interval to get the klines for. (default to undefined)
-let type: CandlePriceType; //Candle price type (last price, market price or oracle). (default to undefined)
+let type: CandlePriceType; //Candle price type (last price, market price, oracle or mark price). (default to undefined)
 let startTimeAtMillis: number; //Timestamp in milliseconds in ms to get klines from. (optional) (default to undefined)
 let endTimeAtMillis: number; //Timestamp in milliseconds in ms to get klines until. (optional) (default to undefined)
 let limit: number; //Default 50; max 1000. (optional) (default to 50)
@@ -101,7 +101,7 @@ const { status, data } = await apiInstance.getCandlestickData(
 |------------- | ------------- | ------------- | -------------|
 | **symbol** | [**string**] | The market symbol to get the klines for. | defaults to undefined|
 | **interval** | **KlineInterval** | The interval to get the klines for. | defaults to undefined|
-| **type** | **CandlePriceType** | Candle price type (last price, market price or oracle). | defaults to undefined|
+| **type** | **CandlePriceType** | Candle price type (last price, market price, oracle or mark price). | defaults to undefined|
 | **startTimeAtMillis** | [**number**] | Timestamp in milliseconds in ms to get klines from. | (optional) defaults to undefined|
 | **endTimeAtMillis** | [**number**] | Timestamp in milliseconds in ms to get klines until. | (optional) defaults to undefined|
 | **limit** | [**number**] | Default 50; max 1000. | (optional) defaults to 50|

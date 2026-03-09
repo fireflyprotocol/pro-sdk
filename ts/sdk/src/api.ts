@@ -1909,6 +1909,7 @@ export const CandlePriceType = {
     Last: 'Last',
     Market: 'Market',
     Oracle: 'Oracle',
+    Mark: 'Mark',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
@@ -7107,7 +7108,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
-         * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
+         * @param {CandlePriceType} type Candle price type (last price, market price, oracle or mark price).
          * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
          * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
@@ -7598,7 +7599,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
-         * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
+         * @param {CandlePriceType} type Candle price type (last price, market price, oracle or mark price).
          * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
          * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
@@ -7768,7 +7769,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @summary /exchange/candlesticks
          * @param {string} symbol The market symbol to get the klines for.
          * @param {KlineInterval} interval The interval to get the klines for.
-         * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
+         * @param {CandlePriceType} type Candle price type (last price, market price, oracle or mark price).
          * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
          * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
          * @param {number} [limit] Default 50; max 1000.
@@ -7910,7 +7911,7 @@ export class ExchangeApi extends BaseAPI {
      * @summary /exchange/candlesticks
      * @param {string} symbol The market symbol to get the klines for.
      * @param {KlineInterval} interval The interval to get the klines for.
-     * @param {CandlePriceType} type Candle price type (last price, market price or oracle).
+     * @param {CandlePriceType} type Candle price type (last price, market price, oracle or mark price).
      * @param {number} [startTimeAtMillis] Timestamp in milliseconds in ms to get klines from.
      * @param {number} [endTimeAtMillis] Timestamp in milliseconds in ms to get klines until.
      * @param {number} [limit] Default 50; max 1000.
