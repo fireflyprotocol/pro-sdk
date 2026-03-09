@@ -111,7 +111,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.ExchangeApi(api_client)
     symbol = '291' # str | The market symbol to get the klines for.
     interval = openapi_client.KlineInterval() # KlineInterval | The interval to get the klines for.
-    type = openapi_client.CandlePriceType() # CandlePriceType | Candle price type (last price, market price or oracle).
+    type = openapi_client.CandlePriceType() # CandlePriceType | Candle price type (last price, market price, oracle or mark price).
     start_time_at_millis = 1499040000000 # int | Timestamp in milliseconds in ms to get klines from. (optional)
     end_time_at_millis = 1499644799999 # int | Timestamp in milliseconds in ms to get klines until. (optional)
     limit = 50 # int | Default 50; max 1000. (optional) (default to 50)
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **str**| The market symbol to get the klines for. | 
  **interval** | [**KlineInterval**](.md)| The interval to get the klines for. | 
- **type** | [**CandlePriceType**](.md)| Candle price type (last price, market price or oracle). | 
+ **type** | [**CandlePriceType**](.md)| Candle price type (last price, market price, oracle or mark price). | 
  **start_time_at_millis** | **int**| Timestamp in milliseconds in ms to get klines from. | [optional] 
  **end_time_at_millis** | **int**| Timestamp in milliseconds in ms to get klines until. | [optional] 
  **limit** | **int**| Default 50; max 1000. | [optional] [default to 50]

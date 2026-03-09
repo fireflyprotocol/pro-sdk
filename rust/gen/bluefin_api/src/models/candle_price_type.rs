@@ -20,6 +20,8 @@ pub enum CandlePriceType {
     Market,
     #[serde(rename = "Oracle")]
     Oracle,
+    #[serde(rename = "Mark")]
+    Mark,
     #[serde(rename = "UNSPECIFIED")]
     Unspecified,
 
@@ -31,6 +33,7 @@ impl std::fmt::Display for CandlePriceType {
             Self::Last => write!(f, "Last"),
             Self::Market => write!(f, "Market"),
             Self::Oracle => write!(f, "Oracle"),
+            Self::Mark => write!(f, "Mark"),
             Self::Unspecified => write!(f, "UNSPECIFIED"),
         }
     }

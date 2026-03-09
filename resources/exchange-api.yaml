@@ -423,6 +423,7 @@ components:
         - "Last"
         - "Market"
         - "Oracle"
+        - "Mark"
         - "UNSPECIFIED"
     ContractsConfig:
       type: object
@@ -929,7 +930,7 @@ paths:
         - name: type
           in: query
           required: true
-          description: Candle price type (last price, market price or oracle).
+          description: Candle price type (last price, market price, oracle or mark price).
           schema:
             $ref: "#/components/schemas/CandlePriceType"
         - name: startTimeAtMillis
