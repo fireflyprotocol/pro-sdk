@@ -50,6 +50,7 @@ docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ClaimSignatureItem.md
+docs/ClientType.md
 docs/CommandFailureReasonCode.md
 docs/ContractConfig.md
 docs/ContractsConfig.md

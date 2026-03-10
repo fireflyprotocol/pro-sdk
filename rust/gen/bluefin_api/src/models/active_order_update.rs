@@ -78,6 +78,8 @@ pub struct ActiveOrderUpdate {
     /// The timestamp of the last update of the order in milliseconds.
     #[serde(rename = "updatedAtMillis")]
     pub updated_at_millis: i64,
+    #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
+    pub client: Option<models::ClientType>,
 }
 
 impl ActiveOrderUpdate {
@@ -107,6 +109,7 @@ impl ActiveOrderUpdate {
             self_trade_prevention_type,
             created_at_millis,
             updated_at_millis,
+            client: None,
         }
     }
 }

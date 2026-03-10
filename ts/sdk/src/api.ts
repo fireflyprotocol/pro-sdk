@@ -1138,6 +1138,12 @@ export interface ActiveOrderUpdate {
      * @memberof ActiveOrderUpdate
      */
     'updatedAtMillis': number;
+    /**
+     * 
+     * @type {ClientType}
+     * @memberof ActiveOrderUpdate
+     */
+    'client'?: ClientType;
 }
 
 
@@ -2023,6 +2029,20 @@ export const ClaimSignatureItemRewardTypeEnum = {
 } as const;
 
 export type ClaimSignatureItemRewardTypeEnum = typeof ClaimSignatureItemRewardTypeEnum[keyof typeof ClaimSignatureItemRewardTypeEnum];
+
+/**
+ * The client application that originated the JWT token
+ * @export
+ * @enum {string}
+ */
+
+export const ClientType = {
+    Web: 'WEB',
+    Vera: 'VERA'
+} as const;
+
+export type ClientType = typeof ClientType[keyof typeof ClientType];
+
 
 /**
  * 
@@ -5291,6 +5311,12 @@ export interface Trade {
      * @memberof Trade
      */
     'executedAtMillis': number;
+    /**
+     * 
+     * @type {ClientType}
+     * @memberof Trade
+     */
+    'client'?: ClientType;
 }
 
 

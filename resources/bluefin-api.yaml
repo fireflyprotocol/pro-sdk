@@ -17,6 +17,8 @@ components:
       bearerFormat: JWT  # Optional, arbitrary value for documentation purposes
 
   schemas:
+    ClientType:
+      $ref: './auth-api.yaml#/components/schemas/ClientType'
     SubscriptionResponseMessage:
       $ref: './websocket-api.yaml#/components/schemas/SubscriptionResponseMessage'
     AccountSubscriptionMessage:

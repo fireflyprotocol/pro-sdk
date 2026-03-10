@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
  - [CandlePriceType](docs/CandlePriceType.md)
  - [CandlestickUpdate](docs/CandlestickUpdate.md)
  - [ClaimSignatureItem](docs/ClaimSignatureItem.md)
+ - [ClientType](docs/ClientType.md)
  - [CommandFailureReasonCode](docs/CommandFailureReasonCode.md)
  - [ContractConfig](docs/ContractConfig.md)
  - [ContractsConfig](docs/ContractsConfig.md)

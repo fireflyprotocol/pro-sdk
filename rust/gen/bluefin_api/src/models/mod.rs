@@ -86,6 +86,8 @@ pub mod candlestick_update;
 pub use self::candlestick_update::CandlestickUpdate;
 pub mod claim_signature_item;
 pub use self::claim_signature_item::ClaimSignatureItem;
+pub mod client_type;
+pub use self::client_type::ClientType;
 pub mod command_failure_reason_code;
 pub use self::command_failure_reason_code::CommandFailureReasonCode;
 pub mod contract_config;

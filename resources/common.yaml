@@ -239,6 +239,8 @@ components:
           format: int64
           description: Trade timestamp in milliseconds since Unix epoch.
           example: 1569514978020
+        client:
+          $ref: './auth-api.yaml#/components/schemas/ClientType'
     TradingFees:
       type: object
       required:
