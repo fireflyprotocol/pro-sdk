@@ -45,15 +45,15 @@ import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/inde
 import { toHex } from '@mysten/bcs';
 import globalAxios from 'axios';
 
-// Enable HTTP/2 in Node.js environments for better performance
-// Only enable for Node.js specifically (not Bun, Deno, or browsers)
-// Axios HTTP/2 support is toggled via httpVersion in the http adapter
+// Keep HTTP/2 as default in Node.js. Consumers can opt out with
+// BLUEFIN_SDK_HTTP_VERSION=1.
 if (
   typeof process !== 'undefined' &&
   process.versions &&
   process.versions.node
 ) {
-  globalAxios.defaults.httpVersion = 2;
+  const requestedHttpVersion = Number.parseInt(process.env.BLUEFIN_SDK_HTTP_VERSION ?? '2', 10);
+  globalAxios.defaults.httpVersion = requestedHttpVersion === 2 ? 2 : 1;
 }
 
 interface EnvironmentConfig {
