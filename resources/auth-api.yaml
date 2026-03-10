@@ -24,6 +24,13 @@ components:
           schema:
             $ref: './common.yaml#/components/schemas/Error'
   schemas:
+    ClientType:
+      type: string
+      description: The client application that originated the JWT token
+      enum:
+        - WEB
+        - VERA
+      example: WEB
     JwksResponse:
       type: object
       additionalProperties: true
