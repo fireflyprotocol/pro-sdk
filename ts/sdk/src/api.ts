@@ -4469,39 +4469,6 @@ export type OrderbookPartialDepthUpdateDepthLevelEnum = typeof OrderbookPartialD
 /**
  * 
  * @export
- * @interface PingRequest
- */
-export interface PingRequest {
-    /**
-     * Optional client identifier (e.g. mobile, web).
-     * @type {string}
-     * @memberof PingRequest
-     */
-    'client'?: string;
-}
-/**
- * 
- * @export
- * @interface PingResponse
- */
-export interface PingResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof PingResponse
-     */
-    'status': PingResponseStatusEnum;
-}
-
-export const PingResponseStatusEnum = {
-    Ok: 'ok'
-} as const;
-
-export type PingResponseStatusEnum = typeof PingResponseStatusEnum[keyof typeof PingResponseStatusEnum];
-
-/**
- * 
- * @export
  * @interface Position
  */
 export interface Position {
@@ -11368,40 +11335,6 @@ export const VeraPointsApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-         * @summary Public health/liveness check (no auth)
-         * @param {PingRequest} [pingRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ping: async (pingRequest?: PingRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/vera/ping`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(pingRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
          * @summary /vera/session
          * @param {*} [options] Override http request option.
@@ -11499,19 +11432,6 @@ export const VeraPointsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-         * @summary Public health/liveness check (no auth)
-         * @param {PingRequest} [pingRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ping(pingRequest?: PingRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PingResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ping(pingRequest, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.ping']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
          * @summary /vera/session
          * @param {*} [options] Override http request option.
@@ -11573,16 +11493,6 @@ export const VeraPointsApiFactory = function (configuration?: Configuration, bas
          */
         getLeaderboard(limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<LeaderboardResponse> {
             return localVarFp.getLeaderboard(limit, offset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-         * @summary Public health/liveness check (no auth)
-         * @param {PingRequest} [pingRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ping(pingRequest?: PingRequest, options?: RawAxiosRequestConfig): AxiosPromise<PingResponse> {
-            return localVarFp.ping(pingRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
@@ -11650,18 +11560,6 @@ export class VeraPointsApi extends BaseAPI {
      */
     public getLeaderboard(limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
         return VeraPointsApiFp(this.configuration).getLeaderboard(limit, offset, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-     * @summary Public health/liveness check (no auth)
-     * @param {PingRequest} [pingRequest] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VeraPointsApi
-     */
-    public ping(pingRequest?: PingRequest, options?: RawAxiosRequestConfig) {
-        return VeraPointsApiFp(this.configuration).ping(pingRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -89,7 +89,6 @@ Class | Method | HTTP request | Description
 *VeraPointsApi* | [**claim_vault**](docs/VeraPointsApi.md#claim_vault) | **POST** /v1/vera/vault/claim | /vera/vault/claim
 *VeraPointsApi* | [**get_balance**](docs/VeraPointsApi.md#get_balance) | **GET** /v1/vera/balance | Get user's points, tier, and rank
 *VeraPointsApi* | [**get_leaderboard**](docs/VeraPointsApi.md#get_leaderboard) | **GET** /v1/vera/leaderboard | Top users by lifetime points
-*VeraPointsApi* | [**ping**](docs/VeraPointsApi.md#ping) | **POST** /v1/vera/ping | Public health/liveness check (no auth)
 *VeraPointsApi* | [**record_session**](docs/VeraPointsApi.md#record_session) | **POST** /v1/vera/session | /vera/session
 
 
@@ -204,8 +203,6 @@ Class | Method | HTTP request | Description
  - [OrderbookDepthResponse](docs/OrderbookDepthResponse.md)
  - [OrderbookDiffDepthUpdate](docs/OrderbookDiffDepthUpdate.md)
  - [OrderbookPartialDepthUpdate](docs/OrderbookPartialDepthUpdate.md)
- - [PingRequest](docs/PingRequest.md)
- - [PingResponse](docs/PingResponse.md)
  - [Position](docs/Position.md)
  - [PositionSide](docs/PositionSide.md)
  - [ProofPoints](docs/ProofPoints.md)

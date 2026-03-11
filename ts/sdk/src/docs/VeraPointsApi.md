@@ -8,7 +8,6 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**claimVault**](#claimvault) | **POST** /v1/vera/vault/claim | /vera/vault/claim|
 |[**getBalance**](#getbalance) | **GET** /v1/vera/balance | Get user\&#39;s points, tier, and rank|
 |[**getLeaderboard**](#getleaderboard) | **GET** /v1/vera/leaderboard | Top users by lifetime points|
-|[**ping**](#ping) | **POST** /v1/vera/ping | Public health/liveness check (no auth)|
 |[**recordSession**](#recordsession) | **POST** /v1/vera/session | /vera/session|
 
 # **claimSwap**
@@ -222,58 +221,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Leaderboard entries |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **ping**
-> PingResponse ping()
-
-Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-
-### Example
-
-```typescript
-import {
-    VeraPointsApi,
-    Configuration,
-    PingRequest
-} from '@bluefin/api-client';
-
-const configuration = new Configuration();
-const apiInstance = new VeraPointsApi(configuration);
-
-let pingRequest: PingRequest; // (optional)
-
-const { status, data } = await apiInstance.ping(
-    pingRequest
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **pingRequest** | **PingRequest**|  | |
-
-
-### Return type
-
-**PingResponse**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | Service is alive |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

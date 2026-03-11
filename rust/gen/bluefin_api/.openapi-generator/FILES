@@ -114,8 +114,6 @@ docs/OrderType.md
 docs/OrderbookDepthResponse.md
 docs/OrderbookDiffDepthUpdate.md
 docs/OrderbookPartialDepthUpdate.md
-docs/PingRequest.md
-docs/PingResponse.md
 docs/Position.md
 docs/PositionSide.md
 docs/ProofPoints.md
@@ -284,8 +282,6 @@ src/models/order_type.rs
 src/models/orderbook_depth_response.rs
 src/models/orderbook_diff_depth_update.rs
 src/models/orderbook_partial_depth_update.rs
-src/models/ping_request.rs
-src/models/ping_response.rs
 src/models/position.rs
 src/models/position_side.rs
 src/models/proof_points.rs

@@ -116,8 +116,6 @@ docs/OrderType.md
 docs/OrderbookDepthResponse.md
 docs/OrderbookDiffDepthUpdate.md
 docs/OrderbookPartialDepthUpdate.md
-docs/PingRequest.md
-docs/PingResponse.md
 docs/Position.md
 docs/PositionSide.md
 docs/ProofPoints.md

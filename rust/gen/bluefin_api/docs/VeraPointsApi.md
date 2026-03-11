@@ -8,7 +8,6 @@ Method | HTTP request | Description
 [**claim_vault**](VeraPointsApi.md#claim_vault) | **POST** /v1/vera/vault/claim | /vera/vault/claim
 [**get_balance**](VeraPointsApi.md#get_balance) | **GET** /v1/vera/balance | Get user's points, tier, and rank
 [**get_leaderboard**](VeraPointsApi.md#get_leaderboard) | **GET** /v1/vera/leaderboard | Top users by lifetime points
-[**ping**](VeraPointsApi.md#ping) | **POST** /v1/vera/ping | Public health/liveness check (no auth)
 [**record_session**](VeraPointsApi.md#record_session) | **POST** /v1/vera/session | /vera/session
 
 
@@ -129,36 +128,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## ping
-
-> models::PingResponse ping(ping_request)
-Public health/liveness check (no auth)
-
-Public POST endpoint. No authentication required. Optional body for client identification; returns 200 with status ok. 
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**ping_request** | Option<[**PingRequest**](PingRequest.md)> |  |  |
-
-### Return type
-
-[**models::PingResponse**](PingResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
