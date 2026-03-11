@@ -298,8 +298,6 @@ paths:
     $ref: "./vera-api.yaml#/paths/~1v1~1vera~1balance"
   /v1/vera/leaderboard:
     $ref: "./vera-api.yaml#/paths/~1v1~1vera~1leaderboard"
-  /v1/vera/ping:
-    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1ping"
   /v1/vera/swap/claim:
     $ref: "./vera-api.yaml#/paths/~1v1~1vera~1swap~1claim"
   /v1/vera/vault/claim:

@@ -167,22 +167,6 @@ components:
           type: integer
           description: Total number of users (for pagination).
 
-    PingRequest:
-      type: object
-      properties:
-        client:
-          type: string
-          description: Optional client identifier (e.g. mobile, web).
-    PingResponse:
-      type: object
-      required:
-        - status
-      properties:
-        status:
-          type: string
-          enum: [ok]
-          example: "ok"
-
 paths:
   /v1/vera/balance:
     get:
@@ -244,30 +228,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LeaderboardResponse"
-
-  /v1/vera/ping:
-    post:
-      tags:
-        - Vera Points
-      operationId: ping
-      summary: Public health/liveness check (no auth)
-      description: |
-        Public POST endpoint. No authentication required.
-        Optional body for client identification; returns 200 with status ok.
-      security: []
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PingRequest"
-      responses:
-        "200":
-          description: Service is alive
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PingResponse"
 
   /v1/vera/swap/claim:
     post:
