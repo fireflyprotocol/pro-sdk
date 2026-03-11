@@ -122,8 +122,6 @@ openapi_client/docs/OrderType.md
 openapi_client/docs/OrderbookDepthResponse.md
 openapi_client/docs/OrderbookDiffDepthUpdate.md
 openapi_client/docs/OrderbookPartialDepthUpdate.md
-openapi_client/docs/PingRequest.md
-openapi_client/docs/PingResponse.md
 openapi_client/docs/Position.md
 openapi_client/docs/PositionSide.md
 openapi_client/docs/ProofPoints.md
@@ -282,8 +280,6 @@ openapi_client/models/order_type.py
 openapi_client/models/orderbook_depth_response.py
 openapi_client/models/orderbook_diff_depth_update.py
 openapi_client/models/orderbook_partial_depth_update.py
-openapi_client/models/ping_request.py
-openapi_client/models/ping_response.py
 openapi_client/models/position.py
 openapi_client/models/position_side.py
 openapi_client/models/proof_points.py
@@ -329,15 +325,4 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
-openapi_client/test/test_balance_response.py
-openapi_client/test/test_leaderboard_entry1.py
-openapi_client/test/test_leaderboard_response1.py
-openapi_client/test/test_ping_request.py
-openapi_client/test/test_ping_response.py
-openapi_client/test/test_session_response.py
-openapi_client/test/test_swap_claim_request.py
-openapi_client/test/test_swap_claim_response.py
-openapi_client/test/test_vault_claim_request.py
-openapi_client/test/test_vault_claim_response.py
-openapi_client/test/test_vera_points_api.py
 openapi_client_README.md

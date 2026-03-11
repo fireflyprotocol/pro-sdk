@@ -8,7 +8,6 @@ Method | HTTP request | Description
 [**claim_vault**](VeraPointsApi.md#claim_vault) | **POST** /v1/vera/vault/claim | /vera/vault/claim
 [**get_balance**](VeraPointsApi.md#get_balance) | **GET** /v1/vera/balance | Get user&#39;s points, tier, and rank
 [**get_leaderboard**](VeraPointsApi.md#get_leaderboard) | **GET** /v1/vera/leaderboard | Top users by lifetime points
-[**ping**](VeraPointsApi.md#ping) | **POST** /v1/vera/ping | Public health/liveness check (no auth)
 [**record_session**](VeraPointsApi.md#record_session) | **POST** /v1/vera/session | /vera/session
 
 
@@ -314,77 +313,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Leaderboard entries |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **ping**
-> PingResponse ping(ping_request=ping_request)
-
-Public health/liveness check (no auth)
-
-Public POST endpoint. No authentication required.
-Optional body for client identification; returns 200 with status ok.
-
-
-### Example
-
-
-```python
-import openapi_client
-from openapi_client.models.ping_request import PingRequest
-from openapi_client.models.ping_response import PingResponse
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
-# See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
-    host = "https://api.sui-staging.bluefin.io"
-)
-
-
-# Enter a context with an instance of the API client
-async with openapi_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = openapi_client.VeraPointsApi(api_client)
-    ping_request = openapi_client.PingRequest() # PingRequest |  (optional)
-
-    try:
-        # Public health/liveness check (no auth)
-        api_response = await api_instance.ping(ping_request=ping_request)
-        print("The response of VeraPointsApi->ping:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling VeraPointsApi->ping: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ping_request** | [**PingRequest**](PingRequest.md)|  | [optional] 
-
-### Return type
-
-[**PingResponse**](PingResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Service is alive |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

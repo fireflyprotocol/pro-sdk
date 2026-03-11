@@ -146,8 +146,6 @@ from openapi_client.models.order_type import OrderType
 from openapi_client.models.orderbook_depth_response import OrderbookDepthResponse
 from openapi_client.models.orderbook_diff_depth_update import OrderbookDiffDepthUpdate
 from openapi_client.models.orderbook_partial_depth_update import OrderbookPartialDepthUpdate
-from openapi_client.models.ping_request import PingRequest
-from openapi_client.models.ping_response import PingResponse
 from openapi_client.models.position import Position
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.proof_points import ProofPoints
