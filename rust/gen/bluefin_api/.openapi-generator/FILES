@@ -42,6 +42,7 @@ docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
 docs/AuthorizedWallet.md
+docs/BalanceResponse.md
 docs/CampaignMetadata.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
@@ -76,8 +77,10 @@ docs/IntervalRewards.md
 docs/IssBase64Details.md
 docs/KlineInterval.md
 docs/LeaderboardEntry.md
+docs/LeaderboardEntry1.md
 docs/LeaderboardInterval.md
 docs/LeaderboardResponse.md
+docs/LeaderboardResponse1.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
@@ -111,6 +114,8 @@ docs/OrderType.md
 docs/OrderbookDepthResponse.md
 docs/OrderbookDiffDepthUpdate.md
 docs/OrderbookPartialDepthUpdate.md
+docs/PingRequest.md
+docs/PingResponse.md
 docs/Position.md
 docs/PositionSide.md
 docs/ProofPoints.md
@@ -122,6 +127,7 @@ docs/RewardsApi.md
 docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SessionResponse.md
 docs/SigPayload.md
 docs/SortOrder.md
 docs/SponsorTxRequest.md
@@ -133,6 +139,8 @@ docs/StatsResponse.md
 docs/StreamsApi.md
 docs/SubscriptionResponseMessage.md
 docs/SubscriptionType.md
+docs/SwapClaimRequest.md
+docs/SwapClaimResponse.md
 docs/TickerAllUpdate.md
 docs/TickerResponse.md
 docs/TickerUpdate.md
@@ -147,6 +155,9 @@ docs/UpdateAccountPreferenceRequest.md
 docs/UpdateAffiliateEmberRefferalShareRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
+docs/VaultClaimRequest.md
+docs/VaultClaimResponse.md
+docs/VeraPointsApi.md
 docs/WithdrawRequest.md
 docs/WithdrawRequestSignedFields.md
 docs/ZkLoginUserDetailsResponse.md
@@ -161,6 +172,7 @@ src/apis/mod.rs
 src/apis/rewards_api.rs
 src/apis/streams_api.rs
 src/apis/trade_api.rs
+src/apis/vera_points_api.rs
 src/lib.rs
 src/models/account.rs
 src/models/account_aggregated_trade_update.rs
@@ -200,6 +212,7 @@ src/models/affiliate_summary.rs
 src/models/asset.rs
 src/models/asset_config.rs
 src/models/authorized_wallet.rs
+src/models/balance_response.rs
 src/models/campaign_metadata.rs
 src/models/cancel_orders_request.rs
 src/models/cancel_orders_response.rs
@@ -233,8 +246,10 @@ src/models/interval_rewards.rs
 src/models/iss_base64_details.rs
 src/models/kline_interval.rs
 src/models/leaderboard_entry.rs
+src/models/leaderboard_entry_1.rs
 src/models/leaderboard_interval.rs
 src/models/leaderboard_response.rs
+src/models/leaderboard_response_1.rs
 src/models/login_request.rs
 src/models/login_response.rs
 src/models/margin_type.rs
@@ -269,6 +284,8 @@ src/models/order_type.rs
 src/models/orderbook_depth_response.rs
 src/models/orderbook_diff_depth_update.rs
 src/models/orderbook_partial_depth_update.rs
+src/models/ping_request.rs
+src/models/ping_response.rs
 src/models/position.rs
 src/models/position_side.rs
 src/models/proof_points.rs
@@ -279,6 +296,7 @@ src/models/refresh_token_response.rs
 src/models/rewards_pool_entry.rs
 src/models/rewards_summary.rs
 src/models/self_trade_prevention_type.rs
+src/models/session_response.rs
 src/models/sig_payload.rs
 src/models/sort_order.rs
 src/models/sponsor_tx_request.rs
@@ -289,6 +307,8 @@ src/models/stats_interval.rs
 src/models/stats_response.rs
 src/models/subscription_response_message.rs
 src/models/subscription_type.rs
+src/models/swap_claim_request.rs
+src/models/swap_claim_response.rs
 src/models/ticker_all_update.rs
 src/models/ticker_response.rs
 src/models/ticker_update.rs
@@ -302,6 +322,8 @@ src/models/update_account_preference_request.rs
 src/models/update_affiliate_ember_refferal_share_request.rs
 src/models/update_affiliate_fee_config_request.rs
 src/models/user_campaign_rewards.rs
+src/models/vault_claim_request.rs
+src/models/vault_claim_response.rs
 src/models/withdraw_request.rs
 src/models/withdraw_request_signed_fields.rs
 src/models/zk_login_user_details_response.rs

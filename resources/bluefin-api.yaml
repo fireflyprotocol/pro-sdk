@@ -292,9 +292,21 @@ paths:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1claims~1mark-claimed"
   /v1/rewards/contract/config:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1contract~1config"
-  
-  
-              
+
+  # Vera Points Endpoints
+  /v1/vera/balance:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1balance"
+  /v1/vera/leaderboard:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1leaderboard"
+  /v1/vera/ping:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1ping"
+  /v1/vera/swap/claim:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1swap~1claim"
+  /v1/vera/vault/claim:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1vault~1claim"
+  /v1/vera/session:
+    $ref: "./vera-api.yaml#/paths/~1v1~1vera~1session"
+
   /ws/account:
     $ref: "./websocket-api.yaml#/paths/~1ws~1account"
     servers:

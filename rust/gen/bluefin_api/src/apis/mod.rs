@@ -117,5 +117,6 @@ pub mod exchange_api;
 pub mod rewards_api;
 pub mod streams_api;
 pub mod trade_api;
+pub mod vera_points_api;
 
 pub mod configuration;

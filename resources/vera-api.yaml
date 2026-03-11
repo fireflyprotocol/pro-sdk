@@ -1,0 +1,369 @@
+openapi: 3.0.3
+info:
+  title: Vera Points API
+  description: |
+    Vera Points (VP) loyalty system endpoints.
+    Points are represented as string values.
+    GET endpoints are public (no auth). POST endpoints require JWT (bearerAuth) unless marked public.
+  version: 1.0.0
+tags:
+  - name: Vera Points
+    description: Vera Points loyalty system endpoints
+servers:
+  - url: https://api.{env}.bluefin.io
+    variables:
+      env:
+        default: sui-staging
+        enum:
+          - sui-staging
+          - sui-prod
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SwapClaimRequest:
+      type: object
+      required:
+        - txHash
+      properties:
+        txHash:
+          type: string
+          description: On-chain transaction hash of the swap.
+          example: "0xabc123def456789abc123def456789abc123def456789abc123def456789abcd"
+
+    SwapClaimResponse:
+      type: object
+      required:
+        - txHash
+        - status
+      properties:
+        txHash:
+          type: string
+          description: The claimed transaction hash.
+          example: "0xabc123def456789abc123def456789abc123def456789abc123def456789abcd"
+        status:
+          type: string
+          enum:
+            - claimed
+          description: Claim status.
+          example: "claimed"
+
+    VaultClaimRequest:
+      type: object
+      required:
+        - txHash
+      properties:
+        txHash:
+          type: string
+          description: On-chain transaction hash of the vault deposit.
+          example: "0xabc123def456789abc123def456789abc123def456789abc123def456789abcd"
+
+    VaultClaimResponse:
+      type: object
+      required:
+        - txHash
+        - status
+      properties:
+        txHash:
+          type: string
+          description: The claimed transaction hash.
+          example: "0xabc123def456789abc123def456789abc123def456789abc123def456789abcd"
+        status:
+          type: string
+          enum:
+            - claimed
+          description: Claim status.
+          example: "claimed"
+
+    SessionResponse:
+      type: object
+      required:
+        - userAddress
+        - sessionDate
+      properties:
+        userAddress:
+          type: string
+          description: User's wallet address.
+          example: "0x1234567890abcdef"
+        sessionDate:
+          type: string
+          format: date
+          description: UTC date of the recorded session.
+          example: "2026-02-17"
+
+    BalanceResponse:
+      type: object
+      required:
+        - userAddress
+        - totalPoints
+        - currentTier
+        - rank
+        - nextTier
+        - nextTierThreshold
+      properties:
+        userAddress:
+          type: string
+          description: User's wallet address.
+          example: "0x1234567890abcdef"
+        totalPoints:
+          type: string
+          description: Lifetime Vera Points total.
+          example: "125000"
+        currentTier:
+          type: string
+          enum: [NONE, SILVER, GOLD, PLATINUM, DIAMOND]
+          description: Current status tier.
+          example: "GOLD"
+        rank:
+          type: integer
+          description: User's rank by lifetime points (1-based).
+          example: 42
+        nextTier:
+          type: string
+          enum: [SILVER, GOLD, PLATINUM, DIAMOND]
+          nullable: true
+          description: Next tier above current; null if Diamond.
+          example: "PLATINUM"
+        nextTierThreshold:
+          type: string
+          nullable: true
+          description: Points required for next tier; null if Diamond.
+          example: "1000000"
+
+    LeaderboardEntry:
+      type: object
+      required:
+        - rank
+        - userAddress
+        - totalPoints
+        - currentTier
+      properties:
+        rank:
+          type: integer
+          description: Rank by lifetime points (1-based).
+        userAddress:
+          type: string
+          description: Wallet address (may be partially masked in response).
+        totalPoints:
+          type: string
+          description: Lifetime Vera Points total.
+        currentTier:
+          type: string
+          enum: [NONE, SILVER, GOLD, PLATINUM, DIAMOND]
+
+    LeaderboardResponse:
+      type: object
+      required:
+        - entries
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeaderboardEntry"
+        total:
+          type: integer
+          description: Total number of users (for pagination).
+
+    PingRequest:
+      type: object
+      properties:
+        client:
+          type: string
+          description: Optional client identifier (e.g. mobile, web).
+    PingResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [ok]
+          example: "ok"
+
+paths:
+  /v1/vera/balance:
+    get:
+      tags:
+        - Vera Points
+      operationId: getBalance
+      summary: Get user's points, tier, and rank
+      description: |
+        Returns a user's lifetime Vera Points, current tier, rank, and next tier threshold.
+        Public endpoint; user_address is passed as query parameter.
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Wallet address to look up balance for.
+      responses:
+        "200":
+          description: User's balance and tier info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceResponse"
+        "400":
+          description: Missing or invalid userAddress
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/vera/leaderboard:
+    get:
+      tags:
+        - Vera Points
+      operationId: getLeaderboard
+      summary: Top users by lifetime points
+      description: Paginated leaderboard ranked by lifetime Vera Points.
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Number of entries to return.
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of entries to skip.
+      responses:
+        "200":
+          description: Leaderboard entries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaderboardResponse"
+
+  /v1/vera/ping:
+    post:
+      tags:
+        - Vera Points
+      operationId: ping
+      summary: Public health/liveness check (no auth)
+      description: |
+        Public POST endpoint. No authentication required.
+        Optional body for client identification; returns 200 with status ok.
+      security: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PingRequest"
+      responses:
+        "200":
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PingResponse"
+
+  /v1/vera/swap/claim:
+    post:
+      tags:
+        - Vera Points
+      operationId: claimSwap
+      summary: /vera/swap/claim
+      description: |
+        Claim a swap transaction for Vera Points attribution.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwapClaimRequest"
+      responses:
+        "200":
+          description: Swap claim recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwapClaimResponse"
+        "400":
+          description: "Invalid or missing transaction hash"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "Missing or invalid authentication token"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/vera/vault/claim:
+    post:
+      tags:
+        - Vera Points
+      operationId: claimVault
+      summary: /vera/vault/claim
+      description: |
+        Claim a vault deposit transaction for Vera Points attribution.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VaultClaimRequest"
+      responses:
+        "200":
+          description: Vault claim recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VaultClaimResponse"
+        "400":
+          description: "Invalid or missing transaction hash"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        "401":
+          description: "Missing or invalid authentication token"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+
+  /v1/vera/session:
+    post:
+      tags:
+        - Vera Points
+      operationId: recordSession
+      summary: /vera/session
+      description: |
+        Record a daily app session for vault points eligibility.
+        user_address is extracted from JWT; session_date is set server-side to the current UTC date.
+        Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops.
+        This is a required daily gate for vault balance points.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Session recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionResponse"
+        "401":
+          description: "Missing or invalid authentication token"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"

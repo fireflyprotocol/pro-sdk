@@ -6,6 +6,7 @@ openapi_client/api/exchange_api.py
 openapi_client/api/rewards_api.py
 openapi_client/api/streams_api.py
 openapi_client/api/trade_api.py
+openapi_client/api/vera_points_api.py
 openapi_client/api_client.py
 openapi_client/api_response.py
 openapi_client/configuration.py
@@ -49,6 +50,7 @@ openapi_client/docs/Asset.md
 openapi_client/docs/AssetConfig.md
 openapi_client/docs/AuthApi.md
 openapi_client/docs/AuthorizedWallet.md
+openapi_client/docs/BalanceResponse.md
 openapi_client/docs/CampaignMetadata.md
 openapi_client/docs/CancelOrdersRequest.md
 openapi_client/docs/CancelOrdersResponse.md
@@ -83,8 +85,10 @@ openapi_client/docs/IntervalRewards.md
 openapi_client/docs/IssBase64Details.md
 openapi_client/docs/KlineInterval.md
 openapi_client/docs/LeaderboardEntry.md
+openapi_client/docs/LeaderboardEntry1.md
 openapi_client/docs/LeaderboardInterval.md
 openapi_client/docs/LeaderboardResponse.md
+openapi_client/docs/LeaderboardResponse1.md
 openapi_client/docs/LoginRequest.md
 openapi_client/docs/LoginResponse.md
 openapi_client/docs/MarginType.md
@@ -118,6 +122,8 @@ openapi_client/docs/OrderType.md
 openapi_client/docs/OrderbookDepthResponse.md
 openapi_client/docs/OrderbookDiffDepthUpdate.md
 openapi_client/docs/OrderbookPartialDepthUpdate.md
+openapi_client/docs/PingRequest.md
+openapi_client/docs/PingResponse.md
 openapi_client/docs/Position.md
 openapi_client/docs/PositionSide.md
 openapi_client/docs/ProofPoints.md
@@ -129,6 +135,7 @@ openapi_client/docs/RewardsApi.md
 openapi_client/docs/RewardsPoolEntry.md
 openapi_client/docs/RewardsSummary.md
 openapi_client/docs/SelfTradePreventionType.md
+openapi_client/docs/SessionResponse.md
 openapi_client/docs/SigPayload.md
 openapi_client/docs/SortOrder.md
 openapi_client/docs/SponsorTxRequest.md
@@ -140,6 +147,8 @@ openapi_client/docs/StatsResponse.md
 openapi_client/docs/StreamsApi.md
 openapi_client/docs/SubscriptionResponseMessage.md
 openapi_client/docs/SubscriptionType.md
+openapi_client/docs/SwapClaimRequest.md
+openapi_client/docs/SwapClaimResponse.md
 openapi_client/docs/TickerAllUpdate.md
 openapi_client/docs/TickerResponse.md
 openapi_client/docs/TickerUpdate.md
@@ -154,6 +163,9 @@ openapi_client/docs/UpdateAccountPreferenceRequest.md
 openapi_client/docs/UpdateAffiliateEmberRefferalShareRequest.md
 openapi_client/docs/UpdateAffiliateFeeConfigRequest.md
 openapi_client/docs/UserCampaignRewards.md
+openapi_client/docs/VaultClaimRequest.md
+openapi_client/docs/VaultClaimResponse.md
+openapi_client/docs/VeraPointsApi.md
 openapi_client/docs/WithdrawRequest.md
 openapi_client/docs/WithdrawRequestSignedFields.md
 openapi_client/docs/ZKLoginUserDetailsResponse.md
@@ -199,6 +211,7 @@ openapi_client/models/affiliate_summary.py
 openapi_client/models/asset.py
 openapi_client/models/asset_config.py
 openapi_client/models/authorized_wallet.py
+openapi_client/models/balance_response.py
 openapi_client/models/campaign_metadata.py
 openapi_client/models/cancel_orders_request.py
 openapi_client/models/cancel_orders_response.py
@@ -232,8 +245,10 @@ openapi_client/models/interval_rewards.py
 openapi_client/models/iss_base64_details.py
 openapi_client/models/kline_interval.py
 openapi_client/models/leaderboard_entry.py
+openapi_client/models/leaderboard_entry1.py
 openapi_client/models/leaderboard_interval.py
 openapi_client/models/leaderboard_response.py
+openapi_client/models/leaderboard_response1.py
 openapi_client/models/login_request.py
 openapi_client/models/login_response.py
 openapi_client/models/margin_type.py
@@ -267,6 +282,8 @@ openapi_client/models/order_type.py
 openapi_client/models/orderbook_depth_response.py
 openapi_client/models/orderbook_diff_depth_update.py
 openapi_client/models/orderbook_partial_depth_update.py
+openapi_client/models/ping_request.py
+openapi_client/models/ping_response.py
 openapi_client/models/position.py
 openapi_client/models/position_side.py
 openapi_client/models/proof_points.py
@@ -277,6 +294,7 @@ openapi_client/models/refresh_token_response.py
 openapi_client/models/rewards_pool_entry.py
 openapi_client/models/rewards_summary.py
 openapi_client/models/self_trade_prevention_type.py
+openapi_client/models/session_response.py
 openapi_client/models/sig_payload.py
 openapi_client/models/sort_order.py
 openapi_client/models/sponsor_tx_request.py
@@ -287,6 +305,8 @@ openapi_client/models/stats_interval.py
 openapi_client/models/stats_response.py
 openapi_client/models/subscription_response_message.py
 openapi_client/models/subscription_type.py
+openapi_client/models/swap_claim_request.py
+openapi_client/models/swap_claim_response.py
 openapi_client/models/ticker_all_update.py
 openapi_client/models/ticker_response.py
 openapi_client/models/ticker_update.py
@@ -300,6 +320,8 @@ openapi_client/models/update_account_preference_request.py
 openapi_client/models/update_affiliate_ember_refferal_share_request.py
 openapi_client/models/update_affiliate_fee_config_request.py
 openapi_client/models/user_campaign_rewards.py
+openapi_client/models/vault_claim_request.py
+openapi_client/models/vault_claim_response.py
 openapi_client/models/withdraw_request.py
 openapi_client/models/withdraw_request_signed_fields.py
 openapi_client/models/zk_login_user_details_response.py
@@ -307,4 +329,15 @@ openapi_client/models/zk_login_zkp_request.py
 openapi_client/models/zk_login_zkp_response.py
 openapi_client/rest.py
 openapi_client/test/__init__.py
+openapi_client/test/test_balance_response.py
+openapi_client/test/test_leaderboard_entry1.py
+openapi_client/test/test_leaderboard_response1.py
+openapi_client/test/test_ping_request.py
+openapi_client/test/test_ping_response.py
+openapi_client/test/test_session_response.py
+openapi_client/test/test_swap_claim_request.py
+openapi_client/test/test_swap_claim_response.py
+openapi_client/test/test_vault_claim_request.py
+openapi_client/test/test_vault_claim_response.py
+openapi_client/test/test_vera_points_api.py
 openapi_client_README.md
