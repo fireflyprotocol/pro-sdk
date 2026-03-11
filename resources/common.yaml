@@ -10,6 +10,12 @@ tags:
 components:
   schemas:
     # enums, please sort it in alphabetical order
+    ClientType:
+      type: string
+      description: The client application that initiated the request.
+      enum:
+      - WEB
+      - VERA
     MarginType:
       type: string
       description: Margin type.
@@ -240,7 +246,7 @@ components:
           description: Trade timestamp in milliseconds since Unix epoch.
           example: 1569514978020
         client:
-          $ref: './auth-api.yaml#/components/schemas/ClientType'
+          $ref: '#/components/schemas/ClientType'
     TradingFees:
       type: object
       required:

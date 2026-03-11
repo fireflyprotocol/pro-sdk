@@ -25,12 +25,7 @@ components:
             $ref: './common.yaml#/components/schemas/Error'
   schemas:
     ClientType:
-      type: string
-      description: The client application that originated the JWT token
-      enum:
-        - WEB
-        - VERA
-      example: WEB
+      $ref: './common.yaml#/components/schemas/ClientType'
     JwksResponse:
       type: object
       additionalProperties: true
@@ -268,7 +263,8 @@ paths:
     get:
       tags:
         - Auth
-      description: OpenID Connect Discovery endpoint
+      summary: /.well-known/openid-configuration  
+      description: OpenID Connect Discovery endpoint 
       operationId: GetWellKnownOpenidConfiguration
       responses:
         '200':
@@ -283,6 +279,7 @@ paths:
     get:
       tags:
         - Auth
+      summary: /auth/zklogin
       description: ZK Login User Details
       operationId: GetZkLoginUserDetails
       parameters:
@@ -317,7 +314,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: ZK Login Zero-Knowledge Proof Proxy Endpoint
+      summary: /auth/zklogin/zkp  
       operationId: PostZkLoginZkp
       parameters:
         - in: header
@@ -552,7 +549,8 @@ paths:
     post:
       tags:
         - Auth
-      description: 'OAuth2 client_credentials grant for service accounts'
+      summary: /auth/client-credentials  
+      description: 'OAuth2 client_credentials grant for service accounts' 
       operationId: PostAuthClientCredentials
       requestBody:
         required: true
@@ -587,6 +585,7 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
   /auth/allowed/{accountAddress}:
     get:
+      x-internal: true
       tags:
         - Auth
       summary: "Internal use only for private launch; Will be removed when we go fully live"

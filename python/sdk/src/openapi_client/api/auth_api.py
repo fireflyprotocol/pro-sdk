@@ -1265,7 +1265,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> OpenIDConfigurationResponse:
-        """get_well_known_openid_configuration
+        """/.well-known/openid-configuration
 
         OpenID Connect Discovery endpoint
 
@@ -1328,7 +1328,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[OpenIDConfigurationResponse]:
-        """get_well_known_openid_configuration
+        """/.well-known/openid-configuration
 
         OpenID Connect Discovery endpoint
 
@@ -1391,7 +1391,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """get_well_known_openid_configuration
+        """/.well-known/openid-configuration
 
         OpenID Connect Discovery endpoint
 
@@ -1511,7 +1511,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ZKLoginUserDetailsResponse:
-        """get_zk_login_user_details
+        """/auth/zklogin
 
         ZK Login User Details
 
@@ -1580,7 +1580,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ZKLoginUserDetailsResponse]:
-        """get_zk_login_user_details
+        """/auth/zklogin
 
         ZK Login User Details
 
@@ -1649,7 +1649,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """get_zk_login_user_details
+        """/auth/zklogin
 
         ZK Login User Details
 
@@ -1777,7 +1777,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ClientCredentialsResponse:
-        """post_auth_client_credentials
+        """/auth/client-credentials
 
         OAuth2 client_credentials grant for service accounts
 
@@ -1847,7 +1847,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ClientCredentialsResponse]:
-        """post_auth_client_credentials
+        """/auth/client-credentials
 
         OAuth2 client_credentials grant for service accounts
 
@@ -1917,7 +1917,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """post_auth_client_credentials
+        """/auth/client-credentials
 
         OAuth2 client_credentials grant for service accounts
 
@@ -2060,7 +2060,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ZKLoginZKPResponse:
-        """ZK Login Zero-Knowledge Proof Proxy Endpoint
+        """/auth/zklogin/zkp
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)
@@ -2132,7 +2132,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ZKLoginZKPResponse]:
-        """ZK Login Zero-Knowledge Proof Proxy Endpoint
+        """/auth/zklogin/zkp
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)
@@ -2204,7 +2204,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """ZK Login Zero-Knowledge Proof Proxy Endpoint
+        """/auth/zklogin/zkp
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)

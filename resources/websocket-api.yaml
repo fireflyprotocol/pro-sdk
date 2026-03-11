@@ -450,7 +450,7 @@ components:
           format: int64
           description: "The timestamp of the last update of the order in milliseconds."
         client:
-          $ref: './auth-api.yaml#/components/schemas/ClientType'
+          $ref: './common.yaml#/components/schemas/ClientType'
       required:
         - orderHash
         - symbol

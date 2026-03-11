@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ClientType : The client application that originated the JWT token
-/// The client application that originated the JWT token
+/// ClientType : The client application that initiated the request.
+/// The client application that initiated the request.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ClientType {
     #[serde(rename = "WEB")]

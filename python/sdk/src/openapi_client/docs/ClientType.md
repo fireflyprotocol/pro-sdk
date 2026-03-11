@@ -1,6 +1,6 @@
 # ClientType
 
-The client application that originated the JWT token
+The client application that initiated the request.
 
 ## Enum
 

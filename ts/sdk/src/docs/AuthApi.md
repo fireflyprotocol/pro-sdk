@@ -8,10 +8,10 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**authTokenPost**](#authtokenpost) | **POST** /auth/token | |
 |[**authTokenRefreshPut**](#authtokenrefreshput) | **PUT** /auth/token/refresh | |
 |[**authV2TokenPost**](#authv2tokenpost) | **POST** /auth/v2/token | |
-|[**getWellKnownOpenidConfiguration**](#getwellknownopenidconfiguration) | **GET** /.well-known/openid-configuration | |
-|[**getZkLoginUserDetails**](#getzkloginuserdetails) | **GET** /auth/zklogin | |
-|[**postAuthClientCredentials**](#postauthclientcredentials) | **POST** /auth/client-credentials | |
-|[**postZkLoginZkp**](#postzkloginzkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint|
+|[**getWellKnownOpenidConfiguration**](#getwellknownopenidconfiguration) | **GET** /.well-known/openid-configuration | /.well-known/openid-configuration|
+|[**getZkLoginUserDetails**](#getzkloginuserdetails) | **GET** /auth/zklogin | /auth/zklogin|
+|[**postAuthClientCredentials**](#postauthclientcredentials) | **POST** /auth/client-credentials | /auth/client-credentials|
+|[**postZkLoginZkp**](#postzkloginzkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp|
 
 # **authJwksGet**
 > { [key: string]: any | undefined; } authJwksGet()

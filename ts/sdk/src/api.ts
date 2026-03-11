@@ -2088,7 +2088,7 @@ export interface ClientCredentialsResponse {
     'expires_in': number;
 }
 /**
- * The client application that originated the JWT token
+ * The client application that initiated the request.
  * @export
  * @enum {string}
  */
@@ -6959,6 +6959,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6988,6 +6989,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7023,6 +7025,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
          * @param {ClientCredentialsRequest} clientCredentialsRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7058,7 +7061,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -7165,6 +7168,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7176,6 +7180,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7188,6 +7193,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
          * @param {ClientCredentialsRequest} clientCredentialsRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7200,7 +7206,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -7267,6 +7273,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7275,6 +7282,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * ZK Login User Details
+         * @summary /auth/zklogin
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7284,6 +7292,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
          * @param {ClientCredentialsRequest} clientCredentialsRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7293,7 +7302,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
-         * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+         * @summary /auth/zklogin/zkp
          * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
          * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
          * @param {*} [options] Override http request option.
@@ -7365,6 +7374,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * OpenID Connect Discovery endpoint
+     * @summary /.well-known/openid-configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
@@ -7375,6 +7385,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * ZK Login User Details
+     * @summary /auth/zklogin
      * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7386,6 +7397,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * OAuth2 client_credentials grant for service accounts
+     * @summary /auth/client-credentials
      * @param {ClientCredentialsRequest} clientCredentialsRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7397,7 +7409,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * 
-     * @summary ZK Login Zero-Knowledge Proof Proxy Endpoint
+     * @summary /auth/zklogin/zkp
      * @param {string} zkloginJwt The JWT of the user signed in with zkLogin.
      * @param {ZKLoginZKPRequest} zKLoginZKPRequest 
      * @param {*} [options] Override http request option.

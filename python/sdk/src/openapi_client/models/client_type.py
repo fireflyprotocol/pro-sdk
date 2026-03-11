@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class ClientType(str, Enum):
     """
-    The client application that originated the JWT token
+    The client application that initiated the request.
     """
 
     """
