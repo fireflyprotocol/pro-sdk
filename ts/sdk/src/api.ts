@@ -1831,6 +1831,68 @@ export interface AuthorizedWallet {
 /**
  * 
  * @export
+ * @interface BalanceResponse
+ */
+export interface BalanceResponse {
+    /**
+     * User\'s wallet address.
+     * @type {string}
+     * @memberof BalanceResponse
+     */
+    'userAddress': string;
+    /**
+     * Lifetime Vera Points total.
+     * @type {string}
+     * @memberof BalanceResponse
+     */
+    'totalPoints': string;
+    /**
+     * Current status tier.
+     * @type {string}
+     * @memberof BalanceResponse
+     */
+    'currentTier': BalanceResponseCurrentTierEnum;
+    /**
+     * User\'s rank by lifetime points (1-based).
+     * @type {number}
+     * @memberof BalanceResponse
+     */
+    'rank': number;
+    /**
+     * Next tier above current; null if Diamond.
+     * @type {string}
+     * @memberof BalanceResponse
+     */
+    'nextTier': BalanceResponseNextTierEnum | null;
+    /**
+     * Points required for next tier; null if Diamond.
+     * @type {string}
+     * @memberof BalanceResponse
+     */
+    'nextTierThreshold': string | null;
+}
+
+export const BalanceResponseCurrentTierEnum = {
+    None: 'NONE',
+    Silver: 'SILVER',
+    Gold: 'GOLD',
+    Platinum: 'PLATINUM',
+    Diamond: 'DIAMOND'
+} as const;
+
+export type BalanceResponseCurrentTierEnum = typeof BalanceResponseCurrentTierEnum[keyof typeof BalanceResponseCurrentTierEnum];
+export const BalanceResponseNextTierEnum = {
+    Silver: 'SILVER',
+    Gold: 'GOLD',
+    Platinum: 'PLATINUM',
+    Diamond: 'DIAMOND'
+} as const;
+
+export type BalanceResponseNextTierEnum = typeof BalanceResponseNextTierEnum[keyof typeof BalanceResponseNextTierEnum];
+
+/**
+ * 
+ * @export
  * @interface CampaignMetadata
  */
 export interface CampaignMetadata {
@@ -2955,6 +3017,48 @@ export interface LeaderboardEntry {
 /**
  * 
  * @export
+ * @interface LeaderboardEntry1
+ */
+export interface LeaderboardEntry1 {
+    /**
+     * Rank by lifetime points (1-based).
+     * @type {number}
+     * @memberof LeaderboardEntry1
+     */
+    'rank': number;
+    /**
+     * Wallet address (may be partially masked in response).
+     * @type {string}
+     * @memberof LeaderboardEntry1
+     */
+    'userAddress': string;
+    /**
+     * Lifetime Vera Points total.
+     * @type {string}
+     * @memberof LeaderboardEntry1
+     */
+    'totalPoints': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LeaderboardEntry1
+     */
+    'currentTier': LeaderboardEntry1CurrentTierEnum;
+}
+
+export const LeaderboardEntry1CurrentTierEnum = {
+    None: 'NONE',
+    Silver: 'SILVER',
+    Gold: 'GOLD',
+    Platinum: 'PLATINUM',
+    Diamond: 'DIAMOND'
+} as const;
+
+export type LeaderboardEntry1CurrentTierEnum = typeof LeaderboardEntry1CurrentTierEnum[keyof typeof LeaderboardEntry1CurrentTierEnum];
+
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -2981,6 +3085,25 @@ export interface LeaderboardResponse {
      * @memberof LeaderboardResponse
      */
     'data': Array<LeaderboardEntry>;
+}
+/**
+ * 
+ * @export
+ * @interface LeaderboardResponse1
+ */
+export interface LeaderboardResponse1 {
+    /**
+     * 
+     * @type {Array<LeaderboardEntry1>}
+     * @memberof LeaderboardResponse1
+     */
+    'entries': Array<LeaderboardEntry1>;
+    /**
+     * Total number of users (for pagination).
+     * @type {number}
+     * @memberof LeaderboardResponse1
+     */
+    'total'?: number;
 }
 /**
  * User is expected to sign this payload and sends is signature in login api as header and payload itself in request body 
@@ -4633,6 +4756,25 @@ export type SelfTradePreventionType = typeof SelfTradePreventionType[keyof typeo
 /**
  * 
  * @export
+ * @interface SessionResponse
+ */
+export interface SessionResponse {
+    /**
+     * User\'s wallet address.
+     * @type {string}
+     * @memberof SessionResponse
+     */
+    'userAddress': string;
+    /**
+     * UTC date of the recorded session.
+     * @type {string}
+     * @memberof SessionResponse
+     */
+    'sessionDate': string;
+}
+/**
+ * 
+ * @export
  * @interface SigPayload
  */
 export interface SigPayload {
@@ -4879,6 +5021,45 @@ export const SubscriptionType = {
 
 export type SubscriptionType = typeof SubscriptionType[keyof typeof SubscriptionType];
 
+
+/**
+ * 
+ * @export
+ * @interface SwapClaimRequest
+ */
+export interface SwapClaimRequest {
+    /**
+     * On-chain transaction hash of the swap.
+     * @type {string}
+     * @memberof SwapClaimRequest
+     */
+    'txHash': string;
+}
+/**
+ * 
+ * @export
+ * @interface SwapClaimResponse
+ */
+export interface SwapClaimResponse {
+    /**
+     * The claimed transaction hash.
+     * @type {string}
+     * @memberof SwapClaimResponse
+     */
+    'txHash': string;
+    /**
+     * Claim status.
+     * @type {string}
+     * @memberof SwapClaimResponse
+     */
+    'status': SwapClaimResponseStatusEnum;
+}
+
+export const SwapClaimResponseStatusEnum = {
+    Claimed: 'claimed'
+} as const;
+
+export type SwapClaimResponseStatusEnum = typeof SwapClaimResponseStatusEnum[keyof typeof SwapClaimResponseStatusEnum];
 
 /**
  * 
@@ -5745,6 +5926,45 @@ export const UserCampaignRewardsClaimStatusEnum = {
 } as const;
 
 export type UserCampaignRewardsClaimStatusEnum = typeof UserCampaignRewardsClaimStatusEnum[keyof typeof UserCampaignRewardsClaimStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface VaultClaimRequest
+ */
+export interface VaultClaimRequest {
+    /**
+     * On-chain transaction hash of the vault deposit.
+     * @type {string}
+     * @memberof VaultClaimRequest
+     */
+    'txHash': string;
+}
+/**
+ * 
+ * @export
+ * @interface VaultClaimResponse
+ */
+export interface VaultClaimResponse {
+    /**
+     * The claimed transaction hash.
+     * @type {string}
+     * @memberof VaultClaimResponse
+     */
+    'txHash': string;
+    /**
+     * Claim status.
+     * @type {string}
+     * @memberof VaultClaimResponse
+     */
+    'status': VaultClaimResponseStatusEnum;
+}
+
+export const VaultClaimResponseStatusEnum = {
+    Claimed: 'claimed'
+} as const;
+
+export type VaultClaimResponseStatusEnum = typeof VaultClaimResponseStatusEnum[keyof typeof VaultClaimResponseStatusEnum];
 
 /**
  * 
@@ -10946,6 +11166,411 @@ export class TradeApi extends BaseAPI {
      */
     public putLeverageUpdate(accountPositionLeverageUpdateRequest: AccountPositionLeverageUpdateRequest, options?: RawAxiosRequestConfig) {
         return TradeApiFp(this.configuration).putLeverageUpdate(accountPositionLeverageUpdateRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * VeraPointsApi - axios parameter creator
+ * @export
+ */
+export const VeraPointsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Claim a swap transaction for Vera Points attribution. 
+         * @summary /vera/swap/claim
+         * @param {SwapClaimRequest} swapClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        claimSwap: async (swapClaimRequest: SwapClaimRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'swapClaimRequest' is not null or undefined
+            assertParamExists('claimSwap', 'swapClaimRequest', swapClaimRequest)
+            const localVarPath = `/v1/vera/swap/claim`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(swapClaimRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Claim a vault deposit transaction for Vera Points attribution. 
+         * @summary /vera/vault/claim
+         * @param {VaultClaimRequest} vaultClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        claimVault: async (vaultClaimRequest: VaultClaimRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'vaultClaimRequest' is not null or undefined
+            assertParamExists('claimVault', 'vaultClaimRequest', vaultClaimRequest)
+            const localVarPath = `/v1/vera/vault/claim`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(vaultClaimRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a user\'s lifetime Vera Points, current tier, rank, and next tier threshold. Public endpoint; user_address is passed as query parameter. 
+         * @summary Get user\'s points, tier, and rank
+         * @param {string} userAddress Wallet address to look up balance for.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBalance: async (userAddress: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userAddress' is not null or undefined
+            assertParamExists('getBalance', 'userAddress', userAddress)
+            const localVarPath = `/v1/vera/balance`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Paginated leaderboard ranked by lifetime Vera Points.
+         * @summary Top users by lifetime points
+         * @param {number} [limit] Number of entries to return.
+         * @param {number} [offset] Number of entries to skip.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeaderboard: async (limit?: number, offset?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/vera/leaderboard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
+         * @summary /vera/session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordSession: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/vera/session`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * VeraPointsApi - functional programming interface
+ * @export
+ */
+export const VeraPointsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = VeraPointsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Claim a swap transaction for Vera Points attribution. 
+         * @summary /vera/swap/claim
+         * @param {SwapClaimRequest} swapClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async claimSwap(swapClaimRequest: SwapClaimRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SwapClaimResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.claimSwap(swapClaimRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.claimSwap']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Claim a vault deposit transaction for Vera Points attribution. 
+         * @summary /vera/vault/claim
+         * @param {VaultClaimRequest} vaultClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async claimVault(vaultClaimRequest: VaultClaimRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultClaimResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.claimVault(vaultClaimRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.claimVault']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns a user\'s lifetime Vera Points, current tier, rank, and next tier threshold. Public endpoint; user_address is passed as query parameter. 
+         * @summary Get user\'s points, tier, and rank
+         * @param {string} userAddress Wallet address to look up balance for.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBalance(userAddress: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BalanceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBalance(userAddress, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.getBalance']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Paginated leaderboard ranked by lifetime Vera Points.
+         * @summary Top users by lifetime points
+         * @param {number} [limit] Number of entries to return.
+         * @param {number} [offset] Number of entries to skip.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeaderboard(limit?: number, offset?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LeaderboardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeaderboard(limit, offset, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.getLeaderboard']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
+         * @summary /vera/session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async recordSession(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SessionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.recordSession(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VeraPointsApi.recordSession']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * VeraPointsApi - factory interface
+ * @export
+ */
+export const VeraPointsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = VeraPointsApiFp(configuration)
+    return {
+        /**
+         * Claim a swap transaction for Vera Points attribution. 
+         * @summary /vera/swap/claim
+         * @param {SwapClaimRequest} swapClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        claimSwap(swapClaimRequest: SwapClaimRequest, options?: RawAxiosRequestConfig): AxiosPromise<SwapClaimResponse> {
+            return localVarFp.claimSwap(swapClaimRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Claim a vault deposit transaction for Vera Points attribution. 
+         * @summary /vera/vault/claim
+         * @param {VaultClaimRequest} vaultClaimRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        claimVault(vaultClaimRequest: VaultClaimRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultClaimResponse> {
+            return localVarFp.claimVault(vaultClaimRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a user\'s lifetime Vera Points, current tier, rank, and next tier threshold. Public endpoint; user_address is passed as query parameter. 
+         * @summary Get user\'s points, tier, and rank
+         * @param {string} userAddress Wallet address to look up balance for.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBalance(userAddress: string, options?: RawAxiosRequestConfig): AxiosPromise<BalanceResponse> {
+            return localVarFp.getBalance(userAddress, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Paginated leaderboard ranked by lifetime Vera Points.
+         * @summary Top users by lifetime points
+         * @param {number} [limit] Number of entries to return.
+         * @param {number} [offset] Number of entries to skip.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeaderboard(limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<LeaderboardResponse> {
+            return localVarFp.getLeaderboard(limit, offset, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
+         * @summary /vera/session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordSession(options?: RawAxiosRequestConfig): AxiosPromise<SessionResponse> {
+            return localVarFp.recordSession(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * VeraPointsApi - object-oriented interface
+ * @export
+ * @class VeraPointsApi
+ * @extends {BaseAPI}
+ */
+export class VeraPointsApi extends BaseAPI {
+    /**
+     * Claim a swap transaction for Vera Points attribution. 
+     * @summary /vera/swap/claim
+     * @param {SwapClaimRequest} swapClaimRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VeraPointsApi
+     */
+    public claimSwap(swapClaimRequest: SwapClaimRequest, options?: RawAxiosRequestConfig) {
+        return VeraPointsApiFp(this.configuration).claimSwap(swapClaimRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Claim a vault deposit transaction for Vera Points attribution. 
+     * @summary /vera/vault/claim
+     * @param {VaultClaimRequest} vaultClaimRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VeraPointsApi
+     */
+    public claimVault(vaultClaimRequest: VaultClaimRequest, options?: RawAxiosRequestConfig) {
+        return VeraPointsApiFp(this.configuration).claimVault(vaultClaimRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a user\'s lifetime Vera Points, current tier, rank, and next tier threshold. Public endpoint; user_address is passed as query parameter. 
+     * @summary Get user\'s points, tier, and rank
+     * @param {string} userAddress Wallet address to look up balance for.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VeraPointsApi
+     */
+    public getBalance(userAddress: string, options?: RawAxiosRequestConfig) {
+        return VeraPointsApiFp(this.configuration).getBalance(userAddress, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Paginated leaderboard ranked by lifetime Vera Points.
+     * @summary Top users by lifetime points
+     * @param {number} [limit] Number of entries to return.
+     * @param {number} [offset] Number of entries to skip.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VeraPointsApi
+     */
+    public getLeaderboard(limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
+        return VeraPointsApiFp(this.configuration).getLeaderboard(limit, offset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Record a daily app session for vault points eligibility. user_address is extracted from JWT; session_date is set server-side to the current UTC date. Idempotent — one session per (user, date) pair; multiple calls on the same day are no-ops. This is a required daily gate for vault balance points. 
+     * @summary /vera/session
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VeraPointsApi
+     */
+    public recordSession(options?: RawAxiosRequestConfig) {
+        return VeraPointsApiFp(this.configuration).recordSession(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

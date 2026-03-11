@@ -52,6 +52,7 @@ from openapi_client.models.affiliate_summary import AffiliateSummary
 from openapi_client.models.asset import Asset
 from openapi_client.models.asset_config import AssetConfig
 from openapi_client.models.authorized_wallet import AuthorizedWallet
+from openapi_client.models.balance_response import BalanceResponse
 from openapi_client.models.campaign_metadata import CampaignMetadata
 from openapi_client.models.cancel_orders_request import CancelOrdersRequest
 from openapi_client.models.cancel_orders_response import CancelOrdersResponse
@@ -85,8 +86,10 @@ from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.iss_base64_details import IssBase64Details
 from openapi_client.models.kline_interval import KlineInterval
 from openapi_client.models.leaderboard_entry import LeaderboardEntry
+from openapi_client.models.leaderboard_entry1 import LeaderboardEntry1
 from openapi_client.models.leaderboard_interval import LeaderboardInterval
 from openapi_client.models.leaderboard_response import LeaderboardResponse
+from openapi_client.models.leaderboard_response1 import LeaderboardResponse1
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
 from openapi_client.models.margin_type import MarginType
@@ -130,6 +133,7 @@ from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.rewards_pool_entry import RewardsPoolEntry
 from openapi_client.models.rewards_summary import RewardsSummary
 from openapi_client.models.self_trade_prevention_type import SelfTradePreventionType
+from openapi_client.models.session_response import SessionResponse
 from openapi_client.models.sig_payload import SigPayload
 from openapi_client.models.sort_order import SortOrder
 from openapi_client.models.sponsor_tx_request import SponsorTxRequest
@@ -140,6 +144,8 @@ from openapi_client.models.stats_interval import StatsInterval
 from openapi_client.models.stats_response import StatsResponse
 from openapi_client.models.subscription_response_message import SubscriptionResponseMessage
 from openapi_client.models.subscription_type import SubscriptionType
+from openapi_client.models.swap_claim_request import SwapClaimRequest
+from openapi_client.models.swap_claim_response import SwapClaimResponse
 from openapi_client.models.ticker_all_update import TickerAllUpdate
 from openapi_client.models.ticker_response import TickerResponse
 from openapi_client.models.ticker_update import TickerUpdate
@@ -153,6 +159,8 @@ from openapi_client.models.update_account_preference_request import UpdateAccoun
 from openapi_client.models.update_affiliate_ember_refferal_share_request import UpdateAffiliateEmberRefferalShareRequest
 from openapi_client.models.update_affiliate_fee_config_request import UpdateAffiliateFeeConfigRequest
 from openapi_client.models.user_campaign_rewards import UserCampaignRewards
+from openapi_client.models.vault_claim_request import VaultClaimRequest
+from openapi_client.models.vault_claim_response import VaultClaimResponse
 from openapi_client.models.withdraw_request import WithdrawRequest
 from openapi_client.models.withdraw_request_signed_fields import WithdrawRequestSignedFields
 from openapi_client.models.zk_login_user_details_response import ZKLoginUserDetailsResponse

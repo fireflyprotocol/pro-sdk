@@ -44,6 +44,7 @@ docs/Asset.md
 docs/AssetConfig.md
 docs/AuthApi.md
 docs/AuthorizedWallet.md
+docs/BalanceResponse.md
 docs/CampaignMetadata.md
 docs/CancelOrdersRequest.md
 docs/CancelOrdersResponse.md
@@ -78,8 +79,10 @@ docs/IntervalRewards.md
 docs/IssBase64Details.md
 docs/KlineInterval.md
 docs/LeaderboardEntry.md
+docs/LeaderboardEntry1.md
 docs/LeaderboardInterval.md
 docs/LeaderboardResponse.md
+docs/LeaderboardResponse1.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MarginType.md
@@ -124,6 +127,7 @@ docs/RewardsApi.md
 docs/RewardsPoolEntry.md
 docs/RewardsSummary.md
 docs/SelfTradePreventionType.md
+docs/SessionResponse.md
 docs/SigPayload.md
 docs/SortOrder.md
 docs/SponsorTxRequest.md
@@ -135,6 +139,8 @@ docs/StatsResponse.md
 docs/StreamsApi.md
 docs/SubscriptionResponseMessage.md
 docs/SubscriptionType.md
+docs/SwapClaimRequest.md
+docs/SwapClaimResponse.md
 docs/TickerAllUpdate.md
 docs/TickerResponse.md
 docs/TickerUpdate.md
@@ -149,6 +155,9 @@ docs/UpdateAccountPreferenceRequest.md
 docs/UpdateAffiliateEmberRefferalShareRequest.md
 docs/UpdateAffiliateFeeConfigRequest.md
 docs/UserCampaignRewards.md
+docs/VaultClaimRequest.md
+docs/VaultClaimResponse.md
+docs/VeraPointsApi.md
 docs/WithdrawRequest.md
 docs/WithdrawRequestSignedFields.md
 docs/ZKLoginUserDetailsResponse.md

@@ -85,6 +85,11 @@ Class | Method | HTTP request | Description
 *TradeApi* | [**put_authorize_account**](docs/TradeApi.md#put_authorize_account) | **PUT** /api/v1/trade/accounts/authorize | /trade/accounts/authorize
 *TradeApi* | [**put_deauthorize_account**](docs/TradeApi.md#put_deauthorize_account) | **PUT** /api/v1/trade/accounts/deauthorize | /trade/accounts/deauthorize
 *TradeApi* | [**put_leverage_update**](docs/TradeApi.md#put_leverage_update) | **PUT** /api/v1/trade/leverage | /trade/leverage
+*VeraPointsApi* | [**claim_swap**](docs/VeraPointsApi.md#claim_swap) | **POST** /v1/vera/swap/claim | /vera/swap/claim
+*VeraPointsApi* | [**claim_vault**](docs/VeraPointsApi.md#claim_vault) | **POST** /v1/vera/vault/claim | /vera/vault/claim
+*VeraPointsApi* | [**get_balance**](docs/VeraPointsApi.md#get_balance) | **GET** /v1/vera/balance | Get user's points, tier, and rank
+*VeraPointsApi* | [**get_leaderboard**](docs/VeraPointsApi.md#get_leaderboard) | **GET** /v1/vera/leaderboard | Top users by lifetime points
+*VeraPointsApi* | [**record_session**](docs/VeraPointsApi.md#record_session) | **POST** /v1/vera/session | /vera/session
 
 
 ## Documentation For Models
@@ -127,6 +132,7 @@ Class | Method | HTTP request | Description
  - [Asset](docs/Asset.md)
  - [AssetConfig](docs/AssetConfig.md)
  - [AuthorizedWallet](docs/AuthorizedWallet.md)
+ - [BalanceResponse](docs/BalanceResponse.md)
  - [CampaignMetadata](docs/CampaignMetadata.md)
  - [CancelOrdersRequest](docs/CancelOrdersRequest.md)
  - [CancelOrdersResponse](docs/CancelOrdersResponse.md)
@@ -160,8 +166,10 @@ Class | Method | HTTP request | Description
  - [IssBase64Details](docs/IssBase64Details.md)
  - [KlineInterval](docs/KlineInterval.md)
  - [LeaderboardEntry](docs/LeaderboardEntry.md)
+ - [LeaderboardEntry1](docs/LeaderboardEntry1.md)
  - [LeaderboardInterval](docs/LeaderboardInterval.md)
  - [LeaderboardResponse](docs/LeaderboardResponse.md)
+ - [LeaderboardResponse1](docs/LeaderboardResponse1.md)
  - [LoginRequest](docs/LoginRequest.md)
  - [LoginResponse](docs/LoginResponse.md)
  - [MarginType](docs/MarginType.md)
@@ -205,6 +213,7 @@ Class | Method | HTTP request | Description
  - [RewardsPoolEntry](docs/RewardsPoolEntry.md)
  - [RewardsSummary](docs/RewardsSummary.md)
  - [SelfTradePreventionType](docs/SelfTradePreventionType.md)
+ - [SessionResponse](docs/SessionResponse.md)
  - [SigPayload](docs/SigPayload.md)
  - [SortOrder](docs/SortOrder.md)
  - [SponsorTxRequest](docs/SponsorTxRequest.md)
@@ -215,6 +224,8 @@ Class | Method | HTTP request | Description
  - [StatsResponse](docs/StatsResponse.md)
  - [SubscriptionResponseMessage](docs/SubscriptionResponseMessage.md)
  - [SubscriptionType](docs/SubscriptionType.md)
+ - [SwapClaimRequest](docs/SwapClaimRequest.md)
+ - [SwapClaimResponse](docs/SwapClaimResponse.md)
  - [TickerAllUpdate](docs/TickerAllUpdate.md)
  - [TickerResponse](docs/TickerResponse.md)
  - [TickerUpdate](docs/TickerUpdate.md)
@@ -228,6 +239,8 @@ Class | Method | HTTP request | Description
  - [UpdateAffiliateEmberRefferalShareRequest](docs/UpdateAffiliateEmberRefferalShareRequest.md)
  - [UpdateAffiliateFeeConfigRequest](docs/UpdateAffiliateFeeConfigRequest.md)
  - [UserCampaignRewards](docs/UserCampaignRewards.md)
+ - [VaultClaimRequest](docs/VaultClaimRequest.md)
+ - [VaultClaimResponse](docs/VaultClaimResponse.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WithdrawRequestSignedFields](docs/WithdrawRequestSignedFields.md)
  - [ZkLoginUserDetailsResponse](docs/ZkLoginUserDetailsResponse.md)
