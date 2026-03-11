@@ -48,6 +48,8 @@ docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ClaimSignatureItem.md
+docs/ClientCredentialsRequest.md
+docs/ClientCredentialsResponse.md
 docs/ClientType.md
 docs/CommandFailureReasonCode.md
 docs/ContractConfig.md
@@ -94,6 +96,7 @@ docs/MarketSubscriptionStreams.md
 docs/OnboardAffiliateRequest.md
 docs/OnboardAffiliateRequestSocialUserNames.md
 docs/OnboardRefereeRequest.md
+docs/OpenIdConfigurationResponse.md
 docs/OpenOrderResponse.md
 docs/Operators.md
 docs/OraclePriceUpdate.md
@@ -203,6 +206,8 @@ src/models/cancel_orders_response.rs
 src/models/candle_price_type.rs
 src/models/candlestick_update.rs
 src/models/claim_signature_item.rs
+src/models/client_credentials_request.rs
+src/models/client_credentials_response.rs
 src/models/client_type.rs
 src/models/command_failure_reason_code.rs
 src/models/contract_config.rs
@@ -249,6 +254,7 @@ src/models/mod.rs
 src/models/onboard_affiliate_request.rs
 src/models/onboard_affiliate_request_social_user_names.rs
 src/models/onboard_referee_request.rs
+src/models/open_id_configuration_response.rs
 src/models/open_order_response.rs
 src/models/operators.rs
 src/models/oracle_price_update.rs

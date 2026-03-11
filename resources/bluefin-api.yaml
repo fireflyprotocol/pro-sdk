@@ -31,6 +31,16 @@ components:
       $ref: './websocket-api.yaml#/components/schemas/MarketStreamMessage'
 
 paths:
+  /.well-known/openid-configuration:
+    $ref: "./auth-api.yaml#/paths/~1.well-known~1openid-configuration"
+    servers:
+      - url: https://auth.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
   /auth/token:
     $ref: "./auth-api.yaml#/paths/~1auth~1token"
     servers:
@@ -84,6 +94,16 @@ paths:
 
   /auth/zklogin/zkp:
     $ref: "./auth-api.yaml#/paths/~1auth~1zklogin~1zkp"
+    servers:
+      - url: https://auth.api.{env}.bluefin.io
+        variables:
+          env:
+            default: sui-staging
+            enum:
+              - sui-staging
+              - sui-prod
+  /auth/client-credentials:
+    $ref: "./auth-api.yaml#/paths/~1auth~1client-credentials"
     servers:
       - url: https://auth.api.{env}.bluefin.io
         variables:

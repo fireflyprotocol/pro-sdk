@@ -51,6 +51,7 @@ Name | Type | Description | Notes
 **status** | [**OrderStatus**](OrderStatus.md) |  | 
 **self_trade_prevention_type** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [default to SelfTradePreventionType.MAKER]
 **created_at_millis** | **int** | The timestamp of the order creation in milliseconds. | 
+**client** | [**ClientType**](ClientType.md) |  | [optional] 
 **cancellation_reason** | [**OrderCancelReason**](OrderCancelReason.md) |  | 
 **failure_to_cancel_reason** | [**OrderCancellationFailureReason**](OrderCancellationFailureReason.md) |  | [optional] 
 **remaining_quantity_e9** | **str** | The remaining quantity of the order. | 

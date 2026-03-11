@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **mark_price_e9** | **str** | Mark price at the time of trade execution (e9 format). | [optional] 
 **oracle_price_e9** | **str** | Oracle price at the time of trade execution (e9 format). | [optional] 
 **executed_at_millis** | **int** | Trade timestamp in milliseconds since Unix epoch. | 
+**client** | [**ClientType**](ClientType.md) |  | [optional] 
 
 ## Example
 

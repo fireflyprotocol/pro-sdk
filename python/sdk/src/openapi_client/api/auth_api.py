@@ -19,8 +19,12 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import Any, Dict, Optional
 from typing_extensions import Annotated
+from openapi_client.models.client_credentials_request import ClientCredentialsRequest
+from openapi_client.models.client_credentials_response import ClientCredentialsResponse
+from openapi_client.models.client_type import ClientType
 from openapi_client.models.login_request import LoginRequest
 from openapi_client.models.login_response import LoginResponse
+from openapi_client.models.open_id_configuration_response import OpenIDConfigurationResponse
 from openapi_client.models.refresh_token_request import RefreshTokenRequest
 from openapi_client.models.refresh_token_response import RefreshTokenResponse
 from openapi_client.models.zk_login_user_details_response import ZKLoginUserDetailsResponse
@@ -294,6 +298,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -319,6 +324,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -346,6 +353,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -377,6 +385,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -402,6 +411,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -429,6 +440,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -460,6 +472,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -485,6 +498,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -512,6 +527,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -538,6 +554,7 @@ class AuthApi:
         login_request,
         refresh_token_valid_for_seconds,
         read_only,
+        client,
         _request_auth,
         _content_type,
         _headers,
@@ -567,6 +584,10 @@ class AuthApi:
         if read_only is not None:
             
             _query_params.append(('readOnly', read_only))
+            
+        if client is not None:
+            
+            _query_params.append(('client', client.value))
             
         # process the header parameters
         if payload_signature is not None:
@@ -897,6 +918,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -922,6 +944,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -949,6 +973,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -980,6 +1005,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1005,6 +1031,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1032,6 +1060,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1063,6 +1092,7 @@ class AuthApi:
         login_request: LoginRequest,
         refresh_token_valid_for_seconds: Annotated[Optional[StrictInt], Field(description="The number of seconds the refresh token is valid for. If not provided, the default is 30 days.")] = None,
         read_only: Optional[StrictBool] = None,
+        client: Annotated[Optional[ClientType], Field(description="The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1088,6 +1118,8 @@ class AuthApi:
         :type refresh_token_valid_for_seconds: int
         :param read_only:
         :type read_only: bool
+        :param client: The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
+        :type client: ClientType
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1115,6 +1147,7 @@ class AuthApi:
             login_request=login_request,
             refresh_token_valid_for_seconds=refresh_token_valid_for_seconds,
             read_only=read_only,
+            client=client,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1141,6 +1174,7 @@ class AuthApi:
         login_request,
         refresh_token_valid_for_seconds,
         read_only,
+        client,
         _request_auth,
         _content_type,
         _headers,
@@ -1170,6 +1204,10 @@ class AuthApi:
         if read_only is not None:
             
             _query_params.append(('readOnly', read_only))
+            
+        if client is not None:
+            
+            _query_params.append(('client', client.value))
             
         # process the header parameters
         if payload_signature is not None:
@@ -1212,6 +1250,251 @@ class AuthApi:
 
 
     @validate_call
+    async def get_well_known_openid_configuration(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> OpenIDConfigurationResponse:
+        """get_well_known_openid_configuration
+
+        OpenID Connect Discovery endpoint
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_well_known_openid_configuration_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "OpenIDConfigurationResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def get_well_known_openid_configuration_with_http_info(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[OpenIDConfigurationResponse]:
+        """get_well_known_openid_configuration
+
+        OpenID Connect Discovery endpoint
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_well_known_openid_configuration_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "OpenIDConfigurationResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def get_well_known_openid_configuration_without_preload_content(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """get_well_known_openid_configuration
+
+        OpenID Connect Discovery endpoint
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_well_known_openid_configuration_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "OpenIDConfigurationResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_well_known_openid_configuration_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/.well-known/openid-configuration',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     async def get_zk_login_user_details(
         self,
         zklogin_jwt: Annotated[StrictStr, Field(description="The JWT of the user signed in with zkLogin.")],
@@ -1228,7 +1511,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ZKLoginUserDetailsResponse:
-        """/auth/zklogin
+        """get_zk_login_user_details
 
         ZK Login User Details
 
@@ -1297,7 +1580,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ZKLoginUserDetailsResponse]:
-        """/auth/zklogin
+        """get_zk_login_user_details
 
         ZK Login User Details
 
@@ -1366,7 +1649,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """/auth/zklogin
+        """get_zk_login_user_details
 
         ZK Login User Details
 
@@ -1478,6 +1761,288 @@ class AuthApi:
 
 
     @validate_call
+    async def post_auth_client_credentials(
+        self,
+        client_credentials_request: ClientCredentialsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ClientCredentialsResponse:
+        """post_auth_client_credentials
+
+        OAuth2 client_credentials grant for service accounts
+
+        :param client_credentials_request: (required)
+        :type client_credentials_request: ClientCredentialsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._post_auth_client_credentials_serialize(
+            client_credentials_request=client_credentials_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ClientCredentialsResponse",
+            '400': "Error",
+            '401': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def post_auth_client_credentials_with_http_info(
+        self,
+        client_credentials_request: ClientCredentialsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ClientCredentialsResponse]:
+        """post_auth_client_credentials
+
+        OAuth2 client_credentials grant for service accounts
+
+        :param client_credentials_request: (required)
+        :type client_credentials_request: ClientCredentialsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._post_auth_client_credentials_serialize(
+            client_credentials_request=client_credentials_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ClientCredentialsResponse",
+            '400': "Error",
+            '401': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def post_auth_client_credentials_without_preload_content(
+        self,
+        client_credentials_request: ClientCredentialsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """post_auth_client_credentials
+
+        OAuth2 client_credentials grant for service accounts
+
+        :param client_credentials_request: (required)
+        :type client_credentials_request: ClientCredentialsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._post_auth_client_credentials_serialize(
+            client_credentials_request=client_credentials_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ClientCredentialsResponse",
+            '400': "Error",
+            '401': "Error",
+            '500': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _post_auth_client_credentials_serialize(
+        self,
+        client_credentials_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if client_credentials_request is not None:
+            _body_params = client_credentials_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/auth/client-credentials',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     async def post_zk_login_zkp(
         self,
         zklogin_jwt: Annotated[StrictStr, Field(description="The JWT of the user signed in with zkLogin.")],
@@ -1495,7 +2060,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ZKLoginZKPResponse:
-        """/auth/zklogin/zkp
+        """ZK Login Zero-Knowledge Proof Proxy Endpoint
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)
@@ -1567,7 +2132,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ZKLoginZKPResponse]:
-        """/auth/zklogin/zkp
+        """ZK Login Zero-Knowledge Proof Proxy Endpoint
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)
@@ -1639,7 +2204,7 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """/auth/zklogin/zkp
+        """ZK Login Zero-Knowledge Proof Proxy Endpoint
 
 
         :param zklogin_jwt: The JWT of the user signed in with zkLogin. (required)

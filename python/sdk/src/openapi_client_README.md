@@ -80,8 +80,10 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](openapi_client/docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](openapi_client/docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](openapi_client/docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
-*AuthApi* | [**get_zk_login_user_details**](openapi_client/docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | /auth/zklogin
-*AuthApi* | [**post_zk_login_zkp**](openapi_client/docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp
+*AuthApi* | [**get_well_known_openid_configuration**](openapi_client/docs/AuthApi.md#get_well_known_openid_configuration) | **GET** /.well-known/openid-configuration | 
+*AuthApi* | [**get_zk_login_user_details**](openapi_client/docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
+*AuthApi* | [**post_auth_client_credentials**](openapi_client/docs/AuthApi.md#post_auth_client_credentials) | **POST** /auth/client-credentials | 
+*AuthApi* | [**post_zk_login_zkp**](openapi_client/docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
 *ExchangeApi* | [**get_all_market_ticker**](openapi_client/docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](openapi_client/docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_country**](openapi_client/docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
@@ -171,6 +173,9 @@ Class | Method | HTTP request | Description
  - [CandlePriceType](openapi_client/docs/CandlePriceType.md)
  - [CandlestickUpdate](openapi_client/docs/CandlestickUpdate.md)
  - [ClaimSignatureItem](openapi_client/docs/ClaimSignatureItem.md)
+ - [ClientCredentialsRequest](openapi_client/docs/ClientCredentialsRequest.md)
+ - [ClientCredentialsResponse](openapi_client/docs/ClientCredentialsResponse.md)
+ - [ClientType](openapi_client/docs/ClientType.md)
  - [CommandFailureReasonCode](openapi_client/docs/CommandFailureReasonCode.md)
  - [ContractConfig](openapi_client/docs/ContractConfig.md)
  - [ContractsConfig](openapi_client/docs/ContractsConfig.md)
@@ -215,6 +220,7 @@ Class | Method | HTTP request | Description
  - [OnboardAffiliateRequest](openapi_client/docs/OnboardAffiliateRequest.md)
  - [OnboardAffiliateRequestSocialUserNames](openapi_client/docs/OnboardAffiliateRequestSocialUserNames.md)
  - [OnboardRefereeRequest](openapi_client/docs/OnboardRefereeRequest.md)
+ - [OpenIDConfigurationResponse](openapi_client/docs/OpenIDConfigurationResponse.md)
  - [OpenOrderResponse](openapi_client/docs/OpenOrderResponse.md)
  - [Operators](openapi_client/docs/Operators.md)
  - [OraclePriceUpdate](openapi_client/docs/OraclePriceUpdate.md)

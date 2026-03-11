@@ -40,8 +40,10 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**auth_token_post**](docs/AuthApi.md#auth_token_post) | **POST** /auth/token | 
 *AuthApi* | [**auth_token_refresh_put**](docs/AuthApi.md#auth_token_refresh_put) | **PUT** /auth/token/refresh | 
 *AuthApi* | [**auth_v2_token_post**](docs/AuthApi.md#auth_v2_token_post) | **POST** /auth/v2/token | 
-*AuthApi* | [**get_zk_login_user_details**](docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | /auth/zklogin
-*AuthApi* | [**post_zk_login_zkp**](docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | /auth/zklogin/zkp
+*AuthApi* | [**get_well_known_openid_configuration**](docs/AuthApi.md#get_well_known_openid_configuration) | **GET** /.well-known/openid-configuration | 
+*AuthApi* | [**get_zk_login_user_details**](docs/AuthApi.md#get_zk_login_user_details) | **GET** /auth/zklogin | 
+*AuthApi* | [**post_auth_client_credentials**](docs/AuthApi.md#post_auth_client_credentials) | **POST** /auth/client-credentials | 
+*AuthApi* | [**post_zk_login_zkp**](docs/AuthApi.md#post_zk_login_zkp) | **POST** /auth/zklogin/zkp | ZK Login Zero-Knowledge Proof Proxy Endpoint
 *ExchangeApi* | [**get_all_market_ticker**](docs/ExchangeApi.md#get_all_market_ticker) | **GET** /v1/exchange/tickers | /exchange/tickers
 *ExchangeApi* | [**get_candlestick_data**](docs/ExchangeApi.md#get_candlestick_data) | **GET** /v1/exchange/candlesticks | /exchange/candlesticks
 *ExchangeApi* | [**get_country**](docs/ExchangeApi.md#get_country) | **GET** /v1/exchange/country | /exchange/country
@@ -131,6 +133,8 @@ Class | Method | HTTP request | Description
  - [CandlePriceType](docs/CandlePriceType.md)
  - [CandlestickUpdate](docs/CandlestickUpdate.md)
  - [ClaimSignatureItem](docs/ClaimSignatureItem.md)
+ - [ClientCredentialsRequest](docs/ClientCredentialsRequest.md)
+ - [ClientCredentialsResponse](docs/ClientCredentialsResponse.md)
  - [ClientType](docs/ClientType.md)
  - [CommandFailureReasonCode](docs/CommandFailureReasonCode.md)
  - [ContractConfig](docs/ContractConfig.md)
@@ -176,6 +180,7 @@ Class | Method | HTTP request | Description
  - [OnboardAffiliateRequest](docs/OnboardAffiliateRequest.md)
  - [OnboardAffiliateRequestSocialUserNames](docs/OnboardAffiliateRequestSocialUserNames.md)
  - [OnboardRefereeRequest](docs/OnboardRefereeRequest.md)
+ - [OpenIdConfigurationResponse](docs/OpenIdConfigurationResponse.md)
  - [OpenOrderResponse](docs/OpenOrderResponse.md)
  - [Operators](docs/Operators.md)
  - [OraclePriceUpdate](docs/OraclePriceUpdate.md)
