@@ -58,6 +58,9 @@ from openapi_client.models.cancel_orders_response import CancelOrdersResponse
 from openapi_client.models.candle_price_type import CandlePriceType
 from openapi_client.models.candlestick_update import CandlestickUpdate
 from openapi_client.models.claim_signature_item import ClaimSignatureItem
+from openapi_client.models.client_credentials_request import ClientCredentialsRequest
+from openapi_client.models.client_credentials_response import ClientCredentialsResponse
+from openapi_client.models.client_type import ClientType
 from openapi_client.models.command_failure_reason_code import CommandFailureReasonCode
 from openapi_client.models.contract_config import ContractConfig
 from openapi_client.models.contracts_config import ContractsConfig
@@ -102,6 +105,7 @@ from openapi_client.models.market_subscription_streams import MarketSubscription
 from openapi_client.models.onboard_affiliate_request import OnboardAffiliateRequest
 from openapi_client.models.onboard_affiliate_request_social_user_names import OnboardAffiliateRequestSocialUserNames
 from openapi_client.models.onboard_referee_request import OnboardRefereeRequest
+from openapi_client.models.open_id_configuration_response import OpenIDConfigurationResponse
 from openapi_client.models.open_order_response import OpenOrderResponse
 from openapi_client.models.operators import Operators
 from openapi_client.models.oracle_price_update import OraclePriceUpdate

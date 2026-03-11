@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **self_trade_prevention_type** | [**models::SelfTradePreventionType**](SelfTradePreventionType.md) |  | 
 **created_at_millis** | **i64** | The timestamp when the order was placed, in milliseconds. | 
 **updated_at_millis** | **i64** | The timestamp of the last update of the order in milliseconds. | 
+**client** | Option<[**models::ClientType**](ClientType.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

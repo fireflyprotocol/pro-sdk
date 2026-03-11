@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from openapi_client.models.client_type import ClientType
 from openapi_client.models.order_type import OrderType
 from openapi_client.models.position_side import PositionSide
 from openapi_client.models.trade_side import TradeSide
@@ -50,7 +51,8 @@ class Trade(BaseModel):
     mark_price_e9: Optional[StrictStr] = Field(default=None, description="Mark price at the time of trade execution (e9 format).", alias="markPriceE9")
     oracle_price_e9: Optional[StrictStr] = Field(default=None, description="Oracle price at the time of trade execution (e9 format).", alias="oraclePriceE9")
     executed_at_millis: StrictInt = Field(description="Trade timestamp in milliseconds since Unix epoch.", alias="executedAtMillis")
-    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "orderType", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "markPriceE9", "oraclePriceE9", "executedAtMillis"]
+    client: Optional[ClientType] = None
+    __properties: ClassVar[List[str]] = ["id", "clientOrderId", "symbol", "orderHash", "orderType", "tradeType", "side", "isMaker", "priceE9", "quantityE9", "quoteQuantityE9", "realizedPnlE9", "positionSide", "tradingFeeE9", "tradingFeeAsset", "gasFeeE9", "gasFeeAsset", "markPriceE9", "oraclePriceE9", "executedAtMillis", "client"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -122,7 +124,8 @@ class Trade(BaseModel):
             "gasFeeAsset": obj.get("gasFeeAsset"),
             "markPriceE9": obj.get("markPriceE9"),
             "oraclePriceE9": obj.get("oraclePriceE9"),
-            "executedAtMillis": obj.get("executedAtMillis")
+            "executedAtMillis": obj.get("executedAtMillis"),
+            "client": obj.get("client")
         })
         return _obj
 

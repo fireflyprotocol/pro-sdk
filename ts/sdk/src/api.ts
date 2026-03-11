@@ -1138,6 +1138,12 @@ export interface ActiveOrderUpdate {
      * @memberof ActiveOrderUpdate
      */
     'updatedAtMillis': number;
+    /**
+     * 
+     * @type {ClientType}
+     * @memberof ActiveOrderUpdate
+     */
+    'client'?: ClientType;
 }
 
 
@@ -2023,6 +2029,77 @@ export const ClaimSignatureItemRewardTypeEnum = {
 } as const;
 
 export type ClaimSignatureItemRewardTypeEnum = typeof ClaimSignatureItemRewardTypeEnum[keyof typeof ClaimSignatureItemRewardTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ClientCredentialsRequest
+ */
+export interface ClientCredentialsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientCredentialsRequest
+     */
+    'client_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientCredentialsRequest
+     */
+    'client_secret': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientCredentialsRequest
+     */
+    'grant_type': ClientCredentialsRequestGrantTypeEnum;
+}
+
+export const ClientCredentialsRequestGrantTypeEnum = {
+    ClientCredentials: 'client_credentials'
+} as const;
+
+export type ClientCredentialsRequestGrantTypeEnum = typeof ClientCredentialsRequestGrantTypeEnum[keyof typeof ClientCredentialsRequestGrantTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ClientCredentialsResponse
+ */
+export interface ClientCredentialsResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientCredentialsResponse
+     */
+    'access_token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientCredentialsResponse
+     */
+    'token_type': string;
+    /**
+     * Token validity in seconds
+     * @type {number}
+     * @memberof ClientCredentialsResponse
+     */
+    'expires_in': number;
+}
+/**
+ * The client application that initiated the request.
+ * @export
+ * @enum {string}
+ */
+
+export const ClientType = {
+    Web: 'WEB',
+    Vera: 'VERA'
+} as const;
+
+export type ClientType = typeof ClientType[keyof typeof ClientType];
+
 
 /**
  * 
@@ -3599,6 +3676,61 @@ export interface OnboardRefereeRequest {
      * @memberof OnboardRefereeRequest
      */
     'code': string;
+}
+/**
+ * 
+ * @export
+ * @interface OpenIDConfigurationResponse
+ */
+export interface OpenIDConfigurationResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'issuer': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'authorization_endpoint': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'jwks_uri': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'token_endpoint': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'response_types_supported': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'id_token_signing_alg_values_supported': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'subject_types_supported': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OpenIDConfigurationResponse
+     */
+    'scopes_supported': Array<string>;
 }
 /**
  * 
@@ -5291,6 +5423,12 @@ export interface Trade {
      * @memberof Trade
      */
     'executedAtMillis': number;
+    /**
+     * 
+     * @type {ClientType}
+     * @memberof Trade
+     */
+    'client'?: ClientType;
 }
 
 
@@ -6678,10 +6816,11 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authTokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payloadSignature' is not null or undefined
             assertParamExists('authTokenPost', 'payloadSignature', payloadSignature)
             // verify required parameter 'loginRequest' is not null or undefined
@@ -6704,6 +6843,10 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (readOnly !== undefined) {
                 localVarQueryParameter['readOnly'] = readOnly;
+            }
+
+            if (client !== undefined) {
+                localVarQueryParameter['client'] = client;
             }
 
 
@@ -6764,10 +6907,11 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authV2TokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authV2TokenPost: async (payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payloadSignature' is not null or undefined
             assertParamExists('authV2TokenPost', 'payloadSignature', payloadSignature)
             // verify required parameter 'loginRequest' is not null or undefined
@@ -6792,6 +6936,10 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['readOnly'] = readOnly;
             }
 
+            if (client !== undefined) {
+                localVarQueryParameter['client'] = client;
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -6803,6 +6951,36 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(loginRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWellKnownOpenidConfiguration: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/.well-known/openid-configuration`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6839,6 +7017,42 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
+         * @param {ClientCredentialsRequest} clientCredentialsRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postAuthClientCredentials: async (clientCredentialsRequest: ClientCredentialsRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'clientCredentialsRequest' is not null or undefined
+            assertParamExists('postAuthClientCredentials', 'clientCredentialsRequest', clientCredentialsRequest)
+            const localVarPath = `/auth/client-credentials`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(clientCredentialsRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6914,11 +7128,12 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options);
+        async authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authTokenPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6941,13 +7156,26 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options);
+        async authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authV2TokenPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWellKnownOpenidConfiguration(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OpenIDConfigurationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWellKnownOpenidConfiguration(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.getWellKnownOpenidConfiguration']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6961,6 +7189,19 @@ export const AuthApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getZkLoginUserDetails(zkloginJwt, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.getZkLoginUserDetails']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
+         * @param {ClientCredentialsRequest} clientCredentialsRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postAuthClientCredentials(clientCredentialsRequest: ClientCredentialsRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClientCredentialsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postAuthClientCredentials(clientCredentialsRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.postAuthClientCredentials']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -7001,11 +7242,12 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
-            return localVarFp.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
+        authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
+            return localVarFp.authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves a new auth token for an account. Expiry is set to 5 min.
@@ -7022,11 +7264,21 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {LoginRequest} loginRequest 
          * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
          * @param {boolean} [readOnly] 
+         * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
-            return localVarFp.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(axios, basePath));
+        authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
+            return localVarFp.authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * OpenID Connect Discovery endpoint
+         * @summary /.well-known/openid-configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWellKnownOpenidConfiguration(options?: RawAxiosRequestConfig): AxiosPromise<OpenIDConfigurationResponse> {
+            return localVarFp.getWellKnownOpenidConfiguration(options).then((request) => request(axios, basePath));
         },
         /**
          * ZK Login User Details
@@ -7037,6 +7289,16 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          */
         getZkLoginUserDetails(zkloginJwt: string, options?: RawAxiosRequestConfig): AxiosPromise<ZKLoginUserDetailsResponse> {
             return localVarFp.getZkLoginUserDetails(zkloginJwt, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * OAuth2 client_credentials grant for service accounts
+         * @summary /auth/client-credentials
+         * @param {ClientCredentialsRequest} clientCredentialsRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postAuthClientCredentials(clientCredentialsRequest: ClientCredentialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ClientCredentialsResponse> {
+            return localVarFp.postAuthClientCredentials(clientCredentialsRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7075,12 +7337,13 @@ export class AuthApi extends BaseAPI {
      * @param {LoginRequest} loginRequest 
      * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
      * @param {boolean} [readOnly] 
+     * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(this.axios, this.basePath));
+    public authTokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authTokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7100,12 +7363,24 @@ export class AuthApi extends BaseAPI {
      * @param {LoginRequest} loginRequest 
      * @param {number} [refreshTokenValidForSeconds] The number of seconds the refresh token is valid for. If not provided, the default is 30 days.
      * @param {boolean} [readOnly] 
+     * @param {ClientType} [client] The client application originating the request (WEB or VERA). Defaults to WEB if not supplied.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, options).then((request) => request(this.axios, this.basePath));
+    public authV2TokenPost(payloadSignature: string, loginRequest: LoginRequest, refreshTokenValidForSeconds?: number, readOnly?: boolean, client?: ClientType, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authV2TokenPost(payloadSignature, loginRequest, refreshTokenValidForSeconds, readOnly, client, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * OpenID Connect Discovery endpoint
+     * @summary /.well-known/openid-configuration
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public getWellKnownOpenidConfiguration(options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).getWellKnownOpenidConfiguration(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7118,6 +7393,18 @@ export class AuthApi extends BaseAPI {
      */
     public getZkLoginUserDetails(zkloginJwt: string, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).getZkLoginUserDetails(zkloginJwt, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * OAuth2 client_credentials grant for service accounts
+     * @summary /auth/client-credentials
+     * @param {ClientCredentialsRequest} clientCredentialsRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public postAuthClientCredentials(clientCredentialsRequest: ClientCredentialsRequest, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).postAuthClientCredentials(clientCredentialsRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

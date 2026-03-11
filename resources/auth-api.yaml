@@ -24,9 +24,47 @@ components:
           schema:
             $ref: './common.yaml#/components/schemas/Error'
   schemas:
+    ClientType:
+      $ref: './common.yaml#/components/schemas/ClientType'
     JwksResponse:
       type: object
       additionalProperties: true
+    OpenIDConfigurationResponse:
+      type: object
+      required:
+        - issuer
+        - authorization_endpoint
+        - jwks_uri
+        - token_endpoint
+        - response_types_supported
+        - id_token_signing_alg_values_supported
+        - subject_types_supported
+        - scopes_supported
+      properties:
+        issuer:
+          type: string
+        authorization_endpoint:
+          type: string
+        jwks_uri:
+          type: string
+        token_endpoint:
+          type: string
+        response_types_supported:
+          type: array
+          items:
+            type: string
+        id_token_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        subject_types_supported:
+          type: array
+          items:
+            type: string
+        scopes_supported:
+          type: array
+          items:
+            type: string
     LoginRequest:
       type: object
       description: |
@@ -171,6 +209,38 @@ components:
       required:
         - addressSeed
 
+    ClientCredentialsRequest:
+      type: object
+      required:
+        - client_id
+        - client_secret
+        - grant_type
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+            - client_credentials
+    ClientCredentialsResponse:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          format: int64
+          x-go-type: int64
+          description: Token validity in seconds
     ZKLoginUserDetailsResponse:
       type: object
       properties:
@@ -189,6 +259,22 @@ components:
         - address
         - publicKey
 paths:
+  /.well-known/openid-configuration:
+    get:
+      tags:
+        - Auth
+      summary: /.well-known/openid-configuration  
+      description: OpenID Connect Discovery endpoint 
+      operationId: GetWellKnownOpenidConfiguration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenIDConfigurationResponse'
+        default:
+          $ref: '#/components/responses/DefaultError'
   /auth/zklogin:
     get:
       tags:
@@ -228,7 +314,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: /auth/zklogin/zkp
+      summary: /auth/zklogin/zkp  
       operationId: PostZkLoginZkp
       parameters:
         - in: header
@@ -303,6 +389,12 @@ paths:
             type: boolean
             description: "If not supplied defaults to false"
             default: false
+        - name: client
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ClientType'
+          description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
         content:
@@ -369,6 +461,12 @@ paths:
             type: boolean
             description: "If not supplied defaults to false"
             default: false
+        - name: client
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ClientType'
+          description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
         content:
@@ -446,3 +544,76 @@ paths:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
           $ref: '#/components/responses/DefaultError'
+  
+  /auth/client-credentials:
+    post:
+      tags:
+        - Auth
+      summary: /auth/client-credentials  
+      description: 'OAuth2 client_credentials grant for service accounts' 
+      operationId: PostAuthClientCredentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientCredentialsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCredentialsResponse'
+        '400':
+          description: "invalid request"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '401':
+          description: "invalid or unconfigured credentials"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+  /auth/allowed/{accountAddress}:
+    get:
+      x-internal: true
+      tags:
+        - Auth
+      summary: "Internal use only for private launch; Will be removed when we go fully live"
+      description: "check if the account is allowed to access the resource"
+      parameters:
+        - name: accountAddress
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "the account address to check"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '403':
+          description: "account not allowed"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
+                

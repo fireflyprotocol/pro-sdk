@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from openapi_client.models.client_type import ClientType
 from openapi_client.models.order_status import OrderStatus
 from openapi_client.models.order_time_in_force import OrderTimeInForce
 from openapi_client.models.order_type import OrderType
@@ -54,7 +55,8 @@ class ActiveOrderUpdate(BaseModel):
     self_trade_prevention_type: SelfTradePreventionType = Field(alias="selfTradePreventionType")
     created_at_millis: StrictInt = Field(description="The timestamp when the order was placed, in milliseconds.", alias="createdAtMillis")
     updated_at_millis: StrictInt = Field(description="The timestamp of the last update of the order in milliseconds.", alias="updatedAtMillis")
-    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "signerAddress", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtMillis", "updatedAtMillis"]
+    client: Optional[ClientType] = None
+    __properties: ClassVar[List[str]] = ["orderHash", "clientOrderId", "symbol", "accountAddress", "priceE9", "quantityE9", "filledQuantityE9", "side", "leverageE9", "isIsolated", "salt", "expiresAtMillis", "signedAtMillis", "signerAddress", "type", "reduceOnly", "postOnly", "timeInForce", "triggerPriceE9", "status", "selfTradePreventionType", "createdAtMillis", "updatedAtMillis", "client"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -129,7 +131,8 @@ class ActiveOrderUpdate(BaseModel):
             "status": obj.get("status"),
             "selfTradePreventionType": obj.get("selfTradePreventionType") if obj.get("selfTradePreventionType") is not None else SelfTradePreventionType.MAKER,
             "createdAtMillis": obj.get("createdAtMillis"),
-            "updatedAtMillis": obj.get("updatedAtMillis")
+            "updatedAtMillis": obj.get("updatedAtMillis"),
+            "client": obj.get("client")
         })
         return _obj
 

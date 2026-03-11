@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **selfTradePreventionType** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [default to undefined]
 **createdAtMillis** | **number** | The timestamp of the order creation in milliseconds. | [default to undefined]
 **updatedAtMillis** | **number** | The timestamp of the last update of the order in milliseconds. | [default to undefined]
+**client** | [**ClientType**](ClientType.md) |  | [optional] [default to undefined]
 **cancellationReason** | [**OrderCancelReason**](OrderCancelReason.md) |  | [default to undefined]
 **failureToCancelReason** | [**OrderCancellationFailureReason**](OrderCancellationFailureReason.md) |  | [optional] [default to undefined]
 **remainingQuantityE9** | **string** | The remaining quantity of the order. | [default to undefined]
@@ -62,6 +63,7 @@ const instance: AccountOrderUpdate = {
     selfTradePreventionType,
     createdAtMillis,
     updatedAtMillis,
+    client,
     cancellationReason,
     failureToCancelReason,
     remainingQuantityE9,

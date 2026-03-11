@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **mark_price_e9** | Option<**String**> | Mark price at the time of trade execution (e9 format). | [optional]
 **oracle_price_e9** | Option<**String**> | Oracle price at the time of trade execution (e9 format). | [optional]
 **executed_at_millis** | **i64** | Trade timestamp in milliseconds since Unix epoch. | 
+**client** | Option<[**models::ClientType**](ClientType.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

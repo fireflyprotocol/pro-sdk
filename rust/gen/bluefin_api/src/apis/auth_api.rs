@@ -58,11 +58,29 @@ pub enum AuthV2TokenPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_well_known_openid_configuration`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWellKnownOpenidConfigurationError {
+    DefaultResponse(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_zk_login_user_details`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetZkLoginUserDetailsError {
     Status400(models::Error),
+    Status500(models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`post_auth_client_credentials`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PostAuthClientCredentialsError {
+    Status400(models::Error),
+    Status401(models::Error),
     Status500(models::Error),
     UnknownValue(serde_json::Value),
 }
@@ -112,12 +130,13 @@ pub async fn auth_jwks_get(configuration: &configuration::Configuration, ) -> Re
 }
 
 /// login with token
-pub async fn auth_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>) -> Result<models::LoginResponse, Error<AuthTokenPostError>> {
+pub async fn auth_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>, client: Option<models::ClientType>) -> Result<models::LoginResponse, Error<AuthTokenPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_payload_signature = payload_signature;
     let p_login_request = login_request;
     let p_refresh_token_valid_for_seconds = refresh_token_valid_for_seconds;
     let p_read_only = read_only;
+    let p_client = client;
 
     let uri_str = format!("{}/auth/token", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -127,6 +146,9 @@ pub async fn auth_token_post(configuration: &configuration::Configuration, paylo
     }
     if let Some(ref param_value) = p_read_only {
         req_builder = req_builder.query(&[("readOnly", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_client {
+        req_builder = req_builder.query(&[("client", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -198,12 +220,13 @@ pub async fn auth_token_refresh_put(configuration: &configuration::Configuration
 }
 
 /// login compatible with BCS payload with intent bytes
-pub async fn auth_v2_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>) -> Result<models::LoginResponse, Error<AuthV2TokenPostError>> {
+pub async fn auth_v2_token_post(configuration: &configuration::Configuration, payload_signature: &str, login_request: models::LoginRequest, refresh_token_valid_for_seconds: Option<i64>, read_only: Option<bool>, client: Option<models::ClientType>) -> Result<models::LoginResponse, Error<AuthV2TokenPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_payload_signature = payload_signature;
     let p_login_request = login_request;
     let p_refresh_token_valid_for_seconds = refresh_token_valid_for_seconds;
     let p_read_only = read_only;
+    let p_client = client;
 
     let uri_str = format!("{}/auth/v2/token", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -213,6 +236,9 @@ pub async fn auth_v2_token_post(configuration: &configuration::Configuration, pa
     }
     if let Some(ref param_value) = p_read_only {
         req_builder = req_builder.query(&[("readOnly", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_client {
+        req_builder = req_builder.query(&[("client", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -241,6 +267,41 @@ pub async fn auth_v2_token_post(configuration: &configuration::Configuration, pa
     } else {
         let content = resp.text().await?;
         let entity: Option<AuthV2TokenPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// OpenID Connect Discovery endpoint
+pub async fn get_well_known_openid_configuration(configuration: &configuration::Configuration, ) -> Result<models::OpenIdConfigurationResponse, Error<GetWellKnownOpenidConfigurationError>> {
+
+    let uri_str = format!("{}/.well-known/openid-configuration", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OpenIdConfigurationResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OpenIdConfigurationResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetWellKnownOpenidConfigurationError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -279,6 +340,44 @@ pub async fn get_zk_login_user_details(configuration: &configuration::Configurat
     } else {
         let content = resp.text().await?;
         let entity: Option<GetZkLoginUserDetailsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// OAuth2 client_credentials grant for service accounts
+pub async fn post_auth_client_credentials(configuration: &configuration::Configuration, client_credentials_request: models::ClientCredentialsRequest) -> Result<models::ClientCredentialsResponse, Error<PostAuthClientCredentialsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_client_credentials_request = client_credentials_request;
+
+    let uri_str = format!("{}/auth/client-credentials", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.json(&p_client_credentials_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ClientCredentialsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ClientCredentialsResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PostAuthClientCredentialsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

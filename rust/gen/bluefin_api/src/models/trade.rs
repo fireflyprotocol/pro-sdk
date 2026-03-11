@@ -69,6 +69,8 @@ pub struct Trade {
     /// Trade timestamp in milliseconds since Unix epoch.
     #[serde(rename = "executedAtMillis")]
     pub executed_at_millis: i64,
+    #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
+    pub client: Option<models::ClientType>,
 }
 
 impl Trade {
@@ -94,6 +96,7 @@ impl Trade {
             mark_price_e9: None,
             oracle_price_e9: None,
             executed_at_millis,
+            client: None,
         }
     }
 }

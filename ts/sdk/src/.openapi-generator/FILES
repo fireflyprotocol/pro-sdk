@@ -50,6 +50,9 @@ docs/CancelOrdersResponse.md
 docs/CandlePriceType.md
 docs/CandlestickUpdate.md
 docs/ClaimSignatureItem.md
+docs/ClientCredentialsRequest.md
+docs/ClientCredentialsResponse.md
+docs/ClientType.md
 docs/CommandFailureReasonCode.md
 docs/ContractConfig.md
 docs/ContractsConfig.md
@@ -95,6 +98,7 @@ docs/MarketSubscriptionStreams.md
 docs/OnboardAffiliateRequest.md
 docs/OnboardAffiliateRequestSocialUserNames.md
 docs/OnboardRefereeRequest.md
+docs/OpenIDConfigurationResponse.md
 docs/OpenOrderResponse.md
 docs/Operators.md
 docs/OraclePriceUpdate.md

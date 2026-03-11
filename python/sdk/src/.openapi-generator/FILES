@@ -55,6 +55,9 @@ openapi_client/docs/CancelOrdersResponse.md
 openapi_client/docs/CandlePriceType.md
 openapi_client/docs/CandlestickUpdate.md
 openapi_client/docs/ClaimSignatureItem.md
+openapi_client/docs/ClientCredentialsRequest.md
+openapi_client/docs/ClientCredentialsResponse.md
+openapi_client/docs/ClientType.md
 openapi_client/docs/CommandFailureReasonCode.md
 openapi_client/docs/ContractConfig.md
 openapi_client/docs/ContractsConfig.md
@@ -100,6 +103,7 @@ openapi_client/docs/MarketSubscriptionStreams.md
 openapi_client/docs/OnboardAffiliateRequest.md
 openapi_client/docs/OnboardAffiliateRequestSocialUserNames.md
 openapi_client/docs/OnboardRefereeRequest.md
+openapi_client/docs/OpenIDConfigurationResponse.md
 openapi_client/docs/OpenOrderResponse.md
 openapi_client/docs/Operators.md
 openapi_client/docs/OraclePriceUpdate.md
@@ -201,6 +205,9 @@ openapi_client/models/cancel_orders_response.py
 openapi_client/models/candle_price_type.py
 openapi_client/models/candlestick_update.py
 openapi_client/models/claim_signature_item.py
+openapi_client/models/client_credentials_request.py
+openapi_client/models/client_credentials_response.py
+openapi_client/models/client_type.py
 openapi_client/models/command_failure_reason_code.py
 openapi_client/models/contract_config.py
 openapi_client/models/contracts_config.py
@@ -245,6 +252,7 @@ openapi_client/models/market_subscription_streams.py
 openapi_client/models/onboard_affiliate_request.py
 openapi_client/models/onboard_affiliate_request_social_user_names.py
 openapi_client/models/onboard_referee_request.py
+openapi_client/models/open_id_configuration_response.py
 openapi_client/models/open_order_response.py
 openapi_client/models/operators.py
 openapi_client/models/oracle_price_update.py

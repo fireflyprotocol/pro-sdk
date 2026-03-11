@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **markPriceE9** | **string** | Mark price at the time of trade execution (e9 format). | [optional] [default to undefined]
 **oraclePriceE9** | **string** | Oracle price at the time of trade execution (e9 format). | [optional] [default to undefined]
 **executedAtMillis** | **number** | Trade timestamp in milliseconds since Unix epoch. | [default to undefined]
+**client** | [**ClientType**](ClientType.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -52,6 +53,7 @@ const instance: Trade = {
     markPriceE9,
     oraclePriceE9,
     executedAtMillis,
+    client,
 };
 ```
 

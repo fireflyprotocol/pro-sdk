@@ -10,6 +10,12 @@ tags:
 components:
   schemas:
     # enums, please sort it in alphabetical order
+    ClientType:
+      type: string
+      description: The client application that initiated the request.
+      enum:
+      - WEB
+      - VERA
     MarginType:
       type: string
       description: Margin type.
@@ -239,6 +245,8 @@ components:
           format: int64
           description: Trade timestamp in milliseconds since Unix epoch.
           example: 1569514978020
+        client:
+          $ref: '#/components/schemas/ClientType'
     TradingFees:
       type: object
       required:

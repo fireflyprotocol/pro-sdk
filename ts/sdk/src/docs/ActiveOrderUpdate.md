@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **selfTradePreventionType** | [**SelfTradePreventionType**](SelfTradePreventionType.md) |  | [default to undefined]
 **createdAtMillis** | **number** | The timestamp when the order was placed, in milliseconds. | [default to undefined]
 **updatedAtMillis** | **number** | The timestamp of the last update of the order in milliseconds. | [default to undefined]
+**client** | [**ClientType**](ClientType.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -59,6 +60,7 @@ const instance: ActiveOrderUpdate = {
     selfTradePreventionType,
     createdAtMillis,
     updatedAtMillis,
+    client,
 };
 ```
 
