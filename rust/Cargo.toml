@@ -16,6 +16,7 @@ features = ["rand_core"]
 version = "2.1.1"
 
 [dependencies.reqwest]
+default-features = false
 features = ["rustls-tls"]
 version = "0.12.19"
 
@@ -54,7 +55,7 @@ features = ["full"]
 version = "1.44.2"
 
 [dev-dependencies.tokio-tungstenite]
-features = ["native-tls"]
+features = ["rustls-tls-webpki-roots"]
 version = "0.24.0"
 
 [package]
