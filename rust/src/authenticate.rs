@@ -128,11 +128,11 @@ impl RequestExt for LoginRequest {
                 const RECOVERY_CODE: u8 = 31;
 
                 let secp = secp256k1::Secp256k1::signing_only();
-                let private_key = secp256k1::SecretKey::from_byte_array(&private_key)
+                let private_key = secp256k1::SecretKey::from_byte_array(private_key)
                     .map_err(|error| signature::Error::PrivateKey(error.to_string()))?;
 
                 let signature = secp.sign_ecdsa_recoverable(
-                    &Message::from_digest(personal_message.signing_digest()),
+                    Message::from_digest(personal_message.signing_digest()),
                     &private_key,
                 );
 
@@ -183,6 +183,7 @@ impl Authenticate for LoginRequest {
             self,
             options.refresh_token_valid_for_seconds,
             options.read_only,
+            None,
         )
         .await
         .map_err(|error| Error::AuthenticationRequestFailed(error.to_string()))?;
