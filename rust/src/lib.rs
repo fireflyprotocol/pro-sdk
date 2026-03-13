@@ -5,6 +5,7 @@ mod authenticate;
 mod create_order;
 mod env;
 mod signature;
+mod tls_runtime;
 mod update_leverage;
 mod withdraw;
 
@@ -23,4 +24,5 @@ pub mod prelude {
     };
     pub use crate::core::*;
     pub use crate::signature::RequestExt as _;
+    pub use crate::tls_runtime::ensure_tls_runtime;
 }

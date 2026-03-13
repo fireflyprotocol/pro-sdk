@@ -1,3 +1,14 @@
+[features]
+# Default TLS mode: platform-native TLS backend.
+default = ["tls-native-tls"]
+
+# Optional rustls backend with aws-lc-rs crypto provider.
+tls-rustls = ["dep:rustls", "reqwest/rustls-tls-webpki-roots"]
+
+# Platform-native TLS backend (OpenSSL on many Linux distros,
+# Security Framework on macOS, Schannel on Windows).
+tls-native-tls = ["reqwest/native-tls"]
+
 [dependencies]
 base64 = "0.22.1"
 bcs = "0.1.6"
@@ -16,9 +27,15 @@ features = ["rand_core"]
 version = "2.2.0"
 
 [dependencies.reqwest]
+package = "reqwest"
 default-features = false
-features = ["rustls", "query"]
-version = "0.13.2"
+version = "0.12"
+
+[dependencies.rustls]
+default-features = false
+features = ["aws-lc-rs", "std"]
+optional = true
+version = "0.23"
 
 [dependencies.secp256k1]
 features = [
@@ -48,7 +65,7 @@ version = "0.2.2"
 
 [dev-dependencies]
 futures-util = "0.3.32"
-rand = "0.10.0"
+rand = "0.8.5"
 
 [dev-dependencies.tokio]
 features = ["full"]

@@ -223,6 +223,7 @@ pub mod exchange {
 
     pub mod info {
         use super::Environment;
+        use crate::tls_runtime::ensure_tls_runtime;
         use bluefin_api::apis::configuration::Configuration;
         use bluefin_api::models::{AssetConfig, ContractsConfig, Market};
 
@@ -235,6 +236,7 @@ pub mod exchange {
         ///
         /// Will return [`Err`] if client/server communication fails.
         pub async fn contracts_config(environment: Environment) -> Result<ContractsConfig> {
+            ensure_tls_runtime();
             bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
                 base_path: super::url(environment).to_string(),
                 ..Configuration::default()
@@ -250,6 +252,7 @@ pub mod exchange {
         ///
         /// Will return [`Err`] if client/server communication fails.
         pub async fn markets(environment: Environment) -> Result<Vec<Market>> {
+            ensure_tls_runtime();
             bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
                 base_path: super::url(environment).to_string(),
                 ..Configuration::default()
@@ -265,6 +268,7 @@ pub mod exchange {
         ///
         /// Will return [`Err`] if client/server communication fails.
         pub async fn assets(environment: Environment) -> Result<Vec<AssetConfig>> {
+            ensure_tls_runtime();
             bluefin_api::apis::exchange_api::get_exchange_info(&Configuration {
                 base_path: super::url(environment).to_string(),
                 ..Configuration::default()

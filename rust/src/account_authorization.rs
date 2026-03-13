@@ -118,7 +118,8 @@ mod tests {
 
     #[test]
     fn sign_authorize_request_is_successful_secp256k1() {
-        let private_key = secp256k1::SecretKey::new(&mut OsRng);
+        let mut rng = secp256k1::rand::rng();
+        let private_key = secp256k1::SecretKey::new(&mut rng);
         let secp = secp256k1::Secp256k1::new();
         let signer_address = Secp256k1VerifyingKey::new(&Secp256k1PublicKey::new(
             private_key.public_key(&secp).serialize(),
@@ -152,7 +153,8 @@ mod tests {
 
     #[test]
     fn sign_deauthorize_request_is_successful_secp256k1() {
-        let private_key = secp256k1::SecretKey::new(&mut OsRng);
+        let mut rng = secp256k1::rand::rng();
+        let private_key = secp256k1::SecretKey::new(&mut rng);
         let secp = secp256k1::Secp256k1::new();
         let signer_address = Secp256k1VerifyingKey::new(&Secp256k1PublicKey::new(
             private_key.public_key(&secp).serialize(),
