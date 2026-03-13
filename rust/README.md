@@ -49,6 +49,15 @@ To use rustls instead of the default native TLS backend:
 bluefin-pro = { version = "1.13.0", default-features = false, features = ["tls-rustls"] }
 ```
 
+If you disable default features for any other reason, you must still enable exactly one TLS feature:
+
+```toml
+[dependencies]
+bluefin-pro = { version = "1.13.0", default-features = false, features = ["tls-native-tls"] }
+```
+
+When using `tls-rustls`, SDK APIs initialize the rustls provider automatically. If you build your own reqwest or tungstenite clients, call `bluefin_pro::ensure_tls_runtime()` once during application startup before creating those clients.
+
 ---
 
 ## Resources and API Support
