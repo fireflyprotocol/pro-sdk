@@ -6,11 +6,36 @@ permissions:
 on:
   pull_request:
     paths:
+      - "python/sdk/**"
+      - "python/example/**"
       - "ts/sdk/**"
       - "rust/**"
       - ".github/workflows/typecheck.yaml"
 
 jobs:
+  python-example-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install SDK
+        run: python -m pip install --upgrade pip && python -m pip install ./sdk
+
+      - name: Validate Python example imports
+        run: python -c "import runpy; runpy.run_path('example/main.py', run_name='__not_main__')"
+
+      - name: Byte-compile Python example
+        run: python -m py_compile example/main.py
+
   typecheck:
     runs-on: ubuntu-latest
     defaults:
@@ -36,6 +61,9 @@ jobs:
       - name: Typecheck
         run: yarn build:types
 
+      - name: Build TypeScript example
+        run: yarn build:example
+
   rust-typecheck:
     runs-on: ubuntu-latest
     defaults:
@@ -53,3 +81,9 @@ jobs:
 
       - name: Cargo Check (rustls/aws-lc-rs)
         run: cargo check --no-default-features --features tls-rustls
+
+      - name: Build Rust examples (default TLS)
+        run: cargo build --examples
+
+      - name: Build Rust examples (rustls/aws-lc-rs)
+        run: cargo build --examples --no-default-features --features tls-rustls
