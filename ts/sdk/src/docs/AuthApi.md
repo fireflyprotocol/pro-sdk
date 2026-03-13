@@ -390,7 +390,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/x-www-form-urlencoded
  - **Accept**: application/json
 
 

@@ -24,8 +24,6 @@ components:
           schema:
             $ref: './common.yaml#/components/schemas/Error'
   schemas:
-    ClientType:
-      $ref: './common.yaml#/components/schemas/ClientType'
     JwksResponse:
       type: object
       additionalProperties: true
@@ -393,7 +391,7 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/ClientType'
+            $ref: './common.yaml#/components/schemas/ClientType'
           description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
@@ -465,7 +463,7 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/ClientType'
+            $ref: './common.yaml#/components/schemas/ClientType'
           description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
@@ -556,6 +554,9 @@ paths:
         required: true
         content:
           application/json:
+            schema:
+              $ref: '#/components/schemas/ClientCredentialsRequest'
+          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/ClientCredentialsRequest'
       responses:
