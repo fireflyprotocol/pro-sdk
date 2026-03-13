@@ -42,7 +42,7 @@ async fn listen_to_candlestick_updates(
     );
 
     ws_sender
-        .send(Message::Text(serde_json::to_string(&sub_message)?))
+        .send(Message::Text(serde_json::to_string(&sub_message)?.into()))
         .await?;
 
     // Spawn a websocket listener task to listen for messages on the subscribed topic.
@@ -60,7 +60,7 @@ async fn listen_to_candlestick_updates(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send back Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
                         eprintln!("Error sending Pong: {error}");
                     }
                     println!("Pong sent");
