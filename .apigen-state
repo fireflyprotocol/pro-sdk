@@ -1,7 +1,7 @@
 {
   "version": "1",
   "algorithm": "sha256",
-  "generated_at": "2026-03-13T17:03:46.458771Z",
+  "generated_at": "2026-03-13T17:37:42.095691Z",
   "spec_files": {
     "resources/account-data-api.yaml": "2d366acf63b1412c3b49583b22aea07829f297332ebd1b0680954d0d248f2998",
     "resources/auth-api.yaml": "f5f169f40f857b157b59adf3a17bd39aa5fc1c32295dd95df41189b1e0d95117",

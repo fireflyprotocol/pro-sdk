@@ -66,7 +66,7 @@ async fn listen_to_oracle_price_updates(
             vec![MarketDataStreamName::OraclePrice],
         )],
     ))?;
-    ws_sender.send(Message::Text(sub_message.into())).await?;
+    ws_sender.send(Message::Text(sub_message)).await?;
 
     // Spawn a websocket listener task to listen for messages on the subscribed topic.
     tokio::spawn(async move {
@@ -83,7 +83,7 @@ async fn listen_to_oracle_price_updates(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send back Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                         eprintln!("Error sending Pong: {error}");
                     }
                     println!("Pong sent");

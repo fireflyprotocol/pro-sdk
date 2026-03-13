@@ -41,7 +41,7 @@ async fn listen_to_ticker_updates(
     println!("Sending subscription message: {subscription_message}");
 
     // Send a subscription message to receive ticker updates.
-    ws_sender.send(Message::Text(subscription_message.into())).await?;
+    ws_sender.send(Message::Text(subscription_message)).await?;
 
     // Spawn a WebSocket listener task to listen for messages on the subscribed topic.
     tokio::spawn(async move {
@@ -58,7 +58,7 @@ async fn listen_to_ticker_updates(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send back Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                         eprintln!("Error sending Pong: {error}");
                         return;
                     }
