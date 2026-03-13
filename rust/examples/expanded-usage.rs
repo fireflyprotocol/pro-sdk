@@ -56,8 +56,7 @@ async fn listen_to_account_stream_websocket(
     ws_sender
         .send(Message::Text(serde_json::to_string(
             &AccountSubscriptionMessage::new(SubscriptionType::Subscribe, subscriptions),
-        )?
-        .into()))
+        )?))
         .await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
@@ -75,7 +74,7 @@ async fn listen_to_account_stream_websocket(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                         eprintln!("Error sending Pong: {error}");
                         return;
                     }
@@ -134,8 +133,7 @@ async fn listen_to_market_stream_websocket(
     ws_sender
         .send(Message::Text(serde_json::to_string(
             &MarketSubscriptionMessage::new(SubscriptionType::Subscribe, subscriptions),
-        )?
-        .into()))
+        )?))
         .await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
@@ -153,7 +151,7 @@ async fn listen_to_market_stream_websocket(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
                         eprintln!("Error sending Pong: {error}");
                         return;
                     }
