@@ -121,7 +121,7 @@ dependencies = [
 
 [[package]]
 name = "bluefin-pro"
-version = "1.13.0"
+version = "1.14.0"
 dependencies = [
  "base64",
  "bcs",
@@ -146,7 +146,7 @@ dependencies = [
 
 [[package]]
 name = "bluefin_api"
-version = "1.13.0"
+version = "1.14.0"
 dependencies = [
  "reqwest",
  "serde",
