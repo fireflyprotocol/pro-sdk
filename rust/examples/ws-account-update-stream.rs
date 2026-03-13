@@ -65,7 +65,8 @@ async fn listen_to_account_info(
                 SubscriptionType::Subscribe,
                 vec![AccountDataStream::AccountUpdate],
             ),
-        )?))
+        )?
+        .into()))
         .await?;
 
     // Now, we spawn a websocket listener task to listen for messages on the subscribed topic.
@@ -83,7 +84,7 @@ async fn listen_to_account_info(
                 Message::Ping(_) => {
                     println!("Ping received");
                     // Send Pong.
-                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new())).await {
+                    if let Err(error) = ws_sender.send(Message::Pong(Vec::new().into())).await {
                         eprintln!("Error sending Pong: {error}");
                         return;
                     }
