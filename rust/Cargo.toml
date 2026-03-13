@@ -73,7 +73,7 @@ version = "1.50.0"
 
 [dev-dependencies.tokio-tungstenite]
 features = ["rustls-tls-webpki-roots"]
-version = "0.28.0"
+version = "0.24.0"
 
 [package]
 categories = [

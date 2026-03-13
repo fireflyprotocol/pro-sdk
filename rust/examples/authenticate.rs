@@ -1,8 +1,9 @@
 use bluefin_api::models::{LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse};
 use bluefin_pro::prelude::*;
 use chrono::Utc;
-use rand::rngs::OsRng;
+use rand::rngs::OsRng as Ed25519OsRng;
 use secp256k1::Secp256k1;
+use secp256k1::rand::rng;
 use sui_sdk_types::{Ed25519PublicKey, Secp256k1PublicKey, SignatureScheme};
 
 type Error = Box<dyn std::error::Error>;
@@ -11,7 +12,8 @@ type Result<T> = std::result::Result<T, Error>;
 async fn auth_secp256k1(environment: Environment) -> Result<LoginResponse> {
     // First, we load our private and public keys.
     let secp = Secp256k1::new();
-    let (private_key, public_key) = secp.generate_keypair(&mut OsRng);
+    let mut rng = rng();
+    let (private_key, public_key) = secp.generate_keypair(&mut rng);
     let public_key = Secp256k1PublicKey::from(public_key.serialize());
 
     // Then, we construct an authentication request.
@@ -38,7 +40,8 @@ async fn auth_secp256k1(environment: Environment) -> Result<LoginResponse> {
 
 async fn auth_ed25519(environment: Environment) -> Result<LoginResponse> {
     // First, we load our private and public keys.
-    let private_key = ed25519_dalek::SigningKey::generate(&mut OsRng);
+    let mut rng = Ed25519OsRng;
+    let private_key = ed25519_dalek::SigningKey::generate(&mut rng);
     let public_key = Ed25519PublicKey::new(private_key.verifying_key().to_bytes());
 
     // Then, we construct an authentication request.
