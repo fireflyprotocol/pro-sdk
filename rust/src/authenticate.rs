@@ -5,6 +5,7 @@ use crate::core::PrivateKey;
 use crate::env::Environment;
 use crate::env::auth::url;
 use crate::signature;
+use crate::tls_runtime::ensure_tls_runtime;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use bluefin_api::apis::auth_api::{auth_token_refresh_put, auth_v2_token_post};
@@ -172,6 +173,7 @@ impl Authenticate for LoginRequest {
         environment: Environment,
         options: AuthenticationOptions,
     ) -> AuthenticationResult<LoginResponse> {
+        ensure_tls_runtime();
         let base_url = url(environment);
 
         let mut configuration = Configuration::new();
@@ -194,6 +196,7 @@ impl Authenticate for LoginRequest {
 
 impl Refresh for RefreshTokenRequest {
     async fn refresh(self, environment: Environment) -> AuthenticationResult<RefreshTokenResponse> {
+        ensure_tls_runtime();
         let base_url = url(environment);
 
         let mut configuration = Configuration::new();
@@ -283,7 +286,7 @@ pub mod tests {
         let message = Message::from_digest(personal_message.signing_digest());
 
         let recovered_public_key = signature
-            .recover(&message)
+            .recover(message)
             .map_err(|_| "Invalid secp256k1 signature".to_string())?;
 
         assert_eq!(public_key, recovered_public_key);
@@ -379,7 +382,8 @@ pub mod tests {
 
     #[tokio::test]
     async fn authenticate_staging_secp256k1() -> Result<(), Box<dyn std::error::Error>> {
-        let (private_key, public_key) = secp256k1::generate_keypair(&mut OsRng);
+        let mut rng = secp256k1::rand::rng();
+        let (private_key, public_key) = secp256k1::generate_keypair(&mut rng);
         let public_key = Secp256k1PublicKey::new(public_key.serialize());
 
         let sui_address = public_key.derive_address().to_hex();

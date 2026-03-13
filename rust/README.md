@@ -35,6 +35,29 @@ bluefin-sdk = "1.0.0"
 
 *Note*: Replace `1.0.0` with the latest version available.
 
+### TLS Backends
+
+The Rust SDK supports the following TLS modes:
+
+- Default (`tls-native-tls`): Uses the platform-native TLS backend.
+- Optional (`tls-rustls`): Uses `rustls` with `aws-lc-rs`.
+
+To use rustls instead of the default native TLS backend:
+
+```toml
+[dependencies]
+bluefin-pro = { version = "1.13.0", default-features = false, features = ["tls-rustls"] }
+```
+
+If you disable default features for any other reason, you must still enable exactly one TLS feature:
+
+```toml
+[dependencies]
+bluefin-pro = { version = "1.13.0", default-features = false, features = ["tls-native-tls"] }
+```
+
+When using `tls-rustls`, SDK APIs initialize the rustls provider automatically. If you build your own reqwest or tungstenite clients, call `bluefin_pro::ensure_tls_runtime()` once during application startup before creating those clients.
+
 ---
 
 ## Resources and API Support
@@ -79,9 +102,7 @@ cargo run --example <example_name>
 ```
 
 > Replace `<example_name>` with the specific example file you wish to execute.
-
 > The SDK provides test accounts with hex encoded ed25519 public key and private key available to run examples on DEVNET or TESTNET
-
 > `example.rs` is a full example that shows how to use the SDK to perform multiple operations, including fetching account details, exchange info, creating an order,
 > withdrawing funds, and listening to account and market updates.
 
