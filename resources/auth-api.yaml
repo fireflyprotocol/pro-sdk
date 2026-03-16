@@ -584,37 +584,3 @@ paths:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-  /auth/allowed/{accountAddress}:
-    get:
-      x-internal: true
-      tags:
-        - Auth
-      summary: "Internal use only for private launch; Will be removed when we go fully live"
-      description: "check if the account is allowed to access the resource"
-      parameters:
-        - name: accountAddress
-          in: path
-          required: true
-          schema:
-            type: string
-          description: "the account address to check"
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
-        '403':
-          description: "account not allowed"
-          content:
-            application/json:
-              schema:
-                $ref: "./common.yaml#/components/schemas/Error"
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "./common.yaml#/components/schemas/Error"
-                
