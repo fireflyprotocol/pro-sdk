@@ -13,7 +13,7 @@ DOCKER_RUN := docker run --rm -v $(CURDIR):/work -w /work $(OPENAPI_GEN_IMAGE) g
 version-bump: ## Detect spec changes and bump SDK versions
 	python3 scripts/version_bump.py
 
-generate: generate-ts generate-py generate-rs ## Generate all SDK clients
+generate: generate-ts generate-py generate-rs version-bump ## Generate all SDK clients
 
 generate-ts: ## Generate TypeScript client
 	$(DOCKER_RUN) \
@@ -33,8 +33,6 @@ generate-rs: ## Generate Rust client
 		--config /work/rust/gen/config.yaml \
 		--generator-name rust \
 		--output /work/rust/gen/bluefin_api
-
-generate-all: version-bump generate ## Generate all SDK clients with version bump
 
 # --- Help ---
 
