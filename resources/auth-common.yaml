@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: Auth Common Schemas
+  version: v1
+  description: Shared authentication schemas.
+components:
+  responses:
+    DefaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "./common.yaml#/components/schemas/Error"
+  schemas:
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - accessTokenValidForSeconds
+        - refreshToken
+        - refreshTokenValidForSeconds
+      properties:
+        accessToken:
+          type: string
+        accessTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+        refreshToken:
+          type: string
+        refreshTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
