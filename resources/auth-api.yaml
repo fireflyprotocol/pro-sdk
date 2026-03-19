@@ -1,4 +1,4 @@
-openapi: '3.0.3'
+openapi: "3.0.3"
 info:
   title: Bluefin Auth API
   version: 1.0.0
@@ -16,6 +16,13 @@ servers:
           - sui-prod
 
 components:
+  responses:
+    DefaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "./common.yaml#/components/schemas/Error"
   schemas:
     JwksResponse:
       type: object
@@ -75,6 +82,26 @@ components:
         - accountAddress
         - signedAtMillis
         - audience
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - accessTokenValidForSeconds
+        - refreshToken
+        - refreshTokenValidForSeconds
+      properties:
+        accessToken:
+          type: string
+        accessTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+        refreshToken:
+          type: string
+        refreshTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
     RefreshTokenRequest:
       type: object
       required:
@@ -123,7 +150,7 @@ components:
         - ephemeralPublicKey
         - maxEpoch
         - randomness
-    
+
     ProofPoints:
       type: object
       properties:
@@ -168,9 +195,9 @@ components:
       type: object
       properties:
         proofPoints:
-          $ref: '#/components/schemas/ProofPoints'
+          $ref: "#/components/schemas/ProofPoints"
         issBase64Details:
-          $ref: '#/components/schemas/IssBase64Details'
+          $ref: "#/components/schemas/IssBase64Details"
         headerBase64:
           type: string
           description: Base64 encoded header information.
@@ -234,18 +261,18 @@ paths:
     get:
       tags:
         - Auth
-      summary: /.well-known/openid-configuration  
-      description: OpenID Connect Discovery endpoint 
+      summary: /.well-known/openid-configuration
+      description: OpenID Connect Discovery endpoint
       operationId: GetWellKnownOpenidConfiguration
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OpenIDConfigurationResponse'
+                $ref: "#/components/schemas/OpenIDConfigurationResponse"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: "#/components/responses/DefaultError"
   /auth/zklogin:
     get:
       tags:
@@ -261,31 +288,30 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Successful response with zkLogin user details
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ZKLoginUserDetailsResponse'
-        '400':
+                $ref: "#/components/schemas/ZKLoginUserDetailsResponse"
+        "400":
           description: "Bad Request"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: internal server error
           content:
             application/json:
               schema:
-                $ref: "./common.yaml#/components/schemas/Error"  
-
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /auth/zklogin/zkp:
     post:
       tags:
         - Auth
-      summary: /auth/zklogin/zkp  
+      summary: /auth/zklogin/zkp
       operationId: PostZkLoginZkp
       parameters:
         - in: header
@@ -299,45 +325,45 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ZKLoginZKPRequest'
+              $ref: "#/components/schemas/ZKLoginZKPRequest"
       responses:
-        '200':
+        "200":
           description: Successful response with ZK proof result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ZKLoginZKPResponse'
-        '400':
+                $ref: "#/components/schemas/ZKLoginZKPResponse"
+        "400":
           description: "Bad Request"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "./common.yaml#/components/schemas/Error"  
+                $ref: "./common.yaml#/components/schemas/Error"
 
   /auth/jwks:
     get:
       tags:
         - Auth
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JwksResponse'
+                $ref: "#/components/schemas/JwksResponse"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: "#/components/responses/DefaultError"
   /auth/token:
     post:
       tags:
         - Auth
-      description: 'login with token'
+      description: "login with token"
       parameters:
         - name: payloadSignature
           in: header
@@ -364,52 +390,52 @@ paths:
           in: query
           required: false
           schema:
-            $ref: './common.yaml#/components/schemas/ClientType'
+            $ref: "./common.yaml#/components/schemas/ClientType"
           description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
         content:
-          '*/*':
+          "*/*":
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: "#/components/schemas/LoginRequest"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: './auth-common.yaml#/components/schemas/LoginResponse'
-        '400':
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
           description: "bad signature"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '401':
+        "401":
           description: "invalid signature"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '403':
+        "403":
           description: "invalid audience"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: internal server error
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: "#/components/responses/DefaultError"
   /auth/v2/token:
     post:
       tags:
         - Auth
-      description: 'login compatible with BCS payload with intent bytes'
+      description: "login compatible with BCS payload with intent bytes"
       parameters:
         - name: payloadSignature
           in: header
@@ -436,47 +462,47 @@ paths:
           in: query
           required: false
           schema:
-            $ref: './common.yaml#/components/schemas/ClientType'
+            $ref: "./common.yaml#/components/schemas/ClientType"
           description: "The client application originating the request (WEB or VERA). Defaults to WEB if not supplied."
       requestBody:
         required: true
         content:
-          '*/*':
+          "*/*":
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: "#/components/schemas/LoginRequest"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: './auth-common.yaml#/components/schemas/LoginResponse'
-        '400':
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
           description: "bad signature"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '401':
+        "401":
           description: "invalid signature"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '403':
+        "403":
           description: "invalid audience"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: internal server error
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: "#/components/responses/DefaultError"
   /auth/token/refresh:
     put:
       tags:
@@ -487,71 +513,71 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RefreshTokenRequest'
+              $ref: "#/components/schemas/RefreshTokenRequest"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RefreshTokenResponse'
-        '401':
+                $ref: "#/components/schemas/RefreshTokenResponse"
+        "401":
           description: "invalid signature"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '400':
+        "400":
           description: "missing refresh token in request"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: internal server error
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
-  
+          $ref: "#/components/responses/DefaultError"
+
   /auth/client-credentials:
     post:
       tags:
         - Auth
-      summary: /auth/client-credentials  
-      description: 'OAuth2 client_credentials grant for service accounts' 
+      summary: /auth/client-credentials
+      description: "OAuth2 client_credentials grant for service accounts"
       operationId: PostAuthClientCredentials
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClientCredentialsRequest'
+              $ref: "#/components/schemas/ClientCredentialsRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ClientCredentialsRequest'
+              $ref: "#/components/schemas/ClientCredentialsRequest"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClientCredentialsResponse'
-        '400':
+                $ref: "#/components/schemas/ClientCredentialsResponse"
+        "400":
           description: "invalid request"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '401':
+        "401":
           description: "invalid or unconfigured credentials"
           content:
             application/json:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
-        '500':
+        "500":
           description: internal server error
           content:
             application/json:
