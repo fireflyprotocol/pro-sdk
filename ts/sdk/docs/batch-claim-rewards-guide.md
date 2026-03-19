@@ -33,7 +33,7 @@ const signer = new BluefinRequestSigner(makeSigner(wallet, false));
 const sdk = new BluefinProSdk(
   signer,
   "mainnet", // or "testnet" for staging
-  new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" })
+  new SuiClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
 );
 
 await sdk.initialize();
@@ -139,7 +139,7 @@ async function claimRewards() {
   const sdk = new BluefinProSdk(
     signer,
     "mainnet",
-    new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" })
+    new SuiClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
   );
   await sdk.initialize();
 

@@ -113,7 +113,7 @@ async function main() {
   const client = new BluefinProSdk(
     bfSigner,
     "testnet",
-    new SuiClient({ url: "https://fullnode.testnet.sui.io:443" })
+    new SuiClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" })
   );
   await client.initialize();
 
@@ -122,7 +122,7 @@ async function main() {
   // const clientWithTimeOffset = new BluefinProSdk(
   //   bfSigner,
   //   "testnet",
-  //   new SuiClient({ url: "https://fullnode.testnet.sui.io:443" }),
+  //   new SuiClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" }),
   //   { currentTimeMs: customTime }
   // );
   // await clientWithTimeOffset.initialize();
