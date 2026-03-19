@@ -6,14 +6,11 @@ SPEC := resources/bluefin-api.yaml
 DOCKER_RUN := docker run --rm -v $(CURDIR):/work -w /work $(OPENAPI_GEN_IMAGE) generate \
 	--input-spec /work/$(SPEC)
 
-.PHONY: generate generate-ts generate-py generate-rs version-bump help
+.PHONY: generate generate-ts generate-py generate-rs help
 
 # --- Code Generation ---
 
-version-bump: ## Detect spec changes and bump SDK versions
-	python3 scripts/version_bump.py
-
-generate: generate-ts generate-py generate-rs version-bump ## Generate all SDK clients
+generate: generate-ts generate-py generate-rs ## Generate all SDK clients
 
 generate-ts: ## Generate TypeScript client
 	$(DOCKER_RUN) \
