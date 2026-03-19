@@ -93,7 +93,7 @@ keywords = [
 license = "Unlicense"
 name = "bluefin-pro"
 repository = "https://github.com/fireflyprotocol/pro-sdk"
-version = "1.15.0"
+version = "1.16.0"
 
 [workspace]
 members = [
