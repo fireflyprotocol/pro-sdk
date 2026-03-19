@@ -9,7 +9,7 @@ sha2 = "0.10.9"
 
 [dependencies.bluefin_api]
 path = "gen/bluefin_api"
-version = "1.16.0"
+version = "1.15.0"
 
 [dependencies.ed25519-dalek]
 features = ["rand_core"]

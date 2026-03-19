@@ -2,7 +2,6 @@
 /target/
 .idea/
 .vscode/
-.zed
 .venv
 /ts/dist
 /ts/sdk/node_modules
@@ -10,4 +9,3 @@
 **/openapitools.json
 out
 tools/**/target
-.DS_Store

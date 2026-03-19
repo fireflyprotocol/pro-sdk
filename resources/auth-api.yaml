@@ -16,6 +16,13 @@ servers:
           - sui-prod
 
 components:
+  responses:
+    DefaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: './common.yaml#/components/schemas/Error'
   schemas:
     JwksResponse:
       type: object
@@ -75,6 +82,26 @@ components:
         - accountAddress
         - signedAtMillis
         - audience
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - accessTokenValidForSeconds
+        - refreshToken
+        - refreshTokenValidForSeconds
+      properties:
+        accessToken:
+          type: string
+        accessTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
+        refreshToken:
+          type: string
+        refreshTokenValidForSeconds:
+          type: integer
+          format: int64
+          x-go-type: int64
     RefreshTokenRequest:
       type: object
       required:
@@ -245,7 +272,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpenIDConfigurationResponse'
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: '#/components/responses/DefaultError'
   /auth/zklogin:
     get:
       tags:
@@ -332,7 +359,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/JwksResponse'
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: '#/components/responses/DefaultError'
   /auth/token:
     post:
       tags:
@@ -378,7 +405,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './auth-common.yaml#/components/schemas/LoginResponse'
+                $ref: '#/components/schemas/LoginResponse'
         '400':
           description: "bad signature"
           content:
@@ -404,7 +431,7 @@ paths:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: '#/components/responses/DefaultError'
   /auth/v2/token:
     post:
       tags:
@@ -450,7 +477,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './auth-common.yaml#/components/schemas/LoginResponse'
+                $ref: '#/components/schemas/LoginResponse'
         '400':
           description: "bad signature"
           content:
@@ -476,7 +503,7 @@ paths:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: '#/components/responses/DefaultError'
   /auth/token/refresh:
     put:
       tags:
@@ -514,7 +541,7 @@ paths:
               schema:
                 $ref: "./common.yaml#/components/schemas/Error"
         default:
-          $ref: './auth-common.yaml#/components/responses/DefaultError'
+          $ref: '#/components/responses/DefaultError'
   
   /auth/client-credentials:
     post:

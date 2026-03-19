@@ -8,7 +8,7 @@
     "hideGenerationTimestamp": true,
     "modelPropertyNaming": "camelCase",
     "npmName": "@bluefin/api-client",
-    "npmVersion": "1.16.0",
+    "npmVersion": "1.2.0",
     "nullSafeAdditionalProps": true,
     "packageName": "bluefin-pro-api-client",
     "paramNaming": "camelCase",

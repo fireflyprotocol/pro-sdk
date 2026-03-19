@@ -26,7 +26,3 @@ index.ts
 package.json
 README.md
 tsconfig.json
-request-signer.ts
-sdk.ts
-utils.ts
-websocket.ts
