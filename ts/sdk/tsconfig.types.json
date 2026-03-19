@@ -5,11 +5,7 @@
     "emitDeclarationOnly": true,
     "declarationMap": true,
     "outDir": "dist/types",
-    "module": "commonjs",
-    "paths": {
-      "@firefly-exchange/library-sui/v3": [
-        "./node_modules/@firefly-exchange/library-sui/dist/src/v3"
-      ]
-    },
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
   }
 }

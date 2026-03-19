@@ -50,7 +50,7 @@ const signer = new BluefinRequestSigner(makeSigner(wallet, false));
 const client = new BluefinProSdk(
   signer,
   "mainnet", // or "testnet" for staging, "devnet" for development
-  new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" })
+  new SuiClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
 );
 
 // Initialize the SDK (authenticates and loads exchange configuration)
