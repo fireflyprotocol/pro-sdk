@@ -27,6 +27,9 @@
     "@fireflyprotocol/pro-sdk"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "license": "Unlicense",
   "main": "./dist/esm/index.js",
   "name": "@bluefin-exchange/pro-sdk",
