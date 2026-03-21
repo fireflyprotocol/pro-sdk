@@ -22,7 +22,8 @@ import {
 } from "./index";
 
 import { hexToBytes } from "@noble/hashes/utils";
-import { SuiClient, Ed25519Keypair } from "@firefly-exchange/library-sui";
+import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
+import { Ed25519Keypair } from "@firefly-exchange/library-sui";
 
 // Configure logging
 const logger = {
@@ -113,7 +114,7 @@ async function main() {
   const client = new BluefinProSdk(
     bfSigner,
     "testnet",
-    new SuiClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" })
+    new SuiJsonRpcClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" })
   );
   await client.initialize();
 
@@ -122,7 +123,7 @@ async function main() {
   // const clientWithTimeOffset = new BluefinProSdk(
   //   bfSigner,
   //   "testnet",
-  //   new SuiClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" }),
+  //   new SuiJsonRpcClient({ url: "https://fullnode.testnet.sui.io:443", network: "testnet" }),
   //   { currentTimeMs: customTime }
   // );
   // await clientWithTimeOffset.initialize();

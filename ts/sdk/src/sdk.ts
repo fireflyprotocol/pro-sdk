@@ -40,6 +40,7 @@ import {
   decodeSuiPrivateKey,
   SuiBlocks,
 } from '@firefly-exchange/library-sui';
+import type { ClientWithCoreApi } from '@mysten/sui/client';
 // RewardsDistributorInteractor for reward claiming
 import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/index';
 import { toHex } from '@mysten/bcs';
@@ -182,13 +183,17 @@ export class BluefinProSdk {
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
   private timeOffsetMs: number;
+  private suiClient: SuiClient;
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
     private environment: 'mainnet' | 'testnet' | 'devnet' = 'mainnet',
-    private suiClient: SuiClient,
+    suiClient: SuiClient | ClientWithCoreApi,
     opts?: BluefinProSdkOptions,
   ) {
+    // SuiJsonRpcClient and ClientWithCoreApi are structurally compatible
+    // for all library-sui operations; cast once at the boundary.
+    this.suiClient = suiClient as SuiClient;
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
     this.updateTokenTimeout = null;
