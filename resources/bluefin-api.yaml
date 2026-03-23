@@ -135,25 +135,25 @@ paths:
     $ref: "./account-data-api.yaml#/paths/~1api~1v1~1accounts~1leaderboard"
 
   /v1/exchange/depth:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1depth"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1depth"
   /v1/exchange/ticker:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1ticker"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1ticker"
   /v1/exchange/tickers:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1tickers"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1tickers"
   /v1/exchange/info:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1info"
+    $ref: "./exchange-pro-api.yaml#/paths/~1v1~1exchange~1info"
   /v1/exchange/trades:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1trades"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1trades"
   /v1/exchange/candlesticks:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1candlesticks"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1candlesticks"
   /v1/exchange/fundingRateHistory:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1fundingRateHistory"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1fundingRateHistory"
   /v1/exchange/stats:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1stats"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1stats"
   /v1/exchange/stats/allTime:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1stats~1allTime"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1stats~1allTime"
   /v1/exchange/country:
-    $ref: "./exchange-api.yaml#/paths/~1v1~1exchange~1country"
+    $ref: "./exchange-common-api.yaml#/paths/~1v1~1exchange~1country"
 
   /api/v1/trade/leverage:
     $ref: "./trade-api.yaml#/paths/~1api~1v1~1trade~1leverage"
