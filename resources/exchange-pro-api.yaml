@@ -38,14 +38,6 @@ components:
         - tradingGasFeeE9
         - serverTimeAtMillis
         - timezone
-    MarketStatus:
-      type: string
-      enum:
-        - ACTIVE
-        - BETA
-        - MAINTENANCE
-        - DELISTED
-        - UNSPECIFIED
     ContractsConfig:
       type: object
       description: Contract configuration for the exchange.
@@ -152,7 +144,7 @@ components:
           description: Market address.
           example: 0x123
         status:
-          $ref: "#/components/schemas/MarketStatus"
+          $ref: "./exchange-common-api.yaml#/components/schemas/MarketStatus"
         baseAssetSymbol:
           type: string
           description: Base asset symbol.
