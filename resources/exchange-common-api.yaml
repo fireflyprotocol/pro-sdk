@@ -343,6 +343,15 @@ components:
       items:
         $ref: "#/components/schemas/FundingRateEntry"
 
+    MarketStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - BETA
+        - MAINTENANCE
+        - DELISTED
+        - UNSPECIFIED
+
     KlineInterval:
       type: string
       enum:
