@@ -245,7 +245,7 @@ Name | Type | Description  | Required | Notes
 **interval** | Option<[**LeaderboardInterval**](.md)> | The interval to get the leaderboard for. Default or Unspecified is 7d. |  |
 **sort_by** | Option<**String**> | The field to sort by. Default or Unspecified is accountValue. |  |[default to accountValue]
 **sort_order** | Option<[**SortOrder**](.md)> | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. |  |
-**limit** | Option<**u32**> | Default 50; max 100. |  |[default to 50]
+**limit** | Option<**u32**> | Default 50; max 1000. |  |[default to 50]
 **page** | Option<**u32**> | The page number to retrieve in a paginated response. |  |[default to 1]
 
 ### Return type

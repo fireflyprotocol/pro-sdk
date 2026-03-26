@@ -7958,7 +7958,7 @@ export const ExchangeApiAxiosParamCreator = function (configuration?: Configurat
          * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
          * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
          * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
-         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8265,7 +8265,7 @@ export const ExchangeApiFp = function(configuration?: Configuration) {
          * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
          * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
          * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
-         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8417,7 +8417,7 @@ export const ExchangeApiFactory = function (configuration?: Configuration, baseP
          * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
          * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
          * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
-         * @param {number} [limit] Default 50; max 100.
+         * @param {number} [limit] Default 50; max 1000.
          * @param {number} [page] The page number to retrieve in a paginated response.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8571,7 +8571,7 @@ export class ExchangeApi extends BaseAPI {
      * @param {LeaderboardInterval} [interval] The interval to get the leaderboard for. Default or Unspecified is 7d.
      * @param {GetLeaderboardSortByEnum} [sortBy] The field to sort by. Default or Unspecified is accountValue.
      * @param {SortOrder} [sortOrder] The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
-     * @param {number} [limit] Default 50; max 100.
+     * @param {number} [limit] Default 50; max 1000.
      * @param {number} [page] The page number to retrieve in a paginated response.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
