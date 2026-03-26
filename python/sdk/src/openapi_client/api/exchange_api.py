@@ -2078,7 +2078,7 @@ class ExchangeApi:
         interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
         sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -2103,7 +2103,7 @@ class ExchangeApi:
         :type sort_by: str
         :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
         :type sort_order: SortOrder
-        :param limit: Default 50; max 100.
+        :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
@@ -2164,7 +2164,7 @@ class ExchangeApi:
         interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
         sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -2189,7 +2189,7 @@ class ExchangeApi:
         :type sort_by: str
         :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
         :type sort_order: SortOrder
-        :param limit: Default 50; max 100.
+        :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int
@@ -2250,7 +2250,7 @@ class ExchangeApi:
         interval: Annotated[Optional[LeaderboardInterval], Field(description="The interval to get the leaderboard for. Default or Unspecified is 7d.")] = None,
         sort_by: Annotated[Optional[StrictStr], Field(description="The field to sort by. Default or Unspecified is accountValue.")] = None,
         sort_order: Annotated[Optional[SortOrder], Field(description="The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Default 50; max 100.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Default 50; max 1000.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The page number to retrieve in a paginated response.")] = None,
         _request_timeout: Union[
             None,
@@ -2275,7 +2275,7 @@ class ExchangeApi:
         :type sort_by: str
         :param sort_order: The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC.
         :type sort_order: SortOrder
-        :param limit: Default 50; max 100.
+        :param limit: Default 50; max 1000.
         :type limit: int
         :param page: The page number to retrieve in a paginated response.
         :type page: int

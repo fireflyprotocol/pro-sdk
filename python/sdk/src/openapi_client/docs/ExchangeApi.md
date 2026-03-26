@@ -544,7 +544,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     interval = openapi_client.LeaderboardInterval() # LeaderboardInterval | The interval to get the leaderboard for. Default or Unspecified is 7d. (optional)
     sort_by = accountValue # str | The field to sort by. Default or Unspecified is accountValue. (optional) (default to accountValue)
     sort_order = openapi_client.SortOrder() # SortOrder | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. (optional)
-    limit = 50 # int | Default 50; max 100. (optional) (default to 50)
+    limit = 50 # int | Default 50; max 1000. (optional) (default to 50)
     page = 1 # int | The page number to retrieve in a paginated response. (optional) (default to 1)
 
     try:
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
  **interval** | [**LeaderboardInterval**](.md)| The interval to get the leaderboard for. Default or Unspecified is 7d. | [optional] 
  **sort_by** | **str**| The field to sort by. Default or Unspecified is accountValue. | [optional] [default to accountValue]
  **sort_order** | [**SortOrder**](.md)| The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. | [optional] 
- **limit** | **int**| Default 50; max 100. | [optional] [default to 50]
+ **limit** | **int**| Default 50; max 1000. | [optional] [default to 50]
  **page** | **int**| The page number to retrieve in a paginated response. | [optional] [default to 1]
 
 ### Return type

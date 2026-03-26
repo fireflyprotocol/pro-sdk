@@ -411,7 +411,7 @@ const apiInstance = new ExchangeApi(configuration);
 let interval: LeaderboardInterval; //The interval to get the leaderboard for. Default or Unspecified is 7d. (optional) (default to undefined)
 let sortBy: 'accountValue' | 'pnl' | 'volume' | 'UNSPECIFIED'; //The field to sort by. Default or Unspecified is accountValue. (optional) (default to 'accountValue')
 let sortOrder: SortOrder; //The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. (optional) (default to undefined)
-let limit: number; //Default 50; max 100. (optional) (default to 50)
+let limit: number; //Default 50; max 1000. (optional) (default to 50)
 let page: number; //The page number to retrieve in a paginated response. (optional) (default to 1)
 
 const { status, data } = await apiInstance.getLeaderboard(
@@ -430,7 +430,7 @@ const { status, data } = await apiInstance.getLeaderboard(
 | **interval** | **LeaderboardInterval** | The interval to get the leaderboard for. Default or Unspecified is 7d. | (optional) defaults to undefined|
 | **sortBy** | [**&#39;accountValue&#39; | &#39;pnl&#39; | &#39;volume&#39; | &#39;UNSPECIFIED&#39;**]**Array<&#39;accountValue&#39; &#124; &#39;pnl&#39; &#124; &#39;volume&#39; &#124; &#39;UNSPECIFIED&#39;>** | The field to sort by. Default or Unspecified is accountValue. | (optional) defaults to 'accountValue'|
 | **sortOrder** | **SortOrder** | The sort order, either ascending (ASC) or descending (DESC). Default or UNSPECIFIED is DESC. | (optional) defaults to undefined|
-| **limit** | [**number**] | Default 50; max 100. | (optional) defaults to 50|
+| **limit** | [**number**] | Default 50; max 1000. | (optional) defaults to 50|
 | **page** | [**number**] | The page number to retrieve in a paginated response. | (optional) defaults to 1|
 
 

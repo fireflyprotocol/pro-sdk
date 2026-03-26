@@ -21,3 +21,7 @@ generate-py: ## Generate Python client
 generate-rs: ## Generate Rust client
 	rm -rf rust/gen/bluefin_api
 	apigen -l rust
+
+.PHONY: example-rs
+example-rs: ## Run the example for the generated Rust client
+	cd rust; for i in `ls examples/ | grep -v shutdown`; do name=$${i::-3}; echo "$$name"; cargo run --example "$$name"; done
