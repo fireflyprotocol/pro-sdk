@@ -52,5 +52,5 @@
     "prepare": "npm run build"
   },
   "types": "./dist/types/index.d.ts",
-  "version": "1.16.0"
+  "version": "1.17.0"
 }
