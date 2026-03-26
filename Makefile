@@ -25,3 +25,7 @@ generate-rs: ## Generate Rust client
 .PHONY: example-rs
 example-rs: ## Run the example for the generated Rust client
 	cd rust; for i in `ls examples/ | grep -v shutdown`; do name=$${i::-3}; echo "$$name"; cargo run --example "$$name"; done
+
+.PHONY: ts-typecheck
+ts-typecheck: generate-ts ## Type check the generated TypeScript client
+	docker run --rm -v "${PWD}:/work" -w /work/ts/sdk node:24 sh -lc "yarn install --frozen-lockfile && yarn build:types && yarn build:example"
