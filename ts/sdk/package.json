@@ -49,6 +49,7 @@
   "scripts": {
     "build": "npm run clean && npm run build:esm",
     "build:esm": "tsc -p tsconfig.esm.json",
+    "build:types": "tsc -p tsconfig.esm.json --noEmit",
     "build:example": "tsc -p tsconfig.example.json",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
