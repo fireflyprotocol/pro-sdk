@@ -19,7 +19,7 @@ import {
   makeSigner,
   GetAccountValueHistoryParamsInterval,
   BatchClaimParams,
-} from "./index";
+} from "./index.js";
 
 import { hexToBytes } from "@noble/hashes/utils";
 import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
