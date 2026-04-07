@@ -21,9 +21,9 @@ import {
   BatchClaimParams,
 } from "./index.js";
 
-import { hexToBytes } from "@noble/hashes/utils";
+import { hexToBytes } from "@noble/hashes/utils.js";
 import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
-import { Ed25519Keypair } from "@firefly-exchange/library-sui";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 
 // Configure logging
 const logger = {

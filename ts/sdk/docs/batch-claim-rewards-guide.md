@@ -22,7 +22,7 @@ import {
   BatchClaimParams 
 } from "@bluefin-exchange/pro-sdk";
 import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
-import { Ed25519Keypair } from "@firefly-exchange/library-sui";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 
 // Create wallet from private key or mnemonic
 const wallet = Ed25519Keypair.fromSecretKey(hexToBytes("YOUR_PRIVATE_KEY"));
@@ -131,8 +131,8 @@ import {
   BatchClaimParams 
 } from "@bluefin-exchange/pro-sdk";
 import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
-import { Ed25519Keypair } from "@firefly-exchange/library-sui";
-import { hexToBytes } from "@noble/hashes/utils";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
+import { hexToBytes } from "@noble/hashes/utils.js";
 
 async function claimRewards() {
   // 1. Setup

@@ -33,8 +33,8 @@ import {
   makeSigner,
 } from "@bluefin-exchange/pro-sdk";
 import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
-import { Ed25519Keypair } from "@firefly-exchange/library-sui";
-import { hexToBytes } from "@noble/hashes/utils";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
+import { hexToBytes } from "@noble/hashes/utils.js";
 
 // Create wallet from private key
 const wallet = Ed25519Keypair.fromSecretKey(
@@ -253,4 +253,3 @@ The SDK supports three environments:
 Each environment has different API endpoints configured automatically.
 
 See [example.ts](./example.ts) for the complete example code.
-
