@@ -34,7 +34,6 @@ import { WebSocket } from 'ws';
 import { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
 import {
   CoinUtils,
-  SuiClient,
   TransactionBlock,
   Ed25519Keypair,
   decodeSuiPrivateKey,
@@ -183,17 +182,15 @@ export class BluefinProSdk {
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
   private timeOffsetMs: number;
-  private suiClient: SuiClient;
+  private suiClient: ClientWithCoreApi;
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
     private environment: 'mainnet' | 'testnet' | 'devnet' = 'mainnet',
-    suiClient: SuiClient | ClientWithCoreApi,
+    suiClient: ClientWithCoreApi,
     opts?: BluefinProSdkOptions,
   ) {
-    // SuiJsonRpcClient and ClientWithCoreApi are structurally compatible
-    // for all library-sui operations; cast once at the boundary.
-    this.suiClient = suiClient as SuiClient;
+    this.suiClient = suiClient;
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
     this.updateTokenTimeout = null;
