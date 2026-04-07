@@ -10,10 +10,12 @@
 //!
 //! - [ ] Automate publication to package repositories: PyPI, crates.io, and NPM
 
-use std::path::PathBuf;
+use std::fs;
+use std::path::{Path, PathBuf};
 use std::process::{Command, exit};
 use std::{env, fmt, io};
 
+use regex::{Captures, Regex};
 use tools::Lang;
 
 // Import version bump functionality from library (only when feature is enabled)
@@ -133,7 +135,43 @@ fn generate(lang: Lang) -> Result<()> {
             .args(["--generator-name", lang.generator()])
             .args(["--output", lang.output()]),
         "openapi-generator-cli",
-    )
+    )?;
+
+    if matches!(lang, Lang::TypeScript) {
+        postprocess_typescript_esm_imports(Path::new(lang.output()))?;
+    }
+
+    Ok(())
+}
+
+fn postprocess_typescript_esm_imports(dir: &Path) -> Result<()> {
+    let import_re = Regex::new(r#"(?m)(from\s+['"])(\./[^'".]+)(['"])"#)
+        .expect("valid import regex");
+    let export_re = Regex::new(r#"(?m)(export\s+\*\s+from\s+['"])(\./[^'".]+)(['"])"#)
+        .expect("valid export regex");
+
+    for entry in fs::read_dir(dir)? {
+        let entry = entry?;
+        let path = entry.path();
+
+        if path.extension().and_then(|ext| ext.to_str()) != Some("ts") {
+            continue;
+        }
+
+        let original = fs::read_to_string(&path)?;
+        let with_imports = import_re.replace_all(&original, |caps: &Captures<'_>| {
+            format!("{}{}.js{}", &caps[1], &caps[2], &caps[3])
+        });
+        let updated = export_re.replace_all(&with_imports, |caps: &Captures<'_>| {
+            format!("{}{}.js{}", &caps[1], &caps[2], &caps[3])
+        });
+
+        if updated != original {
+            fs::write(path, updated.as_bytes())?;
+        }
+    }
+
+    Ok(())
 }
 
 /// Returns the nearest ancestor of the current working directory containing a "resources" folder.
