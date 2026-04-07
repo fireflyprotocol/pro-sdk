@@ -8,7 +8,6 @@
     "rootDir": ".",
     "skipLibCheck": true,
     "strict": true,
-    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true

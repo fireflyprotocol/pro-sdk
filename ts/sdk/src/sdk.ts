@@ -36,7 +36,6 @@ import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
 import { Transaction as TransactionBlock } from '@mysten/sui/transactions';
 import type { ClientWithCoreApi } from '@mysten/sui/client';
 import type { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
-import type { SuiClient } from '@firefly-exchange/library-sui';
 import { toHex } from '@mysten/bcs';
 import globalAxios from 'axios';
 
