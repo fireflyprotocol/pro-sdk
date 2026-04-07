@@ -1,7 +1,7 @@
 {
   "author": "Bluefin",
   "dependencies": {
-    "@firefly-exchange/library-sui": "3.0.0-beta.1",
+    "@firefly-exchange/library-sui": "^3.0.0",
     "@mysten/bcs": "^2.0.0",
     "@noble/hashes": "^1.7.0",
     "@types/ws": "^8.5.13",
@@ -35,10 +35,10 @@
   "name": "@bluefin-exchange/pro-sdk",
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "peerDependencies": {
-    "@mysten/sui": "^2.0.0"
+    "@mysten/sui": "^2.13.0"
   },
   "resolutions": {
-    "@mysten/sui": "^2.0.0"
+    "@mysten/sui": "^2.13.0"
   },
   "publishConfig": {
     "access": "public"
@@ -56,5 +56,5 @@
     "prepare": "npm run build"
   },
   "types": "./dist/types/index.d.ts",
-  "version": "2.0.0-beta.0"
+  "version": "2.0.0-beta.1"
 }
