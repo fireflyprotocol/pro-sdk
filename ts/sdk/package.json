@@ -48,10 +48,9 @@
     "url": "https://github.com/fireflyprotocol/pro-sdk.git"
   },
   "scripts": {
-    "build": "npm run build:types && npm run build:esm",
+    "build": "npm run build:esm",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:example": "tsc -p tsconfig.example.json",
-    "build:types": "tsc -p tsconfig.types.json",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
