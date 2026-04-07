@@ -1141,6 +1141,10 @@ export class BluefinProSdk {
     txb: TransactionBlock,
   ): Promise<string> => {
     try {
+      txb.setSenderIfNotSet(
+        this.currentAccountAddress ?? this.bfSigner.getAddress(),
+      );
+
       const { SuiBlocks } = await loadLibrarySuiRoot();
       return await SuiBlocks.buildGaslessTxPayloadBytes(txb, this.suiClient);
     } catch (error) {
