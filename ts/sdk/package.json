@@ -3,7 +3,6 @@
   "dependencies": {
     "@firefly-exchange/library-sui": "^3.0.0",
     "@mysten/bcs": "^2.0.0",
-    "@noble/hashes": "^1.7.0",
     "@types/ws": "^8.5.13",
     "axios": "^1.13.6",
     "isomorphic-ws": "^5.0.0",
