@@ -6,6 +6,7 @@
     "enumNameSuffix": "Enum",
     "generateAliasAsModel": false,
     "hideGenerationTimestamp": true,
+    "importFileExtension": ".js",
     "modelPropertyNaming": "camelCase",
     "npmName": "@bluefin/api-client",
     "npmVersion": "1.16.0",

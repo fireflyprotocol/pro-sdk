@@ -4,6 +4,12 @@ import {
   Signer,
   parseSerializedSignature,
 } from '@mysten/sui/cryptography';
+import type {
+  DryRunTransactionBlockResponse,
+  SuiClient,
+  SuiTransactionBlockResponse,
+} from '@firefly-exchange/library-sui';
+import type { Transaction as TransactionBlock } from '@mysten/sui/transactions';
 import {
   LoginRequest,
   AccountPositionLeverageUpdateRequestSignedFields,
@@ -12,14 +18,12 @@ import {
   AccountAuthorizationRequestSignedFields,
   AdjustMarginOperation,
   AdjustIsolatedMarginRequestSignedFields,
-} from './api';
-import {
-  DryRunTransactionBlockResponse,
-  SuiBlocks,
-  SuiClient,
-  SuiTransactionBlockResponse,
-  TransactionBlock,
-} from '@firefly-exchange/library-sui';
+} from './api.js';
+
+async function loadSuiBlocks() {
+  const { SuiBlocks } = await import('@firefly-exchange/library-sui');
+  return SuiBlocks;
+}
 
 export interface ISigner {
   toSuiAddress(): string;
@@ -399,6 +403,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
   }
 
   async signTx(txb: TransactionBlock, suiClient: SuiClient) {
+    const SuiBlocks = await loadSuiBlocks();
     return await SuiBlocks.buildAndSignTxBlock(
       txb,
       suiClient,
@@ -413,6 +418,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
     sponsorSignature: string,
     suiClient: SuiClient,
   ) {
+    const SuiBlocks = await loadSuiBlocks();
     return SuiBlocks.executeSponsoredTxBlock(
       txBytes,
       userSignature,
@@ -422,6 +428,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
   }
 
   async executeTx(txb: TransactionBlock, suiClient: SuiClient) {
+    const SuiBlocks = await loadSuiBlocks();
     return SuiBlocks.execCall(
       txb,
       suiClient,

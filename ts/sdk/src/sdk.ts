@@ -26,22 +26,16 @@ import {
   UpdateAccountPreferenceRequest,
   SponsorTxRequest,
   AccountGroupIdPatch,
-} from './api';
+} from './api.js';
 
-import { Configuration } from './configuration';
-import { IBluefinSigner } from './request-signer';
+import { Configuration } from './configuration.js';
+import type { IBluefinSigner } from './request-signer.js';
 import { WebSocket } from 'ws';
-import { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
-import {
-  CoinUtils,
-  SuiClient,
-  TransactionBlock,
-  Ed25519Keypair,
-  decodeSuiPrivateKey,
-  SuiBlocks,
-} from '@firefly-exchange/library-sui';
-// RewardsDistributorInteractor for reward claiming
-import { RewardsDistributorInteractor } from '@firefly-exchange/library-sui/index';
+import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
+import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
+import { Transaction as TransactionBlock } from '@mysten/sui/transactions';
+import type { ClientWithCoreApi } from '@mysten/sui/client';
+import type { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
 import { toHex } from '@mysten/bcs';
 import globalAxios from 'axios';
 
@@ -89,6 +83,18 @@ const environmentConfig: EnvironmentConfig = {
     accountWsHost: 'wss://stream.api.sui-dev.bluefin.io/ws/account',
   },
 };
+
+async function loadLibrarySuiRoot() {
+  return await import('@firefly-exchange/library-sui');
+}
+
+async function loadLibrarySuiV3() {
+  return await import('@firefly-exchange/library-sui/v3');
+}
+
+async function loadRewardsDistributorInteractor() {
+  return await import('@firefly-exchange/library-sui/index');
+}
 
 export interface OrderParams {
   clientOrderId: string;
@@ -182,13 +188,15 @@ export class BluefinProSdk {
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
   private timeOffsetMs: number;
+  private suiClient: ClientWithCoreApi;
 
   constructor(
     private readonly bfSigner: IBluefinSigner,
     private environment: 'mainnet' | 'testnet' | 'devnet' = 'mainnet',
-    private suiClient: SuiClient,
+    suiClient: ClientWithCoreApi,
     opts?: BluefinProSdkOptions,
   ) {
+    this.suiClient = suiClient;
     this.currentAccountAddress = opts?.currentAccountAddress;
     this.isConnected = false;
     this.updateTokenTimeout = null;
@@ -339,6 +347,7 @@ export class BluefinProSdk {
   }
 
   private async initializeTxBuilder() {
+    const { TxBuilder } = await loadLibrarySuiV3();
     this.txBuilder = new TxBuilder({
       AdminCap: '',
       ExternalDataStore: this.contractsConfig?.edsId || '',
@@ -788,6 +797,7 @@ export class BluefinProSdk {
   ) {
     const assetSymbol = 'USDC';
     const txb = new TransactionBlock();
+    const { CoinUtils } = await loadLibrarySuiRoot();
 
     const assetType = this.assets?.find(
       (x) => x.symbol === assetSymbol,
@@ -889,6 +899,8 @@ export class BluefinProSdk {
     const signer = (this.bfSigner as any).wallet;
 
     // Create the RewardsDistributorInteractor
+    const { RewardsDistributorInteractor } =
+      await loadRewardsDistributorInteractor();
     const interactor = new RewardsDistributorInteractor(
       this.suiClient as any,
       data as any,
@@ -1129,6 +1141,11 @@ export class BluefinProSdk {
     txb: TransactionBlock,
   ): Promise<string> => {
     try {
+      txb.setSenderIfNotSet(
+        this.currentAccountAddress ?? this.bfSigner.getAddress(),
+      );
+
+      const { SuiBlocks } = await loadLibrarySuiRoot();
       return await SuiBlocks.buildGaslessTxPayloadBytes(txb, this.suiClient);
     } catch (error) {
       throw new Error(

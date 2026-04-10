@@ -1,9 +1,8 @@
 {
   "author": "Bluefin",
   "dependencies": {
-    "@firefly-exchange/library-sui": "^2.8.13",
-    "@mysten/bcs": "^1.2.1",
-    "@noble/hashes": "^1.7.0",
+    "@firefly-exchange/library-sui": "^3.0.0",
+    "@mysten/bcs": "^2.0.0",
     "@types/ws": "^8.5.13",
     "axios": "^1.13.6",
     "isomorphic-ws": "^5.0.0",
@@ -16,9 +15,9 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -27,13 +26,19 @@
   "keywords": [
     "@fireflyprotocol/pro-sdk"
   ],
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "license": "Unlicense",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "name": "@bluefin-exchange/pro-sdk",
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "peerDependencies": {
-    "@mysten/sui": "^1.28.2"
+    "@mysten/sui": "^2.13.0"
+  },
+  "resolutions": {
+    "@mysten/sui": "^2.13.0"
   },
   "publishConfig": {
     "access": "public"
@@ -43,14 +48,13 @@
     "url": "https://github.com/fireflyprotocol/pro-sdk.git"
   },
   "scripts": {
-    "build": "npm run build:types && npm run build:esm && npm run build:cjs",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build": "npm run clean && npm run build:esm",
     "build:esm": "tsc -p tsconfig.esm.json",
+    "build:types": "tsc -p tsconfig.esm.json --noEmit",
     "build:example": "tsc -p tsconfig.example.json",
-    "build:types": "tsc -p tsconfig.types.json",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
-  "types": "./dist/types/index.d.ts",
-  "version": "1.17.0"
+  "types": "./dist/index.d.ts",
+  "version": "2.0.0"
 }

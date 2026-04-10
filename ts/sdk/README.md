@@ -32,8 +32,9 @@ import {
   BluefinRequestSigner,
   makeSigner,
 } from "@bluefin-exchange/pro-sdk";
-import { SuiClient, Ed25519Keypair } from "@firefly-exchange/library-sui";
-import { hexToBytes } from "@noble/hashes/utils";
+import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
+import { hexToBytes } from "@noble/hashes/utils.js";
 
 // Create wallet from private key
 const wallet = Ed25519Keypair.fromSecretKey(
@@ -50,7 +51,7 @@ const signer = new BluefinRequestSigner(makeSigner(wallet, false));
 const client = new BluefinProSdk(
   signer,
   "mainnet", // or "testnet" for staging, "devnet" for development
-  new SuiClient({ url: "https://fullnode.mainnet.sui.io:443" })
+  new SuiJsonRpcClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
 );
 
 // Initialize the SDK (authenticates and loads exchange configuration)
@@ -252,4 +253,3 @@ The SDK supports three environments:
 Each environment has different API endpoints configured automatically.
 
 See [example.ts](./example.ts) for the complete example code.
-
