@@ -20,7 +20,7 @@ async def test_withdraw_signature():
 
     payload = WithdrawRequestSignedFields(
         asset_symbol='USDC',
-        eds_id='0x5ffe1778e69001cb87f457ac3997df7567d54c4010b8193e6797793213f29ea0',
+        eds_id='0x9afeb4ace64a15f740367e344117864f77df2db40c4b62cde3f7e0d52689c08b',
         account_address='0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050',
         amount_e9="1500000",
         salt="1739231818963",

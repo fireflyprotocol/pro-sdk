@@ -10,7 +10,7 @@ class TestHashable(unittest.TestCase):
 
     def test_withdraw_request_hash(self):
         signed_fields = WithdrawRequestSignedFields(
-            eds_id="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
+            eds_id="0x9afeb4ace64a15f740367e344117864f77df2db40c4b62cde3f7e0d52689c08b",
             asset_symbol="BTC-PERP",
             account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             amount_e9="1000000000",
