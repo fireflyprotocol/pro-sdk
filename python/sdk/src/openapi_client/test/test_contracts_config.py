@@ -36,29 +36,29 @@ class TestContractsConfig(unittest.TestCase):
         if include_optional:
             return ContractsConfig(
                 eds_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
-                ids_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
+                ids_id = '0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9',
                 network = 'mainnet',
                 base_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 current_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 operators = openapi_client.models.operators.Operators(
-                    admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    sequencer = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    funding = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                    admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    sequencer = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    funding = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                     fee = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', )
             )
         else:
             return ContractsConfig(
                 eds_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
-                ids_id = '0x7c723c16bc4a4d3e1067360de6963cfdfbdc51a128563fe052cb4f8f00d6150b',
+                ids_id = '0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9',
                 network = 'mainnet',
                 base_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 current_contract_address = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                 operators = openapi_client.models.operators.Operators(
-                    admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    sequencer = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
-                    funding = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', 
+                    admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    sequencer = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
+                    funding = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                     fee = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0', ),
         )
         """
