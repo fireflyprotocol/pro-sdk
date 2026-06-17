@@ -41,7 +41,7 @@ class TestHashable(unittest.TestCase):
     def test_authorize_account_request_hash(self):
         # Create signed fields
         signed_fields = AccountAuthorizationRequestSignedFields(
-            ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+            ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
             account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             authorized_account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             salt="67890",
@@ -71,7 +71,7 @@ class TestHashable(unittest.TestCase):
     def test_deauthorize_account_request_hash(self):
         # Create signed fields
         signed_fields = AccountAuthorizationRequestSignedFields(
-            ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+            ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
             account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             authorized_account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             salt="67890",
@@ -108,7 +108,7 @@ class TestHashable(unittest.TestCase):
             leverage_e9="10000000000",
             is_isolated=False,
             salt="12345",
-            ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+            ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
             expires_at_millis=1725931543867,
             signed_at_millis=1725931543867
         )
@@ -149,7 +149,7 @@ class TestHashable(unittest.TestCase):
 
     def test_adjust_leverage_request_hash(self):
         signed_fields = AccountPositionLeverageUpdateRequestSignedFields(
-            ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+            ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
             account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             symbol="BTC-PERP",
             leverage_e9="10000000000",
@@ -179,7 +179,7 @@ class TestHashable(unittest.TestCase):
 
     def test_adjust_isolated_margin_request_hash(self):
         signed_fields = AdjustIsolatedMarginRequestSignedFields(
-            ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+            ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
             account_address="0x9b11fafc580f23932f379d99ab6cc4c638e85ba4c252fc909296f3f9e6cea786",
             symbol="BTC-PERP",
             operation=AdjustMarginOperation.ADD,

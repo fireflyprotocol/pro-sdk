@@ -45,7 +45,7 @@ async def test_order_signature():
         leverage_e9="0",
         is_isolated=False,
         salt= "1739491998372",
-        ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+        ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
         expires_at_millis= 2037603360000,
         signed_at_millis=1739492801736,
     )
@@ -61,7 +61,7 @@ async def test_order_signature():
 async def test_adjust_leverage_signature():
 
     payload = AccountPositionLeverageUpdateRequestSignedFields(
-        ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+        ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
         account_address="0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
         symbol="ETH-PERP",
         leverage_e9="1000000000",
@@ -80,7 +80,7 @@ async def test_adjust_leverage_signature():
 async def test_adjust_margin_signature():
 
     payload = AdjustIsolatedMarginRequestSignedFields(
-        ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+        ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
         account_address="0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
         symbol="ETH-PERP",
         operation=AdjustMarginOperation.ADD,
@@ -99,7 +99,7 @@ async def test_adjust_margin_signature():
 @pytest.mark.asyncio
 async def test_authorize_user_signature():
     payload = AccountAuthorizationRequestSignedFields(
-        ids_id="0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+        ids_id="0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
         account_address="0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
         authorized_account_address="0x01b51fb67313ae92f57418bc16aebd6134a6f39c388a77092cfdc4c639863d68",
         salt="1739494582583",
@@ -114,7 +114,7 @@ async def test_authorize_user_signature():
 @pytest.mark.asyncio
 async def test_close_position_signature():
     payload = {
-        "ids_id":"0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9",
+        "ids_id":"0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa",
         "account_address":"0x76a831f3a961579e5fd34b6cda412409dd41ba18fe0f10e149ecdad413af4050",
         "symbol": 'ETH-PERP',
         "is_isolated":True,

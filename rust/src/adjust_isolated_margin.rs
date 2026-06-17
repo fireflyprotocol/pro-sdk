@@ -96,7 +96,7 @@ mod tests {
                 operation: AdjustMarginOperation::Add,
                 quantity_e9: "1000000000000000000".into(),
                 salt: "1725930601205".into(),
-                ids_id: "0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9".into(),
+                ids_id: "0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa".into(),
                 signed_at_millis: 1_725_931_543_867,
             },
             ..AdjustIsolatedMarginRequest::default()

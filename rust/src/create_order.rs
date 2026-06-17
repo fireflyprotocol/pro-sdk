@@ -99,7 +99,7 @@ mod tests {
                 leverage_e9: "0".into(),
                 is_isolated: false,
                 salt: "1725930601205".into(),
-                ids_id: "0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9".into(),
+                ids_id: "0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa".into(),
                 expires_at_millis: 2_037_603_360_000,
                 signed_at_millis: 1_725_931_543_867,
             },

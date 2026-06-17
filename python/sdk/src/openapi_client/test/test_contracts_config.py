@@ -36,7 +36,7 @@ class TestContractsConfig(unittest.TestCase):
         if include_optional:
             return ContractsConfig(
                 eds_id = '0xb6a31fbd720b7032cc43714a57da0386c770e87fcad0eeb92fd5482e4163d5a2',
-                ids_id = '0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9',
+                ids_id = '0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa',
                 network = 'mainnet',
                 base_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
                 current_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
@@ -50,7 +50,7 @@ class TestContractsConfig(unittest.TestCase):
         else:
             return ContractsConfig(
                 eds_id = '0xb6a31fbd720b7032cc43714a57da0386c770e87fcad0eeb92fd5482e4163d5a2',
-                ids_id = '0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9',
+                ids_id = '0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa',
                 network = 'mainnet',
                 base_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
                 current_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
