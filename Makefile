@@ -22,6 +22,10 @@ generate-rs: ## Generate Rust client
 	rm -rf rust/gen/bluefin_api
 	apigen -l rust
 
+.PHONY: py-example
+py-example: ## Run the example for the generated Python client
+	cd python/example && python3 main.py
+
 .PHONY: rs-example
 rs-example: ## Run the example for the generated Rust client
 	cd rust; for i in `ls examples/ | grep -v shutdown`; do name=$${i::-3}; echo "$$name"; cargo run --example "$$name"; done
@@ -31,5 +35,5 @@ ts-typecheck: generate-ts ## Type check the generated TypeScript client
 	docker run --rm -v "${PWD}:/work" -w /work/ts/sdk node:24 sh -lc "yarn install --frozen-lockfile && yarn build:types && yarn build:example"
 
 .PHONY: ts-example
-ts-example:
+ts-example: ## Run the example for the generated Typescript client
 	docker run --rm -v "${PWD}:/work" -w /work/ts/sdk node:24 sh -lc "yarn install --frozen-lockfile && yarn build:types && yarn tsx example.ts"
