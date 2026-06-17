@@ -47,8 +47,8 @@ class TestExchangeInfoResponse(unittest.TestCase):
                     eds_id = '0xb6a31fbd720b7032cc43714a57da0386c770e87fcad0eeb92fd5482e4163d5a2',
                     ids_id = '0xeb46bc9cd8cca03f9cabde46bf280a5aae264668877b7ee2f24cbaf0692089aa',
                     network = 'mainnet',
-                    base_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
-                    current_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
+                    base_contract_address = '0x1a67b3b13e8774bd5b746ac5a4acbcc15ed41010096fe642a1abf2e6f6e2285b',
+                    current_contract_address = '0x1a67b3b13e8774bd5b746ac5a4acbcc15ed41010096fe642a1abf2e6f6e2285b',
                     operators = openapi_client.models.operators.Operators(
                         admin = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
                         operator = '0xa6b939f57595fed2ae10ae4f3a37a410c94e5bdb7dde2e547022d1fe1b9791d0',
