@@ -94,7 +94,7 @@ mod tests {
                     "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
                 amount_e9: "3500000000000".to_string(),
                 salt: "1725930601205".to_string(),
-                eds_id: "0x8e78225d72b1d7b1f63e5e9f88f09b12ca66c84e2fc8b91fc10f6a0c51230615".into(),
+                eds_id: "0xb6a31fbd720b7032cc43714a57da0386c770e87fcad0eeb92fd5482e4163d5a2".into(),
                 signed_at_millis: 1_725_931_543_867,
             },
             ..WithdrawRequest::default()
