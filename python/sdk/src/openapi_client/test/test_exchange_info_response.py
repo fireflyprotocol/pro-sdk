@@ -44,7 +44,7 @@ class TestExchangeInfoResponse(unittest.TestCase):
                         margin_available = True, )
                     ],
                 contracts_config = openapi_client.models.contracts_config.ContractsConfig(
-                    eds_id = '0x9afeb4ace64a15f740367e344117864f77df2db40c4b62cde3f7e0d52689c08b',
+                    eds_id = '0xb6a31fbd720b7032cc43714a57da0386c770e87fcad0eeb92fd5482e4163d5a2',
                     ids_id = '0x1eef5b28f1ebe06c0464b392dc2facd835c519f377580587206bb75ca5c3fdd9',
                     network = 'mainnet',
                     base_contract_address = '0x9b9096be365d0be8a6fdd51731a58a9502dce5fe200ba8f8f2d65118bc7be2ae',
