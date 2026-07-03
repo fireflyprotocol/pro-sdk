@@ -359,20 +359,36 @@ components:
 
     UpdateAccountPreferenceRequest:
       type: object
-      additionalProperties: true
+      # Strict allow-list: unknown fields are rejected with 400 (mass-assignment fix).
+      # This is a full replace - always send the complete object.
+      additionalProperties: false
       properties:
-        language:
-          type: string
-          description: User preferred language.
-          example: en
-        theme:
-          type: string
-          description: User preferred theme.
-          example: dark
-        market:
+        favorites:
           type: array
           items:
-            $ref: "#/components/schemas/AccountMarketPreference"
+            type: string
+          description: |
+            Favorite market symbols. Send the full array each time;
+            to remove a favorite, send the array without it.
+          example:
+            - BTC-PERP
+            - SUI-PERP
+        functionBarMode:
+          type: string
+          enum:
+            - all
+            - Popular
+            - Favorites
+          description: |
+            Function bar display mode. Note the mixed casing: `all` is
+            lowercase while `Popular` and `Favorites` are capitalized.
+          example: Favorites
+        onboardingCompleted:
+          type: boolean
+          description: Whether the user has completed onboarding.
+        termsAccepted:
+          type: boolean
+          description: Whether the user has accepted the terms of service.
 
     AccountPreference:
       type: object
