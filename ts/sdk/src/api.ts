@@ -5753,29 +5753,42 @@ export type TransactionType = typeof TransactionType[keyof typeof TransactionTyp
  * @interface UpdateAccountPreferenceRequest
  */
 export interface UpdateAccountPreferenceRequest {
-    [key: string]: any;
-
     /**
-     * User preferred language.
+     * Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it.
+     * @type {Array<string>}
+     * @memberof UpdateAccountPreferenceRequest
+     */
+    'favorites'?: Array<string>;
+    /**
+     * Function bar display mode. Note the mixed casing: `all` is lowercase while `Popular` and `Favorites` are capitalized.
      * @type {string}
      * @memberof UpdateAccountPreferenceRequest
      */
-    'language'?: string;
+    'functionBarMode'?: UpdateAccountPreferenceRequestFunctionBarModeEnum;
     /**
-     * User preferred theme.
-     * @type {string}
+     * Whether the user has completed onboarding.
+     * @type {boolean}
      * @memberof UpdateAccountPreferenceRequest
      */
-    'theme'?: string;
+    'onboardingCompleted'?: boolean;
     /**
-     * 
-     * @type {Array<AccountMarketPreference>}
+     * Whether the user has accepted the terms of service.
+     * @type {boolean}
      * @memberof UpdateAccountPreferenceRequest
      */
-    'market'?: Array<AccountMarketPreference>;
+    'termsAccepted'?: boolean;
 }
+
+export const UpdateAccountPreferenceRequestFunctionBarModeEnum = {
+    All: 'all',
+    Popular: 'Popular',
+    Favorites: 'Favorites'
+} as const;
+
+export type UpdateAccountPreferenceRequestFunctionBarModeEnum = typeof UpdateAccountPreferenceRequestFunctionBarModeEnum[keyof typeof UpdateAccountPreferenceRequestFunctionBarModeEnum];
+
 /**
- * 
+ *
  * @export
  * @interface UpdateAffiliateEmberRefferalShareRequest
  */

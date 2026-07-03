@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**language** | **str** | User preferred language. | [optional] 
-**theme** | **str** | User preferred theme. | [optional] 
-**market** | [**List[AccountMarketPreference]**](AccountMarketPreference.md) |  | [optional] 
+**favorites** | **List[str]** | Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it.  | [optional] 
+**function_bar_mode** | **str** | Function bar display mode. Note the mixed casing: &#x60;all&#x60; is lowercase while &#x60;Popular&#x60; and &#x60;Favorites&#x60; are capitalized.  | [optional] 
+**onboarding_completed** | **bool** | Whether the user has completed onboarding. | [optional] 
+**terms_accepted** | **bool** | Whether the user has accepted the terms of service. | [optional] 
 
 ## Example
 

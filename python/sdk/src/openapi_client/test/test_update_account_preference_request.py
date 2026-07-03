@@ -35,13 +35,12 @@ class TestUpdateAccountPreferenceRequest(unittest.TestCase):
         model = UpdateAccountPreferenceRequest()
         if include_optional:
             return UpdateAccountPreferenceRequest(
-                language = 'en',
-                theme = 'dark',
-                market = [
-                    openapi_client.models.account_market_preference.AccountMarketPreference(
-                        margin_type = 'CROSS', 
-                        set_leverage = 100, )
-                    ]
+                favorites = [
+                    'BTC-PERP'
+                    ],
+                function_bar_mode = 'Favorites',
+                onboarding_completed = True,
+                terms_accepted = True
             )
         else:
             return UpdateAccountPreferenceRequest(

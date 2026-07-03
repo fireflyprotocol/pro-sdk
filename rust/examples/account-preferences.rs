@@ -1,5 +1,6 @@
 use bluefin_api::apis::account_data_api::{get_account_preferences, put_account_preferences};
 use bluefin_api::apis::configuration::Configuration;
+use bluefin_api::models::update_account_preference_request::FunctionBarMode;
 use bluefin_api::models::LoginRequest;
 use bluefin_api::models::{AccountPreference, UpdateAccountPreferenceRequest};
 use bluefin_pro::prelude::*;
@@ -62,10 +63,12 @@ async fn main() -> Result<()> {
     println!("{account:#?}");
 
     println!("Updating preferences...");
+    // Full replace: always send the complete object. Unknown fields are rejected with 400.
     let preference = UpdateAccountPreferenceRequest {
-        language: Some("en".into()),
-        theme: Some("dark".into()),
-        market: None,
+        favorites: Some(vec!["BTC-PERP".into(), "SUI-PERP".into()]),
+        function_bar_mode: Some(FunctionBarMode::Favorites),
+        onboarding_completed: Some(true),
+        terms_accepted: Some(true),
     };
     send_update_request(&auth_token, preference).await?;
 

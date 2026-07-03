@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**language** | **string** | User preferred language. | [optional] [default to undefined]
-**theme** | **string** | User preferred theme. | [optional] [default to undefined]
-**market** | [**Array&lt;AccountMarketPreference&gt;**](AccountMarketPreference.md) |  | [optional] [default to undefined]
+**favorites** | **Array&lt;string&gt;** | Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it.  | [optional] [default to undefined]
+**functionBarMode** | **string** | Function bar display mode. Note the mixed casing: &#x60;all&#x60; is lowercase while &#x60;Popular&#x60; and &#x60;Favorites&#x60; are capitalized.  | [optional] [default to undefined]
+**onboardingCompleted** | **boolean** | Whether the user has completed onboarding. | [optional] [default to undefined]
+**termsAccepted** | **boolean** | Whether the user has accepted the terms of service. | [optional] [default to undefined]
 
 ## Example
 
@@ -15,9 +16,10 @@ Name | Type | Description | Notes
 import { UpdateAccountPreferenceRequest } from '@bluefin/api-client';
 
 const instance: UpdateAccountPreferenceRequest = {
-    language,
-    theme,
-    market,
+    favorites,
+    functionBarMode,
+    onboardingCompleted,
+    termsAccepted,
 };
 ```
 

@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.account_market_preference import AccountMarketPreference
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,11 +26,21 @@ class UpdateAccountPreferenceRequest(BaseModel):
     """
     UpdateAccountPreferenceRequest
     """ # noqa: E501
-    language: Optional[StrictStr] = Field(default=None, description="User preferred language.")
-    theme: Optional[StrictStr] = Field(default=None, description="User preferred theme.")
-    market: Optional[List[AccountMarketPreference]] = None
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["language", "theme", "market"]
+    favorites: Optional[List[StrictStr]] = Field(default=None, description="Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it. ")
+    function_bar_mode: Optional[StrictStr] = Field(default=None, description="Function bar display mode. Note the mixed casing: `all` is lowercase while `Popular` and `Favorites` are capitalized. ", alias="functionBarMode")
+    onboarding_completed: Optional[StrictBool] = Field(default=None, description="Whether the user has completed onboarding.", alias="onboardingCompleted")
+    terms_accepted: Optional[StrictBool] = Field(default=None, description="Whether the user has accepted the terms of service.", alias="termsAccepted")
+    __properties: ClassVar[List[str]] = ["favorites", "functionBarMode", "onboardingCompleted", "termsAccepted"]
+
+    @field_validator('function_bar_mode')
+    def function_bar_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['all', 'Popular', 'Favorites']):
+            raise ValueError("must be one of enum values ('all', 'Popular', 'Favorites')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,10 +72,8 @@ class UpdateAccountPreferenceRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,18 +81,6 @@ class UpdateAccountPreferenceRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in market (list)
-        _items = []
-        if self.market:
-            for _item_market in self.market:
-                if _item_market:
-                    _items.append(_item_market.to_dict())
-            _dict['market'] = _items
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -98,15 +93,11 @@ class UpdateAccountPreferenceRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "language": obj.get("language"),
-            "theme": obj.get("theme"),
-            "market": [AccountMarketPreference.from_dict(_item) for _item in obj["market"]] if obj.get("market") is not None else None
+            "favorites": obj.get("favorites"),
+            "functionBarMode": obj.get("functionBarMode"),
+            "onboardingCompleted": obj.get("onboardingCompleted"),
+            "termsAccepted": obj.get("termsAccepted")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 
