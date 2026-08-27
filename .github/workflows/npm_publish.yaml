@@ -1,9 +1,30 @@
 name: NPM Release
 
+# @bluefin-exchange/pro-sdk's npm trusted publisher is registered against this exact
+# filename — renaming this file breaks publishing until npm is updated to match.
+# npm allows one publisher per package, so every publish path lives in this file.
 on:
   push:
     tags:
       - ts-release-*
+  workflow_dispatch:
+    inputs:
+      dist_tag:
+        description: "npm dist-tag to publish under"
+        required: true
+        default: pre-release
+        type: choice
+        options:
+          - pre-release
+          - latest
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
 
 jobs:
   publish-ts:
@@ -12,13 +33,62 @@ jobs:
       run:
         working-directory: ts/sdk
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          # Trusted publishing requires Node >= 22.14.0.
+          node-version: "22"
           registry-url: "https://registry.npmjs.org"
+
+      - name: Strip _authToken so OIDC kicks in
+        # setup-node's registry-url always writes
+        # `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` and exports a dummy
+        # NODE_AUTH_TOKEN. npm would treat auth as configured and never do the OIDC
+        # exchange, failing with ENEEDAUTH.
+        run: |
+          npmrc="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
+          sed -i '/_authToken/d' "$npmrc"
+
+      - name: Upgrade npm for OIDC support
+        # Trusted publishing needs npm >= 11.5.1.
+        run: npm install -g npm@latest
+
+      - name: Verify dispatched commit is on main
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          COMMIT_SHA=$(git rev-parse HEAD)
+          if ! git branch -r --contains "$COMMIT_SHA" | grep -q "origin/main"; then
+            echo "::error::Dispatched commit $COMMIT_SHA is not reachable from origin/main. Publish only merged code."
+            exit 1
+          fi
+
+      - name: Resolve dist-tag and guard version
+        run: |
+          PKG_NAME="$(node -p "require('./package.json').name")"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            DIST_TAG="${{ inputs.dist_tag }}"
+          else
+            DIST_TAG=latest
+            TAG_VERSION="${GITHUB_REF_NAME#ts-release-}"
+            if [[ "$TAG_VERSION" != "$PKG_VERSION" ]]; then
+              echo "::error::Tag version '$TAG_VERSION' != ts/sdk/package.json version '$PKG_VERSION' — the tag must be ts-release-<package.json version>."
+              exit 1
+            fi
+          fi
+
+          if npm view "$PKG_NAME@$PKG_VERSION" version >/dev/null 2>&1; then
+            echo "::error::$PKG_NAME@$PKG_VERSION is already published — bump the version (npm versions are immutable)."
+            exit 1
+          fi
+
+          echo "DIST_TAG=$DIST_TAG" >> "$GITHUB_ENV"
+          echo "Publishing $PKG_NAME@$PKG_VERSION (dist-tag: $DIST_TAG)"
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -27,6 +97,6 @@ jobs:
         run: yarn build
 
       - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # Authenticated by OIDC trusted publishing — no NPM_TOKEN. This repo is public,
+        # so npm attaches a provenance attestation automatically.
+        run: npm publish --tag "$DIST_TAG"
