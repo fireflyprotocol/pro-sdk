@@ -7,6 +7,7 @@ on:
   push:
     tags:
       - ts-release-*
+      - ts-pre-release-*
   workflow_dispatch:
     inputs:
       dist_tag:
@@ -33,7 +34,7 @@ jobs:
       run:
         working-directory: ts/sdk
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -41,7 +42,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # Trusted publishing requires Node >= 22.14.0.
-          node-version: "22"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
 
       - name: Strip _authToken so OIDC kicks in
@@ -54,7 +55,7 @@ jobs:
           sed -i '/_authToken/d' "$npmrc"
 
       - name: Upgrade npm for OIDC support
-        # Trusted publishing needs npm >= 11.5.1.
+        # Trusted publishing needs npm >= 11.5.1, newer than what Node 24 bundles.
         run: npm install -g npm@latest
 
       - name: Verify dispatched commit is on main
@@ -74,10 +75,17 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             DIST_TAG="${{ inputs.dist_tag }}"
           else
-            DIST_TAG=latest
-            TAG_VERSION="${GITHUB_REF_NAME#ts-release-}"
+            # Check the pre-release prefix first; it also starts with "ts-".
+            if [[ "$GITHUB_REF_NAME" == ts-pre-release-* ]]; then
+              DIST_TAG=pre-release
+              TAG_VERSION="${GITHUB_REF_NAME#ts-pre-release-}"
+            else
+              DIST_TAG=latest
+              TAG_VERSION="${GITHUB_REF_NAME#ts-release-}"
+            fi
+
             if [[ "$TAG_VERSION" != "$PKG_VERSION" ]]; then
-              echo "::error::Tag version '$TAG_VERSION' != ts/sdk/package.json version '$PKG_VERSION' — the tag must be ts-release-<package.json version>."
+              echo "::error::Tag version '$TAG_VERSION' != ts/sdk/package.json version '$PKG_VERSION' — the tag must end in the package.json version."
               exit 1
             fi
           fi
