@@ -902,7 +902,7 @@ export class BluefinProSdk {
     const { RewardsDistributorInteractor } =
       await loadRewardsDistributorInteractor();
     const interactor = new RewardsDistributorInteractor(
-      this.suiClient as any,
+      this.suiClient,
       data as any,
       signer,
       this.bfSigner.isUIWallet(),

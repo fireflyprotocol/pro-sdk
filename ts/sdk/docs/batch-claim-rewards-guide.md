@@ -21,7 +21,7 @@ import {
   makeSigner,
   BatchClaimParams 
 } from "@bluefin-exchange/pro-sdk";
-import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
+import { SuiGrpcClient } from "@mysten/sui/grpc";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 
 // Create wallet from private key or mnemonic
@@ -34,7 +34,7 @@ const signer = new BluefinRequestSigner(makeSigner(wallet, false));
 const sdk = new BluefinProSdk(
   signer,
   "mainnet", // or "testnet" for staging
-  new SuiJsonRpcClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
+  new SuiGrpcClient({ network: "mainnet", baseUrl: "https://fullnode.mainnet.sui.io:443" })
 );
 
 await sdk.initialize();
@@ -130,7 +130,7 @@ import {
   makeSigner,
   BatchClaimParams 
 } from "@bluefin-exchange/pro-sdk";
-import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
+import { SuiGrpcClient } from "@mysten/sui/grpc";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { hexToBytes } from "@noble/hashes/utils.js";
 
@@ -141,7 +141,7 @@ async function claimRewards() {
   const sdk = new BluefinProSdk(
     signer,
     "mainnet",
-    new SuiJsonRpcClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
+    new SuiGrpcClient({ network: "mainnet", baseUrl: "https://fullnode.mainnet.sui.io:443" })
   );
   await sdk.initialize();
 
