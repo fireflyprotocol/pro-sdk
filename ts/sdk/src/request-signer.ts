@@ -6,9 +6,9 @@ import {
 } from '@mysten/sui/cryptography';
 import type {
   DryRunTransactionBlockResponse,
-  SuiClient,
   SuiTransactionBlockResponse,
 } from '@firefly-exchange/library-sui';
+import type { ClientWithCoreApi } from '@mysten/sui/client';
 import type { Transaction as TransactionBlock } from '@mysten/sui/transactions';
 import {
   LoginRequest,
@@ -47,17 +47,17 @@ export interface IBluefinSigner extends ISigner {
   signLoginRequest: (request: LoginRequest) => Promise<string>;
   signTx: (
     txb: TransactionBlock,
-    suiClient: SuiClient,
+    suiClient: ClientWithCoreApi,
   ) => Promise<SignatureWithBytes>;
   executeSponsoredTx: (
     txBytes: string,
     userSignature: string,
     sponsorSignature: string,
-    suiClient: SuiClient,
+    suiClient: ClientWithCoreApi,
   ) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
   executeTx: (
     txb: TransactionBlock,
-    suiClient: SuiClient,
+    suiClient: ClientWithCoreApi,
   ) => Promise<DryRunTransactionBlockResponse | SuiTransactionBlockResponse>;
 }
 
@@ -402,7 +402,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
     return signedMessageSerialized.signature;
   }
 
-  async signTx(txb: TransactionBlock, suiClient: SuiClient) {
+  async signTx(txb: TransactionBlock, suiClient: ClientWithCoreApi) {
     const SuiBlocks = await loadSuiBlocks();
     return await SuiBlocks.buildAndSignTxBlock(
       txb,
@@ -416,7 +416,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
     txBytes: string,
     userSignature: string,
     sponsorSignature: string,
-    suiClient: SuiClient,
+    suiClient: ClientWithCoreApi,
   ) {
     const SuiBlocks = await loadSuiBlocks();
     return SuiBlocks.executeSponsoredTxBlock(
@@ -427,7 +427,7 @@ export class BluefinRequestSigner implements IBluefinSigner {
     );
   }
 
-  async executeTx(txb: TransactionBlock, suiClient: SuiClient) {
+  async executeTx(txb: TransactionBlock, suiClient: ClientWithCoreApi) {
     const SuiBlocks = await loadSuiBlocks();
     return SuiBlocks.execCall(
       txb,

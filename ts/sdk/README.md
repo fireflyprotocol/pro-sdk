@@ -32,7 +32,7 @@ import {
   BluefinRequestSigner,
   makeSigner,
 } from "@bluefin-exchange/pro-sdk";
-import { SuiJsonRpcClient } from "@mysten/sui/jsonRpc";
+import { SuiGrpcClient } from "@mysten/sui/grpc";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { hexToBytes } from "@noble/hashes/utils.js";
 
@@ -51,12 +51,16 @@ const signer = new BluefinRequestSigner(makeSigner(wallet, false));
 const client = new BluefinProSdk(
   signer,
   "mainnet", // or "testnet" for staging, "devnet" for development
-  new SuiJsonRpcClient({ url: "https://fullnode.mainnet.sui.io:443", network: "mainnet" })
+  new SuiGrpcClient({ network: "mainnet", baseUrl: "https://fullnode.mainnet.sui.io:443" })
 );
 
 // Initialize the SDK (authenticates and loads exchange configuration)
 await client.initialize();
 ```
+
+> The SDK accepts any `@mysten/sui` client implementing the Core API. Use
+> `SuiGrpcClient` — Sui's JSON-RPC interface is deprecated. If you are upgrading from
+> `SuiJsonRpcClient`, swapping the client is the only change required.
 
 ### 2. Get Market Data
 
