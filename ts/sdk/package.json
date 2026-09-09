@@ -15,11 +15,14 @@
     "tsx": "^4.22.4",
     "typescript": "^4.0 || ^5.0"
   },
+  "engines": {
+    "node": ">=24"
+  },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js",
       "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
@@ -28,20 +31,12 @@
   "keywords": [
     "@fireflyprotocol/pro-sdk"
   ],
-  "type": "module",
-  "engines": {
-    "node": ">=24"
-  },
   "license": "Unlicense",
   "main": "./dist/index.js",
   "name": "@bluefin-exchange/pro-sdk",
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "peerDependencies": {
     "@mysten/sui": "^2.13.0"
-  },
-  "resolutions": {
-    "@mysten/sui": "^2.13.0",
-    "@noble/curves": "^1.8.1"
   },
   "publishConfig": {
     "access": "public"
@@ -50,14 +45,19 @@
     "type": "git",
     "url": "https://github.com/fireflyprotocol/pro-sdk.git"
   },
+  "resolutions": {
+    "@mysten/sui": "^2.13.0",
+    "@noble/curves": "^1.8.1"
+  },
   "scripts": {
     "build": "npm run clean && npm run build:esm",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "build:types": "tsc -p tsconfig.esm.json --noEmit",
     "build:example": "tsc -p tsconfig.example.json",
+    "build:types": "tsc -p tsconfig.esm.json --noEmit",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
+  "type": "module",
   "types": "./dist/index.d.ts",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

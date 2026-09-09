@@ -7,6 +7,7 @@
 | Order | ORDER |
 | Liquidation | LIQUIDATION |
 | Deleverage | DELEVERAGE |
+| Delisting | DELISTING |
 | Unspecified | UNSPECIFIED |
 
 
