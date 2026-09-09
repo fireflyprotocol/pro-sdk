@@ -107,6 +107,7 @@ components:
       - ORDER
       - LIQUIDATION
       - DELEVERAGE
+      - DELISTING
       - UNSPECIFIED
     TransactionType:
       description: Transaction type (what caused the change in the asset balance).

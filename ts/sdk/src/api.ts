@@ -5638,6 +5638,7 @@ export const TradeType = {
     Order: 'ORDER',
     Liquidation: 'LIQUIDATION',
     Deleverage: 'DELEVERAGE',
+    Delisting: 'DELISTING',
     Unspecified: 'UNSPECIFIED'
 } as const;
 
@@ -5754,13 +5755,13 @@ export type TransactionType = typeof TransactionType[keyof typeof TransactionTyp
  */
 export interface UpdateAccountPreferenceRequest {
     /**
-     * Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it.
+     * Favorite market symbols. Send the full array each time; to remove a favorite, send the array without it. 
      * @type {Array<string>}
      * @memberof UpdateAccountPreferenceRequest
      */
     'favorites'?: Array<string>;
     /**
-     * Function bar display mode. Note the mixed casing: `all` is lowercase while `Popular` and `Favorites` are capitalized.
+     * Function bar display mode. Note the mixed casing: `all` is lowercase while `Popular` and `Favorites` are capitalized. 
      * @type {string}
      * @memberof UpdateAccountPreferenceRequest
      */
@@ -5788,7 +5789,7 @@ export const UpdateAccountPreferenceRequestFunctionBarModeEnum = {
 export type UpdateAccountPreferenceRequestFunctionBarModeEnum = typeof UpdateAccountPreferenceRequestFunctionBarModeEnum[keyof typeof UpdateAccountPreferenceRequestFunctionBarModeEnum];
 
 /**
- *
+ * 
  * @export
  * @interface UpdateAffiliateEmberRefferalShareRequest
  */

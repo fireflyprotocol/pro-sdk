@@ -29,6 +29,7 @@ class TradeType(str, Enum):
     ORDER = 'ORDER'
     LIQUIDATION = 'LIQUIDATION'
     DELEVERAGE = 'DELEVERAGE'
+    DELISTING = 'DELISTING'
     UNSPECIFIED = 'UNSPECIFIED'
 
     @classmethod
