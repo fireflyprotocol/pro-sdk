@@ -74,6 +74,7 @@ docs/GetAccountValueHistoryParamsInterval.md
 docs/GetAffiliateIntervalOverview200Response.md
 docs/GetAffiliateLeaderDashboard200Response.md
 docs/GetAffiliateOverview200Response.md
+docs/GetSpotRewardClaims200Response.md
 docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/IssBase64Details.md
@@ -132,6 +133,8 @@ docs/SigPayload.md
 docs/SortOrder.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
+docs/SpotRewardClaimCard.md
+docs/SpotRewardClaimEntry.md
 docs/StatsAllTimeResponse.md
 docs/StatsEntry.md
 docs/StatsInterval.md

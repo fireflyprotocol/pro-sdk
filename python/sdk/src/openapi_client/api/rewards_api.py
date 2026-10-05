@@ -29,6 +29,7 @@ from openapi_client.models.epoch_metadata import EpochMetadata
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
 from openapi_client.models.get_affiliate_leader_dashboard200_response import GetAffiliateLeaderDashboard200Response
 from openapi_client.models.get_affiliate_overview200_response import GetAffiliateOverview200Response
+from openapi_client.models.get_spot_reward_claims200_response import GetSpotRewardClaims200Response
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.mark_as_claimed_request import MarkAsClaimedRequest
@@ -3741,6 +3742,305 @@ class RewardsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/rewards/summary',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def get_spot_reward_claims(
+        self,
+        user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
+        cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetSpotRewardClaims200Response:
+        """/spot-rewards/claims
+
+        Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+        :param user_address: Wallet address whose spot claims to return. (required)
+        :type user_address: str
+        :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+        :type cursor: int
+        :param page_size: Maximum number of claim cards to return.
+        :type page_size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_spot_reward_claims_serialize(
+            user_address=user_address,
+            cursor=cursor,
+            page_size=page_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetSpotRewardClaims200Response",
+            '400': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def get_spot_reward_claims_with_http_info(
+        self,
+        user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
+        cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetSpotRewardClaims200Response]:
+        """/spot-rewards/claims
+
+        Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+        :param user_address: Wallet address whose spot claims to return. (required)
+        :type user_address: str
+        :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+        :type cursor: int
+        :param page_size: Maximum number of claim cards to return.
+        :type page_size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_spot_reward_claims_serialize(
+            user_address=user_address,
+            cursor=cursor,
+            page_size=page_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetSpotRewardClaims200Response",
+            '400': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def get_spot_reward_claims_without_preload_content(
+        self,
+        user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
+        cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """/spot-rewards/claims
+
+        Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+        :param user_address: Wallet address whose spot claims to return. (required)
+        :type user_address: str
+        :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+        :type cursor: int
+        :param page_size: Maximum number of claim cards to return.
+        :type page_size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_spot_reward_claims_serialize(
+            user_address=user_address,
+            cursor=cursor,
+            page_size=page_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetSpotRewardClaims200Response",
+            '400': "Error",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_spot_reward_claims_serialize(
+        self,
+        user_address,
+        cursor,
+        page_size,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if user_address is not None:
+            
+            _query_params.append(('userAddress', user_address))
+            
+        if cursor is not None:
+            
+            _query_params.append(('cursor', cursor))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/spot-rewards/claims',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
