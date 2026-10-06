@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **data** | [**List[SpotRewardClaimCard]**](SpotRewardClaimCard.md) |  | 
-**next_cursor** | **int** | claimTimestamp to pass as the next cursor; -1 when there are no rows. | 
+**next_cursor** | **str** | claimTimestamp to pass as the next cursor, as a string; \&quot;-1\&quot; when there are no rows. | 
 **is_more_data_available** | **bool** |  | 
 
 ## Example

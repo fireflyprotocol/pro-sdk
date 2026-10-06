@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct GetSpotRewardClaims200Response {
     #[serde(rename = "data")]
     pub data: Vec<models::SpotRewardClaimCard>,
-    /// claimTimestamp to pass as the next cursor; -1 when there are no rows.
+    /// claimTimestamp to pass as the next cursor, as a string; \"-1\" when there are no rows.
     #[serde(rename = "nextCursor")]
-    pub next_cursor: i64,
+    pub next_cursor: String,
     #[serde(rename = "isMoreDataAvailable")]
     pub is_more_data_available: bool,
 }
 
 impl GetSpotRewardClaims200Response {
-    pub fn new(data: Vec<models::SpotRewardClaimCard>, next_cursor: i64, is_more_data_available: bool) -> GetSpotRewardClaims200Response {
+    pub fn new(data: Vec<models::SpotRewardClaimCard>, next_cursor: String, is_more_data_available: bool) -> GetSpotRewardClaims200Response {
         GetSpotRewardClaims200Response {
             data,
             next_cursor,

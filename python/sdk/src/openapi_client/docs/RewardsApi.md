@@ -999,7 +999,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     api_instance = openapi_client.RewardsApi(api_client)
     user_address = '0x1234567890abcdef' # str | Wallet address whose spot claims to return.
     cursor = 0 # int | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. (optional) (default to 0)
-    page_size = 100 # int | Maximum number of claim cards to return. (optional) (default to 100)
+    page_size = 100 # int | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. (optional) (default to 100)
 
     try:
         # /spot-rewards/claims
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_address** | **str**| Wallet address whose spot claims to return. | 
  **cursor** | **int**| Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. | [optional] [default to 0]
- **page_size** | **int**| Maximum number of claim cards to return. | [optional] [default to 100]
+ **page_size** | **int**| Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. | [optional] [default to 100]
 
 ### Return type
 

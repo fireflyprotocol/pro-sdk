@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **user_address** | **str** |  | 
 **pool_id** | **str** | On-chain pool object address. | 
 **pool_name** | **str** |  | 
-**claim_timestamp** | **int** | Claim time in epoch-ms. | 
+**claim_timestamp** | **str** | Claim time in epoch-ms, serialized as a string. | 
 **tx_digest** | **str** |  | 
 **rewards** | [**List[SpotRewardClaimEntry]**](SpotRewardClaimEntry.md) |  | 
 

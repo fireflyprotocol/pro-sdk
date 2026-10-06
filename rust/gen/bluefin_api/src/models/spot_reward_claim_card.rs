@@ -20,9 +20,9 @@ pub struct SpotRewardClaimCard {
     pub pool_id: String,
     #[serde(rename = "poolName")]
     pub pool_name: String,
-    /// Claim time in epoch-ms.
+    /// Claim time in epoch-ms, serialized as a string.
     #[serde(rename = "claimTimestamp")]
-    pub claim_timestamp: i64,
+    pub claim_timestamp: String,
     #[serde(rename = "txDigest")]
     pub tx_digest: String,
     #[serde(rename = "rewards")]
@@ -30,7 +30,7 @@ pub struct SpotRewardClaimCard {
 }
 
 impl SpotRewardClaimCard {
-    pub fn new(user_address: String, pool_id: String, pool_name: String, claim_timestamp: i64, tx_digest: String, rewards: Vec<models::SpotRewardClaimEntry>) -> SpotRewardClaimCard {
+    pub fn new(user_address: String, pool_id: String, pool_name: String, claim_timestamp: String, tx_digest: String, rewards: Vec<models::SpotRewardClaimEntry>) -> SpotRewardClaimCard {
         SpotRewardClaimCard {
             user_address,
             pool_id,

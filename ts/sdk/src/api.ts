@@ -2844,11 +2844,11 @@ export interface GetSpotRewardClaims200Response {
      */
     'data': Array<SpotRewardClaimCard>;
     /**
-     * claimTimestamp to pass as the next cursor; -1 when there are no rows.
-     * @type {number}
+     * claimTimestamp to pass as the next cursor, as a string; \"-1\" when there are no rows.
+     * @type {string}
      * @memberof GetSpotRewardClaims200Response
      */
-    'nextCursor': number;
+    'nextCursor': string;
     /**
      * 
      * @type {boolean}
@@ -4924,11 +4924,11 @@ export interface SpotRewardClaimCard {
      */
     'poolName': string;
     /**
-     * Claim time in epoch-ms.
-     * @type {number}
+     * Claim time in epoch-ms, serialized as a string.
+     * @type {string}
      * @memberof SpotRewardClaimCard
      */
-    'claimTimestamp': number;
+    'claimTimestamp': string;
     /**
      * 
      * @type {string}
@@ -9293,7 +9293,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
          * @summary /spot-rewards/claims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
-         * @param {number} [pageSize] Maximum number of claim cards to return.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9733,7 +9733,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
          * @summary /spot-rewards/claims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
-         * @param {number} [pageSize] Maximum number of claim cards to return.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9967,7 +9967,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          * @summary /spot-rewards/claims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
-         * @param {number} [pageSize] Maximum number of claim cards to return.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10209,7 +10209,7 @@ export class RewardsApi extends BaseAPI {
      * @summary /spot-rewards/claims
      * @param {string} userAddress Wallet address whose spot claims to return.
      * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
-     * @param {number} [pageSize] Maximum number of claim cards to return.
+     * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RewardsApi

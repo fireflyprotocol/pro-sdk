@@ -756,7 +756,7 @@ const apiInstance = new RewardsApi(configuration);
 
 let userAddress: string; //Wallet address whose spot claims to return. (default to undefined)
 let cursor: number; //Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. (optional) (default to 0)
-let pageSize: number; //Maximum number of claim cards to return. (optional) (default to 100)
+let pageSize: number; //Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. (optional) (default to 100)
 
 const { status, data } = await apiInstance.getSpotRewardClaims(
     userAddress,
@@ -771,7 +771,7 @@ const { status, data } = await apiInstance.getSpotRewardClaims(
 |------------- | ------------- | ------------- | -------------|
 | **userAddress** | [**string**] | Wallet address whose spot claims to return. | defaults to undefined|
 | **cursor** | [**number**] | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. | (optional) defaults to 0|
-| **pageSize** | [**number**] | Maximum number of claim cards to return. | (optional) defaults to 100|
+| **pageSize** | [**number**] | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. | (optional) defaults to 100|
 
 
 ### Return type

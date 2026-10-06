@@ -43,10 +43,9 @@ components:
           type: string
           example: "DEEP-USDC"
         claimTimestamp:
-          type: integer
-          format: int64
-          description: Claim time in epoch-ms.
-          example: 1791188917719
+          type: string
+          description: Claim time in epoch-ms, serialized as a string.
+          example: "1791188917719"
         txDigest:
           type: string
           example: "5uo1KT3RN9oM1S4hcXbuksFVAGuzwnb2ZSZS1bLxhUuq"
@@ -998,7 +997,11 @@ paths:
         - name: pageSize
           in: query
           required: false
-          description: Maximum number of claim cards to return.
+          description: >-
+            Maximum number of claim cards to return. Out-of-range values are coerced:
+            a value below 1 uses the default (100), and a value above 1000 is capped at
+            1000. A page may return a few more than pageSize cards when they share the
+            boundary claim timestamp, so that pagination never splits or skips them.
           schema:
             type: integer
             default: 100
@@ -1022,10 +1025,9 @@ paths:
                     items:
                       $ref: "#/components/schemas/SpotRewardClaimCard"
                   nextCursor:
-                    type: integer
-                    format: int64
-                    description: claimTimestamp to pass as the next cursor; -1 when there are no rows.
-                    example: 1791188909438
+                    type: string
+                    description: claimTimestamp to pass as the next cursor, as a string; "-1" when there are no rows.
+                    example: "1791188909438"
                   isMoreDataAvailable:
                     type: boolean
                     example: true

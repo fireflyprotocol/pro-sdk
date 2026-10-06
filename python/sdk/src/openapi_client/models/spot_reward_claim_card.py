@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from openapi_client.models.spot_reward_claim_entry import SpotRewardClaimEntry
 from typing import Optional, Set
@@ -30,7 +30,7 @@ class SpotRewardClaimCard(BaseModel):
     user_address: StrictStr = Field(alias="userAddress")
     pool_id: StrictStr = Field(description="On-chain pool object address.", alias="poolId")
     pool_name: StrictStr = Field(alias="poolName")
-    claim_timestamp: StrictInt = Field(description="Claim time in epoch-ms.", alias="claimTimestamp")
+    claim_timestamp: StrictStr = Field(description="Claim time in epoch-ms, serialized as a string.", alias="claimTimestamp")
     tx_digest: StrictStr = Field(alias="txDigest")
     rewards: List[SpotRewardClaimEntry]
     __properties: ClassVar[List[str]] = ["userAddress", "poolId", "poolName", "claimTimestamp", "txDigest", "rewards"]

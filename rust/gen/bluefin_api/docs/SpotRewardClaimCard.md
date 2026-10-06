@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **user_address** | **String** |  | 
 **pool_id** | **String** | On-chain pool object address. | 
 **pool_name** | **String** |  | 
-**claim_timestamp** | **i64** | Claim time in epoch-ms. | 
+**claim_timestamp** | **String** | Claim time in epoch-ms, serialized as a string. | 
 **tx_digest** | **String** |  | 
 **rewards** | [**Vec<models::SpotRewardClaimEntry>**](SpotRewardClaimEntry.md) |  | 
 

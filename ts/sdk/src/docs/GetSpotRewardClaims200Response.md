@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **data** | [**Array&lt;SpotRewardClaimCard&gt;**](SpotRewardClaimCard.md) |  | [default to undefined]
-**nextCursor** | **number** | claimTimestamp to pass as the next cursor; -1 when there are no rows. | [default to undefined]
+**nextCursor** | **string** | claimTimestamp to pass as the next cursor, as a string; \&quot;-1\&quot; when there are no rows. | [default to undefined]
 **isMoreDataAvailable** | **boolean** |  | [default to undefined]
 
 ## Example

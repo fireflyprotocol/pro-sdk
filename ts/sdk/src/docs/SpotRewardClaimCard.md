@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **userAddress** | **string** |  | [default to undefined]
 **poolId** | **string** | On-chain pool object address. | [default to undefined]
 **poolName** | **string** |  | [default to undefined]
-**claimTimestamp** | **number** | Claim time in epoch-ms. | [default to undefined]
+**claimTimestamp** | **string** | Claim time in epoch-ms, serialized as a string. | [default to undefined]
 **txDigest** | **string** |  | [default to undefined]
 **rewards** | [**Array&lt;SpotRewardClaimEntry&gt;**](SpotRewardClaimEntry.md) |  | [default to undefined]
 

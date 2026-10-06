@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List
 from openapi_client.models.spot_reward_claim_card import SpotRewardClaimCard
 from typing import Optional, Set
@@ -28,7 +28,7 @@ class GetSpotRewardClaims200Response(BaseModel):
     GetSpotRewardClaims200Response
     """ # noqa: E501
     data: List[SpotRewardClaimCard]
-    next_cursor: StrictInt = Field(description="claimTimestamp to pass as the next cursor; -1 when there are no rows.", alias="nextCursor")
+    next_cursor: StrictStr = Field(description="claimTimestamp to pass as the next cursor, as a string; \"-1\" when there are no rows.", alias="nextCursor")
     is_more_data_available: StrictBool = Field(alias="isMoreDataAvailable")
     __properties: ClassVar[List[str]] = ["data", "nextCursor", "isMoreDataAvailable"]
 

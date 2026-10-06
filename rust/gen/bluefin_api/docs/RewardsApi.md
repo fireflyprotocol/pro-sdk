@@ -440,7 +440,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_address** | **String** | Wallet address whose spot claims to return. | [required] |
 **cursor** | Option<**i64**> | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. |  |[default to 0]
-**page_size** | Option<**u32**> | Maximum number of claim cards to return. |  |[default to 100]
+**page_size** | Option<**u32**> | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. |  |[default to 100]
 
 ### Return type
 

@@ -3762,7 +3762,7 @@ class RewardsApi:
         self,
         user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
         cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3784,7 +3784,7 @@ class RewardsApi:
         :type user_address: str
         :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
         :type cursor: int
-        :param page_size: Maximum number of claim cards to return.
+        :param page_size: Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
         :type page_size: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3838,7 +3838,7 @@ class RewardsApi:
         self,
         user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
         cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3860,7 +3860,7 @@ class RewardsApi:
         :type user_address: str
         :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
         :type cursor: int
-        :param page_size: Maximum number of claim cards to return.
+        :param page_size: Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
         :type page_size: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3914,7 +3914,7 @@ class RewardsApi:
         self,
         user_address: Annotated[StrictStr, Field(description="Wallet address whose spot claims to return.")],
         cursor: Annotated[Optional[StrictInt], Field(description="Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3936,7 +3936,7 @@ class RewardsApi:
         :type user_address: str
         :param cursor: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
         :type cursor: int
-        :param page_size: Maximum number of claim cards to return.
+        :param page_size: Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
         :type page_size: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
