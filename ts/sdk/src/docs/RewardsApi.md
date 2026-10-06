@@ -17,6 +17,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
 |[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
+|[**getSpotRewardClaims**](#getspotrewardclaims) | **GET** /v1/spot-rewards/claims | /spot-rewards/claims|
 |[**markAsClaimed**](#markasclaimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|
@@ -734,6 +735,64 @@ This endpoint does not have any parameters.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getSpotRewardClaims**
+> GetSpotRewardClaims200Response getSpotRewardClaims()
+
+Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+### Example
+
+```typescript
+import {
+    RewardsApi,
+    Configuration
+} from '@bluefin/api-client';
+
+const configuration = new Configuration();
+const apiInstance = new RewardsApi(configuration);
+
+let userAddress: string; //Wallet address whose spot claims to return. (default to undefined)
+let cursor: number; //Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. (optional) (default to 0)
+let pageSize: number; //Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. (optional) (default to 100)
+
+const { status, data } = await apiInstance.getSpotRewardClaims(
+    userAddress,
+    cursor,
+    pageSize
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userAddress** | [**string**] | Wallet address whose spot claims to return. | defaults to undefined|
+| **cursor** | [**number**] | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. | (optional) defaults to 0|
+| **pageSize** | [**number**] | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. | (optional) defaults to 100|
+
+
+### Return type
+
+**GetSpotRewardClaims200Response**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Paginated list of the user\&#39;s spot claim cards. |  -  |
+|**400** | request missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

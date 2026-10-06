@@ -80,6 +80,7 @@ openapi_client/docs/GetAccountValueHistoryParamsInterval.md
 openapi_client/docs/GetAffiliateIntervalOverview200Response.md
 openapi_client/docs/GetAffiliateLeaderDashboard200Response.md
 openapi_client/docs/GetAffiliateOverview200Response.md
+openapi_client/docs/GetSpotRewardClaims200Response.md
 openapi_client/docs/IntervalMetadata.md
 openapi_client/docs/IntervalRewards.md
 openapi_client/docs/IssBase64Details.md
@@ -138,6 +139,8 @@ openapi_client/docs/SigPayload.md
 openapi_client/docs/SortOrder.md
 openapi_client/docs/SponsorTxRequest.md
 openapi_client/docs/SponsorTxResponse.md
+openapi_client/docs/SpotRewardClaimCard.md
+openapi_client/docs/SpotRewardClaimEntry.md
 openapi_client/docs/StatsAllTimeResponse.md
 openapi_client/docs/StatsEntry.md
 openapi_client/docs/StatsInterval.md
@@ -238,6 +241,7 @@ openapi_client/models/get_account_value_history_params_interval.py
 openapi_client/models/get_affiliate_interval_overview200_response.py
 openapi_client/models/get_affiliate_leader_dashboard200_response.py
 openapi_client/models/get_affiliate_overview200_response.py
+openapi_client/models/get_spot_reward_claims200_response.py
 openapi_client/models/interval_metadata.py
 openapi_client/models/interval_rewards.py
 openapi_client/models/iss_base64_details.py
@@ -295,6 +299,8 @@ openapi_client/models/sig_payload.py
 openapi_client/models/sort_order.py
 openapi_client/models/sponsor_tx_request.py
 openapi_client/models/sponsor_tx_response.py
+openapi_client/models/spot_reward_claim_card.py
+openapi_client/models/spot_reward_claim_entry.py
 openapi_client/models/stats_all_time_response.py
 openapi_client/models/stats_entry.py
 openapi_client/models/stats_interval.py

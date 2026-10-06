@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 Cargo.toml
 README.md
@@ -72,6 +73,7 @@ docs/GetAccountValueHistoryParamsInterval.md
 docs/GetAffiliateIntervalOverview200Response.md
 docs/GetAffiliateLeaderDashboard200Response.md
 docs/GetAffiliateOverview200Response.md
+docs/GetSpotRewardClaims200Response.md
 docs/IntervalMetadata.md
 docs/IntervalRewards.md
 docs/IssBase64Details.md
@@ -130,6 +132,8 @@ docs/SigPayload.md
 docs/SortOrder.md
 docs/SponsorTxRequest.md
 docs/SponsorTxResponse.md
+docs/SpotRewardClaimCard.md
+docs/SpotRewardClaimEntry.md
 docs/StatsAllTimeResponse.md
 docs/StatsEntry.md
 docs/StatsInterval.md
@@ -239,6 +243,7 @@ src/models/get_account_value_history_params_interval.rs
 src/models/get_affiliate_interval_overview_200_response.rs
 src/models/get_affiliate_leader_dashboard_200_response.rs
 src/models/get_affiliate_overview_200_response.rs
+src/models/get_spot_reward_claims_200_response.rs
 src/models/interval_metadata.rs
 src/models/interval_rewards.rs
 src/models/iss_base64_details.rs
@@ -297,6 +302,8 @@ src/models/sig_payload.rs
 src/models/sort_order.rs
 src/models/sponsor_tx_request.rs
 src/models/sponsor_tx_response.rs
+src/models/spot_reward_claim_card.rs
+src/models/spot_reward_claim_entry.rs
 src/models/stats_all_time_response.rs
 src/models/stats_entry.rs
 src/models/stats_interval.rs

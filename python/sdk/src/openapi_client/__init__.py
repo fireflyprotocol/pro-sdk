@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.17.0"
+__version__ = "1.20.0"
 
 # import apis into sdk package
 from openapi_client.api.account_data_api import AccountDataApi
@@ -104,6 +104,7 @@ from openapi_client.models.get_account_value_history_params_interval import GetA
 from openapi_client.models.get_affiliate_interval_overview200_response import GetAffiliateIntervalOverview200Response
 from openapi_client.models.get_affiliate_leader_dashboard200_response import GetAffiliateLeaderDashboard200Response
 from openapi_client.models.get_affiliate_overview200_response import GetAffiliateOverview200Response
+from openapi_client.models.get_spot_reward_claims200_response import GetSpotRewardClaims200Response
 from openapi_client.models.interval_metadata import IntervalMetadata
 from openapi_client.models.interval_rewards import IntervalRewards
 from openapi_client.models.iss_base64_details import IssBase64Details
@@ -161,6 +162,8 @@ from openapi_client.models.sig_payload import SigPayload
 from openapi_client.models.sort_order import SortOrder
 from openapi_client.models.sponsor_tx_request import SponsorTxRequest
 from openapi_client.models.sponsor_tx_response import SponsorTxResponse
+from openapi_client.models.spot_reward_claim_card import SpotRewardClaimCard
+from openapi_client.models.spot_reward_claim_entry import SpotRewardClaimEntry
 from openapi_client.models.stats_all_time_response import StatsAllTimeResponse
 from openapi_client.models.stats_entry import StatsEntry
 from openapi_client.models.stats_interval import StatsInterval

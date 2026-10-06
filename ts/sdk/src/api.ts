@@ -2834,6 +2834,31 @@ export interface GetAffiliateOverview200Response {
 /**
  * 
  * @export
+ * @interface GetSpotRewardClaims200Response
+ */
+export interface GetSpotRewardClaims200Response {
+    /**
+     * 
+     * @type {Array<SpotRewardClaimCard>}
+     * @memberof GetSpotRewardClaims200Response
+     */
+    'data': Array<SpotRewardClaimCard>;
+    /**
+     * claimTimestamp to pass as the next cursor, as a string; \"-1\" when there are no rows.
+     * @type {string}
+     * @memberof GetSpotRewardClaims200Response
+     */
+    'nextCursor': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetSpotRewardClaims200Response
+     */
+    'isMoreDataAvailable': boolean;
+}
+/**
+ * 
+ * @export
  * @interface IntervalMetadata
  */
 export interface IntervalMetadata {
@@ -4873,6 +4898,68 @@ export interface SponsorTxResponse {
      * @memberof SponsorTxResponse
      */
     'expireAtTime': number;
+}
+/**
+ * 
+ * @export
+ * @interface SpotRewardClaimCard
+ */
+export interface SpotRewardClaimCard {
+    /**
+     * 
+     * @type {string}
+     * @memberof SpotRewardClaimCard
+     */
+    'userAddress': string;
+    /**
+     * On-chain pool object address.
+     * @type {string}
+     * @memberof SpotRewardClaimCard
+     */
+    'poolId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpotRewardClaimCard
+     */
+    'poolName': string;
+    /**
+     * Claim time in epoch-ms, serialized as a string.
+     * @type {string}
+     * @memberof SpotRewardClaimCard
+     */
+    'claimTimestamp': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpotRewardClaimCard
+     */
+    'txDigest': string;
+    /**
+     * 
+     * @type {Array<SpotRewardClaimEntry>}
+     * @memberof SpotRewardClaimCard
+     */
+    'rewards': Array<SpotRewardClaimEntry>;
+}
+/**
+ * 
+ * @export
+ * @interface SpotRewardClaimEntry
+ */
+export interface SpotRewardClaimEntry {
+    /**
+     * Reward/fee token symbol; a fee and reward of the same symbol are merged.
+     * @type {string}
+     * @memberof SpotRewardClaimEntry
+     */
+    'rewardType': string;
+    /**
+     * Claimed amount in the token\'s own units (decimal string, e.g. \"0.61172\").
+     * @type {string}
+     * @memberof SpotRewardClaimEntry
+     */
+    'rewardedAmount': string;
 }
 /**
  * 
@@ -9202,6 +9289,53 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+         * @summary /spot-rewards/claims
+         * @param {string} userAddress Wallet address whose spot claims to return.
+         * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSpotRewardClaims: async (userAddress: string, cursor?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userAddress' is not null or undefined
+            assertParamExists('getSpotRewardClaims', 'userAddress', userAddress)
+            const localVarPath = `/v1/spot-rewards/claims`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userAddress !== undefined) {
+                localVarQueryParameter['userAddress'] = userAddress;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Mark user claims as claimed for the specified campaign name and interval number
          * @summary /v1/rewards/claims/mark-claimed
          * @param {MarkAsClaimedRequest} markAsClaimedRequest 
@@ -9595,6 +9729,21 @@ export const RewardsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+         * @summary /spot-rewards/claims
+         * @param {string} userAddress Wallet address whose spot claims to return.
+         * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSpotRewardClaims(userAddress: string, cursor?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSpotRewardClaims200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSpotRewardClaims(userAddress, cursor, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RewardsApi.getSpotRewardClaims']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Mark user claims as claimed for the specified campaign name and interval number
          * @summary /v1/rewards/claims/mark-claimed
          * @param {MarkAsClaimedRequest} markAsClaimedRequest 
@@ -9812,6 +9961,18 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
          */
         getRewardsSummary(options?: RawAxiosRequestConfig): AxiosPromise<Array<RewardsSummary>> {
             return localVarFp.getRewardsSummary(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+         * @summary /spot-rewards/claims
+         * @param {string} userAddress Wallet address whose spot claims to return.
+         * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+         * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSpotRewardClaims(userAddress: string, cursor?: number, pageSize?: number, options?: RawAxiosRequestConfig): AxiosPromise<GetSpotRewardClaims200Response> {
+            return localVarFp.getSpotRewardClaims(userAddress, cursor, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Mark user claims as claimed for the specified campaign name and interval number
@@ -10041,6 +10202,20 @@ export class RewardsApi extends BaseAPI {
      */
     public getRewardsSummary(options?: RawAxiosRequestConfig) {
         return RewardsApiFp(this.configuration).getRewardsSummary(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+     * @summary /spot-rewards/claims
+     * @param {string} userAddress Wallet address whose spot claims to return.
+     * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+     * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RewardsApi
+     */
+    public getSpotRewardClaims(userAddress: string, cursor?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return RewardsApiFp(this.configuration).getSpotRewardClaims(userAddress, cursor, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

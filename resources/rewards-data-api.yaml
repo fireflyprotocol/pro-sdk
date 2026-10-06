@@ -22,6 +22,51 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    SpotRewardClaimCard:
+      type: object
+      required:
+        - userAddress
+        - poolId
+        - poolName
+        - claimTimestamp
+        - txDigest
+        - rewards
+      properties:
+        userAddress:
+          type: string
+          example: "0x1234567890abcdef"
+        poolId:
+          type: string
+          description: On-chain pool object address.
+          example: "0xd5e3a3c7396702d8f358a63ef921cc7c1951f52c6dfc2051cc8772cf7cb9900c"
+        poolName:
+          type: string
+          example: "DEEP-USDC"
+        claimTimestamp:
+          type: string
+          description: Claim time in epoch-ms, serialized as a string.
+          example: "1791188917719"
+        txDigest:
+          type: string
+          example: "5uo1KT3RN9oM1S4hcXbuksFVAGuzwnb2ZSZS1bLxhUuq"
+        rewards:
+          type: array
+          items:
+            $ref: "#/components/schemas/SpotRewardClaimEntry"
+    SpotRewardClaimEntry:
+      type: object
+      required:
+        - rewardType
+        - rewardedAmount
+      properties:
+        rewardType:
+          type: string
+          description: Reward/fee token symbol; a fee and reward of the same symbol are merged.
+          example: "DEEP"
+        rewardedAmount:
+          type: string
+          description: Claimed amount in the token's own units (decimal string, e.g. "0.61172").
+          example: "0.61172"
     ContractConfig:
       type: object
       properties:
@@ -925,6 +970,73 @@ paths:
                 description: List of epoch rewards objects.
                 items:
                   $ref: "#/components/schemas/IntervalRewards"
+  /v1/spot-rewards/claims:
+    get:
+      tags:
+        - Rewards
+      operationId: getSpotRewardClaims
+      summary: /spot-rewards/claims
+      description: Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+      parameters:
+        - name: userAddress
+          in: query
+          required: true
+          description: Wallet address whose spot claims to return.
+          schema:
+            type: string
+            example: "0x1234567890abcdef"
+        - name: cursor
+          in: query
+          required: false
+          description: Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
+          schema:
+            type: integer
+            format: int64
+            default: 0
+            example: 1791188951248
+        - name: pageSize
+          in: query
+          required: false
+          description: >-
+            Maximum number of claim cards to return. Out-of-range values are coerced:
+            a value below 1 uses the default (100), and a value above 1000 is capped at
+            1000. A page may return a few more than pageSize cards when they share the
+            boundary claim timestamp, so that pagination never splits or skips them.
+          schema:
+            type: integer
+            default: 100
+            minimum: 1
+            maximum: 1000
+            example: 100
+      responses:
+        "200":
+          description: Paginated list of the user's spot claim cards.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - nextCursor
+                  - isMoreDataAvailable
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SpotRewardClaimCard"
+                  nextCursor:
+                    type: string
+                    description: claimTimestamp to pass as the next cursor, as a string; "-1" when there are no rows.
+                    example: "1791188909438"
+                  isMoreDataAvailable:
+                    type: boolean
+                    example: true
+        "400":
+          description: "request missing required parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/Error"
   /v1/rewards/campaign:
     # Get rewards information for the epochs; epochs define how frequent rewards for a campaign are finalized and locked
     # Epochs are specific to a campaign

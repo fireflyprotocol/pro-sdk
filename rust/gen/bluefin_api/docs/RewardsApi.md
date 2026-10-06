@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/spot-rewards/claims | /spot-rewards/claims
 [**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -416,6 +417,38 @@ This endpoint does not need any parameter.
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_spot_reward_claims
+
+> models::GetSpotRewardClaims200Response get_spot_reward_claims(user_address, cursor, page_size)
+/spot-rewards/claims
+
+Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**user_address** | **String** | Wallet address whose spot claims to return. | [required] |
+**cursor** | Option<**i64**> | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. |  |[default to 0]
+**page_size** | Option<**u32**> | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. |  |[default to 100]
+
+### Return type
+
+[**models::GetSpotRewardClaims200Response**](getSpotRewardClaims_200_response.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

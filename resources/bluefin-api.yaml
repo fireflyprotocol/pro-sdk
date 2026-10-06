@@ -258,6 +258,8 @@ paths:
 
   /v1/rewards:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards"
+  /v1/spot-rewards/claims:
+    $ref: "./rewards-data-api.yaml#/paths/~1v1~1spot-rewards~1claims"
   /v1/rewards/campaign:
     $ref: "./rewards-data-api.yaml#/paths/~1v1~1rewards~1campaign"
   /v1/rewards/summary:

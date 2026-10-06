@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
+[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/spot-rewards/claims | /spot-rewards/claims
 [**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -966,6 +967,79 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_spot_reward_claims**
+> GetSpotRewardClaims200Response get_spot_reward_claims(user_address, cursor=cursor, page_size=page_size)
+
+/spot-rewards/claims
+
+Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
+
+### Example
+
+
+```python
+import openapi_client
+from openapi_client.models.get_spot_reward_claims200_response import GetSpotRewardClaims200Response
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.sui-staging.bluefin.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://api.sui-staging.bluefin.io"
+)
+
+
+# Enter a context with an instance of the API client
+async with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.RewardsApi(api_client)
+    user_address = '0x1234567890abcdef' # str | Wallet address whose spot claims to return.
+    cursor = 0 # int | Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. (optional) (default to 0)
+    page_size = 100 # int | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. (optional) (default to 100)
+
+    try:
+        # /spot-rewards/claims
+        api_response = await api_instance.get_spot_reward_claims(user_address, cursor=cursor, page_size=page_size)
+        print("The response of RewardsApi->get_spot_reward_claims:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RewardsApi->get_spot_reward_claims: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_address** | **str**| Wallet address whose spot claims to return. | 
+ **cursor** | **int**| Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page. | [optional] [default to 0]
+ **page_size** | **int**| Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. | [optional] [default to 100]
+
+### Return type
+
+[**GetSpotRewardClaims200Response**](GetSpotRewardClaims200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Paginated list of the user&#39;s spot claim cards. |  -  |
+**400** | request missing required parameters |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
