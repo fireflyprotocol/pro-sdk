@@ -970,12 +970,12 @@ paths:
                 description: List of epoch rewards objects.
                 items:
                   $ref: "#/components/schemas/IntervalRewards"
-  /v1/spot-rewards/claims:
+  /v1/rewards/spotClaims:
     get:
       tags:
         - Rewards
       operationId: getSpotRewardClaims
-      summary: /spot-rewards/claims
+      summary: /rewards/spotClaims
       description: Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
       parameters:
         - name: userAddress

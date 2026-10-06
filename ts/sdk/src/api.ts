@@ -9290,7 +9290,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
-         * @summary /spot-rewards/claims
+         * @summary /rewards/spotClaims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
          * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
@@ -9300,7 +9300,7 @@ export const RewardsApiAxiosParamCreator = function (configuration?: Configurati
         getSpotRewardClaims: async (userAddress: string, cursor?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userAddress' is not null or undefined
             assertParamExists('getSpotRewardClaims', 'userAddress', userAddress)
-            const localVarPath = `/v1/spot-rewards/claims`;
+            const localVarPath = `/v1/rewards/spotClaims`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9730,7 +9730,7 @@ export const RewardsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
-         * @summary /spot-rewards/claims
+         * @summary /rewards/spotClaims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
          * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
@@ -9964,7 +9964,7 @@ export const RewardsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
-         * @summary /spot-rewards/claims
+         * @summary /rewards/spotClaims
          * @param {string} userAddress Wallet address whose spot claims to return.
          * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
          * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
@@ -10206,7 +10206,7 @@ export class RewardsApi extends BaseAPI {
 
     /**
      * Returns a user\'s claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
-     * @summary /spot-rewards/claims
+     * @summary /rewards/spotClaims
      * @param {string} userAddress Wallet address whose spot claims to return.
      * @param {number} [cursor] Return claims older than this claimTimestamp (epoch-ms). Omit or 0 for the first page.
      * @param {number} [pageSize] Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them.
