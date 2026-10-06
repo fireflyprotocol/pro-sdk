@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
-[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spotClaims | /rewards/spotClaims
+[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spot-claims | /rewards/spot-claims
 [**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -429,7 +429,7 @@ This endpoint does not need any parameter.
 ## get_spot_reward_claims
 
 > models::GetSpotRewardClaims200Response get_spot_reward_claims(user_address, cursor, page_size)
-/rewards/spotClaims
+/rewards/spot-claims
 
 Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
 

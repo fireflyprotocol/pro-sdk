@@ -68,7 +68,7 @@ Class | Method | HTTP request | Description
 *RewardsApi* | [**get_rewards_epoch_metadata**](docs/RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 *RewardsApi* | [**get_rewards_interval_metadata**](docs/RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 *RewardsApi* | [**get_rewards_summary**](docs/RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
-*RewardsApi* | [**get_spot_reward_claims**](docs/RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spotClaims | /rewards/spotClaims
+*RewardsApi* | [**get_spot_reward_claims**](docs/RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spot-claims | /rewards/spot-claims
 *RewardsApi* | [**mark_as_claimed**](docs/RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 *RewardsApi* | [**onboard_affiliate**](docs/RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 *RewardsApi* | [**onboard_referee**](docs/RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee

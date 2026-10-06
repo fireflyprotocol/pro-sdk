@@ -3776,7 +3776,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetSpotRewardClaims200Response:
-        """/rewards/spotClaims
+        """/rewards/spot-claims
 
         Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
 
@@ -3852,7 +3852,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetSpotRewardClaims200Response]:
-        """/rewards/spotClaims
+        """/rewards/spot-claims
 
         Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
 
@@ -3928,7 +3928,7 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """/rewards/spotClaims
+        """/rewards/spot-claims
 
         Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
 
@@ -4040,7 +4040,7 @@ class RewardsApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/v1/rewards/spotClaims',
+            resource_path='/v1/rewards/spot-claims',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

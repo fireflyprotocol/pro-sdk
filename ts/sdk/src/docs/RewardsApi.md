@@ -17,7 +17,7 @@ All URIs are relative to *https://api.sui-staging.bluefin.io*
 |[**getRewardsEpochMetadata**](#getrewardsepochmetadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch|
 |[**getRewardsIntervalMetadata**](#getrewardsintervalmetadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval|
 |[**getRewardsSummary**](#getrewardssummary) | **GET** /v1/rewards/summary | /rewards/summary|
-|[**getSpotRewardClaims**](#getspotrewardclaims) | **GET** /v1/rewards/spotClaims | /rewards/spotClaims|
+|[**getSpotRewardClaims**](#getspotrewardclaims) | **GET** /v1/rewards/spot-claims | /rewards/spot-claims|
 |[**markAsClaimed**](#markasclaimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed|
 |[**onboardAffiliate**](#onboardaffiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard|
 |[**onboardReferee**](#onboardreferee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee|

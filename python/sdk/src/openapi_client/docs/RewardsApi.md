@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**get_rewards_epoch_metadata**](RewardsApi.md#get_rewards_epoch_metadata) | **GET** /v1/rewards/metadata/epoch | /rewards/metadata/epoch
 [**get_rewards_interval_metadata**](RewardsApi.md#get_rewards_interval_metadata) | **GET** /v1/rewards/metadata/interval | /rewards/metadata/interval
 [**get_rewards_summary**](RewardsApi.md#get_rewards_summary) | **GET** /v1/rewards/summary | /rewards/summary
-[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spotClaims | /rewards/spotClaims
+[**get_spot_reward_claims**](RewardsApi.md#get_spot_reward_claims) | **GET** /v1/rewards/spot-claims | /rewards/spot-claims
 [**mark_as_claimed**](RewardsApi.md#mark_as_claimed) | **POST** /v1/rewards/claims/mark-claimed | /v1/rewards/claims/mark-claimed
 [**onboard_affiliate**](RewardsApi.md#onboard_affiliate) | **POST** /v1/rewards/affiliate/onboard | /rewards/affiliate/onboard
 [**onboard_referee**](RewardsApi.md#onboard_referee) | **POST** /v1/rewards/affiliate/onboard/referee | /rewards/affiliate/onboard/referee
@@ -973,7 +973,7 @@ This endpoint does not need any parameter.
 # **get_spot_reward_claims**
 > GetSpotRewardClaims200Response get_spot_reward_claims(user_address, cursor=cursor, page_size=page_size)
 
-/rewards/spotClaims
+/rewards/spot-claims
 
 Returns a user's claimed spot rewards and fees, grouped per claim transaction, with cursor pagination.
 
@@ -1002,7 +1002,7 @@ async with openapi_client.ApiClient(configuration) as api_client:
     page_size = 100 # int | Maximum number of claim cards to return. Out-of-range values are coerced: a value below 1 uses the default (100), and a value above 1000 is capped at 1000. A page may return a few more than pageSize cards when they share the boundary claim timestamp, so that pagination never splits or skips them. (optional) (default to 100)
 
     try:
-        # /rewards/spotClaims
+        # /rewards/spot-claims
         api_response = await api_instance.get_spot_reward_claims(user_address, cursor=cursor, page_size=page_size)
         print("The response of RewardsApi->get_spot_reward_claims:\n")
         pprint(api_response)
