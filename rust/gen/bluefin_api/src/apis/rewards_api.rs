@@ -762,7 +762,7 @@ pub async fn get_spot_reward_claims(configuration: &configuration::Configuration
     let p_cursor = cursor;
     let p_page_size = page_size;
 
-    let uri_str = format!("{}/v1/spot-rewards/claims", configuration.base_path);
+    let uri_str = format!("{}/v1/rewards/spot-claims", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("userAddress", &p_user_address.to_string())]);
