@@ -74,6 +74,8 @@ The reason for an order cancellation.
 
 * `ORDERS_EXCEED_MAX_OPEN_INTEREST` (value: `'ORDERS_EXCEED_MAX_OPEN_INTEREST'`)
 
+* `OPERATOR_CANCELLED_ALL_ON_MARKET` (value: `'OPERATOR_CANCELLED_ALL_ON_MARKET'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
