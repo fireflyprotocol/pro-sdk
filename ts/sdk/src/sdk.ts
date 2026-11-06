@@ -46,8 +46,9 @@ function isAuthRejection(e: unknown): boolean {
 
 function describeError(e: unknown): string {
   if (globalAxios.isAxiosError(e)) {
-    const serverMessage = (e.response?.data as { message?: unknown } | undefined)
+    const message = (e.response?.data as { message?: unknown } | undefined)
       ?.message;
+    const serverMessage = typeof message === 'string' ? message : undefined;
     return [e.response?.status ?? e.code, serverMessage ?? e.message]
       .filter((part) => part !== undefined && part !== '')
       .join(' ');
@@ -559,15 +560,6 @@ export class BluefinProSdk {
       this.tokenSetAtSeconds = Date.now() / 1000;
     } catch (e) {
       console.error(`Full login failed: ${describeError(e)}`);
-
-      // If this fails and we're in a mode where logout should be disabled, don't logout
-      if (this.disableLoginPromptOnLogout) {
-        throw new Error(
-          `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
-        );
-      }
-
-      // Otherwise, throw the error and let the caller decide
       throw new Error(
         `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
       );
