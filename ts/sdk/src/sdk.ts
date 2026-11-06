@@ -39,6 +39,22 @@ import type { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
 import { toHex } from '@mysten/bcs';
 import globalAxios from 'axios';
 
+function isAuthRejection(e: unknown): boolean {
+  const status = globalAxios.isAxiosError(e) ? e.response?.status : undefined;
+  return status === 401 || status === 403;
+}
+
+function describeError(e: unknown): string {
+  if (globalAxios.isAxiosError(e)) {
+    const serverMessage = (e.response?.data as { message?: unknown } | undefined)
+      ?.message;
+    return [e.response?.status ?? e.code, serverMessage ?? e.message]
+      .filter((part) => part !== undefined && part !== '')
+      .join(' ');
+  }
+  return e instanceof Error ? e.message : String(e);
+}
+
 // Keep HTTP/2 as default in Node.js. Consumers can opt out with
 // BLUEFIN_SDK_HTTP_VERSION=1.
 if (
@@ -509,18 +525,22 @@ export class BluefinProSdk {
         console.log('Token refreshed successfully');
         return;
       } catch (e) {
-        console.error('Error refreshing token:', e);
-
-        // Throw the error to let the caller handle it
-        throw new Error(
-          `Token refresh failed: ${e instanceof Error ? e.message : 'Unknown error'
-          }`,
+        if (!isAuthRejection(e)) {
+          console.error(`Error refreshing token: ${describeError(e)}`);
+          throw new Error(
+            `Token refresh failed: ${e instanceof Error ? e.message : 'Unknown error'
+            }`,
+          );
+        }
+        console.warn(
+          `Refresh token rejected (${describeError(e)}), logging in again`,
         );
+        this.tokenResponse = null;
+        this.tokenSetAtSeconds = null;
       }
     }
 
     // Fallback to full login only if refresh token is not available or invalid
-    // This should only happen during initial login or when refresh token is truly expired
     try {
       const loginRequest: LoginRequest = {
         accountAddress: this.currentAccountAddress,
@@ -538,7 +558,7 @@ export class BluefinProSdk {
       this.tokenResponse = response.data;
       this.tokenSetAtSeconds = Date.now() / 1000;
     } catch (e) {
-      console.error('Full login failed:', e);
+      console.error(`Full login failed: ${describeError(e)}`);
 
       // If this fails and we're in a mode where logout should be disabled, don't logout
       if (this.disableLoginPromptOnLogout) {

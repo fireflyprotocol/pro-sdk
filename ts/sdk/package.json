@@ -54,6 +54,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:example": "tsc -p tsconfig.example.json",
     "build:types": "tsc -p tsconfig.esm.json --noEmit",
+    "test": "node --import tsx --test --test-force-exit tests/*.test.ts",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
