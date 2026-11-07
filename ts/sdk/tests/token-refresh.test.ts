@@ -31,10 +31,12 @@ function axiosError(status: number | undefined, code?: string): AxiosError {
   );
 }
 
+const sdks: BluefinProSdk[] = [];
+
 function newSdk() {
   const signer = {
     getAddress: () => '0xabc',
-    signLoginRequest: async () => 'signature',
+    signLoginRequest: mock.fn(async () => 'signature'),
   };
   const sdk = new BluefinProSdk(signer as never, 'testnet', {} as never, {
     refreshToken: DEAD_REFRESH_TOKEN,
@@ -54,7 +56,8 @@ function newSdk() {
     })),
   };
   (sdk as unknown as { authApi: typeof authApi }).authApi = authApi;
-  return { sdk, authApi };
+  sdks.push(sdk);
+  return { sdk, authApi, signer };
 }
 
 describe('token refresh rejected by auth-server', () => {
@@ -69,7 +72,8 @@ describe('token refresh rejected by auth-server', () => {
     }
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await Promise.all(sdks.splice(0).map((sdk) => sdk.dispose()));
     mock.restoreAll();
   });
 
@@ -90,20 +94,41 @@ describe('token refresh rejected by auth-server', () => {
     assert.equal(authApi.authTokenRefreshPut.mock.callCount(), 1);
   });
 
-  it('falls back to a full login when connected, without logging out', async () => {
+  it('logs in once for concurrent calls', async () => {
+    const { sdk, authApi, signer } = newSdk();
+
+    const tokens = await Promise.all(
+      Array.from({ length: 10 }, () => sdk.getAccessToken()),
+    );
+
+    assert.deepEqual(new Set(tokens), new Set([NEW_ACCESS_TOKEN]));
+    assert.equal(authApi.authTokenRefreshPut.mock.callCount(), 1);
+    assert.equal(signer.signLoginRequest.mock.callCount(), 1);
+    assert.equal(authApi.authV2TokenPost.mock.callCount(), 1);
+  });
+
+  it('logs out without asking the wallet to sign when connected', async () => {
     const onLogout = mock.fn();
-    const { sdk, authApi } = newSdk();
+    const { sdk, authApi, signer } = newSdk();
     const internals = sdk as unknown as { isConnected: boolean; onLogout?: () => void };
     internals.isConnected = true;
     internals.onLogout = onLogout;
 
-    try {
-      assert.equal(await sdk.getAccessToken(), NEW_ACCESS_TOKEN);
-      assert.equal(authApi.authV2TokenPost.mock.callCount(), 1);
-      assert.equal(onLogout.mock.callCount(), 0);
-    } finally {
-      await sdk.dispose();
-    }
+    await assert.rejects(sdk.getAccessToken());
+    assert.equal(signer.signLoginRequest.mock.callCount(), 0);
+    assert.equal(authApi.authV2TokenPost.mock.callCount(), 0);
+    assert.equal(onLogout.mock.callCount(), 1);
+  });
+
+  it('keeps the refresh token and rethrows on a 403', async () => {
+    const { sdk, authApi } = newSdk();
+    authApi.authTokenRefreshPut.mock.mockImplementation(async () => {
+      throw axiosError(403);
+    });
+
+    await assert.rejects(sdk.getAccessToken(), /Token refresh failed/);
+    assert.equal(authApi.authV2TokenPost.mock.callCount(), 0);
+    assert.equal(sdk.getTokenResponse()?.refreshToken, DEAD_REFRESH_TOKEN);
   });
 
   it('keeps the refresh token and rethrows on a network error', async () => {
@@ -114,6 +139,7 @@ describe('token refresh rejected by auth-server', () => {
 
     await assert.rejects(sdk.getAccessToken(), /Token refresh failed/);
     assert.equal(authApi.authV2TokenPost.mock.callCount(), 0);
+    assert.equal(sdk.getTokenResponse()?.refreshToken, DEAD_REFRESH_TOKEN);
   });
 
   it('never logs the refresh token', async () => {
