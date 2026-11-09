@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **symbol** | **str** | The symbol of the asset. | 
 **quantity_e9** | **str** | The quantity of the asset. | 
 **effective_balance_e9** | **str** | The effective balance of the asset. | 
-**max_withdraw_quantity_e9** | **str** | The maximum quantity that can be withdrawn. | 
+**max_withdraw_quantity_e9** | **str** | The maximum quantity that can be withdrawn, in e9. It is not rounded to the asset&#39;s on-chain decimals; round it down to a multiple of 10^(9 - decimals) (1000 for USDC) before using it as a withdrawal amount. | 
 **updated_at_millis** | **int** | The timestamp of the last update in milliseconds. | 
 
 ## Example

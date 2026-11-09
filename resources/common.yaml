@@ -139,7 +139,10 @@ components:
           description: "The effective balance of the asset."
         maxWithdrawQuantityE9:
           type: string
-          description: "The maximum quantity that can be withdrawn."
+          description: >-
+            The maximum quantity that can be withdrawn, in e9. It is not rounded to the
+            asset's on-chain decimals; round it down to a multiple of 10^(9 - decimals)
+            (1000 for USDC) before using it as a withdrawal amount.
         updatedAtMillis:
           type: integer
           format: int64

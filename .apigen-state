@@ -1,18 +1,18 @@
 {
   "version": "1",
   "algorithm": "sha256",
-  "generated_at": "2026-10-29T15:57:26.956791Z",
+  "generated_at": "2026-11-09T23:09:20.862721Z",
   "spec_files": {
     "resources/account-data-api.yaml": "ca145d50d48e0f3709130af89cf0feb3416c36adbd54b5ad40740f55217f94af",
     "resources/auth-api.yaml": "01e54ca1a13d2d6307e0d3a9ea38f816902521e7c85998f0f21a1353cc54fb76",
     "resources/bluefin-api.yaml": "27c095db0279a96408e4b60840d791c344fd40a380d4edb3bbf1f68b68ff7f2d",
-    "resources/common.yaml": "760ce6c130e31c3f0eafd692ca5d834499c7f24a15157fb4b43d05bd1043a0c0",
+    "resources/common.yaml": "c988ec664a55450806c8ee838c7d787e38c2d5af74287e58b949315fd5457be7",
     "resources/exchange-common-api.yaml": "3c84fcdfa44e689c2465b79dab3dd0d2a2a1777ad207e167c64c457fcba58006",
     "resources/exchange-pro-api.yaml": "a9b065f87a8c5992667eee65f3680f178de693f0a01c82726f0378547a2b540f",
     "resources/rewards-data-api.yaml": "cdbd81ff161c09bf47ac6099e892d1f1e6a735d035cb16a22d6ad7eec0ac3550",
-    "resources/trade-api.yaml": "229ac3d9a7a30b640db928cc5d99cddc4e185e70b76e7c0d7273f94225cd1d37",
+    "resources/trade-api.yaml": "7256f14398f76f06fab31cd477386a7e0f4ec960c17e841dc100a2676d8a5d5f",
     "resources/vera-api.yaml": "f4c51b5f6614dd4e3b9f5f1f01f945e06d9090849530ecb916ad4ae18d8f61a0",
     "resources/websocket-api.yaml": "ff3458af8e3788bf0ae94159a60b0964186bed574aa4ec1edac70fae9d25c06a"
   },
-  "combined_hash": "13e2104bd6fe752d0cf6d120281300f3f3c00fe4a88005ba17ad1c8f6ac2a7dd"
+  "combined_hash": "984fcd9f9b8f481315e1d4733eba220a1060280e2a00ed78f6bbfcda499eccd9"
 }

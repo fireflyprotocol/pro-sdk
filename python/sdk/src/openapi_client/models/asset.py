@@ -29,7 +29,7 @@ class Asset(BaseModel):
     symbol: StrictStr = Field(description="The symbol of the asset.")
     quantity_e9: StrictStr = Field(description="The quantity of the asset.", alias="quantityE9")
     effective_balance_e9: StrictStr = Field(description="The effective balance of the asset.", alias="effectiveBalanceE9")
-    max_withdraw_quantity_e9: StrictStr = Field(description="The maximum quantity that can be withdrawn.", alias="maxWithdrawQuantityE9")
+    max_withdraw_quantity_e9: StrictStr = Field(description="The maximum quantity that can be withdrawn, in e9. It is not rounded to the asset's on-chain decimals; round it down to a multiple of 10^(9 - decimals) (1000 for USDC) before using it as a withdrawal amount.", alias="maxWithdrawQuantityE9")
     updated_at_millis: StrictInt = Field(description="The timestamp of the last update in milliseconds.", alias="updatedAtMillis")
     __properties: ClassVar[List[str]] = ["symbol", "quantityE9", "effectiveBalanceE9", "maxWithdrawQuantityE9", "updatedAtMillis"]
 

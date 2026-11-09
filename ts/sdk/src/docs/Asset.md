@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **symbol** | **string** | The symbol of the asset. | [default to undefined]
 **quantityE9** | **string** | The quantity of the asset. | [default to undefined]
 **effectiveBalanceE9** | **string** | The effective balance of the asset. | [default to undefined]
-**maxWithdrawQuantityE9** | **string** | The maximum quantity that can be withdrawn. | [default to undefined]
+**maxWithdrawQuantityE9** | **string** | The maximum quantity that can be withdrawn, in e9. It is not rounded to the asset\&#39;s on-chain decimals; round it down to a multiple of 10^(9 - decimals) (1000 for USDC) before using it as a withdrawal amount. | [default to undefined]
 **updatedAtMillis** | **number** | The timestamp of the last update in milliseconds. | [default to undefined]
 
 ## Example

@@ -1754,7 +1754,7 @@ export interface Asset {
      */
     'effectiveBalanceE9': string;
     /**
-     * The maximum quantity that can be withdrawn.
+     * The maximum quantity that can be withdrawn, in e9. It is not rounded to the asset\'s on-chain decimals; round it down to a multiple of 10^(9 - decimals) (1000 for USDC) before using it as a withdrawal amount.
      * @type {string}
      * @memberof Asset
      */
@@ -6106,7 +6106,7 @@ export interface WithdrawRequestSignedFields {
      */
     'accountAddress': string;
     /**
-     * The amount in e9 of the asset that the User will withdraw from their account
+     * The amount in e9 of the asset that the User will withdraw from their account. Must be a whole number of the asset\'s smallest on-chain unit, i.e. a multiple of 10^(9 - decimals) where decimals is the asset\'s on-chain decimals (1000 for USDC, which has 6 decimals). Other amounts are rejected after the request is accepted, via a failed-command event. Round down to that multiple before submitting, including when withdrawing maxWithdrawQuantityE9.
      * @type {string}
      * @memberof WithdrawRequestSignedFields
      */

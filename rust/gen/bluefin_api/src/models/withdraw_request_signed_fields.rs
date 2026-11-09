@@ -19,7 +19,7 @@ pub struct WithdrawRequestSignedFields {
     /// The Account Address from which to withdraw assets
     #[serde(rename = "accountAddress")]
     pub account_address: String,
-    /// The amount in e9 of the asset that the User will withdraw from their account
+    /// The amount in e9 of the asset that the User will withdraw from their account. Must be a whole number of the asset's smallest on-chain unit, i.e. a multiple of 10^(9 - decimals) where decimals is the asset's on-chain decimals (1000 for USDC, which has 6 decimals). Other amounts are rejected after the request is accepted, via a failed-command event. Round down to that multiple before submitting, including when withdrawing maxWithdrawQuantityE9.
     #[serde(rename = "amountE9")]
     pub amount_e9: String,
     /// A uniqueness modifier for the request. This is added to guarantee uniqueness of the request. Usually a mix of timestamp and a random number

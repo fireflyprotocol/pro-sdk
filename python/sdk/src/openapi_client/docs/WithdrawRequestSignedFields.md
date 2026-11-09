@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **asset_symbol** | **str** | Asset symbol of the withdrawn asset | 
 **account_address** | **str** | The Account Address from which to withdraw assets | 
-**amount_e9** | **str** | The amount in e9 of the asset that the User will withdraw from their account | 
+**amount_e9** | **str** | The amount in e9 of the asset that the User will withdraw from their account. Must be a whole number of the asset&#39;s smallest on-chain unit, i.e. a multiple of 10^(9 - decimals) where decimals is the asset&#39;s on-chain decimals (1000 for USDC, which has 6 decimals). Other amounts are rejected after the request is accepted, via a failed-command event. Round down to that multiple before submitting, including when withdrawing maxWithdrawQuantityE9. | 
 **salt** | **str** | A uniqueness modifier for the request. This is added to guarantee uniqueness of the request. Usually a mix of timestamp and a random number | 
 **eds_id** | **str** | the ID of the external datastore for the target network | 
 **signed_at_millis** | **int** | The timestamp in milliseconds when the HTTP Request payload has been signed | 

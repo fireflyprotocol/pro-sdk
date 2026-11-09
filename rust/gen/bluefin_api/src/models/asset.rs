@@ -23,7 +23,7 @@ pub struct Asset {
     /// The effective balance of the asset.
     #[serde(rename = "effectiveBalanceE9")]
     pub effective_balance_e9: String,
-    /// The maximum quantity that can be withdrawn.
+    /// The maximum quantity that can be withdrawn, in e9. It is not rounded to the asset's on-chain decimals; round it down to a multiple of 10^(9 - decimals) (1000 for USDC) before using it as a withdrawal amount.
     #[serde(rename = "maxWithdrawQuantityE9")]
     pub max_withdraw_quantity_e9: String,
     /// The timestamp of the last update in milliseconds.
