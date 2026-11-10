@@ -54,10 +54,11 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:example": "tsc -p tsconfig.example.json",
     "build:types": "tsc -p tsconfig.esm.json --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
     "clean": "rm -rf dist",
     "prepare": "npm run build"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
-  "version": "2.4.0"
+  "version": "2.4.1"
 }

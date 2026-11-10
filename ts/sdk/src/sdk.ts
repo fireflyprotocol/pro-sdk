@@ -39,6 +39,22 @@ import type { IAsset, TxBuilder } from '@firefly-exchange/library-sui/v3';
 import { toHex } from '@mysten/bcs';
 import globalAxios from 'axios';
 
+function isAuthRejection(e: unknown): boolean {
+  return globalAxios.isAxiosError(e) && e.response?.status === 401;
+}
+
+function describeError(e: unknown): string {
+  if (globalAxios.isAxiosError(e)) {
+    const message = (e.response?.data as { message?: unknown } | undefined)
+      ?.message;
+    const serverMessage = typeof message === 'string' ? message : undefined;
+    return [e.response?.status ?? e.code, serverMessage ?? e.message]
+      .filter((part) => part !== undefined && part !== '')
+      .join(' ');
+  }
+  return e instanceof Error ? e.message : String(e);
+}
+
 // Keep HTTP/2 as default in Node.js. Consumers can opt out with
 // BLUEFIN_SDK_HTTP_VERSION=1.
 if (
@@ -184,6 +200,7 @@ export class BluefinProSdk {
   private onAccessTokenUpdate?: (accessToken: string) => void;
   private isRefreshing: boolean;
   private refreshTokenPromise: Promise<void> | null;
+  private loginPromise: Promise<void> | null = null;
   private visibilityChangeHandler?: () => void;
   private onlineHandler?: () => void;
   private offlineHandler?: () => void;
@@ -488,7 +505,14 @@ export class BluefinProSdk {
     }
   }
 
-  private async login(): Promise<void> {
+  private login(): Promise<void> {
+    this.loginPromise ??= this.performLogin().finally(() => {
+      this.loginPromise = null;
+    });
+    return this.loginPromise;
+  }
+
+  private async performLogin(): Promise<void> {
     console.log('Logging in to get the access token');
 
     if (!this.currentAccountAddress) {
@@ -499,28 +523,38 @@ export class BluefinProSdk {
 
     // Check if we have a valid refresh token first
     if (this.tokenResponse?.refreshToken && this.isRefreshTokenValid()) {
+      const { refreshToken } = this.tokenResponse;
       try {
         console.log('Attempting to refresh token using refresh token');
         const response = await this.authApi.authTokenRefreshPut({
-          refreshToken: this.tokenResponse.refreshToken,
+          refreshToken,
         });
         this.tokenResponse = response.data;
         this.tokenSetAtSeconds = Date.now() / 1000;
         console.log('Token refreshed successfully');
         return;
       } catch (e) {
-        console.error('Error refreshing token:', e);
-
-        // Throw the error to let the caller handle it
-        throw new Error(
-          `Token refresh failed: ${e instanceof Error ? e.message : 'Unknown error'
-          }`,
+        if (!isAuthRejection(e)) {
+          console.error(`Error refreshing token: ${describeError(e)}`);
+          throw new Error(
+            `Token refresh failed: ${e instanceof Error ? e.message : 'Unknown error'
+            }`,
+          );
+        }
+        if (this.tokenResponse?.refreshToken === refreshToken) {
+          this.tokenResponse = null;
+          this.tokenSetAtSeconds = null;
+        }
+        if (this.isConnected) {
+          throw new Error(`Refresh token rejected: ${describeError(e)}`);
+        }
+        console.warn(
+          `Refresh token rejected (${describeError(e)}), logging in again`,
         );
       }
     }
 
     // Fallback to full login only if refresh token is not available or invalid
-    // This should only happen during initial login or when refresh token is truly expired
     try {
       const loginRequest: LoginRequest = {
         accountAddress: this.currentAccountAddress,
@@ -538,16 +572,7 @@ export class BluefinProSdk {
       this.tokenResponse = response.data;
       this.tokenSetAtSeconds = Date.now() / 1000;
     } catch (e) {
-      console.error('Full login failed:', e);
-
-      // If this fails and we're in a mode where logout should be disabled, don't logout
-      if (this.disableLoginPromptOnLogout) {
-        throw new Error(
-          `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
-        );
-      }
-
-      // Otherwise, throw the error and let the caller decide
+      console.error(`Full login failed: ${describeError(e)}`);
       throw new Error(
         `Login failed: ${e instanceof Error ? e.message : 'Unknown error'}`,
       );
